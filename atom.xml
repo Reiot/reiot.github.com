@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Social Reiot</title>
+  <link href="http://reiot.com/atom.xml" rel="self"/>
+  <link href="http://reiot.com/"/>
+  <updated>2011-09-21T00:16:17+09:00</updated>
+  <id>http://reiot.com/</id>
+  <author>
+    <name>Ray Yun</name>
+    
+  </author>
+
+  
+  <entry>
+    <title>Octopress</title>
+    <link href="http://reiot.com/blog/2011/09/21/octopress/"/>
+    <updated>2011-09-21T00:15:00+09:00</updated>
+    <id>http://reiot.com/blog/2011/09/21/octopress</id>
+    <content type="html">&lt;p&gt;octopress 는 정적 사이트 생성기인 jekyll 을 이용해서 블로그를 손쉽게 구성하도록 해주는 프레임워크다.&lt;/p&gt;
+</content>
+  </entry>
+  
+</feed>
