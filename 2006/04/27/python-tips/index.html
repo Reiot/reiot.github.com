@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Python Tips - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="# asyncore.dispatcher- 원래부터 nonblocking 이다.- set_socket 하는 시점에 map 에 등록된다.# StringIO.readline()StringIO 는 file-like 객체이므로 readline() 을 지원한다. 그러나 wr...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2006/04/27/python-tips/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Python Tips</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:38:41+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3># asyncore.dispatcher</h3>
+
+<pre><code>- 원래부터 nonblocking 이다.
+- set_socket 하는 시점에 map 에 등록된다.
+</code></pre>
+
+<h3># StringIO.readline()</h3>
+
+<p>StringIO 는 file-like 객체이므로 readline() 을 지원한다. 그러나 write() 한 후 읽어들이면 None 을 리턴한다. 내부적으로 유지하는 offset 이 하나이기 때문인데, 만약 사용하려면 offset(0) 을 호출해서 포인터를 맨 앞으로 돌려줘야 한다. (너무 단순한가?)</p>
+
+<h3># zipfile</h3>
+
+<p>zip 포맷으로 특정 폴더를 압축하기 위해서는 다음과 같이 해야 한다. 이때 압축 포맷으로 ZIP_DEFLATED 를 사용해야 파일 크기가 작아진다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">zipdir</span><span class="p">(</span><span class="n">zfile</span><span class="p">,</span><span class="nb">dir</span><span class="p">,</span><span class="n">base</span><span class="o">=</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;zip directory recursively&quot;&quot;&quot;</span>
+</span><span class='line'><span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">zip </span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="nb">dir</span><span class="p">,</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">global</span> <span class="n">log</span>
+</span><span class='line'><span class="n">log</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;zip </span><span class="si">%s</span><span class="s">...&#39;</span><span class="o">%</span><span class="nb">dir</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>
+</span><span class='line'><span class="n">nf</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+</span><span class='line'><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">nf</span><span class="p">):</span>
+</span><span class='line'><span class="n">zipdir</span><span class="p">(</span><span class="n">zfile</span><span class="p">,</span><span class="n">nf</span><span class="p">,</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="nb">dir</span><span class="p">))</span>
+</span><span class='line'><span class="k">else</span><span class="p">:</span>
+</span><span class='line'><span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="n">zfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">nf</span><span class="p">,</span>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">base</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="nb">dir</span><span class="p">),</span> <span class="n">f</span><span class="p">),</span>
+</span><span class='line'><span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3># dict(zip(seq1,seq2))</h3>
+
+<p>keys와 values를 dict로 매치시킬 때 dict()와 zip()을 사용할 수 있다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&#39;aaa&#39;</span><span class="p">,</span> <span class="s">&#39;bbb&#39;</span><span class="p">,</span> <span class="s">&#39;ccc&#39;</span> <span class="p">]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">)</span>
+</span><span class='line'><span class="p">[(</span><span class="s">&#39;aaa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;bbb&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;ccc&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">))</span>
+</span><span class='line'><span class="p">{</span><span class="s">&#39;aaa&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;bbb&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;ccc&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3># re.findall</h3>
+
+<p>스트링에서 특정 seperator 로 구분된 패턴으로 자를 때, string.split() 도 좋지만 re.findall() 을 강추</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">args</span> <span class="o">=</span> <span class="s">&#39;&quot;SELECT * FROM User&quot;,&quot;aaa,bbb,ccc,ddd&quot;&#39;</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">args</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;&quot;&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;SELECT * FROM User&#39;</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;aaa,bbb,ccc,ddd&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;&quot;(.+?)&quot;&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'><span class="p">[</span><span class="s">&#39;SELECT * FROM User&#39;</span><span class="p">,</span> <span class="s">&#39;aaa,bbb,ccc,ddd&#39;</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3># re 를 이용한 파일명 변경</h3>
+
+<p>특정 폴더 안에 여러가지 파일명들을 바꾸기 위해서는 re 모듈을 잘 사용해야 한다. 다음은 파일명에 } 을 없엘 때 쓰는 스크립트이다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">re</span>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">target_folder</span><span class="p">)</span>
+</span><span class='line'><span class="k">for</span> <span class="n">old_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
+</span><span class='line'><span class="n">new_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;\[.+\]&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="n">old_name</span><span class="p">)</span>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">old_name</span><span class="p">,</span><span class="n">new_name</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:38:41+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/columns/'>columns</a>, <a class='category' href='/blog/categories/programming/'>programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/04/27/python-tips/" data-via="reiot" data-counturl="http://reiot.com/2006/04/27/python-tips/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2006/04/27/python-tips/';
+        var disqus_url = 'http://reiot.com/2006/04/27/python-tips/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

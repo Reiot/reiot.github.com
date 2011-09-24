@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Relational Database Guidelines For MMOGs 요약 - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="원문 보기 : Relational Database Guidelines For MMOGs from GamasutraNaming Convention프로그램에서의 이름과 DB에서의 이름을 일치시켜라.user-defined type 을 사용해라. (단 타입이 변할 경우 ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2006/03/23/relational-database-guidelines-for-mmogs-%E1%84%8B%E1%85%AD%E1%84%8B%E1%85%A3%E1%86%A8/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Relational Database Guidelines for MMOGs 요약</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-03-23T04:52:12+09:00" pubdate  data-updated="true" >Mar 23<span>rd</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>원문 보기 : <a href="http://www.gamasutra.com/resource_guide/20030916/lee_01.shtml">Relational Database Guidelines For MMOGs</a> from Gamasutra</p>
+
+<h2>Naming Convention</h2>
+
+<ul>
+<li>프로그램에서의 이름과 DB에서의 이름을 일치시켜라.</li>
+<li>user-defined type 을 사용해라. (단 타입이 변할 경우 낭패!)</li>
+<li>필요할 경우 축약어를 사용해도 좋다.</li>
+</ul>
+
+
+<h2>Tables</h2>
+
+<ul>
+<li>정수형 키를 사용할 경우, 가능한한 큰 타입의 키값을 사용할 것. 서비스 도중 타입을 바꾸는 것은 권장하지 않는다.</li>
+<li>smart key(키값 자체의 의미를 담고 있는 키)는 절대 사용하지 말 것. 변경, 확장 및 유지 보수에 애로 사항이 꽃핀다.</li>
+<li>복합 키의 경우, 각 키값의 정렬 순서는 일치하는 편이 좋다. (하나는 증가, 하나는 감소..이러면 곤란)</li>
+<li>여러 개의 데이터베이스에서 동기화 되어야 할 키가 필요하다면, 범위를 잘 나눠야 한다. 그래야 나중에 합칠 때 좋다.</li>
+</ul>
+
+
+<h2>Table Index</h2>
+
+<ul>
+<li>정말 필요한 경우에만 인덱스를 추가할 것.</li>
+<li>프로파일러에서 느리다고 판명된 경우, 인덱스 추가 전후의 속도를 체크해서 인덱스 추가 후에 확실히 빨라졌다면 인정.</li>
+</ul>
+
+
+<h2>Schema Structure</h2>
+
+<ul>
+<li>denormalization 은 흑마술이므로, 자신 없으면 도전하지 말 것. 정 하려면 아래와 같은 룰을 따를 것.</li>
+<li>static 데이터는 서버 시작시 한꺼번에 메모리에 올릴 것.</li>
+<li>게임 객체 데이터 로딩시 - 여러 개의 테이블을 조인해야 하더라도 - 하나의 쿼리로 모든 데이터를 읽어들일 것. (당연히 그래야 하는 게 아닌가?.?)</li>
+<li>캐릭터와 소유 아이템 등 복잡한 데이터를 로딩할 때, 정말 필요할 때까지 로딩을 연기할 것(-_-). 또한, 이런 로딩도 비동기적이어야 함. (비동기 체인 쿼리?)</li>
+<li>계층적인 데이터를 실시간으로 변경하지 않도록 하라. (가령 인벤토리 내에 인벤토리 내의 인벤토리 같은 설계는 피할 것)</li>
+<li>데이터베이스 안에 또다른 데이터베이스를 만들지 말 것. 가령 여러 정보를 담고 있는 바이너리 컬럼이라든지, 컬럼 2개를 이용해서 1개의 값을 나타내는 등 SQL 쿼리로 다양한 데이터를 뽑아낼 때 추가적인 lookup 테이블이 필요한 디자인은 대략 좋지 않다.</li>
+</ul>
+
+
+<h2>Stored Procedure</h2>
+
+<ul>
+<li>} 보다는 실제 컬럼을 지정하는 편이 좋다.</li>
+<li>모든 라이브러리가 프로시저의 리턴값을 받도록 되어 있진 않으므로, } 과 같이 SELECT 를 이용하는 것을 권장한다.</li>
+</ul>
+
+
+<h2>Transaction</h2>
+
+<ul>
+<li>여러 개의 테이블을 수정하는 경우 필수적으로 사용할 것. (당연하징)</li>
+<li>MSSQL 은 nested transaction 을 지원하지만, 부분적인 캔슬은 지원하지 않으므로 주의할 것.</li>
+</ul>
+
+
+<h2>Joins</h2>
+
+<ul>
+<li>Perform joins on columns that are system assigned keys with good cardinality values</li>
+<li>Add an index that verifiably speeds access if a join column is not the primary key on a table.</li>
+<li>Keep the number of different tables in the join down to the minimum, particular if the query will return a large number of rows from one or more tables.</li>
+<li>Offload the query to server startup time when we can better afford slower than optimal performance.</li>
+</ul>
+
+
+<h2>Null Value</h2>
+
+<ul>
+<li>Any operations attempted against a NULL value will give NULL as the result. (even NULL  NULL) :(</li>
+</ul>
+
+
+<h2>Referential Integrity</h2>
+
+<ul>
+<li>RI is not optional</li>
+<li>아이템 복사 등을 막으려면 unique + FK 를 사용할 것.</li>
+<li>컬럼 제약조건을 애용할 것.</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-03-23T04:52:12+09:00" pubdate  data-updated="true" >Mar 23<span>rd</span>, 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/database/'>database</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/03/23/relational-database-guidelines-for-mmogs-%E1%84%8B%E1%85%AD%E1%84%8B%E1%85%A3%E1%86%A8/" data-via="reiot" data-counturl="http://reiot.com/2006/03/23/relational-database-guidelines-for-mmogs-%E1%84%8B%E1%85%AD%E1%84%8B%E1%85%A3%E1%86%A8/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2006/03/23/relational-database-guidelines-for-mmogs-%E1%84%8B%E1%85%AD%E1%84%8B%E1%85%A3%E1%86%A8/';
+        var disqus_url = 'http://reiot.com/2006/03/23/relational-database-guidelines-for-mmogs-%E1%84%8B%E1%85%AD%E1%84%8B%E1%85%A3%E1%86%A8/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

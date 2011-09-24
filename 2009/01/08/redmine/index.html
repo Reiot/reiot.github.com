@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Redmine - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="bitnami mantis 는 한글이 안되고, trac은 뭔가 플러그인 설치가 귀찮아서, 아름다운 간트 차트도 지원하는  bitnami redmine 을 써보기로 했다. (twiny 님 감사~)평소대로라면 최신 버전(0.8)을 위해 ruby 와 rails 부터 설...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2009/01/08/redmine/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Redmine</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-08T07:36:12+09:00" pubdate  data-updated="true" >Jan 8<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://www.redmine.org/screenshots/gantt.png"><img class='' src='http://www.redmine.org/screenshots/gantt_tn.png' width='' height='' alt='' title=''></a></p>
+
+<p><a href="http://bitnami.org/stack/mantis">bitnami mantis</a> 는 한글이 안되고, trac은 뭔가 플러그인 설치가 귀찮아서, 아<a href="http://www.redmine.org/wiki/redmine/Features">름다운 간트 차트</a>도 지원하는  <a href="http://bitnami.org/stack/redmine">bitnami redmine </a>을 써보기로 했다. (<a href="http://twiny.tistory.com/1676">twiny 님</a> 감사~)</p>
+
+<p>평소대로라면 최신 버전(0.8)을 위해 ruby 와 rails 부터 설치했겠지만, 이런 삽질은 꿈도 못 꿀 정도로 바빠서, 그냥 0.7 버전을 마음 편하게 깔아버렸다. 한글 문제(이슈, 파일 업로드)는 전혀 없었고, SMTP와 https svn 저장소 연결만 남은 상태인데, 각각 한번씩 해보고 연결이 안되길래 과감하게 포기했다. 참고로, <a href="http://www.redmine.org/wiki/redmine/ThemeBasecamp">베이스캠프 테마</a>를 설치하면 mantis 보다 100배 미려한 화면을 볼 수 있다. :)</p>
+
+<p>아쉬운 점이라면 위키 포맷이 익숙치 않은 textile 이라는 점과, 이미 <a href="http://www.gtdinbox.com/">GTDinbox </a>에 적응해버렸다는 정도. 그러고보니 GTD를 지원하는 이슈 관리 시스템은 없을까나~</p>
+
+<p>ps. 드디어 SQL 2005 스키마의 개별 객체들을 <a href="http://www.sqlservercentral.com/articles/Administering/2896/">각각 SQL 로 추출해주는 방법</a>을 찾았다. 소스 코드르 다운받아서 약간만 수정해주면 SQL  스키마의 버전 관리는 끝!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-08T07:36:12+09:00" pubdate  data-updated="true" >Jan 8<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gamedev/'>gamedev</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2009/01/08/redmine/" data-via="reiot" data-counturl="http://reiot.com/2009/01/08/redmine/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2009/01/08/redmine/';
+        var disqus_url = 'http://reiot.com/2009/01/08/redmine/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

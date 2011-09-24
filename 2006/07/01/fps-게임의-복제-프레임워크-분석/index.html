@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>FPS 게임의 복제 프레임워크 분석 - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="다음 글을 읽기 전에 우선 전통적인 FPS게임의 네트워크 구현부터 읽어보기를 권장한다. 참고한 원문은 하프2위키:Networking_Entities이며, 단순 번역이 아니라 코드를 기반으로 정리한 내용임을 미리 밝힌다.가장 먼저 알아야 할 점은, 소스 엔진에서는 ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2006/07/01/fps-%E1%84%80%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%8C%E1%85%A6-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%AF%E1%84%8F%E1%85%B3-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">FPS 게임의 복제 프레임워크 분석</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-07-01T22:44:35+09:00" pubdate  data-updated="true" >Jul 1<span>st</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>다음 글을 읽기 전에 우선 <a href="http://reiot.cafe24.com/archives/571">전통적인 FPS게임의 네트워크 구현</a>부터 읽어보기를 권장한다. 참고한 원문은 <a href="http://developer.valvesoftware.com/wiki/Networking_Entities">하프2위키:Networking_Entities</a>이며, 단순 번역이 아니라 코드를 기반으로 정리한 내용임을 미리 밝힌다.</p>
+
+<p>가장 먼저 알아야 할 점은, 소스 엔진에서는 서버에서 클라이언트로의 단방향 복제(replication)만이 일어난다는 점이다. 반대의 경우에는 입력 샘플링과 메시징 시스템만 사용할 수 있다. 아무래도 양방향 복제의 경우 경쟁 조건 같은 문제들이 골치 아프기 때문에, 자체적인 복제 프레임워크를 구축하는 분들에게도 단방향 복제만 구현하는 것을 권장한다.</p>
+
+<p><a class="imagelink" title="entity.png" href="http://boxcatstudio.files.wordpress.com/2009/07/entity.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/entity.png' width='' height='' alt='' title=''></p>
+
+<p>복제는 서버와 클라이언트에 정의된 엔티티(entity) 사이에서 이루어진다. 이때 동일한 클래스를 C/S 공통으로 사용하는 대신, 서버에서는 CBaseEntity 를, 클라이언트에서는 C_BaseEntity를 상속받은 엔티티를 각각 따로 정의한다.</p>
+
+<p>복제의 최소 단위는 엔티티 내부에 존재하는 네트워크 변수(CNetworkVar)이다. 단순히 이름이나 좌표 같은 visual 데이터 뿐만이 아니라 애니메이션 프레임이나 물리 엔진에서 사용하는 미시적인 데이터까지도 복제되는 것을 확인할 수 있다. 참고로 CBaseEntity -> C_BaseEntity 간에 복제되는 네트워크 변수가 26가지나 되는 걸로 봐서, 소스 엔진에서의 복제 프레임워크의 비중이 매우 크다는 것을 알 수 있다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>// server base entity
+</span><span class='line'>class CBaseEntity : public IServerEntity {
+</span><span class='line'>  CNetworkVector( m_vecOrigin );
+</span><span class='line'>  CNetworkQAngle( m_angRotation );
+</span><span class='line'>};
+</span><span class='line'>
+</span><span class='line'>// client base entity
+</span><span class='line'>class C_BaseEntity : public ICilentEntity {
+</span><span class='line'>  Vector m_vecOrigin;
+</span><span class='line'>  QAngle m_angRotation;
+</span><span class='line'>};
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>네트워크 변수들은 다양한 연산자 오버로딩을 지원하기 때문에 일반적인 빌트인 타입처럼 사용할 수 있다. 또한, 서버 엔티티의 특정 네트워크 변수가 바뀌게 되면 해당 엔티티의 dirty flag가 자동적으로 켜져서 다음 번 스냅샷에 포함되게 되어 있다. 최종적인 코드는 꽤 간단해보이지만, 이를 구현하기 위해서 매크로와 void * 를 이용한 offset 처리, 그리고 템플릿이 꽤나 복잡하게 얽혀 있어서, 분석에 애를 좀 먹었다. 관심 있는 사람은 내공 증진을 위해 한번 훑어 보는 것을 권장한다.</p>
+
+<p>네트워크 변수의 복제는 비트스트림(bitbuf)을 통해서 이루어진다. 각각의 엔티티에는 네트워크 변수들을 비트스트림으로 변환하는 방법을 담은 데이터 테이블(DataTable)이 클래스 static 변수로 정의되어 있다. 앞서 밝혔듯이 오직 단방향 복제만 지원되기 때문에, 서버 엔티티의 데이터 테이블은 Send Table, 클라이언트 엔티티의 데이터 테이블은 Recv Table 이라고 불린다. 데이터 테이블을 만드는 함수인 SendProp()과 RecvProp()들을 이용하면, 네트워크 변수를 주고 받을 때, 타입과 비트 크기, 복제용 플래그, 변경될 경우에 호출할 프록시 함수(==콜백 함수)등을 지정할 수 있다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>// CBaseEntity Send Table
+</span><span class='line'>
+</span><span class='line'>IMPLEMENT_SERVERCLASS_ST_NOBASE( CBaseEntity, DT_BaseEntity )
+</span><span class='line'>  ...
+</span><span class='line'>  SendPropVector  (SENDINFO(m_vecOrigin), -1,  SPROP_COORD|SPROP_CHANGES_OFTEN,
+</span><span class='line'>      0.0f, HIGH_DEFAULT, SendProxy_Origin ),
+</span><span class='line'>  SendPropQAngles (SENDINFO(m_angRotation), 13, SPROP_CHANGES_OFTEN, SendProxy_Angles ),
+</span><span class='line'>  ...
+</span><span class='line'>END_SEND_TABLE()
+</span><span class='line'>
+</span><span class='line'>// C_BaseEntity Recv Table
+</span><span class='line'>
+</span><span class='line'>BEGIN_RECV_TABLE_NOBASE(C_BaseEntity, DT_BaseEntity)
+</span><span class='line'>  ...
+</span><span class='line'>  RecvPropVector( RECVINFO_NAME( m_vecNetworkOrigin, m_vecOrigin ) ),
+</span><span class='line'>  RecvPropQAngles( RECVINFO_NAME( m_angNetworkAngles, m_angRotation ) ),
+</span><span class='line'>  ...
+</span><span class='line'>END_RECV_TABLE()</span></code></pre></td></tr></table></div></figure>
+
+
+<p>여기까지만 구현하면 기본적인 객체 및 데이터의 복제는 끝난다. 그러나 이것만으로 랙이나 손실 등의 다양한 예외 상황을 처리하기는 곤란하다. 이것이 바로 복제 프레임워크가 Interpolation 을 지원해야 하는 이유이다. 손쉽게 외삽과 내삽을 구현하려면 복제된 데이터의 히스토리를 일정 분량동안 저장한 후 다양한 보간 함수들을 이용해서 예측을 해야 하는데, 이런 기능을 도와주는 것이 바로 IInterpolatedVar 이다. 어떤 네트워크 변수가 Interpolate 를 지원하게 하려면 해당 엔티티에 CInterpolatedVar 를 함께 정의한 후, AddVar()를 이용해서 매핑을 시키면 된다. 그러면 네트워크 변수가 서버에 의해 업데이트 될 때마다 히스토리가 쌓이게 되며 필요할 때마다 적당히 보간된 값을 얻어올 수 있게 된다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>// client base entity
+</span><span class='line'>class C_BaseEntity : public ICilentEntity {
+</span><span class='line'>  Vector m_vecOrigin;
+</span><span class='line'>  CInterpolatedVar m_iv_vecOrigin;
+</span><span class='line'>  QAngle m_angRotation;
+</span><span class='line'>  CInterpolatedVar m_iv_angRotation;
+</span><span class='line'>};
+</span><span class='line'>
+</span><span class='line'>C_BaseEntity::C_BaseEntity() :
+</span><span class='line'>  m_iv_vecOrigin( "m_iv_vecOrigin" ),
+</span><span class='line'>  m_iv_angRotation( "m_iv_angRotation" )
+</span><span class='line'>{
+</span><span class='line'>  AddVar( &m_vecOrigin, &m_iv_vecOrigin, LATCH_SIMULATION_VAR );
+</span><span class='line'>  AddVar( &m_angRotation, &m_iv_angRotation, LATCH_SIMULATION_VAR );
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>정리하면, 소스 엔진의 복제 프레임워크는</p>
+
+<ul>
+<li>상속을 통해서 객체 복제를 구현한다. 반면 언리얼 엔진에서는 스크립트와 C++간의 바인딩을 이용한다. 아무래도 속도는 C++ 레벨에서 복제하는 소스 엔진 쪽이 더 우세할 것으로 추측한다.</li>
+<li>복제하려는 데이터의 선별은 C++ 클래스 디자인 단계에서 이루어진다. 데이터의 송수신은 매크로로 간단히 구현되며, 객체 단위가 아니라 데이터 단위로 콜백을 지정할 수 있다.</li>
+<li>Interpolation은 히스토리를 관리할 객체를 더 필요로 하며, 원본 데이터가 바뀔 때마다 자동적으로 히스토리에 쌓이도록 되어 있어서, 개발자의 스트레스를 꽤 많이 덜어줄 것 같다.</li>
+</ul>
+
+
+<p>어제 위 내용을 토대로 기존에 작성된 복제 프레임워크를 뜯어 고치다가 영식군이 힐끗 보고 말하길 &#8220;도대체 우리 게임에 객체가 몇 개나 되길래 그렇게 최적화를 하냐?&#8221;는 이야기를 듣고 적당히 포기하기로 했다. 흑. </a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-07-01T22:44:35+09:00" pubdate  data-updated="true" >Jul 1<span>st</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/07/01/fps-%E1%84%80%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%8C%E1%85%A6-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%AF%E1%84%8F%E1%85%B3-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8/" data-via="reiot" data-counturl="http://reiot.com/2006/07/01/fps-%E1%84%80%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%8C%E1%85%A6-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%AF%E1%84%8F%E1%85%B3-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2006/07/01/fps-%E1%84%80%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%8C%E1%85%A6-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%AF%E1%84%8F%E1%85%B3-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8/';
+        var disqus_url = 'http://reiot.com/2006/07/01/fps-%E1%84%80%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%8C%E1%85%A6-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%AF%E1%84%8F%E1%85%B3-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

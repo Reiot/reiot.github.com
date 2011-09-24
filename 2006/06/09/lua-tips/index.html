@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Lua Tips - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 http://reiot.springnote.com/pages/87244 에서 읽으실 수 있습니다.LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.Lu...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2006/06/09/lua-tips/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Lua Tips</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-06-09T06:04:27+09:00" pubdate  data-updated="true" >Jun 9<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong><em>이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87244">http://reiot.springnote.com/pages/87244</a> 에서 읽으실 수 있습니다.</em></strong></p>
+
+<p>LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.</p>
+
+<h2>LuaPack</h2>
+
+<p>바이너리 데이터를 pack/unpack 하는 라이브러리. 일단 require 해주면 string.pack, string.unpack 의 2개 함수가 추가된다. 레이옷은 &#8221;&#8217;순수 루아 테스트 클라이언트&#8221;&#8217;를 만들기 위해서 LuaSocket 과 함께 사용했다. 단, 리눅스에서 사용하던 놈이라, 윈도우 환경에서 dll 로 사용하기 위해서는 약간의 수고가 필요하다.</p>
+
+<pre><code>- 기존 루아 프로젝트를 dll 기반으로 수정해줘야 한다. 또한, 같이 배포되는 pack.lua 은 동작하지 않으며, LuaSocket 의 compat-5.1.lua 에서 제공하는 LUA_CPATH 및 새 require() 를 이용해야 한다.
+- lpack.c 의 luaopen_pack() 앞에 __declspec(dllexport) 달아줄 것
+- dll 이름과 luaopen_xxx() 을 동일하게 해줄 것. pack.dll &amp; luaopen_pack() 또는 lpack.dll &amp; luaopen_lpack()을 권장함
+- 다음과 같은 배치 파일 및 테스트용 루아를 실행, 2개 함수가 function:xxxxx 이라고 나오면 성공~
+</code></pre>
+
+<h1>test_luapack.bat</h1>
+
+<p>set LUA_CPATH=?.dll
+lua test_luapack.lua
+pause</p>
+
+<p>&#8211; test_luapack.lua
+dofile(&#8216;compat-5.1.lua&#8217;)
+require(&#8220;lpack&#8221;)
+print(string.pack)
+print(string.unpack)</p>
+
+<p>변환표</p>
+
+<table>
+<thead>
+<th>type string</th>
+<th>의미</th>
+<td>z</td>
+<td>zero-terminated string</td>
+<td>p</td>
+<td>string preceded by length byte</td>
+
+<tr>
+<td>P</td>
+<td>string preceded by length word</td>
+</tr>
+<tr>
+<td>a</td>
+<td>string preceded by length size_t</td>
+</tr>
+<tr>
+<td>A</td>
+<td>string</td>
+</tr>
+<tr>
+<td>f</td>
+<td>float</td>
+</tr>
+<tr>
+<td>d</td>
+<td>double</td>
+</tr>
+<tr>
+<td>n</td>
+<td>Lua number</td>
+</tr>
+<tr>
+<td>c</td>
+<td>char</td>
+</tr>
+<tr>
+<td>b</td>
+<td>byte = unsigned char</td>
+</tr>
+<tr>
+<td>h</td>
+<td>short</td>
+</tr>
+<tr>
+<td>H</td>
+<td>unsigned short</td>
+</tr>
+<tr>
+<td>i</td>
+<td>int</td>
+</tr>
+<tr>
+<td>I</td>
+<td>unsigned int</td>
+</tr>
+<tr>
+<td>l</td>
+<td>long</td>
+</tr>
+<tr>
+<td>L</td>
+<td>unsigned long</td>
+</tr>
+<tr>
+<td><</td>
+<td>little endian</td>
+</tr>
+<tr>
+<td>></td>
+<td>big endian|</td>
+</tr>
+<tr>
+<td>=</td>
+<td>native endian</td>
+</tr>
+</thead></table>
+
+
+<p>see also:</p>
+
+<pre><code>- [Official LuaPack Homepage](http://www.tecgraf.puc-rio.br/%7Elhf/ftp/lua/)
+</code></pre>
+
+<h2>ipairs()</h2>
+
+<p>lua table 을 array 로 쓰는 경우, 정수 인덱스 기반의 iterating 을 할 때 사용한다. 정수 인덱스에 관련된 값이 nil 일 때까지 루프를 돌게 된다. 반면에 lua table 을 map 으로 사용할 경우, 즉 key 와 value 를 명시해서 사용할 경우에는 pairs() 를 사용해야 한다.</p>
+
+<blockquote><p>t = { [&#8220;a&#8221;] = 1, [&#8220;b&#8221;] = 2, [&#8220;c&#8221;] = 3 }
+for i,v in ipairs(t) do print(i,v) end</p>
+
+<p>tt = {[1]=1,[3]=3,[5]=5}
+for i,v in ipairs(tt) do print(i,v) end
+1  1
+ttt = {[1]=1,[2]=3,[3]=3,[5]=5}
+for i,v in ipairs(ttt) do print(i,v) end
+1  1
+2  3
+3  3
+tttt = {&#8220;a&#8221;,&#8221;b&#8221;,&#8221;c&#8221;}
+for i,v in ipairs(tttt) do print(i,v) end
+1  a
+2  b
+3  c</p>
+
+<h2>luabind : param 개수 제한</h2></blockquote>
+
+<p>C++ 메써드를 바인딩할 때, 파라미터의 개수가 제한되어 있는 듯하다. 좀더 테스트가 필요할 듯.</p>
+
+<h2>luabind : C++에서 루아 테이블 객체 생성해서 functor 로 넘기는 법</h2>
+
+<p>C++에서 루아 함수를 호출할 때, 파라미터의 개수가 상황에 따라서 동적으로 바뀔 경우 루아 테이블에 넣어서 보내면 깔끔하다. 그런데, 어떻게 C++ 스코프에서 루아 테이블을 만들 수 있을까? 생각보다 꽤 간단했다.</p>
+
+<p>&#8211; lua
+function f(a) return a.x+a.y end</p>
+
+<p>// C++
+luabind::object table = luabind::newtable(L);
+table[&#8220;x&#8221;] = 1;
+table[&#8220;y&#8221;] = 2;
+functor<int> f(L,&#8221;f&#8221;);
+f(table);</p>
+
+<p>테이블 안에 테이블을 넣는 것도 가능하다.</p>
+
+<p>// C++
+luabind::object table = luabind::newtable(L);
+luabind::object subtable = luabind::newtable(L);
+table[&#8220;sub&#8221;] = subtable;
+functor<int> f(L,&#8221;f&#8221;);
+f(table);</p>
+
+<h2>luabind : virtual member function</h2>
+
+<p>class Connection {
+virtual int handle_input();
+virtual int handle_output();
+virtual int handle_msg();
+};
+class TestConnection : public Connection {
+virtual int handle_msg();
+};</p>
+
+<p>이와 같이, 하위 클래스에서는 몇 개의 virtual member function 만을 override 한 경우, 바인딩할 때에는 주의가 필요하다.</p>
+
+<p>// 컴파일 에러 발생
+module(L)
+[
+class<TestConnection>(&#8220;TestConnection&#8221;)
+.def(&#8220;handle_input&#8221;,&amp;TestConnection::handle_input)
+.def(&#8220;handle_output&#8221;,&amp;TestConnection::handle_output)
+.def(&#8220;handle_msg&#8221;,&amp;TestConnection::handle_msg)
+];</p>
+
+<p>// 컴파일 성공
+module(L)
+[
+class<Connection>(&#8220;Connection&#8221;)
+.def(&#8220;handle_input&#8221;,&amp;Connection::handle_input)
+.def(&#8220;handle_output&#8221;,&amp;Connection::handle_output)
+.def(&#8220;handle_msg&#8221;,&amp;Connection::handle_msg)
+,
+class&lt;TestConnection,Connection>(&#8220;TestConnection&#8221;)
+.def(&#8220;handle_msg&#8221;,&amp;TestConnection::handle_msg)
+];</p>
+
+<p>단 virtual 이 잘 동작하는지는 확인 요망&#8230;</p>
+
+<h2>luabind : functor</h2>
+
+<p>루아 함수를 C++ 에서 호출할 수 있게 해준다. 템플릿으로 구현되어 있어서 컴파일 속도가 장난 아니게 느리다.</p>
+
+<p>&#8211; lua
+function f(a,b) return a+b end</p>
+
+<p>// C++
+functor<int> f(L,&#8221;f&#8221;);
+f(1,2);</p>
+
+<p>어떤 루아 함수를 사용하려 한다는 것은, 이미 루아 스택에 그 함수가 로딩되어 있어야 한다는 의미이다. 그런데, 만약 런타임에 함수를 정의하고 그 함수를 C++ 에서 사용하려면 어떻게 해야 할까? 이를 위해서는 functor 등록 함수를 luabind 를 이용해서 다시 루아에서 호출해줘야 한다. 즉</p>
+
+<p>&#8211; lua
+function f(a,b) return a+b end
+register_f()</p>
+
+<p>// C++
+void register_f()
+{
+functor<int> * pFunc = new functor<int>(L,&#8221;f&#8221;);
+}</p>
+
+<p>module(L)
+[
+.def(&#8220;register_f&#8221;,&amp;register_f)
+];</p>
+
+<p>까다로운 점은 register_f() 에서의 루아스택을 어떻게 알아내느냐인데, [레이옷]은 SingletonPattern 으로 해결해버렸다. -_-;;</p>
+
+<p>끝으로 주의사항: functor 의 파라미터로 C++ 클래스를 사용하려면 필히 먼저 이 클래스를 luabind 로 등록해두어야 한다. (물론 루아에서 사용하는 메써드만 달랑 해주면 끝)</p>
+
+<h2>luabind : __tostring()</h2>
+
+<p>luabind 로 C++ 클래스 인스턴스를 생성, print(x) 를 해보고 싶다면, ostream operator &lt;&lt; 를 implement 하고, tostring(self)를 바인딩해주면 된다.</p>
+
+<p>class number {};</p>
+
+<p>std::ostream&amp; operator&lt;&lt;(ostream&amp;, number&amp;);</p>
+
+<p>module(L)
+[
+class_<number>(&#8220;number&#8221;)
+.def(tostring(self))
+];</p>
+
+<p>반면 루아 클래스 객체를 출력하려면 다음과 같이 함수를 정의해야 한다. &#8221;&#8217;이때 self 파라미터를 수동으로 넘긴다는 점에 유의할 것&#8221;&#8217;. (다른 함수에서 self 는 자동적으로 인스턴스 자신을 가리키지만, metatable 관련 함수들은 수동으로 넘겨야 하는 듯. 당연히 굳이 self 라는 이름일 필요는 없다)</p>
+
+<p>class &#8216;XXX&#8217;
+function XXX:<strong>init()
+self.v = 1
+end
+function XXX:</strong>tostring(self)
+return &#8216;XXX(&#8216;..self.v..&#8217;)&#8217;
+end</p>
+
+<h2>lua list</h2>
+
+<p>table 을 list 처럼 사용할 수 있다.</p>
+
+<p>&#8211; create
+list = nil
+for line in io.lines() do
+list = { next=list, value=line }
+end</p>
+
+<p>&#8211; iterate
+l = list
+while l do
+print(l.value)
+l = l.next
+end</p>
+
+<p>see also:</p>
+
+<pre><code>- [http://www.lua.org 루아 공식 홈페이지]
+- [http://www.redwiki.net/wiki/wiki.php/Lua 레드픽셀님의 루아 페이지]
+- [http://lua-users.org/wiki/] - 루아 위키
+- [http://www.workspacewhiz.com/LuaPlus/index.html LuaPlus] - 가장 OO 스러운 루아 확장 라이브러리
+- [http://sourceforge.net/projects/lua-users/ lua-users.org at SF] - 윈도우용 루아 바이너리 및 매뉴얼 등등을 배포하는 곳.
+- [http://www.sjbrown.co.uk/lualite.html LuaLite] - Lua Syntax Highlight plugin for VS.NET. 단, 이것을 띄워 놓은 상태에서 검색을 하면 먹통이 되므로 조심할 것
+- [http://luaforge.net/ LuaForge]
+- [http://www.icynorth.com/forums/index.php LuaForum]
+- http://www.thomasandamy.com/projects/CPB/
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-06-09T06:04:27+09:00" pubdate  data-updated="true" >Jun 9<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/06/09/lua-tips/" data-via="reiot" data-counturl="http://reiot.com/2006/06/09/lua-tips/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2006/06/09/lua-tips/';
+        var disqus_url = 'http://reiot.com/2006/06/09/lua-tips/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

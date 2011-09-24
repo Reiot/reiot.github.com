@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Weekends Idle Thoughts - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="오랜만에 사건 사고 없는 한가한 주말이다.먼저 boost asio 를 이용해서 이상적인 아름다운 윈도우 서버 코어를 만든다면? 이라는 상상의 나래를 펴봤다. 누가 봐도 멋진 서버 코어가 되려면 어떤 특성을 가져야 할까?- 손쉬운 확장성 : 한대의 머신에서 하나의 ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2008/11/03/weekends-idle-thoughts/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Weekends Idle Thoughts</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-11-03T04:56:15+09:00" pubdate  data-updated="true" >Nov 3<span>rd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div id="photoImgDiv2108199423" class="photoImgDiv" style="width:502px;"><img class='' src='http://farm3.static.flickr.com/2212/2108199423_a3fac43d56.jpg?v=0' width='' height='' alt='회원님이 촬영한 AQUA, Anantara, Maldives.' title='회원님이 촬영한 AQUA, Anantara, Maldives.'></div>
+
+
+<p>오랜만에 사건 사고 없는 한가한 주말이다.</p>
+
+<p>먼저 boost asio 를 이용해서 이상적인 아름다운 윈도우 서버 코어를 만든다면? 이라는 상상의 나래를 펴봤다. 누가 봐도 멋진 서버 코어가 되려면 어떤 특성을 가져야 할까?</p>
+
+<pre><code>- 손쉬운 확장성 : 한대의 머신에서 하나의 프로세스로 1천명에서 최대 1만 명을 처리할 수 있도록 확장하는데 무리가 없어야 한다. 즉, IOCP 핸들와 Non I/O Worker 쓰레드를 M:N 으로 조합할 수 있는 구조가 되어야 한다.
+- 이벤트 기반 : 사용자가 늘어나면 폴링은 최대한 피해야 한다. 즉 주기적으로 체크해야 하는 Idle Check 같은 코드들은 타이머 쓰레드에서 Post 시켜야 한다.
+- 메모리 풀 기반의 버퍼 관리 : 입출력 버퍼를 세션이나 소켓과 1:1 정적으로 매핑시키기 보다는, 메모리풀에서 필요할 때마다 주고 받는 구조를 쓰자. Gathering &amp; Scattering 을 위해서는 필수적이다.
+- 버퍼 복사의 최소화 : 어차피 1-recv 는 대세다. 즉, WSABUF를 개별 세션에 연관짓기보다는 메모리 풀에서 관리하고, I/O 쓰레드에서 입력이 완료되었을 때 메시지가 온전치 않으면 버퍼를 재사용해서 다시 요청에 들어가고, 아니면 새로운 버퍼를 게임 쓰레드로 넘기자. 브로드캐스팅할 때에도 버퍼 복사 없이 하나를 사용할 것! 출력의 경우라면 N-Send 를 쓸 수 밖에 없겠다.
+- 동기화의 최소화 : 쓰레드간 통신은 [lock free queue](http://www.codeproject.com/KB/cpp/lockfreeq.aspx) 를 사용해야 한다. 
+- 쓰레드의 최소화 : 서버간 통신, UDP, 추가적인 listen 소켓이 생겨도 쓰레드를 더 만들지 않을 수 있게, IOCP 를 최대한 활용해야 한다.
+- 멀티 코어 대응 : 단지 쓰레드를 많이 만들어서 적당히 잘 돌아가려니..하기 보다는 멀티 코어를 효율적으로 활용하는 방법을 고민해보자.
+- 서비스 기반 아키텍처 : ACE의 그것처럼 서비스를 하나의 프로세스에서 돌리다가 필요하면 다른 서버로 옮기더라도 무리없는 구조가 되어야 한다.
+</code></pre>
+
+<p>광고성 글이지만 일전에 <a href="http://code.google.com/p/c10k">c10k 라고 서버 코어를 괴롭히는 스트레스 테스트 클라이언트 프레임워크</a>를 구글 코드에 만들어뒀는데 boost asio 테스트만 하다가 중단된 상태다. 대충 아래 그림과 같은 건데&#8230;</p>
+
+<blockquote><p></p></blockquote>
+
+
+<p><img class='' src='http://farm2.static.flickr.com/1106/1248922047_20af4a2d8c_o.jpg' width='' height='' alt='' title=''></p>
+
+<p>이런 걸 <a href="http://code.google.com/appengine/">구글 app engine</a> 으로 만들고 웹으로 요청하면 쓰레드 1만개 정도 만들어서 서버에 패킷을 보내면 괜찮을 거 같은데&#8230; 과연 구글에서 허용할까? (아마 SDK 레벨에서 쓰레드 생성이 막혀 있을 것 같다.) 만약 가능하다고 하면 대충 웹페이지에다가 서버 IP/Port 를 입력하고 테스트 시작을 누르면, 각 테스트 케이스들을 실행하고 성공/실패 여부를 화면에 출력해주는 느낌일 것 같다. (emule 에서 웹 기반으로 TCP 포트 체크하는 거랑 비슷한 거다) 헉. 역시나 찾아보니 안된단다.</p>
+
+<blockquote><p>An App Engine application cannot:<br/><ul class="doublespace"><br/>  - write to the filesystem. Applications must use [the App Engine datastore](http://code.google.com/appengine/docs/datastore/) for storing persistent data. Reading from the filesystem is allowed, and all application files uploaded with the application are available. (Files uploaded as &#8220;static&#8221; files are not kept on the filesystem.)<br/> - open a socket or access another host directly. An application can use [the App Engine URL fetch service](http://code.google.com/appengine/docs/urlfetch/) to make HTTP and HTTPS requests to other hosts on ports 80 and 443, respectively.<br/>    - spawn a sub-process or thread. A web request to an application must be handled in a single process within a few seconds. Processes that take a very long time to respond are terminated to avoid overloading the web server.</p><p>   - make other kinds of system calls, such as [signals](http://www.python.org/doc/2.5/lib/module-signal.html).</p></blockquote>
+
+
+<p>그나저나 Windows Server 2008 에는 CreateThreadpoolIo() 라든지 GetCurrentProcessorNumber() 같은 해괴한 API 들이 많이 추가된 모양이다. 어디 새로 추가된 API 목록  정리된 페이지 같은 게 없을까?</p>
+
+<p><img class='' src='http://www.ibm.com/developerworks/kr/library/wa-googlecode1/chart.jpg' width='' height='' alt='구글 막대 그래프 예제' title='구글 막대 그래프 예제'></p>
+
+<p>다음 잡상은 <a href="http://www.ibm.com/developerworks/kr/library/wa-googlecode1/">구글 가젯, 구글 스프레드시트 API, 구글 차트 API로 야구 핵을 만들어보자</a> 라는 글을 보고 떠올린 생각.</p>
+
+<p>서버 개발을 하다 보면 효율적인 리포팅에 대해서 한두번쯤 고민해본다. 수없이 쌓이는 개발자 로그라든지, 동시 접속자나 아이템 판매량 등등의 통계 그래프라든지, GM들에게 노출할 다양한 사용자 액션 추적 기능 같은 것들이 있을텐데, 이런 걸 구글 apps 기반에 통합해버리면 어떨까 하는 생각이다.</p>
+
+<p>요즘의 추세는 온라인으로 이 모든 정보를 확인할 수 있는 웹 기반 솔루션을 만드는 것일텐데, 그렇다면 가젯으로 만들어서 구글 시작 페이지에 넣고 권한 관리를 해버리면 되지 않을까? 자자. 이건 상상이니까 안되는 이유에 대해서는 고민하지 말자.</p>
+
+<p>전사적으로 수많은 서버들의 상황을 한번에 모니터링하기에는 꽤 괜찮은 솔루션일 듯하다.  (물론 MS의 리포팅 서비스가 더 멋지긴 하겠다만..)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-11-03T04:56:15+09:00" pubdate  data-updated="true" >Nov 3<span>rd</span>, 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2008/11/03/weekends-idle-thoughts/" data-via="reiot" data-counturl="http://reiot.com/2008/11/03/weekends-idle-thoughts/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2008/11/03/weekends-idle-thoughts/';
+        var disqus_url = 'http://reiot.com/2008/11/03/weekends-idle-thoughts/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

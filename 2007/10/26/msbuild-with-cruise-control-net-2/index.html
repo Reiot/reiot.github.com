@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>MSBuild with Cruise Control .Net (2) - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="며칠 동안의 삽질 끝에 오늘 드디어 MSBuild + CC.NET으로 웹브라우저에서 빌드할 수 있도록 설정하는 것을 대략 마무리 지었다. 그 과정에서 알아낸 사실을 정리해보면 (틀린 정보도 있을 수 있으니 주의 바란다)- 대상 시스템은 Windows Server ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2007/10/26/msbuild-with-cruise-control-net-2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">MSBuild With Cruise Control .Net (2)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-10-26T10:21:57+09:00" pubdate  data-updated="true" >Oct 26<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG' width='' height='' alt='' title=''></a></p>
+
+<p><a href="http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/">며칠 동안의 삽질</a> 끝에 오늘 드디어 MSBuild + CC.NET으로 웹브라우저에서 빌드할 수 있도록 설정하는 것을 대략 마무리 지었다. 그 과정에서 알아낸 사실을 정리해보면 (틀린 정보도 있을 수 있으니 주의 바란다)</p>
+
+<pre><code>- 대상 시스템은 Windows Server 2003 R2 Standard Kor 이다.
+- 가장 먼저 IIS 를 설치해야 한다. 상세한 내용은[ KAISTIZEN 님의 Visual C++을 위한 지속적인 통합 빌드 서버](http://kaistizen.net/EE/index.php/weblog/comments/continuous_integration_for_visual_c/)라는 글을 참고하면 간단하다.
+- MSBuild는 C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727 아래에 있다. 미리 SVN에서 소스 코드를 다운받은 후 MSBuild 로 VC++ 솔루션을 빌드해봤다. 그런데 vcbuild 뭐뭐가 없다면서 빌드에 실패했다. C# 이나 VB.NET  프로젝트라면 몰라도 MSBuild 혼자만으로 VC++ 프로젝트를 빌드할 수는 없는 모양이다. 결국 Visual Studio 를 설치해야 했다.
+- 돈을 아끼기 위해서 Visual Studio 2005 Express와 Platform SDK를 설치했는데, 알고보니 devenv.com 가 들어 있지 않았다. 이 말은 Visual Studio Task (devenv)를 사용할 수는 없다는 뜻이 된다.
+- 다시 프로젝트를 빌드해보니 windows.h 라든지 winsock2.h 를 찾을 수 없다고 나왔다. 이건 단순히 include 의 문제이므로 쉽다고 생각했는데, 아무리 IncludeDirectories 를 설정하려고 노력해봤지만 모두 실패했다. (환경변수,  vcvar32.bat, /property: 모두 시도해봤지만 허사였다) 결국 Visual Studio 2005 Express 와 Platform SDK 모두 제거하고 울며 겨자먹기로 Visual Studio 2005 를 설치해야 했다. 이 문제를 해결하신 분이 있다면 좀 알려주세요~
+- [WebDashBoard](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)에서 IE를 통해 빌드 로그를 봤을때 한글이 깨지는 현상이 있었다. (반면 FireFox에서는 한글이 잘 보였다.) CC.NET 콘솔에서는 잘 출력되는 걸로 봐서 인코딩 문제인 듯하다. 또한 로그가 너무 긴 경우 끝부분이 짤리는 현상이 있었는데, HTML 소스를 보면 모든 로그가 다 있는 걸로 봐서 브라우저의 문제이거나 HTML 태그가 깨진 모양이다.
+- [CCTray](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)에서 강제 빌드를 하려면 HTTP 가 아닌 .NET Remoting 으로 연결해야 하는데, 어떤 주소를 써야 하지는 잘 모르겠다. 이게 아무래도 CC.NET 콘솔 맨 처음에 나오는 tcp://server:port 인 듯도 한데... -_-
+- Project Configuration 메뉴에서 ccnet.config 파일을 열람할 수 있는데 SVN 패스워드가 노출되는 문제가 있다. 결국 check out 만 되는 계정을 만들고, 웹 권한 설정을 꼭 해줘야 한다는 의미. (물론 URL을 지우는게 제일 속이 편하겠지만)
+
+- &lt;font color="#ff0000"&gt;dashboard.config 에서 viewConfigurationProjectPlugin 를 제거하면 해결된다.&lt;/font&gt;
+</code></pre>
+
+<p>관련 글 보기</p>
+
+<pre><code>- [MSBuild with Cruise Control .NET](http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/)
+- [WebDashBoard &amp; CCTray](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-10-26T10:21:57+09:00" pubdate  data-updated="true" >Oct 26<span>th</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2007/10/26/msbuild-with-cruise-control-net-2/" data-via="reiot" data-counturl="http://reiot.com/2007/10/26/msbuild-with-cruise-control-net-2/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2007/10/26/msbuild-with-cruise-control-net-2/';
+        var disqus_url = 'http://reiot.com/2007/10/26/msbuild-with-cruise-control-net-2/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1359 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>boost::test - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="레이옷은 종전까지 CppUnit를 애용해왔다. 그러나 이넘은 VC7 에서는 컴파일조차 되지 않았다.  그리하여, 새로운 UnitTest 툴을 찾다가 발견한 것이 바로 이 Boost Library 에 포함된 BoostTest 이다. 이하 설명은 모두 VC7 을 사용...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2005/06/02/boosttest/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Boost::test</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2005-06-02T09:17:38+09:00" pubdate  data-updated="true" >Jun 2<span>nd</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>레이옷은 종전까지 <a href="http://sourceforge.net/projects/cppunit">CppUnit</a>를 애용해왔다. 그러나 이넘은 VC7 에서는 컴파일조차 되지 않았다.  그리하여, 새로운 UnitTest 툴을 찾다가 발견한 것이 바로 이 Boost Library 에 포함된 BoostTest 이다. 이하 설명은 모두 VC7 을 사용한다고 가정하고 설명하겠다.</p>
+
+<h2>사용법</h2>
+
+<p>BoostTest 에는 아래와 같은 모듈이 포함되어 있다.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> 모듈 </th>
+<th> 설명 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> Execution Monitor </td>
+<td> 실행 모니터, 아래 프로그램 실행 모니터 및 테스트 실행 모니터의 베이스 모듈 |</td>
+</tr>
+<tr>
+<td></td>
+<td> Program Execution Mointor </td>
+<td> 배포되는 실행 프로그램의 테스트를 위해 |</td>
+</tr>
+<tr>
+<td></td>
+<td> Test Execution Mointor </td>
+<td> 개발중인 실행 프로그램의 테스트를 위해 |</td>
+</tr>
+<tr>
+<td></td>
+<td> Unit Test Framework </td>
+<td> 유닛 테스트.. 우리가 사용할 것이 이거다 |</td>
+</tr>
+<tr>
+<td></td>
+<td> Test Tools </td>
+<td> 위에 4개 모듈에서 사용하는 각종 테스트 루틴 및 매크로들 |</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>이 중에서 레이옷이 사용하는 것은 Unit Test Framework ( + Test Tools ) 이다. 우선 상세한 내용은 같이 배포되는 문서를 참고하기 바란다. 여기서는 실제 프로젝트와 어떻게 연관지을 것인가만을 고민한다.</p>
+
+<ul>
+<li>테스트할 모듈의 프로젝트 이름이 XXX 라고 하자.</li>
+<li>그러면 이 프로젝트를 테스트할 프로젝트인 test_XXX 를 솔루션에 새로 추가한다.</li>
+<li>이 프로젝트를 LibXXX 프로젝트에 종속되도록 설정한다.</li>
+<li>Build Event 의 &#8221;&#8217;Custom Build&#8221;&#8217; 에 다음과 같은 내용을 추가하라.</li>
+<li>&#8221;$(TargetPath)&#8221; &#8211;report_level=detailed &#8211;log_level=all</li>
+<li>참고로 &#8211;log_level 은 BOOST_MESSAGE, BOOST_WARN_MESSAGE, BOOST_CHECKPOINT 등의 매크로들의 출력을 화면에 나타낸다.</li>
+<li>나중에 메시지들이 귀찮아지면 모두 끄도록 한다. 이에 대한 내용 역시 문서를 참고할 것</li>
+</ul>
+
+
+<h2>BoostTest with wstring</h2>
+
+<p>UniCode 기반의 어플리케이션을 테스트할 때, BOOST_XXX 매크로에서 wide string 이 포함될 경우, 변환할 수 없다는 에러가 발생한다. 그럴 경우 아래의 코드를 해당 테스트 상단에 넣어주면 임시방편으로 수정이 가능하다. 물론 wstring  string 컨버팅 함수는 직접 작성해야 한다. :)</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">namespace</span> <span class="n">boost</span> <span class="p">{</span> <span class="k">namespace</span> <span class="n">test_tools</span> <span class="p">{</span> <span class="k">namespace</span> <span class="n">tt_detail</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">template</span>
+</span><span class='line'>  <span class="k">struct</span> <span class="n">print_log_value</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="kt">void</span>  <span class="k">operator</span><span class="p">()(</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">ostr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">wstring</span> <span class="n">t</span> <span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">convert_wstring_to_string</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span><span class='line'>          <span class="n">ostr</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+<span class='line-number'>218</span>
+<span class='line-number'>219</span>
+<span class='line-number'>220</span>
+<span class='line-number'>221</span>
+<span class='line-number'>222</span>
+<span class='line-number'>223</span>
+<span class='line-number'>224</span>
+<span class='line-number'>225</span>
+<span class='line-number'>226</span>
+<span class='line-number'>227</span>
+<span class='line-number'>228</span>
+<span class='line-number'>229</span>
+<span class='line-number'>230</span>
+<span class='line-number'>231</span>
+<span class='line-number'>232</span>
+<span class='line-number'>233</span>
+<span class='line-number'>234</span>
+<span class='line-number'>235</span>
+<span class='line-number'>236</span>
+<span class='line-number'>237</span>
+<span class='line-number'>238</span>
+<span class='line-number'>239</span>
+<span class='line-number'>240</span>
+<span class='line-number'>241</span>
+<span class='line-number'>242</span>
+<span class='line-number'>243</span>
+<span class='line-number'>244</span>
+<span class='line-number'>245</span>
+<span class='line-number'>246</span>
+<span class='line-number'>247</span>
+<span class='line-number'>248</span>
+<span class='line-number'>249</span>
+<span class='line-number'>250</span>
+<span class='line-number'>251</span>
+<span class='line-number'>252</span>
+<span class='line-number'>253</span>
+<span class='line-number'>254</span>
+<span class='line-number'>255</span>
+<span class='line-number'>256</span>
+<span class='line-number'>257</span>
+<span class='line-number'>258</span>
+<span class='line-number'>259</span>
+<span class='line-number'>260</span>
+<span class='line-number'>261</span>
+<span class='line-number'>262</span>
+<span class='line-number'>263</span>
+<span class='line-number'>264</span>
+<span class='line-number'>265</span>
+<span class='line-number'>266</span>
+<span class='line-number'>267</span>
+<span class='line-number'>268</span>
+<span class='line-number'>269</span>
+<span class='line-number'>270</span>
+<span class='line-number'>271</span>
+<span class='line-number'>272</span>
+<span class='line-number'>273</span>
+<span class='line-number'>274</span>
+<span class='line-number'>275</span>
+<span class='line-number'>276</span>
+<span class='line-number'>277</span>
+<span class='line-number'>278</span>
+<span class='line-number'>279</span>
+<span class='line-number'>280</span>
+<span class='line-number'>281</span>
+<span class='line-number'>282</span>
+<span class='line-number'>283</span>
+<span class='line-number'>284</span>
+<span class='line-number'>285</span>
+<span class='line-number'>286</span>
+<span class='line-number'>287</span>
+<span class='line-number'>288</span>
+<span class='line-number'>289</span>
+<span class='line-number'>290</span>
+<span class='line-number'>291</span>
+<span class='line-number'>292</span>
+<span class='line-number'>293</span>
+<span class='line-number'>294</span>
+<span class='line-number'>295</span>
+<span class='line-number'>296</span>
+<span class='line-number'>297</span>
+<span class='line-number'>298</span>
+<span class='line-number'>299</span>
+<span class='line-number'>300</span>
+<span class='line-number'>301</span>
+<span class='line-number'>302</span>
+<span class='line-number'>303</span>
+<span class='line-number'>304</span>
+<span class='line-number'>305</span>
+<span class='line-number'>306</span>
+<span class='line-number'>307</span>
+<span class='line-number'>308</span>
+<span class='line-number'>309</span>
+<span class='line-number'>310</span>
+<span class='line-number'>311</span>
+<span class='line-number'>312</span>
+<span class='line-number'>313</span>
+<span class='line-number'>314</span>
+<span class='line-number'>315</span>
+<span class='line-number'>316</span>
+<span class='line-number'>317</span>
+<span class='line-number'>318</span>
+<span class='line-number'>319</span>
+<span class='line-number'>320</span>
+<span class='line-number'>321</span>
+<span class='line-number'>322</span>
+<span class='line-number'>323</span>
+<span class='line-number'>324</span>
+<span class='line-number'>325</span>
+<span class='line-number'>326</span>
+<span class='line-number'>327</span>
+<span class='line-number'>328</span>
+<span class='line-number'>329</span>
+<span class='line-number'>330</span>
+<span class='line-number'>331</span>
+<span class='line-number'>332</span>
+<span class='line-number'>333</span>
+<span class='line-number'>334</span>
+<span class='line-number'>335</span>
+<span class='line-number'>336</span>
+<span class='line-number'>337</span>
+<span class='line-number'>338</span>
+<span class='line-number'>339</span>
+<span class='line-number'>340</span>
+<span class='line-number'>341</span>
+<span class='line-number'>342</span>
+<span class='line-number'>343</span>
+<span class='line-number'>344</span>
+<span class='line-number'>345</span>
+<span class='line-number'>346</span>
+<span class='line-number'>347</span>
+<span class='line-number'>348</span>
+<span class='line-number'>349</span>
+<span class='line-number'>350</span>
+<span class='line-number'>351</span>
+<span class='line-number'>352</span>
+<span class='line-number'>353</span>
+<span class='line-number'>354</span>
+<span class='line-number'>355</span>
+<span class='line-number'>356</span>
+<span class='line-number'>357</span>
+<span class='line-number'>358</span>
+<span class='line-number'>359</span>
+<span class='line-number'>360</span>
+<span class='line-number'>361</span>
+<span class='line-number'>362</span>
+<span class='line-number'>363</span>
+<span class='line-number'>364</span>
+<span class='line-number'>365</span>
+<span class='line-number'>366</span>
+<span class='line-number'>367</span>
+<span class='line-number'>368</span>
+<span class='line-number'>369</span>
+<span class='line-number'>370</span>
+<span class='line-number'>371</span>
+<span class='line-number'>372</span>
+<span class='line-number'>373</span>
+<span class='line-number'>374</span>
+<span class='line-number'>375</span>
+<span class='line-number'>376</span>
+<span class='line-number'>377</span>
+<span class='line-number'>378</span>
+<span class='line-number'>379</span>
+<span class='line-number'>380</span>
+<span class='line-number'>381</span>
+<span class='line-number'>382</span>
+<span class='line-number'>383</span>
+<span class='line-number'>384</span>
+<span class='line-number'>385</span>
+<span class='line-number'>386</span>
+<span class='line-number'>387</span>
+<span class='line-number'>388</span>
+<span class='line-number'>389</span>
+<span class='line-number'>390</span>
+<span class='line-number'>391</span>
+<span class='line-number'>392</span>
+<span class='line-number'>393</span>
+<span class='line-number'>394</span>
+<span class='line-number'>395</span>
+<span class='line-number'>396</span>
+<span class='line-number'>397</span>
+<span class='line-number'>398</span>
+<span class='line-number'>399</span>
+<span class='line-number'>400</span>
+<span class='line-number'>401</span>
+<span class='line-number'>402</span>
+<span class='line-number'>403</span>
+<span class='line-number'>404</span>
+<span class='line-number'>405</span>
+<span class='line-number'>406</span>
+<span class='line-number'>407</span>
+<span class='line-number'>408</span>
+<span class='line-number'>409</span>
+<span class='line-number'>410</span>
+<span class='line-number'>411</span>
+<span class='line-number'>412</span>
+<span class='line-number'>413</span>
+<span class='line-number'>414</span>
+<span class='line-number'>415</span>
+<span class='line-number'>416</span>
+<span class='line-number'>417</span>
+<span class='line-number'>418</span>
+<span class='line-number'>419</span>
+<span class='line-number'>420</span>
+<span class='line-number'>421</span>
+<span class='line-number'>422</span>
+<span class='line-number'>423</span>
+<span class='line-number'>424</span>
+<span class='line-number'>425</span>
+<span class='line-number'>426</span>
+<span class='line-number'>427</span>
+<span class='line-number'>428</span>
+<span class='line-number'>429</span>
+<span class='line-number'>430</span>
+<span class='line-number'>431</span>
+<span class='line-number'>432</span>
+<span class='line-number'>433</span>
+<span class='line-number'>434</span>
+<span class='line-number'>435</span>
+<span class='line-number'>436</span>
+<span class='line-number'>437</span>
+<span class='line-number'>438</span>
+<span class='line-number'>439</span>
+<span class='line-number'>440</span>
+<span class='line-number'>441</span>
+<span class='line-number'>442</span>
+<span class='line-number'>443</span>
+<span class='line-number'>444</span>
+<span class='line-number'>445</span>
+<span class='line-number'>446</span>
+<span class='line-number'>447</span>
+<span class='line-number'>448</span>
+<span class='line-number'>449</span>
+<span class='line-number'>450</span>
+<span class='line-number'>451</span>
+<span class='line-number'>452</span>
+<span class='line-number'>453</span>
+<span class='line-number'>454</span>
+<span class='line-number'>455</span>
+<span class='line-number'>456</span>
+<span class='line-number'>457</span>
+<span class='line-number'>458</span>
+<span class='line-number'>459</span>
+<span class='line-number'>460</span>
+<span class='line-number'>461</span>
+<span class='line-number'>462</span>
+<span class='line-number'>463</span>
+<span class='line-number'>464</span>
+<span class='line-number'>465</span>
+<span class='line-number'>466</span>
+<span class='line-number'>467</span>
+<span class='line-number'>468</span>
+<span class='line-number'>469</span>
+<span class='line-number'>470</span>
+<span class='line-number'>471</span>
+<span class='line-number'>472</span>
+<span class='line-number'>473</span>
+<span class='line-number'>474</span>
+<span class='line-number'>475</span>
+<span class='line-number'>476</span>
+<span class='line-number'>477</span>
+<span class='line-number'>478</span>
+<span class='line-number'>479</span>
+<span class='line-number'>480</span>
+<span class='line-number'>481</span>
+<span class='line-number'>482</span>
+<span class='line-number'>483</span>
+<span class='line-number'>484</span>
+<span class='line-number'>485</span>
+<span class='line-number'>486</span>
+<span class='line-number'>487</span>
+<span class='line-number'>488</span>
+<span class='line-number'>489</span>
+<span class='line-number'>490</span>
+<span class='line-number'>491</span>
+<span class='line-number'>492</span>
+<span class='line-number'>493</span>
+<span class='line-number'>494</span>
+<span class='line-number'>495</span>
+<span class='line-number'>496</span>
+<span class='line-number'>497</span>
+<span class='line-number'>498</span>
+<span class='line-number'>499</span>
+<span class='line-number'>500</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="cp">// testLibCore.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.</span>
+</span><span class='line'><span class="cp">//</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &quot;stdafx.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include</span>
+</span><span class='line'><span class="k">using</span> <span class="k">namespace</span> <span class="n">boost</span><span class="o">::</span><span class="n">unit_test_framework</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &quot;MMSocket.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_winsock</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_socket_ctor</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="o">!</span><span class="n">client</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetErrorCode</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetHost</span><span class="p">()</span> <span class="o">==</span> <span class="n">MMString</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Unknown&quot;</span><span class="p">))</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetPort</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="o">!</span><span class="n">client</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_serversocket_create_with_port</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">WORD</span> <span class="n">wPort</span> <span class="o">=</span> <span class="mi">8888</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">GetErrorCode</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">GetHost</span><span class="p">()</span> <span class="o">==</span> <span class="n">MMString</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Unknown&quot;</span><span class="p">))</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">GetPort</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">GetHost</span><span class="p">()</span> <span class="o">==</span> <span class="n">MMString</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">))</span> <span class="p">);</span>
+</span><span class='line'>      <span class="c1">// default host = localhost</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">GetPort</span><span class="p">()</span> <span class="o">==</span> <span class="n">wPort</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">server</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="o">!</span><span class="n">server</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_serversocket_create_with_addr</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMString</span> <span class="n">strHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">WORD</span> <span class="n">wPort</span> <span class="o">=</span> <span class="mi">8888</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">GetHost</span><span class="p">()</span> <span class="o">==</span> <span class="n">MMString</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">))</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">GetPort</span><span class="p">()</span> <span class="o">==</span> <span class="n">wPort</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">server</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_serversocket_create_with_public_ip</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMString</span> <span class="n">strHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">WORD</span> <span class="n">wPort</span> <span class="o">=</span> <span class="mi">8888</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span><span class="n">strHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">GetHost</span><span class="p">()</span> <span class="o">==</span> <span class="n">MMString</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">))</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">GetPort</span><span class="p">()</span> <span class="o">==</span> <span class="n">wPort</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">server</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_serversocket_create_with_private_ip</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMString</span> <span class="n">strHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;192.168.0.1&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">WORD</span> <span class="n">wPort</span> <span class="o">=</span> <span class="mi">8888</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span><span class="n">strHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">GetHost</span><span class="p">()</span> <span class="o">==</span> <span class="n">MMString</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;192.168.0.1&quot;</span><span class="p">))</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">GetPort</span><span class="p">()</span> <span class="o">==</span> <span class="n">wPort</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">server</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_serversocket_listen</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">PTCHAR</span> <span class="n">szHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;192.168.0.1&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">WORD</span> <span class="n">wPort</span> <span class="o">=</span> <span class="mi">8888</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Listen</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_socket_connect</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">PTCHAR</span> <span class="n">szHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">WORD</span> <span class="n">wPort</span> <span class="o">=</span> <span class="mi">8888</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Listen</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>  <span class="n">server</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_socket_connect_fail</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">PTCHAR</span> <span class="n">szHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">WORD</span> <span class="n">wPort</span> <span class="o">=</span> <span class="mi">8888</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Listen</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="o">!</span><span class="n">client</span><span class="p">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">);</span>  <span class="c1">// must be failed</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>  <span class="n">server</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_serversocket_accept</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">PTCHAR</span> <span class="n">szHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">WORD</span> <span class="n">wPort</span> <span class="o">=</span> <span class="mi">8888</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Listen</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="o">*</span> <span class="n">pClient</span> <span class="o">=</span> <span class="n">server</span><span class="p">.</span><span class="n">Accept</span><span class="p">();</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">pClient</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">pClient</span><span class="o">-&gt;</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="c1">//BOOST_CHECK( pClient-&gt;GetHost() == client.GetHost() );</span>
+</span><span class='line'>      <span class="c1">//BOOST_CHECK( pClient-&gt;GetPort() == client.GetPort() );</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>  <span class="n">server</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/*</span>
+</span><span class='line'><span class="cm"> *   accept 전에 닫아도 accept 된다.. 음냐..</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_serversocket_accept_failed</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">PTCHAR</span> <span class="n">szHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">WORD</span> <span class="n">wPort</span> <span class="o">=</span> <span class="mi">8888</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Listen</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">IsAlive</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>     <span class="c1">// close before accept</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">Sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="o">*</span> <span class="n">pClient</span> <span class="o">=</span> <span class="n">server</span><span class="p">.</span><span class="n">Accept</span><span class="p">();</span>
+</span><span class='line'>      <span class="n">BOOST_WARN_MESSAGE</span><span class="p">(</span> <span class="n">pClient</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">,</span> <span class="s">&quot;헹.. 널이어야 할텐데..&quot;</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">server</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/*</span>
+</span><span class='line'><span class="cm"> *   정말 nonblocking 인지 확인해봐야 하지 않나?? 그걸 알아내는 방법은?</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_socket_blocking</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">EnableNonblock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">DisableNonblock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_socket_linger</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="o">!</span><span class="n">client</span><span class="p">.</span><span class="n">IsEnabledLinger</span><span class="p">()</span> <span class="p">);</span>           <span class="c1">// no linger at default</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetLingerTime</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">EnableLinger</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">IsEnabledLinger</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetLingerTime</span><span class="p">()</span> <span class="o">==</span> <span class="mi">100</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">DisableLinger</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="o">!</span><span class="n">client</span><span class="p">.</span><span class="n">IsEnabledLinger</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetLingerTime</span><span class="p">()</span> <span class="o">==</span> <span class="mi">100</span> <span class="p">);</span>   <span class="c1">// do not cleared</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_socket_recv_buffer</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetRecvBufferSize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">8192</span> <span class="p">);</span>  <span class="c1">// default buffer size</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">SetRecvBufferSize</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetRecvBufferSize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">10000</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">SetRecvBufferSize</span><span class="p">(</span><span class="mi">65535</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetRecvBufferSize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">65535</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">SetRecvBufferSize</span><span class="p">(</span><span class="mi">65535</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetRecvBufferSize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">65535</span><span class="o">*</span><span class="mi">2</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_socket_send_buffer</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetSendBufferSize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">8192</span> <span class="p">);</span>  <span class="c1">// default buffer size</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">SetSendBufferSize</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetSendBufferSize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">10000</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">SetSendBufferSize</span><span class="p">(</span><span class="mi">65535</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetSendBufferSize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">65535</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">SetSendBufferSize</span><span class="p">(</span><span class="mi">65535</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetSendBufferSize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">65535</span><span class="o">*</span><span class="mi">2</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">SetSendBufferSize</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetSendBufferSize</span><span class="p">()</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_socket_nagle</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">IsEnabledNagle</span><span class="p">()</span> <span class="p">);</span>        <span class="c1">// enabled at default</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">DisableNagle</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="o">!</span><span class="n">client</span><span class="p">.</span><span class="n">IsEnabledNagle</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">EnableNagle</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">IsEnabledNagle</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_serversocket_reuseaddr</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">)</span> <span class="p">,</span><span class="mi">9999</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server2</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="o">!</span><span class="n">server2</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">)</span> <span class="p">,</span><span class="mi">9999</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">server2</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server3</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server3</span><span class="p">.</span><span class="n">EnableReuseAddr</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server3</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">)</span> <span class="p">,</span><span class="mi">9999</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">server3</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMServerSocket</span> <span class="n">server4</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server4</span><span class="p">.</span><span class="n">EnableReuseAddr</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server4</span><span class="p">.</span><span class="n">DisableReuseAddr</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="o">!</span><span class="n">server4</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">)</span> <span class="p">,</span><span class="mi">9999</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">server4</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">server</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_socket_gethostbyname</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">PTCHAR</span> <span class="n">szHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;comeng.ce.knu.ac.kr&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">GetHostByName</span><span class="p">(</span><span class="n">szHost</span><span class="p">)</span> <span class="o">==</span> <span class="n">MMString</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;155.230.29.10&quot;</span><span class="p">))</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">szHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;mudmania.org&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">GetHostByName</span><span class="p">(</span><span class="n">szHost</span><span class="p">)</span> <span class="o">==</span> <span class="n">MMString</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">))</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//szHost = TEXT(&quot;reiot.cafe24.com&quot;);</span>
+</span><span class='line'>  <span class="c1">//BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(TEXT(&quot;61.74.134.38&quot;)) );</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">szHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;mudmania2.org&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">GetHostByName</span><span class="p">(</span><span class="n">szHost</span><span class="p">)</span> <span class="o">==</span> <span class="n">MMString</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_socket_send</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">PTCHAR</span> <span class="n">szHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">WORD</span> <span class="n">wPort</span> <span class="o">=</span> <span class="mi">9999</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">MMServerSocket</span> <span class="n">server</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Bind</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">server</span><span class="p">.</span><span class="n">Listen</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">MMSocket</span> <span class="o">*</span> <span class="n">pClient</span> <span class="o">=</span> <span class="n">server</span><span class="p">.</span><span class="n">Accept</span><span class="p">();</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">pClient</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">PTCHAR</span> <span class="n">szSendMsg</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">iSendMsgLen</span> <span class="o">=</span> <span class="n">lstrlen</span><span class="p">(</span><span class="n">szSendMsg</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">iSendMsgLen</span> <span class="o">==</span> <span class="n">client</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="n">szSendMsg</span><span class="p">,</span><span class="n">iSendMsgLen</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">TCHAR</span> <span class="n">szRecvMsg</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+</span><span class='line'>      <span class="kt">int</span> <span class="n">iRecvMsgLen</span> <span class="o">=</span> <span class="n">pClient</span><span class="o">-&gt;</span><span class="n">Receive</span><span class="p">(</span><span class="n">szRecvMsg</span><span class="p">,</span><span class="mi">1024</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span> <span class="n">iRecvMsgLen</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">szRecvMsg</span><span class="p">[</span><span class="n">iRecvMsgLen</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK_MESSAGE</span><span class="p">(</span> <span class="n">iRecvMsgLen</span> <span class="o">==</span> <span class="n">iSendMsgLen</span><span class="p">,</span> <span class="s">&quot;Received Msg : &quot;</span> <span class="n">Receive</span><span class="p">(</span><span class="n">szRecvMsg</span><span class="p">,</span><span class="mi">1024</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">BOOST_CHECK_MESSAGE</span><span class="p">(</span> <span class="n">iRecvMsgLen</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">,</span>
+</span><span class='line'>      <span class="s">&quot;second recv = &quot;</span> <span class="n">GetErrorCode</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">pClient</span><span class="o">-&gt;</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>      <span class="n">SAFE_DELETE</span><span class="p">(</span><span class="n">pClient</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">server</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/* just receive (guess socket is nonblocking) */</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">test_socket_nonblocked_recv</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">MMSocket</span><span class="o">::</span><span class="n">BeginWinsock</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">PTCHAR</span> <span class="n">szHost</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;61.74.134.38&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">WORD</span> <span class="n">wPort</span> <span class="o">=</span> <span class="mi">80</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span> <span class="n">client</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">szHost</span><span class="p">,</span><span class="n">wPort</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">EnableNonblock</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">TCHAR</span> <span class="n">szRecvMsg</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">iRecvMsgLen</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">Receive</span><span class="p">(</span><span class="n">szRecvMsg</span><span class="p">,</span><span class="mi">1024</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">iRecvMsgLen</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">client</span><span class="p">.</span><span class="n">GetErrorCode</span><span class="p">()</span> <span class="o">==</span> <span class="n">WSAEWOULDBLOCK</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">client</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">MMSocket</span><span class="o">::</span><span class="n">EndWinsock</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/*</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">*TODO*</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">- connect</span>
+</span><span class='line'><span class="cm">- socket constructor</span>
+</span><span class='line'><span class="cm">- error code checking</span>
+</span><span class='line'><span class="cm">- invalid address</span>
+</span><span class='line'><span class="cm">- socket buffer</span>
+</span><span class='line'><span class="cm">- socket blocking</span>
+</span><span class='line'><span class="cm">- 연결 실패</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">*/</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">test_suite</span> <span class="o">*</span> <span class="n">test_MMSocket</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">test_suite</span> <span class="o">*</span> <span class="n">test</span> <span class="o">=</span> <span class="n">BOOST_TEST_SUITE</span><span class="p">(</span> <span class="s">&quot;MMSocket Test&quot;</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_winsock</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_socket_ctor</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_serversocket_create_with_port</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_serversocket_create_with_addr</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_serversocket_create_with_public_ip</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_serversocket_create_with_private_ip</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_serversocket_listen</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_socket_gethostbyname</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_socket_connect</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_socket_connect_fail</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_serversocket_accept</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_serversocket_accept_failed</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_socket_blocking</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_socket_linger</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_socket_recv_buffer</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_socket_send_buffer</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_socket_nagle</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_serversocket_reuseaddr</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_socket_send</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">test</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="n">BOOST_TEST_CASE</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">test_socket_nonblocked_recv</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="n">test</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2005-06-02T09:17:38+09:00" pubdate  data-updated="true" >Jun 2<span>nd</span>, 2005</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2005/06/02/boosttest/" data-via="reiot" data-counturl="http://reiot.com/2005/06/02/boosttest/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2005/06/02/boosttest/';
+        var disqus_url = 'http://reiot.com/2005/06/02/boosttest/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

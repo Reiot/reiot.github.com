@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>OTL Tips - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="[공지사항] 이 글은 더이상 업데이트되지 않으며, 최신 버전은 http://reiot.springnote.com/pages/87217에서 읽으실 수 있습니다. OTL은 ODBC를 잘 래핑한 오픈소스 DB 쿼리 라이브러리이다. 헤더 파일 하나만 있으면, 굳이 ODB...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2006/09/20/otl-tips/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">OTL Tips</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-09-20T16:52:38+09:00" pubdate  data-updated="true" >Sep 20<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong><em>[공지사항] 이 글은 더이상 업데이트되지 않으며, 최신 버전은<a href="http://reiot.springnote.com/pages/87217"> http://reiot.springnote.com/pages/87217</a>에서 읽으실 수 있습니다. </em></strong></p>
+
+<p><a href="http://otl.sourceforge.net/">OTL</a>은 ODBC를 잘 래핑한 오픈소스 DB 쿼리 라이브러리이다. 헤더 파일 하나만 있으면, 굳이 ODBC 래퍼 클래스를 만들지 않아도 충분히 안심하고 쓸 수 있으며, MYSQL, MSSQL, ORACLE 모두에 사용될 수 있다. 꽤 여러 곳에서 사용되고 있고, 평판도 좋다고 알려져 있어서 써봤는데, 대략 반년동안 사용해본 경험으로는, 차라리 OLE DB 를 쓰거나, ODBC 래핑 라이브러리를 어딘가에서 갖다 쓰는 게 더 개발기간을 단축시킬 수 있다고 판단된다. OTL 만의 미묘한 버그스러움이 너무 많기에&#8230; &#8221;&#8217;비추천&#8221;&#8217;이었다. 그러나 최근에 legacy code를 손보면서 raw ODBC 코드를 만지다가 결국 포기하고 다시 OTL을 도입한 적도 있어서, 뭐라고 표현하기는 난감하지만 하나 확실한 건, ODBC를 직접 만지는 것보다는 백만배 정도 나으므로, 한번 써보기를 권한다.</p>
+
+<h3>data binding</h3>
+
+<p>OTL type 과 ODBC type 과의 대응표를 잘못 기억했다가는 마감 시간에 낭패를 보는 경우가 있다. 특히 헷갈리는 타입들을 적어본다.</p>
+
+<table>
+<thead>
+<th>ODBC</th>
+<th>OTL</th>
+<td>bit</td>
+<td>int</td>
+<td>tinyint</td>
+<td>int</td>
+
+<tr>
+<td>smallint</td>
+<td>short</td>
+</tr>
+<tr>
+<td>datetime/smalldatetime</td>
+<td>char[N] (only for explicit-binding select)</td>
+</tr>
+</thead></table>
+
+
+<p>implicit_select 에서는 datetime -> string 바인딩은 지원되지 않으므로, convert() 등으로 변환해서 string 으로 받아야 한다. 그런데, explicit binding select 에서는 웬지 지원이 된다. 이유는&#8230;.모른다&#8230; <img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/icon_sad.gif' width='' height='' alt='(' title='('></p>
+
+<p>timestamp 타입을 받으려면 아무래도 otl_datetime 을 사용하는 편이 좋을 것 같다. 그리고, built-in type 으로 바인딩을 하는 것보다는, otl_value<T>를 쓰면 NULL 체크도 되니깐 추천.</p>
+
+<h3>output parameter + implicit_select</h3>
+
+<p>잘 되던 프로시저의 output 파라미터의 값이 이상해진다든지 꼬일 경우, 새로 추가된 로직에 select 가 들어가있는지를 확인할 것. (ODBC의 한계는 아닌 듯한데) OTL에서의 프로시저는 output 파라미터만을 가지든, implicit_select 만을 하든, 둘 중 하나만 해야 한다. 아래와 같이 둘 다 할 경우 바보가 된다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">procedure</span> <span class="n">test_proc</span>
+</span><span class='line'><span class="o">@</span><span class="n">param</span> <span class="nb">int</span> <span class="k">output</span>
+</span><span class='line'><span class="k">AS</span>
+</span><span class='line'><span class="p">....</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="n">something</span> <span class="k">FROM</span> <span class="n">tbl</span>
+</span><span class='line'><span class="n">IF</span> <span class="o">@@</span><span class="n">error</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@@</span><span class="n">rowcount</span> <span class="o">&lt;&gt;</span> <span class="n">N</span>
+</span><span class='line'><span class="p">....</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같은 코드들은 assignment select 로 해결하면 된다.</p>
+
+<h3>otl_implicit_select</h3>
+
+<p>output parameter 가 아닌, 내부에서 select 를 하는 프로시저의 경우 이 옵션을 명시해줘야 한다. 주의할 점은, datetime 이나 smalldatetime 을 내부에서 select 하고, OTL 에서 스트링으로 받으면 incompatible datatype 예외가 던져진다. 이때에는 varchar(N)으로 cast/convert 하는 것을 권장한다.</p>
+
+<h3>SET NOCOUNT ON/OFF</h3>
+
+<p>OTL/ODBC 의 가장 극악한 버그(?) 중의 하나이다.</p>
+
+<p>OTL 은 @@rowcount 와 다른 output parameter 또는 select 결과를 구분할 수 없다고 한다. 그래서, SET NOCOUNT 를 설정해야만 프로시저에서 값을 제대로 읽어올 수 있다. (이 문제 때문에 얼마나 많은 시간을 날려버렸던가!! 만약 OTL 에서 프로시저를 제대로 실행할 수 없다면 90% 는 이 문제라고 보면 된다.)</p>
+
+<p>주의할 점은, 프로시저 내부에서 다른 프로시저를 호출할 때 하위 프로시저에서 SET NOCOUNT OFF 를 해 버리면 그 뒤의 결과값 역시 꼬여버리게 된다는 점이다. 따라서, &#8221;&#8217;OTL 에서 직접 호출하는 프로시저의 시작과 끝에만 SET NOCOUNT 를 설정하고, 다른 프로시저에서는 절대 사용하지 말 것을 권장한다.&#8221;&#8217;</p>
+
+<h3>Multiple ResultSet</h3>
+
+<p>OTL/ODBC 에서는 공식 지원하지 않는다. 실제로 해보면 첫번째 result set 은 잘 받지만 두번째 이후부터는 eof() 가 되어 버린다. 결국, 해킹을 하거나 포기하는 수 밖에 없는데&#8230; 그래도 강제 실행을 시도해보겠다면 대략 다음과 같이 해 보기를&#8230; (내부 구조가 복잡해서 결국 포기했지만&#8230;)</p>
+
+<p>otl_stream stmt(1,
+&#8220;{CALL get_multi_resultset(:p&lt;int,in>)}&#8221;,
+conn,
+otl_implicit_select);
+stmt &lt;&lt;(int)1;
+otl_cur &amp; s = (**stmt.ss).cursor_struct;
+SQLRETURN result = SQLMoreResults( s.cda );</p>
+
+<h3>Binding varchar</h3>
+
+<p>문자열 바인딩시 NULL 을 위한 공간을 2바이트씩 예비해두어야 한다. 예를 들면, otl_statement 로 바인딩시 VARCHAR(10) 컬럼의 값을 읽거나 쓰려면 :XXX&lt;char[12]> 를 사용해야 한다는 뜻이다.</p>
+
+<h3>Constant SQL Statements</h3>
+
+<p>dynamic binding 이 필요없을 경우 otl_cursor::direct_exec() 를 사용해야 한다. &#8221;&#8217;반대로 말하면 otl_stream 에 static sql 을 사용하지 말라!&#8221;&#8217; rpc 를 알고 싶다면 otl_cursor::direct_exec() 의 리턴값을 사용하면 된다.</p>
+
+<h3>otl_connect::auto_commit_on()</h3>
+
+<p>otl_cursor::direct_exec() 를 이용해서 insert/delete 를 호출할 경우, 암시적인 트랜잭션이 발생해서 관련된 테이블이나 row 에 IX 를 걸게 된다. 따라서 다른 커넥션(otl_connect)에서 관련 테이블에 쿼리를 하게 되면 블로킹되는 불상사가 발생할 수 있다. 또는 아예 처음부터 커넥션 자체에 auto_commit_on()를 설정해서, 매 쿼리 실행마다 자동적으로 commit 를 하도록 하면 좋다.</p>
+
+<p>otl_stmt::set_commit()도 비슷한 역할을 하는 게 아닐까 추측한다.  그런데, 이 옵션을 켰을 때 동일 커넥션에 대해서 여러번 쿼리를 하는 경우 이미 사용중이라는 에러 메시지가 나온다. 도대체&#8230;. ㅠㅠ</p>
+
+<h3>ODBC Connection Pooling 기능 추가하기</h3>
+
+<p>OTL을 ThreadPooling 과 함께 사용하기 위해서는 Connection Pooling 이 필수적이다. (그렇지 않으면 Thread Local Storage를 사용해야 하는데, 이는 권장하지 않는다고 빌게이츠가 말했다 ㅎㅎ)</p>
+
+<p>테스트삼아, 단순한 SELECT COUNT(*) FROM XXX를 ThreadPooling 을 이용해서 로컬랜에 설치된 MSSQL 서버에 N번 쿼리를 큐잉하고 GetTickCount()로 시간을 체크해보았다. 이때, 풀링을 사용할 경우 평균 쿼리 시간이 5ms 정도 낮게 나왔으며 최소 쿼리 시간이 0 인 횟수가 꽤 많이 나왔다. 풀링을 하지 않을 경우에는 99% 의 확률로 10ms 이상의 시간이 소모되었다.</p>
+
+<pre><code>- 주의사항 i. shared environment 생성 전, 즉 rlogin() 전에 풀링을 설정해야 한다!! i. env 즉 프로세스당 풀링 대신 시스템 전체에서 연결을 풀링하고 싶다면 SQL_CP_ONE_PER_DRIVER(?)를 사용하면 된다.
+</code></pre>
+
+<p>inline
+bool SQL_OK ( SQLRETURN nResult )
+{
+return nResult == SQL_SUCCESS || nResult == SQL_SUCCESS_WITH_INFO;
+}</p>
+
+<p>void EnableConnectionPooling()
+{
+// enable connection pooling per environment
+SQLRETURN ret = SQLSetEnvAttr(SQL_NULL_HANDLE,
+SQL_ATTR_CONNECTION_POOLING,
+(LPVOID)SQL_CP_ONE_PER_HENV,
+0);
+BOOST_REQUIRE( SQL_OK(ret) );
+}</p>
+
+<p>void DisableConnectionPooling()
+{
+SQLRETURN ret = SQLSetEnvAttr(SQL_NULL_HANDLE,
+SQL_ATTR_CONNECTION_POOLING,
+(LPVOID)SQL_CP_OFF,
+0);
+BOOST_REQUIRE( SQL_OK(ret) );
+}</p>
+
+<p>bool IsConnectionPooling()
+{
+DWORD value;
+SQLRETURN ret = SQLGetEnvAttr(SQL_NULL_HANDLE,
+SQL_ATTR_CONNECTION_POOLING,
+&amp;value,
+0,
+NULL);
+BOOST_REQUIRE( SQL_OK(ret) );</p>
+
+<p>if ( value == SQL_CP_ONE_PER_HENV || value == SQL_CP_ONE_PER_DRIVER )
+{
+return true;
+}
+else if ( value == SQL_CP_OFF )
+{
+return false;
+}
+else
+{
+BOOST_ERROR( &#8220;error&#8221; );
+}
+return false;
+}</p>
+
+<h3>precreated handle 사용하기</h3>
+
+<p>Connection Pooling 을 사용할 때, otl_connect::rlogin()을 쓰게 되면 매번마다 id/passwd 를 파싱하고 environment handle 을 생성하는 등 불필요한 부하가 있다. 따라서 미리 shared environment handle 을 하나 할당하고, hdbc handle 도 만들어서 객체를 생성하면 비교적 나을 것이다.</p>
+
+<h3>스트림 풀링</h3>
+
+<p>스트림의 풀이 otl_connect 객체 내부에 존재하므로, 이 객체를 항상적으로 유지해야만 풀링의 효과를 볼 수 있다.</p>
+
+<h3>테스트 결과</h3>
+
+<p>1000개의 단순쿼리(})를 ThreadPooling을 이용해서 처리, 그 시간을 살펴보았다. 첫번째를 제외하고는 모든 상황에서</p>
+
+<pre><code>- NO_POOLING : 매 작업마다 재연결 시도
+- POOLING : 단지 ODBC Connection Pooling 옵션만 설정하고 위와 같음
+- ODBC_POOLING : 미리 env 1개를 생성하고 매 작업마다 hdbc handle 만 생성해서 쿼리하기
+- OTL_POOLING : 아예 otl_connect 객체를 자체 풀링시킴
+- OTL_POOLING_NO_STREAM_POOLING : 위와 같지만 ODBC 풀링과 스트림 풀링을 끈 상태
+</code></pre>
+
+<table>
+<thead>
+<th>Query Type</th>
+<th>minTick</th>
+<th>maxTick</th>
+<th>avgTick</th>
+<th>#threads</th>
+<td>NO_POOLING</td>
+<td>0</td>
+<td>47</td>
+<td>12</td>
+<td>4</td>
+<td>POOLING</td>
+<td>0</td>
+<td>47</td>
+<td>10</td>
+<td>4</td>
+
+<tr>
+<td>ODBC_POOLING</td>
+<td>0</td>
+<td>78</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr>
+<td>OTL_POOLING_NO_STREAM_POOLING</td>
+<td>0</td>
+<td>78</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>OTL_POOLING</td>
+<td>0</td>
+<td>32</td>
+<td>0</td>
+<td>2</td>
+</tr>
+</thead></table>
+
+
+<p>결론적으로 otl_connect 객체를 자체적으로 풀링하는 방법이 가장 빨랐다. 그러나, 스트림 풀링을 끄면 2위인 ODBC_POOLING과 비슷한 걸로 봐서 스트림 풀링의 비용이 꽤 높다는 것을 알 수 있다. (쿼리 자체를 좀더 복잡하게 해서 테스트해야 나을 거 같다.)</p>
+
+<p>see also:</p>
+
+<pre><code>- http://snaiper80.cafe24.com/wiki/wiki.cgi?OTL
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-09-20T16:52:38+09:00" pubdate  data-updated="true" >Sep 20<span>th</span>, 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/database/'>database</a>, <a class='category' href='/blog/categories/programming/'>programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/09/20/otl-tips/" data-via="reiot" data-counturl="http://reiot.com/2006/09/20/otl-tips/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2006/09/20/otl-tips/';
+        var disqus_url = 'http://reiot.com/2006/09/20/otl-tips/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

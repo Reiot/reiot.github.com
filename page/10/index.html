@@ -1,0 +1,654 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="Variable PriorityEnvironment VariablesPOSTGETCookieSession ( server side cached variables )">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/10/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/13/env-getpost-cookie-session/">ENV &gt; GET/POST &gt; COOKIE &gt; Session</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-13T11:56:00+09:00" pubdate  data-updated="true" >Sep 13<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Variable Priority</p>
+
+<ul>
+<li>Environment Variables</li>
+<li>POST</li>
+<li>GET</li>
+<li>Cookie</li>
+<li>Session ( server side cached variables )</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/13/cookie-expire-time/">Cookie Expire Time</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-13T11:52:12+09:00" pubdate  data-updated="true" >Sep 13<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>expire 를 지정하지 않으면 브라우저를 끄면 사라진다. :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/12/prefilledids-not-supported/">Prefilled_ids Not Supported</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-12T10:34:29+09:00" pubdate  data-updated="true" >Sep 12<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>정책적인 문제로, 친구 초대시 무조건 직접 친구를 선택해야 한다. 즉 커스텀 다이얼로그에서 페이스북 친구 초대로 prefilled_ids 를 넘길 수는 없으므로 포기할 것.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/11/facebook-canvas-oauth-todo/">Facebook Canvas OAuth TODO</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-11T21:53:15+09:00" pubdate  data-updated="true" >Sep 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>django middleware</li>
+<li>appengine middleware</li>
+<li>firefox test</li>
+<li>IE test</li>
+<li><strike>safari cookie test</strike></li>
+<li>local expire test: event .. </li>
+<li>fbml render test: multi friend invite, fixed friends request after custom dialog</li>
+<li>canvas resize</li>
+<li><strike>invalid access: logout, no authorize, no perm</strike></li>
+<li>fql test: bookmark, dashboard,  </li>
+<li>bulk query graph API</li>
+<li>cookie exist but logout => handle with first graph api call</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/11/algorithm-for-facebook-canvas-oauth/">Algorithm for Facebook Canvas OAuth</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-11T20:59:00+09:00" pubdate  data-updated="true" >Sep 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Currently I have no working sample. :)</p>
+
+<ul>
+<li><p>no signed_request: without facebook login</p></li>
+<li><p><em>redirect to facebook or app page.</em></p></li>
+<li><p>with signed_request: logon user</p></li>
+<li>no user_id &amp; oauth_token: unauthorized. permission dialog needed.</li>
+</ul>
+
+
+<h2>- <em><em>top.location.href=</em><a href="https://graph.facebook.com/oauth/authorize?client_id=XXX&amp;redirect_uri=YYY&amp;signed_request=ZZZ">https://graph.facebook.com/oauth/authorize?client_id=XXX&amp;redirect_uri=YYY&amp;signed_request=ZZZ</a></em></h2>
+
+<p><em>see also **<a href="http://www.phpfour.com/blog/2010/05/quick-start-on-new-facebook-php-sdk-iframe-based/">http://www.phpfour.com/blog/2010/05/quick-start-on-new-facebook-php-sdk-iframe-based/</a></em></p>
+
+<ul>
+<li>with user_id &amp; oauth_token: authorized</li>
+<li><p>oauth token expired</p></li>
+<li><p>make reload parent page to get new signed_request.</p></li>
+<li><p>oauth token ok</p></li>
+<li>signed_request not from cookie: first access (today).</li>
+<li>set cookie signed_request with P3P header.</li>
+<li><p>&lt;Cross Domain Cookie Things</p></li>
+<li><p>signed_request from cookie: </p></li>
+<li>but actually user ready logout: first Graph API call can verify it.</li>
+<li>finally arrived.</li>
+</ul>
+
+
+<p>Solutions for cross domain cookie things:</p>
+
+<ul>
+<li>append signed_request it every GET/POST/Ajax</li>
+<li>require every anchor(a tag) need signed_request as argument</li>
+<li>require every form need middleware need signed_request as hidden input</li>
+<li><p>so, make middleware with heavy regular expression~</p></li>
+<li><p>require every ajax request need signed_request.</p></li>
+<li><p>redirect to make cookie</p></li>
+<li>modern browser except safari will send cookie at 2nd request.</li>
+<li><p>so its safe with signed_request from GET.</p></li>
+<li><p>safari doesnt. next request will miss signed_request OMG.</p></li>
+<li>just redirect to cross-domain-helper.html </li>
+<li>auto submit with POST. (GET will work?)</li>
+<li>redirect to original page.</li>
+<li>done.</li>
+</ul>
+
+
+<p>% every view should have p3p &amp; set-cookie header.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/11/useful-devappserverpy-options/">Useful devappserver.py Options</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-11T19:36:07+09:00" pubdate  data-updated="true" >Sep 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>address 0.0.0.0</li>
+<li>port</li>
+<li>debug: show logging.debug()</li>
+<li>datastore_path</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/11/facebook-test-accounts/">Facebook Test Accounts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-11T19:34:25+09:00" pubdate  data-updated="true" >Sep 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>테스트 계정은 앱의 개발자가 될 수 없다.</li>
+<li>리얼 계정과 테스트 계정은 서로 서로 볼 수 없다.</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/11/fbmulti-friend-input/">Fb:multi-friend-input</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-11T09:53:00+09:00" pubdate  data-updated="true" >Sep 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>이건 그냥 여러 명을 고를 수 있는 TEXT 필드다.</p>
+
+<p>prefilled_ids 를 이용하면, 게임 다이얼로그에서 미리 지정된 사용자들을 넣어둘 수 있을 것 같은데, 매뉴얼에 의하면 request-form 에서는 안된다고 한다. </p>
+
+<p>가만히 생각해보니 어차피 얘들은 결과적으로 request-form 안에 hidden input 을 프로그래밍해서 넣어두면 되지 않을까..으음</p>
+
+<p>see also</p>
+
+<ul>
+<li><a href="http://developers.facebook.com/docs/reference/fbml/multi-friend-input">http://developers.facebook.com/docs/reference/fbml/multi-friend-input</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/11/safari-cross-domain-cookie-solution/">Safari Cross Domain Cookie Solution</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-11T09:33:00+09:00" pubdate  data-updated="true" >Sep 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>페이스북 Canvas IFrame 에서 OAuth 2.0 옵션을 켤 경우, 페이스북은 GET 으로 signed_request 를 보낸다.</p>
+
+<ul>
+<li>쿠키에 signed_request 가 없는데 GET 에 있으면 최초 접속으로 간주. (보통 다른 브라우저는 보내주니까) 2번 뷰로 redirect 시킨다. 아예 둘 다 없으면 잘못된 접근이다.</li>
+<li>[request_cookie] 이 페이지의 HTML 에 form 을 만들고 body.onload 에서 form.submit() POST로 호출. 이때 첫 페이지에 따라온 signed_request 를 함께 보내야 한다.</li>
+<li>[request_cookie] 지정된 원래 페이지로 다시 redirect 할 것. 이제부터 쿠키가 만들어져야 한다.</li>
+</ul>
+
+
+<p>이때 P3P 헤더를 맨 앞에 지정할 것. 가급적 django middleware 를 이용. 즉 1개의 뷰에서 GET/POST 핸들링을 추가하는 것만으로 해결할 수 있다.</p>
+
+<blockquote><p>response[P3P] = CP=NOI DSP COR NID ADMa OPTa OUR NOR</p></blockquote>
+
+
+<p>see also <a href="http://chitika.com/bytes/2010/04/cross-domain-cookies-in-safari/">http://chitika.com/bytes/2010/04/cross-domain-cookies-in-safari/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/11/automatic-form-submit/">Automatic Form Submit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-11T09:17:58+09:00" pubdate  data-updated="true" >Sep 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>body 의 onload 콜백에서 document.forms[formname].submit() 를 호출하기.</p>
+
+<p>굳이 ajax 라이브러리는 필요없다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/11/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/9/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

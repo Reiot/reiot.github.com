@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>WebDashboard &amp; CCTray - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="IIS와 CruiseControl.NET(이하 CCNET)의 WebDashBoard를 이용하면 최근 빌드 현황이나 그래프를 웹에서 관리할 수 있다. 그 중에서도 가장 매력적인 기능은, - 사실 우리 팀에게 가장 필요한 - 바로 저 &#8220;Force Build...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2007/10/11/webdashboard-cctray/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">WebDashboard &amp; CCTray</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-10-11T07:01:58+09:00" pubdate  data-updated="true" >Oct 11<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://farm3.static.flickr.com/2400/1531958729_78072a6f59_o.jpg"><img class='' src='http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg' width='' height='' alt='' title=''></a></p>
+
+<p>IIS와 CruiseControl.NET(이하 CCNET)의 <a href="http://ccnet.sourceforge.net/CCNET/Web%20Dashboard.html">WebDashBoard</a>를 이용하면 최근 빌드 현황이나 그래프를 웹에서 관리할 수 있다. 그 중에서도 가장 매력적인 기능은, - 사실 우리 팀에게 가장 필요한 - 바로 저 &#8220;Force Build&#8221; 인데, 웹에서 버튼만 눌러서 자동적으로 빌드 -> 배포를 할 수 있게 해주는 기능이다. 우리 팀처럼 단지 배포용 빌드 머신만을 운용하고 있는 작은 조직에게는, CCNET의 수많은 자동화 기능보다는 저런 단순하면서도 아름다운 기능이 제일 절실하게 와닿는다고나 할까? (사실 빌드 머신까지는 한발짝 거리인데, SVN 업데이트 -> Visual Studio 빌드 -> 배포 버전 빌드..라는 3단계를 무지 귀찮아하는 것 같다 -_-)</p>
+
+<p><a href="http://farm3.static.flickr.com/2191/1532824658_534e3b8fbe_o.jpg"><img class='' src='http://farm3.static.flickr.com/2191/1532824658_af03210327.jpg' width='' height='' alt='' title=''></a></p>
+
+<p><a href="http://ccnet.sourceforge.net/CCNET/CCTray.html">CCTray</a>는 CCNET에서 제공하는 트레이에서 실행되는 자바 유틸리티로, 서버의 빌드 현황을 실시간으로 모니터링할 때 사용된다. 이 넘도 마찬가지로 강제 빌드 기능을 제공한다.  맨 위의 스크린샷에서도 볼 수 있듯이, 원래는  WebDashBoard 에서 다운받아서 실행할 수 있는 듯한데, 집에서 테스트해보니 경고음만 나오고 아무 것도 실행되지 않았다. 결국은 그냥 인스톨러를 이용해서 설치해서 사용중인데 별 문제는 없는 듯하다.</p>
+
+<p>이제 대충 다음과 같은 것들을 테스트해보는 것만 남았다. 과연 어느 세월에 이걸 다 해볼지는 의문이지만.</p>
+
+<pre><code>- CCStatistics 붙여보기
+- CppUnitLite2 연동
+- SVN Revision 을 클라이언트 rc 파일에 넣기
+- Mantis 연동하기
+- exe, pdb 파일을 버전별로 백업하기
+- 인스톨러 연동하기
+</code></pre>
+
+<p>이렇게 적다 보니, 과연 이걸 다 테스트해서 얼마나 더 좋은 효율을 얻을 수 있을지가 심히 궁금해진다. 에휴.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-10-11T07:01:58+09:00" pubdate  data-updated="true" >Oct 11<span>th</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2007/10/11/webdashboard-cctray/" data-via="reiot" data-counturl="http://reiot.com/2007/10/11/webdashboard-cctray/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2007/10/11/webdashboard-cctray/';
+        var disqus_url = 'http://reiot.com/2007/10/11/webdashboard-cctray/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

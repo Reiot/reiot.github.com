@@ -1,0 +1,933 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="회사에서 Mantis 1.0.8 을 몇 개월 동안 잘 쓰고 있다가, 최근 (Trac에서는 이미 지원하고 있는) Roadmap 기능이 들어간 1.1 버전이 나왔다는 소식을 듣고, 역시나 업그레이드에 도전했다가 한글 문제 때문에 계속 포기해야만 했다. 그러던 오늘 오...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/36/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/01/24/upgrade-mantis-111/">Upgrade Mantis 1.1.1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-01-24T07:47:50+09:00" pubdate  data-updated="true" >Jan 24<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&h=&cache=cache"><img class='' src='http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&h=&cache=cache' width='' height='' alt='mantis roadmap' title='mantis roadmap'></a></p>
+
+<p>회사에서 Mantis 1.0.8 을 몇 개월 동안 잘 쓰고 있다가, 최근 (Trac에서는 이미 지원하고 있는) <a href="http://www.mantisbt.org/wiki/doku.php/mantisbt:features:roadmap">Roadmap</a> 기능이 들어간 1.1 버전이 나왔다는 소식을 듣고, 역시나 업그레이드에 도전했다가 한글 문제 때문에 계속 포기해야만 했다. 그러던 오늘 오후, 이번에야말로 기필코 성공하리라고 마음먹고 4시간 넘게 삽질을 했지만 또다시 실패하고 &#8220;Fail to upgrade Mantis&#8221;라는 제목으로 글을 쓰다가 우연히도 성공해버렸다. 원래는 구차한 실패 과정을 낱낱히 써놨지만, 모두 생략하고 바로 결론으로 넘어가겠다.</p>
+
+<blockquote><p>OS : Windows Server 2003 R2</p><p>Web Server  : Xampp apache2</p><p>DB : Xampp mysql 5.0.45 community</p><p>Mantis 1.0.8 + korean_utf8 설정으로 한글 사용중</p><p>Encoding : latin1 + latin1_general_ci</p></blockquote>
+
+
+<p><a href="http://www.mantisbt.org/wiki/doku.php/mantisbt:upgrade_to_utf8">기본적인 팁</a>을 읽고 다양한 시도를 거쳐서 실패했는데 결과적으로 가장 핵심은 <a href="http://textsnippets.com/posts/show/84">이 문서</a>에 들어 있었다. 나의 경우 굳이 <a href="http://www.gnu.org/software/libiconv/">iconv</a>를 통하지 않고서도 한글 보존에 성공했다.</p>
+
+<blockquote><p>mysqldump -u username -p bugtracker &#8211;default-character-set=latin1 > dump.sql</p><p>SQL문의 모든 latin1 을 utf8 로 변경</p><p>mysql -u username -p &#8211;execute=&#8221;create database bugtracker2 default character set utf8;&#8221;</p><p>mysql -u username -p bugtracker2 &#8211;default-character-set=utf8 < dump.sql</p></blockquote>
+
+
+<p>업그레이드에 성공한 것도 무지 기쁘지만, <a href="http://kldp.org/node/32987">vim 에서 utf-8 포맷의 문서를 자동으로 읽어 들이고 변환할 수 있다</a>는 것을 알게 되어서 더욱 기쁘다. enc, tenc, fenc, fencs 옵션을 잊지 말자.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/01/22/get-precompiled-boost-library/">Get Precompiled Boost Library</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-01-22T08:07:03+09:00" pubdate  data-updated="true" >Jan 22<span>nd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.boost-consulting.com/products/free" title="boost-consulting.PNG"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/boost-consulting.PNG' width='' height='' alt='boost-consulting.PNG' title='boost-consulting.PNG'></a></p>
+
+<p>다들 아는 사실이겠지만, boost-consulting 에 가면<a href="http://www.boost-consulting.com/products/free"> Visual Studio 용으로 컴파일된 바이너리를 다운 받을 수 있는 인스톨러</a>를 제공한다. VS2005용으로 빌드된 라이브러리를 다 다운받을 경우 대략 1.8G 정도의 분량을 다운받아야 한다. 이 기회에 회사 프로젝트의 boost도 슬슬 업그레이드해야 겠다.</p>
+
+<p>참고 삼아서, 최신 Boost.Test 에서는 단 6줄 만으로 간단한 테스트 프로젝트를 만들 수 있다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="cp">#define BOOST_TEST_MAIN</span>
+</span><span class='line'><span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span>
+</span><span class='line'><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span> <span class="n">test1</span> <span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/01/19/punk-buster/">Punk Buster</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-01-19T10:39:21+09:00" pubdate  data-updated="true" >Jan 19<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class='' src='http://www.evenbalance.com/art/pblogo.gif' width='' height='' alt='' title=''></p>
+
+<p><a href="http://www.evenbalance.com">Punk Buster </a>는 <a href="http://www.evenbalance.com/index.php?page=support.php">퀘이크, 둠, 콜 오브 듀티, 배틀 필드, 그리고 크라이시스등 유수 FPS 게임들이 채택</a>한 안티 해킹 툴이다. 국산 게임으로는 워락이 유일한 듯하다.</p>
+
+<p>국산 G모 프로그램과의 그렇게 현격한 차이가 있어 보이지 않지만, <a href="http://www.evenbalance.com/index.php?page=info.php">몇 가지 독특한 기능들</a>이 들어 있는 것 같다.</p>
+
+<pre><code>- dedicated server 의 관리자는 [PBBAN](http://www.pbbans.com) 이라는 사이트로 찌질이 목록을 내보내거나 받아올 수 있는 것 같다.  XBOX Live 를 연상케하는 이런 시스템을, 국산 온라인 게임들이 채택하고 서로 공유한다면 꽤 유용할 법도 하다.
+- 사용자 클라이언트의 스크린샷을 캡처하거나, 키바인딩 정보를 서버로 전송시킬수 있다.  가만히 생각해보면 별거 아닌 기능이지만, 각종 불법적인 행위를 준비하고 있는 증거를 입수한다면 ban을 항의하는 사용자들에게 증거로 보여줄 수도 있을것 같다. 다만 이게 혹시나 프라이버시 침해로 이어지는건 아닌지 궁금해진다.
+- 욕설이나 험담 등으로 구성된 이름을 체크해주기도 한단다. 서버 프로그래머의 짐을 덜어주는 소소하지만 좋은 기능인 듯?
+</code></pre>
+
+<p>PB의 핵심적인 특장점을 꼽아보라면, 다른 것보다는 아무래도 유연한 결제 방식이 아닐까 한다. 그것은 바로 년단위 갱신이 아니라 월단위로 고정액을 지불할 수 있다는 점인데, 게임의 흥망성쇠가 불분명한 소규모 게임 업체들에게 적합한 방식이 아닐까 한다. 이런 아름다운 모습은 국산 보안 업체들이 꼭 본받았으면 한다. 단점이라면 아무래도 영어라는 것 정도? (이게 생각보다 큰 짐으로 다가오지만;;;)</p>
+
+<p>ps. <a href="http://www.google.co.kr/search?aq=f&amp;complete=1&amp;hl=ko&amp;newwindow=1&amp;client=firefox-a&amp;rls=org.mozilla%3Ako%3Aofficial&amp;hs=3lZ&amp;q=%EC%9B%8C%EB%A1%9D+%ED%95%B5&amp;btnG=%EA%B2%80%EC%83%89&amp;lr=">워록 핵</a>으로 검색해보고 대략 좌절했다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/01/19/cheat-engine/">Cheat Engine</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-01-19T09:59:32+09:00" pubdate  data-updated="true" >Jan 19<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/cheatenginecokr.png" title="cheatenginecokr.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/cheatenginecokr.png' width='' height='' alt='cheatenginecokr.png' title='cheatenginecokr.png'></a></p>
+
+<p><a href="http://www.cheatengine.co.kr/main/">이  씁쓸한 장면</a>은 메모리 해킹 툴로 널리 알려진 <a href="http://www.cheatengine.org/">Cheat Engine</a>에 관해 구글링하다가 발견한 순간의 기록이다. 게임 개발자들에게는 아득하고 슬픈 현실이지만, 여기에는 각종 국산 온라인 게임들을 해킹하는 법, 핵을 사고 판다는 사람들로 북적이고 있었다. 한때 나와 내 동료들이 만들었던 게임의 이름이 올라와 있기에 더더욱 기분이 묘해지는 찰나에, 보다 정확한 정보를 얻기 위해서 회원 가입을 신청하려다가 <a href="http://www.cheatengine.co.kr/member/register_agree.php">미묘한 문구로 가득찬 이용 약관</a>을 발견하고 그냥 포기해버렸다.</p>
+
+<p>역시 뚫고 뚤리는 해킹과 보안은 전문가에게 맡겨두고, 게임 자체에만 집중하는 편이 비용 대비 효율이 좋다는 것은 명백하다. 그러나, <a href="http://forum.cheatengine.org/viewtopic.php?p=1901549&amp;sid=00767664a2027dd57eca014a11e07fb9">비싸게 주고 산 보안 프로그램들을 bypassing 하려는 노력은 오늘도 계속되고 있다</a>는 점을 간과해서는 안될 것이다. 역시나 어셈블리를 공부해야 하나&#8230;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/01/15/svn-path-based-auth/">SVN Path Based Auth</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-01-15T08:56:45+09:00" pubdate  data-updated="true" >Jan 15<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>svn + apache, 즉 mod_authz_svn  으로 권한 관리를 할 경우, 디자이너나 기획자에게 특정 폴더의 접근 권한을 열어 줘야 할 경우가 종종 있다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">/</span>
+</span><span class='line'><span class="o">/</span><span class="nt">bin</span>
+</span><span class='line'><span class="o">/</span><span class="nt">src</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이 경우 @designer 들이 소스 코드를 못보게 하면서 그래픽 리소스 폴더에 대해서는 읽고 쓰기를 가능하게 해야 한다면, group.conf 를 어떻게 작성해야 할까?</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">[/]</span>
+</span><span class='line'><span class="o">*</span> <span class="o">=</span> <span class="nt">rw</span>
+</span><span class='line'><span class="o">[/</span><span class="nt">src</span><span class="o">]</span>
+</span><span class='line'><span class="k">@designer</span> <span class="o">=</span>
+</span><span class='line'><span class="k">@programmer</span> <span class="o">=</span> <span class="nt">rw</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Browse Repository 를 하기 위해서는 최상위 경로에 읽기 권한이 있어야 한다는 점을 감안하면 이게 정답일 수 있지만, 소스 폴더가 여러 개일 경우라면 꽤 피곤한 일이 된다. 나도 처음에는 이렇게 밖에 안되는 줄 알고 포기하고 있었으나 오늘 진짜 답을 알게 되었다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">[/</span><span class="nt">bin</span><span class="o">]</span>
+</span><span class='line'><span class="k">@designer</span> <span class="o">=</span> <span class="nt">rw</span>
+</span><span class='line'><span class="o">[/]</span>
+</span><span class='line'><span class="k">@designer</span> <span class="o">=</span>
+</span><span class='line'><span class="k">@programmer</span> <span class="o">=</span> <span class="nt">rw</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>SVN의 인증 시스템은 <a href="http://svnbook.red-bean.com/en/1.4/svn.serverconfig.pathbasedauthz.html">선언한 순서대로 검색을 한다는 단순한 원칙</a>에 기반하기 때문에, 예외 사항이 있다면 가장 먼저 선언해버리면 최상위 경로에 대한 권한에 대해서 걱정하지 않아도 된다는 점이다. 다만 Browse Repository 를 통해서 root 에서부터 찾아가는 것이 막혀있기 때문에, 처음 체크아웃을 할 때 정확한 URL을 가르쳐줘야 한다.</p>
+
+<p>이외에도 다중 프로젝트를 관리할 때 동일한 사용자가 서로 다른 그룹에 속할 경우 미묘한 오류가 생길 수 있다. 아래와 같이 팀별로 자신의 프로젝트만 접근할 수 있도록 하고 싶다고 가정하자.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">[</span><span class="nt">groups</span><span class="o">]</span>
+</span><span class='line'><span class="k">@admin</span> <span class="o">=</span> <span class="nt">admin1</span>
+</span><span class='line'><span class="k">@dev1</span> <span class="o">=</span> <span class="nt">admin1</span><span class="o">,</span> <span class="nt">user1</span><span class="o">,</span> <span class="nt">user2</span><span class="o">,</span> <span class="o">...</span>
+</span><span class='line'><span class="k">@dev2</span> <span class="o">=</span> <span class="nt">admin1</span><span class="o">,</span> <span class="nt">user3</span><span class="o">,</span> <span class="nt">user4</span><span class="o">,</span> <span class="o">...</span>
+</span><span class='line'><span class="o">[/]</span>
+</span><span class='line'><span class="k">@admin</span> <span class="o">=</span> <span class="nt">rw</span>
+</span><span class='line'><span class="o">[</span><span class="nt">project1</span><span class="o">:/]</span>
+</span><span class='line'><span class="k">@dev1</span> <span class="o">=</span> <span class="nt">rw</span>
+</span><span class='line'><span class="k">@dev2</span> <span class="o">=</span>
+</span><span class='line'><span class="o">[</span><span class="nt">project2</span><span class="o">:/]</span>
+</span><span class='line'><span class="k">@dev1</span> <span class="o">=</span>
+</span><span class='line'><span class="k">@dev2</span> <span class="o">=</span> <span class="nt">rw</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>원래의 의도는 관리자는 모든 프로젝트에 접근할 수 있도록 하는 것이었는데, 실제로는 양쪽 모두 접근할수 없게 된다. 이 경우, 관리자를 팀에서 제외하면 사실 문제는 간단해진다 ;)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/11/12/kgc-2007-2nd-day/">KGC 2007 2nd Day</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-11-12T02:54:06+09:00" pubdate  data-updated="true" >Nov 12<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>see also <a href="http://reiot.cafe24.com/2007/11/08/kgc-2007-1st-day/">KGC 2007 1st Day</a></p>
+
+<p>아침에 호적등본을 뗀답시고 꾸물럭거리다가 키노트를 놓쳐버렸다.</p>
+
+<p><font size="5">Building Gamer communities in the West</font></p>
+
+<p>서구 게이머 커뮤니티 관리기법을 설명하는 줄 알고 갔는데, 알고보니 Outspark라는 퍼블리셔의 홍보 세션이었다.  우리 나라에서 사장당할 뻔한 Piesta 라는 MMO를 성공적으로(?) 퍼블리싱해냈고, 또 다른 건수를 찾아서 들어왔다고 봐도 무방할 정도. (수잔 언니 실망입니다.) 그래도 한 두 마디 정도는 건질 수 있었다.</p>
+
+<ul>
+<li>서구 게이머들은 GM과의 교류 자체를 즐기며, 상당히 중요시한다.</li>
+<li>서구 게이머들은 게임을 하면서 서핑에서부터 DVD 감상에 이르기까지, 멀티태스킹이 생활화되어 있으므로 윈도우 모드에서의 안정성을 강화해야 한다.</li>
+<li>미국 네트워크 특성상, 배포할 때 용량은 500M 이하로 가볍게 하는 것이 좋다.</li>
+<li>GM들이 게임을 손쉽게 바꿔낼 수 있도록 지원해줘야 한다</li>
+</ul>
+
+
+<p><font size="5">게임 소프트웨어 성능 및 품질 관리</font></p>
+
+<p>오늘의 베스트 세션. 강사가 정말 달변이었다. Visual Studio 2008의 성능 측정 관련 기능들에 대한 소개와 함께 재미있는 이야기를 많이 들었다.</p>
+
+<ul>
+<li>Active Report 를 만든 회사에서 있었던 사실. 사내 모듈 재사용성을 높이기 위해서, 자신의 컴포넌트가 많이 사용될수록 스톡 옵션을 더 많이 부여하기로 하니, 웬걸 사람들이 다들 재사용될만한 컴포넌트만 찍어내고 있는게 아닌가. 고민을 하다가, 남의 컴포넌트를 많이 사용할수록 스톡 옵션을 부여하는 정책으로 바꾸었더니, 피드백이 강화되고 컴포넌트들이 더욱 빨리 안정화되었다고 한다.</li>
+<li>XP의 경우 출시전 버그 1개를 수정하는 비용이 500만원이었는데, 출시후에는 개당 1억 정도(기간으로 따지면 7-10일 정도)의 비용이 든다고 한다.</li>
+</ul>
+
+
+<p><font size="5">Xbox Live Arcade에 대해</font></p>
+
+<p>역시 어제의 세션과 중복된 내용이 많았다. 마이크로소프트 이러시면 곤란합니다.</p>
+
+<ul>
+<li>라이브 아케이드 게임의 경우 정품 전환율이 18-20% 정도.</li>
+<li>게임이 출시되면 보통 한 달 만에 35만번 정도의 다운로드가 발생한다.</li>
+<li>첫 두 달안에 35% 정도가 판매되기 때문에, 초기 판매량을 보면 총 수익을 산정해낼 수 잇다.</li>
+<li><font color="#ffffff">XNA로는 마켓플레이스에서 산 특정 프리미엄 아이템 구매 정보를 검색할 수 없다. 오직 XDK로만 가능하다.</font></li>
+</ul>
+
+
+<p><font size="5">Massive 를 통한 효과적인 게임 내 광고 사업</font></p>
+
+<p>오늘도 어김없이 질문을 하고 선물을 받았다. 360용 위닝일레븐10. 캬하하!</p>
+
+<ul>
+<li>이제 한국에 들어올 준비를 하는 걸로 봐서, 아직 한국내 공식 파트너는 없는 모양이다. 단지 XBOX 360 만으로는 수입이 아쉬웠던 모양이다.</li>
+<li>매시브 광고는, 화면의 55%를 10초동안 누적해서 보여주면 1임프레션을 얻는다. 관련 디버깅 UI가 인상적었는데, 우리도 시간 카운트 및 임프레션 카운트를 보여주는 비슷한 넘을 구현해봐야겠다.</li>
+<li>70k의 정적 메모리, 15k의 힙 메모리 사용량을 자랑(?)한다. 그럭저럭 가벼운 모양이다.</li>
+<li>3-5일 정도만에 통합이 가능하고, 5-8일 정도만에 광고 배치를 완료할 수 있다고 한다. 3회의 QA를 거쳐서 최종 릴리즈가 되는데 이때 각각 3-5일 정도의 기간이 소모된다.</li>
+<li>역시나 사용자가 매시브 서버의 포트를 방화벽으로 막아버리면 대책이 없다고 한다. 결국 이 몫은 개발사가 손해를 봐야 된다는 이야기인데, 무턱대고 광고 only 의 비지니스 모델을 채택했다가는 큰 피해를 입을 수도 있을 것 같다. 왜냐하면 광고를 막는 방법이라고 어딘가에 포스팅이 되면 다들 그걸 사용해버리기 때문.</li>
+<li>더블 퓨전에 비해 뭐가 낫냐고 물어보니, 아무래도 오랜 서비스를 통한 높은 안정성이라는 이야기를 들었다. 흠. 임프레션 대비 높은 개발사 수익..이면 더 좋겠는데.</li>
+</ul>
+
+
+<p> see also <a href="http://reiot.cafe24.com/2007/11/08/kgc-2007-1st-day/">KGC 2007 1st Day</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/11/09/kgc-2007-1st-day/">KGC 2007 1st Day</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-11-09T08:20:44+09:00" pubdate  data-updated="true" >Nov 9<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>see also <a href="http://reiot.cafe24.com/2007/11/11/kgc-2007-2nd-day/">KGC 2007 2nd Day</a></p>
+
+<p><font size="5">KEYNOTE </font></p>
+
+<p>분명 한글 제목이 &#8220;상업적인 3D 엔진을 사용하여 MMO를 개발하는 도전&#8221;인데 영문 제목은 &#8220;Thin Transaction Clients: Delivering games fast and furious&#8221; &#8230; 쉽게 말해서 오타라는 뜻이다. 키노트의 주제로는 좀 어울리지 않을 정도로 프로그래밍에 치우친 내용이었는데, 내용 자체는 패러다임 시프트라고 부를 수 있을 정도로 참신했다. 실제 코드가 한번도 나오지 않아서 확실히 이해한 것은 아니지만, 간단하게 메모한 내용을 정리해보면</p>
+
+<ul>
+<li>TTC는 스크립트의 개념과 유사한데, 좀 더 분산처리라든지 멀티티어, 멀티쓰레딩(또는 멀티코어), 스트리밍에 친화적인 개념이다.</li>
+<li>가령 클라이언트를 잘게 dll로 쪼개고 그 안에 각종 텍스처나 사운드 같은 asset들을 담을 수 있도록 하고, 서버에서 스트리밍으로 이걸 다운받아서 실행한다고 보면 그럭저럭 비슷하다고나 할까? 아니면 파이썬으로 클라이언트를 만들었는데 각각의 파이썬 코드들은 다운받는다고 생각하면 될 것 같다.</li>
+<li>핵심은 이런 하나 하나의 트랜잭션들을 멀티코어에서 자유롭게 분산처리할 수 있도록 토큰(코드 또는 asset)을 적당히 조립하고 동기화를 맞춘다&#8230;고 하는 개념. 따라서 향후 재사용성도 높을 거라고 강사가 말했지만, 6년 정도 사용해봤음에도 아직 상용화된 게임은 없다고 하니&#8230;</li>
+<li>서버에서 클라이언트를 완전히 통제한다는 것을 계속 강조했다. 근데 이렇게 살면 제법 피곤할텐데;;; 그 트래픽은 과연 어떻게 감당해낼지도 의문이다.</li>
+<li>당연히 디버깅이라든지 트레이싱이 난감하다. 다만 이런 느낌이라면 적당히 GUI 툴로 개발해도 될 것 같다.</li>
+<li>그런데 스크립트에 비해서 얼마나 더 좋은지에 대해서는 공감하기 힘들다. 오직 멀티코어 대응이 좋다는 점에 대해서는 수긍함.</li>
+</ul>
+
+
+<p><font size="5">XNA Game Studio Express and the XBOX Live Arcade</font></p>
+
+<p>개인적으로 XNA에 대해서 관심이 많아서 참가했는데 질문 하나 하고 &#8220;블루드래곤&#8221;을 경품으로 받았다. 그래서 그런지 오늘 가장 마음에 든 알찬 세션 중에 하나였다. 몇 가지 인상 깊은 이야기를 적어보자면,</p>
+
+<ul>
+<li>XBLA 게임들은 라이브에서 지원하는 일종의 쉐어웨어 게임으로, 현재 70개 정도의 아케이드 게임이 출시되었다. 대부분의 게임들이 고전 게임들의 리메이크이거나 퍼즐, 보드 게임들이다.</li>
+<li>일반적으로 XNA 게임들은 10-15만불 정도의 개발비를 투입해서 3개월 정도 개발을 하는데, 보통 출시한지 1주에서 10일만에 손익분기점을 넘긴다고 한다. 이때 수익은 개발사:MS가 7:3으로 나눈다.</li>
+<li>MS에 제안서를 제출해서 accept가 나면 본격적인 개발에 들어간다. 이때 콘솔 게임 특유의 치열한 QA를 통과해야만 실제로 LIVE로 배포가 된다.</li>
+<li><a href="http://sexydino.com/tag/XLSP">XLSP</a>를 통해서 마비노기처럼 독립적인 외부 서버를 지원할 수 있게 되었다.</li>
+<li>아무래도 콘솔이다보니 PC 처럼 손쉽게 패치를 할 수 있는 환경은 아니다. 만약 실행 파일을 패치한다면 또다시 QA를 거쳐야 하지만 asset은 적당히 통보만 하고 배포해도 된다고 한다.</li>
+<li>30초만에 플레이가 가능할 정도로 쉽고, 모든 나이의 플레이어들이 좋아하며, 협동과 경쟁 개념이 강하고, 가족끼리 즐길 수 있는 캐주얼 게임을 찾고 있다고 한다.</li>
+<li>배포 크기는 보통 150M를 넘지 않아야 된다고 한다. 즉 양으로 승부하는 2D게임은 힘들다는 점.</li>
+</ul>
+
+
+<p><font size="5">Multi-Core Programming : Lessons From Experience</font></p>
+
+<p>워낙 많은 사람이 들어와서 통역기도 못받고 바닥에 앉아서 들어야 했다. 다행히 강사가 천천히 말해줘서 대충은 알아 들을 수 있었는데, 갑자기 식곤증이 몰려와서 많은 내용을 놓쳐버렸다;</p>
+
+<ul>
+<li>렌더링과 업데이트간의 버퍼 교환이 결국 병목의 근원이다. 더블버퍼링을 이용하면 될 것 같지만, 쉽지 않다. 결국은 프레임 단위로 바뀐 것들만 잘 분산시켜서 넘겨야 된다. 너무 분산시키면 렌더링은 과거의 정보를 그리게 된다..</li>
+<li>lock-free queue 를 이용해서 멀티쓰레드간 동기화를 하는 XMCore 가 XDK에 포함되었다</li>
+<li>이 동네는 결국 메시지 기반의 통신을 해야만 한다.</li>
+<li>legacy code를 만질 때에는 cloth simulation 등의 eye candy 류의 기능들을 먼저 분산 처리하는 것이 정신 건강에 좋다.</li>
+</ul>
+
+
+<p><font size="5">XNA Game Studio Express 2.0</font></p>
+
+<p>올해 12월에 출시된다는 XNAGS 2.0의 기능에 대한 소개 세션이었다. 1.0 에 비해서 달라진 점들을 간단히 소개하는 정도였는데 첫 세션과 중복되는 내용도 많고, <a href="http://blogs.msdn.com/xna/archive/2007/08/13/announcing-xna-game-studio-2-0.aspx">이미 인터넷으로 공개된 내용</a>이 대부분이라서 많이 아쉬웠던 시간이었다.</p>
+
+<ul>
+<li>게이머 태그, 게이머 카드, 친구 관리 등의 게이머 서비스 지원</li>
+<li>Xbox LIVE의 매치메이킹 API을 이용해서 서버 없이도 네트워크 플레이가 손쉽게 지원되도록 함</li>
+<li>reliable UDP 라든지 멀티렌더타겟 등을 지원함</li>
+<li>내년 후반에 출시될 버전에서는 C++도 지원할 예정</li>
+</ul>
+
+
+<p><font size="5">SCRUM Development Methodology to MMOs</font></p>
+
+<p>바이오웨어에서 온 <a href="http://en.wikipedia.org/wiki/Gordon_Walton">고든 할아버지</a>의 강연. 어째 MMO를 개발하면서 스크럼을 적용하면서 얻은 교훈을 소개해주시나 싶었는데 30분 넘게 스크럼의 개요에 대해서만 이야기를 들었다. 동시통역하는 언니가 너무 버벅거려서 더욱 마음에 들지 않았다;; 아무래도 고든 박사가 전직 VP여서 그런지 실질적인 스크럼팀 운영에는 참가하지 않는 모양이었다. 하하하. (아마도 <a href="http://www.controlchaos.com/old-site/implem.htm">치킨</a>이 아니었을까?)</p>
+
+<ul>
+<li>QA팀이 스크럼에 참가하면 효율이 정말 높아진다!</li>
+<li><font color="#ffffff">스크럼의 핵심은 진실을 말하는 것이다.</font></li>
+</ul>
+
+
+<p> see also <a href="http://reiot.cafe24.com/2007/11/11/kgc-2007-2nd-day/">KGC 2007 2nd Day</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/10/26/msbuild-with-cruise-control-net-2/">MSBuild With Cruise Control .Net (2)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-10-26T10:21:57+09:00" pubdate  data-updated="true" >Oct 26<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG' width='' height='' alt='' title=''></a></p>
+
+<p><a href="http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/">며칠 동안의 삽질</a> 끝에 오늘 드디어 MSBuild + CC.NET으로 웹브라우저에서 빌드할 수 있도록 설정하는 것을 대략 마무리 지었다. 그 과정에서 알아낸 사실을 정리해보면 (틀린 정보도 있을 수 있으니 주의 바란다)</p>
+
+<pre><code>- 대상 시스템은 Windows Server 2003 R2 Standard Kor 이다.
+- 가장 먼저 IIS 를 설치해야 한다. 상세한 내용은[ KAISTIZEN 님의 Visual C++을 위한 지속적인 통합 빌드 서버](http://kaistizen.net/EE/index.php/weblog/comments/continuous_integration_for_visual_c/)라는 글을 참고하면 간단하다.
+- MSBuild는 C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727 아래에 있다. 미리 SVN에서 소스 코드를 다운받은 후 MSBuild 로 VC++ 솔루션을 빌드해봤다. 그런데 vcbuild 뭐뭐가 없다면서 빌드에 실패했다. C# 이나 VB.NET  프로젝트라면 몰라도 MSBuild 혼자만으로 VC++ 프로젝트를 빌드할 수는 없는 모양이다. 결국 Visual Studio 를 설치해야 했다.
+- 돈을 아끼기 위해서 Visual Studio 2005 Express와 Platform SDK를 설치했는데, 알고보니 devenv.com 가 들어 있지 않았다. 이 말은 Visual Studio Task (devenv)를 사용할 수는 없다는 뜻이 된다.
+- 다시 프로젝트를 빌드해보니 windows.h 라든지 winsock2.h 를 찾을 수 없다고 나왔다. 이건 단순히 include 의 문제이므로 쉽다고 생각했는데, 아무리 IncludeDirectories 를 설정하려고 노력해봤지만 모두 실패했다. (환경변수,  vcvar32.bat, /property: 모두 시도해봤지만 허사였다) 결국 Visual Studio 2005 Express 와 Platform SDK 모두 제거하고 울며 겨자먹기로 Visual Studio 2005 를 설치해야 했다. 이 문제를 해결하신 분이 있다면 좀 알려주세요~
+- [WebDashBoard](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)에서 IE를 통해 빌드 로그를 봤을때 한글이 깨지는 현상이 있었다. (반면 FireFox에서는 한글이 잘 보였다.) CC.NET 콘솔에서는 잘 출력되는 걸로 봐서 인코딩 문제인 듯하다. 또한 로그가 너무 긴 경우 끝부분이 짤리는 현상이 있었는데, HTML 소스를 보면 모든 로그가 다 있는 걸로 봐서 브라우저의 문제이거나 HTML 태그가 깨진 모양이다.
+- [CCTray](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)에서 강제 빌드를 하려면 HTTP 가 아닌 .NET Remoting 으로 연결해야 하는데, 어떤 주소를 써야 하지는 잘 모르겠다. 이게 아무래도 CC.NET 콘솔 맨 처음에 나오는 tcp://server:port 인 듯도 한데... -_-
+- Project Configuration 메뉴에서 ccnet.config 파일을 열람할 수 있는데 SVN 패스워드가 노출되는 문제가 있다. 결국 check out 만 되는 계정을 만들고, 웹 권한 설정을 꼭 해줘야 한다는 의미. (물론 URL을 지우는게 제일 속이 편하겠지만)
+
+- &lt;font color="#ff0000"&gt;dashboard.config 에서 viewConfigurationProjectPlugin 를 제거하면 해결된다.&lt;/font&gt;
+</code></pre>
+
+<p>관련 글 보기</p>
+
+<pre><code>- [MSBuild with Cruise Control .NET](http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/)
+- [WebDashBoard &amp; CCTray](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/10/11/webdashboard-cctray/">WebDashboard &amp; CCTray</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-10-11T07:01:58+09:00" pubdate  data-updated="true" >Oct 11<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://farm3.static.flickr.com/2400/1531958729_78072a6f59_o.jpg"><img class='' src='http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg' width='' height='' alt='' title=''></a></p>
+
+<p>IIS와 CruiseControl.NET(이하 CCNET)의 <a href="http://ccnet.sourceforge.net/CCNET/Web%20Dashboard.html">WebDashBoard</a>를 이용하면 최근 빌드 현황이나 그래프를 웹에서 관리할 수 있다. 그 중에서도 가장 매력적인 기능은, - 사실 우리 팀에게 가장 필요한 - 바로 저 &#8220;Force Build&#8221; 인데, 웹에서 버튼만 눌러서 자동적으로 빌드 -> 배포를 할 수 있게 해주는 기능이다. 우리 팀처럼 단지 배포용 빌드 머신만을 운용하고 있는 작은 조직에게는, CCNET의 수많은 자동화 기능보다는 저런 단순하면서도 아름다운 기능이 제일 절실하게 와닿는다고나 할까? (사실 빌드 머신까지는 한발짝 거리인데, SVN 업데이트 -> Visual Studio 빌드 -> 배포 버전 빌드..라는 3단계를 무지 귀찮아하는 것 같다 -_-)</p>
+
+<p><a href="http://farm3.static.flickr.com/2191/1532824658_534e3b8fbe_o.jpg"><img class='' src='http://farm3.static.flickr.com/2191/1532824658_af03210327.jpg' width='' height='' alt='' title=''></a></p>
+
+<p><a href="http://ccnet.sourceforge.net/CCNET/CCTray.html">CCTray</a>는 CCNET에서 제공하는 트레이에서 실행되는 자바 유틸리티로, 서버의 빌드 현황을 실시간으로 모니터링할 때 사용된다. 이 넘도 마찬가지로 강제 빌드 기능을 제공한다.  맨 위의 스크린샷에서도 볼 수 있듯이, 원래는  WebDashBoard 에서 다운받아서 실행할 수 있는 듯한데, 집에서 테스트해보니 경고음만 나오고 아무 것도 실행되지 않았다. 결국은 그냥 인스톨러를 이용해서 설치해서 사용중인데 별 문제는 없는 듯하다.</p>
+
+<p>이제 대충 다음과 같은 것들을 테스트해보는 것만 남았다. 과연 어느 세월에 이걸 다 해볼지는 의문이지만.</p>
+
+<pre><code>- CCStatistics 붙여보기
+- CppUnitLite2 연동
+- SVN Revision 을 클라이언트 rc 파일에 넣기
+- Mantis 연동하기
+- exe, pdb 파일을 버전별로 백업하기
+- 인스톨러 연동하기
+</code></pre>
+
+<p>이렇게 적다 보니, 과연 이걸 다 테스트해서 얼마나 더 좋은 효율을 얻을 수 있을지가 심히 궁금해진다. 에휴.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/10/09/msbuild-with-cruise-control-net/">MSBuild With Cruise Control .Net</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2007-10-09T08:39:53+09:00" pubdate  data-updated="true" >Oct 9<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class='' src='http://www.codeplex.com/ccstatistics/Project/FileDownload.aspx?DownloadId=19113' width='' height='' alt='' title=''></p>
+
+<p><a href="http://kaistizen.net/EE/index.php/imaso/200605_continuous_integration.html/">지속적인 통합(Continuous Integration)</a>은 최근에 읽고 있는 책마다 항상 등장하는 단어다. 요약하자면 빌드 머신에 적당한 CI도구를 설치해두면 누가 커밋할 때마다 소스를 체크아웃해서 빌드하고 테스트를 실행한다는 것이다. 그러나, 우리 팀처럼 테스트가 거의 없고, 커밋 직전에 항상 최신 버전을 다운받아서 <strong>컴파일이 잘 되는지만</strong> 체크하는 정도의 통합 수준을 갖고 있는 조직에서는 그다지 효용성이 있어 보이지 않을 수 있다. (물론 빌드 안하고 커밋하는 개발자를 보유하고 있다면 이야기가 달라진다)  그런데 Cruise Control.Net을 사용하면 상상만 했던 <a href="http://reiot.cafe24.com/2007/09/28/ideal-build-system/">이상적인 빌드 시스템</a> 그 이상을 손쉽게 구현할 수 있다. 단순 배치 파일 실행에서부터, 소스코드 체크아웃은 물론, 버전 넘버를 붙이고, 빌드가 성공하면 소스 저장소에 태그를 붙이기도 하고, 웹기반의 히스토리 관리에서부터 위 그림에서 보이듯 그래프 기반의 뷰도 제공한다. 나아가서 일전에는 실패했던 MSN 연동도 된다!  시험삼아서 구글코드에 올려둔 <a href="http://code.google.com/p/raknet-wrapper/">raknet_wrapper</a> 프로젝트를 체크아웃받아서 빌드하는 스크립트를 만들어봤다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">&lt;</span><span class="n">cruisecontrol</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">workingDirectory</span><span class="o">&gt;</span><span class="nl">d:</span><span class="err">\</span><span class="n">works</span><span class="err">\</span><span class="n">ccnet</span><span class="o">&lt;/</span><span class="n">workingDirectory</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">artifactDirectory</span><span class="o">&gt;</span><span class="nl">d:</span><span class="err">\</span><span class="n">works</span><span class="err">\</span><span class="n">ccnet</span><span class="err">\</span><span class="n">artifact</span><span class="o">&lt;/</span><span class="n">artifactDirectory</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">modificationDelaySeconds</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">modificationDelaySeconds</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">triggers</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">intervalTrigger</span> <span class="n">seconds</span><span class="o">=</span><span class="s">&quot;10&quot;</span> <span class="o">/&gt;</span>
+</span><span class='line'>  <span class="o">&lt;/</span><span class="n">triggers</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">sourcecontrol</span> <span class="n">type</span><span class="o">=</span><span class="s">&quot;svn&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">trunkUrl</span><span class="o">&gt;</span><span class="nl">https:</span><span class="c1">//raknet-wrapper.googlecode.com/svn/trunk/&lt;/trunkUrl&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">workingDirectory</span><span class="o">&gt;</span><span class="nl">d:</span><span class="err">\</span><span class="n">works</span><span class="err">\</span><span class="n">ccnet</span><span class="err">\</span><span class="n">build</span><span class="o">&lt;/</span><span class="n">workingDirectory</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;----&lt;/</span><span class="n">username</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">----</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;/</span><span class="n">sourcecontrol</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">msbuild</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">workingDirectory</span><span class="o">&gt;</span><span class="nl">d:</span><span class="err">\</span><span class="n">works</span><span class="err">\</span><span class="n">ccnet</span><span class="err">\</span><span class="n">build</span><span class="o">&lt;/</span><span class="n">workingDirectory</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">raknet_wrapper</span><span class="p">.</span><span class="n">sln</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">buildArgs</span><span class="o">&gt;/</span><span class="nl">p:</span><span class="n">Configuration</span><span class="o">=</span><span class="n">Release</span>  <span class="o">/</span><span class="nl">v:</span><span class="n">diag</span><span class="o">&lt;/</span><span class="n">buildArgs</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">targets</span><span class="o">&gt;</span><span class="n">Rebuild</span><span class="o">&lt;/</span><span class="n">targets</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">logger</span><span class="o">&gt;</span><span class="nl">d:</span><span class="err">\</span><span class="n">works</span><span class="err">\</span><span class="n">ccnet</span><span class="err">\</span><span class="n">ThoughtWorks</span><span class="p">.</span><span class="n">CruiseControl</span><span class="p">.</span><span class="n">MsBuild</span><span class="p">.</span><span class="n">dll</span><span class="o">&lt;/</span><span class="n">logger</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;/</span><span class="n">msbuild</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">tasks</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">msbuild</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">workingDirectory</span><span class="o">&gt;</span><span class="nl">d:</span><span class="err">\</span><span class="n">works</span><span class="err">\</span><span class="n">ccnet</span><span class="err">\</span><span class="n">build</span><span class="o">&lt;/</span><span class="n">workingDirectory</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">raknet_wrapper</span><span class="p">.</span><span class="n">sln</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">buildArgs</span><span class="o">&gt;/</span><span class="nl">p:</span><span class="n">Configuration</span><span class="o">=</span><span class="n">Release</span> <span class="o">/</span><span class="nl">v:</span><span class="n">diag</span><span class="o">&lt;/</span><span class="n">buildArgs</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">targets</span><span class="o">&gt;</span><span class="n">Build</span><span class="o">&lt;/</span><span class="n">targets</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">logger</span><span class="o">&gt;</span><span class="nl">d:</span><span class="err">\</span><span class="n">works</span><span class="err">\</span><span class="n">ccnet</span><span class="err">\</span><span class="n">ThoughtWorks</span><span class="p">.</span><span class="n">CruiseControl</span><span class="p">.</span><span class="n">MsBuild</span><span class="p">.</span><span class="n">dll</span><span class="o">&lt;/</span><span class="n">logger</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;/</span><span class="n">msbuild</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;/</span><span class="n">tasks</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">xmllogger</span>  <span class="o">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">cruisecontrol</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>기능을 정리해보자면  * 10초마다 최신 소스가 커밋되어있는지 체크 * 최초 실행시 리빌드 * MSBuild 와의 연동  정도에 불과하다. 아직 IIS를 설치해보질 못해서 웹 대시보드를 구경해보진 못했다. 이 정도랑 웹에서 빌드 버튼만 제공하면 사내 빌드 머신에 빨리 도입해봐야겠다.  참고자료:</p>
+
+<ul>
+<li><a href="http://kaistizen.net/EE/index.php/imaso/200605_continuous_integration.html/">[Step by Step] 지속적인 통합(Continuous Integration)</a> -  마이크로소프트웨어 2006년 5월 컬럼</li>
+<li><a href="http://kaistizen.net/EE/index.php/weblog/comments/continuous_integration_for_visual_c/">Visual C++을 위한 지속적인 통합 빌드 서버</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/37/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/35/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

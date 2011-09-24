@@ -1,0 +1,641 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="코드 레벨 캐싱은 전역 변수를 이용해서 동일한 웹서버일 import 할 때 한번 초기화하는 기능을 이용해서 캐싱하는 방식이다.  가급적 static &amp; read-only 한 정보만을 담아야 한다. 파일을 로딩해서 파싱하는 수준이어야 한다. 중간에 바꿀 수 ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/12/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/30/py-main/">모든 Py 파일의 Main() 함수는 임포트될 때 한번 호출된다. 이를 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-08-30T23:51:00+09:00" pubdate  data-updated="true" >Aug 30<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>코드 레벨 캐싱은 전역 변수를 이용해서 동일한 웹서버일 import 할 때 한번 초기화하는 기능을 이용해서 캐싱하는 방식이다.  가급적 static &amp; read-only 한 정보만을 담아야 한다. 파일을 로딩해서 파싱하는 수준이어야 한다. 중간에 바꿀 수 있는 내용은 가급적 memcache 에 넣어야 한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/27/fixed-jquery-ui-dialog/">Fixed jQuery UI Dialog</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-08-27T22:44:00+09:00" pubdate  data-updated="true" >Aug 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/27/jquery-ui-dialog-button-focus/">jQuery UI Dialog Button Focus</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-08-27T21:06:00+09:00" pubdate  data-updated="true" >Aug 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.8.4 에서 다이얼로그의 버튼의 순서가 역순이 되어 버리는 바람에, 첫번째 버튼이 디폴트 버튼이면서 맨 처음 나오게 된다.  open 콜백에서 다음 코드를 넣으면 가장 마지막 버튼이 활성화된다.   </p>
+
+<p>$(this)         .next() // button pane             .find(button)                 .removeClass(ui-state-focus)             .end()             .find(button:last)                 .focus();</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/26/css-sprite-wrapper-ht/">Css Sprite 를 고정 크기 Wrapper 의 가운데 정렬하기 Ht&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-08-26T20:23:00+09:00" pubdate  data-updated="true" >Aug 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>css sprite 를 고정 크기 wrapper 의 가운데 정렬하기  <a href="http://www.brunildo.org/test/vertmiddle.html">http://www.brunildo.org/test/vertmiddle.html</a>  <a href="http://www.brunildo.org/test/img_center.html">http://www.brunildo.org/test/img_center.html</a>  <a href="http://www.brunildo.org/test/shrink_center_4.html">http://www.brunildo.org/test/shrink_center_4.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/20/app-engine-quota/">App Engine Quota</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-08-20T16:38:00+09:00" pubdate  data-updated="true" >Aug 20<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>빌링 가능한 리소스(쓴 만큼 돈을 내는 리소스): CPU 타입, 입출력 bandwidth, DB 용량 => 요청 초과시 403 에러  고정 리소스(최대 제한이 존재하는 리소스): 그외의 모든 것들. 초과시 OverQuotaError 예외 발생. 모든 RPC 에 대해서 try catch 로 묶을 것.  분당 제한: 집중된 요청을 막기 위해서. 
+- 45000 http request/min- 10G/min for I/O bandwidth- 72CPU time/min 
+결국 각종 db query, get, memcache, urlfetch, mail 등은 최대 제한이 존재하므로 횟수를 최대한 줄여야 한다. (bulk load/save 등)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/17/%E1%84%87%E1%85%A5%E1%86%AF%E1%84%8F%E1%85%B3-%E1%84%85%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC%E1%84%89%E1%85%B5-%E1%84%89%E1%85%A5%E1%84%87%E1%85%A5%E1%84%89%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8B%E1%85%A6%E1%86%AB%E1%84%90%E1%85%B5%E1%84%90%E1%85%B5%E1%84%83%E1%85%B3%E1%86%AF%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%87%E1%85%A7%E1%86%BC%E1%84%85%E1%85%A7%E1%86%AF%E1%84%85%E1%85%A9-%E1%84%83%E1%85%A1%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%85%E1%85%A9%E1%84%83%E1%85%B3/">벌크 로딩시 서버상의 엔티티들을 병렬로 다운로드 받은 후, 순차적으로 내&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-08-17T03:22:00+09:00" pubdate  data-updated="true" >Aug 17<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>벌크 로딩시 서버상의 엔티티들을 병렬로 다운로드 받은 후, 순차적으로 내보낸다. 반대로 업로드할 때에는 업로드/변환이 병렬로 진행된다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/17/dryrun/">벌크 로드할 때 &#8211;dry_run 을 사용해서 실제로 변환이 잘 되는지,&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-08-17T03:11:00+09:00" pubdate  data-updated="true" >Aug 17<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>dry_run  벌크 로드할 때 dry_run 을 사용해서 실제로 변환이 잘 되는지, configuration 문제는 없는지 체크할 것.  포스트 프로세싱  1. 내보내기할 때 필터링하기  def post_export (instance, dictionary, bulkload_state):  if dictionary[‘access’] == ‘secret’:  return None  else:  return dictionary  2. 불러오기할 때 다른 엔티티 만들기  def post_import(input_dict, instance, bulkload_state):  child_instance = models.ChildKind(parent=instance, key_name=input_dict[‘childkey’], value=input_dict[‘childvalue’])  return (instance, child_instance)  데이터가 비어 있을 때 에러가 나지 않게 하기  – transform.none_if_empty (type) (on import)  – transform.empty_if_none (type) (on export)  모델 객체를 써서 검증하기  python_preamble:  - import: mymodels  transformers:  - model: mymodels.Customer</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/17/dblistproperty-bulkload/">db.ListProperty() 을 Bulkload 할 때, 다음 함수를&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-08-17T03:08:00+09:00" pubdate  data-updated="true" >Aug 17<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>db.ListProperty(string) 을 bulkload 할 때, 다음 함수를 사용할 것  import_transform: transformhelper.split_string(‘;’)  export_transform: transformhelper.join_list(‘;’)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/17/createdeepkey/">Create_deep_key</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-08-17T00:27:00+09:00" pubdate  data-updated="true" >Aug 17<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
+
+<pre><code>- 부모 키 : AAABBBCCCDDD
+- 자식 키 : AAABBBCCCDDDEEEFFF
+</code></pre>
+
+<p>따라서,  부모의 키값과 자식의 키 아이디 또는 이름을 별도의 컬럼으로 내보내고, 반대로 가져올 때에는 하나로 합쳐서 원래의 키값을 복구해야 한다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>property_map:
+</span><span class='line'>  - property: __key__
+</span><span class='line'>  external_name: Activity
+</span><span class='line'>  import_transform:  transform.create_deep_key((‘Visit’, ‘Visit’), (‘VisitActivity’, ‘Activity’))
+</span><span class='line'>  export:
+</span><span class='line'>  - external_name: Visit
+</span><span class='line'>  export_transform: transformhelper.extract_deep_key(1)
+</span><span class='line'>  - external_name: Activity
+</span><span class='line'>  export_transform: transformhelper.extract_deep_key(2)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이때 만약 키가 아니라 id/name 을 내보내고 싶다면,  transform.key_id_or_name_as_string_n(N) 을 사용할 것.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/13/google-app-engine-tips/">Google App Engine Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-08-13T00:15:00+09:00" pubdate  data-updated="true" >Aug 13<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png' width='' height='' alt='' title=''></a>구글 앱 엔진으로 개발하면서 학습한 내용을 정리합니다. 이론적으로 혹은 실제 서비스할 때 잘못되거나 틀린 부분이 있을 수 있음을 미리 알려 드립니다.</p>
+
+<p><strong>검증 및 마이그레이션의 책임은 &#8216;프로그래머&#8217;가 진다.</strong></p>
+
+<p>관계형 데이터베이스의 경우, 스키마 및 그 정합성을 검증할 책임이 데이터베이스 엔진에 있는 반면, 구글 데이터스토어는 분산 및 속도 향상을 위해, 스키마와 검증의 책임이 프로그램 쪽으로 넘어와 있다. 이게 무슨 뜻이냐 하면, 같은 모델(테이블)에 서로 다른 필드로 구성된 객체(Entity,열)가 들어갈 수 있다는 뜻이다. 따라서 데이터스토어는 임의의 데이터 집합을 쿼리해서 읽어왔을 때, 그 안에 어떤 데이터가 들어가 있을지 모르기 때문에, 마이그레이션 역시 프로그램이 책임지고 구현해야 한다. 새로 속성(Property,컬럼)을 추가하거나, 삭제하려면 해당 모델에 속한 모든 객체들을 찾아서 하나씩 변경해줘야 한다.</p>
+
+<p>예를 들어, 어떤 모델의 속성이 더이상 필요없어져서 삭제하려면, 무려 <a href="http://code.google.com/intl/ko-KR/appengine/articles/update_schema.html">소스 코드에서 모델의 부모 클래스를 바꿔서 저장한 후, 서버에 터미널을 열고 수동으로 해당 속성들을 지우고 다시 돌아와서 코드를 롤백하는 등의 수고로움</a>이 필요하다.</p>
+
+<p>이런 이유로, 가급적이면 앱엔진에서 서비스중에, 모델의 특정 속성 이름을 바꾸는 일은 피해야 한다.</p>
+
+<p><strong>트랜잭션으로 묶을 객체들은 &#8216;생성&#8217; 시점에 부모를 지정해야 한다.</strong></p>
+
+<p>관계형 데이터베이스에서는 서비스 이후에도 적당히 쿼리 최적화와 마이그레이션을 통해서 새로 트랜잭션을 추가할 수 있다. 그런데, 데이터스토어는 좀 다르다. 왜냐하면 일단 만들어진 객체의 키값은 절대 변경될 수 없는데, 트랜젹션으로 묶을 객체들은 생성 시점에 미리 같은 부모 객체를 지정해서, 같은 엔티티 그룹으로 만들어 줘야 하기 때문이다. 아마도 분산 트랜잭션을 피하기 위해서, 같은 그룹에 속한 객체들을 동일한(또는, 가급적 가까운?) 물리적인 노드에 두기 위함일테다.</p>
+
+<p>또한 동시에 여러 명이 같은 데이터를 변경하는 등의 충돌을 방지하려면, 주의깊게 부모 엔티티를 고르거나 아예 이런 일이 없도록 설계하는 것이 중요하다. 이런 제약으로 인해, 개발 시점에 어떤 트랜잭션이 필요할 것인지를 미리 예측하고, 코드 레벨에서 부모 객체를 미리 만들어둬야 한다. 구체적인 예를 들자면, 어떤 플레이어에 속한 모든 아이템, 도전과제, 퀘스트 같은 하위 객체들은 플레이어를 부모로 가지는 게 정신 건강에 좋다는 정도가 되겠다.</p>
+
+<p>이처럼 앱엔진 개발은 유지 보수의 책임이 데이터베이스가 아니라 프로그래머의 영역이 된다는 점을 항상 염두에 둬야 한다.</p>
+
+<p><strong>키 이름(key_name), 아이디(id)의 용도를 잘 구분해야 한다.</strong></p>
+
+<p>모든 객체는 시스템에서 유일한 키 값을 가진다는 점은 비교적 이해하기가 쉽다. 그런데, 키 이름(문자열)과 아이디(정수) 중 하나만을 가져야 한다는 점은 처음에 좀 헷갈렸다. 과연 어떤 객체에는 키 이름을 쓰고, 어디에는 아이디를 자동 생성해야 하는지가 할까? 처음엔, 해석을 잘못해서 키 이름이 시스템 전체에서 유일한 줄 알아서 많이 헤맸었는데, 알고보니 같은 모델(정확하게는 엔티티 그룹)안에서만 유일하면 된다는 것을 늦게서야 알게 되었다.</p>
+
+<p>결론부터 말하자면, 내가 맞게 쓰고 있는 건지는 모르지만, 개발 시점에 미리 생성해둬야 하는 정적인 객체들(아이템 정보, 맵 정보, 밸런싱 데이터 등 유일성을 개발 시점에 파악할 수 있는 객체들)에게는 유일한 키 이름을 할당해서, 향후 빠른 변경 및 접근을 할 수 있게 하고, 런타임에 생성하기 때문에 유일성을 미리 파악하기 힘든 다른 수많은 객체들(계정, 플레이어, 아이템 인스턴스, 도전 과제 인스턴스 등)은 자동으로 아이디를 할당받게 하는 게 좋다.</p>
+
+<p>그런데, 개발을 위해서 동일한 코드를 기반으로 서로 다른 app-id를 가진 구글 앱엔진 서버(Development - Test - Production)를 운영할 경우, 자동으로 만들어져서 아이디를 가진 객체들 - 특히나 ReferenceProperty 로 관계가 맺어진 넘들-을 다른 서버로 옮기는 것이 거의 불가능하다는 점에 유의해야 한다. 왜냐하면 객체의 키값에 이미 app-id 가 들어가 있기 때문에 CSV 등으로 백업해서 복원할 경우, 만약  기존에 동일한 id 를 가진 객체가 존재하면 그냥 덮어써버리기 때문이다. :(</p>
+
+<p><strong>쿼리(datastore_v3.RunQuery)와 읽기(datastore_v3.Get)의 차이를 이해해야 한다.</strong></p>
+
+<p>ReferenceProperty 를 이용하면, 1:N 의 관계를 표현할 수 있다. 아래의 코드처럼</p>
+
+<p>[code language=&#8221;python&#8221;]
+class Player(db.Model):
+  pass
+class Item(db.Model):
+  player = db.ReferenceProperty(Player,collection_name=&#8221;items&#8221;)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>과 같이 정의된 경우, player.items 라는 역참조가 자동적으로 만들어진다. 문제는 이게 코드를 읽을 때에는 왠지 캐싱이 될 것처럼 보이지만, 내부적으로 datastore_v3.RunQuery 라는 RPC가 호출되기 때문에 매번마다 다시 데이터스토어에서 읽어온다는 점이다. 무조건 [appstat](http://code.google.com/intl/ko-KR/appengine/docs/python/tools/appstats.html) 을 활성화시켜 두고, 조금이라도 반응 속도가 느린 요청이 있으면 항상 확인하는 버릇을 길러야 한다.
+</span><span class='line'>
+</span><span class='line'>반대로 이미 키값을 알고 있는 item 의 소유자 이름을 읽어오려면, item.player.name 처럼만 하면 된다. 그런데 내부적으로 datastore_v3.Get 요청은 특정 필드만 읽어오는 기능을 지원하지 않기 때문에, 항상 모든 속성들이 다 읽어지게 된다. 더욱 무서운 점은 그냥 item.player 나 item.player.key() 라고만 해도 Get 요청이 이루어진다는 거다. 만약 참조하는 객체의 하위 속성이 아니라 오직 키값만 알고 있으면 되는 경우에는 model_name.reference_prop.get_value_for_datastore(entity) 를 이용하면, 코드는 더러워지지만 불필요한 요청을 피할 수 있다.
+</span><span class='line'>
+</span><span class='line'>특히 루프 안에서 참조키의 하위 속성을 읽는 짓은 가급적 피하는 것을 권장한다.
+</span><span class='line'>
+</span><span class='line'>[code language="python"]
+</span><span class='line'>for item in Item.all().filter():
+</span><span class='line'>  if item.player.hp == 0: # bad bad
+</span><span class='line'>  pass</span></code></pre></td></tr></table></div></figure>
+
+
+<p>계속 추가할 예정입니다 :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/13/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/11/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

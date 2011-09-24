@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Code Review Tips - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="당신의 프로그램이 다운된다면, 혹은 메모리 누수가 심하다면 다음과 같은 룰을 기반으로 코드를 리뷰하라. 이때, 코드 작성자가 아닌 다른 프로그래머를 항상 옆에 대동하면 버그를 찾을 확률은 200% 증가할 것이다. (사실 이건 내부 자료인데 몰래 공개하는 것이다. ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2004/11/25/code-review-tips/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Code Review Tips</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2004-11-25T06:44:42+09:00" pubdate  data-updated="true" >Nov 25<span>th</span>, 2004</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>당신의 프로그램이 다운된다면, 혹은 메모리 누수가 심하다면 다음과 같은 룰을 기반으로 코드를 리뷰하라. 이때, 코드 작성자가 아닌 다른 프로그래머를 항상 옆에 대동하면 버그를 찾을 확률은 200% 증가할 것이다. (사실 이건 내부 자료인데 몰래 공개하는 것이다. 헤헤)</p>
+
+<ul>
+<li>상속 관계의 베이스 클래스에 virtual destructor 를 선언했는가?</li>
+<li>배열 포인터를 delete[] 로 삭제하는가?
+
+<ul>
+<li>delete:Wh*[]으로 정규식 검색을 하면 편하다.</li>
+</ul>
+</li>
+<li>배열이 아닌 포인터를 delete[] 로 삭제하는가?</li>
+<li>memcpy(), memset(), memmove(), strcpy() 메모리 관련 함수들의 BoundCheck가 잘 되어 있는가?</li>
+<li>배열을 인덱싱할 때 파라미터의 BoundCheck 가 잘 되어 있는가?</li>
+<li>다른 peer 로 부터 넘어온 모든 정수형 파라미터에 대한 BoundCheck가 잘 되어 있는가? (특히 문자열 길이에 유의)</li>
+<li>STL string 을 사용한다면, %s 포맷팅할 때 c_str() 을 사용하는가?</li>
+<li>Singleton 이나 STL 컨테이너에 대해서 2개 이상의 쓰레드가 동시에 읽기/쓰기 모드로 접근하는 경우 lock 을 걸고 있는가?</li>
+<li>사용하지 않는 copy constructor, assignment operator 가 private 로 선언되어 있는가?</li>
+<li>포인터 멤버를 가진 객체를 복사할 때 assignment operator 를 재정의했는가?</li>
+<li>Warning Level 을 4 로 높인 다음 컴파일해봤는가?
+
+<ul>
+<li>초기화하지 않고 사용하는 변수(또는 클래스 데이터 멤버)가 가장 위험하다.</li>
+</ul>
+</li>
+<li>try ~ catch( &#8230; )은 절대 사용하지 말라. SEH Exception 까지도 캐치해버린다.버그를 숨겨서 더 큰 버그를 만들 뿐이다.</li>
+<li>set_se_translator() 를 쓰지 마라. 쓰레드 로컬이라, 매 쓰레드마다 해줘야 한다. SetUnhandledExceptionFilter()는 프로세스 글로벌이다.</li>
+</ul>
+
+
+<p>see also:</p>
+
+<ul>
+<li><a href="http://imays.pe.kr:41414/moin/iwiki/moin.cgi/_bc_ad_b9_f6_20_c7_c1_b7_ce_b1_d7_b7_a5_20_c4_da_b5_f9_c0_c7_20_c1_d6_c0_c7_bb_e7_c7_d7">서버 프로그래밍시 주의사항</a> by imays님</li>
+<li><a href="http://www.myevan.net/phpBB/viewtopic.php?t=1484">서버 프로그래밍시 주의사항</a> by 빗자루님</li>
+<li><a href="http://www.macadamian.com/codereview.htm">Code Review Checklist</a></li>
+<li><a href="http://www.macadamian.com/column/completeBreakfast.html">Part of Your Complete Breakfast</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2004-11-25T06:44:42+09:00" pubdate  data-updated="true" >Nov 25<span>th</span>, 2004</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/columns/'>columns</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2004/11/25/code-review-tips/" data-via="reiot" data-counturl="http://reiot.com/2004/11/25/code-review-tips/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2004/11/25/code-review-tips/';
+        var disqus_url = 'http://reiot.com/2004/11/25/code-review-tips/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

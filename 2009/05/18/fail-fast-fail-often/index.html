@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fail Fast, Fail Often - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="최근 레이다에 자주 걸리던 MDA 프레임워크에 대한 게임 디자인 워크샵이 사내에서 피자와 함께 열려서 쉬귀군과 함께 참가했다.첫날에는 Sissyfight 3000을 1분 내에 끝내라는 퍼블리셔의 요청 메일을 받았다. 원작 게임이 재미없었던 우리 팀은, 두 세번 게...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2009/05/18/fail-fast-fail-often/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Fail Fast, Fail Often</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-05-18T08:24:10+09:00" pubdate  data-updated="true" >May 18<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>최근 레이다에 자주 걸리던 <a href="http://sites.google.com/site/gdworkshop/materials/mda-framework">MDA 프레임워크</a>에 대한 <a href="http://epiphany.tistory.com/">게임 디자인 워크샵</a>이 사내에서 <strong>피자와 함께</strong> 열려서 쉬귀군과 함께 참가했다.</p>
+
+<p>첫날에는 <a href="http://sites.google.com/site/gdworkshop/materials/sissyfight-3000">Sissyfight 3000</a>을 <a href="http://kaistizen.net/EE/index.php/weblog/comments/game_design_workshop/">1분 내에 끝내라는 퍼블리셔의 요청 메일</a>을 받았다. 원작 게임이 재미없었던 우리 팀은, 두 세번 게임을 뒤집어 엎어 포커 버전으로 만들다가, 종료 5분 전 공격 카드는 버리고 색깔 카드와 방어 카드 만으로 2분짜리 클베 버전을 출시할 수 있었다. 뭔가 개발이 잘 풀리지 않아 잘나가는 옆테이블로 이직을 하고 싶었는데, 막상 출시를 하고 보니 사용자들이 제법 만족해서 좀 당황하기도 했다.</p>
+
+<p>둘째 날에는 타워 디펜스를 페이퍼 프로토타이핑으로 만들었다. 초반부터 <a href="http://www.thisisgame.com/board/view.php?id=26414&amp;category=103">에이전트005</a>가 투입되어서 자꾸 지금 방향이 틀렸고 자기 방식이 맞다고 주장해서 개발 기간을 제법 까먹었다. 클베를 하고 나서는 테스터들의 의견을 적극 반영하다 보니 원래 추구하는 미학과는 다른 방향으로 바뀌기도 했다. 워낙 타워 디펜스의 종류가 다양하다보니 협동이냐 경쟁이냐들 두고 초반부터 설전을 벌였는데, 실제로 테스터들로부터도 비슷한 문제를 지적받았다. 막판 30초를 남기고 뭔가 재미있어 보이는 버전이 나오긴 했는데 테스트도 못해봐서 결국 클베 버전을 출시할 수 밖에 없었다. 흑.</p>
+
+<p>어쨌든 뭔가 쓸만한 걸 하나 배웠답시고 무려 <strong>주말</strong>에 출근해서 MDA를 시험 적용해 보기로 했다. 현재 상태에서  재미있는 것과 없는 것들을 나열하고, 도저히 버릴 수 없는 제약 조건을 뺀 나머지 기능들은 모두 <a href="http://aker.tistory.com/231">feature creep</a>이라는 누명을 씌워서 버렸다. 다음에는 무엇을 핵심적인 재미요소로 구현할 건가를 이야기했는데, 의외로 내가 생각하는 재미를 단 한 명에게 공감시키기조차도 힘들었다. 그래서 내 의도와 비슷한 동영상을 구해서 보여준 후, Fail Fast 을 해보니 몇 시간만에 비교적 게임이라고 부를만한 상태로 바꾸는 데까지는 성공했다. (물론 난 옆에서 서핑만하고 쉬귀군이 열심히 코딩을 했지만..) 그래도 보여주기엔 남부끄러운 수준이고, 핵심적인 제약 사항은 완수하지도 못했기에 일단 퇴근했다. 결과적으로는 실패로 끝난 거구만. OTL</p>
+
+<p>TDD가 소프트웨어의 최종적인 진화의 방향을 점진적으로 설계해주는 것처럼, Fail Fast이 게임 디자인에 있어서 비슷한 역할을 하는 것 같다. 즉, 어느 정도 팀내에 공감이 이루어 졌다면, 한 두명이 안되는 이유를 1부터 10까지 나열하며 떠들 시간에 닥치고 일단 만들고 보자는 건데, 그러고 보니 쉬귀군의 신묘한 개똥 철학과 공통점이 많은 것 같다. (물론 일반적인 개발자는 따라해서는 안된다. 흐흐) 다만 이를 위해서는 빠른 변경이 가능한 게임 엔진 및 툴의 개발이 선행되거나 동시에 진행되어야 한다는 게 우리의 숙제일 것이다.</p>
+
+<p>덕분에 몸은 좀 피곤하지만, 미학 - 사용자들에게 주고자 하는 재미 - 에 대한 확고한 비전의 공유가 얼마나 중요한지를 깨달을 수 있었던 한 주였다. 프리 프러덕션 기간에 게임의 재미에 대해서 명확하게 확정을 짓지 않고 프러덕션 단계로 들어가면, 항상 나중에 참가한 멤버들이나 경영진, 테스터 또는 퍼블리셔로부터 <strong>너무 낙관적으로 개발을 해서</strong> 그런지 재미가 없다는 이야기를 듣고는, 자의반 타의반으로 feature creep의 유혹을 받게 된다는 경험적 법칙이랄까.  옛날 게임 기획할 때 누가 이런 걸 가르쳐줬으면 지금쯤 성공한 기획자가 되었을지도 모르겠다. ㅎㅎ</p>
+
+<p>짧은 시간에 게임 개발을 압축해서 경험할 수 있기에, 기획자나 프로그래머는 물론이거니와 중간 관리자들도 한번쯤 들어볼 만한 워크샵이다. 이런 좋은 경험을 혼자 낼름하지 않고 널리 전파하시느라 수고하신 <a href="http://betterways.tistory.com/">Kay</a> 님과 <a href="http://epiphany.tistory.com/">epiphany</a>님께 감사드린다. (후기 상품은 내꺼임!!)</p>
+
+<p>see also:</p>
+
+<pre><code>- [사후 검토: Sissy Fight 3000 - 제 2회 게임 디자인 워크샵](http://www.heartcomplex.net/blogs/516)
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-05-18T08:24:10+09:00" pubdate  data-updated="true" >May 18<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gamedev/'>gamedev</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2009/05/18/fail-fast-fail-often/" data-via="reiot" data-counturl="http://reiot.com/2009/05/18/fail-fast-fail-often/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2009/05/18/fail-fast-fail-often/';
+        var disqus_url = 'http://reiot.com/2009/05/18/fail-fast-fail-often/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

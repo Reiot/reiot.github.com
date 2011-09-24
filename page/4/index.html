@@ -1,0 +1,676 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 jsFiddle에 있으니 관심있는 분들은 뜯어보시길..$(function() {  var...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/4/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-11-11T11:38:00+09:00" pubdate  data-updated="true" >Nov 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
+
+<p><code><script id="test" type="script/x-jquery-tmpl">
+  <div>
+  <h1>${name}</h1>
+  <p>${description}</p>
+  <div class="progressbar"></div>
+  </div>
+</script></p>
+
+<script id="test2" type="script/x-jquery-tmpl">
+  <h1>${name}</h1>
+  <p>${description}</p>
+  <div class="progressbar"></div>
+</script>
+
+
+<div id="here"></div>
+
+
+<p>$(function() {
+  var data = {name: &#8216;Hello&#8217;, description: &#8216;World&#8217;, value:50};
+  var data2 = {name: &#8216;JavaScript&#8217; ,description: &#8216;Rules&#8217;, value: 80};
+  var $tmpl = $(&#8216;#test&#8217;).tmpl(data);</p>
+
+<p>  $tmpl.find(&#8216;.progressbar&#8217;).progressbar({value:data.value});
+  $tmpl.appendTo(&#8216;#here&#8217;);</p>
+
+<p>  var tmpl2 = $(&#8216;#test2&#8217;).tmpl(data2);
+  tmpl2.find(&#8216;.progressbar&#8217;).progressbar({value:data2.value}); // not working
+  tmpl2.appendTo(&#8216;#here&#8217;);</p>
+
+<p>});
+</code></p>
+
+<p>위 예제처럼, #test 는 하나의 DIV 로 묶여져 있어서 appendTo 하기 전에 위젯을 만들 수 있지만, #test2 처럼 여러 개의 엘리먼트들이 나눠져 있는 경우에는 .tmpl(data) 로 렌더링을 하면 [h1, p, div.progressbar] 의 배열이 튀어나오는데, 이 배열에다가 대고 find 를 해도 아무 일도 발생하지 않는다. (for 를 돌아도 마찬가지)</p>
+
+<p>일단은 그냥 마음편하게 하나로 묶는게 유일한 해답일 거 같은데, 그나저나 .tmplItem 은 도대체 어디에 쓰는 물건일까?</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/11/10/jquery-blink/">jQuery Blink</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-11-10T12:37:37+09:00" pubdate  data-updated="true" >Nov 10<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Dont use window.setInterval() for infinite blinking.</p>
+
+<p><code>$.fn.blink = function(interval, opacity){
+  return this
+  .fadeTo(interval, opacity)
+  .fadeTo(interval, 1, function(){
+  $(this).blink(interval,opacity);
+  });
+};
+</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/11/09/setup-npm-socketio/">Setup Npm &amp; socket.io</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-11-09T18:59:27+09:00" pubdate  data-updated="true" >Nov 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>각종 다양한 node의 라이브러리를 사용하려면 패키지 매니저인 npm 부터 가장 먼저 설치해야 된다. 이때 패키지들을 /usr/local 대신 사용자 폴더(~/.node_libraries)에 저장하기 위해서 .npmrc 를 만들어야 한다. (via <a href="http://blog.outsider.ne.kr/539">http://blog.outsider.ne.kr/539</a>)</p>
+
+<h2>- git clone <a href="https://github.com/isaacs/npm.git">https://github.com/isaacs/npm.git</a></h2>
+
+<p>cat~/.npmrc NPMRC  root = $HOME/.node_libraries  binroot = $HOME/bin  manroot = $HOME/share/man  NPMRC</p>
+
+<ul>
+<li>make</li>
+<li>npm install express </li>
+<li>npm install socket.io</li>
+</ul>
+
+
+<p>참고로, 모든 npm 소스는 ~/.node_libraries/.npm 아래에 저장되어 있다.</p>
+
+<p>가장 간단한 express 서버는 다음과 같다. curl 로 로컬 서버에 접속해볼 수 있지만, 먼저 테스트를 위해서 아마존 EC2 콘솔에 접속해서 방화벽의 8080 포트를 열어둬야 한다.</p>
+
+<blockquote><p><code>var app = require('express').createServer();<br/>app.get('/', function(req, res){<br/>  res.send('hello world');<br/>});<br/>app.listen(8080);</code></p></blockquote>
+
+
+<p>가장 간단한 socket.io 서버와 클라이언트는 github 에 존재한다. (이상하게도 제대로된 매뉴얼을 찾기가 힘드니, 그냥 <a href="https://github.com/LearnBoost/Socket.IO-node/blob/0.6.1/example/server.js">샘플 코드</a>를 보기를 권한다) </p>
+
+<blockquote><p><code>git clone git://github.com/LearnBoost/Socket.IO-node.git socket.io<br/>cd socket.io/example/<br/>sudo node server.js</code></p></blockquote>
+
+
+<p>서버와 클라이언트간의 통신은 순전히 JSON 으로 구현된다. 보내는 쪽에서</p>
+
+<blockquote><p>socket.send({ id:chat, type:whisper, target:reiot, message:Hello World! })</p></blockquote>
+
+
+<p>라고 보내고, 받는 쪽에서는</p>
+
+<blockquote><p><code>socket.on('message',function(data){<br/>  if('id' in data){<br/>  if(data.id=='chat'){<br/>  show_message(data.message);<br/>  }<br/>  }<br/>});<br/></code></p></blockquote>
+
+
+<p>이런 식의 전통적인 소켓 프로그래밍이 이루어진다. 브로드캐스팅은 그냥 소켓에 대고</p>
+
+<blockquote><p>socket.broadcast({something:special})</p></blockquote>
+
+
+<p>이라고 하면 끝. </p>
+
+<p>첫 소감은 </p>
+
+<ul>
+<li>아 쉽다. 처음 소켓 프로그래밍을 배울 때의 느낌이야. 왜 지금까지 이런게 안되었을까..</li>
+<li>소스가 노출될테니 게임 서버에서 해야 하는 모든 것 - 스니핑, 스피드핵, 프로토콜 해킹, 암호화, 한방핵 - 등을 다 구현해야겠지. 클라이언트에게 많은 권한을 줘서는 안될 것 같아..</li>
+<li>이걸로 HTML5 캔버스에서 멀티플레이 가능한 로그라이크를 만들 수 있을까? ㅎㅎ</li>
+</ul>
+
+
+<p>정도 되겠다. 한마디로 꽤 재미있는 장난감이 될 것 같다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-11-07T18:58:57+09:00" pubdate  data-updated="true" >Nov 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>이번 11월부터 <a href="http://aws.amazon.com/free/">1년 무료인 마이크로 인스턴스</a>라는 게 있다길래 node.js 를 위해서 재빨리 가입을 했다. 왜 하필 node.js 인지 궁금하신 분은 <a href="http://www.synchrosinteractive.com/blog/9-nodejs/22-nodejs-has-a-bright-future">nodejs-has-a-bright-future</a> 를 읽어보시길. 싱가포르쪽이 좀 느린 듯해서 그냥 미쿡 버지니아에다가 만들었다.</p>
+
+<p>처음 가입할 때 전화를 준다고 해서 살짝 망설였는데 그냥 미리 녹음된 전화에 개인키를 입력해서 인증하는 방식이라길래 용감하게 시도했으나.. 아무리 등록하려고 해도 요청 폭주로 전화가 오지 않아서 이틀이나 기다려야 했다. (3회 실패하면 12시간 후에나 다시 요청이 가능한 시스템..) 알고보니 전화 번호를 잘못 써서.울먹.. 다들 외국 사이트 가입할 때 +82 국제 전화 번호 붙이지 않나요 ㅠㅠ </p>
+
+<p>어쨌든 초보답게 아마존에서 제공하는 기본 리눅스 AMI 64bit 를 설치하고 보니, git 는 커녕 gcc 도 설치 안된 깔끔한 배포판이었다. 10년만에 리눅스를 만져본 터라 어떤 패키지 시스템을 써야 하는지 헷갈렸는데, 요즘은 yum 이란게 인기가 있나보다. (마지막으로 써본 게 rpm 이었던가..)</p>
+
+<p>기억 소멸을 방지하기 위해 대충 순서를 정리해본다 :P</p>
+
+<ul>
+<li>sudo yum install git-core</li>
+<li>git clone https://github.com/ry/node.git</li>
+<li>sudo yum install gcc</li>
+<li>sudo yum install gcc-c++</li>
+<li>sudo yum install openssl-devel</li>
+<li>./configure</li>
+<li>make </li>
+<li>sudo make install</li>
+<li>make test</li>
+</ul>
+
+
+<p>마이크로 인스턴스에서 빌드 시간은 17분 정도 걸린다. configure 할 때 select/eio/kqueue 를 찾는 걸 보니, 내부적으로 저런 걸 쓰는 모양이다. 내 경우에는  test-exec,  test-repl, test-http-curl-chunk-problem 3개의 테스트가 실패했다 :(</p>
+
+<p>ps. 오랜만에 느끼는 이 콘솔의 감촉. 아 섹시하다~~</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/11/03/custom-tag/">&lt;% Raw %&gt; Custom Tag</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-11-03T06:21:00+09:00" pubdate  data-updated="true" >Nov 3<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>jQuery 템플릿의 조건문/반복문들은  와 같이 선언하는데, 이게 Django의 템플릿 변수  선언과 동일해서 템플릿 문법 에러가 발생하게 된다. 이를 해결하려면 모든  에 대해서</p>
+
+<blockquote><p>{%  templatetag openvariable%}if ${var}==a{%  templatetag closevariable%} </p></blockquote>
+
+
+<p>과 같이 바꿔줘야 한다. <a href="http://stackoverflow.com/questions/4021896/jquery-template-tags-conflict-with-django-template">StackOverflow 에 물어보니</a> Django 1.3 에서 &lt;% raw %> 에 대한 제안이 들어가긴 했다고 하는데, 언제 나올지도 모르고 해서 구글에 검색해보니 다행스럽게도 누군가가 이미 구현해둔 걸 찾을 수 있었다.</p>
+
+<p><a href="http://www.holovaty.com/writing/django-two-phased-rendering/">http://www.holovaty.com/writing/django-two-phased-rendering/</a></p>
+
+<p>다만 GPL 이라는 점에 유의할 것 :P</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/10/30/merge-layer-options-to-original-layer/">Merge Layer Options to Original Layer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-10-30T19:43:23+09:00" pubdate  data-updated="true" >Oct 30<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Convert to Smart Object => Rasterize Layer</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/10/30/image-trim/">Image - Trim</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-10-30T04:51:52+09:00" pubdate  data-updated="true" >Oct 30<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Remove transparent pixels from image. Good for cropping exported layer comp image which has large transparent pixels.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/10/23/antipodean-a-simple-chat-server-in-nodejs/">Antipodean: A Simple Chat Server in Node.js</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-10-23T05:06:07+09:00" pubdate  data-updated="true" >Oct 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://dhotson.tumblr.com/post/271733389/a-simple-chat-server-in-node-js">Antipodean: A simple chat server in Node.js</a>  <blockquote><p>I had a quick go at writing a little chat server using <a href="http://nodejs.org/">Node.js</a>.</p><p>I really like Node’s style. I’ve got to say that Javascript suits the evented / non-blocking model really well. Javascript is actually a pretty cool little language.</p><p>Getting started with Node.js was really easy. For me it was as</p></blockquote></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/10/21/coda-slider-20-niall-dohertys-dot-biz/">Coda-Slider 2.0 - Niall Doherty&#039;s Dot Biz</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-10-21T17:38:41+09:00" pubdate  data-updated="true" >Oct 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.ndoherty.biz/demos/coda-slider/2.0/#1">Coda-Slider 2.0 - Niall Doherty&#8217;s dot biz</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/10/21/knockout-javascript-mvc-library/">Knockout : Javascript MVC Library</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-10-21T05:18:27+09:00" pubdate  data-updated="true" >Oct 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://knockoutjs.com/">Knockout : javascript MVC library</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/5/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/3/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

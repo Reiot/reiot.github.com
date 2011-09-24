@@ -1,0 +1,1142 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="OSX 에서 윈도우와 같은 키조합을 사용하려면 ~/Library/KeyBindings/DefaultKeyBinding.dict 파일을 아래와 같이 만든 후, 키바인딩을 적용하려는 어플리케이션을 재시작하면 된다. 12345678910111213141516171819...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/33/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/08/13/default-key-binding-dict/">DefaultKeyBinding.dict</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-08-13T09:09:19+09:00" pubdate  data-updated="true" >Aug 13<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>OSX 에서 윈도우와 같은 키조합을 사용하려면 <strong>~/Library/KeyBindings/DefaultKeyBinding.dict </strong>파일을 아래와 같이 만든 후, 키바인딩을 적용하려는 어플리케이션을 재시작하면 된다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s">&quot;$\Uf700&quot;</span> <span class="o">=</span> <span class="s">&quot;moveUpAndModifySelection:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;$\Uf701&quot;</span> <span class="o">=</span> <span class="s">&quot;moveDownAndModifySelection:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;$\Uf702&quot;</span> <span class="o">=</span> <span class="s">&quot;moveLeftAndModifySelection:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;$\Uf703&quot;</span> <span class="o">=</span> <span class="s">&quot;moveRightAndModifySelection:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;$\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfLineAndModifySelection:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;$\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfLineAndModifySelection:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^</span><span class="se">\b</span><span class="s">&quot;</span> <span class="o">=</span> <span class="s">&quot;deleteWordBackward:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^$\Uf702&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordBackwardAndModifySelection:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^$\Uf703&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordRightAndModifySelection:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^$\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfDocumentAndModifySelection:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^$\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfDocumentAndModifySelection:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^a&quot;</span> <span class="o">=</span> <span class="s">&quot;selectAll:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^c&quot;</span> <span class="o">=</span> <span class="s">&quot;copy:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^s&quot;</span> <span class="o">=</span> <span class="s">&quot;saveDocument:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^v&quot;</span> <span class="o">=</span> <span class="s">&quot;paste:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^x&quot;</span> <span class="o">=</span> <span class="s">&quot;cut:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^z&quot;</span> <span class="o">=</span> <span class="s">&quot;undo:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^&quot;</span> <span class="o">=</span> <span class="s">&quot;deleteWordForward:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^\Uf702&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordLeft:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^\Uf703&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordRight:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^\Uf728&quot;</span> <span class="o">=</span> <span class="s">&quot;deleteWordForward:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfDocument:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;^\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfDocument:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfLine:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfLine:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;\Uf72c&quot;</span> <span class="o">=</span> <span class="s">&quot;pageUp:&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="s">&quot;\Uf72d&quot;</span> <span class="o">=</span> <span class="s">&quot;pageDown:&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ctrl+D 같은 손에 익은 키조합들을 적용하려면 아래의 문서들을 참고하기 바란다.</p>
+
+<pre><code>- [Cocoa Text System](http://www.hcs.harvard.edu/~jrus/Site/System%20Bindings.html)
+- [Customizing Cocoa Text System](http://www.hcs.harvard.edu/~jrus/site/cocoa-text.html)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/08/08/the-abcs-of-xbox-360-dlc/">The ABCs of Xbox 360 DLC</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-08-08T08:18:09+09:00" pubdate  data-updated="true" >Aug 8<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class='' src='http://www.xbox.com/NR/rdonlyres/C185D8B7-F8C7-4AED-AF90-E5415D383212/0/ilmmarketplace001.jpg' width='' height='' alt='' title=''></p>
+
+<p><a href="http://www.gamasutra.com/php-bin/news_index.php?story=19552">가마수트라 기사</a>에 따르면,</p>
+
+<blockquote><p>&#8220;Right now we have over 12 million users in over 26 countries, with $240 million in transactions revenue so far, with $180 million in the last 12 months alone,&#8221; said Salcedo of the Xbox 360&#8217;s marketplace.</p></blockquote>
+
+
+<p>최근 1년 동안 XBOX 360 마켓플레이스가 다운로드 컨텐츠(DLC)로 벌어들인 수익이 무려 우리돈 1800억원에 이른다고 한다. <a href="http://reiot.cafe24.com/2007/01/16/%EC%A7%80%EA%B8%88%EA%B9%8C%EC%A7%80-%ED%8C%94%EB%A6%B0-microsoft-points%EB%8A%94-%EC%96%BC%EB%A7%88/">작년 1월에 쓴 글을 찾아보니 당시 누적 금액이 200억원 정도</a>였는데, 그동안 정말 괄목할만한 성장을 한 것 같다. 최근 부족하나마 XNA 에 많은 지원을 하고 있는 것도 다 이런 통계 때문이 아닐까 한다.</p>
+
+<p>애플이나 마소의 예에서도 알 수 있듯이, 해외에서 소액결제가 힘들다고는 하지만, 이렇게 큰 플랫폼들이 계속 활성화되어가는 걸 보면 우리나라의 수준으로 따라오는 것도 금방이 아닐까 한다. 그런 걸 보면, 우리 나라의 게임 산업은 특정 게임(MMORPG)에만 집중하는 경향이 많아서, 해외 게임 회사들의 비지니스 모델 테스트 베드로로 전락해버리는 게 아닐까 하는 걱정도 든다.</p>
+
+<p>플랫폼을 지배하는 자가 게임을 지배하는 시대가 오고 있는 걸까?</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/08/06/iphone-game-2000day/">IPhone Game = 2000$/day</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-08-06T03:36:19+09:00" pubdate  data-updated="true" >Aug 6<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://i-dreaming.com/2511585">드리밍님의 포스트</a>에 의하면</p>
+
+<p><img class='' src='http://cfs9.tistory.com/upload_control/download.blog?fhandle=YmxvZzU2NjVAZnM5LnRpc3RvcnkuY29tOi9hdHRhY2gvMC8xMjAwMDAwMDAwMDEuUE5H' width='' height='' alt='' title=''></p>
+
+<p>이런 게임이 <a href="http://www.macrumors.com/2008/08/01/iphone-app-store-numbers-reveal-large-revenue-opportunities/">하루에 2천달러나 돈을 벌어준다고</a> 한다. (매일 매일 저만큼 팔렸다는 이야기는 아니굽쇼)</p>
+
+<p>으흠. 직종 전환을 심각하게 고려해봐야겠다. XNA이고 뭐고 저렇게 바로 현금화할 수 있는 플랫폼이 있어야 뛰어들만하지.</p>
+
+<p>see also:
+ <a href="http://reiot.cafe24.com/2007/03/02/%ec%95%84%ec%9d%b4%ed%8f%b0-%ea%b2%8c%ec%9e%84-%eb%a7%9d%ec%83%81/">아이폰 게임 망상</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/29/google-street-view/">Google Street View</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-29T07:44:23+09:00" pubdate  data-updated="true" >Jul 29<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>사악한 구글의 스트리트 뷰로 LA 본사 건물을 찾아봤습니다. 간판 옆에 나무에 가려진 건물이 본사가 임대중인 건물입니다. 요즘 우리 앤디 <del datetime="2008-07-28T13:41:19+00:00">횽아</del> 사장님 이모저모로 스트레스 많이 받으실 듯. :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/19/collaboration-through-google-spreadsheet/">Collaboration Through Google Spreadsheet</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-19T08:38:52+09:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[caption id=&#8221;attachment_639&#8221; align=&#8221;aligncenter&#8221; width=&#8221;500&#8221; caption=&#8221;구글 스프레드 시트 템플릿&#8221;]<a href="http://boxcatstudio.files.wordpress.com/2009/07/template.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/template.jpg' width='' height='' alt='' title=''></a>[/caption]</p>
+
+<p>최근 150 개에 가까운 야구 통계 데이터를 어떻게 저장할 것인지를 구글 스프레드시트에서 디자인 중이다.</p>
+
+<p>나와 DBA, 그리고 기획팀장 이렇게 세 명이서 하나의 스프레드시트를 열어 두고 동시에 편집을 하고 있는데, 정말 이건 한마디로 놀라운 경험이다. 굳이 프로젝터가 있는 회의실을 예약하지 않아도, 자기 자리에서 이야기하면서 바로 편집하면 금새 다른 사람의 화면에 적용이 되기 때문이다. 물론 타이핑까지 실시간으로 보이는 건 아니고, 다른 사람이 선택한 셀 정도만 보이고 입력한 결과가 적당한 시간 후에 반영되는 스타일이긴 하지만, 이 정도 만으로도 충분히 멋진 기능이라 하겠다.</p>
+
+<p>필요하면 Discuss 창에서 바로 채팅을 할 수도 있지만, 그냥 말로 이렇게 이야기하면 된다.</p>
+
+<p>&#8220;이거 이거 이상한데 수정해주세요.&#8221;</p>
+
+<p>만약 SVN으로 엑셀 파일을 공유하고 있었다면, 그 지겨운 update - commit 을 반복했어야 했으니 얼마나 끔찍한 일인가. 그저 웹페이지를 열어두고만 있으면 조만간 최신 문서로 수정이 되는 멋진 세상이 도래했도다. 이제 <a href="http://docs.google.com/templates">템플릿 기능</a>도 지원하기 시작했으니, 머지않아 지구가 정복될 것이니라&#8230;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/11/game-development-meme/">Game Development Meme</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-11T07:18:53+09:00" pubdate  data-updated="true" >Jul 11<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class="posthead">요즘 웬지 [Software Development Meme](http://www.wintellect.com/CS/blogs/jrobbins/archive/2008/07/10/software-development-meme.aspx)라는 게 유행하던데, 아무도 안 시켜 줘서 혼자서라도 한번 써본다.</div>
+
+
+<div class="postcontent">
+
+**몇 살 때 게임 개발을 시작했나요?**
+
+현업 게임이라면 그때가 지구가 멸망한다던 1999년의 8월쯤이었으니, 스물 다섯살인가? 아마추어 게임이라면 97년도의 그 유명한 무빙 채팅 머신이니까 스물 세살 쯤 되겠다.
+
+**어떻게 게임 개발을 시작하게 되었는가? **
+
+대구 삼성소프트웨어 멤버쉽에서 학과 아해들과 2D 그래픽 머드(요즘 말로 치면 2D MMORPG)를 만든답시고 까불다가, 맨날 스타랑 디아블로만 하고 놀다가, 시험도 치고 술도 먹고 하다 보니 흐지부지 되어버렸다. 역시 아마추어로는 되는게 없겠다 싶던 찰나, 서울서 게임을 만들고 있던 후배 녀석이 꼬시는 바람에 급작스럽게 상경해서 프로젝트를 시작하게 되었다.
+
+**게임 개발을 처음 시작했을 때의 개발 환경은? **
+
+Linux 2.0 대 커널 + GCC 2.x + VI 로 서버랑 네트워크 라이브러리를 개발했다. 참고로, 상경 당시 자바 코드에 심취했던때라, 코드에다가 exception throw-catch 로 도배한 걸로 10년째 갈굼을 당하고 있다.
+
+**최초로 개발한 상용 게임은 어떤 게임이었나? **
+
+다크에덴([http://darkeden.com](http://darkeden.com)). 아직도 절찬리에 서비스중인 초장수 게임. 만들면서도 우여 곡절이 많은 게임이었다. 하핫.
+
+**게임을 개발해오면서 사용했던 프로그래밍 언어들은? **
+
+C++, VB.NET, LUA, Python, Mysql, SQL Server, XML, YAML
+
+**다시 직업을 선택하라고 해도 또 게임 개발을 선택할 것인가?**
+
+흐음. 요즘 주위에 아픈 사람이 종종 생기면서 틈틈히 의사가 되는게 좋지 않았을까 싶긴 하다만&#8230; 집안에 돈만 많다면 또 이 직업을 택하지 않을까 싶다. 대신 절대 회사 주식을 돈 주고 사지는 않으리.
+
+**신입 게임 개발자에게 알려주고픈 딱 한가지만 고른다면? **
+
+학교에서 데이터 구조랑, 시스템 프로그래밍, 어셈블리 수업 시간에 딴 짓을 하지 마라.  그러다 보면 단순 라이브러리 사용자가 될 뿐이다. 오래 살아남는 사람은 기초가 튼튼한 사람이다.
+
+**게임 개발을 하면서 가장 감동적이었던 것은? **
+
+쉬귀 블로그에 붐붐차차 다시 서비스해달라는 플레이어들의 리플이 달렸을 때.
+
+**다음 사람은? **
+
+쑥갓. 소니.
+
+</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/10/google-docs-form/">Google Docs Form</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-10T08:36:21+09:00" pubdate  data-updated="true" >Jul 10<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>이번주부터 구글 스프레드시트에다가 CBT 일정 계획을 작성중인데, 혁신적인 기능이 있어서 한번 공유해본다. (이미 다들 아실지도..)</p>
+
+<p>우선 스프레드 시트를 하나 만들고 아래와 같이 헤더를 구성한다.</p>
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/spreadsheet.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/spreadsheet.jpg' width='' height='' alt='' title=''></a></p>
+
+<p>그다음 Form - Create Form 메뉴를 이용해서 폼을 구성해보자. HTML 표준 폼 구성요소를 모두 지원하며, 정말 손쉽게 폼을 만들어낼 수 있다.</p>
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/cbt.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/cbt.jpg' width='' height='' alt='' title=''></a></p>
+
+<p>이렇게 만든 폼은 메일로 보내거나, iframe 을 이용해서 위키나 인트라넷 등 다양한 웹페이지에 게시할 수 있다. 그러면 어떻게 될까? 사람들이 폼에 값을 입력하면,  그 값들이 자동적으로 스프레드시트에 쌓이게 된다!! 당연히 그 결과물인 스프레드 시트 역시 웹에 게시할 수 있으며, pdf 나 xls 로 내보내기를 해서 메일로 쏴 줄 수도 있다.</p>
+
+<p><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/gantt2.jpg' width='' height='' alt='' title=''></p>
+
+<p>아쉬운 점이라면 폼에서 캘린더 스타일의 날짜 입력이 지원되지 않는다는 건데, 그래서 간트 차트 가젯을 만들기가 좀 난감해서 일단은 더미 날짜를 넣어서 만들어봤다. 어쨌든 이 정도만 되어도, 위키에서 표를 다루느라 고생하는 기획자나 디자이너들에게는 큰 선물이 아닐까. 간단한 설문 조사를 해도 되겠고, 나아가서는 표 형식의 어떤 게임 데이터도 관리할 수 있을테니 말이다.</p>
+
+<p>ps. <a href="http://www.viewpath.com/">viewpath </a>에서는 무료 온라인 간트 차트를 지원하는 모양이다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/10/google-lively/">Google Lively</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-10T07:38:03+09:00" pubdate  data-updated="true" >Jul 10<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class='' src='http://www.techcrunch.com/wp-content/uploads/2008/07/livelyimage.png' width='' height='' alt='' title=''>
+구글의 <a href="http://www.lively.com/">브라우저 기반 3D 아바타 SNS</a>. 또 사고 쳤구나 이놈들. 하지만, 아무리 날고 기는 구글이라도 플러그인은 깔아줘야 하는 모양이다. 헤헷.</p>
+
+<p>이건 내가 만들어본 방인데, 뭐 그다지 봐줄 건 없다. 디즈니 스타일의 과장된 페이셜 애니메이션이 되는 게 마음에 든다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/05/google-test/">Google Test</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-05T06:39:12+09:00" pubdate  data-updated="true" >Jul 5<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>구글에서 나온 <a href="http://code.google.com/p/googletest/">C++ Unit Test Framework.</a></p>
+
+<p>대체적으로 다른 프레임워크와 유사한데 몇몇 특징적인 기능들이 눈에 띄어서 요약해본다.</p>
+
+<p>Custom Failure Message : 테스트 실패시 에러 메시지를 보다 친절하게 쓸 수 있다. 아래 예제처럼 i 값을 출력할 수 있다는 점이 멋지다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Vectors x and y differ at index &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Predicate Assertions : 테스트 코드에서 함수를 호출했다가 실패하면, 파라미터로 뭘 넘겼는지를 출력해준다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="kt">bool</span> <span class="n">MutuallyPrime</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'><span class="n">EXPECT_PRED2</span><span class="p">(</span><span class="n">MutuallyPrime</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+</span><span class='line'><span class="p">.....</span>
+</span><span class='line'><span class="n">MutuallyPrime</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="n">is</span> <span class="kc">false</span><span class="p">,</span>
+</span><span class='line'><span class="n">where</span>
+</span><span class='line'><span class="n">b</span> <span class="n">is</span> <span class="mi">4</span>
+</span><span class='line'><span class="n">c</span> <span class="n">is</span> <span class="mi">10</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Scoped Assert : 다른 함수에 테스트 코드가 들어있고, 이걸 여러 테스트에서 사용할 경우 도대체 어느 테스트에서 실패했는지를 알려주는 기능이다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="mi">10</span><span class="o">:</span> <span class="kt">void</span> <span class="n">Sub1</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="mi">11</span><span class="o">:</span> <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Bar</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
+</span><span class='line'><span class="mi">12</span><span class="o">:</span> <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">Bar</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+</span><span class='line'><span class="mi">13</span><span class="o">:</span> <span class="p">}</span>
+</span><span class='line'><span class="mi">14</span><span class="o">:</span>
+</span><span class='line'><span class="mi">15</span><span class="o">:</span> <span class="n">TEST</span><span class="p">(</span><span class="n">FooTest</span><span class="p">,</span> <span class="n">Bar</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="mi">16</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'><span class="mi">17</span><span class="o">:</span> <span class="n">SCOPED_TRACE</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span> <span class="c1">// This trace point will be included in</span>
+</span><span class='line'><span class="mi">18</span><span class="o">:</span> <span class="c1">// every failure in this scope.</span>
+</span><span class='line'><span class="mi">19</span><span class="o">:</span> <span class="n">Sub1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="mi">20</span><span class="o">:</span> <span class="p">}</span>
+</span><span class='line'><span class="mi">21</span><span class="o">:</span> <span class="c1">// Now it won&#39;t.</span>
+</span><span class='line'><span class="mi">22</span><span class="o">:</span> <span class="n">Sub1</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+</span><span class='line'><span class="mi">23</span><span class="o">:</span> <span class="p">}</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">foo_test</span><span class="p">.</span><span class="nl">cc:</span><span class="mi">11</span><span class="o">:</span> <span class="n">Failure</span>
+</span><span class='line'><span class="n">Value</span> <span class="nl">of:</span> <span class="n">Bar</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span><span class='line'><span class="nl">Expected:</span> <span class="mi">1</span>
+</span><span class='line'><span class="nl">Actual:</span> <span class="mi">2</span>
+</span><span class='line'><span class="nl">Trace:</span>
+</span><span class='line'><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">foo_test</span><span class="p">.</span><span class="nl">cc:</span><span class="mi">17</span><span class="o">:</span> <span class="n">A</span>
+</span><span class='line'><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">foo_test</span><span class="p">.</span><span class="nl">cc:</span><span class="mi">12</span><span class="o">:</span> <span class="n">Failure</span>
+</span><span class='line'><span class="n">Value</span> <span class="nl">of:</span> <span class="n">Bar</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="nl">Expected:</span> <span class="mi">2</span>
+</span><span class='line'><span class="nl">Actual:</span> <span class="mi">3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&#8211;gtest_break_on_failure : 테스트를 디버거로 실행할 경우, 주요 에러 발생시 바로 해당 라인에서 브레이크가 걸리게해주는 커맨드라인 명령. 이 기능이면 테스트 실행 -> 실패 발견 -> 해당 라인에 브레이크 걸기 -> 디버거 붙여서 재시작 이라는 귀찮은 작업에서 해방된다.</p>
+
+<p>&#8211;gtest_filter : 특정 테스트만 실행하고 싶을 때, 기존 코드를 건드리지 않고 커맨드라인에서 필터링을 할 수 있다. 이거야말로 대박 기능인 듯!</p>
+
+<p>&#8211;gtest_filter=FooTest.<em> : FooTest 하위 테스트를 모두 실행
+&#8211;gtest_filter=</em>Null<em>:</em>Constructor<em> : 이름에 &#8220;Null&#8221; 또는 &#8220;Constructor&#8221;를 포함한 모든 테스트를 실행
+&#8211;gtest_filter=-</em>DeathTest.<em> : DeathTest 가 아닌 모든 테스트를 실행
+&#8211;gtest_filter=FooTest.</em>-FooTest.Bar : FooTest 중에서 FooTest.Bar를 제외한 나머지 테스트를 실행
+&#8211;gtest_repeat : 테스트를 N번 실행할 수 있다. &#8211;gtest_filter 와 함께 쓰면 특정 테스트만 반복해서 수행할 수 있다.</p>
+
+<p>DISABLED<em> : 임시로 테스트를 실행하지 않으려면 코멘트로 막는 대신 이름 앞에다가 DISABLED</em> 를 붙이면 된다.</p>
+
+<p>대충 기능만 훑어봤는데도 이 넘들이 진짜 테스트에서 귀찮은 게 무엇인지를 잘 알고 만들었다는 느낌이 든다. 멋진 놈들이란 말이야</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/02/google-trends/">Google Trends</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-02T07:37:19+09:00" pubdate  data-updated="true" >Jul 2<span>nd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class='' src='http://www.google.com/intl//trends/logo_sm.gif' width='' height='' alt='' title=''></p>
+
+<p><a href="http://google.com/trends">구글 트렌드</a>는 <a href="http://googlekoreablog.blogspot.com/2008/06/blog-post_27.html">구글 검색의 패턴 및 통계를 보여주는 서비스</a>다. 이번에 뭔가 리뉴얼되었다길래 한번 구경해봤다.</p>
+
+<p>가장 먼저 요즘 사내 이슈가 되고 있는 오픈 베타 서비스 시기는 언제로 하면 좋을까? 를 알아보기 위해 baseball 을 검색해봤다.</p>
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/baseball.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/baseball.png' width='' height='' alt='' title=''></a></p>
+
+<p>사실 정답은 MLB 일정과 맞춰야 한다는 뻔한 놈인데, 이건 baseball + MLB로 검색해보면 알 수 있다. 여기서 연관어의 중요성을 알 수 있다. :)</p>
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**baseball** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="70">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**mlb** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="21">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.30</td>
+</tr>
+</tbody></table>
+
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/baseball_mlb.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/baseball_mlb.png' width='' height='' alt='' title=''></a></p>
+
+<p>즉 무조건 내년 3월에는 오픈을 해야 한다는 소리가 된다. ㅠㅠ 뭐 이미 각오하고 있는 바이므로 이번엔 다른 걸 검색해보자. 미국에 야구 팬은 많은데 그 중에서 얼마나 많은 사람들이 야구 게임을 즐길까? 라는 고전적인 의문의 답을 찾아보고 싶었지만, 특별히 떠오르는 검색어가 없으므로 online baseball 과 fantasy baseball 을 찾아봤다.</p>
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**online baseball** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="20">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**online baseball game** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="2">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.10</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**fantasy baseball** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="70">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#ff9900"></td>
+</tr>
+</tbody></table>
+</td>
+<td>3.50</td>
+</tr>
+</tbody></table>
+
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/onlinebaseball_fantasybaseball.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/onlinebaseball_fantasybaseball.png' width='' height='' alt='' title=''></a></p>
+
+<p>역시나 아직까지 미국 온라인 야구 시장은 실제 데이터를 기본으로 하는 환타지 야구에 비하면 10-20% 밖에 안되는 모양이다. (그리고 환타지 야구 역시 MLB 일정을 따라가고 있는 걸 확인할 수 있다.)</p>
+
+<p>이번엔 우리의 적(이라고 쓰고 큰형님이라고 읽는다)인 MLB 시리즈들을 살펴보자.</p>
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**mlb 08** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="24">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**mlb 07** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="30">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.20</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**mlb the show** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="69">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#ff9900"></td>
+</tr>
+</tbody></table>
+</td>
+<td>2.80</td>
+</tr>
+</tbody></table>
+
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/mlb08.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/mlb08.png' width='' height='' alt='' title=''></a></p>
+
+<p>웬지 매년 출시할 때마다 인기가 높아진다는 느낌이 든다. 아마도 판매량이 가장 높은 시기는 1사분기이리라. 웬지 씁쓸하니 이번엔 우리 게임에 대해서 한번 알아볼까 한다.</p>
+
+<div style="padding-bottom:5px;padding-top:12px;">
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**real baseball** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="22">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**cal ripken** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="70">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>3.15</td>
+</tr>
+</tbody></table>
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**online baseball game** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="21">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#ff9900"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.95</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/calripken.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/calripken.png' width='' height='' alt='' title=''></a></p>
+
+<p>우리 게임이 Ultimate baseball Online 에서 Cal Ripken&#8217;s Real Baseball로 이름을 바꾼게 올초였는데, 검색 패턴은 립켄 횽아랑 비슷한 것 같다. 더이상 자세한 설명은 구차하므로 생략한다.</p>
+
+<p>다른 게임들은 어떨까? 팡야를 살펴보면 아마도 태국 > 인도네시아 > 필리핀 순으로 동남아에서 인기를 끄는 모양이다. 그런데 올초 Wii용 팡야가 출시되었음에도 검색 빈도가 점점 시들해지고 있다. ^<sup>;;;</sup></p>
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/pangya.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/pangya.png' width='' height='' alt='' title=''></a></p>
+
+<p>헬게이트 런던, 헉슬리, 길드워를 검색해보면 웬지 안타깝다.</p>
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**hellgate london** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="70">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**guild war** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="10">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.15</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**huxley** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="24">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#ff9900"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.35</td>
+</tr>
+</tbody></table>
+
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/hellgate.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/hellgate.png' width='' height='' alt='' title=''></a></p>
+
+<p>이 외에도 Wii, 엑박, PS3 등 3대 콘솔들을 검색해보면 웬지 크리스마스때 장사가 잘 되는 모양이다.</p>
+
+<div style="padding-bottom:5px;padding-top:12px;">
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**wii** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="70">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**xbox 360** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="36">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.52</td>
+</tr>
+</tbody></table>
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**ps3** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="48">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#ff9900"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.70</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<div style="padding-bottom:5px;padding-top:12px;"><a href="http://boxcatstudio.files.wordpress.com/2009/07/console.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/console.png' width='' height='' alt='' title=''></a></div>
+
+
+<div style="padding-bottom:5px;padding-top:12px;"></div>
+
+
+<div style="padding-bottom:5px;padding-top:12px;">음&#8230; 피곤해서 오늘 검색 놀이는 여기까지. 뭔가 의미있는 통계 정보를 알아내려면 정확한 검색어와 연관어를 잘 찾아야 한다는 게 오늘의 교훈이 아닐까 싶다.</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/34/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/32/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

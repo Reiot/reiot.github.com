@@ -1,0 +1,1214 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="개요Spread는 그룹 기반의 UDP 메시징 라이브러리로, unicast &amp; multicast 및 scattered send/receive를 지원한다. 단 PeerToPeer 모델이 아니라, 독립적인 어플리케이션인 Spread 데몬이 가운데에서 중계를 해주...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/42/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/27/spread/">Spread</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:56:32+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>개요</h1>
+
+<p><a href="http://www.spread.org">Spread</a>는 그룹 기반의 UDP 메시징 라이브러리로, unicast &amp; multicast 및 scattered send/receive를 지원한다. 단 PeerToPeer 모델이 아니라, 독립적인 어플리케이션인 Spread 데몬이 가운데에서 중계를 해주는, 일종의 메시지 버스의 역할을 한다. RakNet 과 마찬가지로 다양한 UDP 전송 방식을 지원한다.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> 전송방식 </th>
+<th> 설명 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>   Unreliable  </td>
+<td> least |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Reliable    </td>
+<td> will get there, no ordering |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Fifo        </td>
+<td> reliable and ordered fifo by source |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Causal      </td>
+<td> reliable and all mesg from any source of this  level are causally ordered |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Agreed      </td>
+<td> reliable and all mesg from any source of this level are totally ordered |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Safe        </td>
+<td> Agreed ordering and mesg will not be delivered to application until the mesg has reached ALL receipients&#8217; daemons |</td>
+</tr>
+</tbody>
+</table>
+
+
+<h1>성능</h1>
+
+<p>문서에 의하면 1k 메시지 8000개를 1초에 전송 보장한다고 하며, 또한, <a href="http://www.cnds.jhu.edu/pub/papers/cnds-2004-1.pdf">The Spread Toolkit: Architecture and Performance</a>에 따르면 만개의 그룹에서 Safe 메시지를 보낼 때의 지연 시간이 6ms 라고 나온다. 실제로, 파이썬 바인딩을 이용한 클라이언트와 (아무런 부하를 주지 않은) localhost 데몬과의 테스트 결과 0.25ms 정도의 반응 시간을 보여줬다.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> 전송방식 </th>
+<th> 평균 ping 시간 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> UNRELIABLE_MESS </td>
+<td> 0.248ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  RELIABLE_MESS </td>
+<td> 0.248ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  FIFO_MESS </td>
+<td> 0.247ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  CAUSAL_MESS </td>
+<td> 0.247ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  AGREED_MESS </td>
+<td> 0.247ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  SAFE_MESS </td>
+<td> 0.248ms |</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>로컬랜에 연결된 2개의 머신에서 한쪽(Windows XP, P4 2G + 512M)에 데몬을 real time priority 로 띄우고 다른 쪽에 송수신 전용 쓰레드를 가진 테스트 클라이언트를 붙인 다음, 초당 8000개의 4byte 메시지를 보내는 경우 CPU 사용량 100% 에 RTT 0.8s 가 나왔다. 즉 1초 안에 전송은 보장하지만 반응 속도는 영 좋지 않았다. 그리고 로컬랜의 방화벽 바깥에 있는 머신(Windows 2003 + P4 2.8G + RAM 2G)에 데몬을 띄우고 방화벽 안쪽에서 테스트한 결과, 초당 4000개를 보내면 연결이 끊기며 초당 1000개를 보내면 0.8s 의 반응 속도를 보여줬다.</p>
+
+<h1>예상되는 용도</h1>
+
+<p>컨텐트 중계 서버
+: 채팅 채널, 파티 채팅, 길드 채팅을 중계해주는 서버. 굳이 채팅 서버를 두지 않아도 무방할 듯. 그 역할을 Spread Daemon 이 해주니까.</p>
+
+<p>게이트웨이 서버
+: M:N 관계에 있는 tier 에서의 중계 서버 역할. 가령 N개의 에이전트와 M개의 게임서버간의 연결을 TCP로 하게 되면 각 에이전트는 M개의 TCP연결을 하고 그것을 관리해야 한다. 이를 1개의 Spread 연결로 해결할 수 있다. (M개의 그룹에 대해 1개의 연결을 사용한다는 가정 하에서&#8230;) 마찬가지로 게임서버는 1개의 Spread 연결에 대해서만 처리하게 되므로 이벤트 드리븐이 간단하게 이루어진다. 가령 클라이언트가 에이전트에 로그인하고 이전 위치를 로딩하게 되면, 에이전트는 해당 서버 그룹에 join 하고, 클라이언트가 로그아웃하면 그룹에서 leave 하면 된다. (ref-counting을 사용하면 간단) 서버간 이동도 마찬가지로 처리할 수 있다. 단 이렇게 될 경우 데몬이 다운되면 게임 끝이다.</p>
+
+<p>브로드캐스트 서버
+: (현실성이 없는 이야기지만) 게임 서버의 각 브로드캐스트 영역(일명 Area)을 그룹으로 간주하고, 그 안에 들어있는 플레이어들에게 멀티캐스팅할 수 있겠다. 단 이런 모델은 잦은 그룹 join/leave 가 이루어지므로 Area 개수가 늘어날수록 부하가 심해질 듯. 1000개의 그룹일 경우 35ms 정도니까&#8230; 10000개면&#8230;</p>
+
+<p>데이터 복제 서버
+: 게임 서버의 경계 영역에서의 데이터 변화를, 이를 공유하는 다른 서버로 복제한다. 예를 들면, NPC 길찾기를 위한 동적 객체 정보를 게임 서버에서 NPC 에이전트로 복제하는 등.</p>
+
+<h1>참고사항</h1>
+
+<p>경험자의 말에 의하면, windows xp 와의 궁합이 잘 맞지 않다고 한다. 대신 windows 2000 에서는 잘 된다고 하는데, 커널의 네트워크 모듈과의 궁합 문제일 가능성이 있다고 한다. 즉 windows 2003 에서 테스트를 더 해봐야 한다는 의미.</p>
+
+<p>see also:</p>
+
+<ul>
+<li><a href="http://www.spread.org/docs/guide/users_guide.pdf">Spread User Guide</a></li>
+<li><a href="http://www.zope.org/Members/tim_one/spread/">Python Spread</a></li>
+<li><a href="http://www3.telus.net/taj_khattra/luaspread.html">Lua Spread</a></li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2006/04/27/spread/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/27/python-tips/">Python Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:38:41+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3># asyncore.dispatcher</h3>
+
+<pre><code>- 원래부터 nonblocking 이다.
+- set_socket 하는 시점에 map 에 등록된다.
+</code></pre>
+
+<h3># StringIO.readline()</h3>
+
+<p>StringIO 는 file-like 객체이므로 readline() 을 지원한다. 그러나 write() 한 후 읽어들이면 None 을 리턴한다. 내부적으로 유지하는 offset 이 하나이기 때문인데, 만약 사용하려면 offset(0) 을 호출해서 포인터를 맨 앞으로 돌려줘야 한다. (너무 단순한가?)</p>
+
+<h3># zipfile</h3>
+
+<p>zip 포맷으로 특정 폴더를 압축하기 위해서는 다음과 같이 해야 한다. 이때 압축 포맷으로 ZIP_DEFLATED 를 사용해야 파일 크기가 작아진다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">zipdir</span><span class="p">(</span><span class="n">zfile</span><span class="p">,</span><span class="nb">dir</span><span class="p">,</span><span class="n">base</span><span class="o">=</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;zip directory recursively&quot;&quot;&quot;</span>
+</span><span class='line'><span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">zip </span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="nb">dir</span><span class="p">,</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">global</span> <span class="n">log</span>
+</span><span class='line'><span class="n">log</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;zip </span><span class="si">%s</span><span class="s">...&#39;</span><span class="o">%</span><span class="nb">dir</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>
+</span><span class='line'><span class="n">nf</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+</span><span class='line'><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">nf</span><span class="p">):</span>
+</span><span class='line'><span class="n">zipdir</span><span class="p">(</span><span class="n">zfile</span><span class="p">,</span><span class="n">nf</span><span class="p">,</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="nb">dir</span><span class="p">))</span>
+</span><span class='line'><span class="k">else</span><span class="p">:</span>
+</span><span class='line'><span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="n">zfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">nf</span><span class="p">,</span>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">base</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="nb">dir</span><span class="p">),</span> <span class="n">f</span><span class="p">),</span>
+</span><span class='line'><span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3># dict(zip(seq1,seq2))</h3>
+
+<p>keys와 values를 dict로 매치시킬 때 dict()와 zip()을 사용할 수 있다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&#39;aaa&#39;</span><span class="p">,</span> <span class="s">&#39;bbb&#39;</span><span class="p">,</span> <span class="s">&#39;ccc&#39;</span> <span class="p">]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">)</span>
+</span><span class='line'><span class="p">[(</span><span class="s">&#39;aaa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;bbb&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;ccc&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">))</span>
+</span><span class='line'><span class="p">{</span><span class="s">&#39;aaa&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;bbb&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;ccc&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3># re.findall</h3>
+
+<p>스트링에서 특정 seperator 로 구분된 패턴으로 자를 때, string.split() 도 좋지만 re.findall() 을 강추</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">args</span> <span class="o">=</span> <span class="s">&#39;&quot;SELECT * FROM User&quot;,&quot;aaa,bbb,ccc,ddd&quot;&#39;</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">args</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;&quot;&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;SELECT * FROM User&#39;</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;aaa,bbb,ccc,ddd&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;&quot;(.+?)&quot;&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'><span class="p">[</span><span class="s">&#39;SELECT * FROM User&#39;</span><span class="p">,</span> <span class="s">&#39;aaa,bbb,ccc,ddd&#39;</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3># re 를 이용한 파일명 변경</h3>
+
+<p>특정 폴더 안에 여러가지 파일명들을 바꾸기 위해서는 re 모듈을 잘 사용해야 한다. 다음은 파일명에 } 을 없엘 때 쓰는 스크립트이다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">re</span>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">target_folder</span><span class="p">)</span>
+</span><span class='line'><span class="k">for</span> <span class="n">old_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
+</span><span class='line'><span class="n">new_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;\[.+\]&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="n">old_name</span><span class="p">)</span>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">old_name</span><span class="p">,</span><span class="n">new_name</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/27/funny-memory-values/">Funny Memory Values</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:31:49+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>from <a href="http://www.samblackburn.com/wfc/technotes/WTN006.htm">WFC Technical Note 006 - Funny Memory Values</a></p>
+
+<p>윈도우 환경에서 디버깅을 하다 보면 0XCDCD 라든지 0XDDDD 같은 특이한 값들을 만날 수 있는데, 이게 그냥 가비지가 아니라 각각마다 특유의 의미를 가지고 있었다. 가령 0xDDDD는 이미 지워진 포인터라든지 0xFDFD는 힙에 할당한 값의 앞뒤에 위치하는 경계값이라든지 말이다.</p>
+
+<p>한글로 된 설명은 <a href="http://codian.net/wp/archives/352">요기</a>와 <a href="http://www.trozan.net/blog/tag/%B5%F0%B9%F6%B1%D7">요기</a>가 제일 잘 되어 있으니 참고하시길.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/27/sql-tips/">SQL Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:03:18+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>MS-SQL SERVER + Transact SQL Tip</p>
+
+<h2>IP 문자열에서 a.b.c 추출하기</h2>
+
+<p>declare @ip varchar(20)
+SET @ip = &#8216;111.22.33.22&#8217;
+SELECT LEFT(@ip,len(@ip)-patindex(&#8216;%.%&#8217;,reverse(@ip)))</p>
+
+<h2>리포팅 서비스</h2>
+
+<p><a href="http://network.hanbitbook.co.kr/view.php?bi_id=1048">IIS + ASP + VisualStudio.NET 을 이용한 리포트 서비스 제작</a></p>
+
+<h2>FTP 파일 업로드</h2>
+
+<p>DTS 에서 제공하는 파일 전송 프로토콜 작업(FTPTask)의 경우, 다운로드만 가능하고 업로드는 지원하지 않는다. 가령, 로컬 백업한 <em>.bak, </em>.trn 파일을 리모트 서버로 옮기려면 업로드 스크립트를 SQL 이나 VB 또는 Python으로 직접 개발해야 한다.</p>
+
+<h2>복구 모델</h2>
+
+<p>당연히, 트랜잭션 로그를 남기려면 FULL 복구 모델로 데이터베이스를 설정해야 한다. 백업 정책을 세울 때 꼭 모델을 체크하기 바란다. (기본적으로 FULL 모델로 만들어지는 것 같지만, 필수적으로 체크할 것)</p>
+
+<h2>SQLServerAgent</h2>
+
+<p>유지 관리 계획 등 주기적인 작업을 실행하려면 기본적으로 꺼져있는 SqlServerAgent 를 켜야 한다.</p>
+
+<h2>테이블 스키마 복사</h2>
+
+<p>스크립트로 추출해서 다른 DB 에 설치할 경우 디폴트값이 지정되지 않는 경우가 있다. 이때 DEFAULT 등 제약조건 스크립팅에 꼭 체크를 해야 한다. 아니면 그냥 데이터 내보내기를 사용하길.</p>
+
+<h2>노트북에 SQL Server 설치하기</h2>
+
+<p>SQL Server 상위 버전들은 기본적으로 서버급 OS 에서만 설치된다. 그러나 노트북은 대체로 XP Professional or Home Edition 을 사용하는 법. 이를 지원하는 SQL Server 버전들을 살펴보자.</p>
+
+<table>
+<thead>
+<th></th>
+<th>XP Home</th>
+<th>XP Pro</th>
+<th>comment</th>
+
+<tr>
+<td>MSDE</td>
+<td>O</td>
+<td>O</td>
+<td> </td>
+</tr>
+<tr>
+<td>Evaluation Edition</td>
+<td>O</td>
+<td>O</td>
+<td>120 일 평가판</td>
+</tr>
+<tr>
+<td>Persional Edition</td>
+<td>X</td>
+<td>O</td>
+<td> </td>
+</tr>
+<tr>
+<td>Developer Edition</td>
+<td>X</td>
+<td>O</td>
+<td> </td>
+</tr>
+</thead></table>
+
+
+<p>결국 XP Home Edition 을 사용하는 경우에는 평가판 또는 MSDE 를 사용해야 한다. 이참에 MSDE 의 새 버전인 SQL Server Express 2005 를 사용해보는 것도&#8230; <img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/icon_sad.gif' width='' height='' alt='(' title='('></p>
+
+<p>see also: * [http://www.microsoft.com/sql/evaluation/overview/default.asp SQL Server Overview] - 여기에 버전별 비교표가 들어있다 * [http://go.microsoft.com/?linkid=2534867 120일 평가판 다운로드]</p>
+
+<h2>NULL 비교</h2>
+
+<p>NULL 에 대한 비교는 is 로 하라!</p>
+
+<p>declare @a int
+SET @a = NULL</p>
+
+<p>IF @a = NULL
+print &#8216;@a=NULL&#8217;
+IF @a IS NULL
+print &#8216;@a is NULL&#8217;</p>
+
+<p>declare @b int
+SET @b = 1</p>
+
+<p>IF @b &lt;> NULL
+print &#8216;@b &lt;> NULL&#8217;
+IF @b IS NOT NULL
+print &#8216;@b is not NULL&#8217;</p>
+
+<p>&#8211; 실행 결과
+@a IS NULL
+@b IS NOT NULL</p>
+
+<h2>constraint 관리</h2>
+
+<p>디폴트 constraint 를 삭제하고 다시 추가하는 법&#8230;</p>
+
+<p>&#8211; 삭제
+ALTER TABLE [dbo].[테이블] DROP
+CONSTRAINT [DF<em>테이블</em>컬럼]</p>
+
+<p>&#8211; 추가
+ALTER TABLE [dbo].[테이블] WITH NOCHECK ADD
+CONSTRAINT [DF<em>테이블</em>컬럼] DEFAULT (디폴트값) FOR [관련컬럼]</p>
+
+<h2>CASE WHEN&#8230;</h2>
+
+<p>다음은 승률을 나타내는 컬럼을 계산해오는 방식이다.</p>
+
+<p>SELECT
+&#8230;.
+CASE
+WHEN (WinCount + LoseCount + DrawCount) = 0 THEN 0.00
+ELSE round((WinCount * 1.0) / (WinCount + LoseCount + DrawCount) , 2)
+END AS WinRate,
+&#8230;.</p>
+
+<h2>SELECT&#8230;INTO&#8230;</h2>
+
+<p>INSERT INTO&#8230;SELECT&#8230;가 존재하는 테이블에 데이터를 넣을 때 사용한다면, SELECT&#8230;INTO&#8230;는 새로운 테이블을 만들어 넣을 때 사용한다. 특히 통계 테이블에 데이터를 넣을 때, TRUNCATE TABLE xxx; INSERT INTO&#8230;SELECT를 하게 되면, 문제가 생길 수 있으므로 아예 DROP 한 다음 SELECT&#8230;INTO&#8230; 를 사용하도록 한다. (우리 DBA의 말씀~)</p>
+
+<p>SELECT.. INTO는 MS-SQL의 기능! . 일반적인 ANSI-SQL에서는 CREATE TABLE &#8230; SELECT 를 사용함.</p>
+
+<h2>대용량 데이터 빨리 넣기</h2>
+
+<pre><code>- 관련 데이터베이스의 로그 타입 변경 : EM에서 데이터베이스 등록정보를 선택, 복구 모델을 단순 또는 대량 로그로 임시 변경해준다.
+- ALTER TABLE ... 로 관련 테이블의 PK 제거하기. 그러나, FK 관계에 있을 경우에도 제거를 해야 하므로 EM 또는 VS 의 DB 다이어그램에서 삭제하는게 제일 간편하다. 단. 복구는 수동 -_-;
+- DROP INDEX ...로 관련 테이블의 인덱스 제거하기. 그러나, 다시 복구해야 하므로... 수작업 필수
+- BULK INSERT : DB 스트레스 테스트를 위해 백만건 이상의 데이터를 넣어야 할 때 사용하면 간편하다. 단 샘플 데이터 파일을 제공해줘야 한다.
+- INSERT INTO xxx () SELECT ...로 자기 자신 혹은 관련 테이블을 활용할 것. while + insert 1 보다 훨씬 빠르다. 테스트해본 결과 한줄씩 insert 할 경우 10만건에 40초, 그러나 위의 방법을 쓰면 2초로 해결 가능. 단, 용량이 너무 커질 경우 실행이 안되므로, 범위를 나눠야 할 듯. 300만건에서는 대충 됨.
+- PK/FK/Index/Trigger 복구하기. 800만건이 들어있는 테이블의 PK 를 복구하는데 Xeon Dual 0.8G 에서 무려 '''5분'''이나 걸렸다.
+</code></pre>
+
+<p>ALTER TABLE xxx ADD CONSTRAINT PK_xxx_yyy PRIMARY KEY(yyy)
+ALTER TABLE xxx ADD CONSTRAINT FK_xxx_yyy FORENGN KEY REFERENCES zzz(yyy) ON DELETE CASCADE
+CREATE [UNIQUE] INDEX IX_xxx_yyy ON xxx(yyy)</p>
+
+<h2>데드락 해결하기</h2>
+
+<p>sp_who2
+sp_lock pid
+KILL pid</p>
+
+<h2>like 와 인덱스</h2>
+
+<pre><code>- col like 'userid%'
+- col like '%userid%'
+- col like '%userid'
+</code></pre>
+
+<p>오직 1번만이 인덱스를 타게 된다. Index는 Binary Tree로 구성되어 있기 때문에 처음부터 찾아서 들어가는 것임. 당연히 첫자를 알 수 없다면 index를 경유하지 못함!!!</p>
+
+<h2>Update Trigger</h2>
+
+<p>특정 컬럼이 변경된 경우 로그 테이블에 row 를 추가해야할 경우 Update Trigger 를 사용하면 간편하다. 가령, 플레이어 레벨이 바뀌었을 때 레벨 테이블에 insert 를 해야 한다고 가정하면 트리거는 대략 다음과 같다.</p>
+
+<p>CREATE TRIGGER trigger_name ON src_tbl FOR UPDATE
+AS
+IF UPDATE(level)
+begin
+declare @old_level smallint, @new_level smallint
+SELECT @new_level = [Level] FROM inserted
+SELECT @old_level = [Level] FROM deleted
+IF @old_level &lt;> @new_level
+begin
+INSERT INTO log_tbl (&#8230;.) VALUES (&#8230;,@old_level,@new_level,&#8230;)
+end
+RETURN
+end</p>
+
+<h2>@@IDENTITY vs. SCOPE_IDENTITY()</h2>
+
+<p>전자의 경우, 현재 세션에서의 최종적인 IDENTITY 컬럼의 값을 리턴해준다. 단, 트리거에 의해서 다른 테이블에서 IDENTITY 가 바뀐 경우 그 값을 리턴해준다. 따라서, 최종적으로 직접 만진 테이블의 IDENTITY 값을 알아오려면 SCOPE_IDENTITY() 를 사용하는 것이 안전하다.</p>
+
+<h2>UPDLOCK</h2>
+
+<p>쿼리 분석기에서 좌측 쿼리를 먼저 실행한 후 우측 쿼리를 실행할 때, 첫번째 예제의 경우 그냥 실행이 되지만 두번째 예제는 block 된다. 오라클에는 select for update 라는 게 있다나&#8230;</p>
+
+<table>
+<tr>
+<td>nonblocked query</td>
+</tr>
+<tr>
+<td>begin trans</td>
+<td rowspan="2">select * from users</td>
+</tr>
+<tr>
+<td>select * from users with (updlock)</td>
+</tr>
+<tr>
+<td>blocked query</td>
+</tr>
+<tr>
+<td>begin trans</td>
+<td rowspan="2">select * from users with (updlock)</td>
+</tr>
+<tr>
+<td>select * from users with (updlock)</td>
+</tr>
+</table>
+
+
+<p>DB레벨에서 중복로그인을 처리할 경우, DB 컬럼에 LogOn flag 를 둬야 한다. LOGOFF - LOGON - GAME 이런 식의 상태 변화가 있다고 가정하면, 로그인시 LOGOFF -> LOGON 으로 바꿔주고 로그아웃시 LOGON -> LOGOFF 로 설정하게 될 것이다. 문제는 이걸 언제 어떻게 체크해서 바꾸느냐인데&#8230;</p>
+
+<p>&#8211; simplified login procedure
+declare @logon
+SELECT @logon=LogOn FROM users WHERE &#8230;
+IF ( @logon &lt;> LOGOFF )
+begin
+handle_error&#8230;
+end
+UPDATE users SET @logon = LOGON WHERE &#8230;</p>
+
+<p>이런 식으로 처리할 경우, abuser 에 의해서 동일 유저에 대한 로그온 프로시저가 DB에서 동시에 일어난다고 가정하면 중복로그인이 충분히 발생할 수 있게 된다. (아주 낮은 확률이지만&#8230;) 이를 손쉽게 막으려면 select with updlock를 사용하면 된다. (단, 이때 (Page,IU), (KEY,U), (Table,IX) 의 3가지의 락이 걸린다)</p>
+
+<p>웬지 불필요한 lock 을 피하기 위해서는, update 의 where 절에서 다시 한번 LogOn 필드를 체크(즉 select 해온 뒤 누가 바꿨는지 다시 확인) 해주면 될 거 같다.</p>
+
+<p>&#8211; simplified login procedure
+declare @logon
+SELECT @logon=LogOn FROM users WHERE &#8230;
+IF ( @logon &lt;> LOGOFF )
+begin
+handle_error&#8230;
+end
+UPDATE users SET @logon = LOGON WHERE &#8230; AND logon = LOGOFF
+IF ( @@rowcount &lt;> 1 )
+begin
+handle_error&#8230;
+end</p>
+
+<p>테스트 해 본 결과 양 쪽에서 select 한 후 한쪽에서 update 를 하면, 다른 쪽의 update 는 트랜잭션에 의해 block 되며 상대 트랜잭션이 끝나면 실패를 리턴하게 된다. (만약 where 절의 체크가 없다면 둘 다 로그인 성공으로 간주되므로 주의할 것)</p>
+
+<blockquote><p>이게 consistent non-blocking read을 지원하기 때문인데, 간혹 조금 이해하기 힘든 현상이 일어날 때도 있지. 하지만 Query 하나 들어갈때마다 table에 lock을 걸어버리는 방법은 너무 위험부담이 크기 때문에. consistent read에 대한 설명이 필요하다면 다음 기회에..</p></blockquote>
+
+
+<h2>sp_lock, sp_who2</h2>
+
+<pre><code>- sp_lock : 현재 시스템에 존재하는 lock 을 보여준다.
+- sp_who2 : 현재 시스템에서 실행되는 프로세스, 소유주, 접속지, 실행내용 등을 보여준다.
+</code></pre>
+
+<p>이 내용은 Enterprise Manager 의 관리에서 찾아볼 수 있다.</p>
+
+<h2>GOTO</h2>
+
+<p>어릴 적(?)부터 항상 GOTO 는 쓰지 말라는 이야기를 들어 왔지만, 프로시저에서 또 쓰게 될 줄은&#8230; 그러나, 트랜잭션이 존재할 경우 GOTO 를 쓰지 않으면 자꾸 if-else-if-else 로 indent 해들어가는 바람에 읽기가 힘들어져서&#8230;</p>
+
+<p>begin transaction
+&#8230;.
+&#8230;.
+IF ( error_found )
+begin
+rollback transaction
+SET @errorcode = -1
+goto Label
+end
+&#8230;.
+&#8230;.
+commit transaction
+&#8230;.
+&#8230;.
+Label:
+log something&#8230;
+&#8230;.
+&#8230;.</p>
+
+<h2>SET IDENTITY_INSERT</h2>
+
+<p>identity 컬럼의 경우 DELETE FROM tbl 하더라도 시드값은 계속 증가하게 되어 있다. 또한, 특정 값을 명시적으로 insert 할 수 없다. 이를 가능하게 하기 위해서는 아래와 같이 하면 된다.</p>
+
+<p>SET identity_insert tbl ON
+INSERT INTO tbl (identity_col,&#8230;) VALUES (N,&#8230;)
+SET identity_insert tbl off</p>
+
+<h2>@@ERROR / @@ROWCOUNT</h2>
+
+<p>프로시저 중간에 insert 나 update 할 경우 혹시 모를 실패에 대비해서 아래와 같이 체크해야 한다.</p>
+
+<p>INSERT &#8230;
+IF @@error &lt;> 0
+begin
+rollback transaction
+RETURN
+end</p>
+
+<p>update 의 경우 1개의 업데이트만 기대했는데, 2개가 업데이트된 경우 @@ERROR는 정상이 된다. 이때에는 @@ROWCOUNT 를 체크해야 한다.</p>
+
+<h2>시간 필드의 디폴트값</h2>
+
+<p>insert 시점의 시간을 저장하는 필드의 경우, 테이블 선언시</p>
+
+<p>CREATE TABLE xxx
+&#8230;
+yyy DATETIME DEFAULT GETDATE()
+&#8230;</p>
+
+<p>라고 해주면 insert 할때 굳이 명시할 필요가 없다.</p>
+
+<h2>현재 시간 + a</h2>
+
+<p>dateadd( datepart, N, getdate() )</p>
+
+<h2>스크립트 디버깅</h2>
+
+<p>exec sp_sdidebug &#8216;legacy_on&#8217;</p>
+
+<h2>시간 변환</h2>
+
+<p>convert(varchar(10),getdate(),121)</p>
+
+<h2>프로시저 실행시 파라미터</h2>
+
+<p>out 을 명시해주지 않으면 받아낼 수 없다</p>
+
+<p>execute proc @param1, @param2, @param3 out, @param4 out</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/26/codekeep/">CodeKeep</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-26T08:14:46+09:00" pubdate  data-updated="true" >Apr 26<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.JPG" title="codekeep.JPG"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/codekeep.thumbnail.JPG' width='' height='' alt='codekeep.JPG' title='codekeep.JPG'></a>
+<a href="http://msdn.microsoft.com/msdnmag/issues/05/12/VisualStudioAddins/default.aspx">Visual Studio Add-Ins Every Developer Should Download Now</a> 에서 비주얼 스튜디오를 위한 10 가지 필수 플러그인들을 만나볼 수 있다. 그 중에서 제일 마음에 드는 것은, 함수를 선택하면 파라미터를 읽어서 자동적으로 XML 코멘트를 만들어주는 <a href="http://www.roland-weigelt.de/ghostdoc">GhostDoc</a>과, 웹에서 코드 조각들을 검색해서 내 코드에 넣을 수 있는 <a href="http://www.codekeep.net/">CodeKeep</a>이라는 플러그인이다.</p>
+
+<p>단 GhostDoc은 아직 VS2005 영문판만 지원해서 CodeKeep만 구경해볼 수 있었는데, 아직은 기부된 코드의 양이 부족한 듯해서 아쉬웠다. del.icio.us처럼 많은 사람들이 사용해줘야 시너지 효과가 날텐데, 홈페이지만 <a href="http://goodhyun.com/archives/2006/04/_co_oe_aoea_a_2.php">웹2.0 디자인</a>을 닮으려고 해서는 안될 것이다. 이런 식으로 팀 내부적으로 코드조각을 공유할 수 있는 솔루션이 있었으면 좋으련만&#8230; (누가 위키 기반으로 만들어주시게~~)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-25T21:29:33+09:00" pubdate  data-updated="true" >Apr 25<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://udt.sf.net">UDT</a>는 Internet2 혹은 기가비트 이더넷과 같이 빠른 네트워크에서 수십~수백 기가 바이트의 대용량 데이터를 전송할 때 TCP가 매우 느리다는 점때문에 시작된 오픈소스 프로젝트이다. 버클리 소켓 API를 그대로 유지하고 있어서 접근성이 좋고, TCP의 슬라이딩 윈도우 같은 Congestion Control 을 사용자가 상황에 맞게 조정할 수 있다는 장점이 있다. 2.0 버전까지는 UDP 스트림만을 지원했는데 3.0부터는 UDP 다이어그램과 중첩입출력(Overlapped)도 지원하기 시작했다. 현재 3.0 beta 가 나와 있는 상태이다.</p>
+
+<p>이번에 reliable UDP 라이브러리 조사 도중 탐지망에 걸려 들어서 검토한 결과, 하나의 소켓에 대해서 내부적으로 입력과 출력 쓰레드를 1개씩 사용하는 것을 발견했다. 원래부터 데이터 전송을 목적으로 구현되어서 그런 듯한데, 이를 수정하지 않고는 게임 서버에서 사용하기는 힘들다는 판단을 내렸다. 시간이 난다면 IOCP를 연동할 수 있게 살짝 고쳐 보고 싶지만, 누구 말마따나 게임 회사는 연구소가 아닌 관계로&#8230; OTL</p>
+
+<p>결국 다시 RakNet으로 가야 된단 말인가&#8230;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/24/memory-leak-detection-tools/">Memory Leak Detection Tools</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-24T19:43:04+09:00" pubdate  data-updated="true" >Apr 24<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>from <a href="http://www.rakkarsoft.com/raknet/forum/index.php?topic=251.0">RakNet forum</a></p>
+
+<pre><code>- [http://www.flipcode.com/articles/article_memoryleaks.shtml](http://www.flipcode.com/articles/article_memoryleaks.shtml)
+- [http://www.flipcode.com/cgi-bin/fcarticles.cgi?show=64744](http://www.flipcode.com/cgi-bin/fcarticles.cgi?show=64744)
+- [http://www.embedded.com/story/OEG20020321S0021](http://www.embedded.com/story/OEG20020321S0021)
+- [http://wyw.dcweb.cn/leakage.htm](http://wyw.dcweb.cn/leakage.htm)
+- [http://www.codeproject.com/cpp/MemoryHooks.asp](http://www.codeproject.com/cpp/MemoryHooks.asp)
+- [http://www.codeproject.com/tools/leakfinder.asp](http://www.codeproject.com/tools/leakfinder.asp)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/24/odbc-tips/">ODBC Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-24T10:15:46+09:00" pubdate  data-updated="true" >Apr 24<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>Timestamp -> C</strong></p>
+
+<p>TIMESTAMP 값을 C 에서 받는 방법은 다양하다. 단순 SELECT 를 통해 날짜 스트링으로 받던가, SQL 문으로 적절히 CONVERT 한 변형된 스트링을 받던가, 아예 아래처럼 구조체로 바로 받을 수 있다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="c1">// SQL_C_TYPE_DATE</span>
+</span><span class='line'><span class="k">struct</span> <span class="n">tagDATE_STRUCT</span> <span class="p">{</span>
+</span><span class='line'><span class="n">SQLSMALLINT</span> <span class="n">year</span><span class="p">;</span>
+</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">month</span><span class="p">;</span>
+</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">day</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="n">DATE_STRUCT</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// SQL_C_TYPE_TIME</span>
+</span><span class='line'><span class="k">struct</span> <span class="n">tagTIME_STRUCT</span> <span class="p">{</span>
+</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">hour</span><span class="p">;</span>
+</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">minute</span><span class="p">;</span>
+</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">second</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="n">TIME_STRUCT</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// SQL_C_TYPE_TIMESTAMP</span>
+</span><span class='line'><span class="k">struct</span> <span class="n">tagTIMESTAMP_STRUCT</span> <span class="p">{</span>
+</span><span class='line'><span class="n">SQLSMALLINT</span> <span class="n">year</span><span class="p">;</span>
+</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">month</span><span class="p">;</span>
+</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">day</span><span class="p">;</span>
+</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">hour</span><span class="p">;</span>
+</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">minute</span><span class="p">;</span>
+</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">second</span><span class="p">;</span>
+</span><span class='line'><span class="n">SQLUINTEGER</span> <span class="n">fraction</span><span class="p">;[</span><span class="n">b</span><span class="p">]</span>
+</span><span class='line'><span class="p">}</span> <span class="n">TIMESTAMP_STRUCT</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>see also:</p>
+
+<pre><code>- [ODBC  C
+</code></pre>
+
+<p>](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/odbcc_data_types.asp)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/23/oblivion-story/">오블리비언 스토리</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-23T22:53:30+09:00" pubdate  data-updated="true" >Apr 23<span>rd</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/umbraplusskooma.jpg" title="umbraplusskooma.jpg"></a></p>
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/umbraplusskooma.jpg" title="umbraplusskooma.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/umbraplusskooma.jpg' width='' height='' alt='umbraplusskooma.jpg' title='umbraplusskooma.jpg'></a></p>
+
+<p>오블리비언을 하면서 감동받았거나 놀라웠던 장면들, 재미있는 퀘스트들을 모아봤다. (단, 이 옆 장면과 <a href="http://img.photobucket.com/albums/v284/c00lizz/OblivionLewd.jpg">요 장면</a>은 본인이 연출한게 아니다. XBOX360은 캡처 불가라는 점을 이해 바람.)</p>
+
+<p><strong>Atronach</strong></p>
+
+<p>연휴동안 Breton 여자 마법사를 키우고 있다. 마나 재생이 없는 대신 +150 마나 보너스, 마법 흡수 50%의 별자리인 Atronach 를 선택했기 때문에, 어떻게든 물약빨로 마나를 대신해야 하는 상황이다. 결국 모든 마법사 길드를 돌면서 책과 연금술 도구, 심지어는 은수저와 은그릇까지 주워다가 팔아서 물약값을 벌어야 했다. 또한 연금술을 빨리 올려야만 물약 자체 조달이 가능하기 때문에, 상점에 있는 모든 시약들도다 사거나 훔쳐서 물약으로 만들어서 돈을 긁어모으고 있다. 하루 빨리 이 헝그리한 삶에서 벗어나야 할텐데..</p>
+
+<p><strong>Gang of Anvil</strong></p>
+
+<p>대륙 남서쪽의 Anvil 에 가면 술집에서 남자를 꼬셔서 자기 집에 데리고 간 다음 귀중품을 강탈하는 여자 갱단이 있다. 매번 남자 (오크-_-)로 플레이 할때에는 술집에서 작업 들어오면 집까지 가서 본색을 드러낼 때 처치해야 했는데, 과연 여자 캐릭터로 하면 어떤 스토리가 나올지 궁금했다.</p>
+
+<p>아니나 다를까, 술집에 가자마자 그뇬들이 다가와서 하는 말이 일품이었다. &#8220;우리 갱단에 들어와서 용돈이나 벌어라.. 괜히 가드들한테 일러바치면 죽는줄 알아라.. 대신 남자들이 털끝 하나라도 못건드리게 해주겠다&#8221;</p>
+
+<p><strong>사슴과 사냥꾼</strong></p>
+
+<p>들판을 헤매다 보면 사슴들이 플레이어를 보고 놀라서 도망가는 장면을 쉽게 볼 수 있는데, 가끔은 그 사슴을 활을 쏘며 추격하는 사냥꾼도 볼 수 있다. 사슴 고기는 생명력을 올려주는 연금재료이므로 필히 잡아야 하지만, 활이 아니면 꽤 잡기가 힘들다.</p>
+
+<p><strong>움브라(Umbra)</strong></p>
+
+<p>임페리얼 시티의 7시 방향에 엘프 유적에는 에보니 풀셋 갑옷과 움브라 소드를 지닌 움브라(Umbra)라는 유명한 여자가 살고 있다. 이것은 Nine Divines의 신들이 주는 퀘스트 중 하나인데 낮은 레벨로 시도했다가는 한 두 방에 죽어 버릴 정도로 어려운 퀘스트이다. 그런데 AI의 맹점을 이용한 공략법이 이것 저것 나와 있는데, 다들 너무 재미있어서 소개해본다.</p>
+
+<pre><code>- 도발 후 도망가면 움브라가 쫒아오는데 속도가 너무 빠르므로 말을 타고 도망쳐야 한다. 수도까지 끌고 오면 경비병들과 움브라가 싸우게 되는데 보통 경비병 10명 정도는 죽게 되는데, 문제는 선공을 하게 되면 경비병이 플레이어까지 공격한다는 점. 어떻게 하든 움브라가 먼저 공격을 하게 만들면 OK.
+- 움브라를 밖으로 끌어내서 절벽으로 유인, 떨어졌다 올라갔다를 반복해서 낙하 데미지를 누적 시켜서 죽일 수도 있다. (단 본인과 말도 죽을 수 있다.)
+- 유적 안에는 독가스가 나오는 방이 있다. 이를 이용한 팁이 몇 가지 있는데 첫번째는 몬스터를 소환해서 싸우게 되면 NPC들이 놀라서(?) 도망가는 헛점을 이용해서 죽일 수 있다. 단 몬스터가 사라지면 다시 제자리로 가게 되는데 타이밍을 잘 맞춰서 계속 가스실에서 나오지 못하도록 해야 한다. (이게 너무 귀찮아서 10분 정도 도전하다가 포기) 두번째는 움브라에게 멀찌감치 떨어져 소매치기를 하게 되면 움브라가 말을 하려고 다가오는데 이때 뛰지 않고 천천히 걸어서 가스실로 도망가는 방법이다. 문제는 본인도 가스에 중독된다는 사실.
+</code></pre>
+
+<p><strong>Unfriendly Competition </strong></p>
+
+<p>수도인 임페리얼 시티의 상인들은 덤핑 판매로 골치를 썩이는 Thoronir 가 도대체 어디서 그런 값싼(?) 아이템들을 구해 오는지 알아와 달라고 한다. 폐점 시간인 8-9시까지 기다리면, Thoronir가 가게를 떠나 여관에 가서 한 시간 정도 쉴새없이 술을 마신 다음, 수도의 여기 저기를 서성이다가 동네 뒷골목에서 Agarmir라는 남자와 밀담을 나누는 것을 발견할 수 있다. 그 다음엔 이 남자의 집을 조사하게 되는데 집 안에는 온갖 뼈와 해골, 시체 부스러기와 삽, 그리고 언제 누가 죽었는지를 기록한 책을 발견할 수 있다. 이걸 갖고 Thoronir에게 가서 따지면 잘못을 빌면서 제발 더이상의 도굴을 막아달라고 부탁하게 되는 그런 퀘스트이다.</p>
+
+<p>끝 무렵에는 Agarmir가 타락한 경비병과 함께 무덤에서 매복해 기다리는데, 보통은 플레이어에게 다가와서 &#8220;기다렸다. 죽어라!&#8221;라고 한 후 전투가 시작된다. 그런데, 새로 키우는(-_-) 우드엘프 도적으로 들어가자마자 sneak 해서 가드와 도굴꾼을 죽인 적이 있었는데, 정당 방어가 아닌 살인으로 카운트가 되어 버렸다. 문제는 아이템을 뒤지고 있는데 갑자기 또다른 경비병이 무덤 안으로 뛰어 들어와서 시체를 검시하고는 벌금 80골을 뜯어가 버렸다는 사실. 1000골드 날리는 줄 알고 쫄아 있었는데, 과연 죄목이 무엇이었는지 궁금하다. (아마도 아침을 기다리기 싫어서 NPC 상점의 문을 따고 들어가다가 걸린 것일지도&#8230;)</p>
+
+<p><strong>The Elven Maiden</strong></p>
+
+<p>도둑 길드에 가입해서 받는 두 번째 퀘스트는 성당 지하에서 작은 반신상을 훔쳐오는 것이다. 경비병이 왔다 갔다 하는 와중에 몰래 훔쳐오면 되는 간단한 퀘스트인데 성사금을 받으려고 다시 수도로 돌아와보니 난리가 나버렸다. 사실 바로 직전의 퀘스트가 Hieronymus Lex라는 경비대장의 방에 숨어 들어가 수도의 재개발지구(?)에 사는 거지들과 가난한 자들에게 뺏어간 세금과 인명부를 훔쳐오는 것이었는데, Lex가 열받아서 비상을 선포한 것이었다. 평소에는 점잖게 걸어다니던 경비병들이 계속 여기 저기 뛰어다니질 않나, 나를 보면 그넘 어디갔냐고 묻질 않나&#8230; 그러다가 또다른 길드원이 찾아와서 길드에 Lex가 심어둔 스파이가 있으니 훔쳐온 반신상을 스파이 집에다가 숨긴 다음 Lex에게 알려주라고 하는데, 결국은 Lex 가 스파이를 연행해 가는 것으로 끝나게 된다.</p>
+
+<p>과연 AI가 어디까지 구현되어 있나 싶어서 Lex를 끝까지 따라가봤는데, 예상대로 Warterfront 에서 감옥까지 맵을 4개나 넘어서까지 연행해가는 것이 아닌가? 그러나, 감옥 안에 도착하니 감옥 문과 감방문이 모두 잠겨 있어서 최종 수감 장면은 볼 수가 없었다. 간수에게 이야기해서 감옥 문은 친절하게 열었지만 감방 문을 여는 프로시저는 없는 듯했다. :P</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/16/ethereal-tips/">Ethereal Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-16T06:38:50+09:00" pubdate  data-updated="true" >Apr 16<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>Local Packets</strong></p>
+
+<p>로컬 어플리케이션 간의 TCP/IP 패킷 전송은 캡처되지 않는다. 뭔가 내가 모르는게 있는걸까?</p>
+
+<p><strong>Conversation</strong></p>
+
+<p><a title="EtherealConversation.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.JPG"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.thumbnail.JPG' width='' height='' alt='' title=''></a>특정 어플리케이션에 대해서 패킷 캡처를 하고 나면, 캡처 하는 동안 발생했던 다른 쓸모없는 패킷들까지도 뒤섞여 있기 때문에, 이를 잘 필터링해야 한다. 물론 Display Filter 를 써서 수동으로 하나씩 필터링하는 방법도 있지만, Statistics - Conversation 메뉴를 통해서 그동안 전송된 패킷들을 프로토콜별로 분류해 놓은 표를 통해서 필터링하는 방법도 있다.</p>
+
+<p>이 표를 보면 프로토콜별/주소별 패킷 분류가 되어 있으며, 각 분류마다 전송 횟수가 표시되어 있으므로 원하는 프로토콜과 주소지를 잘 선택하면 끝.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/43/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/41/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

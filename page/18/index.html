@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="페이스북 Canvas Page App 에다가 760 그리드(width: 760px)을 사용하면 가로 스크롤바가 생긴다. ㅠㅠ  결국 750 그리드를 만들면 ok.">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/18/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/08/canvas-page-app-760-width/">페이스북 Canvas Page App 에다가 760 그리드(width: &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-08T19:26:00+09:00" pubdate  data-updated="true" >Apr 8<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>페이스북 Canvas Page App 에다가 760 그리드(width: 760px)을 사용하면 가로 스크롤바가 생긴다. ㅠㅠ  결국 750 그리드를 만들면 ok.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/08/append-prepend-pull/">Append, Prepend : 앞 뒤로 빈 그리드를 추가하기. Pull&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-08T17:00:00+09:00" pubdate  data-updated="true" >Apr 8<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>960 grid 시스템 개요  - container_N: 그리드 전체 컨테이너. N개의 컬럼으로 구성된다. float: left &amp; position: relative  - grid_N: 컬럼 N 개 만큼으로 width 를 설정한다.  - prefix_N: 앞쪽으로 padding-left 를 이용해서 공간을 추가  - suffix_N: 뒷쪽으로 padding-right 을 이용해서 공간을 추가.  - pull_N: 음수의 left 값을 이용, 원래 위치보다 왼쪽으로 이동.  - push_N: 오른쪽으로 옮김. 양수의 left 값을 이용.  - clear: float 를 끔으로써 row 를 내린다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/07/canvas-page-app-iframe/">Canvas Page App 에서 Iframe 으로 인해 브라우저가 쿠키&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-07T17:43:00+09:00" pubdate  data-updated="true" >Apr 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Canvas Page App 에서 iframe 으로 인해 브라우저가 쿠키를 거부할 경우에 대한 대안: 모든 GET/POST 에 파라미터를 넘긴다는 것.  관련 미들웨어 코드:  <a href="http://www.djangosnippets.org/snippets/1540/">http://www.djangosnippets.org/snippets/1540/</a>  <a href="http://www.djangosnippets.org/snippets/1235/">http://www.djangosnippets.org/snippets/1235/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/07/httpwikidevelopersface/">페이스북 개인보호 정책 http://wiki.developers.face&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-07T05:21:00+09:00" pubdate  data-updated="true" >Apr 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>페이스북 개인보호 정책  <a href="http://wiki.developers.facebook.com/index.php/Policy_Examples_and_Explanations/Data_and_Privacy">http://wiki.developers.facebook.com/index.php/Policy_Examples_and_Explanations/Data_and_Privacy</a>  - 모든 페이지, 특히 프로파일 페이지에다가 Privacy Policy 에 대한 링크를 제공한다.  - Storable 데이터(id류), 오프라인 접근권한을 받은 것들을 제외한 모든 데이터들(이름,사진 등)은 24시간 이상 캐시할 수 없다.  - 추가적으로 개인 정보를 수집하려고 할 때, API 로부터 받은 데이터를 FORM 에 auto-fill 할 수 없다. 사용자가 원하는 경우에만 채우도록 해야 한다. (일종의 강제 수집이라서 그런듯?)  - 사용자가 능동적으로 개인정보를 오픈하지 않는한, 디폴트로는 숨겨야 한다. (최초 등록시 자동 정보 공개 플래그를 둬서는 안된다는 뜻인듯?)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/07/user-uid-email-gid-p/">페이스북 User 데이터 저장 정책 - Uid, Email, Gid, P&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-07T05:14:00+09:00" pubdate  data-updated="true" >Apr 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>페이스북 user 데이터 저장 정책  - uid, email, gid, page_id, profile_update_time 무기한으로 명시된게 아니면 24시간 이상 저장할 수 없다.  - 각 id 간의 관계는 저장할 수 없다. 오직 user-network 만 저장 가능.  - 즉 이름, 성별, 프로필사진 URL 등 개인을 구분할 수 있는 모든 데이터는 무기한 저장 불가.  - 사용자가 해지할 경우 user id 이외의 모든 데이터는 삭제해야 한다. userid 만큼은 무기한 가지고 있다가 다시 돌아올 경우 또는 ban 한 경우를 대비한다.  - 인터넷이 안되거나 문제가 생긴 경우를 위해서, 나머지 데이터는 24시간 이상 유지하되 개별 앱 서버가 아니라 클라이언트에 저장할 수는 있다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/06/pyfacebook-post-validat/">Pyfacebook 에서 서버로 POST 요청을 할 경우, Validat&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-06T23:15:00+09:00" pubdate  data-updated="true" >Apr 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>pyfacebook 에서 서버로 POST 요청을 할 경우, validate_signature() 를 통과하려면 fb_sig* 역시 POST 로 보내야 된다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/06/font-style-normal-italic-oblique/">Font-style = Normal &#124; Italic &#124; Oblique 폰&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-06T22:59:00+09:00" pubdate  data-updated="true" >Apr 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>font-style = normal | italic | oblique  폰트 자체를 바꾸는 경우  text-decoration = none | underline | overline | line-through | blink  폰트는 그대로고 그 위에 먼가 데코를 얹는 경우</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/06/pic-100x300-for-request-page-pic/"># Pic - 100x300, for Request Page # Pic_&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-06T21:49:00+09:00" pubdate  data-updated="true" >Apr 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>pic - 100x300, for request page  # pic_big - 200x600, for profile page  # pic_small - 50x150, for wall posting  # pic_square - 50x50, everywhere squre (comment, invite ..)  FACEBOOK_DEFAULT_PIC = http://static.ak.fbcdn.net/pics/s_silhouette.gif  FACEBOOK_DEFAULT_PIC_BIG = http://static.ak.fbcdn.net/pics/d_silhouette.gif  FACEBOOK_DEFAULT_PIC_SMALL = http://static.ak.fbcdn.net/pics/q_silhouette.gif  FACEBOOK_DEFAULT_PIC_SQUARE = http://static.ak.fbcdn.net/pics/q_silhouette.gif</h1>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/06/diccopy-mapping-type-copy-listlist/">dic.copy() - Mapping Type Copy List(list&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-06T21:20:00+09:00" pubdate  data-updated="true" >Apr 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>dic.copy() - mapping type copy  list(list) - sequence type copy</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/05/canvas-app-post-authorize-redirect-ur/">Canvas App 에서 Post Authorize Redirect UR&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-05T23:19:00+09:00" pubdate  data-updated="true" >Apr 5<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>canvas app 에서 post authorize redirect URL 의 주소는 canvas_url 을 prefix 로 가져야 한다.  ex> <a href="http://apps.facebook.com/yourapp/welcome/">http://apps.facebook.com/yourapp/welcome/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/19/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/17/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

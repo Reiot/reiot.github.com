@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>MoniWiki Tips - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="Security$security_class=&#8221;needtologin&#8221;;RcsLite$version_class=&#8217;RcsLite&#8217;;Disable Theme테마와 CSS 모두 강제 지정하려면 아래와 같이 할 것.$theme=&#...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2004/11/26/moniwiki-tips/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">MoniWiki Tips</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2004-11-26T23:21:26+09:00" pubdate  data-updated="true" >Nov 26<span>th</span>, 2004</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Security</h2>
+
+<blockquote><p>$security_class=&#8221;needtologin&#8221;;</p></blockquote>
+
+<h2>RcsLite</h2>
+
+<blockquote><p>$version_class=&#8217;RcsLite&#8217;;</p></blockquote>
+
+<h2>Disable Theme</h2>
+
+<p>테마와 CSS 모두 강제 지정하려면 아래와 같이 할 것.</p>
+
+<blockquote><p>$theme=&#8217;&#8230;&#8217;;</p>
+
+<p>$theme_css=1;</p></blockquote>
+
+<h2>MoinMoin Migration(?)</h2>
+
+<p>MoinMoin 위키에서 MoniWiki 로 이전한 경우, 구글 등의 검색 엔진이나 지인들의 링크가 이전 주소로 되어 있는 경우, fake moin.cgi 를 만들어서 링크를 계속 유지시킬 필요가 있다.  특히 apache 환경에서는 .htaccess 설정을 이용해서 손쉽게 fake moin.cgi 를 만들 수 있다.  일단 아래와 같이 moin.cgi 를 만든다. 특별히 실행권한을 주지 않아도 무방하다.</p>
+
+<blockquote><p>&lt;?php</p>
+
+<p>chdir(&#8220;/path/to/moniwiki&#8221;);</p>
+
+<p>include(&#8220;wiki.php&#8221;);</p>
+
+<p>?></p></blockquote>
+
+<ul>
+<li>.htaccess 에 moin.cgi 를 php 가 핸들링하도록 다음과 같이 추가한다.</li>
+</ul>
+
+
+<blockquote><p><Files moin.cgi></p>
+
+<p>SetHandler application/x-httpd-php</p>
+
+<p></Files></p></blockquote>
+
+<h2>파일 업로드 크기 제한</h2>
+
+<p>이것은 모니위키의 문제가 아닌 php 의 문제이다. php.ini 에서 업로드 및 POST 크기 제한을 적절하게 수정해야 한다.</p>
+
+<h2>xls 파일 업로드</h2>
+
+<p>UploadFiles.php 에서 기본적으로 정의된 확장자가 아닐 경우 업로드가 금지된다. 따라서, 여기에 xls 확장자를 추가할 것.</p>
+
+<blockquote><p>// plugin/UploadFile.php:71</p>
+
+<p>$pds_exts=&#8221;png|jpg|jpeg|gif|mp3|zip|tgz|gz|txt|css|exe|hwp|xls&#8221;;</p></blockquote>
+
+<h2>external link 제거</h2>
+
+<p>한글로 된 외부 링크의 경우 URL 이 너무 길어져서 화면 크기를 넘어서는 경우가 있다. 아예 URL 표시를 제거하는 편이 더 좋을 듯?</p>
+
+<blockquote><p>// wiki.php:1440</p>
+
+<p>$external=$this->ex_bra.$url.$this->ex_ket;</p>
+
+<p>$external=&#8221;; //  <link rel="icon" href="/reiot.png" type="image/png" /></p></blockquote>
+
+<p>see also:</p>
+
+<ul>
+<li>http://en.wikipedia.org/wiki/Favicon</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2004-11-26T23:21:26+09:00" pubdate  data-updated="true" >Nov 26<span>th</span>, 2004</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/tip-amp-tricks/'>Tip &amp; Tricks</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2004/11/26/moniwiki-tips/" data-via="reiot" data-counturl="http://reiot.com/2004/11/26/moniwiki-tips/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2004/11/26/moniwiki-tips/';
+        var disqus_url = 'http://reiot.com/2004/11/26/moniwiki-tips/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

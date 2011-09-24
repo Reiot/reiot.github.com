@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>OLE DB Tips - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="multiple result set + parameter binding- 캐릭터 정보 로딩과 같이, 하나의 프로시저에서 여러 테이블의 row 들을 select 하면서 파라미터도 바인딩해야 할 경우, static binding 으로는 구현할 수 없으며, CDynam...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2006/06/05/ole-db-tips/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">OLE DB Tips</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-06-05T06:30:16+09:00" pubdate  data-updated="true" >Jun 5<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>multiple result set + parameter binding</h2>
+
+<pre><code>- 캐릭터 정보 로딩과 같이, 하나의 프로시저에서 여러 테이블의 row 들을 select 하면서 파라미터도 바인딩해야 할 경우, static binding 으로는 구현할 수 없으며, CDynamicParameterAccessor::GetParam()를 이용해야 한다.
+- 파라미터의 경우, select 해온 모든 result set 을 소진한 후, 가장 마지막에 읽어와야 한다. 즉 DB_S_NORESULT == GetNextResult(...); 를 실행한 후에만 유효하다는 뜻이다. 만약, 그 전에 읽게 되면 garbage 가 리턴된다.
+- Bind()와 무관하므로, GetInterface()!=NULL 체크를 할 필요가 없다.
+</code></pre>
+
+<h2>CCommand::Prepare()</h2>
+
+<p>한번 생성후 재사용하는 구조가 필요하다.</p>
+
+<h2>GetNextResult(rowCount)</h2>
+
+<p>웬지 계속 -1 이 넘어오는 걸로 봐서 뭔가 문제가 있는 듯? property 설정이 필요한가?</p>
+
+<h2>DateTime to String</h2>
+
+<pre><code>- VarBstrFromDate 이걸 써야 될까나~
+- use
+</code></pre>
+
+<p>HRESULT DataConvert (
+DBTYPE          wSrcType,
+DBTYPE          wDstType,
+DBLENGTH        cbSrcLength,
+DBLENGTH <em>      pcbDstLength,
+void </em>          pSrc,
+void <em>          pDst,
+DBLENGTH        cbDstMaxLength,
+DBSTATUS        dbsSrcStatus,
+DBSTATUS </em>      pdbsStatus,
+BYTE            bPrecision,
+BYTE            bScale,
+DBDATACONVERT   dwFlags);</p>
+
+<h2>Connection Pooling</h2>
+
+<pre><code>- SqlServer Provider 를 기반으로, ThreadPooling 을 이용해 쿼리를 할 경우, DataSource 가 1개이고 Session 이 N 개를 생성했다면, 실제 DB에 대한 연결은 N 개가 된다.
+- 즉, Session 이 내부적으로 연결 풀링을 사용하게 되므로, DataSource 객체는 1개만 만들어도 된다.
+</code></pre>
+
+<h2>어떤 Accessor 를 사용할 것인가?</h2>
+
+<p>MSDN 의 비교표를 간략하게 요약하면 다음과 같다.</p>
+
+<pre><code>- CAccessor : 매크로를 이용한 컴파일 타임 바인딩이므로 성능 면에서 가장 우수하지만, 쉽게 말해서 하드코딩이므로 귀찮은 작업들이 많다. 컬럼 및 파라미터 바인딩 모두 지원.
+- CDynamicAccessor : 런타임 바인딩. 따라서 컬럼 정보를 읽어와야한다. 대신 파라미터 바인딩은 불가능. 뭔가 컴파일 타임에 정보를 알기 힘든 경우, 또는 multiple result set 을 리턴하는 프로시저에 사용하면 된다.
+- CDynamicParameterAccessor : CDynamicAccessor 에 파라미터 바인딩 기능이 추가되었다. 당연히 더욱 느려졌다.
+- CDynamicStringAccessor : CDynamicAccessor 와 유사하지만 컬럼값을 스트링으로 리턴한다.
+- CManualAccessor : AddBindEntry(), AddParameterEntry() 를 이용해서 수동으로 컬럼과 파라미터를 바인딩한다. 아마 CAccessor 에 이어 두번째로 빠른 듯.
+- CXMLAccessor : CDynamicStringAccessor 와 같지만, XML 스트링의 형태로 컬럼값을 리턴한다.
+</code></pre>
+
+<p>성능적인 순서로 정렬해 본다면 대충 다음과 같지 않을까? (이건 본인의 추측)</p>
+
+<pre><code>- CAccessor &lt; CManualAccessor &lt; CDynamicAccessor &lt; CDynamicStringAccessor &lt; CXMLAccessor &lt; CDynamicParameterAccessor
+</code></pre>
+
+<p>단, 파라미터 바인딩을 지원하는 넘은 아래의 3가지 뿐이다.</p>
+
+<pre><code>- CAccessor
+- CManualAccessor
+- CDynamicParameterAccessor
+</code></pre>
+
+<p>see also</p>
+
+<pre><code>- [Which accessor should I use?](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/vcfaqwhichaccessorshouldiuse.asp) from MSDN
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-06-05T06:30:16+09:00" pubdate  data-updated="true" >Jun 5<span>th</span>, 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/database/'>database</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/06/05/ole-db-tips/" data-via="reiot" data-counturl="http://reiot.com/2006/06/05/ole-db-tips/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2006/06/05/ole-db-tips/';
+        var disqus_url = 'http://reiot.com/2006/06/05/ole-db-tips/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

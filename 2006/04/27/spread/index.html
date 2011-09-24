@@ -1,0 +1,597 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Spread - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="개요Spread는 그룹 기반의 UDP 메시징 라이브러리로, unicast &amp; multicast 및 scattered send/receive를 지원한다. 단 PeerToPeer 모델이 아니라, 독립적인 어플리케이션인 Spread 데몬이 가운데에서 중계를 해주...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2006/04/27/spread/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Spread</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:56:32+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>개요</h1>
+
+<p><a href="http://www.spread.org">Spread</a>는 그룹 기반의 UDP 메시징 라이브러리로, unicast &amp; multicast 및 scattered send/receive를 지원한다. 단 PeerToPeer 모델이 아니라, 독립적인 어플리케이션인 Spread 데몬이 가운데에서 중계를 해주는, 일종의 메시지 버스의 역할을 한다. RakNet 과 마찬가지로 다양한 UDP 전송 방식을 지원한다.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> 전송방식 </th>
+<th> 설명 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>   Unreliable  </td>
+<td> least |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Reliable    </td>
+<td> will get there, no ordering |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Fifo        </td>
+<td> reliable and ordered fifo by source |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Causal      </td>
+<td> reliable and all mesg from any source of this  level are causally ordered |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Agreed      </td>
+<td> reliable and all mesg from any source of this level are totally ordered |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Safe        </td>
+<td> Agreed ordering and mesg will not be delivered to application until the mesg has reached ALL receipients&#8217; daemons |</td>
+</tr>
+</tbody>
+</table>
+
+
+<h1>성능</h1>
+
+<p>문서에 의하면 1k 메시지 8000개를 1초에 전송 보장한다고 하며, 또한, <a href="http://www.cnds.jhu.edu/pub/papers/cnds-2004-1.pdf">The Spread Toolkit: Architecture and Performance</a>에 따르면 만개의 그룹에서 Safe 메시지를 보낼 때의 지연 시간이 6ms 라고 나온다. 실제로, 파이썬 바인딩을 이용한 클라이언트와 (아무런 부하를 주지 않은) localhost 데몬과의 테스트 결과 0.25ms 정도의 반응 시간을 보여줬다.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> 전송방식 </th>
+<th> 평균 ping 시간 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> UNRELIABLE_MESS </td>
+<td> 0.248ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  RELIABLE_MESS </td>
+<td> 0.248ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  FIFO_MESS </td>
+<td> 0.247ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  CAUSAL_MESS </td>
+<td> 0.247ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  AGREED_MESS </td>
+<td> 0.247ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  SAFE_MESS </td>
+<td> 0.248ms |</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>로컬랜에 연결된 2개의 머신에서 한쪽(Windows XP, P4 2G + 512M)에 데몬을 real time priority 로 띄우고 다른 쪽에 송수신 전용 쓰레드를 가진 테스트 클라이언트를 붙인 다음, 초당 8000개의 4byte 메시지를 보내는 경우 CPU 사용량 100% 에 RTT 0.8s 가 나왔다. 즉 1초 안에 전송은 보장하지만 반응 속도는 영 좋지 않았다. 그리고 로컬랜의 방화벽 바깥에 있는 머신(Windows 2003 + P4 2.8G + RAM 2G)에 데몬을 띄우고 방화벽 안쪽에서 테스트한 결과, 초당 4000개를 보내면 연결이 끊기며 초당 1000개를 보내면 0.8s 의 반응 속도를 보여줬다.</p>
+
+<h1>예상되는 용도</h1>
+
+<p>컨텐트 중계 서버
+: 채팅 채널, 파티 채팅, 길드 채팅을 중계해주는 서버. 굳이 채팅 서버를 두지 않아도 무방할 듯. 그 역할을 Spread Daemon 이 해주니까.</p>
+
+<p>게이트웨이 서버
+: M:N 관계에 있는 tier 에서의 중계 서버 역할. 가령 N개의 에이전트와 M개의 게임서버간의 연결을 TCP로 하게 되면 각 에이전트는 M개의 TCP연결을 하고 그것을 관리해야 한다. 이를 1개의 Spread 연결로 해결할 수 있다. (M개의 그룹에 대해 1개의 연결을 사용한다는 가정 하에서&#8230;) 마찬가지로 게임서버는 1개의 Spread 연결에 대해서만 처리하게 되므로 이벤트 드리븐이 간단하게 이루어진다. 가령 클라이언트가 에이전트에 로그인하고 이전 위치를 로딩하게 되면, 에이전트는 해당 서버 그룹에 join 하고, 클라이언트가 로그아웃하면 그룹에서 leave 하면 된다. (ref-counting을 사용하면 간단) 서버간 이동도 마찬가지로 처리할 수 있다. 단 이렇게 될 경우 데몬이 다운되면 게임 끝이다.</p>
+
+<p>브로드캐스트 서버
+: (현실성이 없는 이야기지만) 게임 서버의 각 브로드캐스트 영역(일명 Area)을 그룹으로 간주하고, 그 안에 들어있는 플레이어들에게 멀티캐스팅할 수 있겠다. 단 이런 모델은 잦은 그룹 join/leave 가 이루어지므로 Area 개수가 늘어날수록 부하가 심해질 듯. 1000개의 그룹일 경우 35ms 정도니까&#8230; 10000개면&#8230;</p>
+
+<p>데이터 복제 서버
+: 게임 서버의 경계 영역에서의 데이터 변화를, 이를 공유하는 다른 서버로 복제한다. 예를 들면, NPC 길찾기를 위한 동적 객체 정보를 게임 서버에서 NPC 에이전트로 복제하는 등.</p>
+
+<h1>참고사항</h1>
+
+<p>경험자의 말에 의하면, windows xp 와의 궁합이 잘 맞지 않다고 한다. 대신 windows 2000 에서는 잘 된다고 하는데, 커널의 네트워크 모듈과의 궁합 문제일 가능성이 있다고 한다. 즉 windows 2003 에서 테스트를 더 해봐야 한다는 의미.</p>
+
+<p>see also:</p>
+
+<ul>
+<li><a href="http://www.spread.org/docs/guide/users_guide.pdf">Spread User Guide</a></li>
+<li><a href="http://www.zope.org/Members/tim_one/spread/">Python Spread</a></li>
+<li><a href="http://www3.telus.net/taj_khattra/luaspread.html">Lua Spread</a></li>
+</ul>
+
+
+<!--more-->
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#format python</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">spread</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">unittest</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">daemon</span> <span class="o">=</span> <span class="s">&#39;3333@localhost&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">SpreadTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">testConnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">mbox</span> <span class="o">=</span> <span class="n">spread</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">daemon</span><span class="p">,</span><span class="s">&#39;test1&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">failUnless</span><span class="p">(</span> <span class="n">mbox</span><span class="o">.</span><span class="n">fileno</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">testJoin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">mbox</span> <span class="o">=</span> <span class="n">spread</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">daemon</span><span class="p">,</span><span class="s">&#39;test2&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;test1&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">mbox</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">msg</span> <span class="o">=</span> <span class="n">mbox</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span> <span class="p">,</span> <span class="s">&quot;&quot;</span> <span class="p">)</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span> <span class="n">msg</span><span class="o">.</span><span class="n">group</span> <span class="p">,</span> <span class="s">&quot;test1&quot;</span> <span class="p">)</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span> <span class="n">msg</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span> <span class="n">spread</span><span class="o">.</span><span class="n">CAUSED_BY_JOIN</span> <span class="p">)</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">leave</span><span class="p">(</span><span class="s">&#39;test1&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">mbox</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">msg</span> <span class="o">=</span> <span class="n">mbox</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span> <span class="p">,</span> <span class="s">&quot;&quot;</span> <span class="p">)</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span> <span class="n">msg</span><span class="o">.</span><span class="n">group</span> <span class="p">,</span> <span class="s">&quot;test1&quot;</span> <span class="p">)</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span> <span class="n">msg</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span> <span class="n">spread</span><span class="o">.</span><span class="n">CAUSED_BY_LEAVE</span> <span class="p">)</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">testLeave</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">mbox</span> <span class="o">=</span> <span class="n">spread</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">daemon</span><span class="p">,</span><span class="s">&#39;test2&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;test1&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">leave</span><span class="p">(</span><span class="s">&#39;test2&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">testSend</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">mbox</span> <span class="o">=</span> <span class="n">spread</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">daemon</span><span class="p">,</span><span class="s">&#39;test3&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">group</span> <span class="o">=</span> <span class="s">&#39;StressTesters&#39;</span>
+</span><span class='line'>  <span class="n">message</span> <span class="o">=</span> <span class="s">&#39;Hello Spread!&#39;</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">mbox</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">msg</span> <span class="o">=</span> <span class="n">mbox</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span> <span class="n">msg</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span> <span class="n">spread</span><span class="o">.</span><span class="n">CAUSED_BY_JOIN</span> <span class="p">)</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">multicast</span><span class="p">(</span> <span class="n">spread</span><span class="o">.</span><span class="n">FIFO_MESS</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">mbox</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">msg</span> <span class="o">=</span> <span class="n">mbox</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span> <span class="n">msg</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">group</span> <span class="p">)</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span> <span class="n">msg</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">message</span> <span class="p">)</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">leave</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">testPing</span><span class="p">(</span> <span class="n">trycount</span> <span class="o">=</span> <span class="mi">100</span> <span class="p">):</span>
+</span><span class='line'>  <span class="n">mbox</span> <span class="o">=</span> <span class="n">spread</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">daemon</span><span class="p">,</span><span class="s">&#39;StressTester&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">group</span> <span class="o">=</span> <span class="s">&#39;StressTesters&#39;</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">msg</span> <span class="o">=</span> <span class="n">mbox</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">assert</span> <span class="n">msg</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">spread</span><span class="o">.</span><span class="n">CAUSED_BY_JOIN</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">service_types</span> <span class="o">=</span> <span class="p">(</span>
+</span><span class='line'>  <span class="n">spread</span><span class="o">.</span><span class="n">UNRELIABLE_MESS</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">spread</span><span class="o">.</span><span class="n">RELIABLE_MESS</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">spread</span><span class="o">.</span><span class="n">FIFO_MESS</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">spread</span><span class="o">.</span><span class="n">CAUSAL_MESS</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">spread</span><span class="o">.</span><span class="n">AGREED_MESS</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">spread</span><span class="o">.</span><span class="n">SAFE_MESS</span> <span class="p">)</span>
+</span><span class='line'>  <span class="n">service_type_str</span> <span class="o">=</span> <span class="p">(</span>
+</span><span class='line'>  <span class="s">&#39;UNRELIABLE_MESS&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&#39;RELIABLE_MESS&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&#39;FIFO_MESS&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&#39;CAUSAL_MESS&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&#39;AGREED_MESS&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&#39;SAFE_MESS&#39;</span> <span class="p">)</span>
+</span><span class='line'>  <span class="n">ping_stat</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">for</span> <span class="n">service_type</span> <span class="ow">in</span> <span class="n">service_types</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">ping_count</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="n">total_ping</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">trycount</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">multicast</span><span class="p">(</span> <span class="n">service_type</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">())</span> <span class="p">)</span>
+</span><span class='line'>  <span class="n">msg</span> <span class="o">=</span> <span class="n">mbox</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">total_ping</span> <span class="o">=</span> <span class="n">total_ping</span> <span class="o">+</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span> <span class="n">msg</span><span class="o">.</span><span class="n">message</span> <span class="p">)</span>
+</span><span class='line'>  <span class="n">ping_count</span> <span class="o">=</span> <span class="n">ping_count</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">ping_count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
+</span><span class='line'>  <span class="n">ping_stat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">total_ping</span> <span class="o">/</span> <span class="n">ping_count</span> <span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">ping_stat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">service_type_str</span><span class="p">)</span> <span class="p">):</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&quot;</span><span class="si">%15s</span><span class="s"> : </span><span class="si">%8f</span><span class="s">&quot;</span> <span class="o">%</span><span class="p">(</span> <span class="n">service_type_str</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">ping_stat</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">leave</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">msg</span> <span class="o">=</span> <span class="n">mbox</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">assert</span> <span class="n">msg</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">spread</span><span class="o">.</span><span class="n">CAUSED_BY_LEAVE</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">mbox</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">testPing</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+</span><span class='line'>  <span class="c">#unittest.main()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:56:32+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/04/27/spread/" data-via="reiot" data-counturl="http://reiot.com/2006/04/27/spread/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2006/04/27/spread/';
+        var disqus_url = 'http://reiot.com/2006/04/27/spread/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

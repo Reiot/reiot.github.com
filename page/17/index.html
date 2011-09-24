@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="app engine 에서 ListProperty(int) 를 export/import 할 때 사용해야 하는 함수  - export:  (field-name, lambda x: ,.join([str(y) for y in x]), None),  - import:  (...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/17/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/15/app-engine-listpropertyint-export/">App Engine 에서 ListProperty(int) 를 Export&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-15T20:51:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>app engine 에서 ListProperty(int) 를 export/import 할 때 사용해야 하는 함수  - export:  (field-name, lambda x: ,.join([str(y) for y in x]), None),  - import:  (field-name, lambda x: list([ int(y) for y in x.split(,)]) ),</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/15/jqueryextendtargetobj1-obj2/">jQuery.extend(target,obj1, Obj2) 자바스크립트 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-15T19:01:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>jQuery.extend(target,obj1, obj2)  자바스크립트 사전을 merge 한다. 이때 target 은 변경된다는 점에 유의.  var object = $.extend({}, object1, object2);</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/15/app-engine-environment-variables/">App Engine Environment Variables</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-15T16:06:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>APPLICATION_ID  - CURRENT_VERSION_ID: X.Y. 메이저 버전은 app.yaml 에 있는 대로. 마이너 버전은 서버에서 자동으로 증가. 개발 서버에서 마이너 버전은 항상 1  - AUTH_DOMAIN: 도메인 인증시 도메인명.  - SERVER_SOFTWARE: 개발 서버는 Development/X.Y 앱엔진에 올라가면 Google App Engine/X.Y.Z.</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/14/httpwwwselectorgadgetcom-dom/">http://www.selectorgadget.com/ DOM 을 클릭하&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-14T00:12:00+09:00" pubdate  data-updated="true" >Apr 14<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.selectorgadget.com/">http://www.selectorgadget.com/</a>  DOM 을 클릭하면 그에 해당하는 적절한 jquery selector 를 알려준다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/14/httpspritemeorg/">http://spriteme.org/ 화면에 등장하는 이미지들을 하나의 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-14T00:11:00+09:00" pubdate  data-updated="true" >Apr 14<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://spriteme.org/">http://spriteme.org/</a>  화면에 등장하는 이미지들을 하나의 스프라이트로 만들어준다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/12/css-transparentclass-filteralph/">반투명 CSS .transparent_class { Filter:alph&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-12T23:02:00+09:00" pubdate  data-updated="true" >Apr 12<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>반투명 CSS  .transparent_class {     filter:alpha(opacity=50);   -moz-opacity:0.5;   -khtml-opacity: 0.5;    opacity: 0.5;  }  주의할 점은, 부모의 opacity 값이 정해지면 자식은 override 할 수 없다. 1픽셀 이미지를 배경색으로 쓰던가, position=absolute 를 이용해서 자식으로 만들지 않으면 된다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/10/pull-you-asked-me-to-pul/">Pull 할 때 다음 에러가 뜰 경우 You Asked Me to Pul&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-10T14:24:00+09:00" pubdate  data-updated="true" >Apr 10<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>pull 할 때 다음 에러가 뜰 경우  You asked me to pull without telling me which branch you  want to merge with, and branch.master.merge in  your configuration file does not tell me either.  Please  specify which branch you want to merge on the command line and  try again (e.g. git pull  ).  See git-pull(1) for details.  If you often merge with the same branch, you may want to  configure the following variables in your configuration  file:  branch.master.remote =  branch.master.merge =  remote..url =  remote..fetch =  See git-config(1) for details.  git config -l 로 살펴보면 이미 remote 들은 등록이 되어 있다. 여기서 할 일은 branch master 를 설정하는 거다.  git config branch.master.remote origin  git config branch.master.merge refs/heads/master  이걸 해주면 된다.  <a href="http://stackoverflow.com/questions/2335343/how-to-tell-git-to-always-pull-the-master-branch">http://stackoverflow.com/questions/2335343/how-to-tell-git-to-always-pull-the-master-branch</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/09/iframe-firebug/">기본적으로 Iframe 안에 있는 코드는 Firebug 에서 접근이 안된&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-09T00:55:00+09:00" pubdate  data-updated="true" >Apr 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>기본적으로 iframe 안에 있는 코드는 firebug 에서 접근이 안된다. (부모 문서만 보이니까)  북마클릿으로 자동화하려면 다음 코드를 참고할 것.  <a href="http://stackoverflow.com/questions/2495313/firebug-and-jquery-selectors-in-an-iframe">http://stackoverflow.com/questions/2495313/firebug-and-jquery-selectors-in-an-iframe</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/09/css-id-class/">Css 상속 우선 순위 - Id 가 Class 에 우선한다. 즉 보다 구&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-09T00:44:00+09:00" pubdate  data-updated="true" >Apr 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>css 상속 우선 순위  - id 가 class 에 우선한다. 즉 보다 구체적인 필터가 가장 우선시된다.  ex> #aaa bbb > ddd.eee fff</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/08/ui-helper-clearfix/">Ui-helper-clearfix 이걸 지정한 엘리먼트는 부모의 영역 안&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-08T22:34:00+09:00" pubdate  data-updated="true" >Apr 8<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ui-helper-clearfix  이걸 지정한 엘리먼트는 부모의 영역 안으로 들어간다. 튀어나오게 하지 않기 위함!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/18/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/16/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

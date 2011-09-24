@@ -1,0 +1,591 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>SQL Tips - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="MS-SQL SERVER + Transact SQL TipIP 문자열에서 a.b.c 추출하기declare @ip varchar(20)SET @ip = &#8216;111.22.33.22&#8217;SELECT LEFT(@ip,len(@ip)-patindex(&#8...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2006/04/27/sql-tips/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">SQL Tips</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:03:18+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>MS-SQL SERVER + Transact SQL Tip</p>
+
+<h2>IP 문자열에서 a.b.c 추출하기</h2>
+
+<p>declare @ip varchar(20)
+SET @ip = &#8216;111.22.33.22&#8217;
+SELECT LEFT(@ip,len(@ip)-patindex(&#8216;%.%&#8217;,reverse(@ip)))</p>
+
+<h2>리포팅 서비스</h2>
+
+<p><a href="http://network.hanbitbook.co.kr/view.php?bi_id=1048">IIS + ASP + VisualStudio.NET 을 이용한 리포트 서비스 제작</a></p>
+
+<h2>FTP 파일 업로드</h2>
+
+<p>DTS 에서 제공하는 파일 전송 프로토콜 작업(FTPTask)의 경우, 다운로드만 가능하고 업로드는 지원하지 않는다. 가령, 로컬 백업한 <em>.bak, </em>.trn 파일을 리모트 서버로 옮기려면 업로드 스크립트를 SQL 이나 VB 또는 Python으로 직접 개발해야 한다.</p>
+
+<h2>복구 모델</h2>
+
+<p>당연히, 트랜잭션 로그를 남기려면 FULL 복구 모델로 데이터베이스를 설정해야 한다. 백업 정책을 세울 때 꼭 모델을 체크하기 바란다. (기본적으로 FULL 모델로 만들어지는 것 같지만, 필수적으로 체크할 것)</p>
+
+<h2>SQLServerAgent</h2>
+
+<p>유지 관리 계획 등 주기적인 작업을 실행하려면 기본적으로 꺼져있는 SqlServerAgent 를 켜야 한다.</p>
+
+<h2>테이블 스키마 복사</h2>
+
+<p>스크립트로 추출해서 다른 DB 에 설치할 경우 디폴트값이 지정되지 않는 경우가 있다. 이때 DEFAULT 등 제약조건 스크립팅에 꼭 체크를 해야 한다. 아니면 그냥 데이터 내보내기를 사용하길.</p>
+
+<h2>노트북에 SQL Server 설치하기</h2>
+
+<p>SQL Server 상위 버전들은 기본적으로 서버급 OS 에서만 설치된다. 그러나 노트북은 대체로 XP Professional or Home Edition 을 사용하는 법. 이를 지원하는 SQL Server 버전들을 살펴보자.</p>
+
+<table>
+<thead>
+<th></th>
+<th>XP Home</th>
+<th>XP Pro</th>
+<th>comment</th>
+
+<tr>
+<td>MSDE</td>
+<td>O</td>
+<td>O</td>
+<td> </td>
+</tr>
+<tr>
+<td>Evaluation Edition</td>
+<td>O</td>
+<td>O</td>
+<td>120 일 평가판</td>
+</tr>
+<tr>
+<td>Persional Edition</td>
+<td>X</td>
+<td>O</td>
+<td> </td>
+</tr>
+<tr>
+<td>Developer Edition</td>
+<td>X</td>
+<td>O</td>
+<td> </td>
+</tr>
+</thead></table>
+
+
+<p>결국 XP Home Edition 을 사용하는 경우에는 평가판 또는 MSDE 를 사용해야 한다. 이참에 MSDE 의 새 버전인 SQL Server Express 2005 를 사용해보는 것도&#8230; <img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/icon_sad.gif' width='' height='' alt='(' title='('></p>
+
+<p>see also: * [http://www.microsoft.com/sql/evaluation/overview/default.asp SQL Server Overview] - 여기에 버전별 비교표가 들어있다 * [http://go.microsoft.com/?linkid=2534867 120일 평가판 다운로드]</p>
+
+<h2>NULL 비교</h2>
+
+<p>NULL 에 대한 비교는 is 로 하라!</p>
+
+<p>declare @a int
+SET @a = NULL</p>
+
+<p>IF @a = NULL
+print &#8216;@a=NULL&#8217;
+IF @a IS NULL
+print &#8216;@a is NULL&#8217;</p>
+
+<p>declare @b int
+SET @b = 1</p>
+
+<p>IF @b &lt;> NULL
+print &#8216;@b &lt;> NULL&#8217;
+IF @b IS NOT NULL
+print &#8216;@b is not NULL&#8217;</p>
+
+<p>&#8211; 실행 결과
+@a IS NULL
+@b IS NOT NULL</p>
+
+<h2>constraint 관리</h2>
+
+<p>디폴트 constraint 를 삭제하고 다시 추가하는 법&#8230;</p>
+
+<p>&#8211; 삭제
+ALTER TABLE [dbo].[테이블] DROP
+CONSTRAINT [DF<em>테이블</em>컬럼]</p>
+
+<p>&#8211; 추가
+ALTER TABLE [dbo].[테이블] WITH NOCHECK ADD
+CONSTRAINT [DF<em>테이블</em>컬럼] DEFAULT (디폴트값) FOR [관련컬럼]</p>
+
+<h2>CASE WHEN&#8230;</h2>
+
+<p>다음은 승률을 나타내는 컬럼을 계산해오는 방식이다.</p>
+
+<p>SELECT
+&#8230;.
+CASE
+WHEN (WinCount + LoseCount + DrawCount) = 0 THEN 0.00
+ELSE round((WinCount * 1.0) / (WinCount + LoseCount + DrawCount) , 2)
+END AS WinRate,
+&#8230;.</p>
+
+<h2>SELECT&#8230;INTO&#8230;</h2>
+
+<p>INSERT INTO&#8230;SELECT&#8230;가 존재하는 테이블에 데이터를 넣을 때 사용한다면, SELECT&#8230;INTO&#8230;는 새로운 테이블을 만들어 넣을 때 사용한다. 특히 통계 테이블에 데이터를 넣을 때, TRUNCATE TABLE xxx; INSERT INTO&#8230;SELECT를 하게 되면, 문제가 생길 수 있으므로 아예 DROP 한 다음 SELECT&#8230;INTO&#8230; 를 사용하도록 한다. (우리 DBA의 말씀~)</p>
+
+<p>SELECT.. INTO는 MS-SQL의 기능! . 일반적인 ANSI-SQL에서는 CREATE TABLE &#8230; SELECT 를 사용함.</p>
+
+<h2>대용량 데이터 빨리 넣기</h2>
+
+<pre><code>- 관련 데이터베이스의 로그 타입 변경 : EM에서 데이터베이스 등록정보를 선택, 복구 모델을 단순 또는 대량 로그로 임시 변경해준다.
+- ALTER TABLE ... 로 관련 테이블의 PK 제거하기. 그러나, FK 관계에 있을 경우에도 제거를 해야 하므로 EM 또는 VS 의 DB 다이어그램에서 삭제하는게 제일 간편하다. 단. 복구는 수동 -_-;
+- DROP INDEX ...로 관련 테이블의 인덱스 제거하기. 그러나, 다시 복구해야 하므로... 수작업 필수
+- BULK INSERT : DB 스트레스 테스트를 위해 백만건 이상의 데이터를 넣어야 할 때 사용하면 간편하다. 단 샘플 데이터 파일을 제공해줘야 한다.
+- INSERT INTO xxx () SELECT ...로 자기 자신 혹은 관련 테이블을 활용할 것. while + insert 1 보다 훨씬 빠르다. 테스트해본 결과 한줄씩 insert 할 경우 10만건에 40초, 그러나 위의 방법을 쓰면 2초로 해결 가능. 단, 용량이 너무 커질 경우 실행이 안되므로, 범위를 나눠야 할 듯. 300만건에서는 대충 됨.
+- PK/FK/Index/Trigger 복구하기. 800만건이 들어있는 테이블의 PK 를 복구하는데 Xeon Dual 0.8G 에서 무려 '''5분'''이나 걸렸다.
+</code></pre>
+
+<p>ALTER TABLE xxx ADD CONSTRAINT PK_xxx_yyy PRIMARY KEY(yyy)
+ALTER TABLE xxx ADD CONSTRAINT FK_xxx_yyy FORENGN KEY REFERENCES zzz(yyy) ON DELETE CASCADE
+CREATE [UNIQUE] INDEX IX_xxx_yyy ON xxx(yyy)</p>
+
+<h2>데드락 해결하기</h2>
+
+<p>sp_who2
+sp_lock pid
+KILL pid</p>
+
+<h2>like 와 인덱스</h2>
+
+<pre><code>- col like 'userid%'
+- col like '%userid%'
+- col like '%userid'
+</code></pre>
+
+<p>오직 1번만이 인덱스를 타게 된다. Index는 Binary Tree로 구성되어 있기 때문에 처음부터 찾아서 들어가는 것임. 당연히 첫자를 알 수 없다면 index를 경유하지 못함!!!</p>
+
+<h2>Update Trigger</h2>
+
+<p>특정 컬럼이 변경된 경우 로그 테이블에 row 를 추가해야할 경우 Update Trigger 를 사용하면 간편하다. 가령, 플레이어 레벨이 바뀌었을 때 레벨 테이블에 insert 를 해야 한다고 가정하면 트리거는 대략 다음과 같다.</p>
+
+<p>CREATE TRIGGER trigger_name ON src_tbl FOR UPDATE
+AS
+IF UPDATE(level)
+begin
+declare @old_level smallint, @new_level smallint
+SELECT @new_level = [Level] FROM inserted
+SELECT @old_level = [Level] FROM deleted
+IF @old_level &lt;> @new_level
+begin
+INSERT INTO log_tbl (&#8230;.) VALUES (&#8230;,@old_level,@new_level,&#8230;)
+end
+RETURN
+end</p>
+
+<h2>@@IDENTITY vs. SCOPE_IDENTITY()</h2>
+
+<p>전자의 경우, 현재 세션에서의 최종적인 IDENTITY 컬럼의 값을 리턴해준다. 단, 트리거에 의해서 다른 테이블에서 IDENTITY 가 바뀐 경우 그 값을 리턴해준다. 따라서, 최종적으로 직접 만진 테이블의 IDENTITY 값을 알아오려면 SCOPE_IDENTITY() 를 사용하는 것이 안전하다.</p>
+
+<h2>UPDLOCK</h2>
+
+<p>쿼리 분석기에서 좌측 쿼리를 먼저 실행한 후 우측 쿼리를 실행할 때, 첫번째 예제의 경우 그냥 실행이 되지만 두번째 예제는 block 된다. 오라클에는 select for update 라는 게 있다나&#8230;</p>
+
+<table>
+<tr>
+<td>nonblocked query</td>
+</tr>
+<tr>
+<td>begin trans</td>
+<td rowspan="2">select * from users</td>
+</tr>
+<tr>
+<td>select * from users with (updlock)</td>
+</tr>
+<tr>
+<td>blocked query</td>
+</tr>
+<tr>
+<td>begin trans</td>
+<td rowspan="2">select * from users with (updlock)</td>
+</tr>
+<tr>
+<td>select * from users with (updlock)</td>
+</tr>
+</table>
+
+
+<p>DB레벨에서 중복로그인을 처리할 경우, DB 컬럼에 LogOn flag 를 둬야 한다. LOGOFF - LOGON - GAME 이런 식의 상태 변화가 있다고 가정하면, 로그인시 LOGOFF -> LOGON 으로 바꿔주고 로그아웃시 LOGON -> LOGOFF 로 설정하게 될 것이다. 문제는 이걸 언제 어떻게 체크해서 바꾸느냐인데&#8230;</p>
+
+<p>&#8211; simplified login procedure
+declare @logon
+SELECT @logon=LogOn FROM users WHERE &#8230;
+IF ( @logon &lt;> LOGOFF )
+begin
+handle_error&#8230;
+end
+UPDATE users SET @logon = LOGON WHERE &#8230;</p>
+
+<p>이런 식으로 처리할 경우, abuser 에 의해서 동일 유저에 대한 로그온 프로시저가 DB에서 동시에 일어난다고 가정하면 중복로그인이 충분히 발생할 수 있게 된다. (아주 낮은 확률이지만&#8230;) 이를 손쉽게 막으려면 select with updlock를 사용하면 된다. (단, 이때 (Page,IU), (KEY,U), (Table,IX) 의 3가지의 락이 걸린다)</p>
+
+<p>웬지 불필요한 lock 을 피하기 위해서는, update 의 where 절에서 다시 한번 LogOn 필드를 체크(즉 select 해온 뒤 누가 바꿨는지 다시 확인) 해주면 될 거 같다.</p>
+
+<p>&#8211; simplified login procedure
+declare @logon
+SELECT @logon=LogOn FROM users WHERE &#8230;
+IF ( @logon &lt;> LOGOFF )
+begin
+handle_error&#8230;
+end
+UPDATE users SET @logon = LOGON WHERE &#8230; AND logon = LOGOFF
+IF ( @@rowcount &lt;> 1 )
+begin
+handle_error&#8230;
+end</p>
+
+<p>테스트 해 본 결과 양 쪽에서 select 한 후 한쪽에서 update 를 하면, 다른 쪽의 update 는 트랜잭션에 의해 block 되며 상대 트랜잭션이 끝나면 실패를 리턴하게 된다. (만약 where 절의 체크가 없다면 둘 다 로그인 성공으로 간주되므로 주의할 것)</p>
+
+<blockquote><p>이게 consistent non-blocking read을 지원하기 때문인데, 간혹 조금 이해하기 힘든 현상이 일어날 때도 있지. 하지만 Query 하나 들어갈때마다 table에 lock을 걸어버리는 방법은 너무 위험부담이 크기 때문에. consistent read에 대한 설명이 필요하다면 다음 기회에..</p></blockquote>
+
+
+<h2>sp_lock, sp_who2</h2>
+
+<pre><code>- sp_lock : 현재 시스템에 존재하는 lock 을 보여준다.
+- sp_who2 : 현재 시스템에서 실행되는 프로세스, 소유주, 접속지, 실행내용 등을 보여준다.
+</code></pre>
+
+<p>이 내용은 Enterprise Manager 의 관리에서 찾아볼 수 있다.</p>
+
+<h2>GOTO</h2>
+
+<p>어릴 적(?)부터 항상 GOTO 는 쓰지 말라는 이야기를 들어 왔지만, 프로시저에서 또 쓰게 될 줄은&#8230; 그러나, 트랜잭션이 존재할 경우 GOTO 를 쓰지 않으면 자꾸 if-else-if-else 로 indent 해들어가는 바람에 읽기가 힘들어져서&#8230;</p>
+
+<p>begin transaction
+&#8230;.
+&#8230;.
+IF ( error_found )
+begin
+rollback transaction
+SET @errorcode = -1
+goto Label
+end
+&#8230;.
+&#8230;.
+commit transaction
+&#8230;.
+&#8230;.
+Label:
+log something&#8230;
+&#8230;.
+&#8230;.</p>
+
+<h2>SET IDENTITY_INSERT</h2>
+
+<p>identity 컬럼의 경우 DELETE FROM tbl 하더라도 시드값은 계속 증가하게 되어 있다. 또한, 특정 값을 명시적으로 insert 할 수 없다. 이를 가능하게 하기 위해서는 아래와 같이 하면 된다.</p>
+
+<p>SET identity_insert tbl ON
+INSERT INTO tbl (identity_col,&#8230;) VALUES (N,&#8230;)
+SET identity_insert tbl off</p>
+
+<h2>@@ERROR / @@ROWCOUNT</h2>
+
+<p>프로시저 중간에 insert 나 update 할 경우 혹시 모를 실패에 대비해서 아래와 같이 체크해야 한다.</p>
+
+<p>INSERT &#8230;
+IF @@error &lt;> 0
+begin
+rollback transaction
+RETURN
+end</p>
+
+<p>update 의 경우 1개의 업데이트만 기대했는데, 2개가 업데이트된 경우 @@ERROR는 정상이 된다. 이때에는 @@ROWCOUNT 를 체크해야 한다.</p>
+
+<h2>시간 필드의 디폴트값</h2>
+
+<p>insert 시점의 시간을 저장하는 필드의 경우, 테이블 선언시</p>
+
+<p>CREATE TABLE xxx
+&#8230;
+yyy DATETIME DEFAULT GETDATE()
+&#8230;</p>
+
+<p>라고 해주면 insert 할때 굳이 명시할 필요가 없다.</p>
+
+<h2>현재 시간 + a</h2>
+
+<p>dateadd( datepart, N, getdate() )</p>
+
+<h2>스크립트 디버깅</h2>
+
+<p>exec sp_sdidebug &#8216;legacy_on&#8217;</p>
+
+<h2>시간 변환</h2>
+
+<p>convert(varchar(10),getdate(),121)</p>
+
+<h2>프로시저 실행시 파라미터</h2>
+
+<p>out 을 명시해주지 않으면 받아낼 수 없다</p>
+
+<p>execute proc @param1, @param2, @param3 out, @param4 out</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:03:18+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/database/'>database</a>, <a class='category' href='/blog/categories/programming/'>programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/04/27/sql-tips/" data-via="reiot" data-counturl="http://reiot.com/2006/04/27/sql-tips/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2006/04/27/sql-tips/';
+        var disqus_url = 'http://reiot.com/2006/04/27/sql-tips/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

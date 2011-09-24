@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="웹킷 기반 브라우저(크롬, 사파리)의 오류 콘솔 - 스크립트 탭에서 저 버튼을 두 번 눌러 보라색으로 만들면, 미확인 예외들이 발생할 경우 자동으로 브레이크가 걸린다. 이걸 이제서야 알았다니..">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/02/28/safari-debugger-break-for-undefined-exception/">Safari Debugger Break for Undefined Exception</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-02-28T17:40:04+09:00" pubdate  data-updated="true" >Feb 28<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2011/02/safari_script_debugging.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2011/02/safari_script_debugging.png' width='' height='' alt='' title=''></a></p>
+
+<p>웹킷 기반 브라우저(크롬, 사파리)의 오류 콘솔 - 스크립트 탭에서 저 버튼을 두 번 눌러 보라색으로 만들면, 미확인 예외들이 발생할 경우 자동으로 브레이크가 걸린다. 이걸 이제서야 알았다니..</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/30/create-realitic-paper-texture/">Create Realitic Paper Texture</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-01-30T17:08:53+09:00" pubdate  data-updated="true" >Jan 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.fortabbasonline.com/quick-tip-create-a-realistic-paper-texture/#more-159">Create Realitic Paper Texture</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/29/empty-list-property-from-bulkloader/">Empty List Property From Bulkloader</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-01-29T10:48:00+09:00" pubdate  data-updated="true" >Jan 29<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>벌크 로더를 이용해서 ListProperty을 내보내거나 읽어들일 때, 보통 다음과 같은 람다 함수를 사용한다.</p>
+
+<p><code>  import_transform: "lambda x: [transform.create_foreign_key('Product')(key_name) for key_name in x.split(',')] if x else None"
+  export_transform: "lambda x: ','.join([str(key.name()) for key in x]) if x else ''"
+</code></p>
+
+<p>내보내기는 어떻게 하든 관계없지만, 읽어들일 때에는 문제가 발생한다. 기본적으로 ListProperty 는 [] 를 받아들이지 않는 데다가, None 을 넣어 두면 그 다음 읽을 때 BadValueError 가 발생하기 때문이다.</p>
+
+<ul>
+<li>default=None: BadValueError</li>
+<li>required=False: 허용되지 않음</li>
+<li>validator=lambda x:x: BadValueError</li>
+</ul>
+
+
+<p>현재 해결책은 참고 링크처럼 소스를 고치지 않는 한 없는 듯하다. :(</p>
+
+<p><a href="http://groups.google.com/group/google-appengine/browse_thread/thread/72ce87c83d3441e3">another link</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/28/150-best-icon-sets-of-2010/">150+ Best Icon Sets of 2010</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-01-28T09:10:00+09:00" pubdate  data-updated="true" >Jan 28<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://iconlibrary.iconshock.com/icons/150-best-icon-sets/">150+ best icon sets of 2010</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/26/windows-remote-desktop-for-mac/">Windows Remote Desktop for Mac</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-01-26T11:38:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.microsoft.com/downloads/en/details.aspx?FamilyID=68346E0D-44D3-4065-99BB-B664B27EE1F0#Overview">Windows Remote Desktop for Mac</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/19/bulkload-nullable-referenceproperty/">Bulkload Nullable ReferenceProperty</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-01-19T07:58:27+09:00" pubdate  data-updated="true" >Jan 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>어떤 모델의 참조 속성은 꼭 키값이 들어있지 않고 때로는 None 일 수도 있다. 만약 Null 인 참조 속성을 업로드할 때</p>
+
+<p><code>- property: field
+  external_name: field
+  import_transform: transform.create_foreign_key('Field')
+  export_transform: transform.key_id_or_name_as_string
+</code></p>
+
+<p>처럼 하게 되면, 에러가 발생한다. 이를 해결하려면 import_transform 을 다음과 같이 수정하면 된다.</p>
+
+<p><code>  import_transform: transform.none_if_empty(transform.create_foreign_key('Field'))
+</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/19/bulkload-authdomain-problem/">Bulkload Auth_domain Problem</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-01-19T06:44:44+09:00" pubdate  data-updated="true" >Jan 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Google App Engine Launcher 1.4.1 부터 auth_domain 을 지정한 로컬 서버(dev_appserver)에 대해, appcfg.py 로 download_data 를 할 때 인증 문제가 발생한다.</p>
+
+<p>해결책은 url=http://localhost:8080/_ah/remote_api 를 사용하면 된다. 끗.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/19/facebook-canvas-redirect/">Facebook Canvas Redirect</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-01-19T05:43:22+09:00" pubdate  data-updated="true" >Jan 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>페이스북 캔버스 앱의 경우, userid, oauth_token, expire 시간 등을 암호화한 signed_request 을 받게 된다. 이때 userid 가 없다면 미인증 사용자이므로 graph.facebook.com/oauth/authorize 로 리다이렉션을 해야 한다. 문제는 iframe 에서 리다이렉트를 할 때 iframe 안에 또다른 페이스북 iframe 이 생긴다는 점이다. 이를 해결하려면 아래와 같이 하면 된다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">redirect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;redirect to </span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&quot;^https?:\/\/([^\/]*\.)?facebook\.com(:\d+)?&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&#39;&lt;script type=&quot;text/javascript&quot;&gt;</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">+</span> \ <span class="s">&#39;top.location.href = &quot;</span><span class="si">%s</span><span class="s">&quot;;</span><span class="se">\n</span><span class="s">&lt;/script&gt;&#39;</span> <span class="o">%</span> <span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/18/jqueryremoveclassfunction/">jQuery.removeClass(function)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-01-18T12:33:10+09:00" pubdate  data-updated="true" >Jan 18<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>지우려는 클래스의 구체적인 이름 대신 정규식 패턴만 안다고 하면, jQuery.removeClass(function)을 이용하면 된다. 단 이때 각 클래스명에 대해서 함수가 호출되는게 아니고, 전체 클래스 이름들이 공백으로 구분되어서 콜백으로 넘겨지기 때문에 직접 클래스 이름을 순회해야 한다.</p>
+
+<p>다음 샘플은 클래스명이 unit- 으로 시작하는 걸 찾아서 지우는 코드다.</p>
+
+<p><code>$(...).removeClass(function(index,class_list_str){
+  var class_list = class_list_str.split(' ');
+  for ( var i = 0 ; i &lt; class_list.length ; i ++ ) {
+  var cls = class_list[i];
+  if ( cls.match(/unit-.+?_(L|R)/) ) {
+  return cls;
+  }
+  }
+})
+</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/17/getattr-hasattr/">Getattr &amp; Hasattr</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-01-17T11:44:48+09:00" pubdate  data-updated="true" >Jan 17<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>특정 모듈에 있는 속성, 함수, 변수들의 존재 유무를 알 수 있다.</li>
+<li>만약 속성이 함수라서 실행해야 한다면 callable() 을 이용할 것.</li>
+<li>getattr( module , name , default ) 를 사용하면 hasattr 로 체크하지 않아도 된다.</li>
+<li>현재 모듈에 특정 함수의 존재 여부는 getattr(sys.modules[<strong>name</strong>], func) 로 검사하면 된다.</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/3/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

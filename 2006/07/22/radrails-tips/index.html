@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>RadRails Tips - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="가장 먼저 RadRails 홈에서 제공하는 스크린캐스트를 보면서 eclipse 워크벤치의 기능에 대해서 습득하기 바란다.빈 프로젝트만 만들어질 때윈도우 환경에서 RadRails 는 InstantRails 배포판을 필요로 한다. 따라서 처음 설치시 ruby 와 ra...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2006/07/22/radrails-tips/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">RadRails Tips</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-07-22T23:23:38+09:00" pubdate  data-updated="true" >Jul 22<span>nd</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>가장 먼저 RadRails 홈에서 제공하는 <a href="http://download.radrails.org.nyud.net:8090/video/RadRailsScreencast.mov">스크린캐스트</a>를 보면서 eclipse 워크벤치의 기능에 대해서 습득하기 바란다.</p>
+
+<h3>빈 프로젝트만 만들어질 때</h3>
+
+<p>윈도우 환경에서 <a href="http://www.radrails.org">RadRails</a> 는 <a href="http://instantrails.rubyforge.org">InstantRails</a> 배포판을 필요로 한다. 따라서 처음 설치시 ruby 와 rails 의 PATH 를 설정해 줄 필요가 있다. window->preferences 에서 Ruby 와 Rails 의 옵션을 아래와 같이 수정할 것.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> 옵션 </th>
+<th> 설정 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> ruby > installed interpreters </td>
+<td> name=ruby, path=c:\instantrails\ruby\bin\ruby.exe |</td>
+</tr>
+<tr>
+<td></td>
+<td> ruby > RI/RDoc </td>
+<td> ri=c:\instantrails\ruby\bin\ri, rdoc=c:\instantrails\ruby\bin\rdoc |</td>
+</tr>
+<tr>
+<td></td>
+<td> rails > rails installs </td>
+<td> name=rails, path=c:\instantrails\ruby |</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>맥 OSX 에서 이와 같은 문제를 만났다면 <a href="http://hivelogic.com/articles/2005/12/01/ruby_rails_lighttpd_mysql_tiger">이 문서에 따라서 루비와 GEM을 재설치</a>한 후, 아래와 같이 설정해보기 바란다.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> 옵션 </th>
+<th> 설정 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> ruby > installed interpreters </td>
+<td> name=ruby, path=/usr/local/bin/ruby |</td>
+</tr>
+<tr>
+<td></td>
+<td> ruby > RI/RDoc </td>
+<td> ri=/usr/local/bin/ri, rdoc=/usr/local/bin/rdoc |</td>
+</tr>
+<tr>
+<td></td>
+<td> rails > rails installs </td>
+<td> name=rails, path=/usr/local/ |</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Before updating scaffolding from new DB schema, try creating a table for your model (XXX)</h2>
+
+<p>scaffold 를 생성할 때 위와 같은 에러 메시지가 뜰 때가 있다. InstantRails에 함께 따라온 mysql의 인코딩과 테이블 인코딩의 차이 때문에 생기는 문제인 듯. 데이터베이스 전역 charset과 테이블의 charset을 일치시키면 해결된다. UTF8을 추천한다.</p>
+
+<h2>WEBrick Server 추가하기</h2>
+
+<p>Server View 에서 기존에 존재하는 서버를 삭제할 경우 Rails Navigator 에서 오른쪽 클릭을 한 후 New - WEBrick Server 를 이용해서 새로 추가할 수 있다. (이걸 몰라서 계속 재설치하고 삽질했던 나 자신이 부끄럽다. 알고보니 기본적으로 배포되는 RadRails 문서에 잘 나와 있었다.)</p>
+
+<p>see also:</p>
+
+<ul>
+<li><a href="http://reiot.cafe24.com/archives/312">Eclipse 팁</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-07-22T23:23:38+09:00" pubdate  data-updated="true" >Jul 22<span>nd</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/07/22/radrails-tips/" data-via="reiot" data-counturl="http://reiot.com/2006/07/22/radrails-tips/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2006/07/22/radrails-tips/';
+        var disqus_url = 'http://reiot.com/2006/07/22/radrails-tips/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

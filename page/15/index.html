@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="http://4loc.wordpress.com/2009/04/28/documentready-vs-windowload/  $(document).ready - html 을 로딩하고 DOM 이 빌드된 직후, 즉 리소스와는 무관.  $(window).load - 모든 리...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/15/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/05/28/http4locwordpresscom20090428doc/">http://4loc.wordpress.com/2009/04/28/doc&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-05-28T23:01:00+09:00" pubdate  data-updated="true" >May 28<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://4loc.wordpress.com/2009/04/28/documentready-vs-windowload/">http://4loc.wordpress.com/2009/04/28/documentready-vs-windowload/</a>  $(document).ready - html 을 로딩하고 DOM 이 빌드된 직후, 즉 리소스와는 무관.  $(window).load - 모든 리소스들이 로딩된 직후</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/05/27/git-ignore/">Git Ignore 는 아직 커밋되지 않은 파일을 무시할 때 사용한다. &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-05-27T21:52:00+09:00" pubdate  data-updated="true" >May 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>git ignore 는 아직 커밋되지 않은 파일을 무시할 때 사용한다.  git update-index assume-unchanged FILENAME 은 커밋된 파일을 더이상 추적하지 않을때 사용한다.  .gitignore 는 현재 폴더 기준으로 특정 패턴을 무시한다.  .git/info/exclude 는 글로벌 패턴을 등록한다.  다만 양쪽 모두 웬지 레파지토리에 등록되어 공유되지는 않는 느낌이란 말이지</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/05/17/css-width-fixed/">CSS 가로 가운데 정렬하기 - 텍스트의 경우 Width 를 Fixed &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-05-17T21:56:00+09:00" pubdate  data-updated="true" >May 17<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>CSS 가로 가운데 정렬하기  - 텍스트의 경우 width 를 fixed size 로 지정하고 margin-left/right 를 auto 로 잡기  - 이미지의 경우 display 를 block 으로 바꾸고, 좌우 마진을 auto 로 잡기. 기본적으로 이미지는 inline 이다.  세로 정렬은 오직 table-cell 만 지원한다.  min-height: 10em;  display: table-cell;  vertical-align: middle</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/05/16/files-owner-nib-firs/">File&#039;s Owner - Nib 파일의 사본을 소유한 객체. Firs&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-05-16T20:56:00+09:00" pubdate  data-updated="true" >May 16<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Files Owner - nib 파일의 사본을 소유한 객체. Xib 파일의 소유자는 보통 같은 이름의 컨트롤러 클래스다  First Responder - 사용자가 현재 인터랙션하고 있는 객체. == 포커스를 받고 있는 컨트롤.  icon.png - 특별히 plist 에 등록하지 않아도 자동으로 인식한다.  outlet - 컨트롤러에 정의되는 변수. nib 내부 객체에 대한 포인터.  action - 컨트롤러에 정의되는 함수. IB 에서 호출할 수 있다.  @property - .h 에 정의하는 컨트롤러 변수에 대한 getter, setter  retain - reference counter 를 사용하라  nonatomic - MT-unsafe. 동기화 금지. 아이폰에서는 거의 안쓴다. 속도는 당연 빠름.  @synthesize - .m 에 정의하는 프라퍼티 getter, setter 를 자동 생성하는 매크로.  Option+double click - 현재 키워드에 대한 도움말을 보여준다.  탭뷰 컨트롤러 - 보통 first controller 가 된다. app delegate 에 선언된다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/05/12/safari-empty-get-img-src/">유독 Safari 에서 Empty GET 이 오는 경우, Img Src=&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-05-12T01:22:00+09:00" pubdate  data-updated="true" >May 12<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>유독 safari 에서 empty GET 이 오는 경우, img src= 태그를 확인할 것. 아무 것도 없는 데에도 요청이 온다. 덜덜덜.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/05/06/back-referece-property/">트랜잭션 처리시 주의사항: - Back Referece Property &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-05-06T18:39:00+09:00" pubdate  data-updated="true" >May 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>트랜잭션 처리시 주의사항:  - back referece property 를 순회하는 코드는 무조건 기존에 캐싱된 값을 날려버린다.  for song in album.songs:  update song # changed  for song in album.songs:  show show # not changed because of reloaded  해결책은 업데이트된 엔티티를 별도로 리스트에 저장해둬야 한다.  updated = []  for song in album.songs:  update song # changed  updated.append(song)  for song in album.songs:  show show # not changed because of reloaded  db.put(updated)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/05/03/1-root/">트랜잭션 1. 트랜잭션으로 묶을 엔티티들은, 모두 하나의 Root 엔티티&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-05-03T19:28:00+09:00" pubdate  data-updated="true" >May 3<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>트랜잭션  1. 트랜잭션으로 묶을 엔티티들은, 모두 하나의 root 엔티티를 부모로 삼는다.  2. db.run_in_transaction() 에서 실행한다.  - 부모키는 path 의 일부가 되기 때문에, 일단 정해지면 부모를 바꿀 수는 없다.  - 한 순간에 하나의 부모만 가능하다.  - 부모를 삭제해도 자식은 남아있다.  - 경쟁으로 인한 충돌을 최대한 방지하려면, 가급적 개인화된 데이터에 적용해야 한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/29/a-12345-for-i/">리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for I &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-29T17:19:00+09:00" pubdate  data-updated="true" >Apr 29<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>리스트를 역순으로 순회하는 방법  a = [1,2,3,4,5]  for i in reversed(xrange(0,len(a)): print a[i]  list.reverse() 는 inplace 로 뒤집지만 return None 이 되므로 for  in list.reverse(): 는 동작하지 않는다.  range() 는 실제로 리스트 값을 리턴하지만, xrange 는 순회를 위한 이터레이터 객체를 리턴한다.  reversed 역시 값 대신 이터레이터 객체를 리턴한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/29/url-anchor-query-format-from-httpww/">URL Anchor &amp; Query Format From Http://ww&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-29T00:33:00+09:00" pubdate  data-updated="true" >Apr 29<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>URL anchor &amp; query format from <a href="http://www.ietf.org/rfc/rfc2396.txt">http://www.ietf.org/rfc/rfc2396.txt</a>  URI-reference = [ absoluteURI | relativeURI ] [ # fragment ]  relativeURI  = ( net_path | abs_path | rel_path ) [ ? query ]  즉 #anchor 는?query 다음에 오는게 맞다.  <a href="http://somewhere.com/some/where/?query+string#anchor">http://somewhere.com/some/where/?query+string#anchor</a>  아무래도 쿼리 문자열로 인해서 리소스의 유일성이 달라질 수 있으므로, 앵커의 우선순위는 쿼리보다 낮다고 본다는 뜻이리라.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/23/appyaml-static-view/">앱엔진에서 app.yaml 에서 Static 으로 지정된 폴더는 View&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-23T21:54:00+09:00" pubdate  data-updated="true" >Apr 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>앱엔진에서 app.yaml 에서 static 으로 지정된 폴더는 view 에서 파이썬으로 접근할 수 없다. 그냥 로컬 파일은 문제 없이 읽을 수 있지만  심볼릭 링크를 걸어서 복사로 올리거나, 아예 복제해둬야 한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/16/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/14/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

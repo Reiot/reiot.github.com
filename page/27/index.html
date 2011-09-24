@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="django form 처리  변수 접근법  request.GET.get(q, ) // safe  request.POST[q] // unsafe  메써드에 따른 분기  request.method == GET or POST  기타 request, response 객체...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/27/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/django-form-requestgetget/">Django Form 처리 변수 접근법 request.GET.get(&#039;&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T16:21:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>django form 처리  변수 접근법  request.GET.get(q, ) // safe  request.POST[q] // unsafe  메써드에 따른 분기  request.method == GET or POST  기타 request, response 객체에 대한 설명  <a href="http://docs.djangoproject.com/en/dev/ref/request-response/">http://docs.djangoproject.com/en/dev/ref/request-response/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/str-unicode-utf-8/">__str__은 내부적으로 __unicode__ 를 호출해서 UTF-8 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T14:56:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>str</strong>은 내부적으로 <strong>unicode</strong> 를 호출해서 UTF-8 로 바꾼다.  결국 각 객체들은 <strong>unicode</strong> 하나만 정의해도 무방하다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/django-11-httpwwwdjangoproject/">Django 1.1 다운받기 http://www.djangoproject&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T02:57:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>django 1.1 다운받기  <a href="http://www.djangoproject.com/download/1.1/tarball/">http://www.djangoproject.com/download/1.1/tarball/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/virtualenv-which-python/">Virtualenv 실행 후 환경 점검하기 &gt; Which Python #&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T01:54:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>virtualenv 실행 후 환경 점검하기  > which python # 파이썬 인터프리터 경로  > python  import sys  sys.path  sys.executable</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/virtualenvwrapper-httpwwwdoughellman/">Virtualenvwrapper http://www.doughellman&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T01:02:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>virtualenvwrapper  <a href="http://www.doughellmann.com/docs/virtualenvwrapper/">http://www.doughellmann.com/docs/virtualenvwrapper/</a>  개요  - 가상환경을 한 군데에서 관리: mkvirtualenv, rmvirtualenv  - 손쉬운 환경 선택: workon, deactivate  - 가상환경폴더로 이동: cdvirtualenv, cdsitepackages  설치 방법(OSX 기준)  > mkdir ~/.virtualenvs  > vi ~/.bashrc  export WORKON_HOME=$HOME/.virtualenvs  source /Library/Frameworks/Python.framework/Versions/2.5/bin/virtualenvwrapper_bashrc  > source ~/.bashrc  > mkvirtualenv no-django  > deactivate  > mkvirtualenv django-1.1  > deactivate  > mkvirtualenv django-1.1.1  > deactivate</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/in-settingspy-import-logging-l/">&quot;&quot;&quot; # in settings.py Import Logging L&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T22:15:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>  # in settings.py  import logging  logging.basicConfig(  level = logging.DEBUG,  format = %(asctime)s %(levelname)s %(message)s,  #filename = /tmp/django.log,  #filemode = w  )  # Anywhere else  # import logging  # logging.debug(A log message)  #  # tail -f /tmp/django.log    <a href="http://www.slideshare.net/simon/debugging-django">http://www.slideshare.net/simon/debugging-django</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/googleappenginelauncher-debug/">GoogleAppEngineLauncher 의 파라미터로 &#8211;debug &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T21:25:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>GoogleAppEngineLauncher 의 파라미터로 debug 를 지정해도 logging.debug() 는 안보이네. 불필요한 로그도 너무 많고 흑..  <a href="http://code.google.com/intl/ko/appengine/docs/python/tools/devserver.html">http://code.google.com/intl/ko/appengine/docs/python/tools/devserver.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/app-engine-django-httpstac/">App Engine + Django 연동 방법 요약 Http://stac&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T21:07:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>app engine + django 연동 방법 요약  <a href="http://stackoverflow.com/questions/2029511/django-google-app-engine-app-engine-helper-for-django-or-uselibrary">http://stackoverflow.com/questions/2029511/django-google-app-engine-app-engine-helper-for-django-or-uselibrary</a>  1. use_library  2. django helper</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/django-helper-basemodel-app-eng/">Django Helper 의 BaseModel 을 사용하면 App Eng&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T20:44:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>django helper 의 BaseModel 을 사용하면 app engine admin (/_ah/admin) 에서 에러 발생함.  manage.py runserver -v 2 이렇게 왜 설정이 안될까?  서버 콘솔에 로그를 남기고 싶은데 logging.xxx() 로는 아무 것도 안남는다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/bigtable-schemeless/">왜 Bigtable 은 스키마가 없는가? (Schemeless) - 아무&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T18:50:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>왜 bigtable 은 스키마가 없는가? (schemeless)  - 아무리 모델 구조가 바뀌어도 저장 가능.  - 하나의 테이블에 서로 다른 구조의 객체가 들어있을 수 있음.  - 즉 검증의 책임은 프로그램에게 있음.  - 마이그레이션의 책임도 따라서 프로그램에게 있음.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/28/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/26/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

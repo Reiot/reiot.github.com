@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Erlang/OTP UDP Server - Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="얼랭으로 만든, 가장 단순한 UDP Echo 서버와 클라이언트는 이렇게 생겨먹었다. (워드프레스에서 들여쓰기가 자꾸 날아가는 버그가 있으므로, 귀찮아서 고치지는 않겠다.) 123456789101112131415-module(udp_server).-compile(e...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/2009/01/19/erlangotp-udp-server/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Erlang/OTP UDP Server</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-19T08:34:36+09:00" pubdate  data-updated="true" >Jan 19<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>얼랭으로 만든, 가장 단순한 UDP Echo 서버와 클라이언트는 이렇게 생겨먹었다. (워드프레스에서 들여쓰기가 자꾸 날아가는 버그가 있으므로, 귀찮아서 고치지는 않겠다.)</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">-</span><span class="n">module</span><span class="p">(</span><span class="n">udp_server</span><span class="p">).</span>
+</span><span class='line'><span class="o">-</span><span class="n">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">init</span><span class="p">(</span><span class="n">ServerPort</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">Sock</span><span class="p">}</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">open</span><span class="p">(</span><span class="n">ServerPort</span><span class="p">,[</span><span class="n">binary</span><span class="p">,</span><span class="n">inet</span><span class="p">]),</span>
+</span><span class='line'><span class="n">loop</span><span class="p">().</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">loop</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;server_loop~n&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="n">receive</span>
+</span><span class='line'><span class="p">{</span><span class="n">udp</span><span class="p">,</span> <span class="n">Sock</span><span class="p">,</span> <span class="n">ClientIP</span><span class="p">,</span> <span class="n">ClientPort</span><span class="p">,</span> <span class="n">Packet</span> <span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p:~p ==&gt; ~p~n&quot;</span><span class="p">,[</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">]),</span>
+</span><span class='line'><span class="n">ok</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">send</span><span class="p">(</span><span class="n">Sock</span><span class="p">,</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">),</span>
+</span><span class='line'><span class="n">loop</span><span class="p">()</span>
+</span><span class='line'><span class="n">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">-</span><span class="n">module</span><span class="p">(</span><span class="n">udp_client</span><span class="p">).</span>
+</span><span class='line'><span class="o">-</span><span class="n">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">init</span><span class="p">(</span><span class="n">ServerPort</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">Sock</span><span class="p">}</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">open</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span><span class='line'><span class="nl">gen_udp:</span><span class="n">send</span><span class="p">(</span><span class="n">Sock</span><span class="p">,</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span><span class="n">ServerPort</span><span class="p">,</span><span class="s">&quot;Hello World!&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="n">loop</span><span class="p">().</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">loop</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;waiting response...~n&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="n">receive</span>
+</span><span class='line'><span class="p">{</span><span class="n">udp</span><span class="p">,</span> <span class="n">Peer</span><span class="p">,</span> <span class="n">PeerIP</span><span class="p">,</span> <span class="n">PeerPort</span><span class="p">,</span> <span class="n">Packet</span> <span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p:~p ==&gt; ~p~n&quot;</span><span class="p">,[</span><span class="n">PeerIP</span><span class="p">,</span><span class="n">PeerPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">])</span>
+</span><span class='line'><span class="n">after</span> <span class="mi">1000</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;timeout..~n&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>여기에서 바로 OTP로 만들겠다고 뛰어들었다가 삽질을 한 후,  <a href="http://www.trapexit.org/Building_a_Non-blocking_TCP_server_using_OTP_principles">Building_a_Non-blocking_TCP_server_using_OTP_principles</a> 와 <a href="http://erlrtpproxy.googlecode.com/svn-history/r19/trunk/rtpproxy.erl">구글에서 검색한 gen_udp 예제</a>을 참고해서 겨우 성공한 게 다음의 코드이다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">-</span><span class="n">module</span><span class="p">(</span><span class="n">udp_otp_server</span><span class="p">).</span>
+</span><span class='line'><span class="o">-</span><span class="n">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">%</span> <span class="n">stand</span><span class="o">-</span><span class="n">alone</span> <span class="n">server</span> <span class="n">version</span>
+</span><span class='line'><span class="n">start</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">gen_server:</span><span class="n">start</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">},</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">%</span> <span class="n">supervision</span> <span class="n">tree</span> <span class="n">version</span>
+</span><span class='line'><span class="n">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">gen_server:</span><span class="n">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">},</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">init</span><span class="p">([])</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="n">process_flag</span><span class="p">(</span><span class="n">trap_exit</span><span class="p">,</span><span class="kc">true</span><span class="p">),</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">Sock</span><span class="p">}</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">open</span><span class="p">(</span><span class="mi">1111</span><span class="p">,[</span><span class="n">binary</span><span class="p">,</span><span class="n">inet</span><span class="p">]),</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;udp server started...~n&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="mi">0</span><span class="p">}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">handle_call</span><span class="p">(</span><span class="n">Request</span><span class="p">,</span> <span class="n">From</span><span class="p">,</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p~n&quot;</span><span class="p">,[</span><span class="n">Request</span><span class="p">]),</span>
+</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span><span class="n">State</span><span class="p">}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">handle_cast</span><span class="p">(</span><span class="n">_Msg</span><span class="p">,</span><span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;handle_cast(~p)~n&quot;</span><span class="p">,</span><span class="n">_Msg</span><span class="p">),</span>
+</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="n">State</span><span class="p">}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">%%</span> <span class="n">udp</span> <span class="n">message</span> <span class="n">should</span> <span class="n">be</span> <span class="n">handled</span> <span class="n">here</span>
+</span><span class='line'><span class="n">handle_info</span><span class="p">({</span><span class="n">udp</span><span class="p">,</span><span class="n">Sock</span><span class="p">,</span> <span class="n">ClientIP</span><span class="p">,</span> <span class="n">ClientPort</span><span class="p">,</span> <span class="n">Packet</span><span class="p">},</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p:~p ==&gt; ~p~n&quot;</span><span class="p">,[</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">]),</span>
+</span><span class='line'><span class="n">ok</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">send</span><span class="p">(</span><span class="n">Sock</span><span class="p">,</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">),</span>
+</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="n">State</span><span class="p">}</span>
+</span><span class='line'><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">handle_info</span><span class="p">(</span><span class="n">_Info</span><span class="p">,</span><span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;handle_info~n&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="n">State</span><span class="p">}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">terminate</span><span class="p">(</span><span class="n">_Reason</span><span class="p">,</span><span class="n">N</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;stopping...~n&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="n">ok</span><span class="p">.</span>
+</span><span class='line'><span class="n">code_change</span><span class="p">(</span><span class="n">_OldVsn</span><span class="p">,</span><span class="n">N</span><span class="p">,</span> <span class="n">_Extra</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="n">N</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>핵심 요지는, UDP 메시지는 handle_call 이나 cast 가 아니라, handle_info에서 처리해야 한다는 점이다. 요즘 <strong>업.무.가. 바.빠.서.</strong> 얼랭을 3주 정도 못봤는데 또 서서히 기억이 소멸하기 시작했다. OTP에서는 함수의 리턴값 규칙을 정말 잘 맞춰야 하는 관계로, 다음 번부터는 gen_server 템플릿 하나 정도는 갖고 시작해야겠다.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-19T08:34:36+09:00" pubdate  data-updated="true" >Jan 19<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2009/01/19/erlangotp-udp-server/" data-via="reiot" data-counturl="http://reiot.com/2009/01/19/erlangotp-udp-server/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://reiot.com/2009/01/19/erlangotp-udp-server/';
+        var disqus_url = 'http://reiot.com/2009/01/19/erlangotp-udp-server/';
+        var disqus_script = 'embed.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

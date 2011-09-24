@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="git 로 롤백하기  아직 커밋하지 않은 경우  git checkout $commit filename: 과거 버전의 파일을 작업중인 파일에 덮어쓴다. 당연히 커밋해야 된다.  git reset hard $commit: 커밋하지 않은 모든 파일을 날리고, 과거 버전...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/14/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/25/git-checkout-commit-filename/">Git Checkout $commit Filename : 과거 버전의 파&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-25T17:06:00+09:00" pubdate  data-updated="true" >Jun 25<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>git 로 롤백하기  아직 커밋하지 않은 경우  git checkout $commit filename: 과거 버전의 파일을 작업중인 파일에 덮어쓴다. 당연히 커밋해야 된다.  git reset hard $commit: 커밋하지 않은 모든 파일을 날리고, 과거 버전으로 작업 폴더를 덮어쓴다.  이미 커밋한 경우  git revert  <a href="http://book.git-scm.com/4_undoing_in_git_-_reset,_checkout_and_revert.html">http://book.git-scm.com/4_undoing_in_git<em>-</em>reset,_checkout_and_revert.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/23/zwoptex-plist-format/">Zwoptex Plist Format 원본 이미지에서 알파 영역은 모두 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-23T21:28:00+09:00" pubdate  data-updated="true" >Jun 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>zwoptex plist format  원본 이미지에서 알파 영역은 모두 제거해서 더 압축하는 듯하다.  frame: { { x,y},{width,height } }  offset:?  sourceColorRect:  sourceSize: 원본 이미지의 { width, height }</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/22/python-dictionary/">Python Dictionary 를 값으로 정렬해서 최대값을 가진 키를 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-22T21:30:00+09:00" pubdate  data-updated="true" >Jun 22<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>python dictionary 를 값으로 정렬해서 최대값을 가진 키를 찾기.  d = { x:1, y:2, z:3 }  l = d.items()  l.sort( key=lambda x: x[1] , reverse=True )  print l[0][0]  <a href="http://code.activestate.com/recipes/304440-sorting-dictionaries-by-value-in-python-24/">http://code.activestate.com/recipes/304440-sorting-dictionaries-by-value-in-python-24/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/22/model-property-dbexpando/">Model Property 삭제하는 법 - db.Expando 상속 - &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-22T20:45:00+09:00" pubdate  data-updated="true" >Jun 22<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>model property 삭제하는 법  - 임시적으로 db.Expando 상속  - 코드에서 property 삭제  - delattr(entity,property)  - db.Model 롤백  <a href="http://code.google.com/intl/ko-KR/appengine/articles/update_schema.html">http://code.google.com/intl/ko-KR/appengine/articles/update_schema.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/21/django-settingspy-osenvion/">최초 Django 실행시 settings.py 에서는 os.envion &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-21T22:49:00+09:00" pubdate  data-updated="true" >Jun 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>최초 django 실행시 settings.py 에서는 os.envion 을 인식하지 않는다.  DEVELOPMENT = os.environ[SERVER_SOFTWARE].startswith(Development)  APPENGINE = os.environ[SERVER_SOFTWARE].startswith(Google App Engine)  SERVER_NAME = os.environ[SERVER_NAME]  따라서 위와 같은 코드는 request 가 존재하는 view 에서만 사용 가능하다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/21/djangosettingmodule/">DJANGO_SETTING_MODULE * 환경 변수를 통해서 지정할 수&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-21T22:47:00+09:00" pubdate  data-updated="true" >Jun 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>DJANGO_SETTING_MODULE  * 환경 변수를 통해서 지정할 수 있다. export DJANGO_SETTINGS_MODULE=mysettings  * 실행 인자를 통해서도 지정 가능: settings=mysettings  * 단, 위 방법 모두 appengine_django 에서는 현재 동작하지 않는다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/17/div-position-ab/">이미지 바닥을 부모 DIV 의 바닥에 붙이기. - Position: Ab&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-17T22:06:00+09:00" pubdate  data-updated="true" >Jun 17<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>이미지 바닥을 부모 DIV 의 바닥에 붙이기.  - position: absolute  - bottom: 0px</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/17/jquery-ui-button-centering-float-none/">Jquery UI Button Centering - Float: None&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-17T21:31:00+09:00" pubdate  data-updated="true" >Jun 17<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Jquery UI Button Centering  buttonset 안에 버튼이 1개일 경우 기본적으로 버튼은 inline-block 이다. 다른 DIV 의 중앙 정렬과 동일한 방식으로 구현한다.  - float: none  - display: block  - margin: 0px auto;  - width: NNN;  buttonset 안에 버튼이 여러 개일 경우, 버튼셋 자체를 중앙 정렬 해야 한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/10/error-code-100-requires-val/">페이스북 앱에서 Error Code : 100 &quot;Requires Val&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-10T22:25:00+09:00" pubdate  data-updated="true" >Jun 10<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>페이스북 앱에서 Error Code: 100 Requires valid next URL. 이 발생할 경우  설정 메뉴에서 migration - new data model = disabled 로 수정할 것.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/10/jquery-ui-modal-dialog-z-order/">Jquery Ui 의 Modal Dialog 의 경우, Z-order 문&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-10T03:43:00+09:00" pubdate  data-updated="true" >Jun 10<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>jquery ui 의 modal dialog 의 경우, z-order 문제 때문에 body 맨 아래로 DOM 이 옮겨진다.  이로 인해서 jquery.load() 와 조합해서 dialog() 를 중복 호출하면 계속 DOM 이 중복 추가된다.  해결책은 기존의 DOM 을 삭제하는 것.  $(.dialog.ui-dialog-content).dialog(destroy).remove();  $(.dialog).dialog({});</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/15/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/13/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

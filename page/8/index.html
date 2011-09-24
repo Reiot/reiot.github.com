@@ -1,0 +1,633 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Social Reiot</title>
+  <meta name="author" content="Ray Yun">
+
+  
+  <meta name="description" content="from http://docs.jquery.com/Tutorials:Mouse_Position$(&#8220;#special&#8221;).click(function(e){var x = e.pageX - this.offsetLeft;var y = e.pageY -...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://reiot.com/page/8/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Social Reiot</a></h1>
+  
+    <h2>Social Game Developer wandering in strange dungeon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:reiot.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/10/05/mouse-position/">Mouse Position</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-10-05T10:19:20+09:00" pubdate  data-updated="true" >Oct 5<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>from <a href="http://docs.jquery.com/Tutorials:Mouse_Position">http://docs.jquery.com/Tutorials:Mouse_Position</a></p>
+
+<p>$(&#8220;#special&#8221;).click(function(e){</p>
+
+<pre><code>var x = e.pageX - this.offsetLeft;
+var y = e.pageY - this.offsetTop;
+</code></pre>
+
+<p>  $(&#8216;#status2&#8217;).html(x +&#8217;, &#8216;+ y);
+  });</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/10/02/slick-interface-tips/">Slick Interface Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-10-02T17:06:40+09:00" pubdate  data-updated="true" >Oct 2<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>검은 반투명 사각형</p>
+
+<ul>
+<li>inner shadow (normal blend, white, 1px): 레이어 내부에 위에서 내려오는 라이트 살짝 넣기</li>
+<li>outer glow (normal blend, black): 레이어 외부 전체에 살짝 퍼진 그림자</li>
+<li>stroke (black, 1px): 레이어 외곽선 1픽셀 검은선</li>
+</ul>
+
+
+<p>특정 레이어 윗쪽에 그라데이션 먹이기</p>
+
+<ul>
+<li>cmd + click 로 특정 레이어 전체 선택, alt + click 으로 아래 부분을 제거</li>
+<li>G 로 검은색 칠하기</li>
+<li>gradient overlay 로 윗쪽을 하얗게 만들기</li>
+</ul>
+
+
+<p>검은 바탕에 입체감 있는 폰트</p>
+
+<ul>
+<li>drop shadow (multiply, 1px, black): 아래 방향 그림자</li>
+<li>inner shadow (overlay, 1px, white): 윗쪽 방향 라이트</li>
+<li>gradient overlay (gray-white): 아래쪽으로 회색 그림자</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/10/01/import-class-from-zip-file/">Import Class From Zip File</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-10-01T10:23:09+09:00" pubdate  data-updated="true" >Oct 1<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div>current_dir = os.path.abspath(os.path.dirname(__file__))</div>
+
+
+<div>sys.path.insert(0, os.path.join(current_dir,..,..,django.zip))</div>
+
+
+<div></div>
+
+
+<div></div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/10/01/get-latlng-of-map-canvas-corner/">Get LatLng of Map Canvas Corner</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-10-01T08:06:00+09:00" pubdate  data-updated="true" >Oct 1<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>with maps bounds, can composite TL, TR, BL, BR.</p>
+
+<blockquote><p>var bounds = self.getMap().getBounds();</p><p>var latLng = new google.maps.LatLng( bounds.getNorthEast().lat(), bounds.getSouthWest().lng() );                                    </p></blockquote>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/30/do-not-trust-mouseeventpixel/">Do Not Trust MouseEvent.pixel</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-30T14:32:28+09:00" pubdate  data-updated="true" >Sep 30<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>MouseEvent.pixel 이라는 값이 있는데 실제로 이 값이 DIV 의 상대 좌표랑 정확하게 일치하지 않는다. 그냥 latLng 값을 fromLatLngToDivPixel 로 변경해서 사용하면 된다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/29/stop-propatation-for-custom-overlay/">Stop Propatation for Custom Overlay</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-29T11:16:19+09:00" pubdate  data-updated="true" >Sep 29<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>구글맵의 커스텀 오버레이에 click 등의 이벤트 핸들러를 붙였을 때, 오버레이를 클릭하면 맵도 클릭이 된다. 이때 이벤트 객체를 받아서 전파를 막아야 한다.</p>
+
+<p>    if (event.stopPropagation) event.stopPropagation();   // DOM Level 2</p>
+
+<p>    else event.cancelBubble = true;                       // IE</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/29/custom-overlay-event-handling/">Custom Overlay Event Handling</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-29T10:38:42+09:00" pubdate  data-updated="true" >Sep 29<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>기본적으로 google.maps.event.addListener() 는 맵에서 정의한 이벤트들만을 처리한다. 만약 커스텀 오버레이에 대해서 click 이나 mouse over 를 처리하려면, 해당 오버레이의 DOM 이벤트를 받아서 다시 구글 맵 이벤트를 트리거해야 한다. (말이 어렵다)</p>
+
+<p>쉽게 말해, 커스텀 오버레이 생성자나 onAdd 에서 DOM 이벤트를 등록하고,</p>
+
+<p> google.maps.event.addDomListener(this.div_, click, function() { </p>
+
+<p> google.maps.event.trigger(me, click);</p>
+
+<p> });</p>
+
+<p>실제 오버레이 인스턴스에 대해서 </p>
+
+<p>google.maps.event.addListener(test_marker, click, function() {.});</p>
+
+<p>하면 된다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/27/missing-post-authorize-redirect-url/">Missing Post Authorize &amp; Redirect URL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-27T13:35:22+09:00" pubdate  data-updated="true" >Sep 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>post authorize &amp; redirect 가 사라졌다.</p>
+
+<p>oauth 가 들어가면서 서버가 직접 구분을 할 수 있을 것도 같다.</p>
+
+<p>코드에서 직접 구분을 해야 한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/27/bulk-delete-entities-of-lost-model-in-code/">Bulk Delete Entities of Lost Model in Code</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-27T08:18:53+09:00" pubdate  data-updated="true" >Sep 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>class EnemyUnitGroup(db.Model): pass</p>
+
+<p>db.delete(EnemyUnitGroup.all(keys_only=True)[:500])</p></blockquote>
+
+<p>이미 클래스가 없어진 경우에는 위와 같이 임시로 선언한 다음, remote api 에서 삭제할 수 있다.</p>
+
+<p>한 순간에 최대 500개의 엔티티를 바꿀 수 있다.</p>
+
+<p>이런 류의 bulk delete 에는 map reduce 가 가장 적합하다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/26/%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%91%E1%85%A9%E1%86%AB%E1%84%8F%E1%85%A5%E1%86%B7%E1%84%91%E1%85%B2%E1%84%90%E1%85%A5-%E1%84%89%E1%85%A2%E1%86%A8%E1%84%89%E1%85%A1%E1%86%BC-%E1%84%8E%E1%85%A1%E1%84%8B%E1%85%B5-%E1%84%92%E1%85%A2%E1%84%80%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A5%E1%86%B8/">아이폰/컴퓨터 색상 차이 해결법</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-26T09:57:00+09:00" pubdate  data-updated="true" >Sep 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://note.marines.co.kr/135">아이폰/컴퓨터 색상 차이 해결법</a><br/>
+<a href="http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/">http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/</a></p>
+
+<ol>
+<li><p>Working RGB -> Monitor</p></li>
+<li><p>Desaturate RGB -> 20-25%</p></li>
+<li><p>Modify Gamma</p></li>
+<li><p>Assign Profile -> Working RGB</p></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+        <a class="prev" href="/page/9/">&larr; Older</a>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+      <a class="next" href="/page/7/">Newer &rarr;</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/reiot">@reiot</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'reiot',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("reiot", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Ray Yun -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    (function () {
+      var disqus_shortname = 'reiot';
+      
+        
+        var disqus_script = 'count.js'
+      
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>
