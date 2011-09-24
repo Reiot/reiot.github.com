@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="form 의 버튼이 여러개일 경우 클릭시 기본적으로 submit 이 호출된다.  button 태그를 a 로 바꾸면 해결됨.">
+  <meta name="description" content="http://www.jakpsatweb.cz/css/css-vertical-center-solution.html  div 의 가로/세로 가운데에 배치하기">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,6 +60,40 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/02/httpwwwjakpsatwebczcsscss-vertica/">http://www.jakpsatweb.cz/css/css-vertica&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-02T21:41:00+09:00" pubdate  data-updated="true" >Feb 2<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.jakpsatweb.cz/css/css-vertical-center-solution.html">http://www.jakpsatweb.cz/css/css-vertical-center-solution.html</a>  div 의 가로/세로 가운데에 배치하기</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -367,40 +401,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/28/django-form-fields-propert/">Django Form - 디스플레이 및 검증용 Fields Propert&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-28T03:44:00+09:00" pubdate  data-updated="true" >Jan 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>django form  - DB => 모델 => 폼 => HTML 렌더링(form input..) => GET/POST 로 전송 => 폼 => 검증 => 모델 => DB  - 하나의 모델에 여러 개의 폼이 존재해도 무방  - 폼위자드: 하나의 모델을 여러 페이지의 폼으로 구성하고 마지막에 검증  - formset: 폼의 집합. 데이터 그리드를 상상할 것.  - Widget: 폼필드가 어떻게 HTML Input 태그로 렌더링될 것인가?  fields property  - required: not None  - label: 라벨  - initial: 폼이 비어 있을 때 초기값. 출력용이며 필드 초기값은 아니다. (설명문일지도)  - widget:  - help_text: 필드에 대한 설명  - error_messages: ValidationError 의 문자열이 출력됨. 필드 종류에 따라 에러문자열 키값이 다름.  ex> TextInput = { required: 비었을때, max_length: 문자열 길이 초과,  }  field types - 검증 기능이 추가된 위젯.  - BooleanField: 체크박스  - CharField: 텍스트  - ChoiceField: 콤보박스  - TypedChoiceField: 콤보박스. int/float/bool 값이 리턴됨.  - DateField: 날짜 위젯? 년일월 구분된건가?  - DemicalField: 텍스트. 숫자만 받아들임.  - EmailField: 텍스트. 이메일 포맷  - FileField: 파일.  - FilePathField: 폴더 경로 + 재귀 여부 + 패턴.  - FloatField: 텍스트.  - ImageField: 파일. PIL 설치되어야 함.  - IntegerField: 텍스트.  - IPAddressField: IP  - MultipleChoiceField: 콤보+멀티선택  - NullBooleanField: True or False or None  - RegexField: 텍스트  - TimeField  - URLField  - ComboField  - MultiValueField  - SplitDateTimeField  모델 인스턴스로 초기화하고 HTML 렌더링  form = MyForm( instance=obj )  모델 기본값으로 초기화한 후, GET/POST 로 받은 값을 덮어쓰기.  form = MyForm( request.GET, instance=obj )  obj = form.save( commit=False )  특정 필드 빼기  class Meta:  exclude = ()  지정 필드만 넣기: 리스트 순서대로 폼이 배치된다.  class Meta:  fields = ()  ModelForm 은 모델의 필드 타입에 의해서 폼 필드들이 결정된다. 만약 오버라이딩하려면 모든 폼필드 속성을 재지정해줘야 한다.  기본적으로 폼필드 타입을 정하면 아무 속성 없는 디폴트 위젯이 결정된다. 위젯 타입이나 클래스 속성 등을 커스터마이징하려면  forms.CharField(widget=forms.TextArea( attrs={class:special}))  특정 위젯에 필요한 CSS 나 자바스크립트를 include 하려면, 미디어 클래스를 이용한다.  class Media:  css = { all: ( pretty.css, ) }  js = ( animaiton.js, actions.js )</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <nav class="pagination">
     <div>
       
@@ -420,6 +420,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
       </li>
     
@@ -433,10 +437,6 @@
     
       <li class="post">
         <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
       </li>
     
   </ul>

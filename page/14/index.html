@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="git 로 롤백하기  아직 커밋하지 않은 경우  git checkout $commit filename: 과거 버전의 파일을 작업중인 파일에 덮어쓴다. 당연히 커밋해야 된다.  git reset hard $commit: 커밋하지 않은 모든 파일을 날리고, 과거 버전...">
+  <meta name="description" content="git config merge.tool your.tool  git mergetool  http://stackoverflow.com/questions/161813/how-do-i-fix-merge-conflicts-in-git">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,6 +60,40 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/25/git-config-mergetool-yourtool-git/">Git Config merge.tool &quot;your.tool&quot; Git &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-25T17:06:00+09:00" pubdate  data-updated="true" >Jun 25<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>git config merge.tool your.tool  git mergetool  <a href="http://stackoverflow.com/questions/161813/how-do-i-fix-merge-conflicts-in-git">http://stackoverflow.com/questions/161813/how-do-i-fix-merge-conflicts-in-git</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -367,40 +401,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/06/10/jquery-ui-modal-dialog-z-order/">Jquery Ui 의 Modal Dialog 의 경우, Z-order 문&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-06-10T03:43:00+09:00" pubdate  data-updated="true" >Jun 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jquery ui 의 modal dialog 의 경우, z-order 문제 때문에 body 맨 아래로 DOM 이 옮겨진다.  이로 인해서 jquery.load() 와 조합해서 dialog() 를 중복 호출하면 계속 DOM 이 중복 추가된다.  해결책은 기존의 DOM 을 삭제하는 것.  $(.dialog.ui-dialog-content).dialog(destroy).remove();  $(.dialog).dialog({});</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <nav class="pagination">
     <div>
       
@@ -420,6 +420,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
       </li>
     
@@ -433,10 +437,6 @@
     
       <li class="post">
         <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 jsFiddle에 있으니 관심있는 분들은 뜯어보시길..$(function() {  var...">
+  <meta name="description" content="id is NSString or something else?id var;if ([var isKindOfClass:[NSString class]]) {  // yes this is NSString} else {  // nope}참고로, var 가 실제로 문자열일 때...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,6 +60,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/11/14/iskindofclass/">isKindOfClass</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-11-14T13:36:00+09:00" pubdate  data-updated="true" >Nov 14<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>id is NSString or something else?</p>
+
+<p><code>id var;
+if ([var isKindOfClass:[NSString class]]) {
+  // yes this is NSString
+} else {
+  // nope
+}
+</code></p>
+
+<p>참고로, var 가 실제로 문자열일 때 [var class] == [NSString class] 는 실패한다 :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -496,40 +540,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/21/knockout-javascript-mvc-library/">Knockout : Javascript MVC Library</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-10-21T05:18:27+09:00" pubdate  data-updated="true" >Oct 21<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://knockoutjs.com/">Knockout : javascript MVC library</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <nav class="pagination">
     <div>
       
@@ -549,6 +559,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
       </li>
     
@@ -562,10 +576,6 @@
     
       <li class="post">
         <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
       </li>
     
   </ul>

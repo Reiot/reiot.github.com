@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="raise Http404(error_string) 으로 하면 디버그 모드에서 에러 메시지를 브라우저에서도 볼 수 있다.">
+  <meta name="description" content="canvas app 에서 post authorize redirect URL 의 주소는 canvas_url 을 prefix 로 가져야 한다.  ex> http://apps.facebook.com/yourapp/welcome/">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,6 +60,40 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/05/canvas-app-post-authorize-redirect-ur/">Canvas App 에서 Post Authorize Redirect UR&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-05T23:19:00+09:00" pubdate  data-updated="true" >Apr 5<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>canvas app 에서 post authorize redirect URL 의 주소는 canvas_url 을 prefix 로 가져야 한다.  ex> <a href="http://apps.facebook.com/yourapp/welcome/">http://apps.facebook.com/yourapp/welcome/</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -367,75 +401,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-03-10T16:08:00+09:00" pubdate  data-updated="true" >Mar 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>python tip, tricks and hacks from <a href="https://www.siafoo.net/article/52">https://www.siafoo.net/article/52</a>  <strong>부분 문자열 포함 테스트는 in 연산자를 사용할 것</strong><br/>
-if &#8216;aaa&#8217; in &#8216;aaabbb&#8217;:
-  <strong>리스트를 , 로 합칠 경우 seperator . join ( list ) 형식을 사용할 것</strong><br/>
-&#8217;,&#8217;.join([&#8216;aaa&#8217;,&#8217;bbb&#8217;,&#8217;ccc&#8217;]
-  <strong>람다 함수는 anonymous function 으로 이해하면 된다. C 의 a? b: c 대용으로는 사용할 수 없을 듯.</strong><br/>
-map( lambda x : x<em>x, [1,2,3,4,5] ) # 리스트를 순회하면서 제곱을 한 걸 리턴한다.
-  <strong>map 함수는 리스트 comprehension 으로 대체할 수 있다. 위의 예제는 아래처럼 고칠 수 있다.</strong><br/>
-[ x</em>x for x in [1,2,3,4,5] ]
-  <strong>filter 함수는 for .. in  if  으로 대체할 수 있다.</strong><br/>
-filter( lambda x: x&lt;4, [1,2,3,4,5] )  == [ x for x in [1,2,3,4,5] if x &lt; 4 ]
-  <strong>generator 는 [] 대신 () 로 감싸서 for 에 넘길 수 있다.</strong><br/>
-for x in ( y<em>y for y in [1,2,3,4,5] if y</em>y &lt; 10 ):</p>
-
-<p>  print x
-  <strong>nested for + if + single statement 는 한줄로 표현할 수 있다.</strong><br/>
-for x in (0,1,2,3):</p>
-
-<p>  for y in (0,1,2,3):</p>
-
-<p>    if x &lt; y:</p>
-
-<p>      print (x,y,x*y)</p>
-
-<p>==> print [(x,y,x*y) for x in (0,1,2,3) for y in (0,1,2,3) if x &lt; y] # 다만 리스트다.
-  <strong>reduce 를 이용하면 리스트를 순회하면서 각 값들을 특정 값에 누적 연산시킬 수 있다.</strong><br/>
-result = 1</p>
-
-<p>for i in [1,2,3,4,5]:</p>
-
-<p>  result *= i</p>
-
-<p>==> reduce( lambda a,b: a*b, [1,2,3,4,5] )  <strong>dictionary 생성시 { &#8216;a&#8217;: 1, &#8216;b&#8217;: 2 } 대신 dict( a=1, b=2 ) 로 만들 수 있다.  </strong>  <strong>C 의 a ? b : c 는 다음과 같이 할 수 있다.  </strong></p>
-
-<p>b if a else c  <strong>C 의 switch 문은 딕셔너리.get( key, default ) 로 대체할 수 있다.  </strong></p>
-
-<p>if key == a: return 1  elif key == b: return 2  else return 3  ==> dict( a=1, b=2 ).get( key, 3 )  <strong>@staticmethod 데코레이터는 클래스 스태틱 함수를 의미한다.</strong></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <nav class="pagination">
     <div>
       
@@ -455,6 +420,10 @@ result = 1</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
       </li>
     
@@ -468,10 +437,6 @@ result = 1</p>
     
       <li class="post">
         <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
       </li>
     
   </ul>

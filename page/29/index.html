@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="(이미 좀 기한이 지난 이야기지만) 2009년은 다시는 겪고 싶지 않은 인생 최악(?)의 해이면서, 유아기적 사고에서 벗어나 진짜 어른이 된 해다. 작년에 일어난 수많은 사건들이, 인생이 얼마나 덧없는가에 대해서, 가장의 건강이 왜 그렇게 소중한 것인지에 대해, ...">
+  <meta name="description" content="virtualenv - 분리된 파이썬 환경을 구축하기.  설치하기  easy_install virtualenv  개별 환경 구축하기  cd ~/Document/  virtualenv no-site-packages django_appengine  개별 환경 활성화 ...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,6 +60,40 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/25/virtualenv-easy/">Virtualenv - 분리된 파이썬 환경을 구축하기. 설치하기 Easy&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-25T19:10:00+09:00" pubdate  data-updated="true" >Jan 25<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>virtualenv - 분리된 파이썬 환경을 구축하기.  설치하기  easy_install virtualenv  개별 환경 구축하기  cd ~/Document/  virtualenv no-site-packages django_appengine  개별 환경 활성화  cd django_appengine/bin  source activate  개별 환경에 라이브러리 설치  easy_install Django: 1.1.1 을 설치함  easy_install Django-1.1.tar: 미리 다운받아둔 1.1 버전 설치하기</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -678,55 +712,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-04-23T17:19:24+09:00" pubdate  data-updated="true" >Apr 23<span>rd</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class='' src='http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80).gif' width='' height='' alt='' title=''></p>
-
-<p>비주얼 스튜디오 2005에서 어떤 솔루션만 열면 인텔리센스가 멈추지 않는 현상을 만나서 검색해니, SP1 이후로 <a href="http://code.msdn.microsoft.com/KB943969">한글판 핫픽스 하나</a>와 <a href="http://code.msdn.microsoft.com/KB947315">영문판 핫픽스 하나</a>가 나와 있었다.</p>
-
-<p>둘 중에서 후자만 깔아도 된다고는 하는데, 영문판 핫픽스는 한글판에서는 설치가 안된다는 것이 문제였다. 다행히도 쉬귀군의 팀은 영문판을 쓰고 있었기에 강제로 원격 설치(-_-)를 해서 <a href="http://blog.naver.com/PostView.nhn?blogId=dexylitol&amp;logNo=20045702640">관련 dll 들을 받아서</a> 그냥 덮어씌워보니 그럭저럭 잘 돌아가는 것 같았다. 조금 걱정이라면 디버그-릴리즈 전환할 때마다 인텔리센스가 돌아간다는 점이랄까.</p>
-
-<p>정리하자면, 영문판 사용자에게 부탁해서 다음 dll 들을 덮어쓰면 된다!</p>
-
-<pre><code>- VC/packages/vcpkg.dll
-- VC/packages/VCProjectEngine.dll
-- VC/packages/VCProject.dll
-</code></pre>
-
-<p>참고로, VC/bin/amd64 또는 x86_amd64 아래에도 버전은 같지만 크기가 다른 VCProjectEngine.dll 파일이 있긴 한데 얘네들은 안덮어써도 돌긴 돌아갔다&#8230;</p>
-
-<p>ps. <a href="http://kaistizen.net/EE/index.php/weblog/comments/visual_studio_2005_hotfixes/">컴파일이 빨라진다는 핫픽스</a>도 있구나..</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <nav class="pagination">
     <div>
       
@@ -746,6 +731,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
       </li>
     
@@ -759,10 +748,6 @@
     
       <li class="post">
         <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
       </li>
     
   </ul>

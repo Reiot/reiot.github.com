@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="때는 바야흐로 2003년, 게임 서버 개발은 조만간 그리드 컴퓨팅 기반으로 바뀔 거라고 믿고 아마존에서 관련 서적을 실컷 사 모았던 적이 있다. 막상 뚜껑을 열어 보니 대부분 웹서비스 기반이어서 뭔가 빠른 반응성과 연결된 세션간의 적절한 동기화가 필요한 게임 서버...">
+  <meta name="description" content="비주얼 스튜디오 2005에서 어떤 솔루션만 열면 인텔리센스가 멈추지 않는 현상을 만나서 검색해니, SP1 이후로 한글판 핫픽스 하나와 영문판 핫픽스 하나가 나와 있었다.둘 중에서 후자만 깔아도 된다고는 하는데, 영문판 핫픽스는 한글판에서는 설치가 안된다는 것이 문...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,6 +60,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-04-23T17:19:24+09:00" pubdate  data-updated="true" >Apr 23<span>rd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class='' src='http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80).gif' width='' height='' alt='' title=''></p>
+
+<p>비주얼 스튜디오 2005에서 어떤 솔루션만 열면 인텔리센스가 멈추지 않는 현상을 만나서 검색해니, SP1 이후로 <a href="http://code.msdn.microsoft.com/KB943969">한글판 핫픽스 하나</a>와 <a href="http://code.msdn.microsoft.com/KB947315">영문판 핫픽스 하나</a>가 나와 있었다.</p>
+
+<p>둘 중에서 후자만 깔아도 된다고는 하는데, 영문판 핫픽스는 한글판에서는 설치가 안된다는 것이 문제였다. 다행히도 쉬귀군의 팀은 영문판을 쓰고 있었기에 강제로 원격 설치(-_-)를 해서 <a href="http://blog.naver.com/PostView.nhn?blogId=dexylitol&amp;logNo=20045702640">관련 dll 들을 받아서</a> 그냥 덮어씌워보니 그럭저럭 잘 돌아가는 것 같았다. 조금 걱정이라면 디버그-릴리즈 전환할 때마다 인텔리센스가 돌아간다는 점이랄까.</p>
+
+<p>정리하자면, 영문판 사용자에게 부탁해서 다음 dll 들을 덮어쓰면 된다!</p>
+
+<pre><code>- VC/packages/vcpkg.dll
+- VC/packages/VCProjectEngine.dll
+- VC/packages/VCProject.dll
+</code></pre>
+
+<p>참고로, VC/bin/amd64 또는 x86_amd64 아래에도 버전은 같지만 크기가 다른 VCProjectEngine.dll 파일이 있긴 한데 얘네들은 안덮어써도 돌긴 돌아갔다&#8230;</p>
+
+<p>ps. <a href="http://kaistizen.net/EE/index.php/weblog/comments/visual_studio_2005_hotfixes/">컴파일이 빨라진다는 핫픽스</a>도 있구나..</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -596,181 +645,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/01/21/boost-tuple-based-serialization/">Boost Tuple Based Serialization</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-01-21T08:42:11+09:00" pubdate  data-updated="true" >Jan 21<span>st</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>boost serialization를 사용하려면 이모저모로 귀찮은 점이 많아서, 생각해본 것이 <a href="http://docs.python.org/library/struct.html?highlight=pack">파이썬의 struct 라이브러리</a>와 같은 느낌으로 프로토콜 포맷을 정의하고, 이걸 boost tuple 코드로 뽑아낸다는 아이디어이다.</p>
-
-<p>대강의 포맷은</p>
-
-<table border="1" cellspacing="0" cellpadding="1">
-<tbody></tbody>
-<thead>
-<tr>
-<th class="head">Format</th>
-<th class="head">C Type</th>
-<th class="head">Python</th>
-<th class="head">Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><tt class="docutils literal">x</tt></td>
-<td>pad byte</td>
-<td>no value</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">c</tt></td>
-<td><tt class="xref docutils literal">char</tt></td>
-<td>string of length 1</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">b</tt></td>
-<td><tt class="xref docutils literal">signed char</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">B</tt></td>
-<td><tt class="xref docutils literal">unsigned char</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">?</tt></td>
-<td><tt class="xref docutils literal">_Bool</tt></td>
-<td>bool</td>
-<td>(1)</td>
-</tr>
-<tr>
-<td><tt class="docutils literal">h</tt></td>
-<td><tt class="xref docutils literal">short</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">H</tt></td>
-<td><tt class="xref docutils literal">unsigned short</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">i</tt></td>
-<td><tt class="xref docutils literal">int</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">I</tt></td>
-<td><tt class="xref docutils literal">unsigned int</tt></td>
-<td>integer or long</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">l</tt></td>
-<td><tt class="xref docutils literal">long</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">L</tt></td>
-<td><tt class="xref docutils literal">unsigned long</tt></td>
-<td>long</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">q</tt></td>
-<td><tt class="xref docutils literal">long long</tt></td>
-<td>long</td>
-<td>(2)</td>
-</tr>
-<tr>
-<td><tt class="docutils literal">Q</tt></td>
-<td><tt class="xref docutils literal">unsigned long
-long</tt></td>
-<td>long</td>
-<td>(2)</td>
-</tr>
-<tr>
-<td><tt class="docutils literal">f</tt></td>
-<td><tt class="xref docutils literal">float</tt></td>
-<td>float</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">d</tt></td>
-<td><tt class="xref docutils literal">double</tt></td>
-<td>float</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">s</tt></td>
-<td><tt class="xref docutils literal">char[]</tt></td>
-<td>string</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">p</tt></td>
-<td><tt class="xref docutils literal">char[]</tt></td>
-<td>string</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">P</tt></td>
-<td><tt class="xref docutils literal">void *</tt></td>
-<td>long</td>
-<td> </td>
-</tr>
-</tbody></table>
-
-
-<p>가령 로그인 메시지를 &#8220;ppl&#8221; 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
-
-<p>typedef boost::tuple&lt;string,string,long> msgLogin;</p>
-
-<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
-
-<pre><code>- 64 bit integer
-- datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)
-- STL 지원 : list, vector, map, set
-- 비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.
-</code></pre>
-
-<p>단점이라면 내부 멤버 접근을 userid, passwd 같은 이름 기반이 아니라 get<1>, get<2> 처럼 해야 한다는 점인데, 이건 좀 심하게 귀찮긴 하겠다. 역시 이름 기반 접근이 그나마 컴파일러가 검증해주니 제일 좋은 방법인가.</p>
-
-<p>자. 만들어주세요.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <nav class="pagination">
     <div>
       
@@ -790,6 +664,10 @@ long</tt></td>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
       </li>
     
@@ -803,10 +681,6 @@ long</tt></td>
     
       <li class="post">
         <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
       </li>
     
   </ul>

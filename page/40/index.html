@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="초보들을 위한 팁OSX 팁 - x86osx.comOSX 단축키 모음글 from 애플포럼애플 코리아 제공 OSX 단축키 문서유용한 유틸리티Stuffit Expander : sit 포맷 압축 해제Adium X : 맥용 MSN/AOL/ICQ/&#8230; 클라이언트Te...">
+  <meta name="description" content=" 2002-2003년도에 중국에서 5개월 정도 출장간 후, 몇 년만에 처음으로 바다를 건너게 되었다. 내일 저녁에 출국해서 본사가 위치한 LA 근처 Diamond Bar라는 곳에서 약 2주 정도 머무를 예정이다.이번 출장의 지상 최대의 목적은 바로 이번에 작업한 ...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,6 +60,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/08/27/la%E1%84%85%E1%85%A9-%E1%84%8E%E1%85%AE%E1%86%AF%E1%84%8C%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A1%E1%86%B8%E1%84%82%E1%85%B5%E1%84%83%E1%85%A1/">LA로 출장갑니다.</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-08-27T05:16:57+09:00" pubdate  data-updated="true" >Aug 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/225102939"><img class="tt-flickr" src="http://static.flickr.com/60/225102939_8390297a9b_s.jpg" width="75" height="75"></a> 2002-2003년도에 중국에서 5개월 정도 출장간 후, 몇 년만에 처음으로 바다를 건너게 되었다. 내일 저녁에 출국해서 본사가 위치한 LA 근처 Diamond Bar라는 곳에서 약 2주 정도 머무를 예정이다.</p>
+
+<p>이번 출장의 지상 최대의 목적은 바로 이번에 작업한 파일럿 무비를 보스에게 시연하는 것이다. 물론 시연 자체는 같이 가는 우리 실장이 하고, 나는 옆에서 고개만 끄덕거리면서 적당히 코멘트를 날리면 될 뿐이다. 그 외에 몇 가지 사항, 가령 3D 스캐닝을 미국에서 외주를 줬을 때 돈이 얼마가 들 것인지 조사하는 것과, 차세대 콘솔로의 이식 문제라든지 차차기 프로젝트의 동시 진행 여부 등에 대해서 보스의 의향을 알아 와야 하는 정도가 있겠다.</p>
+
+<p>미국으로의 첫 출장임에도 그다지 긴장하거나 기대가 되지 않는 이유는, 아무래도 중국에서의 경험 덕분일지도 모르겠다. 다만 유일하게 기대되는 것은 지평선을 또다시 볼 수 있다는 것 정도??</p>
+
+<p>아무튼, 잘 다녀오겠습니다~</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1067,108 +1107,6 @@ end</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/06/05/ole-db-tips/">OLE DB Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-06-05T06:30:16+09:00" pubdate  data-updated="true" >Jun 5<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>multiple result set + parameter binding</h2>
-
-<pre><code>- 캐릭터 정보 로딩과 같이, 하나의 프로시저에서 여러 테이블의 row 들을 select 하면서 파라미터도 바인딩해야 할 경우, static binding 으로는 구현할 수 없으며, CDynamicParameterAccessor::GetParam()를 이용해야 한다.
-- 파라미터의 경우, select 해온 모든 result set 을 소진한 후, 가장 마지막에 읽어와야 한다. 즉 DB_S_NORESULT == GetNextResult(...); 를 실행한 후에만 유효하다는 뜻이다. 만약, 그 전에 읽게 되면 garbage 가 리턴된다.
-- Bind()와 무관하므로, GetInterface()!=NULL 체크를 할 필요가 없다.
-</code></pre>
-
-<h2>CCommand::Prepare()</h2>
-
-<p>한번 생성후 재사용하는 구조가 필요하다.</p>
-
-<h2>GetNextResult(rowCount)</h2>
-
-<p>웬지 계속 -1 이 넘어오는 걸로 봐서 뭔가 문제가 있는 듯? property 설정이 필요한가?</p>
-
-<h2>DateTime to String</h2>
-
-<pre><code>- VarBstrFromDate 이걸 써야 될까나~
-- use
-</code></pre>
-
-<p>HRESULT DataConvert (
-DBTYPE          wSrcType,
-DBTYPE          wDstType,
-DBLENGTH        cbSrcLength,
-DBLENGTH <em>      pcbDstLength,
-void </em>          pSrc,
-void <em>          pDst,
-DBLENGTH        cbDstMaxLength,
-DBSTATUS        dbsSrcStatus,
-DBSTATUS </em>      pdbsStatus,
-BYTE            bPrecision,
-BYTE            bScale,
-DBDATACONVERT   dwFlags);</p>
-
-<h2>Connection Pooling</h2>
-
-<pre><code>- SqlServer Provider 를 기반으로, ThreadPooling 을 이용해 쿼리를 할 경우, DataSource 가 1개이고 Session 이 N 개를 생성했다면, 실제 DB에 대한 연결은 N 개가 된다.
-- 즉, Session 이 내부적으로 연결 풀링을 사용하게 되므로, DataSource 객체는 1개만 만들어도 된다.
-</code></pre>
-
-<h2>어떤 Accessor 를 사용할 것인가?</h2>
-
-<p>MSDN 의 비교표를 간략하게 요약하면 다음과 같다.</p>
-
-<pre><code>- CAccessor : 매크로를 이용한 컴파일 타임 바인딩이므로 성능 면에서 가장 우수하지만, 쉽게 말해서 하드코딩이므로 귀찮은 작업들이 많다. 컬럼 및 파라미터 바인딩 모두 지원.
-- CDynamicAccessor : 런타임 바인딩. 따라서 컬럼 정보를 읽어와야한다. 대신 파라미터 바인딩은 불가능. 뭔가 컴파일 타임에 정보를 알기 힘든 경우, 또는 multiple result set 을 리턴하는 프로시저에 사용하면 된다.
-- CDynamicParameterAccessor : CDynamicAccessor 에 파라미터 바인딩 기능이 추가되었다. 당연히 더욱 느려졌다.
-- CDynamicStringAccessor : CDynamicAccessor 와 유사하지만 컬럼값을 스트링으로 리턴한다.
-- CManualAccessor : AddBindEntry(), AddParameterEntry() 를 이용해서 수동으로 컬럼과 파라미터를 바인딩한다. 아마 CAccessor 에 이어 두번째로 빠른 듯.
-- CXMLAccessor : CDynamicStringAccessor 와 같지만, XML 스트링의 형태로 컬럼값을 리턴한다.
-</code></pre>
-
-<p>성능적인 순서로 정렬해 본다면 대충 다음과 같지 않을까? (이건 본인의 추측)</p>
-
-<pre><code>- CAccessor &lt; CManualAccessor &lt; CDynamicAccessor &lt; CDynamicStringAccessor &lt; CXMLAccessor &lt; CDynamicParameterAccessor
-</code></pre>
-
-<p>단, 파라미터 바인딩을 지원하는 넘은 아래의 3가지 뿐이다.</p>
-
-<pre><code>- CAccessor
-- CManualAccessor
-- CDynamicParameterAccessor
-</code></pre>
-
-<p>see also</p>
-
-<pre><code>- [Which accessor should I use?](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/vcfaqwhichaccessorshouldiuse.asp) from MSDN
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <nav class="pagination">
     <div>
       
@@ -1188,6 +1126,10 @@ DBDATACONVERT   dwFlags);</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
       </li>
     
@@ -1201,10 +1143,6 @@ DBDATACONVERT   dwFlags);</p>
     
       <li class="post">
         <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
       </li>
     
   </ul>

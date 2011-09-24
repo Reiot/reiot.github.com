@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="웹킷 기반 브라우저(크롬, 사파리)의 오류 콘솔 - 스크립트 탭에서 저 버튼을 두 번 눌러 보라색으로 만들면, 미확인 예외들이 발생할 경우 자동으로 브레이크가 걸린다. 이걸 이제서야 알았다니..">
+  <meta name="description" content="깔끔하게 지우기1234rm ~/Library/Preferences/com.macromates.*rm -rf /Library/Application Support/TextMate/rm -rf ~/Library/Application Support/TextMate/한글 ...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,6 +60,140 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/03/01/textmate-tips/">TextMate Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-03-01T20:24:47+09:00" pubdate  data-updated="true" >Mar 1<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>깔끔하게 지우기</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>rm ~/Library/Preferences/com.macromates.*
+</span><span class='line'>rm -rf /Library/Application Support/TextMate/
+</span><span class='line'>rm -rf ~/Library/Application Support/TextMate/</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>한글 폰트 설치</h3>
+
+<p>2바이트 문자들이 모두 깨지는 관계로 전용 한글 폰트를 구해야 한다. 누가 나눔코딩글꼴의 TextMate 버전을 안 만들어줄까?</p>
+
+<p><a href="http://www.appleforum.com/application/45362-textmate%EC%97%90%EC%84%9C-%ED%95%9C%EA%B8%80-%EA%B8%80%EA%BC%B4%ED%8F%AD-%EB%AC%B8%EC%A0%9C.html">http://www.appleforum.com/application/45362-textmate에서-한글-글꼴폭-문제.html</a></p>
+
+<h3>유용한 단축키</h3>
+
+<p>⌘(cmd, window) ⌥ (option, alt) ^(control) ⇧(shift)</p>
+
+<pre><code>- ⌘T : 빠른 파일 찾아가기
+- ⇧⌘T : 현재 파일의 심볼 찾기
+- ^⇧V : 현재 파일의 정적 분석 및 검증(Validation). 파이썬일 경우 pylint, 자바스크립트일 경우 jslint 가 실행된다.
+- ⌃⌘R : 현재 편집중인 파일을 Project+ 사이드바로 찾기
+</code></pre>
+
+<p>더 많은 팁은 <a href="http://stackoverflow.com/questions/99807/what-are-some-useful-textmate-shortcuts">http://stackoverflow.com/questions/99807/what-are-some-useful-textmate-shortcuts</a> 에서 찾아볼 수 있다.</p>
+
+<h2>추천 번들 &amp; 플러그인</h2>
+
+<h3>zen coding</h3>
+
+<p>via <a href="http://code.google.com/p/zen-coding/">http://code.google.com/p/zen-coding/</a></p>
+
+<p>TextMate 도 강력한 툴이지만 이놈도 만만치않다. 마법같은 ⌘R 의 힘을 느껴보시라.</p>
+
+<h3>Project+</h3>
+
+<p>via <a href="http://ciaranwal.sh/projectplus">http://ciaranwal.sh/projectplus</a></p>
+
+<h3>GetBundles</h3>
+
+<p>via <a href="http://solutions.treypiepmeier.com/2009/02/25/installing-getbundles-on-a-fresh-copy-of-textmate/">solutions.treypiepmeier.com</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>mkdir -p ~/Library/Application\ Support/TextMate/Bundles
+</span><span class='line'>cd !$
+</span><span class='line'>svn co http://svn.textmate.org/trunk/Review/Bundles/GetBundles.tmbundle/
+</span><span class='line'>osascript -e 'tell app "TextMate" to reload bundles'</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>YUI compressor textmate bundle</h3>
+
+<p>via <a href="http://www.experienceinternet.co.uk/software/yui-compressor-textmate-bundle/">http://www.experienceinternet.co.uk/software/yui-compressor-textmate-bundle/</a></p>
+
+<h3>PyLint</h3>
+
+<p>파이썬 소스 파일에 대해서 ^⇧V 로 정적 분석 및 검증을 할 수 있다. 설치한 후 TextMate PATH 에 /usr/local/bin 을 추가해야 한다. 참고로 easy_install 으로 모듈을 설치할 때 파이썬 버전을 지정하려면 아래와 같이 하면 된다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo easy_install-2.5 pylint```
+</span><span class='line'>
+</span><span class='line'>각종 경고 목록은 [http://www.logilab.org/card/pylintfeatures](http://www.logilab.org/card/pylintfeatures) 에 있다. 
+</span><span class='line'>현재 파일에서 경고를 끄려면, </span></code></pre></td></tr></table></div></figure>
+
+
+<h1>pylint: disable=W0232,R0902,C0103,C0301&#8220;`</h1>
+
+<h2>정규식</h2>
+
+<h3>Basic</h3>
+
+<pre><code>- 캡처한 문자열은 $1, $2 .. 를 이용한다. $0 은 전체를 의미한다.
+</code></pre>
+
+<h3>no trailing space after comma</h3>
+
+<p>pylint 를 돌려보면 콤마(,) 다음에 공백을 무조건 넣으라고 한다. negative look  ahead  를 이용하면 간단하다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>Find: ",(?![\s])"
+</span><span class='line'>Replace: ", "</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>참고 자료</h2>
+
+<pre><code>- [http://al3x.net/2008/12/03/how-i-use-textmate](http://al3x.net/2008/12/03/how-i-use-textmate.html)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -427,46 +561,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/01/17/getattr-hasattr/">Getattr &amp; Hasattr</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-01-17T11:44:48+09:00" pubdate  data-updated="true" >Jan 17<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>특정 모듈에 있는 속성, 함수, 변수들의 존재 유무를 알 수 있다.</li>
-<li>만약 속성이 함수라서 실행해야 한다면 callable() 을 이용할 것.</li>
-<li>getattr( module , name , default ) 를 사용하면 hasattr 로 체크하지 않아도 된다.</li>
-<li>현재 모듈에 특정 함수의 존재 여부는 getattr(sys.modules[<strong>name</strong>], func) 로 검사하면 된다.</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <nav class="pagination">
     <div>
       
@@ -486,6 +580,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
       </li>
     
@@ -499,10 +597,6 @@
     
       <li class="post">
         <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
       </li>
     
   </ul>

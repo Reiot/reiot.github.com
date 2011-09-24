@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="오직 페이스북만이 사용자에게 notification 을 보낼 수 있다. 즉, 초대는 오직 request-form 만으로만 가능하다.via http://forum.developers.facebook.net/viewtopic.php?id=60902refer to:ht...">
+  <meta name="description" content="body 의 onload 콜백에서 document.forms[formname].submit() 를 호출하기.굳이 ajax 라이브러리는 필요없다.">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,6 +60,42 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/09/11/automatic-form-submit/">Automatic Form Submit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-09-11T09:17:58+09:00" pubdate  data-updated="true" >Sep 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>body 의 onload 콜백에서 document.forms[formname].submit() 를 호출하기.</p>
+
+<p>굳이 ajax 라이브러리는 필요없다.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -400,40 +436,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/31/jquery-ui-modal-dialog-view/">Jquery Ui Modal Dialog 그냥 띄우면 항상 View 의 &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-08-31T22:47:00+09:00" pubdate  data-updated="true" >Aug 31<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jquery ui modal dialog 그냥 띄우면 항상 view 의 가운데 뜬다.  만약 현재 클릭한 위치에 띄우고 싶다면  * click() 핸들러에서 다이얼로그를 초기화하고 autoOpen=true 로 설정하고,  * 부모 DOM 의 위치와 다이얼로그의 높이를 이용해서 position=[center,dialog_top] 으로 넣으면 된다.  대충 이런 코드  dialog_top = $(this).offset().top + $(this).height()/2 - dialog_height/2;  단 이미 다이얼로그의 내용이 채워진 상태 즉 높이가 정해진 상태에서만 사용해야 한다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <nav class="pagination">
     <div>
       
@@ -453,6 +455,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
       </li>
     
@@ -466,10 +472,6 @@
     
       <li class="post">
         <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
       </li>
     
   </ul>

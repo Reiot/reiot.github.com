@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="app engine 에서 ListProperty(int) 를 export/import 할 때 사용해야 하는 함수  - export:  (field-name, lambda x: ,.join([str(y) for y in x]), None),  - import:  (...">
+  <meta name="description" content="BadRequestError: app AAA cannot access app BBBs data  bulkloader.py 또는 appcfg.py 로 데이터를 익스포트(다운로드) 할 때 디폴트 구현인 keyname 대신 key 자체를 저장하는 방식(-_-)을 선택한...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,6 +60,40 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/15/bulkloaderpy-appcfgpy/">bulkloader.py 또는 appcfg.py 로 데이터를 익스포트(다&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-15T21:46:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>BadRequestError: app AAA cannot access app BBBs data  bulkloader.py 또는 appcfg.py 로 데이터를 익스포트(다운로드) 할 때 디폴트 구현인 keyname 대신 key 자체를 저장하는 방식(-_-)을 선택한 경우, appid 가 다른 datastore 로 업로드(임포트)할 때, 기존 키값이 존재할 경우 받아들일 수 없게 된다. 특히나 sql3 로 덤프받은 데이터 역시 호환이 되지 않는다.  해결책은  - CSV 로 바꾸고, 키값은 모두 삭제해서 자동 생성 되도록 한다. 이때의 문제는 reference key 가 문제가 된다. 손쉬운 해결책은 keyname 을 쓰는 건데 이것도 못할 짓이다.  - 모든 키를 돌면서 appid 부분을 교체하는 것도 하나의 해결책이다. ==> 존재하지 않는 키는 받아들이지 않는다. 오직 keyname 만 받아들임. ==> 그래서 CSV 내보내기할 때 keyname 만 내보내는 구만.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -370,40 +404,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/08/ui-helper-clearfix/">Ui-helper-clearfix 이걸 지정한 엘리먼트는 부모의 영역 안&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-08T22:34:00+09:00" pubdate  data-updated="true" >Apr 8<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ui-helper-clearfix  이걸 지정한 엘리먼트는 부모의 영역 안으로 들어간다. 튀어나오게 하지 않기 위함!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <nav class="pagination">
     <div>
       
@@ -423,6 +423,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
       </li>
     
@@ -436,10 +440,6 @@
     
       <li class="post">
         <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
       </li>
     
   </ul>

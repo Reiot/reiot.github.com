@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="http://4loc.wordpress.com/2009/04/28/documentready-vs-windowload/  $(document).ready - html 을 로딩하고 DOM 이 빌드된 직후, 즉 리소스와는 무관.  $(window).load - 모든 리...">
+  <meta name="description" content="jquery ui 의 modal dialog 의 경우, z-order 문제 때문에 body 맨 아래로 DOM 이 옮겨진다.  이로 인해서 jquery.load() 와 조합해서 dialog() 를 중복 호출하면 계속 DOM 이 중복 추가된다.  해결책은 기존의 DO...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,6 +60,40 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/10/jquery-ui-modal-dialog-z-order/">Jquery Ui 의 Modal Dialog 의 경우, Z-order 문&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-10T03:43:00+09:00" pubdate  data-updated="true" >Jun 10<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>jquery ui 의 modal dialog 의 경우, z-order 문제 때문에 body 맨 아래로 DOM 이 옮겨진다.  이로 인해서 jquery.load() 와 조합해서 dialog() 를 중복 호출하면 계속 DOM 이 중복 추가된다.  해결책은 기존의 DOM 을 삭제하는 것.  $(.dialog.ui-dialog-content).dialog(destroy).remove();  $(.dialog).dialog({});</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -367,40 +401,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/23/appyaml-static-view/">앱엔진에서 app.yaml 에서 Static 으로 지정된 폴더는 View&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-23T21:54:00+09:00" pubdate  data-updated="true" >Apr 23<span>rd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>앱엔진에서 app.yaml 에서 static 으로 지정된 폴더는 view 에서 파이썬으로 접근할 수 없다. 그냥 로컬 파일은 문제 없이 읽을 수 있지만  심볼릭 링크를 걸어서 복사로 올리거나, 아예 복제해둬야 한다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <nav class="pagination">
     <div>
       
@@ -420,6 +420,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
       </li>
     
@@ -433,10 +437,6 @@
     
       <li class="post">
         <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
       </li>
     
   </ul>
