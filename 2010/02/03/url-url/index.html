@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>url 하드코딩 하지 않기 - 템플릿에서 {% url , %} 라고 하면... - Social Reiot</title>
+  <title>url 하드코딩 하지 않기 - Social Reiot</title>
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="url 하드코딩 하지 않기템플릿에서 {%  url view-name arg1, arg2    %} 라고 하면, /reversed-url/arg1/arg2/ 로 바뀐다.see also url뷰에서는 reverse(view-name,args=[arg1,arg2]) 를...">
+  <meta name="description" content="url 하드코딩 하지 않기템플릿에서 {% url view-name arg1, arg2  %} 라고 하면, /reversed-url/arg1/arg2/ 로 바뀐다.see also url뷰에서는 reverse(view-name,args=[arg1,arg2]) 를 사용...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -63,7 +63,7 @@
   
   <header>
     
-      <h1 class="entry-title">Url 하드코딩 하지 않기 - 템플릿에서 {% Url , %} 라고 하면...</h1>
+      <h1 class="entry-title">Url 하드코딩 하지 않기</h1>
     
     
       <p class="meta">
@@ -87,7 +87,7 @@
 <div class="entry-content"><p>url 하드코딩 하지 않기</p>
 
 <ul>
-<li>템플릿에서 {%  url view-name arg1, arg2    %} 라고 하면, /reversed-url/arg1/arg2/ 로 바뀐다.</li>
+<li>템플릿에서 {% url view-name arg1, arg2  %} 라고 하면, /reversed-url/arg1/arg2/ 로 바뀐다.</li>
 </ul>
 
 
@@ -98,7 +98,7 @@
 </ul>
 
 
-<p>ex>  return HttpResponseRedirect(reverse(arch-summary, args=[1945]))</p>
+<p>ex> return HttpResponseRedirect(reverse(arch-summary, args=[1945]))</p>
 
 <p>이때 뷰 이름은 urlconf 에서 다음과 같이 지정해야 된다.</p>
 

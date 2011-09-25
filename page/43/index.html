@@ -112,7 +112,7 @@
 <h2>Character Inventory Management and Shared Banking</h2>
 
 <ul>
-<li>인벤토리-은행-퀘스트 간 아이템 이동, &#8221;&#8217;특히 캐릭터간 아이템 이동&#8221;&#8217;을 용이하게 하기 위해서 <code>PlayerID - CharacterID - InventoryType - ItemID</code> 방식으로 테이블을 설계할 것.</li>
+<li>인벤토리-은행-퀘스트 간 아이템 이동, &#8221;&#8217;특히 캐릭터간 아이템 이동&#8221;&#8217;을 용이하게 하기 위해서 <strong>PlayerID - CharacterID - InventoryType - ItemID</strong> 방식으로 테이블을 설계할 것.</li>
 <li>DarkEden 에서도 바닥-마우스-인벤토리-창고 등의 인벤토리 타입을 사용했었다.</li>
 </ul>
 
@@ -122,7 +122,7 @@
 <ul>
 <li>다양한 아이템을 DB에 저장할 때, 클래스 속성(per-class)과 인스턴스 속성(per-instance)으로 테이블을 분리한다.</li>
 <li>모든 아이템마다 필요한 공통 데이터를 공통 Item 테이블에 정의하고, 하위 아이템을 위한 데이터는 하위 아이템 테이블에 정의한다.</li>
-<li><code>ex: (ItemClass-ItemInstance)-(WeaponClass-WeaponInstance)</code></li>
+<li>ex: (ItemClass-ItemInstance)-(WeaponClass-WeaponInstance)</li>
 <li>DarkEden에서도 이와 비슷하게, 각 아이템 종류별 Info 테이블과 Object 테이블을 두고, 관리를 했었다. 단점이라면, 테이블이 많아지면서 관리가 귀찮아지는 점과, Save-Load 프로시저가 길어진다는 점이 있겠다.</li>
 </ul>
 

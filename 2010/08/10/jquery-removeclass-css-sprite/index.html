@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>jquery removeClass 를 이용해서 css sprite 교체하... - Social Reiot</title>
+  <title>jQuery removeClass - Social Reiot</title>
   <meta name="author" content="Ray Yun">
 
   
@@ -63,7 +63,7 @@
   
   <header>
     
-      <h1 class="entry-title">Jquery removeClass 를 이용해서 Css Sprite 교체하...</h1>
+      <h1 class="entry-title">jQuery removeClass</h1>
     
     
       <p class="meta">
@@ -84,19 +84,29 @@
   </header>
 
 
-<div class="entry-content"><p>css sprite 는 특정 DIV 에 CSS 스프라이트 클래스를 설정해서 배경 이미지를 보여주는 방식인데, 문제는 이전에 어떤 클래스 이름이 들어가 있는지 알 수 없다는 거다. 즉 정규식으로 클래스 이름을 검색해서 스프라이트 클래스만을 찾아서 지우고 새 스프라이트 클래스를 넣어야 한다. <code></p>
+<div class="entry-content"><p>css sprite 는 특정 DIV 에 CSS 스프라이트 클래스를 설정해서 배경 이미지를 보여주는 방식인데, 문제는 이전에 어떤 클래스 이름이 들어가 있는지 알 수 없다는 거다. 즉 정규식으로 클래스 이름을 검색해서 스프라이트 클래스만을 찾아서 지우고 새 스프라이트 클래스를 넣어야 한다.</p>
 
-<p>.removeClass(function(index,class_str){
-  var class_list = class_str.split(' ');
-  for ( var i = 0 ; i &lt; class_list.length ; i ++ ) {
-  var cls = class_list[i];
-  if ( cls.match(/unit-.+?_(L|R)/) ) {
-  return cls;
-  }
-  }
-}</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>.removeClass(function(index,class_str){
+</span><span class='line'>  var class_list = class_str.split(' ');
+</span><span class='line'>  for ( var i = 0 ; i &lt; class_list.length ; i ++ ) {
+</span><span class='line'>  var cls = class_list[i];
+</span><span class='line'>  if ( cls.match(/unit-.+?_(L|R)/) ) {
+</span><span class='line'>  return cls;
+</span><span class='line'>  }
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-<p></code> 주의할 점은, 이 콜백 함수가 $.each 처럼 기존 클래스 명 하나하나마다 호출되는게 아니라, 그냥 공백으로 구분된 클래스 이름 문자열을 파라미터로 넘겨서 한번만 실행된다는 점이다. (index 는 왜 있는 거지;;;)</p>
+
+<p>주의할 점은, 이 콜백 함수가 $.each 처럼 기존 클래스 명 하나하나마다 호출되는게 아니라, 그냥 공백으로 구분된 클래스 이름 문자열을 파라미터로 넘겨서 한번만 실행된다는 점이다. (index 는 왜 있는 거지;;;)</p>
 </div>
 
 

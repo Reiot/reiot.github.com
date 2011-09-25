@@ -100,7 +100,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/02/03/url-url/">Url 하드코딩 하지 않기 - 템플릿에서 {% Url , %} 라고 하면&#8230;</a></h1>
+      <h1 class="entry-title"><a href="/2010/02/03/url-url/">Url 하드코딩 하지 않기</a></h1>
     
     
       <p class="meta">
@@ -124,7 +124,7 @@
   <div class="entry-content"><p>url 하드코딩 하지 않기</p>
 
 <ul>
-<li>템플릿에서 {%  url view-name arg1, arg2    %} 라고 하면, /reversed-url/arg1/arg2/ 로 바뀐다.</li>
+<li>템플릿에서 {% url view-name arg1, arg2  %} 라고 하면, /reversed-url/arg1/arg2/ 로 바뀐다.</li>
 </ul>
 
 
@@ -135,7 +135,7 @@
 </ul>
 
 
-<p>ex>  return HttpResponseRedirect(reverse(arch-summary, args=[1945]))</p>
+<p>ex> return HttpResponseRedirect(reverse(arch-summary, args=[1945]))</p>
 
 <p>이때 뷰 이름은 urlconf 에서 다음과 같이 지정해야 된다.</p>
 

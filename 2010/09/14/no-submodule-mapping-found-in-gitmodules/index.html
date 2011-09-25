@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="git rm --cached path/to/submodule    and commit.  checkout .gitmodules before that.">
+  <meta name="description" content=".gitmodules 에 해당 모듈이 없는데도 발생한다면, 서브모듈 캐시에서 삭제한 후 커밋해야 한다.캐싱된 서브 모듈을 지우기 1$ git rm --cached path/to/submodule">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,9 +84,12 @@
   </header>
 
 
-<div class="entry-content"><p><code>git rm --cached path/to/submodule  </code></p>
+<div class="entry-content"><p>.gitmodules 에 해당 모듈이 없는데도 발생한다면, 서브모듈 캐시에서 삭제한 후 커밋해야 한다.</p>
 
-<p>  and commit.  checkout .gitmodules before that.</p>
+<figure class='code'><figcaption><span>캐싱된 서브 모듈을 지우기 </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git rm --cached path/to/submodule
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
