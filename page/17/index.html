@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="BadRequestError: app AAA cannot access app BBBs data  bulkloader.py 또는 appcfg.py 로 데이터를 익스포트(다운로드) 할 때 디폴트 구현인 keyname 대신 key 자체를 저장하는 방식(-_-)을 선택한...">
+  <meta name="description" content="pull 할 때 다음 에러가 뜰 경우  You asked me to pull without telling me which branch you  want to merge with, and branch.master.merge in  your configuration ...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,247 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/15/bulkloaderpy-appcfgpy/">bulkloader.py 또는 appcfg.py 로 데이터를 익스포트(다&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-15T21:46:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>BadRequestError: app AAA cannot access app BBBs data  bulkloader.py 또는 appcfg.py 로 데이터를 익스포트(다운로드) 할 때 디폴트 구현인 keyname 대신 key 자체를 저장하는 방식(-_-)을 선택한 경우, appid 가 다른 datastore 로 업로드(임포트)할 때, 기존 키값이 존재할 경우 받아들일 수 없게 된다. 특히나 sql3 로 덤프받은 데이터 역시 호환이 되지 않는다.  해결책은  - CSV 로 바꾸고, 키값은 모두 삭제해서 자동 생성 되도록 한다. 이때의 문제는 reference key 가 문제가 된다. 손쉬운 해결책은 keyname 을 쓰는 건데 이것도 못할 짓이다.  - 모든 키를 돌면서 appid 부분을 교체하는 것도 하나의 해결책이다. ==> 존재하지 않는 키는 받아들이지 않는다. 오직 keyname 만 받아들임. ==> 그래서 CSV 내보내기할 때 keyname 만 내보내는 구만.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/15/app-engine-listpropertyint-export/">App Engine 에서 ListProperty(int) 를 Export&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-15T20:51:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>app engine 에서 ListProperty(int) 를 export/import 할 때 사용해야 하는 함수  - export:  (field-name, lambda x: ,.join([str(y) for y in x]), None),  - import:  (field-name, lambda x: list([ int(y) for y in x.split(,)]) ),</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/15/jqueryextendtargetobj1-obj2/">jQuery.extend(target,obj1, Obj2) 자바스크립트 &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-15T19:01:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jQuery.extend(target,obj1, obj2)  자바스크립트 사전을 merge 한다. 이때 target 은 변경된다는 점에 유의.  var object = $.extend({}, object1, object2);</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/15/app-engine-environment-variables/">App Engine Environment Variables</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-15T16:06:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>APPLICATION_ID  - CURRENT_VERSION_ID: X.Y. 메이저 버전은 app.yaml 에 있는 대로. 마이너 버전은 서버에서 자동으로 증가. 개발 서버에서 마이너 버전은 항상 1  - AUTH_DOMAIN: 도메인 인증시 도메인명.  - SERVER_SOFTWARE: 개발 서버는 Development/X.Y 앱엔진에 올라가면 Google App Engine/X.Y.Z.</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/14/httpwwwselectorgadgetcom-dom/">http://www.selectorgadget.com/ DOM 을 클릭하&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-14T00:12:00+09:00" pubdate  data-updated="true" >Apr 14<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.selectorgadget.com/">http://www.selectorgadget.com/</a>  DOM 을 클릭하면 그에 해당하는 적절한 jquery selector 를 알려준다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/14/httpspritemeorg/">http://spriteme.org/ 화면에 등장하는 이미지들을 하나의 &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-14T00:11:00+09:00" pubdate  data-updated="true" >Apr 14<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://spriteme.org/">http://spriteme.org/</a>  화면에 등장하는 이미지들을 하나의 스프라이트로 만들어준다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/12/css-transparentclass-filteralph/">반투명 CSS .transparent_class { Filter:alph&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-12T23:02:00+09:00" pubdate  data-updated="true" >Apr 12<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>반투명 CSS  .transparent_class {     filter:alpha(opacity=50);   -moz-opacity:0.5;   -khtml-opacity: 0.5;    opacity: 0.5;  }  주의할 점은, 부모의 opacity 값이 정해지면 자식은 override 할 수 없다. 1픽셀 이미지를 배경색으로 쓰던가, position=absolute 를 이용해서 자식으로 만들지 않으면 된다.</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -397,6 +156,244 @@
 
 
   <div class="entry-content"><p>css 상속 우선 순위  - id 가 class 에 우선한다. 즉 보다 구체적인 필터가 가장 우선시된다.  ex> #aaa bbb > ddd.eee fff</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/08/ui-helper-clearfix/">Ui-helper-clearfix 이걸 지정한 엘리먼트는 부모의 영역 안&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-08T22:34:00+09:00" pubdate  data-updated="true" >Apr 8<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ui-helper-clearfix  이걸 지정한 엘리먼트는 부모의 영역 안으로 들어간다. 튀어나오게 하지 않기 위함!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/08/canvas-page-app-760-width/">페이스북 Canvas Page App 에다가 760 그리드(width: &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-08T19:26:00+09:00" pubdate  data-updated="true" >Apr 8<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>페이스북 Canvas Page App 에다가 760 그리드(width: 760px)을 사용하면 가로 스크롤바가 생긴다. ㅠㅠ  결국 750 그리드를 만들면 ok.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/08/append-prepend-pull/">Append, Prepend : 앞 뒤로 빈 그리드를 추가하기. Pull&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-08T17:00:00+09:00" pubdate  data-updated="true" >Apr 8<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>960 grid 시스템 개요  - container_N: 그리드 전체 컨테이너. N개의 컬럼으로 구성된다. float: left &amp; position: relative  - grid_N: 컬럼 N 개 만큼으로 width 를 설정한다.  - prefix_N: 앞쪽으로 padding-left 를 이용해서 공간을 추가  - suffix_N: 뒷쪽으로 padding-right 을 이용해서 공간을 추가.  - pull_N: 음수의 left 값을 이용, 원래 위치보다 왼쪽으로 이동.  - push_N: 오른쪽으로 옮김. 양수의 left 값을 이용.  - clear: float 를 끔으로써 row 를 내린다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/07/canvas-page-app-iframe/">Canvas Page App 에서 Iframe 으로 인해 브라우저가 쿠키&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-07T17:43:00+09:00" pubdate  data-updated="true" >Apr 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Canvas Page App 에서 iframe 으로 인해 브라우저가 쿠키를 거부할 경우에 대한 대안: 모든 GET/POST 에 파라미터를 넘긴다는 것.  관련 미들웨어 코드:  <a href="http://www.djangosnippets.org/snippets/1540/">http://www.djangosnippets.org/snippets/1540/</a>  <a href="http://www.djangosnippets.org/snippets/1235/">http://www.djangosnippets.org/snippets/1235/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/07/httpwikidevelopersface/">페이스북 개인보호 정책 http://wiki.developers.face&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-07T05:21:00+09:00" pubdate  data-updated="true" >Apr 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>페이스북 개인보호 정책  <a href="http://wiki.developers.facebook.com/index.php/Policy_Examples_and_Explanations/Data_and_Privacy">http://wiki.developers.facebook.com/index.php/Policy_Examples_and_Explanations/Data_and_Privacy</a>  - 모든 페이지, 특히 프로파일 페이지에다가 Privacy Policy 에 대한 링크를 제공한다.  - Storable 데이터(id류), 오프라인 접근권한을 받은 것들을 제외한 모든 데이터들(이름,사진 등)은 24시간 이상 캐시할 수 없다.  - 추가적으로 개인 정보를 수집하려고 할 때, API 로부터 받은 데이터를 FORM 에 auto-fill 할 수 없다. 사용자가 원하는 경우에만 채우도록 해야 한다. (일종의 강제 수집이라서 그런듯?)  - 사용자가 능동적으로 개인정보를 오픈하지 않는한, 디폴트로는 숨겨야 한다. (최초 등록시 자동 정보 공개 플래그를 둬서는 안된다는 뜻인듯?)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/07/user-uid-email-gid-p/">페이스북 User 데이터 저장 정책 - Uid, Email, Gid, P&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-07T05:14:00+09:00" pubdate  data-updated="true" >Apr 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>페이스북 user 데이터 저장 정책  - uid, email, gid, page_id, profile_update_time 무기한으로 명시된게 아니면 24시간 이상 저장할 수 없다.  - 각 id 간의 관계는 저장할 수 없다. 오직 user-network 만 저장 가능.  - 즉 이름, 성별, 프로필사진 URL 등 개인을 구분할 수 있는 모든 데이터는 무기한 저장 불가.  - 사용자가 해지할 경우 user id 이외의 모든 데이터는 삭제해야 한다. userid 만큼은 무기한 가지고 있다가 다시 돌아올 경우 또는 ban 한 경우를 대비한다.  - 인터넷이 안되거나 문제가 생긴 경우를 위해서, 나머지 데이터는 24시간 이상 유지하되 개별 앱 서버가 아니라 클라이언트에 저장할 수는 있다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/06/pyfacebook-post-validat/">Pyfacebook 에서 서버로 POST 요청을 할 경우, Validat&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-06T23:15:00+09:00" pubdate  data-updated="true" >Apr 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>pyfacebook 에서 서버로 POST 요청을 할 경우, validate_signature() 를 통과하려면 fb_sig* 역시 POST 로 보내야 된다.</p>
 </div>
   
   

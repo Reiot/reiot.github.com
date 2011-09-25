@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="django form  - DB => 모델 => 폼 => HTML 렌더링(form input..) => GET/POST 로 전송 => 폼 => 검증 => 모델 => DB  - 하나의 모델에 여러 개의 폼이 존재해도 무방  - 폼위자드: 하나의 모델을 여러 페이지의...">
+  <meta name="description" content="db.Property 속성 요약:  - verbose_name: djangoforms 에서 라벨로 사용한다.  - required: NOT NULL. 객체 생성시 무조건 설정해야 하는 값.  - validator: 값 검증 함수. 에러 발생시 예외를 던져야 함. ...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,244 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/28/django-form-fields-propert/">Django Form - 디스플레이 및 검증용 Fields Propert&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-28T03:44:00+09:00" pubdate  data-updated="true" >Jan 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>django form  - DB => 모델 => 폼 => HTML 렌더링(form input..) => GET/POST 로 전송 => 폼 => 검증 => 모델 => DB  - 하나의 모델에 여러 개의 폼이 존재해도 무방  - 폼위자드: 하나의 모델을 여러 페이지의 폼으로 구성하고 마지막에 검증  - formset: 폼의 집합. 데이터 그리드를 상상할 것.  - Widget: 폼필드가 어떻게 HTML Input 태그로 렌더링될 것인가?  fields property  - required: not None  - label: 라벨  - initial: 폼이 비어 있을 때 초기값. 출력용이며 필드 초기값은 아니다. (설명문일지도)  - widget:  - help_text: 필드에 대한 설명  - error_messages: ValidationError 의 문자열이 출력됨. 필드 종류에 따라 에러문자열 키값이 다름.  ex> TextInput = { required: 비었을때, max_length: 문자열 길이 초과,  }  field types - 검증 기능이 추가된 위젯.  - BooleanField: 체크박스  - CharField: 텍스트  - ChoiceField: 콤보박스  - TypedChoiceField: 콤보박스. int/float/bool 값이 리턴됨.  - DateField: 날짜 위젯? 년일월 구분된건가?  - DemicalField: 텍스트. 숫자만 받아들임.  - EmailField: 텍스트. 이메일 포맷  - FileField: 파일.  - FilePathField: 폴더 경로 + 재귀 여부 + 패턴.  - FloatField: 텍스트.  - ImageField: 파일. PIL 설치되어야 함.  - IntegerField: 텍스트.  - IPAddressField: IP  - MultipleChoiceField: 콤보+멀티선택  - NullBooleanField: True or False or None  - RegexField: 텍스트  - TimeField  - URLField  - ComboField  - MultiValueField  - SplitDateTimeField  모델 인스턴스로 초기화하고 HTML 렌더링  form = MyForm( instance=obj )  모델 기본값으로 초기화한 후, GET/POST 로 받은 값을 덮어쓰기.  form = MyForm( request.GET, instance=obj )  obj = form.save( commit=False )  특정 필드 빼기  class Meta:  exclude = ()  지정 필드만 넣기: 리스트 순서대로 폼이 배치된다.  class Meta:  fields = ()  ModelForm 은 모델의 필드 타입에 의해서 폼 필드들이 결정된다. 만약 오버라이딩하려면 모든 폼필드 속성을 재지정해줘야 한다.  기본적으로 폼필드 타입을 정하면 아무 속성 없는 디폴트 위젯이 결정된다. 위젯 타입이나 클래스 속성 등을 커스터마이징하려면  forms.CharField(widget=forms.TextArea( attrs={class:special}))  특정 위젯에 필요한 CSS 나 자바스크립트를 include 하려면, 미디어 클래스를 이용한다.  class Media:  css = { all: ( pretty.css, ) }  js = ( animaiton.js, actions.js )</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/28/djangoformsmodelform-httpgitorio/">djangoforms.ModelForm 사용법 Http://gitorio&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-28T03:07:00+09:00" pubdate  data-updated="true" >Jan 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>djangoforms.ModelForm 사용법  <a href="http://gitorious.org/magpie/magpie/blobs/master/magpie/ajiaojr/magpie/forms.py">http://gitorious.org/magpie/magpie/blobs/master/magpie/ajiaojr/magpie/forms.py</a>  결론적으로 django form 과 똑같다?</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/28/formset-set-of-form-single-row/">Formset - Set of Form 폼 == 모델(single Row&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-28T02:38:00+09:00" pubdate  data-updated="true" >Jan 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>formset - set of form  폼 == 모델(single row)  폼셋 == 모델의 집합(multiple rows) == datagrid</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/settingpy/">장고 세션 정리 - setting.py 에서 설정한다. - 미들웨어다. &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-27T23:11:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>장고 세션 정리  - setting.py 에서 설정한다.  - 미들웨어다.  - 딕셔너리다.  - cookie, file, db, cache 등의 하부 엔진을 고를 수 있다.  - MIDDLEWARE_CLASSES 에 django.contrib.sessions.middleware.SessionMiddleware 추가  - INSTALLED_APPS 에 django.contrib.sessions 추가  SESSION_ENGINE  - django.contrib.sessions.backends.cache  - django.contrib.sessions.backends.cached_db: db 에 저장. persistent  - django.contrib.sessions.backends.file: file</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/db/">캐쉬 관리 전략: - 캐쉬된 값은 언제나 믿는다. (DB에서 바뀌었을지라&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-27T22:58:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>캐쉬 관리 전략:  - 캐쉬된 값은 언제나 믿는다. (DB에서 바뀌었을지라도) 캐쉬-DB간의 다소간의 오차는 허용할 수 밖에 없다.  - hp 등 타인에 의해서 변경될 수 있는 값은 delta 를 저장하고 최신 값을 다시 받아온다.  - 중요 변수(kill count, last kill)를 검증할 때에는 DB 업데이트 후 결과를 보고 판단하기. (또는 ROWCOUNT check)  - 변경된 DB의 최신 결과를 캐쉬로 적용하기</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/http-method-from-djangoviewsd/">Http Method 제한 데코레이터 From django.views.d&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-27T21:51:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>http method 제한 데코레이터  from django.views.decorators.http import require_http_methods, require_GET, require_POST  틀릴 경우, HTTP 405 — “method not allowed” 를 리턴함.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/getobjector404/">Get_object_or_404 가 앱엔진에서도 지원될까?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-27T21:39:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>get_object_or_404 가 앱엔진에서도 지원될까?</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -394,6 +156,244 @@
 
 
   <div class="entry-content"><p>앱엔진 관리자 페이지에서 한글로 된 StringProperty 를 가진 객체를 못 불러오는 문제.  저장할 때 잘못 한건가?</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/python-managepy-flush/">Python manage.py Flush 는 서버를 끈 상태에서 해야 한&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T19:11:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>python manage.py flush 는 서버를 끈 상태에서 해야 한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/django-form-requestgetget/">Django Form 처리 변수 접근법 request.GET.get(&#039;&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T16:21:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>django form 처리  변수 접근법  request.GET.get(q, ) // safe  request.POST[q] // unsafe  메써드에 따른 분기  request.method == GET or POST  기타 request, response 객체에 대한 설명  <a href="http://docs.djangoproject.com/en/dev/ref/request-response/">http://docs.djangoproject.com/en/dev/ref/request-response/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/str-unicode-utf-8/">__str__은 내부적으로 __unicode__ 를 호출해서 UTF-8 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T14:56:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>str</strong>은 내부적으로 <strong>unicode</strong> 를 호출해서 UTF-8 로 바꾼다.  결국 각 객체들은 <strong>unicode</strong> 하나만 정의해도 무방하다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/django-11-httpwwwdjangoproject/">Django 1.1 다운받기 http://www.djangoproject&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T02:57:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>django 1.1 다운받기  <a href="http://www.djangoproject.com/download/1.1/tarball/">http://www.djangoproject.com/download/1.1/tarball/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/virtualenv-which-python/">Virtualenv 실행 후 환경 점검하기 &gt; Which Python #&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T01:54:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>virtualenv 실행 후 환경 점검하기  > which python # 파이썬 인터프리터 경로  > python  import sys  sys.path  sys.executable</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/virtualenvwrapper-httpwwwdoughellman/">Virtualenvwrapper http://www.doughellman&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T01:02:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>virtualenvwrapper  <a href="http://www.doughellmann.com/docs/virtualenvwrapper/">http://www.doughellmann.com/docs/virtualenvwrapper/</a>  개요  - 가상환경을 한 군데에서 관리: mkvirtualenv, rmvirtualenv  - 손쉬운 환경 선택: workon, deactivate  - 가상환경폴더로 이동: cdvirtualenv, cdsitepackages  설치 방법(OSX 기준)  > mkdir ~/.virtualenvs  > vi ~/.bashrc  export WORKON_HOME=$HOME/.virtualenvs  source /Library/Frameworks/Python.framework/Versions/2.5/bin/virtualenvwrapper_bashrc  > source ~/.bashrc  > mkvirtualenv no-django  > deactivate  > mkvirtualenv django-1.1  > deactivate  > mkvirtualenv django-1.1.1  > deactivate</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/in-settingspy-import-logging-l/">&quot;&quot;&quot; # in settings.py Import Logging L&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T22:15:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>  # in settings.py  import logging  logging.basicConfig(  level = logging.DEBUG,  format = %(asctime)s %(levelname)s %(message)s,  #filename = /tmp/django.log,  #filemode = w  )  # Anywhere else  # import logging  # logging.debug(A log message)  #  # tail -f /tmp/django.log    <a href="http://www.slideshare.net/simon/debugging-django">http://www.slideshare.net/simon/debugging-django</a></p>
 </div>
   
   

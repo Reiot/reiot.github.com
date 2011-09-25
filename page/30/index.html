@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="비주얼 스튜디오 2005에서 어떤 솔루션만 열면 인텔리센스가 멈추지 않는 현상을 만나서 검색해니, SP1 이후로 한글판 핫픽스 하나와 영문판 핫픽스 하나가 나와 있었다.둘 중에서 후자만 깔아도 된다고는 하는데, 영문판 핫픽스는 한글판에서는 설치가 안된다는 것이 문...">
+  <meta name="description" content="MS, Google, Intel, IBM, Adobe, Dell, Sony, Sanyo&#8230; 놀라운 감원 쯔나미는 겨우 시작일 뿐이다.성장 동력이 없거나 멈춘 국내 게임 회사들이, 직원 월급을 못주고 있다는 첩보가 속속 입수되고 있다.  정말 대충 예상해본...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,343 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-04-23T17:19:24+09:00" pubdate  data-updated="true" >Apr 23<span>rd</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class='' src='http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80).gif' width='' height='' alt='' title=''></p>
-
-<p>비주얼 스튜디오 2005에서 어떤 솔루션만 열면 인텔리센스가 멈추지 않는 현상을 만나서 검색해니, SP1 이후로 <a href="http://code.msdn.microsoft.com/KB943969">한글판 핫픽스 하나</a>와 <a href="http://code.msdn.microsoft.com/KB947315">영문판 핫픽스 하나</a>가 나와 있었다.</p>
-
-<p>둘 중에서 후자만 깔아도 된다고는 하는데, 영문판 핫픽스는 한글판에서는 설치가 안된다는 것이 문제였다. 다행히도 쉬귀군의 팀은 영문판을 쓰고 있었기에 강제로 원격 설치(-_-)를 해서 <a href="http://blog.naver.com/PostView.nhn?blogId=dexylitol&amp;logNo=20045702640">관련 dll 들을 받아서</a> 그냥 덮어씌워보니 그럭저럭 잘 돌아가는 것 같았다. 조금 걱정이라면 디버그-릴리즈 전환할 때마다 인텔리센스가 돌아간다는 점이랄까.</p>
-
-<p>정리하자면, 영문판 사용자에게 부탁해서 다음 dll 들을 덮어쓰면 된다!</p>
-
-<pre><code>- VC/packages/vcpkg.dll
-- VC/packages/VCProjectEngine.dll
-- VC/packages/VCProject.dll
-</code></pre>
-
-<p>참고로, VC/bin/amd64 또는 x86_amd64 아래에도 버전은 같지만 크기가 다른 VCProjectEngine.dll 파일이 있긴 한데 얘네들은 안덮어써도 돌긴 돌아갔다&#8230;</p>
-
-<p>ps. <a href="http://kaistizen.net/EE/index.php/weblog/comments/visual_studio_2005_hotfixes/">컴파일이 빨라진다는 핫픽스</a>도 있구나..</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/04/13/cloud-computing-for-online-game/">Cloud Computing for Online Game</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-04-13T08:37:54+09:00" pubdate  data-updated="true" >Apr 13<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class='' src='http://farm2.static.flickr.com/1332/704056791_63f1e492d8.jpg' width='' height='' alt='Cloud Computing?' title='Cloud Computing?'></p>
-
-<p>때는 바야흐로 2003년, 게임 서버 개발은 조만간 그리드 컴퓨팅 기반으로 바뀔 거라고 믿고 아마존에서 관련 서적을 실컷 사 모았던 적이 있다. 막상 뚜껑을 열어 보니 대부분 웹서비스 기반이어서 뭔가 빠른 반응성과 연결된 세션간의 적절한 동기화가 필요한 게임 서버, 특히 MMORPG에는 맞지 않아 보였다. 결국 그 책들은 거의 읽혀지지도 않은 채 집에 방치되있고, 그리드를 주력으로 파겠다던 배짱좋은 예측 포스팅은 부끄러워서 내려 버렸다.</p>
-
-<p><img class='' src='http://bks0.books.google.com/books?id=8-0BofIhoU0C&printsec=frontcover&img=1&zoom=1&sig=ACfU3U2fcOHmSfNIjZtVjM-Gm5LZAw9dVg' width='' height='' alt='' title=''> <img class='' src='http://bks0.books.google.com/books?id=2e73K_jXdfcC&printsec=frontcover&img=1&zoom=1&sig=ACfU3U35K6wElPYG2wUE8zEBQ-QU0AgPfA' width='' height='' alt='' title=''> <img class='' src='http://bks0.books.google.com/books?id=b4LWXLRBRLsC&printsec=frontcover&img=1&zoom=1&sig=ACfU3U2FVscbkXMEdwtUQBeERDYIxVqmzg' width='' height='' alt='' title=''></p>
-
-<p>안보는 깨끗한 원서 팝니다 ㅠㅠ</p>
-
-<p>그리고나서 대략 4-5년 정도가 흘렀다. 지금은 많은 웹스타트업들이 클라우드 컴퓨팅을 적극 활용하고 있고, 어느새 나도 gmail 과 google docs 를 업무용으로 사용하고 있다. <a href="http://xguru.net/blog/488.html">마이크로소프트도 아마존과 구글의 뒤를 이어서 아쭈르(Azure)라는 걸 선보이고</a> 있고, (아마도 실버라이트랑 연계되지 않을까?) 최근에는 &#8220;사례로 읽는 클라우드 컴퓨팅&#8221;이라는 책도 사뒀는데, 버스에서 자느라 읽을 새가 없다. OTL</p>
-
-<p><img class='' src='http://image.kangcom.com/l_pic/200902100008.jpg' width='' height='' alt='사례로 읽는 클라우드 컴퓨팅' title='사례로 읽는 클라우드 컴퓨팅'>
-사례로 읽는 클라우드 컴퓨팅. 제목 그대로니까 속으면 곤란하다.</p>
-
-<p>몇 주 전<a href="http://betterways.tistory.com/"> Kay 님</a>이 클라우드 컴퓨팅을 이용한 게임 서버 퍼블리싱 사업(예전에 블레이스 서버 호스팅 비스므리한)은 어떻겠냐고 물으셨다. (이거 밝혀도 문제 없겠죠? ㅋㅋ) 그때 클라우드들이 HTTP의 느린 응답성이나 동기화가 왜 어려운가..라든지, 구글 앱 엔진이 스케줄링 같은 걸 지원하지 않는 것에 대해 한참 이야기를 했었다. 최근에 이런 저런 이야기를 많이 줏어들으며 곰곰히 생각해보니, 어떻게든 분산을 희생해서 적당히 요청을 한 곳에 몰아주는 정책만 허용해준다면 어떻게 될 법도 해 보였다. 그래도 MMORPG 서버 호스팅은 아직까지는 힘들고, 웹 게임들, 보드 게임들이나 시뮬레이션 게임들의 서버라든지, XBOX Live 나 Steamworks 같은 인증+커뮤니티+배포+리더보드+매치메이킹 정도의 활용 가능성은 충분해 보인다. (그러고 보니 <a href="http://www.steampowered.com/steamworks/index.php">스팀도 자기들이 클라우드라고 주장</a>하고 있다)</p>
-
-<blockquote><p>Store data in Steam Cloud for your users. The Steam Cloud API allows your game to write and retrieve files for each user. Use it for personalized settings like keyboard, mouse, and gamepad configurations, multiplayer sprays, or even saved games. Steam Cloud is a natural extension of the portability that Steam affords gamers. Shipped with Left 4 Dead, Steam Cloud is now a proven resource and is becoming an integral part of the Steam experience.</p></blockquote>
-
-
-<p>앱스토어의 흥행으로 삼성이나 NHN 같은 국내 회사들이 비슷한 걸 만들고 있단다. 퍼블리셔들도 이제는 정신차리고 괜히 50-100억 주고 비싼 게임 들여왔다가 돈 날리지 말고, 잡쉐어링을 위해서라도 개인이나 중소 게임사들이 손쉽게 퍼블리싱할 수 있게 이런 쪽으로 분발해주길 바란다. 구글앱엔진, 엑박라이브, 스팀, 앱스토어의 장점을 하나로 합치는 웹 기반의 게임 플랫폼 SDK 라도 좀 뿌려주면 얼마나 좋을까. 기본적으로 무료 트래픽, 수익은 1:9, 컨텐트는 루아, P2P는 기본, 웹용 무료 3D엔진 제공, 게임 동영상이나 커뮤니티는 다음이나 네이버 블로그/까페 연동, 스샷은 flickr, 실시간 방송은 아프리카, 간편하고 손쉬운 in-game 결제 시스템과 자동화된 상점, 신뢰할만한 보안 모듈(nprotect 말고), 플래시도 지원, 이슈 관리 시스템 및 소스 버전 관리도 제공, &#8230; 뭐 적다 보니 끝이 없구나. ㅋㅋ</p>
-
-<p>ps. 마지막 문단을 쓰고 나서 주위를 둘러보니 한숨만 나오는군하.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/04/07/xbox-360-new-ui/">XBOX 360 NEW UI</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-04-07T09:28:50+09:00" pubdate  data-updated="true" >Apr 7<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[caption id=&#8221;&#8221; align=&#8221;aligncenter&#8221; width=&#8221;640&#8221; caption=&#8221;XBOX 360 NEW UI&#8221;]<a href="http://arstechnica.com/gaming/news/2009/02/mature-games-dominate-most-popular-xbox-360-downloads.ars"><img class='' src='http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg' width='' height='' alt='' title=''></a>[/caption]</p>
-
-<p>오늘 봄맞이 대청소를 맞아서, 반 년 가량 전기밥을 못먹은 엑박의 봉인을 풀었다. 작년 가을에 바뀐 대시 보드를 이제서야 보게 된 셈인데, 이게 상당히 마음에 들었다. 아바타 서비스야 Wii 보다는 한참 나은 수준이라서 그러려니 하겠는데, 아이튠즈의 커버플로우에서 발전한 네비게이션 인터페이스는 제법 &#8220;끌리게&#8221; 잘 만들었다. 무엇보다도 웬지 더 사고 싶다는 느낌 - 일명 소장 가치 - 를 불러일으키는 사용자 경험을 마켓플레이스를 돌아다니면서 계속 느꼈으니 말이다.</p>
-
-<p>다만 작년부터 게임불감증에 빠져서 엑박 타이틀을 제법 사놓고도 엔딩을 못본게 제법 되는지라, 실질적인 구매로는 이어지지 않았다. 만약에 스팀이나 앱스토어처럼 소액결제로 손쉽게 살 수 있는 사회적 분위기(?)가 갖춰졌다면 지갑을 열었을지도.</p>
-
-<p>끝으로, 제작년부터 쭈욱 주위 사람들에게 강조해오던 건데, 다량의 데이터를 표현해야 하는 인터페이스를 설계할 때 왜 다들 비트맵 기반의 픽셀 고정 스타일 - 이른바 디자이너 의존적인 통짜 인터페이스 - 을 고집하는지 모르겠다. 바야흐로 시대적 대세는 프로그래머 지향적인 벡터 기반 인터페이스이며 (아아 사실 개인적 취향이라는 점, 인정한다), 특히나 데이터를 많이 표현하게 될 경우에는 텍스트를 최대한 활용해야 하는 법이다. 윈도우 가장자리 디자인을 다듬는 시간에 멋진 배경 그림 하나 더 넣고, 더욱 미려한 폰트를 구매하고, 게임 컨텐트에 집중하는게 시간과 돈을 절약하면서도 사용자에게 더 큰 감동을 불러일으킬 수 있다고 믿는다.</p>
-
-<p>ps. 스케일폼 그동안 돈 많이 벌었겠다. 쳇.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/04/01/dungeon-crawl-stone-soup/">Dungeon Crawl Stone Soup</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-04-01T09:37:42+09:00" pubdate  data-updated="true" >Apr 1<span>st</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/kobold.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/kobold-300x215.jpg' width='' height='' alt='kobold' title='kobold'></a></p>
-
-<p>코볼드 떼거지를 앞에 둔 용맹스러운 트롤 버서커 Reiot 의 모습을 담은 스크린샷이다. 요즘 틈틈히 집에서 하고 있는 roguelike 게임인 <a href="http://crawl-ref.sourceforge.net/">Dungeon Crawl : Stone Soup </a>인데, 매크로나 자동 네비게이션, 넓은 맵 등 다양한 편의 기능을 자랑한다. 매번마다 오크 광산 아래에 있는 엘프들의 동네에서 별 해괴한 소환 악마들한테 죽고 있어서, 좀 서럽긴 하다. (사실은 레벨업 좀 하고 천천히 놀러 가야 하는 곳이라고 하지만, 이상한 무한 차원으로 소환당해서 악마들에게 밟히는 건 정말 처참하다. -_-)</p>
-
-<p>로그매니아들이라면 한번쯤 도전해볼만한 게임이니, 다들 다운받으시기 바란다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/02/17/tasklist-taskkill/">Tasklist/Taskkill</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-02-17T09:31:15+09:00" pubdate  data-updated="true" >Feb 17<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;500&#8221; caption=&#8221;tasklist&#8221;]<a href="http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg"><img class='' src='http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg' width='' height='' alt='tasklist' title='tasklist'></a>[/caption]</p>
-
-<p>터미널에서 프로세스 관리자가 뜨지 않을 경우, 다른 터미날에서 띄운 프로세스를 죽이기가 참 난감할 때가 있다. 다행스럽게도 유닉스의 ps/kill 조합을 윈도우에서도 지원한다.</p>
-
-<pre><code>- tasklist
-- tasklist /SVC : 서비스 프로세스 리스트
-- taskkill /PID &lt;pid&gt;: PID로 죽이기
-- taskkill /F /IM &lt;name&gt; : (강제로) 이름으로 죽이기
-</code></pre>
-
-<p>가장 하일라이트는, 원격 컴퓨터의 프로세스 죽이기인데, 정말로 잘 되는지 회사에서 테스트해봐야겠다. ;)</p>
-
-<blockquote><p>tasklist /S <server> /U <username> /P <password> /FI &#8220;IMAGENAME eq *Server*.exe&#8221;</p><p>taskkill /S <server> /U <username> /P <password> /IM <process name></p></blockquote>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/02/17/boost-preprocessor/">Boost::preprocessor</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-02-17T09:23:42+09:00" pubdate  data-updated="true" >Feb 17<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>boost::preprocessor 는 템플릿을 이용한 메타프로그래밍에 있어서, 템플릿 파라미터들의 반복 같은 &#8221;<strong>문자열 토큰들의 패턴 처리</strong>&#8220;를 매크로를 이용해서 손쉽게 처리해주는 라이브러리이다. 보다 상세한 용법은 <a href="http://www.boost.org/doc/libs/1_38_0/libs/preprocessor/doc/index.html">공식 홈페이지</a> 혹은  <a href="http://rein.upnl.org/wordpress/archives/486">레인님 블로그</a>와 <a href="http://ricanet.com/new/view.php?id=blog/080607">리카넷 블로그</a>를 참조하기 바란다.</p>
-
-<p>이걸 이용해서 <a href="http://reiot.cafe24.com/2009/01/20/boost-tuple-based-serialization/">몇 주전에 포스팅한 boost::tuple 의 직렬화 코드</a>를 만들어봤다. 원래 계획과는 좀 많이 바뀌긴 했는데, 구글로 검색해보니 <a href="http://uint32t.blogspot.com/2008/03/update-serializing-boosttuple-using.html">tuple 을 boost::serialization 으로 직렬화하는 예제</a>가 를 (상당 부분!) 참조했음을 밝힌다.</p>
-
-<p>남은 작업은 여기에 vector 와 list 를 자동으로 직렬화하는 건데, 어째 아무리 검색해봐도 is_vector 라든지 is_list 같은 넘이 없어서 일단은 포기. 결국 mpl 을 뒤져봐야 할지도 모르겠다. </p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2009/02/17/boost-preprocessor/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/02/09/earl-grey/">Earl Grey</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-02-09T08:17:41+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><table style="width:auto;" border="0">
-<tbody>
-<tr>
-<td><a href="http://picasaweb.google.com/lh/photo/EY-Ym9sex9547IPeZxkRxA?feat=embedwebsite"><img class='' src='http://lh3.ggpht.com/_eFJUY9IzSSs/SY7efiJ2ZtI/AAAAAAAAAHA/_G7GJC2ySDY/s400/SANY0042.JPG' width='' height='' alt='' title=''></a></td>
-</tr>
-</tbody></table>
-
-
-<p>얘가 최근 영입한 그레이(♂). 스코티쉬 폴드인데, 유명한 홍차 이름인 얼 그레이에서 이름을 따왔다. 똥꼬발랄하고 선배 냥이들이 많이 귀찮아한다.</p>
-
-<table style="width:auto;" border="0">
-<tbody>
-<tr>
-<td><a href="http://picasaweb.google.com/lh/photo/HNhn36_UOIMobFZawSdIow?feat=embedwebsite"><img class='' src='http://lh3.ggpht.com/_eFJUY9IzSSs/SY7fXRsrXZI/AAAAAAAAAIQ/HMBpkjqwPZI/s400/SANY0036.JPG' width='' height='' alt='' title=''></a></td>
-</tr>
-</tbody></table>
-
-
-<p>이놈이 밤마다 시끄럽게 하는 24시간 발정묘 보리(♂). 코리안 똥고양이의 후손으로,  쌀-보리의 그 보리다. 와이프가 맨날 이쁘다고 해서 요즘은 이뻐보이기도 하지만&#8230; 하긴 퇴근할 때 마중나오는 놈은 보리 밖에 없긴 하다. 당연히 쉬귀군의 룬보다는 한참 날씬하다. (푸훗)</p>
-
-<table style="width:auto;" border="0">
-<tbody>
-<tr>
-<td><a href="http://picasaweb.google.com/lh/photo/TvwqxYaWG4rairUQ1OnVtg?feat=embedwebsite"><img class='' src='http://lh3.ggpht.com/_eFJUY9IzSSs/SY7iED5QewI/AAAAAAAAALo/uOLDbCG_T8o/s400/SANY0096.JPG' width='' height='' alt='' title=''></a></td>
-</tr>
-</tbody></table>
-
-
-<p>러시안 블루 아삼(♂). 역시 홍차 이름에서 따왔다. 진정한 고양이답게 날렵하고 점프력도 좋고 잘 울지도 않지만, 성격이 좀 까칠하다. 나랑은 어째 잘 맞는지, 부르면 가슴 위로 올라와서 머리를 부비는 애교도 부린다.</p>
-
-<p>더 많은 사진들은 <a href="http://picasaweb.google.com/Reiot94/yiFktC#">여기</a>에 있으니 구경해보시기 바란다. 그나저나 내 평생 고양이를 3마리나 키우게 될 줄은 몰랐다.</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -638,6 +301,654 @@
 </code></pre>
 
 <p>특히 놀라운 것은, (사실 erl 콘솔에서도 볼 수 있지만) Process List View 에서 보면 무려 36개의 얼랭 프로세스들이 떠 있다는 점이다. 루아나 파이썬처럼 그냥 달랑 스크립트만 실행되는 게 아니라는 건 짐작하고 있었지만, 조금은 부하가 걱정될 정도로많이 떠 있긴 하다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/01/21/boost-tuple-based-serialization/">Boost Tuple Based Serialization</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-21T08:42:11+09:00" pubdate  data-updated="true" >Jan 21<span>st</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>boost serialization를 사용하려면 이모저모로 귀찮은 점이 많아서, 생각해본 것이 <a href="http://docs.python.org/library/struct.html?highlight=pack">파이썬의 struct 라이브러리</a>와 같은 느낌으로 프로토콜 포맷을 정의하고, 이걸 boost tuple 코드로 뽑아낸다는 아이디어이다.</p>
+
+<p>대강의 포맷은</p>
+
+<table border="1" cellspacing="0" cellpadding="1">
+<tbody></tbody>
+<thead>
+<tr>
+<th class="head">Format</th>
+<th class="head">C Type</th>
+<th class="head">Python</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><tt class="docutils literal">x</tt></td>
+<td>pad byte</td>
+<td>no value</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">c</tt></td>
+<td><tt class="xref docutils literal">char</tt></td>
+<td>string of length 1</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">b</tt></td>
+<td><tt class="xref docutils literal">signed char</tt></td>
+<td>integer</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">B</tt></td>
+<td><tt class="xref docutils literal">unsigned char</tt></td>
+<td>integer</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">?</tt></td>
+<td><tt class="xref docutils literal">_Bool</tt></td>
+<td>bool</td>
+<td>(1)</td>
+</tr>
+<tr>
+<td><tt class="docutils literal">h</tt></td>
+<td><tt class="xref docutils literal">short</tt></td>
+<td>integer</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">H</tt></td>
+<td><tt class="xref docutils literal">unsigned short</tt></td>
+<td>integer</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">i</tt></td>
+<td><tt class="xref docutils literal">int</tt></td>
+<td>integer</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">I</tt></td>
+<td><tt class="xref docutils literal">unsigned int</tt></td>
+<td>integer or long</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">l</tt></td>
+<td><tt class="xref docutils literal">long</tt></td>
+<td>integer</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">L</tt></td>
+<td><tt class="xref docutils literal">unsigned long</tt></td>
+<td>long</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">q</tt></td>
+<td><tt class="xref docutils literal">long long</tt></td>
+<td>long</td>
+<td>(2)</td>
+</tr>
+<tr>
+<td><tt class="docutils literal">Q</tt></td>
+<td><tt class="xref docutils literal">unsigned long
+long</tt></td>
+<td>long</td>
+<td>(2)</td>
+</tr>
+<tr>
+<td><tt class="docutils literal">f</tt></td>
+<td><tt class="xref docutils literal">float</tt></td>
+<td>float</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">d</tt></td>
+<td><tt class="xref docutils literal">double</tt></td>
+<td>float</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">s</tt></td>
+<td><tt class="xref docutils literal">char[]</tt></td>
+<td>string</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">p</tt></td>
+<td><tt class="xref docutils literal">char[]</tt></td>
+<td>string</td>
+<td> </td>
+</tr>
+<tr>
+<td><tt class="docutils literal">P</tt></td>
+<td><tt class="xref docutils literal">void *</tt></td>
+<td>long</td>
+<td> </td>
+</tr>
+</tbody></table>
+
+
+<p>가령 로그인 메시지를 &#8220;ppl&#8221; 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
+
+<p>typedef boost::tuple&lt;string,string,long> msgLogin;</p>
+
+<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
+
+<pre><code>- 64 bit integer
+- datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)
+- STL 지원 : list, vector, map, set
+- 비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.
+</code></pre>
+
+<p>단점이라면 내부 멤버 접근을 userid, passwd 같은 이름 기반이 아니라 get<1>, get<2> 처럼 해야 한다는 점인데, 이건 좀 심하게 귀찮긴 하겠다. 역시 이름 기반 접근이 그나마 컴파일러가 검증해주니 제일 좋은 방법인가.</p>
+
+<p>자. 만들어주세요.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/01/19/erlangotp-udp-server/">Erlang/OTP UDP Server</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-19T08:34:36+09:00" pubdate  data-updated="true" >Jan 19<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>얼랭으로 만든, 가장 단순한 UDP Echo 서버와 클라이언트는 이렇게 생겨먹었다. (워드프레스에서 들여쓰기가 자꾸 날아가는 버그가 있으므로, 귀찮아서 고치지는 않겠다.)</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">-</span><span class="n">module</span><span class="p">(</span><span class="n">udp_server</span><span class="p">).</span>
+</span><span class='line'><span class="o">-</span><span class="n">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">init</span><span class="p">(</span><span class="n">ServerPort</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">Sock</span><span class="p">}</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">open</span><span class="p">(</span><span class="n">ServerPort</span><span class="p">,[</span><span class="n">binary</span><span class="p">,</span><span class="n">inet</span><span class="p">]),</span>
+</span><span class='line'><span class="n">loop</span><span class="p">().</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">loop</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;server_loop~n&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="n">receive</span>
+</span><span class='line'><span class="p">{</span><span class="n">udp</span><span class="p">,</span> <span class="n">Sock</span><span class="p">,</span> <span class="n">ClientIP</span><span class="p">,</span> <span class="n">ClientPort</span><span class="p">,</span> <span class="n">Packet</span> <span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p:~p ==&gt; ~p~n&quot;</span><span class="p">,[</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">]),</span>
+</span><span class='line'><span class="n">ok</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">send</span><span class="p">(</span><span class="n">Sock</span><span class="p">,</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">),</span>
+</span><span class='line'><span class="n">loop</span><span class="p">()</span>
+</span><span class='line'><span class="n">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">-</span><span class="n">module</span><span class="p">(</span><span class="n">udp_client</span><span class="p">).</span>
+</span><span class='line'><span class="o">-</span><span class="n">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">init</span><span class="p">(</span><span class="n">ServerPort</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">Sock</span><span class="p">}</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">open</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span><span class='line'><span class="nl">gen_udp:</span><span class="n">send</span><span class="p">(</span><span class="n">Sock</span><span class="p">,</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span><span class="n">ServerPort</span><span class="p">,</span><span class="s">&quot;Hello World!&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="n">loop</span><span class="p">().</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">loop</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;waiting response...~n&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="n">receive</span>
+</span><span class='line'><span class="p">{</span><span class="n">udp</span><span class="p">,</span> <span class="n">Peer</span><span class="p">,</span> <span class="n">PeerIP</span><span class="p">,</span> <span class="n">PeerPort</span><span class="p">,</span> <span class="n">Packet</span> <span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p:~p ==&gt; ~p~n&quot;</span><span class="p">,[</span><span class="n">PeerIP</span><span class="p">,</span><span class="n">PeerPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">])</span>
+</span><span class='line'><span class="n">after</span> <span class="mi">1000</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;timeout..~n&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>여기에서 바로 OTP로 만들겠다고 뛰어들었다가 삽질을 한 후,  <a href="http://www.trapexit.org/Building_a_Non-blocking_TCP_server_using_OTP_principles">Building_a_Non-blocking_TCP_server_using_OTP_principles</a> 와 <a href="http://erlrtpproxy.googlecode.com/svn-history/r19/trunk/rtpproxy.erl">구글에서 검색한 gen_udp 예제</a>을 참고해서 겨우 성공한 게 다음의 코드이다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">-</span><span class="n">module</span><span class="p">(</span><span class="n">udp_otp_server</span><span class="p">).</span>
+</span><span class='line'><span class="o">-</span><span class="n">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">%</span> <span class="n">stand</span><span class="o">-</span><span class="n">alone</span> <span class="n">server</span> <span class="n">version</span>
+</span><span class='line'><span class="n">start</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">gen_server:</span><span class="n">start</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">},</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">%</span> <span class="n">supervision</span> <span class="n">tree</span> <span class="n">version</span>
+</span><span class='line'><span class="n">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">gen_server:</span><span class="n">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">},</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">init</span><span class="p">([])</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="n">process_flag</span><span class="p">(</span><span class="n">trap_exit</span><span class="p">,</span><span class="kc">true</span><span class="p">),</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">Sock</span><span class="p">}</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">open</span><span class="p">(</span><span class="mi">1111</span><span class="p">,[</span><span class="n">binary</span><span class="p">,</span><span class="n">inet</span><span class="p">]),</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;udp server started...~n&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="mi">0</span><span class="p">}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">handle_call</span><span class="p">(</span><span class="n">Request</span><span class="p">,</span> <span class="n">From</span><span class="p">,</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p~n&quot;</span><span class="p">,[</span><span class="n">Request</span><span class="p">]),</span>
+</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span><span class="n">State</span><span class="p">}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">handle_cast</span><span class="p">(</span><span class="n">_Msg</span><span class="p">,</span><span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;handle_cast(~p)~n&quot;</span><span class="p">,</span><span class="n">_Msg</span><span class="p">),</span>
+</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="n">State</span><span class="p">}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">%%</span> <span class="n">udp</span> <span class="n">message</span> <span class="n">should</span> <span class="n">be</span> <span class="n">handled</span> <span class="n">here</span>
+</span><span class='line'><span class="n">handle_info</span><span class="p">({</span><span class="n">udp</span><span class="p">,</span><span class="n">Sock</span><span class="p">,</span> <span class="n">ClientIP</span><span class="p">,</span> <span class="n">ClientPort</span><span class="p">,</span> <span class="n">Packet</span><span class="p">},</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p:~p ==&gt; ~p~n&quot;</span><span class="p">,[</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">]),</span>
+</span><span class='line'><span class="n">ok</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">send</span><span class="p">(</span><span class="n">Sock</span><span class="p">,</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">),</span>
+</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="n">State</span><span class="p">}</span>
+</span><span class='line'><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">handle_info</span><span class="p">(</span><span class="n">_Info</span><span class="p">,</span><span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;handle_info~n&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="n">State</span><span class="p">}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">terminate</span><span class="p">(</span><span class="n">_Reason</span><span class="p">,</span><span class="n">N</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;stopping...~n&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="n">ok</span><span class="p">.</span>
+</span><span class='line'><span class="n">code_change</span><span class="p">(</span><span class="n">_OldVsn</span><span class="p">,</span><span class="n">N</span><span class="p">,</span> <span class="n">_Extra</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="n">N</span><span class="p">}.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>핵심 요지는, UDP 메시지는 handle_call 이나 cast 가 아니라, handle_info에서 처리해야 한다는 점이다. 요즘 <strong>업.무.가. 바.빠.서.</strong> 얼랭을 3주 정도 못봤는데 또 서서히 기억이 소멸하기 시작했다. OTP에서는 함수의 리턴값 규칙을 정말 잘 맞춰야 하는 관계로, 다음 번부터는 gen_server 템플릿 하나 정도는 갖고 시작해야겠다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/01/12/teamcide/">Teamcide</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-12T09:04:43+09:00" pubdate  data-updated="true" >Jan 12<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div>
+
+[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;478&#8221; caption=&#8221;Micro management (from conveniencebits.com)&#8221;]<a href="http://conveniencebits.com/2008/07/25/micromanaging-is-positive/"><img class='' src='http://conveniencebits.com/pics/micromanage.jpg' width='' height='' alt='Micromanagement' title='Micromanagement'></a>[/caption]
+
+</div>
+
+
+<div>Teamcide는 최근에 구독을 시작한 [코딩 호러](http://www.codinghorror.com/)의 [마이크로매니지먼트 좀비](http://www.codinghorror.com/blog/archives/001205.html)라는 글에서 발견한 7가지 팀관리의 안티 패턴이다. 알고 보니 피플웨어에서 소개된 이야기라고 해서 책을 찾아보려고 했는데, 어딘가에 쳐박혀 있는지 책이 보이지 않아, [일본어 웹문서 번역](http://translate.google.com/translate?prev=&hl=ko&ie=UTF-8&u=http://yuuntim.fc2web.com/chapter20.html&sl=auto&tl=ko&history_state0=)을 통해서 짤막하게만 정리해본다.</div>
+
+
+<div>
+
+    - 자기 방어적인 관리(Defensive Management)
+    - 관료주의(Bureaucracy)
+    - 팀원들을 여기 저기로 흩어 놓아서, 이동 거리를 멀게 하기(Physical Separation)
+    - 한 명에게 여러 가지 작업을 시키기(Fragmentation of People&#8217;s Time)
+    - 납기일을 위해 품질을 희생하기(Quality Reduction of the Product)
+    - 무의미한, 또는 가짜 데드라인(Phony Deadlines)
+    - 파벌이 무서워서 프로젝트 종료 후 팀을 해체하기(Clique Control)
+
+</div>
+
+
+<p>거리 이야기는 이제 상식 수준이고, 마지막 파벌 이야기는 좀 비현실적이긴 한데, 가짜 데드라인 같은 이야기는 나도 종종 유혹을 느꼈기에, 이 시간을 빌어 씁쓸한 반성을 해본다.</p>
+
+<p>때로는 빠른 의사 결정과 그에 따른 무한한 책임을 지는 <a href="http://seoworld.net/tt/261">잡스 같은 카리스마적인 독재자</a>와 일해보고 싶기도 하다. 다만, 거의 무개념 폭군이라는 이미지가 강한 초기의 잡스보다는, 이제 필 쉴러 아저씨에게 키노트 진행을 양보(?)한 최근의 잡스가 더 나을 것 같다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/01/08/redmine/">Redmine</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-08T07:36:12+09:00" pubdate  data-updated="true" >Jan 8<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.redmine.org/screenshots/gantt.png"><img class='' src='http://www.redmine.org/screenshots/gantt_tn.png' width='' height='' alt='' title=''></a></p>
+
+<p><a href="http://bitnami.org/stack/mantis">bitnami mantis</a> 는 한글이 안되고, trac은 뭔가 플러그인 설치가 귀찮아서, 아<a href="http://www.redmine.org/wiki/redmine/Features">름다운 간트 차트</a>도 지원하는  <a href="http://bitnami.org/stack/redmine">bitnami redmine </a>을 써보기로 했다. (<a href="http://twiny.tistory.com/1676">twiny 님</a> 감사~)</p>
+
+<p>평소대로라면 최신 버전(0.8)을 위해 ruby 와 rails 부터 설치했겠지만, 이런 삽질은 꿈도 못 꿀 정도로 바빠서, 그냥 0.7 버전을 마음 편하게 깔아버렸다. 한글 문제(이슈, 파일 업로드)는 전혀 없었고, SMTP와 https svn 저장소 연결만 남은 상태인데, 각각 한번씩 해보고 연결이 안되길래 과감하게 포기했다. 참고로, <a href="http://www.redmine.org/wiki/redmine/ThemeBasecamp">베이스캠프 테마</a>를 설치하면 mantis 보다 100배 미려한 화면을 볼 수 있다. :)</p>
+
+<p>아쉬운 점이라면 위키 포맷이 익숙치 않은 textile 이라는 점과, 이미 <a href="http://www.gtdinbox.com/">GTDinbox </a>에 적응해버렸다는 정도. 그러고보니 GTD를 지원하는 이슈 관리 시스템은 없을까나~</p>
+
+<p>ps. 드디어 SQL 2005 스키마의 개별 객체들을 <a href="http://www.sqlservercentral.com/articles/Administering/2896/">각각 SQL 로 추출해주는 방법</a>을 찾았다. 소스 코드르 다운받아서 약간만 수정해주면 SQL  스키마의 버전 관리는 끝!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/01/03/fault-tolerant-system/">Fault Tolerant System</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-01-03T07:33:04+09:00" pubdate  data-updated="true" >Jan 3<span>rd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>얼랭스터디에서 얼랭/OTP 의 무정지성(Fault Tolerance)에 대해서 소개하자,</p>
+
+<blockquote><p>&#8220;문제가 생긴 서버를 되살리는 것도 좋은데, 메모리상의 중요한 데이터들을 어떻게 다른 서버로 안전하게 전송할 수 있는가?&#8221;</p></blockquote>
+
+
+<p>라는 질문이 나왔다. 여기에 대해서 가장 먼저 떠오른 생각은</p>
+
+<blockquote><p>&#8220;클라이언트와의 연결은 어차피 날아가는 거고, 과연 그 서버 안에 있는 데이터까지 살릴 만한 가치가 있는 것일까?&#8221;</p></blockquote>
+
+
+<p>라는 것이었다. 일반적인 C++ 서버의 경우 오류로 인한 서버의 크래시가 발생했을 때 당연히 SEH 를 이용해서 그 순간을 캡처해낼 수는 있다. 그러나 문제는 그때의 메모리가 정말 DB에 저장하거나 다른 머신으로 보낼 만큼 신뢰성이 있는가? 하는 것이다. 치명적인 오류가 발생한지 시간이 좀 지나서, 이미 많은 데이터가 오염되었을 수도 있기 때문에, 보통은 그냥 데이터는 버리고 서버를 내려버리는 것이 정상이다.</p>
+
+<p>그러다보니 무정지성이라는 의미에 대해서 다시금 생각하게 되었다. 그래서, 위키피디아에서 <a href="http://en.wikipedia.org/wiki/Fault-tolerant_system">Fault Tolerant System</a>을 검색해보니 다음과 같이 나와 있었다.</p>
+
+<blockquote><p>- No single point of failure<br/>    - No single point of repair<br/>    - Fault isolation to the failing component<br/> - Fault containment to prevent propagation of the failure<br/>  - Availability of reversion modes</p></blockquote>
+
+
+<p>즉, 하나 죽었다고 전체 시스템이 마비된다든지, 복구하다가 바보가 된다든지, 실패한 모듈 때문에 나머지 시스템이 동작하지 않는 등의 현상이 없어야 된다는, Five Nine(99.999%) 수준의 가용성(Availability)에 대한 이야기이지 완벽하게 모든 것이 재가동되어야 한다는 이야기는 아니었다. DB에도 오류가 생기면 롤백을 하듯이, MMO의 서버 시스템 역시 어느 수준으로 롤백을 하더라도 나머지 사용자들이 모를 정도로만 감춰줘도 사장님한테 이쁨받기에 충분한 수준인 것이다.</p>
+
+<p>그런데, &#8221;<strong>진정한 변수</strong>&#8220;가 없는 얼랭에서는 - <em>정말 에러가 발생한 직후라는 확신이 든다면 </em>- 아래와 같은 코드를 이용해서, 오류를 다른 모듈로 확산시키지 않고도 로컬 코드 레벨에서 롤백이 가능하긴 하다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">loop</span><span class="p">(</span> <span class="nx">OldState</span> <span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="k">try</span> <span class="nx">handle_something</span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span><span class="nx">OldState</span><span class="p">)</span> <span class="nx">of</span>
+</span><span class='line'><span class="p">{</span> <span class="nx">ok</span><span class="p">,</span> <span class="nx">NewState</span> <span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nx">loop</span><span class="p">(</span><span class="nx">NewState</span><span class="p">)</span>
+</span><span class='line'><span class="k">catch</span>
+</span><span class='line'><span class="p">{</span> <span class="nx">error</span> <span class="p">}</span> <span class="o">-&gt;</span>
+</span><span class='line'><span class="nx">loop</span><span class="p">(</span><span class="nx">OldState</span><span class="p">)</span>
+</span><span class='line'><span class="nx">end</span>
+</span><span class='line'><span class="nx">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>여기에 얼랭/OTP의 슈퍼비전 트리가 결합하면 책에서 주장하는 것처럼 Nine Nine(99.9999999%)의 가용성이 보장된다고 하니, 초반에 생각했던 언어적 분산 네트워킹의 지원 보다는 이쪽이 더 매력적인 기능이 아닐까 싶다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/12/28/networking-metaphore/">Networking Metaphor</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-12-28T08:39:55+09:00" pubdate  data-updated="true" >Dec 28<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[caption id=&#8221;&#8221; align=&#8221;aligncenter&#8221; width=&#8221;500&#8221; caption=&#8221;http://www.flickr.com/photos/jasoncross/1260110610/&#8221;]<a href="http://www.flickr.com/photos/jasoncross/1260110610/"><img class='' src='http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg' width='' height='' alt='' title=''></a>[/caption]</p>
+
+<p>네트워크 프로그래머가 클라이언트 서버간 통신(혹은 P2P 통신)을 바라보는 메타포에 대해서 갑자기 궁금해졌다.</p>
+
+<p>가장 흔한 개념은 바로 패킷이다. 만약 컨텐트 코드에서 Packet 이나 Command, Message 같은 객체와, Send 와 Receive 같은 함수가 노출되어 있다면, 그걸 만든 사람은 데이터 통신을 바이트의 전송이라는 개념으로 인지하는 것이 아닐까? 데이터를 던지고 받는다는 개념의 네트워킹은 아마도 귀찮은 하드코딩 노가다 작업일 확률이 높다. 흐흐.</p>
+
+<p>조금 높은 레벨(?)로 올라간다면 원격 함수 호출(RPC)이 있겠다. 무언가를 상대방에게 요청(request)하면, 상대방은 그걸 처리한 후 성공이나 실패 같은 결과(response)를 보내준다. 이런 메타포에서는 동기/비동기라든지, 타임아웃 같은 처리들이 따라오게 된다. 만약 네트워크로 무언가를 요청하는 행위가 함수 호출 인터페이스처럼 잘 래핑되어 있다면, 대략 1초간 으쓱해도 무방하겠다. :P</p>
+
+<p><img class='' src='http://ou800doc.caldera.com/en/SDK_netapi/graphics/rpc.gif' width='' height='' alt='' title=''></p>
+
+<p>추가적으로, 결과가 없는 요청은 특별히 이벤트(event) 혹은 통지(notification)라는 메타포라고 부를 수 있겠다. 사실 매번 렌더링을 해야 하는 게임 클라이언트나, 항상 빠른 응답 속도를 보장해야 하는 서버가 동기적 요청을 하는 일은 정말 드문 경우이다. 이런 이유로 비동기적인 통신이 대부분이기 때문에 적당히 현재 상황을 알려주고 잊어버리고 있다가, 혹시나 결과(보통은 에러)가 오면 음..그런가? 하고 처리하는 느낌으로 코드를 만들 때가 있다. 시간이 나면 Notify 같은 이름들이 있는지 한번 체크해보시라.</p>
+
+<p>위에 나온 것들은 대체로 즉각적인 처리를 필요로 하는 반면, 어떤 이벤트들은 시간축으로 늘어질 때가 있다. 무슨 말이냐 하면 이동, 공격, 물리 같이 float 단위의 정밀한 사건들은 공간 뿐만 아니라 시간과도 밀접한 관계가 있기 때문이다. 이런 상황을 아름답게 처리하려면, 받는 족족 무언가를 처리하기보다는, 데이터를 시간순으로 쌓아두고 예측, 보간을 통해 그럴듯하게 보여줄 필요가 있다. 이런 걸 보통 동기화(synchronization) 또는 복제(replication)이라고 부른다. 보통 이런 코드들은 네트워크를 넘어선 상위 로직 레벨에 존재하는 경우가 많은데, 어떤 네트워크 라이브러리들은 이런 수준도 알아서 잘 처리하기도 한다.</p>
+
+<p>[caption id=&#8221;&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;from http://www.problogger.net&#8221;]<a href="http://www.problogger.net"><img class='' src='http://www.problogger.net/wp-content/uploads/2007/08/rss-buttons.gif' width='' height='' alt='' title=''></a>[/caption]</p>
+
+<p>좀 억지스럽긴 하나, 이메일이나 RSS 등에서 주로 쓰이는 발행(publish)과 구독(subscribe)이라는 메타포는 어떨까?  채팅 채널 같이 지속적인 이벤트가 간간히 발생하는 논리적인 영역에 참가하면, 꾸준히 어떤 이벤트들이 날아오게 된다. 사람들이 바글바글 거리는 지역에 발생하는 수많은 이벤트들을 클라이언트에게 알려줄 때 즉각적인 브로드캐스팅 대신, 이런 개념을 사용한다면 필터링을 통해 트래픽 절감의 효과를 손쉽게 얻을 지도 모르겠다. 후후.</p>
+
+<p>이렇게 단순한 이야기를 현학적으로 어렵게 쓴 이유는, 사실 며칠 전 XML로 프로토콜을 정의하고 코드를 만드는 걸 한번 해볼까 하고, <a href="http://www.codalogic.com/lmx/xsd-overview.html">스키마 튜토리얼</a>을 살펴 보다가, 프로토콜은 XML이 아니라 XSD에 들어가는게 맞지 않냐는 생각이 들어서였다. 물론 XSD도 사실 XML이니까, 쓸데없는 고민 없이 그냥 해도 될 것 같기도 한데&#8230; 그러다보니 또 굳이 요즘 세상에 트래픽이 많은 게임이 아니라면 XML 프로토콜을 쓰고, 파싱 및 검증을 XSD로 하는 것도 괜찮지 않냐는 망상에서 허우적 거리고 있다.</p>
+
+<p><img class='' src='http://upload.wikimedia.org/wikipedia/en/3/32/CheckEmail.png' width='' height='' alt='' title=''></p>
+
+<p>또 한편으로는 클래스 다이어그램과 시퀀스 다이어그램으로 클라이언트/서버간 통신을 표현하고, 그걸 파싱해서 각종 RPC 함수들의 골격을 만들어내면 인생이 좀 수월해지지 않을까 하는 생각도 든다. 물론 프로토콜이 바뀔 때에 기존 코드가 날아가지 않도록 코드 제너레이터를 잘 짜야겠지.</p>
+
+<p>글 시작과 끝의 주제가 다른 걸로 봐서, 아무래도 요즘 스트레스를 많이 받나 보다. ㅋㅋ</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/12/21/memory-wall/">Memory Wall</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-12-21T18:56:57+09:00" pubdate  data-updated="true" >Dec 21<span>st</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p> </p>
+
+<p><img class='' src='http://lh6.ggpht.com/_nOquiran9-s/Rur1hp0B7kI/AAAAAAAAALI/rjrpIObJtMo/IMG_1987.JPG' width='' height='' alt='' title=''></p>
+
+<p>9.11 Memory Wall</p>
+
+<p>구글에서 memory wall 을 검색하면 위와 같은 사진들이 나온다. 아마도 기억과 회상을 위한 그림이나 사진, 메모들을 붙이는 벽을  memory wall 또는 remembrance wall 이라고 부르는 모양이다.</p>
+
+<p>훗날 128 코어의 시대가 도래하면 얼랭 게임 서버가 혹시 대세가 되지는 않을까 했는데, 벌써부터 <a href="http://minjang.egloos.com/2166350">멀티 코어에도 메모리 장벽이라는 한계가 있다는 이야기</a>가 솔솔 들린다. 이로 인해 <a href="http://devnote.net/86">8-16코어를 넘어서기가 힘들다고 해서 널티코어 효과(Nulticore Effect)</a>라고 부른다니.. <a href="http://xeraph.egloos.com/4781141">xeraph님이 GG하신 게</a> 정답이지도? :)</p>
+
+<p>보통 물리적/논리적으로 서버 프로세스가 늘어날수록 디버깅이 어려워지고, 관리 비용도 증가한다고 한다. 그래서 요즘은 분산을 고려해서 모듈끼리도 메시지 통신을 하도록 한 후, 개별 모듈들을 최대한으로 단순하게 구현하려고 노력중이다. 대신 메시지를 만드는게 여간 귀찮은 일이 아니라서, 언제 시간이 나면 후딱 XML 메시지 같은 걸 만들어볼까 싶기도 한데&#8230; 그럴 여유도 없을 뿐더러, 만들어도 같이 감동해줄 전우가 없다는 게 안타깝다. 크흑.</p>
+
+<blockquote><p> </p></blockquote>
+
 </div>
   
   

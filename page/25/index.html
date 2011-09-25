@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="http://www.jakpsatweb.cz/css/css-vertical-center-solution.html  div 의 가로/세로 가운데에 배치하기">
+  <meta name="description" content="jquery draggable + overflow=auto  스크롤바를 마우스로 움직일 때 draggable 이 되어버리는 문제 발생.  이럴 때에는 handle: 을 이용해서 움직일 수 있는 영역을 만들어버리면 된다.">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,244 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/02/httpwwwjakpsatwebczcsscss-vertica/">http://www.jakpsatweb.cz/css/css-vertica&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-02T21:41:00+09:00" pubdate  data-updated="true" >Feb 2<span>nd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.jakpsatweb.cz/css/css-vertical-center-solution.html">http://www.jakpsatweb.cz/css/css-vertical-center-solution.html</a>  div 의 가로/세로 가운데에 배치하기</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/02/form-submit/">Form 의 버튼이 여러개일 경우 클릭시 기본적으로 Submit 이 호출&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-02T17:43:00+09:00" pubdate  data-updated="true" >Feb 2<span>nd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>form 의 버튼이 여러개일 경우 클릭시 기본적으로 submit 이 호출된다.  button 태그를 a 로 바꾸면 해결됨.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/02/django-i18n-osx-app-project/">Django I18n 사용법(OSX 기준) 각 App 또는 Project&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-02T15:24:00+09:00" pubdate  data-updated="true" >Feb 2<span>nd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>django i18n 사용법(OSX 기준)  각 app 또는 project 폴더에 locale 폴더를 만든다.  > django-admin.py makemessages -l ko  gettext 가 없다고 나오면  > sudo port install gettext  만약 port 가 없으면 <a href="http://darwinports.com/download/">http://darwinports.com/download/</a> 에서 darwinports 를 다운받아서 설치. /opt/local/bin 을 PATH 에 추가.  > sudo port -d selfupdate</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/01/httpallbuttonspressedblogspotcom20/">http://allbuttonspressed.blogspot.com/20&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-01T22:32:00+09:00" pubdate  data-updated="true" >Feb 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://allbuttonspressed.blogspot.com/2010/01/native-django-on-app-engine.html">http://allbuttonspressed.blogspot.com/2010/01/native-django-on-app-engine.html</a>  app engine native django 의 기능 제한</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/01/urlconf-include-redirect-root/">Urlconf Include + Redirect 구현 방법 # ROOT &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-01T21:33:00+09:00" pubdate  data-updated="true" >Feb 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>urlconf include + redirect 구현 방법  # ROOT urls.py  from django.conf.urls.defaults import *  urlpatterns = patterns(,  (r<sup>example/,</sup> include(apps.example.urls) ),  (r<sup>user_config/,</sup> include(apps.user_config.urls) ),  (r<sup>demo/,</sup> include(apps.game.urls) ),  (r<sup>$,</sup> django.views.generic.simple.redirect_to, { url: /demo/ }),  )  # 자식 urls.py  from django.conf.urls.defaults import *  from django.views.generic.simple import direct_to_template  urlpatterns = patterns(apps.example.views,  (r<sup>custom_map/$,</sup> custom_map_page),  (r<sup>$,</sup> index_page),  )  요약  - urlconf 에서 문자열로 바인딩할 때, ROOT 이든 하위 app 이든, 모듈 경로는 절대 경로여야 한다.  - 문자열 모듈들은 from  import 로 축약되지 않는다.  - redirect_to 의 경우에도 문자열이므로 절대 경로 써야 한다.  - 하위 모듈이 들어가 있는 폴더에는 무조건 <strong>init</strong>.py 넣을 것.  - 부모 urls.py 에서 include 할 때 $ 없어야 함  - 단, 하위 app urls.py 에서는 ^$ 사용해야 한다.  - 무조건 모든 폴더 경로에 / 를 넣으면 있든 없든 장고가 알아서 해준다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/01/initpy/">프로젝트 하위 폴더에는 무조건 __init__.py 를 만들 것. 패키지&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-01T21:17:00+09:00" pubdate  data-updated="true" >Feb 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>프로젝트 하위 폴더에는 무조건 <strong>init</strong>.py 를 만들 것.  패키지로 인식해야 된다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/01/v3-var-osmmap/">구글맵 V3 커스텀 이미지 맵을 베이스맵으로 사용하기 Var osmMap&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-01T19:57:00+09:00" pubdate  data-updated="true" >Feb 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>구글맵 v3 커스텀 이미지 맵을 베이스맵으로 사용하기  var osmMap = new google.maps.Map(document.getElementById(map-canvas));  var openStreet = new google.maps.ImageMapType({  getTileUrl: function(ll, z) {  var X = ll.x % (1 z);  // wrap  return http://tile.openstreetmap.org/ + z + / + X + / + ll.y + .png;  },  tileSize: new google.maps.Size(256, 256),  isPng: true,  maxZoom: 18,  name: OSM,  alt: Open Streetmap tiles  });  osmMap.mapTypes.set(osm, openStreet);  osmMap.setMapTypeId(osm);  osmMap.setOptions({  mapTypeControlOptions: {  mapTypeIds: [  osm  ],  }  });</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -394,6 +156,244 @@
 
 
   <div class="entry-content"><p>RequestContext  - request 변수 추가됨  - TEMPLATE_CONTEXT_PROCESSORS 에 등록된 프로세서들이 자동으로 변수를 추가함  - render_to_response 는 디폴트로 Context 를 사용함.  auth: user, messages, perms 를 추가  debug: debug, sql_queries 를 추가  i18n: LANGUAGES, LANGUAGE_CODE 를 추가  media: MEDIA_URL 을 추가  request: request 를 추가함</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/28/django-form-fields-propert/">Django Form - 디스플레이 및 검증용 Fields Propert&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-28T03:44:00+09:00" pubdate  data-updated="true" >Jan 28<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>django form  - DB => 모델 => 폼 => HTML 렌더링(form input..) => GET/POST 로 전송 => 폼 => 검증 => 모델 => DB  - 하나의 모델에 여러 개의 폼이 존재해도 무방  - 폼위자드: 하나의 모델을 여러 페이지의 폼으로 구성하고 마지막에 검증  - formset: 폼의 집합. 데이터 그리드를 상상할 것.  - Widget: 폼필드가 어떻게 HTML Input 태그로 렌더링될 것인가?  fields property  - required: not None  - label: 라벨  - initial: 폼이 비어 있을 때 초기값. 출력용이며 필드 초기값은 아니다. (설명문일지도)  - widget:  - help_text: 필드에 대한 설명  - error_messages: ValidationError 의 문자열이 출력됨. 필드 종류에 따라 에러문자열 키값이 다름.  ex> TextInput = { required: 비었을때, max_length: 문자열 길이 초과,  }  field types - 검증 기능이 추가된 위젯.  - BooleanField: 체크박스  - CharField: 텍스트  - ChoiceField: 콤보박스  - TypedChoiceField: 콤보박스. int/float/bool 값이 리턴됨.  - DateField: 날짜 위젯? 년일월 구분된건가?  - DemicalField: 텍스트. 숫자만 받아들임.  - EmailField: 텍스트. 이메일 포맷  - FileField: 파일.  - FilePathField: 폴더 경로 + 재귀 여부 + 패턴.  - FloatField: 텍스트.  - ImageField: 파일. PIL 설치되어야 함.  - IntegerField: 텍스트.  - IPAddressField: IP  - MultipleChoiceField: 콤보+멀티선택  - NullBooleanField: True or False or None  - RegexField: 텍스트  - TimeField  - URLField  - ComboField  - MultiValueField  - SplitDateTimeField  모델 인스턴스로 초기화하고 HTML 렌더링  form = MyForm( instance=obj )  모델 기본값으로 초기화한 후, GET/POST 로 받은 값을 덮어쓰기.  form = MyForm( request.GET, instance=obj )  obj = form.save( commit=False )  특정 필드 빼기  class Meta:  exclude = ()  지정 필드만 넣기: 리스트 순서대로 폼이 배치된다.  class Meta:  fields = ()  ModelForm 은 모델의 필드 타입에 의해서 폼 필드들이 결정된다. 만약 오버라이딩하려면 모든 폼필드 속성을 재지정해줘야 한다.  기본적으로 폼필드 타입을 정하면 아무 속성 없는 디폴트 위젯이 결정된다. 위젯 타입이나 클래스 속성 등을 커스터마이징하려면  forms.CharField(widget=forms.TextArea( attrs={class:special}))  특정 위젯에 필요한 CSS 나 자바스크립트를 include 하려면, 미디어 클래스를 이용한다.  class Media:  css = { all: ( pretty.css, ) }  js = ( animaiton.js, actions.js )</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/28/djangoformsmodelform-httpgitorio/">djangoforms.ModelForm 사용법 Http://gitorio&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-28T03:07:00+09:00" pubdate  data-updated="true" >Jan 28<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>djangoforms.ModelForm 사용법  <a href="http://gitorious.org/magpie/magpie/blobs/master/magpie/ajiaojr/magpie/forms.py">http://gitorious.org/magpie/magpie/blobs/master/magpie/ajiaojr/magpie/forms.py</a>  결론적으로 django form 과 똑같다?</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/28/formset-set-of-form-single-row/">Formset - Set of Form 폼 == 모델(single Row&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-28T02:38:00+09:00" pubdate  data-updated="true" >Jan 28<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>formset - set of form  폼 == 모델(single row)  폼셋 == 모델의 집합(multiple rows) == datagrid</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/settingpy/">장고 세션 정리 - setting.py 에서 설정한다. - 미들웨어다. &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T23:11:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>장고 세션 정리  - setting.py 에서 설정한다.  - 미들웨어다.  - 딕셔너리다.  - cookie, file, db, cache 등의 하부 엔진을 고를 수 있다.  - MIDDLEWARE_CLASSES 에 django.contrib.sessions.middleware.SessionMiddleware 추가  - INSTALLED_APPS 에 django.contrib.sessions 추가  SESSION_ENGINE  - django.contrib.sessions.backends.cache  - django.contrib.sessions.backends.cached_db: db 에 저장. persistent  - django.contrib.sessions.backends.file: file</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/db/">캐쉬 관리 전략: - 캐쉬된 값은 언제나 믿는다. (DB에서 바뀌었을지라&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T22:58:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>캐쉬 관리 전략:  - 캐쉬된 값은 언제나 믿는다. (DB에서 바뀌었을지라도) 캐쉬-DB간의 다소간의 오차는 허용할 수 밖에 없다.  - hp 등 타인에 의해서 변경될 수 있는 값은 delta 를 저장하고 최신 값을 다시 받아온다.  - 중요 변수(kill count, last kill)를 검증할 때에는 DB 업데이트 후 결과를 보고 판단하기. (또는 ROWCOUNT check)  - 변경된 DB의 최신 결과를 캐쉬로 적용하기</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/http-method-from-djangoviewsd/">Http Method 제한 데코레이터 From django.views.d&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T21:51:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>http method 제한 데코레이터  from django.views.decorators.http import require_http_methods, require_GET, require_POST  틀릴 경우, HTTP 405 — “method not allowed” 를 리턴함.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/27/getobjector404/">Get_object_or_404 가 앱엔진에서도 지원될까?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-27T21:39:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>get_object_or_404 가 앱엔진에서도 지원될까?</p>
 </div>
   
   

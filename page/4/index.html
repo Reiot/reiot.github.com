@@ -287,47 +287,79 @@
 
   <div class="entry-content"><p>각종 다양한 node의 라이브러리를 사용하려면 패키지 매니저인 npm 부터 가장 먼저 설치해야 된다. 이때 패키지들을 /usr/local 대신 사용자 폴더(~/.node_libraries)에 저장하기 위해서 .npmrc 를 만들어야 한다. (via <a href="http://blog.outsider.ne.kr/539">http://blog.outsider.ne.kr/539</a>)</p>
 
-<h2>- git clone <a href="https://github.com/isaacs/npm.git">https://github.com/isaacs/npm.git</a></h2>
-
-<p>cat~/.npmrc NPMRC  root = $HOME/.node_libraries  binroot = $HOME/bin  manroot = $HOME/share/man  NPMRC</p>
-
-<ul>
-<li>make</li>
-<li>npm install express </li>
-<li>npm install socket.io</li>
-</ul>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone https://github.com/isaacs/npm.git
+</span><span class='line'><span class="nv">$ </span>cat &gt;&gt; ~/.npmrc <span class="s">&lt;&lt; NPMRC</span>
+</span><span class='line'><span class="s">root = $HOME/.node_libraries</span>
+</span><span class='line'><span class="s">binroot = $HOME/bin</span>
+</span><span class='line'><span class="s">manroot = $HOME/share/man</span>
+</span><span class='line'><span class="s">NPMRC</span>
+</span><span class='line'><span class="nv">$ </span>make
+</span><span class='line'><span class="nv">$ </span>npm install expressÂ 
+</span><span class='line'><span class="nv">$ </span>npm install socket.io
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>참고로, 모든 npm 소스는 ~/.node_libraries/.npm 아래에 저장되어 있다.</p>
 
 <p>가장 간단한 express 서버는 다음과 같다. curl 로 로컬 서버에 접속해볼 수 있지만, 먼저 테스트를 위해서 아마존 EC2 콘솔에 접속해서 방화벽의 8080 포트를 열어둬야 한다.</p>
 
-<blockquote><p><code>var app = require('express').createServer();<br/>app.get('/', function(req, res){<br/>  res.send('hello world');<br/>});<br/>app.listen(8080);</code></p></blockquote>
+<blockquote><p>var app = require(&#8216;express&#8217;).createServer();<br/>app.get(&#8216;/&#8217;, function(req, res){<br/>  res.send(&#8216;hello world&#8217;);<br/>});<br/>app.listen(8080);</p></blockquote>
 
 
 <p>가장 간단한 socket.io 서버와 클라이언트는 github 에 존재한다. (이상하게도 제대로된 매뉴얼을 찾기가 힘드니, 그냥 <a href="https://github.com/LearnBoost/Socket.IO-node/blob/0.6.1/example/server.js">샘플 코드</a>를 보기를 권한다) </p>
 
-<blockquote><p><code>git clone git://github.com/LearnBoost/Socket.IO-node.git socket.io<br/>cd socket.io/example/<br/>sudo node server.js</code></p></blockquote>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone git://github.com/LearnBoost/Socket.IO-node.git socket.io
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>socket.io/example/
+</span><span class='line'><span class="nv">$ </span>sudo node server.js
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>서버와 클라이언트간의 통신은 순전히 JSON 으로 구현된다. 보내는 쪽에서</p>
 
-<blockquote><p>socket.send({ id:chat, type:whisper, target:reiot, message:Hello World! })</p></blockquote>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>socket.send<span class="o">({</span> id:chat, <span class="nb">type</span>:whisper, target:reiot, message:Hello World! <span class="o">})</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>라고 보내고, 받는 쪽에서는</p>
 
-<blockquote><p><code>socket.on('message',function(data){<br/>  if('id' in data){<br/>  if(data.id=='chat'){<br/>  show_message(data.message);<br/>  }<br/>  }<br/>});<br/></code></p></blockquote>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>socket.on<span class="o">(</span><span class="s1">&#39;message&#39;</span>,function<span class="o">(</span>data<span class="o">){</span>
+</span><span class='line'>  <span class="k">if</span><span class="o">(</span><span class="s1">&#39;id&#39;</span> in data<span class="o">){</span>
+</span><span class='line'>      <span class="k">if</span><span class="o">(</span>data.id<span class="o">==</span><span class="s1">&#39;chat&#39;</span><span class="o">){</span>
+</span><span class='line'>          show_message<span class="o">(</span>data.message<span class="o">)</span>;
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">})</span>;
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>이런 식의 전통적인 소켓 프로그래밍이 이루어진다. 브로드캐스팅은 그냥 소켓에 대고</p>
 
-<blockquote><p>socket.broadcast({something:special})</p></blockquote>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>socket.broadcast<span class="o">({</span>something:special<span class="o">})</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>이라고 하면 끝. </p>
-
-<p>첫 소감은 </p>
+<p>이라고 하면 끝. 첫 소감은 </p>
 
 <ul>
 <li>아 쉽다. 처음 소켓 프로그래밍을 배울 때의 느낌이야. 왜 지금까지 이런게 안되었을까..</li>
@@ -378,17 +410,25 @@
 
 <p>기억 소멸을 방지하기 위해 대충 순서를 정리해본다 :P</p>
 
-<ul>
-<li>sudo yum install git-core</li>
-<li>git clone https://github.com/ry/node.git</li>
-<li>sudo yum install gcc</li>
-<li>sudo yum install gcc-c++</li>
-<li>sudo yum install openssl-devel</li>
-<li>./configure</li>
-<li>make </li>
-<li>sudo make install</li>
-<li>make test</li>
-</ul>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo yum install git-core
+</span><span class='line'><span class="nv">$ </span>git cloneÂ https://github.com/ry/node.git
+</span><span class='line'><span class="nv">$ </span>sudo yum install gcc
+</span><span class='line'><span class="nv">$ </span>sudo yum install gcc-c++
+</span><span class='line'><span class="nv">$ </span>sudo yum install openssl-devel
+</span><span class='line'><span class="nv">$ </span>./configure
+</span><span class='line'><span class="nv">$ </span>makeÂ 
+</span><span class='line'><span class="nv">$ </span>sudo make install
+</span><span class='line'><span class="nv">$ </span>make <span class="nb">test</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>마이크로 인스턴스에서 빌드 시간은 17분 정도 걸린다. configure 할 때 select/eio/kqueue 를 찾는 걸 보니, 내부적으로 저런 걸 쓰는 모양이다. 내 경우에는  test-exec,  test-repl, test-http-curl-chunk-problem 3개의 테스트가 실패했다 :(</p>
@@ -449,7 +489,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/10/30/merge-layer-options-to-original-layer/">Merge Layer Options to Original Layer</a></h1>
+      <h1 class="entry-title"><a href="/2010/10/19/disable-select-on-element/">Disable Select on Element</a></h1>
     
     
       <p class="meta">
@@ -463,14 +503,14 @@
 
 
 
-<time datetime="2010-10-30T19:43:23+09:00" pubdate  data-updated="true" >Oct 30<span>th</span>, 2010</time>
+<time datetime="2010-10-19T08:34:01+09:00" pubdate  data-updated="true" >Oct 19<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convert to Smart Object => Rasterize Layer</p>
+  <div class="entry-content"><p><a href="http://boxersb.com/archives/243">자바스크립트로 마우스 드래그를 막는 방법</a></p>
 </div>
   
   
@@ -483,7 +523,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/10/30/image-trim/">Image - Trim</a></h1>
+      <h1 class="entry-title"><a href="/2010/10/13/11-killer-css3-text-effects-to-replace-photoshop/">11 Killer CSS3 Text Effects to Replace Photoshop</a></h1>
     
     
       <p class="meta">
@@ -497,14 +537,14 @@
 
 
 
-<time datetime="2010-10-30T04:51:52+09:00" pubdate  data-updated="true" >Oct 30<span>th</span>, 2010</time>
+<time datetime="2010-10-13T10:08:16+09:00" pubdate  data-updated="true" >Oct 13<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Remove transparent pixels from image. Good for cropping exported layer comp image which has large transparent pixels.</p>
+  <div class="entry-content"><p><a href="http://www.addictivefonts.com/various/css3/css3-text-effects/">11 Killer CSS3 Text Effects to replace Photoshop</a></p>
 </div>
   
   
@@ -517,7 +557,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/10/23/antipodean-a-simple-chat-server-in-nodejs/">Antipodean: A Simple Chat Server in Node.js</a></h1>
+      <h1 class="entry-title"><a href="/2010/10/13/css-image-replacement-with-pseudo-elements-nir-nicolas-gallagher-blog-ephemera/">CSS Image Replacement With Pseudo-elements (NIR) – Nicolas Gallagher – Blog &amp; Ephemera</a></h1>
     
     
       <p class="meta">
@@ -531,14 +571,14 @@
 
 
 
-<time datetime="2010-10-23T05:06:07+09:00" pubdate  data-updated="true" >Oct 23<span>rd</span>, 2010</time>
+<time datetime="2010-10-13T08:27:22+09:00" pubdate  data-updated="true" >Oct 13<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><a href="http://dhotson.tumblr.com/post/271733389/a-simple-chat-server-in-node-js">Antipodean: A simple chat server in Node.js</a>  <blockquote><p>I had a quick go at writing a little chat server using <a href="http://nodejs.org/">Node.js</a>.</p><p>I really like Node’s style. I’ve got to say that Javascript suits the evented / non-blocking model really well. Javascript is actually a pretty cool little language.</p><p>Getting started with Node.js was really easy. For me it was as</p></blockquote></p>
+  <div class="entry-content"><p><a href="http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/">CSS image replacement with pseudo-elements (NIR) – Nicolas Gallagher – Blog &amp; Ephemera</a></p>
 </div>
   
   
@@ -551,7 +591,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/10/21/coda-slider-20-niall-dohertys-dot-biz/">Coda-Slider 2.0 - Niall Doherty&#039;s Dot Biz</a></h1>
+      <h1 class="entry-title"><a href="/2010/10/13/html5-boilerplate-a-rock-solid-default-for-html5-awesome/">HTML5 Boilerplate - a Rock-solid Default for HTML5 Awesome.</a></h1>
     
     
       <p class="meta">
@@ -565,14 +605,14 @@
 
 
 
-<time datetime="2010-10-21T17:38:41+09:00" pubdate  data-updated="true" >Oct 21<span>st</span>, 2010</time>
+<time datetime="2010-10-13T08:25:38+09:00" pubdate  data-updated="true" >Oct 13<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><a href="http://www.ndoherty.biz/demos/coda-slider/2.0/#1">Coda-Slider 2.0 - Niall Doherty&#8217;s dot biz</a></p>
+  <div class="entry-content"><p><a href="http://html5boilerplate.com/">HTML5 Boilerplate - A rock-solid default for HTML5 awesome.</a></p>
 </div>
   
   

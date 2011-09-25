@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="좀 철이 지난 이야기이지만, 잡스 횽아의 스탠포드 연설문에서 단어들을 추출해서 태그 구름처럼 만들어주는 Wordle 이미지이다. 이 연설문이 너무 감동적이어서 PSP에 인코딩해서 듣고 다녔고, 서점에서 우연히 영어 공부용 책으로 나온 걸 찾아서 한참동안 읽기도 했...">
+  <meta name="description" content="이번주부터 구글 스프레드시트에다가 CBT 일정 계획을 작성중인데, 혁신적인 기능이 있어서 한번 공유해본다. (이미 다들 아실지도..)우선 스프레드 시트를 하나 만들고 아래와 같이 헤더를 구성한다.그다음 Form - Create Form 메뉴를 이용해서 폼을 구성해...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,387 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/08/16/stay-hungry-stay-foolish/">Stay Hungry, Stay Foolish</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2008-08-16T23:26:20+09:00" pubdate  data-updated="true" >Aug 16<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/stay_hungry.jpg' width='' height='' alt='' title=''></p>
-
-<p>좀 철이 지난 이야기이지만, <a href="http://news-service.stanford.edu/news/2005/june15/jobs-061505.html">잡스 횽아의 스탠포드 연설문</a>에서 단어들을 추출해서 태그 구름처럼 만들어주는 <a href="http://wordle.net/">Wordle</a> 이미지이다. 이 연설문이 너무 감동적이어서 PSP에 인코딩해서 듣고 다녔고, 서점에서 우연히 <a href="http://drchoi.or.kr/535">영어 공부용 책으로 나온 걸</a> 찾아서 한참동안 읽기도 했다. 반쯤은 자기 자랑이지만 <a href="http://blog.dreamwiz.com/chanjin/7633299">애플의 주가 총액이 구글을 넘어선 이 마당</a>에 이 정도의 자랑 정도는 봐줄만 하다. 고화질 버전은 아이튠즈에서 다운받을 수 있다 :)</p>
-
-<p>[youtube=http://www.youtube.com/watch?v=UF8uR6Z6KLc&amp;hl=ko&amp;fs=1]</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/08/13/default-key-binding-dict/">DefaultKeyBinding.dict</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2008-08-13T09:09:19+09:00" pubdate  data-updated="true" >Aug 13<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>OSX 에서 윈도우와 같은 키조합을 사용하려면 <strong>~/Library/KeyBindings/DefaultKeyBinding.dict </strong>파일을 아래와 같이 만든 후, 키바인딩을 적용하려는 어플리케이션을 재시작하면 된다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf700&quot;</span> <span class="o">=</span> <span class="s">&quot;moveUpAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf701&quot;</span> <span class="o">=</span> <span class="s">&quot;moveDownAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf702&quot;</span> <span class="o">=</span> <span class="s">&quot;moveLeftAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf703&quot;</span> <span class="o">=</span> <span class="s">&quot;moveRightAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfLineAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfLineAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^</span><span class="se">\b</span><span class="s">&quot;</span> <span class="o">=</span> <span class="s">&quot;deleteWordBackward:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^$\Uf702&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordBackwardAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^$\Uf703&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordRightAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^$\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfDocumentAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^$\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfDocumentAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^a&quot;</span> <span class="o">=</span> <span class="s">&quot;selectAll:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^c&quot;</span> <span class="o">=</span> <span class="s">&quot;copy:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^s&quot;</span> <span class="o">=</span> <span class="s">&quot;saveDocument:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^v&quot;</span> <span class="o">=</span> <span class="s">&quot;paste:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^x&quot;</span> <span class="o">=</span> <span class="s">&quot;cut:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^z&quot;</span> <span class="o">=</span> <span class="s">&quot;undo:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^&quot;</span> <span class="o">=</span> <span class="s">&quot;deleteWordForward:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^\Uf702&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordLeft:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^\Uf703&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordRight:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^\Uf728&quot;</span> <span class="o">=</span> <span class="s">&quot;deleteWordForward:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfDocument:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfDocument:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfLine:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfLine:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;\Uf72c&quot;</span> <span class="o">=</span> <span class="s">&quot;pageUp:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;\Uf72d&quot;</span> <span class="o">=</span> <span class="s">&quot;pageDown:&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Ctrl+D 같은 손에 익은 키조합들을 적용하려면 아래의 문서들을 참고하기 바란다.</p>
-
-<pre><code>- [Cocoa Text System](http://www.hcs.harvard.edu/~jrus/Site/System%20Bindings.html)
-- [Customizing Cocoa Text System](http://www.hcs.harvard.edu/~jrus/site/cocoa-text.html)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/08/08/the-abcs-of-xbox-360-dlc/">The ABCs of Xbox 360 DLC</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2008-08-08T08:18:09+09:00" pubdate  data-updated="true" >Aug 8<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class='' src='http://www.xbox.com/NR/rdonlyres/C185D8B7-F8C7-4AED-AF90-E5415D383212/0/ilmmarketplace001.jpg' width='' height='' alt='' title=''></p>
-
-<p><a href="http://www.gamasutra.com/php-bin/news_index.php?story=19552">가마수트라 기사</a>에 따르면,</p>
-
-<blockquote><p>&#8220;Right now we have over 12 million users in over 26 countries, with $240 million in transactions revenue so far, with $180 million in the last 12 months alone,&#8221; said Salcedo of the Xbox 360&#8217;s marketplace.</p></blockquote>
-
-
-<p>최근 1년 동안 XBOX 360 마켓플레이스가 다운로드 컨텐츠(DLC)로 벌어들인 수익이 무려 우리돈 1800억원에 이른다고 한다. <a href="http://reiot.cafe24.com/2007/01/16/%EC%A7%80%EA%B8%88%EA%B9%8C%EC%A7%80-%ED%8C%94%EB%A6%B0-microsoft-points%EB%8A%94-%EC%96%BC%EB%A7%88/">작년 1월에 쓴 글을 찾아보니 당시 누적 금액이 200억원 정도</a>였는데, 그동안 정말 괄목할만한 성장을 한 것 같다. 최근 부족하나마 XNA 에 많은 지원을 하고 있는 것도 다 이런 통계 때문이 아닐까 한다.</p>
-
-<p>애플이나 마소의 예에서도 알 수 있듯이, 해외에서 소액결제가 힘들다고는 하지만, 이렇게 큰 플랫폼들이 계속 활성화되어가는 걸 보면 우리나라의 수준으로 따라오는 것도 금방이 아닐까 한다. 그런 걸 보면, 우리 나라의 게임 산업은 특정 게임(MMORPG)에만 집중하는 경향이 많아서, 해외 게임 회사들의 비지니스 모델 테스트 베드로로 전락해버리는 게 아닐까 하는 걱정도 든다.</p>
-
-<p>플랫폼을 지배하는 자가 게임을 지배하는 시대가 오고 있는 걸까?</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/08/06/iphone-game-2000day/">IPhone Game = 2000$/day</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2008-08-06T03:36:19+09:00" pubdate  data-updated="true" >Aug 6<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://i-dreaming.com/2511585">드리밍님의 포스트</a>에 의하면</p>
-
-<p><img class='' src='http://cfs9.tistory.com/upload_control/download.blog?fhandle=YmxvZzU2NjVAZnM5LnRpc3RvcnkuY29tOi9hdHRhY2gvMC8xMjAwMDAwMDAwMDEuUE5H' width='' height='' alt='' title=''></p>
-
-<p>이런 게임이 <a href="http://www.macrumors.com/2008/08/01/iphone-app-store-numbers-reveal-large-revenue-opportunities/">하루에 2천달러나 돈을 벌어준다고</a> 한다. (매일 매일 저만큼 팔렸다는 이야기는 아니굽쇼)</p>
-
-<p>으흠. 직종 전환을 심각하게 고려해봐야겠다. XNA이고 뭐고 저렇게 바로 현금화할 수 있는 플랫폼이 있어야 뛰어들만하지.</p>
-
-<p>see also:
- <a href="http://reiot.cafe24.com/2007/03/02/%ec%95%84%ec%9d%b4%ed%8f%b0-%ea%b2%8c%ec%9e%84-%eb%a7%9d%ec%83%81/">아이폰 게임 망상</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/07/29/google-street-view/">Google Street View</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2008-07-29T07:44:23+09:00" pubdate  data-updated="true" >Jul 29<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>사악한 구글의 스트리트 뷰로 LA 본사 건물을 찾아봤습니다. 간판 옆에 나무에 가려진 건물이 본사가 임대중인 건물입니다. 요즘 우리 앤디 <del datetime="2008-07-28T13:41:19+00:00">횽아</del> 사장님 이모저모로 스트레스 많이 받으실 듯. :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/07/19/collaboration-through-google-spreadsheet/">Collaboration Through Google Spreadsheet</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2008-07-19T08:38:52+09:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[caption id=&#8221;attachment_639&#8221; align=&#8221;aligncenter&#8221; width=&#8221;500&#8221; caption=&#8221;구글 스프레드 시트 템플릿&#8221;]<a href="http://boxcatstudio.files.wordpress.com/2009/07/template.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/template.jpg' width='' height='' alt='' title=''></a>[/caption]</p>
-
-<p>최근 150 개에 가까운 야구 통계 데이터를 어떻게 저장할 것인지를 구글 스프레드시트에서 디자인 중이다.</p>
-
-<p>나와 DBA, 그리고 기획팀장 이렇게 세 명이서 하나의 스프레드시트를 열어 두고 동시에 편집을 하고 있는데, 정말 이건 한마디로 놀라운 경험이다. 굳이 프로젝터가 있는 회의실을 예약하지 않아도, 자기 자리에서 이야기하면서 바로 편집하면 금새 다른 사람의 화면에 적용이 되기 때문이다. 물론 타이핑까지 실시간으로 보이는 건 아니고, 다른 사람이 선택한 셀 정도만 보이고 입력한 결과가 적당한 시간 후에 반영되는 스타일이긴 하지만, 이 정도 만으로도 충분히 멋진 기능이라 하겠다.</p>
-
-<p>필요하면 Discuss 창에서 바로 채팅을 할 수도 있지만, 그냥 말로 이렇게 이야기하면 된다.</p>
-
-<p>&#8220;이거 이거 이상한데 수정해주세요.&#8221;</p>
-
-<p>만약 SVN으로 엑셀 파일을 공유하고 있었다면, 그 지겨운 update - commit 을 반복했어야 했으니 얼마나 끔찍한 일인가. 그저 웹페이지를 열어두고만 있으면 조만간 최신 문서로 수정이 되는 멋진 세상이 도래했도다. 이제 <a href="http://docs.google.com/templates">템플릿 기능</a>도 지원하기 시작했으니, 머지않아 지구가 정복될 것이니라&#8230;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/07/11/game-development-meme/">Game Development Meme</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2008-07-11T07:18:53+09:00" pubdate  data-updated="true" >Jul 11<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class="posthead">요즘 웬지 [Software Development Meme](http://www.wintellect.com/CS/blogs/jrobbins/archive/2008/07/10/software-development-meme.aspx)라는 게 유행하던데, 아무도 안 시켜 줘서 혼자서라도 한번 써본다.</div>
-
-
-<div class="postcontent">
-
-**몇 살 때 게임 개발을 시작했나요?**
-
-현업 게임이라면 그때가 지구가 멸망한다던 1999년의 8월쯤이었으니, 스물 다섯살인가? 아마추어 게임이라면 97년도의 그 유명한 무빙 채팅 머신이니까 스물 세살 쯤 되겠다.
-
-**어떻게 게임 개발을 시작하게 되었는가? **
-
-대구 삼성소프트웨어 멤버쉽에서 학과 아해들과 2D 그래픽 머드(요즘 말로 치면 2D MMORPG)를 만든답시고 까불다가, 맨날 스타랑 디아블로만 하고 놀다가, 시험도 치고 술도 먹고 하다 보니 흐지부지 되어버렸다. 역시 아마추어로는 되는게 없겠다 싶던 찰나, 서울서 게임을 만들고 있던 후배 녀석이 꼬시는 바람에 급작스럽게 상경해서 프로젝트를 시작하게 되었다.
-
-**게임 개발을 처음 시작했을 때의 개발 환경은? **
-
-Linux 2.0 대 커널 + GCC 2.x + VI 로 서버랑 네트워크 라이브러리를 개발했다. 참고로, 상경 당시 자바 코드에 심취했던때라, 코드에다가 exception throw-catch 로 도배한 걸로 10년째 갈굼을 당하고 있다.
-
-**최초로 개발한 상용 게임은 어떤 게임이었나? **
-
-다크에덴([http://darkeden.com](http://darkeden.com)). 아직도 절찬리에 서비스중인 초장수 게임. 만들면서도 우여 곡절이 많은 게임이었다. 하핫.
-
-**게임을 개발해오면서 사용했던 프로그래밍 언어들은? **
-
-C++, VB.NET, LUA, Python, Mysql, SQL Server, XML, YAML
-
-**다시 직업을 선택하라고 해도 또 게임 개발을 선택할 것인가?**
-
-흐음. 요즘 주위에 아픈 사람이 종종 생기면서 틈틈히 의사가 되는게 좋지 않았을까 싶긴 하다만&#8230; 집안에 돈만 많다면 또 이 직업을 택하지 않을까 싶다. 대신 절대 회사 주식을 돈 주고 사지는 않으리.
-
-**신입 게임 개발자에게 알려주고픈 딱 한가지만 고른다면? **
-
-학교에서 데이터 구조랑, 시스템 프로그래밍, 어셈블리 수업 시간에 딴 짓을 하지 마라.  그러다 보면 단순 라이브러리 사용자가 될 뿐이다. 오래 살아남는 사람은 기초가 튼튼한 사람이다.
-
-**게임 개발을 하면서 가장 감동적이었던 것은? **
-
-쉬귀 블로그에 붐붐차차 다시 서비스해달라는 플레이어들의 리플이 달렸을 때.
-
-**다음 사람은? **
-
-쑥갓. 소니.
-
-</div>
-
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -663,6 +282,642 @@ C++, VB.NET, LUA, Python, Mysql, SQL Server, XML, YAML
 <p>DISABLED<em> : 임시로 테스트를 실행하지 않으려면 코멘트로 막는 대신 이름 앞에다가 DISABLED</em> 를 붙이면 된다.</p>
 
 <p>대충 기능만 훑어봤는데도 이 넘들이 진짜 테스트에서 귀찮은 게 무엇인지를 잘 알고 만들었다는 느낌이 든다. 멋진 놈들이란 말이야</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/02/google-trends/">Google Trends</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-02T07:37:19+09:00" pubdate  data-updated="true" >Jul 2<span>nd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class='' src='http://www.google.com/intl//trends/logo_sm.gif' width='' height='' alt='' title=''></p>
+
+<p><a href="http://google.com/trends">구글 트렌드</a>는 <a href="http://googlekoreablog.blogspot.com/2008/06/blog-post_27.html">구글 검색의 패턴 및 통계를 보여주는 서비스</a>다. 이번에 뭔가 리뉴얼되었다길래 한번 구경해봤다.</p>
+
+<p>가장 먼저 요즘 사내 이슈가 되고 있는 오픈 베타 서비스 시기는 언제로 하면 좋을까? 를 알아보기 위해 baseball 을 검색해봤다.</p>
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/baseball.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/baseball.png' width='' height='' alt='' title=''></a></p>
+
+<p>사실 정답은 MLB 일정과 맞춰야 한다는 뻔한 놈인데, 이건 baseball + MLB로 검색해보면 알 수 있다. 여기서 연관어의 중요성을 알 수 있다. :)</p>
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**baseball** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="70">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**mlb** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="21">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.30</td>
+</tr>
+</tbody></table>
+
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/baseball_mlb.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/baseball_mlb.png' width='' height='' alt='' title=''></a></p>
+
+<p>즉 무조건 내년 3월에는 오픈을 해야 한다는 소리가 된다. ㅠㅠ 뭐 이미 각오하고 있는 바이므로 이번엔 다른 걸 검색해보자. 미국에 야구 팬은 많은데 그 중에서 얼마나 많은 사람들이 야구 게임을 즐길까? 라는 고전적인 의문의 답을 찾아보고 싶었지만, 특별히 떠오르는 검색어가 없으므로 online baseball 과 fantasy baseball 을 찾아봤다.</p>
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**online baseball** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="20">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**online baseball game** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="2">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.10</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**fantasy baseball** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="70">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#ff9900"></td>
+</tr>
+</tbody></table>
+</td>
+<td>3.50</td>
+</tr>
+</tbody></table>
+
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/onlinebaseball_fantasybaseball.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/onlinebaseball_fantasybaseball.png' width='' height='' alt='' title=''></a></p>
+
+<p>역시나 아직까지 미국 온라인 야구 시장은 실제 데이터를 기본으로 하는 환타지 야구에 비하면 10-20% 밖에 안되는 모양이다. (그리고 환타지 야구 역시 MLB 일정을 따라가고 있는 걸 확인할 수 있다.)</p>
+
+<p>이번엔 우리의 적(이라고 쓰고 큰형님이라고 읽는다)인 MLB 시리즈들을 살펴보자.</p>
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**mlb 08** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="24">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**mlb 07** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="30">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.20</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**mlb the show** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="69">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#ff9900"></td>
+</tr>
+</tbody></table>
+</td>
+<td>2.80</td>
+</tr>
+</tbody></table>
+
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/mlb08.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/mlb08.png' width='' height='' alt='' title=''></a></p>
+
+<p>웬지 매년 출시할 때마다 인기가 높아진다는 느낌이 든다. 아마도 판매량이 가장 높은 시기는 1사분기이리라. 웬지 씁쓸하니 이번엔 우리 게임에 대해서 한번 알아볼까 한다.</p>
+
+<div style="padding-bottom:5px;padding-top:12px;">
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**real baseball** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="22">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**cal ripken** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="70">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>3.15</td>
+</tr>
+</tbody></table>
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**online baseball game** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="21">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#ff9900"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.95</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/calripken.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/calripken.png' width='' height='' alt='' title=''></a></p>
+
+<p>우리 게임이 Ultimate baseball Online 에서 Cal Ripken&#8217;s Real Baseball로 이름을 바꾼게 올초였는데, 검색 패턴은 립켄 횽아랑 비슷한 것 같다. 더이상 자세한 설명은 구차하므로 생략한다.</p>
+
+<p>다른 게임들은 어떨까? 팡야를 살펴보면 아마도 태국 > 인도네시아 > 필리핀 순으로 동남아에서 인기를 끄는 모양이다. 그런데 올초 Wii용 팡야가 출시되었음에도 검색 빈도가 점점 시들해지고 있다. ^<sup>;;;</sup></p>
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/pangya.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/pangya.png' width='' height='' alt='' title=''></a></p>
+
+<p>헬게이트 런던, 헉슬리, 길드워를 검색해보면 웬지 안타깝다.</p>
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**hellgate london** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="70">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**guild war** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="10">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.15</td>
+</tr>
+</tbody></table>
+
+
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**huxley** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="24">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#ff9900"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.35</td>
+</tr>
+</tbody></table>
+
+
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/hellgate.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/hellgate.png' width='' height='' alt='' title=''></a></p>
+
+<p>이 외에도 Wii, 엑박, PS3 등 3대 콘솔들을 검색해보면 웬지 크리스마스때 장사가 잘 되는 모양이다.</p>
+
+<div style="padding-bottom:5px;padding-top:12px;">
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**wii** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="70">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#4684ee"></td>
+</tr>
+</tbody></table>
+</td>
+<td>1.00</td>
+</tr>
+</tbody></table>
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**xbox 360** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="36">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#dc3912"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.52</td>
+</tr>
+</tbody></table>
+<table style="display:inline;" border="0">
+<tbody>
+<tr>
+<td style="white-space:nowrap;padding:0;">**ps3** </td>
+<td>
+<table class="bar" style="height:4px;" border="0" cellspacing="0" width="48">
+<tbody>
+<tr>
+<td style="display:block;" bgcolor="#ff9900"></td>
+</tr>
+</tbody></table>
+</td>
+<td>0.70</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<div style="padding-bottom:5px;padding-top:12px;"><a href="http://boxcatstudio.files.wordpress.com/2009/07/console.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/console.png' width='' height='' alt='' title=''></a></div>
+
+
+<div style="padding-bottom:5px;padding-top:12px;"></div>
+
+
+<div style="padding-bottom:5px;padding-top:12px;">음&#8230; 피곤해서 오늘 검색 놀이는 여기까지. 뭔가 의미있는 통계 정보를 알아내려면 정확한 검색어와 연관어를 잘 찾아야 한다는 게 오늘의 교훈이 아닐까 싶다.</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/02/google-apps/">Google Apps</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-07-02T06:26:04+09:00" pubdate  data-updated="true" >Jul 2<span>nd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class='' src='http://www.google.com/a/help/intl/ko/images/150x55.gif' width='' height='' alt='' title=''></p>
+
+<p>회사 법인 카드를 빌려서 냉큼 <a href="http://google.com/a">google apps</a>를 신청했다. 비용은 고작 도메인값 $10/year.</p>
+
+<p>예전에 이 서비스가 처음 나왔을 때 .com 이름으로 하려다가 <a href="http://whois.co.kr/">whois.co.kr</a>에서 CName 레코드 편집을 지원해주지 않아서 포기했다가, N모사에서 <a href="http://google.com/a">google apps</a>로 거의 마이그레이션했다는 이야기를 듣고 용기를 내서, 오늘자로 .net 이름을 구글에서 바로 등록해버렸다.</p>
+
+<p>우리 회사의 경우 미국 본사랑 한국 지사 2군데에서 동시 접근 가능한 솔루션이 필요한데, 본사에다 설치하면 우리는 방화벽 + VPN 을 통해서 접근해야 해서 속도도 느리고, 또 주기적으로 시스템 보안 체크도 해줘야 하는 부담이 있다. (패스워드 1234로 쓰는 사람 정말 싫다..) 반대로 우리 인트라넷을 본사의 누군가가 접근하도록 포트를 열어주는 일도 생각보다 피곤한 일이다. 이걸 구글로 옮기면 속도도 빠르고 보안 관리도 신경쓰지 않아도 되니, <a href="http://news.cnet.com/8301-10784_3-9875714-7.html">쿠웨이트에서 발생한 ISP 캐시 문제</a> 같은 일만 안생기면 진짜 편할텐데&#8230; 회사 자산을 외부에 둔다는 걸 설득하는 일이 만만치 않아서 포기하고 있는 상태다.</p>
+
+<p>게다가, 일전에 <a href="http://www.37signals.com/">37signals</a> 의 <a href="http://www.basecamphq.com/">basecamp</a> 서비스를 전사적으로 도입했다가 특유의 느린 반응 속도 때문에, 서서히 용도폐기되어 가는 걸 직접 겪었기 때문에, 이번에는 큰 욕심 없이 우리 회사 DBA랑 단둘이서 <a href="http://docs.google.com">google docs</a>랑 캘린더 위주로 테스트 삼아 써볼 계획이다. 쓰다가 효용성을 깨닫게 되면 어떻게든 누군가에게 전파되려니 하고 &#8216;긍정적&#8217;으로 생각중이다. 흘흘.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/22/teamwork-talent/">Teamwork &gt; Talent</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-05-22T09:04:25+09:00" pubdate  data-updated="true" >May 22<span>nd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>*&#8221;Talent wins games, but teamwork and intelligence wins championships.&#8221;* **<a class="extiw" title="Wikipedia:Michael Jordan" href="http://en.wikipedia.org/wiki/Michael_Jordan"></a>**</p><p>**[Michael Jordan](http://en.wikipedia.org/wiki/Michael_Jordan)**</p></blockquote>
+
+
+<p>from <a href="http://developer.valvesoftware.com/wiki/Successful_Mod_Team_Tips">valve wiki</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/03/libjingle/">Libjingle</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-05-03T07:35:19+09:00" pubdate  data-updated="true" >May 3<span>rd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>어제 출시된 <a href="https://partner.steamgames.com/documentation/api">SteamWorks 1.0 API</a> 을 살펴보다가 얘네들이 <a href="http://code.google.com/apis/talk/libjingle/index.html">libjingle </a>을 쓰고 있다는 사실을 발견했다.</p>
+
+<blockquote><p>libjingle is a collection of open-source C++ code and sample applications  that enables you to build a peer-to-peer application. The code handles  creating a network connection (through NAT and firewall devices, relay  servers, and proxies), negotiating session details (codecs, formats,  etc.), and exchanging data. It also provides helper tasks such as parsing  XML, and handling network proxies.</p></blockquote>
+
+
+<p>시간이 꽤 흘러 또 기억이 가물가물해졌지만, 역시나 홀펀칭은 <a href="http://www.ietf.org/rfc/rfc3489.txt">STUN</a> 인가보다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/01/customize-wordpress-prologue-theme/">Customize Wordpress Prologue Theme</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-05-01T09:45:40+09:00" pubdate  data-updated="true" >May 1<span>st</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/prologue.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/prologue-269x300.png' width='' height='' alt='' title=''></a></p>
+
+<p>이런 저런 스트레스가 머리끝까지 다다른 어느날, 불현듯 팀 내에 저레벨(?) 커뮤니케이션의 필요성이 느껴져서, 얼마전부터 <a href="http://wordpress.com/blog/2008/01/28/introducing-prologue/">prologue </a>테마를 한글화해서 뒷담화 온라인이라는 이름으로 절찬리에 운영중이다. 며칠 쓰다보니 외부 링크를 보다 손쉽게 추가할 수 있게 해달라는 요청이 들어와서, Custom Field 를 저장하고 보여주는 기능을 구현해봤다.</p>
+
+<p>가장 먼저 post-form.php 에 link 라는 이름의 input text 필드를 추가했다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&lt;input type=&quot;text&quot; name=&quot;link&quot; id=&quot;link&quot; autocomplete=&quot;off&quot;  /&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이걸 link 라는 이름의 custom field 로 저장하기 위해서 function.php 에 다음과 같은 함수와 콜백을 추가했다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">function add_link_custom_field($post_id) {</span>
+</span><span class='line'><span class="x">if( $_POST[&#39;link&#39;] ) {</span>
+</span><span class='line'><span class="x">add_post_meta($post_id, &#39;link&#39;, $_POST[&#39;link&#39;], true) or update_post_meta($post_id, &#39;link&#39;, $_POST[&#39;link&#39;]);</span>
+</span><span class='line'><span class="x">}</span>
+</span><span class='line'><span class="x">}</span>
+</span><span class='line'><span class="x">add_action(&#39;publish_post&#39;, add_link_custom_field );</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이제 글을 작성할 때마다 link 폼으로 넘어온 값이 custom field 에 저장이 될 것이다. 다음은 이걸 화면에 아이콘으로 보여주는 코드를 살펴보자.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$links</span> <span class="o">=</span> <span class="nx">get_post_custom_values</span><span class="p">(</span><span class="s1">&#39;link&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$links</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="k">echo</span> <span class="s2">&quot;&lt;a href=&#39;&quot;</span> <span class="o">.</span> <span class="nv">$links</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;&#39;&gt;&lt;img src=&#39;/blog/wp-content/uploads/link.jpg&#39;  /&gt;&lt;/a&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>가끔은 정형화된 인트라넷에서는 쏟아낼 수 없는, 너무 소소하고 쓸데없는 잡담들을 펼쳐줄 공간이 회사원에게는 필요할지도 모르겠다. 물론 그걸 악용하고 소모적으로 사용하는 경우는 없어야겠지만. 결국은 쓰는 사람이 그 선을 잘 지켜줘야 할 게다. 그런 의미에서 확실히 자신의 얼굴을 보여준다는 건 참 괜찮은 아이디어인 듯하다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/04/15/boost-with-visual-studio-2008-express/">Boost With Visual Studio 2008 Express</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-04-15T08:21:55+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>visual studio express 시리즈들이 커맨드라인 빌드를 지원하지 않는다고만 알고 있었는데, 구글님께 여쭤보니 역시나 해결책이 있었다.</p>
+
+<blockquote><p>bjam &#8211;toolset=msvc-9.0express &#8211;with-system &#8211;with-thread &#8211;with-date_time &#8211;with-regex &#8211;with-serialization &#8211;with-test &#8211;stagedir=. debug release link=static runtime-link=shared threading=multi stage</p></blockquote>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/04/05/boost-135/">Boost 1.35</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2008-04-05T19:23:38+09:00" pubdate  data-updated="true" >Apr 5<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>지난 달에 boost 1.34.1 을 일년만에 업그레이드해서 소스 트리에 넣었다가 느리다는 불평을 많이 들었는데, 금방 <a href="http://boost.org/users/news/version_1_35_0">1.35가 나와버렸다</a>. 이번에는 <a href="http://boost.org/libs/asio/index.html">ASIO 가 정식으로 포함</a>되었고, 그 외에 <a href="http://boost.org/libs/circular_buffer/index.html">Circular Buffer</a> 라든지 <a href="http://boost.org/libs/interprocess/index.html">Interprocess </a>같은 라이브러리들이 새로 추가되었다.</p>
+
+<p>이 정도라면 boost 만으로도 game server 을 만들어내도 될 법한 분위기렸다. 누가 boost.reliable_udp 이라든지 boost.patch, boost.crash_dump 같은 거 만들어줬으면&#8230;</p>
 </div>
   
   

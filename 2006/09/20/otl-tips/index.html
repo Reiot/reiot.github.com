@@ -246,7 +246,7 @@ return false;
 
 <h3>테스트 결과</h3>
 
-<p>1000개의 단순쿼리(})를 ThreadPooling을 이용해서 처리, 그 시간을 살펴보았다. 첫번째를 제외하고는 모든 상황에서</p>
+<p>1000개의 단순쿼리(SELECT COUNT(*) FROM XXX)를 ThreadPooling을 이용해서 처리, 그 시간을 살펴보았다. 첫번째를 제외하고는 모든 상황에서</p>
 
 <pre><code>- NO_POOLING : 매 작업마다 재연결 시도
 - POOLING : 단지 ODBC Connection Pooling 옵션만 설정하고 위와 같음

@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>django template 에서 . 첨자 연산의 처리 순서 1. {{ ... - Social Reiot</title>
+  <title>django template . 연산자 처리 순서 - Social Reiot</title>
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="django template 에서 . 첨자 연산의 처리 순서  1.  == dict[key]  2.  == obj.property  3.  == obj.func()  4.  == array[2]">
+  <meta name="description" content="django template 에서 . 첨자 연산의 처리 순서{{ dict.key }} : dict[key]{{ obj.property }} : obj.property{{ obj.func }} : obj.func(){{ array.2 }} : array[2]">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -63,7 +63,7 @@
   
   <header>
     
-      <h1 class="entry-title">Django Template 에서 . 첨자 연산의 처리 순서 1. {{ ...</h1>
+      <h1 class="entry-title">Django Template . 연산자 처리 순서</h1>
     
     
       <p class="meta">
@@ -84,7 +84,15 @@
   </header>
 
 
-<div class="entry-content"><p>django template 에서 . 첨자 연산의 처리 순서  1.  == dict[key]  2.  == obj.property  3.  == obj.func()  4.  == array[2]</p>
+<div class="entry-content"><p>django template 에서 . 첨자 연산의 처리 순서</p>
+
+<ol>
+<li>{{ dict.key }} : dict[key]</li>
+<li>{{ obj.property }} : obj.property</li>
+<li>{{ obj.func }} : obj.func()</li>
+<li>{{ array.2 }} : array[2]</li>
+</ol>
+
 </div>
 
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="app engine 을 도메인 인증만으로 서비스하려면, 생성 시점에서 설정해야 한다. 일단 설정하면 바꿀 수 없다.">
+  <meta name="description" content="http://www.futurecolors.ru/jquery/ JQuery 1.4 Cheat Sheet">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,246 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/19/app-engine/">App Engine 을 도메인 인증만으로 서비스하려면, 생성 시점에서 설&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-19T04:48:00+09:00" pubdate  data-updated="true" >Feb 19<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>app engine 을 도메인 인증만으로 서비스하려면, 생성 시점에서 설정해야 한다. 일단 설정하면 바꿀 수 없다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/19/maptiler-wgs84-90-90-180/">Maptiler 문제 - WGS84 + 전체 영역(90 -90 180 -&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-19T01:26:00+09:00" pubdate  data-updated="true" >Feb 19<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>maptiler 문제  - WGS84 + 전체 영역(90 -90180 -180)로 할 경우, 이미지 상하단이 늘어진다.  - WGS84 + (00 9065)로 할 경우 웬지 뭔가가 안된다.  - raster tile 로 할 경우, 이미지 크기에 의존해서 2의 배수로 타일이 안생긴다. 이미지 크기를 256 단위로 맞춰야 한다. 또한 구글 타일 시스템과는 Y 값이 반대로 들어온다.  구글 타일 시스템  zoom level = z 일 경우, (0,0) ~ (2<sup>z-1,2<sup>z-1)</sup></sup> 타일이 생긴다. 단 스크롤을 계속 할 경우 타일 좌표는 계속 증가하거나 감소한다. getTileUrl 에서 적당히 wrap 시켜야 한다.  ex> 줌레벨 3 일 경우, 타일은 (0,0) ~ (7,7) 이 생긴다.  최종 성공 버전  0. 소스 이미지를 256 배수 정사각형으로 만든다. (직사각형도 되지만 별도의 타일 크기를 하드코딩해야 한다)  1. image based tile (raster)  2. georeference: 66.513260443111850 900  3. preview 시 적도 윗쪽 아프리카+유럽이 보이는 왜곡이 적은 부분이 잡혀야 함  4. 렌더링 후 각 타일들이 2의 승수만큼 존재하는지 체크.  5. 불필요한 kml 파일들은 삭제할 것.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/18/marker-animation-gif-ui-1-c/">Marker 에 Animation Gif 또는 별도의 UI 넣기 1. C&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-18T22:26:00+09:00" pubdate  data-updated="true" >Feb 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>marker 에 animation gif 또는 별도의 UI 넣기  1. custom overlay 로 구현하기  2. 원하는 마커를 찾아서 그 위에(z-index) 또는 옆에다가 UI 찍어보기.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/18/httpcodegooglecompgheat/">http://code.google.com/p/gheat/ 파이썬을 이용한&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-18T21:59:00+09:00" pubdate  data-updated="true" >Feb 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://code.google.com/p/gheat/">http://code.google.com/p/gheat/</a>  파이썬을 이용한 히트맵 오버레이 타일 만들기</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/18/contrib-3rd-party-libra/">프로젝트 폴더 안에 Contrib/ 를 두고 3rd Party Libra&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-18T20:45:00+09:00" pubdate  data-updated="true" >Feb 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>프로젝트 폴더 안에 contrib/ 를 두고 3rd party library 를 넣어둔 다음, PYTHON_PATH 에 추가하는 방법  main.py:  def main():  contrib_path = os.path.join( os.path.dirname(<strong>file</strong>), contrib )  sys.path.insert(0, contrib_path)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/18/git-clean-f-d-remote/">Git Clean -f -d . Remote 에서 폴더를 이동시켰을 때,&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-18T01:09:00+09:00" pubdate  data-updated="true" >Feb 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>git clean -f -d .  remote 에서 폴더를 이동시켰을 때, 로컬 폴더가 안지워지고 남아있는 경우</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/17/incoming-books-2/">Incoming Books</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-17T22:30:58+09:00" pubdate  data-updated="true" >Feb 17<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class='' src='http://image3.kangcom.com/2009/09/b_pic/2009F0534121.jpg' width='' height='' alt='' title=''> <img class='' src='http://image3.kangcom.com/2009/11/b_pic/2009F0705463.jpg' width='' height='' alt='' title=''> <img class='' src='http://image3.kangcom.com/2009/06/b_pic/2009F0189837.jpg' width='' height='' alt='' title=''></p>
-
-<p>회사 법인 카드로 주문한 책들입니다. 요즘 제가 어떤 걸 하는지 짐작이 가시죠? ^<sup>;;</sup></p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -416,6 +176,244 @@
 <p>정도가 아닐까 싶다. 근래에 들었던 이야기 중 가장 하일라이트였던 빈태군의 &#8220;너무 상식적이지 않은 이야기는 나는 잘 모르겠다..&#8221; 에 비할 명언 되겠다. ㅋㅋ</p>
 
 <p>임팩트 있던 초반에 비해, 후반부로 가면서 좀 지루해지는 감도 없지 않지만 정말 일독을 권한다. 별은 5개.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/11/httppypipythonorgpypidecorator/">http://pypi.python.org/pypi/decorator 데코&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-11T18:11:00+09:00" pubdate  data-updated="true" >Feb 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://pypi.python.org/pypi/decorator">http://pypi.python.org/pypi/decorator</a>  데코레이터를 만들어주는 데코레이터. @trace @deprecated 등을 만들어볼 수 있다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/10/javascript-array-0-base-inde/">Javascript Array 를 키 없이 쓸 경우 0-base Inde&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-10T21:11:00+09:00" pubdate  data-updated="true" >Feb 10<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>javascript Array 를 키 없이 쓸 경우 0-base index 를 써서  for( var i = 0; i &lt; arr.length; i = i + 1 )  을 할 수 있지만, associative array 로 쓸 경우에는  for ( key in arr )  로 써야 한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/10/basemodel-django-serializerjson-s/">BaseModel =&gt; Django Serializer(json) : S&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-10T16:08:00+09:00" pubdate  data-updated="true" >Feb 10<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>BaseModel => django serializer(json): str has no _meta error.  커스텀 serializer 를 만들었지만 circular reference detected 에러 발생.  결국은 직렬화용 딕셔너리에 수동 삽입해서 simplejson 으로 보냄. ㅠㅠ</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/09/gql-in-subquery/">GQL 의 in 이나 != 연산자는 내부적으로 Subquery 로 이루어&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-09T21:19:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>GQL 의 IN 이나!= 연산자는 내부적으로 subquery 로 이루어진다.  최대 30개 이상은 할 수 없다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/09/django-test-app-testspy/">Django Test App 폴더에 tests.py 를 넣어두면 끗.</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-09T20:32:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>django test  app 폴더에 tests.py 를 넣어두면 끗.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/09/python-custom-property/">Python Custom @property 들은 인스턴스가 아니라 클래스&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-09T19:28:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>python custom @property 들은 인스턴스가 아니라 클래스의 <strong>dict</strong> 안에 있다.  dir(obj) 로도 검색할 수 있다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/09/simplejsondumps-is-not-json-serial/">simplejson.dumps() 에서 Is Not JSON Serial&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-09T18:23:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>simplejson.dumps() 에서 is not JSON serializable 에러가 날 경우, 직렬화가 안되는 객체라는 의미이다.  default 파라미터에 함수를 넘겨, 일반 파이썬 객체로 바꿔주도록 한다.  def serialize_helper(obj):  if isinstance(obj,BaseModel):  def <em>MakeReprTuple(prop_name):  prop = getattr(obj.<strong>class</strong>, prop_name)  return (prop_name, prop.get_value_for_datastore(obj))  return dict([</em>MakeReprTuple(prop_name) for prop_name in obj.properties()])  return obj</p>
 </div>
   
   

@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="restful web service 요약  http://www.xml.com/pub/a/2004/12/01/restful-web.html  PUT for create, POST for update.  GET object-list/ > get all objects ...">
+  <meta name="description" content="XHTML validation 을 통과하려면 자바스크립트 영역에 CDATA 섹션을 설정할 것.  //">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,244 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/09/restful-web-service-httpwwwxmlco/">Restful Web Service 요약 http://www.xml.co&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-09T14:45:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>restful web service 요약  <a href="http://www.xml.com/pub/a/2004/12/01/restful-web.html">http://www.xml.com/pub/a/2004/12/01/restful-web.html</a>  PUT for create, POST for update.  GET object-list/ > get all objects  PUT object-list/ > create new object  GET object/id/ > get single object  POST object/id/ > update ..  DELETE object/id/ > delete ..  <a href="http://jcalcote.wordpress.com/2008/10/16/put-or-post-the-rest-of-the-story/">http://jcalcote.wordpress.com/2008/10/16/put-or-post-the-rest-of-the-story/</a>  Create = PUT iff you are sending the full content of the specified resource (URL).  Create = POST if you are sending a command to the server to create a subordinate of the specified resource, using some server-side algorithm.  Retrieve = GET.  Update = PUT iff you are updating the full content of the specified resource.  Update = POST if you are requesting the server to update one or more subordinates of the specified resource.  Delete = DELETE.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/09/httpwwwtoddreednamecontentdjango/">http://www.toddreed.name/content/django-&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-09T01:16:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.toddreed.name/content/django-view-class/">http://www.toddreed.name/content/django-view-class/</a>  View 를 클래스로 만드는 방법.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/06/datastore-query-filter-fo/">Datastore Query() 는 Filter 만 해서는 템플릿의 Fo&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-06T07:49:00+09:00" pubdate  data-updated="true" >Feb 6<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>datastore Query() 는 filter 만 해서는 템플릿의 for 로 넘길 수 없다. fetch 를 해야 실제로 가져와서 iterating 할 수 있다.  issues = Issue.all().filter(owner =, user )  logging.info(#issues=%d%issues.count())  return {  issues: issues.fetch(1000),  }</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/05/datastore-python-api-overview/">Datastore Python API Overview</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-05T23:00:00+09:00" pubdate  data-updated="true" >Feb 5<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>소개  entity == ROW</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/05/div-my/">주기적으로 특정 DIV 의 값을 최신으로 바꾸고 싶을 때. $(&#039;#my&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-05T16:28:00+09:00" pubdate  data-updated="true" >Feb 5<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>주기적으로 특정 DIV 의 값을 최신으로 바꾸고 싶을 때.  $(#my-profile).load(/profile/myname);  <a href="http://api.jquery.com/load/">http://api.jquery.com/load/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/05/settingspy-timezone-asiaseoul/">settings.py TIME_ZONE = &#039;Asia/Seoul&#039;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-05T16:25:00+09:00" pubdate  data-updated="true" >Feb 5<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>시간 및 언어 설정하기  settings.py  TIME_ZONE = Asia/Seoul  LANGUAGE_CODE = ko-KR</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/04/parseint-parsefloat-evaluation/">parseInt, parseFloat 는 Evaluation 을 하지 않&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-04T19:55:00+09:00" pubdate  data-updated="true" >Feb 4<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>parseInt, parseFloat 는 evaluation 을 하지 않는다. 수식일 경우 eval 을 사용할 것.  eval(10/20) = 0.5;</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -359,7 +121,27 @@
   </header>
 
 
-  <div class="entry-content"><p>url 하드코딩 하지 않기  - 템플릿에서 {%  url view-name arg1, arg2    %} 라고 하면, /reversed-url/arg1/arg2/ 로 바뀐다.  see also <a href="http://docs.djangoproject.com/en/dev/ref/templates/builtins/#url">http://docs.djangoproject.com/en/dev/ref/templates/builtins/#url</a>  - 뷰에서는 reverse(view-name,args=[arg1,arg2]) 를 사용하면 url 로 바뀐다.  ex>  return HttpResponseRedirect(reverse(arch-summary, args=[1945]))  이때 뷰 이름은 urlconf 에서 다음과 같이 지정해야 된다.  url( pattern, view, name=view-name )  see also <a href="http://docs.djangoproject.com/en/dev/topics/http/urls/#reverse">http://docs.djangoproject.com/en/dev/topics/http/urls/#reverse</a></p>
+  <div class="entry-content"><p>url 하드코딩 하지 않기</p>
+
+<ul>
+<li>템플릿에서 {%  url view-name arg1, arg2    %} 라고 하면, /reversed-url/arg1/arg2/ 로 바뀐다.</li>
+</ul>
+
+
+<p>see also <a href="http://docs.djangoproject.com/en/dev/ref/templates/builtins/#url">url</a></p>
+
+<ul>
+<li>뷰에서는 reverse(view-name,args=[arg1,arg2]) 를 사용하면 url 로 바뀐다.</li>
+</ul>
+
+
+<p>ex>  return HttpResponseRedirect(reverse(arch-summary, args=[1945]))</p>
+
+<p>이때 뷰 이름은 urlconf 에서 다음과 같이 지정해야 된다.</p>
+
+<p>url( pattern, view, name=view-name )</p>
+
+<p>see also <a href="http://docs.djangoproject.com/en/dev/topics/http/urls/#reverse">reverse</a></p>
 </div>
   
   
@@ -394,6 +176,244 @@
 
 
   <div class="entry-content"><p>django 템플릿에서는 elif elseif 가 없다.  오직 if - else - endif 의 조합으로만 잘 사용해야 한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/02/httpwwwjakpsatwebczcsscss-vertica/">http://www.jakpsatweb.cz/css/css-vertica&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-02T21:41:00+09:00" pubdate  data-updated="true" >Feb 2<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.jakpsatweb.cz/css/css-vertical-center-solution.html">http://www.jakpsatweb.cz/css/css-vertical-center-solution.html</a>  div 의 가로/세로 가운데에 배치하기</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/02/form-submit/">Form 의 버튼이 여러개일 경우 클릭시 기본적으로 Submit 이 호출&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-02T17:43:00+09:00" pubdate  data-updated="true" >Feb 2<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>form 의 버튼이 여러개일 경우 클릭시 기본적으로 submit 이 호출된다.  button 태그를 a 로 바꾸면 해결됨.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/02/django-i18n-osx-app-project/">Django I18n 사용법(OSX 기준) 각 App 또는 Project&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-02T15:24:00+09:00" pubdate  data-updated="true" >Feb 2<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>django i18n 사용법(OSX 기준)  각 app 또는 project 폴더에 locale 폴더를 만든다.  > django-admin.py makemessages -l ko  gettext 가 없다고 나오면  > sudo port install gettext  만약 port 가 없으면 <a href="http://darwinports.com/download/">http://darwinports.com/download/</a> 에서 darwinports 를 다운받아서 설치. /opt/local/bin 을 PATH 에 추가.  > sudo port -d selfupdate</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/01/httpallbuttonspressedblogspotcom20/">http://allbuttonspressed.blogspot.com/20&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-01T22:32:00+09:00" pubdate  data-updated="true" >Feb 1<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://allbuttonspressed.blogspot.com/2010/01/native-django-on-app-engine.html">http://allbuttonspressed.blogspot.com/2010/01/native-django-on-app-engine.html</a>  app engine native django 의 기능 제한</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/01/urlconf-include-redirect-root/">Urlconf Include + Redirect 구현 방법 # ROOT &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-01T21:33:00+09:00" pubdate  data-updated="true" >Feb 1<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>urlconf include + redirect 구현 방법  # ROOT urls.py  from django.conf.urls.defaults import *  urlpatterns = patterns(,  (r<sup>example/,</sup> include(apps.example.urls) ),  (r<sup>user_config/,</sup> include(apps.user_config.urls) ),  (r<sup>demo/,</sup> include(apps.game.urls) ),  (r<sup>$,</sup> django.views.generic.simple.redirect_to, { url: /demo/ }),  )  # 자식 urls.py  from django.conf.urls.defaults import *  from django.views.generic.simple import direct_to_template  urlpatterns = patterns(apps.example.views,  (r<sup>custom_map/$,</sup> custom_map_page),  (r<sup>$,</sup> index_page),  )  요약  - urlconf 에서 문자열로 바인딩할 때, ROOT 이든 하위 app 이든, 모듈 경로는 절대 경로여야 한다.  - 문자열 모듈들은 from  import 로 축약되지 않는다.  - redirect_to 의 경우에도 문자열이므로 절대 경로 써야 한다.  - 하위 모듈이 들어가 있는 폴더에는 무조건 <strong>init</strong>.py 넣을 것.  - 부모 urls.py 에서 include 할 때 $ 없어야 함  - 단, 하위 app urls.py 에서는 ^$ 사용해야 한다.  - 무조건 모든 폴더 경로에 / 를 넣으면 있든 없든 장고가 알아서 해준다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/01/initpy/">프로젝트 하위 폴더에는 무조건 __init__.py 를 만들 것. 패키지&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-01T21:17:00+09:00" pubdate  data-updated="true" >Feb 1<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>프로젝트 하위 폴더에는 무조건 <strong>init</strong>.py 를 만들 것.  패키지로 인식해야 된다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/01/v3-var-osmmap/">구글맵 V3 커스텀 이미지 맵을 베이스맵으로 사용하기 Var osmMap&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-01T19:57:00+09:00" pubdate  data-updated="true" >Feb 1<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>구글맵 v3 커스텀 이미지 맵을 베이스맵으로 사용하기  var osmMap = new google.maps.Map(document.getElementById(map-canvas));  var openStreet = new google.maps.ImageMapType({  getTileUrl: function(ll, z) {  var X = ll.x % (1 z);  // wrap  return http://tile.openstreetmap.org/ + z + / + X + / + ll.y + .png;  },  tileSize: new google.maps.Size(256, 256),  isPng: true,  maxZoom: 18,  name: OSM,  alt: Open Streetmap tiles  });  osmMap.mapTypes.set(osm, openStreet);  osmMap.setMapTypeId(osm);  osmMap.setOptions({  mapTypeControlOptions: {  mapTypeIds: [  osm  ],  }  });</p>
 </div>
   
   

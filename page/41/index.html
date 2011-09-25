@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="multiple result set + parameter binding- 캐릭터 정보 로딩과 같이, 하나의 프로시저에서 여러 테이블의 row 들을 select 하면서 파라미터도 바인딩해야 할 경우, static binding 으로는 구현할 수 없으며, CDynam...">
+  <meta name="description" content="[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 http://reiot.springnote.com/pages/87239 에서 읽으실 수 있습니다. I/O completion port 를 개발할 때 주의해야 할 사항들.1-Recv Rule하나의 소...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,999 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/06/05/ole-db-tips/">OLE DB Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-06-05T06:30:16+09:00" pubdate  data-updated="true" >Jun 5<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>multiple result set + parameter binding</h2>
-
-<pre><code>- 캐릭터 정보 로딩과 같이, 하나의 프로시저에서 여러 테이블의 row 들을 select 하면서 파라미터도 바인딩해야 할 경우, static binding 으로는 구현할 수 없으며, CDynamicParameterAccessor::GetParam()를 이용해야 한다.
-- 파라미터의 경우, select 해온 모든 result set 을 소진한 후, 가장 마지막에 읽어와야 한다. 즉 DB_S_NORESULT == GetNextResult(...); 를 실행한 후에만 유효하다는 뜻이다. 만약, 그 전에 읽게 되면 garbage 가 리턴된다.
-- Bind()와 무관하므로, GetInterface()!=NULL 체크를 할 필요가 없다.
-</code></pre>
-
-<h2>CCommand::Prepare()</h2>
-
-<p>한번 생성후 재사용하는 구조가 필요하다.</p>
-
-<h2>GetNextResult(rowCount)</h2>
-
-<p>웬지 계속 -1 이 넘어오는 걸로 봐서 뭔가 문제가 있는 듯? property 설정이 필요한가?</p>
-
-<h2>DateTime to String</h2>
-
-<pre><code>- VarBstrFromDate 이걸 써야 될까나~
-- use
-</code></pre>
-
-<p>HRESULT DataConvert (
-DBTYPE          wSrcType,
-DBTYPE          wDstType,
-DBLENGTH        cbSrcLength,
-DBLENGTH <em>      pcbDstLength,
-void </em>          pSrc,
-void <em>          pDst,
-DBLENGTH        cbDstMaxLength,
-DBSTATUS        dbsSrcStatus,
-DBSTATUS </em>      pdbsStatus,
-BYTE            bPrecision,
-BYTE            bScale,
-DBDATACONVERT   dwFlags);</p>
-
-<h2>Connection Pooling</h2>
-
-<pre><code>- SqlServer Provider 를 기반으로, ThreadPooling 을 이용해 쿼리를 할 경우, DataSource 가 1개이고 Session 이 N 개를 생성했다면, 실제 DB에 대한 연결은 N 개가 된다.
-- 즉, Session 이 내부적으로 연결 풀링을 사용하게 되므로, DataSource 객체는 1개만 만들어도 된다.
-</code></pre>
-
-<h2>어떤 Accessor 를 사용할 것인가?</h2>
-
-<p>MSDN 의 비교표를 간략하게 요약하면 다음과 같다.</p>
-
-<pre><code>- CAccessor : 매크로를 이용한 컴파일 타임 바인딩이므로 성능 면에서 가장 우수하지만, 쉽게 말해서 하드코딩이므로 귀찮은 작업들이 많다. 컬럼 및 파라미터 바인딩 모두 지원.
-- CDynamicAccessor : 런타임 바인딩. 따라서 컬럼 정보를 읽어와야한다. 대신 파라미터 바인딩은 불가능. 뭔가 컴파일 타임에 정보를 알기 힘든 경우, 또는 multiple result set 을 리턴하는 프로시저에 사용하면 된다.
-- CDynamicParameterAccessor : CDynamicAccessor 에 파라미터 바인딩 기능이 추가되었다. 당연히 더욱 느려졌다.
-- CDynamicStringAccessor : CDynamicAccessor 와 유사하지만 컬럼값을 스트링으로 리턴한다.
-- CManualAccessor : AddBindEntry(), AddParameterEntry() 를 이용해서 수동으로 컬럼과 파라미터를 바인딩한다. 아마 CAccessor 에 이어 두번째로 빠른 듯.
-- CXMLAccessor : CDynamicStringAccessor 와 같지만, XML 스트링의 형태로 컬럼값을 리턴한다.
-</code></pre>
-
-<p>성능적인 순서로 정렬해 본다면 대충 다음과 같지 않을까? (이건 본인의 추측)</p>
-
-<pre><code>- CAccessor &lt; CManualAccessor &lt; CDynamicAccessor &lt; CDynamicStringAccessor &lt; CXMLAccessor &lt; CDynamicParameterAccessor
-</code></pre>
-
-<p>단, 파라미터 바인딩을 지원하는 넘은 아래의 3가지 뿐이다.</p>
-
-<pre><code>- CAccessor
-- CManualAccessor
-- CDynamicParameterAccessor
-</code></pre>
-
-<p>see also</p>
-
-<pre><code>- [Which accessor should I use?](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/vcfaqwhichaccessorshouldiuse.asp) from MSDN
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/06/05/%E1%84%8B%E1%85%B1%E1%86%AB%E1%84%83%E1%85%A9%E1%84%8B%E1%85%AE%E1%84%8C%E1%85%B3%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A5-ip-%E1%84%87%E1%85%A9%E1%84%8B%E1%85%A1%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8E%E1%85%A2%E1%86%A8-%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/">윈도우즈에서 IP 보안 정책 설정하기</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-06-05T06:20:08+09:00" pubdate  data-updated="true" >Jun 5<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
-
-<p><em>그러나 가장 좋은 것은 뭐니뭐니해도 하드웨어 방화벽이다</em>. :)</p>
-
-<h2>보안 정책</h2>
-
-<p>보안 정책은 {IP 필터:필터 동작}의 매핑으로 이루어진다.</p>
-
-<ul>
-<li>IP 필터 - {src_ip,dest_ip,protocol,port,&#8230;} 으로 구성된다.</li>
-<li>필터 동작 - 위 IP 필터에 의해 걸러진 트래픽을 허용/보안요청/보안필요/거부할 것인지를 결정한다.</li>
-</ul>
-
-
-<p>기본적으로 3가지의 보안 정책이 존재한다. 단 OS 설치 초기에는 모든 정책이 꺼져 있다.</p>
-
-<ul>
-<li>서버(보안요청)</li>
-<li>클라이언트(응답만)</li>
-<li>보안 서버(보안필요)</li>
-</ul>
-
-
-<p>따라서, 우리는 새로운 커스텀 보안정책을 생성한 후 아래와 같이 필터와 동작들을 추가해야 한다.</p>
-
-<ul>
-<li>터미널 서비스 : 회사의 개발용 머신, IDC의 다른 컴퓨터들에서만 허용</li>
-<li>MSSQL : IDC의 다른 컴퓨터에서만 허용</li>
-<li>WWW : 방화벽 없슴</li>
-</ul>
-
-
-<h2>IP필터</h2>
-
-<h3>터미널 서비스</h3>
-
-<p>터미널 서비스는 TCP 3389 포트를 사용한다. 따라서, 기본적으로 터미널 서비스를 거부한 다음, 접근을 허용하고 싶은 컴퓨터의 IP만 지정해주면 간단하다. OS 방화벽을 함께 사용한 경우, TCP 3389 포트를 열어주는 것을 잊지 말자.</p>
-
-<p>반면, 특정 subnet에서만 터미널 서비스를 허용하려면 , 해당 subnet 이 시작하는 주소를 잘 지정해야 한다. 하긴 mask 만 잘 지정하면 적당한 대역의 IP를 넣으면 알아서 변환이 되니깐 별 관계는 없다만&#8230;</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>정책</th>
-<th>프로토콜</th>
-<th>원본주소</th>
-<th>원본포트</th>
-<th>대상주소</th>
-<th>대상포트</th>
-<th>필터동작</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>모든 터미널 서비스 거부</td>
-<td>TCP</td>
-<td>any</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>3389</td>
-<td>거부|</td>
-</tr>
-<tr>
-<td></td>
-<td>특정 컴퓨터의 터미널 서비스 허용</td>
-<td>TCP</td>
-<td>특정 컴퓨터 - IP 또는 DNS</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>3389</td>
-<td>허용|</td>
-</tr>
-<tr>
-<td></td>
-<td>특정 서브넷의 터미널 서비스 허용</td>
-<td>TCP</td>
-<td>특정 subnet- 시작 IP / subnet mask </td>
-<td>any </td>
-<td>서버의 IP </td>
-<td>3389 </td>
-<td>허용 |</td>
-</tr>
-</tbody>
-</table>
-
-
-<h3>SqlServer 에 대한 외부 접근 제어</h3>
-
-<p>SqlServer 는 TCP 1433, UDP 1433 포트를 사용한다. OS 방화벽을 함께 사용한 경우, 각 포트들을 열어주는 것을 잊지 말자. TCP/UDP에 대한 거부 필터를 2개 만들어서 추가한 뒤, 접근을 허용하고 싶은 서버를 허용 필터로 추가하면 된다. (보안의 기본적인 컨셉은 모두 막은 뒤 하나씩 풀어주는 것..이라고 누가 말했던가..)</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>정책</th>
-<th>프로토콜</th>
-<th>원본주소</th>
-<th>원본포트</th>
-<th>대상주소</th>
-<th>대상포트</th>
-<th>필터동작</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>SqlServer 외부 접근 거부</td>
-<td> TCP/UDP 각각 </td>
-<td>any </td>
-<td>any </td>
-<td>서버의 IP </td>
-<td>1433 </td>
-<td>거부 |</td>
-</tr>
-<tr>
-<td></td>
-<td>SqlServer 특정 서버 허용</td>
-<td> TCP/UDP 각각 </td>
-<td>특정 서버의 IP 또는 DNS </td>
-<td>any </td>
-<td>서버의 IP </td>
-<td>1433 </td>
-<td>허용 |</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/06/02/stl-tips/">STL Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-06-02T07:43:56+09:00" pubdate  data-updated="true" >Jun 2<span>nd</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p></p></blockquote>
-
-
-<blockquote><p>***이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 http://reiot.springnote.com/pages/87168에서 보실 수 있습니다.***</p></blockquote>
-
-
-<blockquote><p></p></blockquote>
-
-
-<h2>dll + STL</h2>
-
-<p>dll 에서 hash_set 을 멤버로 가진 클래스를 만들려다가 nested class 인 _Hash 라든지 hash_compare 등등을 모두 dllexport 하라길래 포기하고 PIMPL 패턴으로 해결해야만 했다.</p>
-
-<pre><code>- [How To Exporting STL Components Inside &amp; Outside of a Class](http://support.microsoft.com/default.aspx?scid=kb;EN-US;168958)
-</code></pre>
-
-<h2>boost::lambda</h2>
-
-<p>아래의 mem_fun_if 류와 비슷한 역할을 하는 것이 바로 boost::lambda 라이브러리다. 일단 아래처럼 포인터 컨테이너를 순회하면서 NOT NULL 일 경우에 특정 멤버 함수를 호출하는 예제를 살펴보자.</p>
-
-<blockquote><p>for_each( l.begin(), l.end(),<br/>if_then( _1 != constant((A*)NULL), bind( &A::print, _1 ) ) );</p></blockquote>
-
-
-<p>lambda 라이브러리를 사용하면 위와 같이 간단한 코드로 표현이 가능하다. 대신 컴파일 속도는&#8230; ㅠㅠ</p>
-
-<h2>mem_fun_if</h2>
-
-<p>일반적으로 포인터 컨테이너를 순회하면서 특정 조건을 만족할 경우 멤버 함수를 호출하는 패턴을 위한 자작 adapter function 이다. (물론 const 버전과 파라미터 1개를 받는 버전, 합쳐서 총 4개의 클래스와 4개의 함수를 만들어야 하지만&#8230; 시간상 생략)</p>
-
-<blockquote><p>template<class _Pred, class _Result, class _Ty><br/>class mem_fun_if_t : public unary_function<_Ty *, _Result><br/>{<br/>public:<br/>  explicit mem_fun_if_t( _Pred pred, _Result (_Ty::*_Pm)())<br/>: _pred(pred), _Pmemfun(_Pm), _count(0)<br/>  {<br/>  }</p><p>  // 단점이라면 멤버함수의 리턴값은&#8230; 도무지 캐치불가능&#8230;<br/>  bool operator()(_Ty *_Pleft) const<br/>  {<br/>  if ( _pred(_Pleft) )<br/>  {<br/>  ((_Pleft->*_Pmemfun)());<br/>_count++;<br/>  return true;<br/>  }<br/>  return false;<br/>  }</p><p>  int count() const { return _count; }</p><p>private:<br/>_Pred _pred;  // predicate<br/>_Result (_Ty::*_Pmemfun)(); // the member function pointer<br/>mutable int _count;<br/>};</p><p>template<class _Pred, class _Result, class _Ty><br/>inline<br/>mem_fun_if_t<_Pred,_Result, _Ty><br/>mem_fun_if(_Pred pred,_Result (_Ty::*_Pm)())<br/>{<br/>  return (mem_fun_if_t<_Pred,_Result, _Ty>(pred,_Pm));<br/>}</p></blockquote>
-
-
-<p>이를 이용한 샘플이다.</p>
-
-<blockquote><p>using namespace std;</p><p>class A<br/>{<br/>public :<br/>  explicit A( const string & s ): str(s) {}<br/>  void print() { cout <<str <<endl; }<br/>string str;<br/>};</p><p>#define not_null(T) bind2nd( not_equal_to<T*>(), (T*)0)</p><p>int _tmain(int argc, _TCHAR* argv[])<br/>{<br/>list<A*> l;<br/>l.push_back( new A(&#8220;Hello&#8221;) );<br/>l.push_back( NULL );<br/>l.push_back( new A(&#8220;World&#8221;) );<br/>l.push_back( NULL );<br/>l.push_back( new A(&#8220;!&#8221;) );</p><p>for_each( l.begin(), l.end(), mem_fun_if( bind2nd( not_equal_to<A*>(), (A*)0 ), &A::print ) );<br/>for_each( l.begin(), l.end(), mem_fun_if( not_null(A), &A::print ) );</p><p>  return 0;<br/>}</p></blockquote>
-
-
-<h2>if_not_null</h2>
-
-<p>다음은 포인터 컨테이너에서 NOT NULL 인 갯수를 찾는 코드이다.</p>
-
-<blockquote><p>count_if( l.begin(), l.end(),<br/>bind2nd( not_equal_to<A*>(), (A*)0 ) );</p></blockquote>
-
-
-<h2>ptr_fun and not1, not2</h2>
-
-<p>ptr_fun 은 말 그대로 pointer to function 이다.</p>
-
-<blockquote><p>template<class Arg, class Result><br/>pointer_to_unary_function<Arg, Result><br/>ptr_fun(Result (_*pfunc)(Arg));</p><p>template<class Arg1, class Arg2, class Result><br/>pointer_to_binary_function<Arg1, Arg2, Result><br/>ptr_fun(Result (_*pfunc)(Arg1, Arg2));</p><p>not1 은 unary_function 의 negate 이며, not2 는 binary_function 의 negate 이다.</p><p> </p><p><br/>template<class UnaryPredicate><br/>unary_negate<UnaryPredicate> not1(<br/>const UnaryPredicate& _Pred<br/>);</p><p>template<class Predicate><br/>class unary_negate<br/>: public unary_function<<br/>typename Predicate::argument_type,<br/>bool><br/>{<br/>public:<br/>explicit unary_negate(<br/>const Predicate& _Func<br/>);<br/>bool operator()(<br/>const typename Predicate::argument_type& _Left ) const;<br/>};</p><p> </p><p><br/>template<class BinaryPredicate><br/>binary_negate<BinaryPredicate> not2(<br/>const BinaryPredicate& _Func<br/>);</p><p>template<class Operation><br/>class binary_negate<br/>: public binary_function <<br/>typename Operation::first_argument_type,<br/>typename Operation::second_argument_type,<br/>bool><br/>{<br/>public:<br/>explicit binary_negate(<br/>const Operation& _Func<br/>);<br/>bool operator()(<br/>const typename Operation::first_argument_type& _Left,<br/>const typename Operation::second_argument_type& _Right<br/>) const;<br/>};</p></blockquote>
-
-
-<p>그럼 그동안 배운 것을 토대로 다음 MSDN 샘플을 살펴보자.</p>
-
-<p>not1( bind2nd( ptr_fun(strcmp), &#8220;pearly&#8221; ) )</p>
-
-<p>만약 1초만에 strcmp(X,&#8221;pearly&#8221;)==0 임을 인지해 냈다면 당신은 STL의 고수&#8230; ㅠㅠ</p>
-
-<h2>mem_fun vs. mem_fun_ref</h2>
-
-<p>EffectiveSTL 에도 나오는 이야기이니, 책을 가지신 분은 43 아이템을 참고하라.</p>
-
-<p>나를 비롯한 대부분의 프로그래머들은 이런 코드를 사랑한다.</p>
-
-<p>for ( list&lt;GameObject<em>>::iterator itr = gameObjects.begin() ; itr != gameObjects.end() ; itr ++ )
-{
-GameObject * pObject = </em>itr;
-__ASSERT(pObject!=NULL); /// be a paranoid!!!
-pObject->Update();
-}</p>
-
-<p>너무나도 직관적인 코드이지만, 사실 mem_fun 을 사용하면 한 줄로 해결이 가능하다.</p>
-
-<p>for_each( gameObjects.begin(), gameObject.end(), mem_fun(&amp;GameObject::Update) );</p>
-
-<p>코드는 간단해졌지만 익숙하지 않은 관계로 팀원들이 싫어할 지도 모른다. 그러나, 타이핑하는 글자수도 적으면서 성능도 훨씬 더 좋다는데&#8230; 그 누가 안 쓸수 있으랴? (대신 디버깅할 때에는 멤버함수에다가 breakpoint 를 걸어야 하는 단점이 있을 수도 있다 <img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/icon_wink.gif' width='' height='' alt=';)' title=';)'>  )</p>
-
-<p>포인터의 컨테이너일 경우에는 mem_fun 을, 객체의 컨테이너라면 mem_fun_ref 를 사용하면 된다. 만약 멤버함수에 파라미터를 넘겨야 한다면, 아래와 같이 bind 함수를 사용할 것.</p>
-
-<p>for_each( gameObjects.begin(), gameObject.end(), bind2nd( mem_fun(&amp;GameObject::SetHP),100) );</p>
-
-<h2>bind1st vs. bind2nd</h2>
-
-<p>우선 bind 함수를 알아보기에 앞서, unary_function 과 binary_function 에 대해서 알아보자. 이들은 단지 파라미터와 리턴타입에 대한 typedef 만을 담는 template structure 일 뿐이다. 즉 이들은 혼자서는 아무런 기능도 하지 않지만, 이를 상속받은 하위 클래스에서 타입 정보를 적절히 참조하기 좋도록 디자인된 베이스 클래스라는 뜻이다.</p>
-
-<p>template<class Arg, class Result>
-struct unary_function {
-typedef Arg argument_type;
-typedef Result result_type;
-};</p>
-
-<p>template<class Arg1, class Arg2, class Result>
-struct binary_function {
-typedef Arg1 first_argument_type;
-typedef Arg2 second_argument_type;
-typedef Result result_type;
-};</p>
-
-<p>기본적으로 STL 알고리즘에서 사용되는 Predicate 등의 함수들은 unary_function 의 형태를 띄어야 한다. 쉽게 말하면, find(), for_each(), count() 의 마지막 인자가 해당 컨테이너 내부의 객체 하나만을 인자로 받는 함수 객체라는 뜻이다.</p>
-
-<p>가령 list<int> 에서 10보다 큰 객체를 찾으려면 대략 다음과 같은 predicate 을 작성해야 한다.</p>
-
-<p>class GreaterThan10
-{
-public :
-bool operator() ( int i ) { return i>= 10; }
-};</p>
-
-<p>사실 이렇게 짜면 너무 코드가 범용적이지 못하므로, 대부분의 경우에는 이렇게 구현할 것이다.</p>
-
-<p>class GreaterThanN
-{
-public :
-GreaterThenN( int N ) : m_N(N) {}
-bool operator() ( int i ) { return i>= m_N; }
-private :
-int m_N;
-};</p>
-
-<p>이걸 STL 적인 생각으로 다시 구현한 것이 바로 bind 함수들이다. bindN(A,B) 은 binary_function A 의 N 번째 파라미터로 parameter B 을 바인딩해서, unary_function 을 만들어주는 놈이다. 얘네들을 잘 활용하면 단순 함수들은 간단히 한줄로 구현할 수 있게 된다.</p>
-
-<pre><code>- bind1st( BINARY_FUNC, PARAM ) : PARAM 을 BINARY_FUNC의 1st 파라미터로 바인딩한다.
-
-- ex&gt; bind1st( greater, 10 ) --&gt; 10 &gt; N
-
-- bind2nd( BINARY_FUNC, PARAM ) : PARAM 을 BINARY_FUNC의 2nd 파라미터로 바인딩한다.
-
-- bind2nd( greater, 10 ) --&gt; N &gt; 10
-</code></pre>
-
-<p>bind1st( greater, 10 ) 이 어떻게 10 > N 이라는 함수로 바뀌는지 자세히 살펴본다면&#8230;</p>
-
-<pre><code>- greater는 binary_function 이다.
-</code></pre>
-
-<p>template<class Type>
-struct greater : public binary_function &lt;Type, Type, bool>
-{
-bool operator()(
-const Type&amp; <em>Left,
-const Type&amp; </em>Right
-) const;
-};</p>
-
-<pre><code>- bind1st(A,B) 는 binder1st 객체를 리턴한다.
-</code></pre>
-
-<p>template<class Operation, class Type>
-binder1st <Operation> bind1st(
-const Operation&amp; <em>Func,
-const Type&amp; </em>Left
-);</p>
-
-<pre><code>- binder1st&lt;A&gt; 는 A의 두번째 파라미터를 파라미터로 받고, A의 리턴값을 리턴하는 함수 객체이다. 이때 이 클래스의 생성자의 인자 목록을 유심히 살펴보면, binary_function 하나와 이놈의 하나의 파라미터는 받고 있다. (나머지 하나는 당연히 container 에서 받게 된다.)
-</code></pre>
-
-<p>template<class Operation>
-class binder1st
-: public unary_function &lt;
-typename Operation::second_argument_type,
-typename Operation::result_type>
-{
-public:
-typedef typename Operation::second_argument_type argument_type;
-typedef typename Operation::result_type result_type;
-binder1st(
-const Operation &amp; <em>Func,
-const typename Operation::first_argument_type&amp; </em>Left
-);
-result_type operator()(
-const argument_type&amp; <em>Right
-);
-result_type operator()(
-const argument_type&amp; </em>Right
-) const;
-protected:
-Operation op;
-typename Operation::first_argument_type value;
-};</p>
-
-<h2>SafeDeleter</h2>
-
-<p>템플릿 클래스 버전을 사용할 경우, 매번마다 타입을 지정해줘야 하지만, 템플릿 멤버함수 버전을 사용하면 타입 없이도 사용할 수 있다. 아직까지 이걸 몰랐다니.. ㅠㅠ 쑥갓군 땡큐~</p>
-
-<p>/// template class version
-template <class T>
-class SafeDeleter
-{
-public :
-void operator () ( T * &amp; ptr ) const
-{
-SAFE_DELETE(ptr);
-}
-};</p>
-
-<p>for_each( a.begin(), a.end(), SafeDeleter<A>() );</p>
-
-<p>/// template member function version
-class SafeDeleter2
-{
-public :
-template <class T>
-void operator () ( T * &amp; ptr ) const
-{
-SAFE_DELETE(ptr);
-}
-};</p>
-
-<p>for_each( a.begin(), a.end(), SafeDeleter2() );</p>
-
-<h2>Static Key vs. Dynamic Key</h2>
-
-<p>class Object
-{
-KeyType_t Key;
-&#8230;.;
-};
-map&lt;KeyType_t,Obj*> orderedObjects;</p>
-
-<p>위와 같이 객체의 특정 필드의 값으로 정렬된 map이 있다고 하자. 일단 map에 객체를 넣고 난 다음에 Key 값을 변경하면 map 내부의 트리가 깨지므로 바꿔서는 곤란해진다. 그러나, 때로는 Key 값이 바뀌어야 할 필요가 있다. 언제나 실시간으로 바꿔주려면 map 에서 객체를 빼낸 다음 Key 값을 바꾸고 다시 넣어야 하는데, 항상 넣었다 뺐다 하기에는 성능적인 부분이 걱정되는데&#8230;</p>
-
-<p>이럴 경우에는 외부에서 필요할 때마다 새로운 키를 저장한 다음, 적당히 바꿀 타이밍이 되면 객체를 map 에서 빼낸 다음 키값을 업데이트해주면 된다. 특히 아래와 같이, 정적인 메인 키의 맵으로 구성된 객체의 매니저가 내부에 특정 순서로 정렬된 서브 키의 맵을 가진 경우, 위와 같은 패턴을 사용하면 꽤 편하다.</p>
-
-<p>class Object
-{
-StaticKeyType_t MainKey;
-DynamicKeyType_t SubKey;
-DynamicKeyType_t NewSubKey;
-&#8230;.;
-};</p>
-
-<p>class ObjectManager : public map&lt;StaticKeyType_t,Object<em>>
-{
-map&lt;DynamicKeyType_t,Object</em>> orderedObjects;
-void ChangeSubKey( StaticKeyType_t mainKey, DynamicKeyType_t newSubKey );
-void UpdateSubMap();
-};</p>
-
-<p><strong>어쨌든, map 의 키값을 외부에서 바꿨다가는 큰 낭패를 볼 것이다.</strong></p>
-
-<p>see also:</p>
-
-<pre><code>- [Boost Multi-index Containers Library](http://boost.org/libs/multi_index/doc/index.html)
-</code></pre>
-
-<h2>multixxx::erase(key_type)</h2>
-
-<p>일반적인 erase()는 iterator/const_iterator 를 파라미터로 받아서 그 넘을 지우는 역할을 한다. 그런데, multimap/multiset 에서는 key_type 만 넘겨서 해당 값을 지우는 메쏘드를 제공한다. 대체로 이는 잘 동작하지만 predicate 가 명시된 multimap/multiset 에서는 생각대로 동작하지 않는다. 다음 예를 보자.</p>
-
-<p>class TeamInfo
-{
-public :
-TeamInfo ( int point = 0 )  : TeamPoint(point) {}
-int TeamPoint;
-};</p>
-
-<p>class GreaterTeam
-{
-public :
-bool operator () (const TeamInfo<em> l, const TeamInfo</em> r) const
-{
-return l->TeamPoint> r->TeamPoint;
-}
-};</p>
-
-<p>void
-test_multiset()
-{
-typedef multiset&lt;TeamInfo*,GreaterTeam> TEAMS;</p>
-
-<p>TEAMS teams;</p>
-
-<p>TeamInfo t1(1);
-TeamInfo t2(1);
-TeamInfo t3(0);
-TeamInfo t4(2);</p>
-
-<p>teams.insert( &amp;t1 );
-teams.insert( &amp;t2 );
-teams.insert( &amp;t3 );
-teams.insert( &amp;t4 );</p>
-
-<p>// erase by key test
-teams.erase( &amp;t4 ); assert( teams.size() == 3 );
-teams.erase( &amp;t1 ); assert( teams.size() == 1 );  // t1 과 t2 를 지운다. 낭패~</p>
-
-<p>// erase with iterator test
-teams.clear();
-teams.insert( &amp;t1 );
-teams.insert( &amp;t2 );
-teams.insert( &amp;t3 );
-teams.insert( &amp;t4 );</p>
-
-<p>pair&lt;TEAMS::iterator,TEAMS::iterator> itrs = teams.equal_range(&amp;t1);
-teams.erase( find( itrs.first, itrs.second, &amp;t1 ) );
-assert( teams.size() == 3 );</p>
-
-<p>assert( <em>(teams.find(&amp;t1)) == &amp;t2 ); // t1 을 찾으면 t2 가 나온다는 놀라운 사실!
-assert( </em>(teams.find(&amp;t2)) == &amp;t2 );
-assert( <em>(teams.find(&amp;t3)) == &amp;t3 );
-assert( </em>(teams.find(&amp;t4)) == &amp;t4 );
-}</p>
-
-<p>여기서 배울 수 있는 교훈은</p>
-
-<pre><code>- 코드상으로는 equal_range(&amp;t1)이라는 것이 t1을 찾는 것처럼 보이지만, 실제로는 key_type과 무관하며 오직 predicate 를 이용해서 검색을 한다!
-- multi 시리즈에서는 find()나 erase()에 있어서 항상 동일한 값이 존재할 수 있다!
-- predicate 의 비교문에서 &gt;= 을 사용하면 다른 결과가 나온다!
-- predicate 관련 변수(m_TeamPoint)와 같이, 비교 로직에 영향을 주는 무언가를 외부에서 바꾸게 되면 multixxx 내부의 트리가 깨지게 된다. 너무나 당연한 사실이지만, Key 를 바꾸는게 아니라서 안전할 거 같아 보이는 것도 사실이다. 이를 방지하려면 일단 container 에서 해당 값을 erase한 다음 값을 수정하고 다시 insert 하는 것을 권장한다.
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/06/02/queueuserworkitem/">QueueUserWorkItem()</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-06-02T07:16:06+09:00" pubdate  data-updated="true" >Jun 2<span>nd</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Windows 에서 제공하는 ThreadPooling API인 QueueUserWorkItem()에 대해서 알아보자.</p>
-
-<h2>QueueUserWorkItem()</h2>
-
-<p>Programming Application for Microsoft Windows 에 의하면 ThreadPooling 시 새로운 쓰레드가 추가되기 위한 factor 에는 아래와 같은 것이 있다.</p>
-
-<ul>
-<li>쓰레드가 추가된 지 몇 초가 지나면, 한번 고민해본다</li>
-<li>WT_EXECUTELONGFUNCTION 이 사용될 경우, 한번 고민해본다</li>
-<li>큐잉된 작업의 개수가 일정 threadhold 를 넘어설 경우, 한번 고민해본다.</li>
-</ul>
-
-
-<p>그러나, 상세한 파라미터는 알려져 있지 않아서.. 테스트를 해 보았다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">const</span> <span class="kt">int</span> <span class="n">MAX_WORK</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
-</span><span class='line'><span class="n">LONG</span> <span class="n">WorkCounter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">add_time</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">work_time</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">nloop</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'><span class="kt">bool</span> <span class="n">bPreQueue</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">pre_queue_time</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
-</span><span class='line'><span class="kt">bool</span> <span class="n">bMiddleSleep</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">middle_sleep_time</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">DWORD</span> <span class="n">WINAPI</span> <span class="n">MyWorkThreadProc</span><span class="p">(</span><span class="n">PVOID</span> <span class="n">pParam</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">MyWork</span><span class="o">*</span> <span class="n">pWork</span> <span class="o">=</span> <span class="p">(</span><span class="n">MyWork</span><span class="o">*</span><span class="p">)</span><span class="n">pParam</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">Sleep</span><span class="p">(</span><span class="n">pWork</span><span class="o">-&gt;</span><span class="n">workTime</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">pWork</span><span class="o">-&gt;</span><span class="n">threadID</span> <span class="o">=</span> <span class="o">::</span><span class="n">GetCurrentThreadId</span><span class="p">();</span>
-</span><span class='line'>  <span class="n">pWork</span><span class="o">-&gt;</span><span class="n">output</span> <span class="o">=</span> <span class="n">pWork</span><span class="o">-&gt;</span><span class="n">input</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">InterlockedIncrement</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">WorkCounter</span> <span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">void</span>
-</span><span class='line'><span class="n">thread_pool_test_fixture</span><span class="o">::</span><span class="n">test_really_pooling</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">k</span>  <span class="mi">0</span> <span class="p">)</span>
-</span><span class='line'>          <span class="p">{</span>
-</span><span class='line'>              <span class="n">Sleep</span><span class="p">(</span><span class="n">pre_queue_time</span><span class="p">);</span>
-</span><span class='line'>          <span class="p">}</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">MyWork</span> <span class="n">works</span><span class="p">[</span><span class="n">MAX_WORK</span><span class="p">];</span>
-</span><span class='line'>      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="mi">0</span> <span class="p">)</span>
-</span><span class='line'>          <span class="p">{</span>
-</span><span class='line'>              <span class="n">Sleep</span><span class="p">(</span><span class="n">add_time</span><span class="p">);</span>
-</span><span class='line'>          <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>          <span class="k">if</span> <span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">500</span> <span class="o">&amp;&amp;</span> <span class="n">bMiddleSleep</span> <span class="o">&amp;&amp;</span> <span class="n">middle_sleep_time</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
-</span><span class='line'>          <span class="p">{</span>
-</span><span class='line'>              <span class="n">Sleep</span><span class="p">(</span> <span class="n">middle_sleep_time</span> <span class="p">);</span>
-</span><span class='line'>          <span class="p">}</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="k">while</span> <span class="p">(</span> <span class="n">WorkCounter</span>  <span class="n">threads</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">threads</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="p">;</span> <span class="n">itr</span> <span class="o">!=</span> <span class="n">threads</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="p">;</span> <span class="n">itr</span> <span class="o">++</span> <span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">BOOST_MESSAGE</span><span class="p">(</span> <span class="o">*</span><span class="n">itr</span>  <span class="err">처리</span> <span class="err">시간</span> <span class="o">|</span>
-</span><span class='line'><span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="err">큐잉되는</span> <span class="err">시간</span> <span class="o">==</span> <span class="err">처리</span> <span class="err">시간</span> <span class="o">|</span>
-</span><span class='line'><span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">20</span> <span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="err">큐잉되는</span> <span class="err">시간</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/05/29/boostis_base_of/">Boost::is_base_of</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-05-29T08:31:12+09:00" pubdate  data-updated="true" >May 29<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>템플릿 프로그래밍을 하다 보면, 문자열이나 사용자 정의 클래스(UDT) 같은 특정 타입에 대한 특수화(specializaiton)를 할 경우가 있다. 그 중에서 가장 헷갈리는 부분이 바로 특정 클래스의 포인터를 템플릿 인자로 받아서 특수화해야 하는 경우인데, boost typetraits 중 하나인 boost::is_base_of를 사용하면 손쉽게 해결할 수 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">template</span>
-</span><span class='line'><span class="kt">void</span> <span class="n">old_algorithm</span> <span class="p">(</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">value</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="c1">// do generic something</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>위와 같은 함수 템플릿에 대해서 Base 클래스의 하위 클래스 포인터를 받았을 때를 위한 특수화를 해야 할 경우, 다음과 같은 패턴을 사용하라. 핵심은 is_base_of::type 이 true_type 또는 false_type 이라는 2 개의 서로 다른 타입을 리턴하며, 이 값을 이용해서 특수화를 한다는 것이다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">template</span>
-</span><span class='line'><span class="kt">void</span> <span class="n">new_algorithm</span> <span class="p">(</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">value</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">typedef</span> <span class="k">typename</span> <span class="n">boost</span><span class="o">::</span><span class="n">is_base_of</span><span class="o">::</span><span class="n">type</span> <span class="n">is_derived_class</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// call impl</span>
-</span><span class='line'>  <span class="n">new_algorithm_impl</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="n">is_derived_class</span><span class="p">());</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">template</span>
-</span><span class='line'><span class="kt">void</span> <span class="n">new_algorithm_impl</span> <span class="p">(</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">value</span><span class="p">,</span> <span class="k">const</span> <span class="n">boost</span><span class="o">::</span><span class="n">true_type</span><span class="o">&amp;</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="c1">// do specialized for Base class</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">template</span>
-</span><span class='line'><span class="kt">void</span> <span class="n">new_algorithm_impl</span> <span class="p">(</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">value</span><span class="p">,</span> <span class="k">const</span> <span class="n">boost</span><span class="o">::</span><span class="n">false_type</span><span class="o">&amp;</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="c1">// do generic something</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/05/26/boostany/">Boost::any</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-05-26T08:18:12+09:00" pubdate  data-updated="true" >May 26<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>게임 개발을 하다 보면, 가끔 서로 다른 타입의 객체들을 하나의 컨테이너에서 다루어야 할 때가 있다. 만약 이 컨테이너로 하는 일이 간단하다면야 인터페이스 상속을 쓰면 되지만, 상속을 할 수 없을 정도로 타입이 다를 때도 있다. 이럴 때 사용하는 것이 바로 boost::any 클래스이다.</p>
-
-<p>boost::any는 이름 그대로 어떤(any) 것도 담을 수 있는 클래스로, void * 와 비슷한 역할을 한다. (더욱 자세한 설명은 <a href="http://boost.org/doc/html/any.html">boost 온라인 매뉴얼</a>을 참고)</p>
-
-<p>이번에 boost::any 의 코드를 참조해서 작업을 하다 보니 몇 가지 장단점들이 눈에 띄었다.</p>
-
-<ul>
-<li>미리 any 의 내부값의 타입을 파악하고 있어야 한다. 즉, type() 을 이용해서 if-else 방식으로 비교하는 수 밖에 없다.</li>
-<li>any_cast(value) 는 생각보다 타이핑하기가 귀찮다. 꺽쇠와 괄호를 다 타이핑한다고 생각해보라&#8230;</li>
-<li>디버깅시 any 내부의 placeholder 에 들어 있는 값을 찾기가 곤란하다.</li>
-</ul>
-
-
-<p>이번 주는 영식군이 한 달 동안 쇼핑하면서 작업한 <a href="http://reiot.cafe24.com/archives/395">객체 복제 프레임워크</a>를 이틀 동안 인수인계 받은 후, 복제의 최소 단위인 replication value 클래스를 boost::any 의 코드를 참조해서 고치고 있다. 미리 2000라인 정도의 테스트 코드를 만들어둔 덕택에 <del datetime="2006-05-25T14:14:00+00:00">코드 학습</del> 리팩토링이 겨우 4일 만에 거의 끝낼 수 있었다. 물론 영식군이 계속 지나가면서 어차피 기능이 똑같다면 왜 사서 삽질을 하냐고 갈구고 있지만 그냥 못들은 척하고 중이다. 흐흐.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/05/16/p2p-tips/">P2P Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-05-16T09:46:34+09:00" pubdate  data-updated="true" >May 16<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다)</p>
-
-<h1>분석 및 검토</h1>
-
-<h2>게임성 분석</h2>
-
-<p>만들고자 하는 게임의 다양한 속성들에 대한 분석이 최우선 단계이다. 다음 질문에 자신의 게임이 어떤 쪽인지를 잘 따져보기 바란다.</p>
-
-<pre><code>- 최대접속자는 얼마인가? (4-8, 16-32, 64-256, Massive)
-- 카운터 스트라이크처럼 사용자들에게 핑이 빠른 서버를 선택할 수 있도록 할 것인가?
-- NPC 또는 몹이 존재하는가? 만약 그렇다면 누가 그들을 움직이게 할 것인가?
-- 승패 또는 타격 판정, 이동에 대한 검증은 누가 할 것인가?
-- dedicated server 를 지원할 것인가? 또는 클라이언트 중에서 UDP 서버를 선택할 것인가?
-</code></pre>
-
-<h2>토폴로지의 선택</h2>
-
-<p>어떤 토폴로지를 선택하느냐에 따라서 최대 대역폭, 최대 접속자가 결정되므로, 위에서 조사한 결과에 따라서 적합한 토폴로지를 선택해야 한다. 아래의 문서를 참고하기 바란다.</p>
-
-<p>see also : <a href="http://reiot.cafe24.com/2006/02/18/%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%81%ac-%ec%95%a1%ec%85%98-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%b6%84%eb%a5%98/">네트워크 액션 게임의 분류</a></p>
-
-<h2>UDP 라이브러리의 선택</h2>
-
-<p>토폴로지를 선택했다면 이제 UDP 라이브러리를 선택할 단계이다.</p>
-
-<p>단지 위치 정보만을 보내는 게 아닌 이상, 순수 UDP 만으로 네트워크 게임을 개발하기란 쉽지 않다. 결국은 reliable UDP 를 지원하는 외부 라이브러리를 사용하거나 직접 구현하게 될텐데, 직접 구현하는 것은 시간이 많거나 자신이 천재가 아닌 이상 그다지 좋은 선택은 아니다. 반면 어떤 라이브러리를 선택해도 깊은 이해 없이는 잘 사용하기가 힘든 것이 사실이다.</p>
-
-<p>가능하면 Unreal, Source Engine 등 네트워크 모듈이 포함된 게임 엔진을 구매하는 것을 권장하며, 그럴 수 없다면 충분한 검토 기간 하에 RakNet, OpenTNL, udt, enet 중에서 하나를 선택하기 바란다.</p>
-
-<h1>디자인 및 구현, 테스트</h1>
-
-<h2>네트워크 모듈의 통합</h2>
-
-<p>많은 UDP 라이브러리들은 보다 빠른 반응성을 위해 자체적으로 쓰레드를 사용한다. 그러나 dedicated server 가 아닌 이상, 서버쪽은 무작정 쓰레드를 남발해서는 곤란하다. 하나의 서버가 여러 개의 게임을 동시 처리해야 할 경우가 많으므로, 이럴 때에는 소스를 수정해야 할 수 있다.</p>
-
-<pre><code>- polling vs. event-driven
-- single thread vs. multithread
-</code></pre>
-
-<p>이때 폴링 방식의 클라이언트는 로딩 혹은 렌더링으로 인해 네트워크 업데이트를 방해하는 일이 없도록 주의해야 한다.</p>
-
-<h2>NAT와 홀펀칭</h2>
-
-<dl> <dt>하드웨어의 구비</dt> <dd>하드웨어가 없는 상태에서의 NAT 프로그래밍은 장님 코끼리 다리 만지기와 같다.</dd> <dt>SNAT</dt> <dd>SNAT-SNAT 간에는 홀펀칭이 통하지 않는다는 사실만 기억하면 된다. 중국이 아닌 이상 SNAT를 만나기란 쉽지 않다. 정 귀찮다면 C/S구조로 가는 것도 나쁘지 않다. GPGStudy 포럼을 잘 검색하면 어떤 라우터가 SNAT인지를 찾을 수 있다.</dd> <dt>N+1</dt> <dd>어떤 NAT는 새로운 매핑을 위해 포트 번호를 점차 증가시키기도 한다. 그러나 라우터 제조 업체마다 다르므로 일반적으로는 알 수 없다고 봐야 한다.</dd> <dt>Timeout</dt> <dd>30-40초마다 패킷을 밖으로 쏘지 않을 경우 매핑을 삭제하는 공유기가 존재한다.</dd> <dt>패킷 릴레이</dt> <dd>직접적인 통신이 되지 않는 peer 에게 패킷을 보낼 수 있는 유일한 방법이다. 문제는 릴레이는 핑이 2배 느려지는 것이 보통이므로 데드 레커닝 및 보간 기능으로 잘 극복해야 한다. 릴레이가 끊기는 경우 실시간으로 다른 루트를 찾아주면 금상첨화.</dd> <dt>사설 네트워크</dt> <dd>같은 네트워크에 있는 사용자들 끼리는 굳이 public 주소로 접속할 필요는 없다. 상대방의 (public,private) 모두로 핑을 쏜 다음, 응답이 오면 그 중 빠른 넘을 실제 주소로 선택하라. 이때 둘 다 될 경우라면 대체로 private를 사용하는 편이 좋다. 물론 **본인 확인**은 필수. 방화벽 내부에 있는 사람들끼리 플레이할 경우 public 으로 통신하면 괴로워진다.</dd> <dt>다단계 NAT</dt> <dd>중국은 다단계 NAT로 악명이 높다. 최소한 2단계로 NAT를 배치한 후 각 노드마다 클라이언트를 두고 내부/외부와 통신이 잘 되는지를 확인할 것. 그렇게 열심히 테스트해도 안되는 환경이 분명 존재하므로, 처음부터 릴레이를 기본 기능으로 포함시킬 것.</dd> <dt>사용자 서버</dt> <dd>네트워크 비용을 줄이려면 특정 클라이언트가 서버 역할을 하도록 하라. 단 Drop-out시 게임을 중단하고 새 서버를 찾는 기능을 구현해야 한다. 물론 보안 문제는 책임질 수 없다;;</dd> </dl>
-
-
-<h2>대역폭 관리</h2>
-
-<dl> <dt>모뎀 지원</dt> <dd>해외에는 아직도 모뎀을 많이 사용하고 있다. 따라서 모뎀 유저가 방에 들어올 경우 최대 접속자를 줄이든가 대역폭에 맞게 데이터를 실시간 관리하는 기능이 필요하다.</dd> <dt>MTU</dt> <dd>게임에서의 최대 패킷 크기를 항상 알고 있을 것. 특히 리스트 방식으로 전송되는 데이터들(방 목록, 사람 목록, 게임 목록)을 유의할 것.</dd> <dt>순간 대역폭 체크</dt> <dd>어떤 공유기(D-Link)는 순간 대역폭을 초과할 경우 reset 되기도 한다.</dd> </dl>
-
-
-<h2>공유기, 방화벽, 포트 포워딩</h2>
-
-<dl> <dt>(D)DOS 공격</dt> <dd>어떤 공유기는 외부로부터 갑자기 연결이 많이 들어올 경우 DOS 혹은 DDOS 로 간주해서 연결을 차단하기도 한다.</dd> <dt>XP 방화벽</dt> <dd>Windows XP의 방화벽에 자동 등록하기는 필수. 단 사용자에게 허가를 받지 않고 몰래 방화벽을 끌 경우 해외에서는 고소당할 수 있다.</dd> <dt>백신 호환성 체크</dt> <dd>일부 백신들은 정상적인 어플리케이션도 바이러스나 웜으로 간주하기도 한다. 따라서 유명 백신들을 설치한 상태에서 툴과의 호환성을 체크한 후 문제가 있다면 매뉴얼을 홈페이지에 등록해야 한다.</dd> <dt>포트 포워딩</dt> <dd>portforward.com이나 [WOW](http://www.blizzard.com/support/wow/?id=aww01154p)처럼 공유기에서 포트포워딩을 하는 방법을 홈페이지에 기술할 것. 가능하면 클라이언트에 네트워크 진단 도구를 탑재하거나, 웹 기반 진단 페이지를 만들기를 권장한다.</dd> <dt>주의 깊은 포트의 선택</dt> <dd>해외의 일부 회선 업체는 자신들의 자체 서비스(VoIP)를 위해 특정 UDP 포트를 임의로 막기도 한다. 가능한한 다른 게임 및 어플리케이션과 충돌하지 않는 포트를 선택할 것.</dd> <dt>서버 방화벽</dt> <dd>네트워크 관리자에게 사용하는 포트에 대한 문서를 넘기고 수시로 업데이트 해줄 것. (특히 해외 서비스일 경우는 필수) 허용된 포트의 끝언저리에서 실수로 인한 문제가 종종 생기곤 한다.</dd> </dl>
-
-
-<h2>기타</h2>
-
-<pre><code>- 공유기의 타입 찾기 : STUN
-- Drop-In : 게임 도중 새로운 접속자가 들어올 때
-- 연결 끊김 감지 : 게임 도중 연결이 끊길 경우 얼마나 빨리 감지할 수 있을까?
-- 데이터 복제, 보안, 통계 수집
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -1243,69 +250,81 @@ session.begin_read()</p>
   </header>
 
 
-  <div class="entry-content"><p><strong>[공지사항] : 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/22538">http://reiot.springnote.com/pages/22538</a> 에서 보실 수 있습니다.</strong></p>
-
-<h1>id &amp; class</h1>
+  <div class="entry-content"><h2>id &amp; class</h2>
 
 <p>class는 여러 곳에 쓸 수 있지만 id는 한 군데만 써야 하고, 특히 id는 anchor 의 타겟으로도 사용될 수 있다.</p>
 
-<table>
-<thead>
-<th>selector</th>
-<th>scope</th>
-<th>example</th>
-
-<tr>
-<td>id selector</td>
-<td>instance level style (single)</td>
-<td>H1 #xxx {&#8230;}</td>
-</tr>
-<tr>
-<td>class selector</td>
-<td>class level style (multiple)</td>
-<td>H1.xxx {&#8230;}</td>
-</tr>
-</thead></table>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;table&gt;</span>
+</span><span class='line'><span class="nt">&lt;thead&gt;</span>
+</span><span class='line'><span class="nt">&lt;th&gt;</span>selector<span class="nt">&lt;/th&gt;</span>
+</span><span class='line'><span class="nt">&lt;th&gt;</span>scope<span class="nt">&lt;/th&gt;</span>
+</span><span class='line'><span class="nt">&lt;th&gt;</span>example<span class="nt">&lt;/th&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;tr&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>id selector<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>instance level style (single)<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>H1 #xxx {...}<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;/tr&gt;</span>
+</span><span class='line'><span class="nt">&lt;tr&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>class selector<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>class level style (multiple)<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>H1.xxx {...}<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;/tr&gt;</span>
+</span><span class='line'><span class="nt">&lt;/thead&gt;&lt;/table&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>&#8217;*&#8217; 문자는 생략 가능하기 때문에, 다음의 두 표현식은 동등하다.</p>
 
-<p>*#xxx {&#8230;}</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">*</span><span class="nf">#xxx</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+</span><span class='line'><span class="nf">#xxx</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h1>xxx {&#8230;}</h1>
 
-<h1>padding &amp; margin</h1>
+<h2>padding &amp; margin</h2>
 
-<p>padding 은 box 영역의 안쪽, margin 은 바깥쪽을 의미하는데, 본문 바깥쪽의 여백을 나타낸다는 것을 연상하면 쉬울 것이다. 각 방향별 속성을 지정할 수도 있고, 한꺼번에 지정할 수도 있다. 이때, 위에서부터 시계방향이라는 것만 외우면 편하다.</p>
+<p>padding 은 box 영역의 안쪽, margin 은 바깥쪽을 의미하는데, 본문 바깥쪽의 여백을 나타낸다는 것을 연상하면 쉬울 것이다. 각 방향별 속성을 지정할 수도 있고, 한꺼번에 지정할 수도 있다. 이때, 위에서부터 시계방향이라는 것만 외우면 편하다. <a href="http://www.w3.org/TR/REC-CSS2/box.html#mpb-examples">padding &amp; margin example</a>을 참고할 것.</p>
 
-<p>padding-top: 1px;
-padding-bottom: 2em;
-padding : &#8216;top&#8217; &#8216;right&#8217; &#8216;bottom&#8217; &#8216;left&#8217;;</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">padding-top</span><span class="o">:</span> <span class="nt">1px</span><span class="o">;</span>
+</span><span class='line'><span class="nt">padding-bottom</span><span class="o">:</span> <span class="nt">2em</span><span class="o">;</span>
+</span><span class='line'><span class="nt">padding</span> <span class="o">:</span> <span class="s1">&#39;top&#39;</span> <span class="s1">&#39;right&#39;</span> <span class="s1">&#39;bottom&#39;</span> <span class="s1">&#39;left&#39;</span><span class="o">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p><a href="http://www.w3.org/TR/REC-CSS2/box.html#mpb-examples">padding &amp; margin example</a>을 참고할 것.</p>
 
-<h1>div &amp; span</h1>
-
-<p>div는 해당 블럭에 특정 id 또는 class 속성을 적용한다. 아래의 예제는 2개의 테이블 모두를 우측 정렬을 하기 위해서 DIV 태그를 사용했다.</p>
-
-<p><a href="http://december.com/html/4/element/div.html">&lt;div</a> align=&#8221;right&#8221;>
-<a href="http://december.com/html/4/element/table.html"><table></a>&#8230;</table>
-<a href="http://december.com/html/4/element/table.html"><table></a>&#8230;</table>
-</div></p>
-
-<p>반면 span은 inline 으로 특정 id 또는 class 속성을 적용한다. 아래의 예제는 P 전체에 클래스 스타일을 적용해서 폰트 크기 및 종류를 지정한 다음, &#8217; 에 대해서만 빨간색으로 표시하기 위해서 SPAN 태그를 사용했다.</p>
-
-<p><a href="http://december.com/html/4/element/p.html">&lt;p</a> class=&#8221;oreiot&#8221;>O<a href="http://december.com/html/4/element/span.html">&lt;span</a> class=&#8221;red&#8221;>&#8217;</span>REIOT</p></p>
-
-<h1>font size</h1>
+<h2>font size</h2>
 
 <p>픽셀 등의 단위를 사용하게 되면, 화면 해상도에 관계없이 크기가 고정되게 된다. 이렇게 할 경우, 브라우저의 문자 크기 확대-축소를 해도 바뀌지 않는다. 눈이 나쁜 사람들을 위해서도 픽셀 고정 보다는 아래의 크기를 사용하는 것을 권장한다. (순수 디자인의 관점에서는 맞지 않을지도?)</p>
 
-<p>xx-small &lt;x-small &lt;small &lt;medium &lt;large &lt;x-large &lt;xx-large</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">xx-small</span> <span class="o">&lt;</span> <span class="nt">x-small</span> <span class="o">&lt;</span> <span class="nt">small</span> <span class="o">&lt;</span> <span class="nt">medium</span> <span class="o">&lt;</span> <span class="nt">large</span> <span class="o">&lt;</span> <span class="nt">x-large</span> <span class="o">&lt;</span> <span class="nt">xx-large</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>아니면, 상대 크기인 smaller - larger를 써서, 자신의 부모 객체의 폰트보다 크거나 작도록 지정할 수도 있다.</p>
 
-<h1>호환성 있는 페이지 만들기</h1>
+<h2>호환성 있는 페이지 만들기</h2>
 
 <p>우선, 해당 페이지를 순수하게 텍스트로 렌더링하는 페이지를 만든다. 이때, h1, h2, &#8230;, p, hr, ul, ol, li, b 등의 텍스트형 태그만을 사용하도록 한다. (당연히 font 류의 데코레이션형 태그는 사용하지 않도록 한다.)</p>
 
@@ -1313,22 +332,901 @@ padding : &#8216;top&#8217; &#8216;right&#8217; &#8216;bottom&#8217; &#8216;left
 
 <p>끝으로 CSS validate 및 HTML validate 를 통해서 호환성을 검증한다. 브라우저 테스트는 기본.</p>
 
-<h1>float &amp; clear</h1>
+<h2>float &amp; clear</h2>
 
 <p>박스 또는 이미지가 다른 레이어와 충돌하지 않는 상태에서, 좌측 또는 우측으로 정렬될 수 있게 해준다. 가끔은, float 박스가 2개 이상의 레이어에 걸치지 않았으면 할 때가 있다. 이럴 경우, float 를 포함한 상위 레이어에다가 clear:both 속성을 지정해주면 걸치기를 막을 수 있다.</p>
 
 <p><a href="http://www.w3.org/TR/REC-CSS2/visuren.html">Visual Formatting Model</a>을 참고할 것.</p>
 
-<h1>기타 태그 설명</h1>
+<h2>Relative Percentage Positioning</h2>
 
-<pre><code>- line-height : 줄 간격
+<p>Relative Positioning 에서 비율을 사용할 때, 항상 부모 블럭의 크기의 비율이라는 점에 유의할 것.즉 -50% 는 부모 크기의 50% 만큼 음의 방향으로 이동한다는 거다. 만약 나의 크기가 부모의 크기와 같다면 그것은 나의 절반만큼 이동한다는 의미가 된다. 다만, vertical 에 대해서는 잘 동작하지 않는 느낌.</p>
+
+<p>see also: <a href="http://jsfiddle.net/Reiot/UUADc/">http://jsfiddle.net/Reiot/UUADc/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/29/raknet-tips/">RakNet Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-29T00:01:10+09:00" pubdate  data-updated="true" >Apr 29<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>RakPeer::Disconnect(msec,orderingChannel)</h2>
+
+<p>서버에 접속 해제를 알리기 위해서는 RakPeer::Disconnet(msec>0) 를 사용해야 한다. Disconnect(0) 후에 바로 객체를 삭제하면 서버는 10-15초 후에나 연결 끊김을 감지할 수 있게 되며, 그 사이에 서버에 다시 접속할 경우 서버는 이미 연결되어 있는 것으로 간주해버린다. 단 내부적으로 blocking wait 를 하기 때문에 너무 큰 시간을 넘기면 곤란.</p>
+
+<h2>PacketLogger</h2>
+
+<p>RakNet에서 제공하는 플러그인 인터페이스를 이용한 패킷 로깅 클래스. peer.AttachPlugin(logger) 만 해주면 콜백에서 자동적으로 로그를 남겨준다. PacketFileLogger를 사용하면 CSV형식으로 로그를 남긴다. 엑셀을 잘 활용해서 트래픽 최적화라든지 그래프를 확인할 수 있다. 좀더 세밀한 로그를 원하면 상속을 받을 것.</p>
+
+<h2>Unconnected Ping</h2>
+
+<p>동일한 NAT아래에 있는 peer와 통신할 때에는 public보다는 private를 사용하는 것이 좋다. 이런 주소 선택 과정은 RakPeer::Connect()를 호출하기 전에 이루어져야 하는데, RakPeer::Ping(host,port,acceptOnly)을 이용해서 양쪽 주소 모두에게 Ping을 쏴서 확인할 수 있다. 기본적으로 ID_PING 을 보내고 ID_PONG을 받는데, 마지막 파라미터를 true로 할 경우 ID_PING_OPEN_CONNECTIONS을 보내며 상대방은 이미 연결되어 있을 경우에만 ID_PONG 으로 응답한다. FullyConnectedMesh처럼 플러그인 인터페이스를 이용해서 깔끔하게 구현할 수 있을 것 같은데, 플러그인에게 직접 뭔가를 보낼 수 있는지는 미확인.</p>
+
+<p>주의사항 : Unconnected Ping을 보낸 직후 Connect()를 하게 되면 3-way handshake 흐름이 꼬일 수 있다. 원인은 연결되기 전후의 프로토콜이 다르긴 하나 확률적으로 같게 될 수 있어서, 연결하는 동안 핑/퐁을 하다 보면 가끔 패킷을 잘못 처리하기 때문이다. 라크넷의 메인 개발자 Rak’kar는 가능하면 핑을 보낸 후 일정 시간 동안 기다린 다음 연결하는 것을 권장한다고 한다. 레이옷은 이 버그로 인해서 1개월 가량을 고생했다. -_-;;</p>
+
+<h2>ReliabilityLayer</h2>
+
+<p>패킷 전송 보장, 순서 보장을 구현하는 레이어</p>
+
+<dl><dt>Unreliable</dt><dd>Unreliable packets are sent by straight UDP. They may arrive out of order, or not at all. This is best for data that is unimportant, or data that you send very frequently so even if some packets are missed newer packets will compensate.</dd></dl>
+
+
+<pre><code>- Advantages - These packets don’t need to be acknowledged by the network, saving the size of a UDP header in acknowlegement (about 50 bytes or so). The savings can really add up.
+- Disadvantages - No packet ordering, packets may never arrive, these packets are the first to get dropped if the send buffer is full.
 </code></pre>
+
+<dl><dt>Unreliable sequenced</dt><dd>Unreliable sequenced packets are the same as unreliable packets, except that only the newest packet is ever accepted. Older packets are ignored.</dd></dl>
+
+
+<pre><code>- Advantages - Same low overhead as unreliable packets, and you don’t have to worry about older packets changing your data to old values.
+- Disadvantages - A LOT of packets will be dropped since they may never arrive because of UDP and may be dropped even when they do arrive. These packets are the first to get dropped if the send buffer is full. The last packet sent may never arrive, which can be a problem if you stop sending packets at some particular point.
+</code></pre>
+
+<p>Note that the transmission of one of the three reliable packets types is required for the detection of lost connections. If you never send reliable packets you need to implement lost connection detection manually.</p>
+
+<dl><dt>Reliable</dt><dd>Reliable packets are UDP packets monitored by a reliablilty layer to ensure they arrive at the destination.</dd></dl>
+
+
+<pre><code>- Advantages - You know the packet will get there. Eventually…
+- Disadvantages - Retransmissions and acknowlegements can add significant bandwidth requirements. Packets may arrive very late if the network is busy. No packet ordering.
+</code></pre>
+
+<dl><dt>Reliable ordered</dt><dd>Reliable ordered packets are UDP packets monitored by a reliability layer to ensure they arrive at the destination and are ordered at the destination.</dd></dl>
+
+
+<pre><code>- Advantages - The packet will get there and in the order it was sent. These are by far the easiest to program for because you don’t have to worry about strange behavior due to out of order or lost packets.
+- Disadvantages - Retransmissions and acknowlegements can add significant bandwidth requirements. Packets may arrive very late if the network is busy. One late packet can delay many packets that arrived sooner, resulting in significant lag spikes. However, this disadvantage can be mitigated by the clever use of ordering streams .
+</code></pre>
+
+<dl><dt>Reliable sequenced</dt><dd>Reliable ordered packets are UDP packets monitored by a reliability layer to ensure they arrive at the destination and are sequenced at the destination.</dd></dl>
+
+
+<pre><code>- Advantages - You get the reliability of UDP packets, the ordering of ordered packets, yet don’t have to wait for old packets. More packets will arrive with this method than with the unreliable sequenced method, and they will be distributed more evenly. The most important advantage however is that the latest packet sent will arrive, where with unreliable sequenced the latest packet sent may not arrive.
+- Disadvantages - Wasteful of bandwidth because it uses the overhead of reliable UDP packets to ensure late packets arrive that just get ignored anyway.
+</code></pre>
+
+<h3>전송 보장의 구현</h3>
+
+<p>전송 보장(packet reliability)은 말 그대로 어떤 패킷이 Peer 에 잘 도착했다는 것을 의미한다.</p>
+
+<pre><code>- 전송시 RELIABLE_XXX 플래그를 지정한다.
+- 보내는 쪽에서는 재전송큐에 패킷을 넣어둔다.
+- 받는 쪽에서는 RELIABLE 패킷이 도착하면 ACK(num)를 전송한다.
+- 보내는 쪽에서는 ACK(num)를 받으면 재전송큐에서 삭제한다.
+- ACK 손실에 대비, 모든 ACK들은 ACK큐에 저장된다.
+- 주기적으로 실행되는 ReliabilityLayer::Update()에서 그동안 쌓인 ACK큐와 재전송큐를 한꺼번에 모아서 Peer에게 전송한다. (물론 손실이 가정되는 넘에 대해서만)
+- 모든 user defined message 앞에 위와 같은 InternalPacket 이 1개 이상 붙어 나갈 수 있다.
+</code></pre>
+
+<p>결국, 모든 RELIABLE 메시지에 대해서 ACK 가 왔다갔다 하는 셈이다.</p>
+
+<h3>순서 보장의 구현</h3>
+
+<p>모든 데이터가 순서 보장이 필요하지 않으며, 오직 몇몇 종류의 패킷들만이 순서 보장이 필요하다. 따라서, 이런 류들을 위한 채널(ordering channel)을 구현해서 각각의 채널마다의 순서를 보장해줘야 한다.</p>
+
+<pre><code>- 각 채널마다 waitingForOrderedPacketReadIndex 가 존재한다.
+- 순서 보장 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패
+- 만약 orderingIndex == waitingForOrderedPacketReadIndex 이면, 대기 인덱스를 증가시키고, 대기 리스트(orderingList)에 들어있는 넘들을 처리해준다.
+- 그렇지 않으면 중간에 누락된 것이므로 대기 리스트에 넣어둔다.
+- orderingIndex 는 BYTE 로 구현된다. 255 로 해서 wrap 시키면 충분한 듯.
+- 그렇지만 아주 오래전의 패킷이 도착했다면 순서가 꼬일 수 있을 법 하다. 이런 것들은 상대편의 전송 시간을 이용해서 체크한다.
+</code></pre>
+
+<h3>패킷 시퀀스의 구현</h3>
+
+<p>순서 보장(packet ordering)과는 달리 패킷 시퀀스(packet sequence)는 최신의 패킷이 도착하면, 그 전에 도착한 동일한 패킷은 모두 무시하는 것을 의미한다. 가령, xyz 좌표가 10개가 쌓여 있다면 가장 최신의 좌표만을 보여주면 되므로 시퀀스 플래그를 사용하면 된다. 패킷 시퀀스 역시 ordering channel + ordering index 로 구현된다.</p>
+
+<pre><code>- 각 채널마다 waitingForSequencedPacketReadIndex 가 존재한다.
+- 시퀀스 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패
+- 만약 orderingIndex &gt;= waitingForSequencedPacketReadIndex 이면, 시퀀스  인덱스를 증가시킨다.
+- 그렇지 않으면 이미 최신 데이터가 먼저 와 있으므로, 무시해버린다.
+</code></pre>
+
+<h3>긴 메시지의 구현</h3>
+
+<p>MTU 크기를 넘어선 긴 데이터는, 여러 개의 작은 패킷에 나눠져서(split) 전송될 수 밖에 없다.</p>
+
+<p>더 많은 팁들은 레이옷의 <a href="http://del.icio.us/reiot/raknet">RakNet 링크모음</a>을 참고할 것.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/27/spread/">Spread</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:56:32+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>개요</h1>
+
+<p><a href="http://www.spread.org">Spread</a>는 그룹 기반의 UDP 메시징 라이브러리로, unicast &amp; multicast 및 scattered send/receive를 지원한다. 단 PeerToPeer 모델이 아니라, 독립적인 어플리케이션인 Spread 데몬이 가운데에서 중계를 해주는, 일종의 메시지 버스의 역할을 한다. RakNet 과 마찬가지로 다양한 UDP 전송 방식을 지원한다.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> 전송방식 </th>
+<th> 설명 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>   Unreliable  </td>
+<td> least |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Reliable    </td>
+<td> will get there, no ordering |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Fifo        </td>
+<td> reliable and ordered fifo by source |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Causal      </td>
+<td> reliable and all mesg from any source of this  level are causally ordered |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Agreed      </td>
+<td> reliable and all mesg from any source of this level are totally ordered |</td>
+</tr>
+<tr>
+<td></td>
+<td>   Safe        </td>
+<td> Agreed ordering and mesg will not be delivered to application until the mesg has reached ALL receipients&#8217; daemons |</td>
+</tr>
+</tbody>
+</table>
+
+
+<h1>성능</h1>
+
+<p>문서에 의하면 1k 메시지 8000개를 1초에 전송 보장한다고 하며, 또한, <a href="http://www.cnds.jhu.edu/pub/papers/cnds-2004-1.pdf">The Spread Toolkit: Architecture and Performance</a>에 따르면 만개의 그룹에서 Safe 메시지를 보낼 때의 지연 시간이 6ms 라고 나온다. 실제로, 파이썬 바인딩을 이용한 클라이언트와 (아무런 부하를 주지 않은) localhost 데몬과의 테스트 결과 0.25ms 정도의 반응 시간을 보여줬다.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> 전송방식 </th>
+<th> 평균 ping 시간 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> UNRELIABLE_MESS </td>
+<td> 0.248ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  RELIABLE_MESS </td>
+<td> 0.248ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  FIFO_MESS </td>
+<td> 0.247ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  CAUSAL_MESS </td>
+<td> 0.247ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  AGREED_MESS </td>
+<td> 0.247ms |</td>
+</tr>
+<tr>
+<td></td>
+<td>  SAFE_MESS </td>
+<td> 0.248ms |</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>로컬랜에 연결된 2개의 머신에서 한쪽(Windows XP, P4 2G + 512M)에 데몬을 real time priority 로 띄우고 다른 쪽에 송수신 전용 쓰레드를 가진 테스트 클라이언트를 붙인 다음, 초당 8000개의 4byte 메시지를 보내는 경우 CPU 사용량 100% 에 RTT 0.8s 가 나왔다. 즉 1초 안에 전송은 보장하지만 반응 속도는 영 좋지 않았다. 그리고 로컬랜의 방화벽 바깥에 있는 머신(Windows 2003 + P4 2.8G + RAM 2G)에 데몬을 띄우고 방화벽 안쪽에서 테스트한 결과, 초당 4000개를 보내면 연결이 끊기며 초당 1000개를 보내면 0.8s 의 반응 속도를 보여줬다.</p>
+
+<h1>예상되는 용도</h1>
+
+<p>컨텐트 중계 서버
+: 채팅 채널, 파티 채팅, 길드 채팅을 중계해주는 서버. 굳이 채팅 서버를 두지 않아도 무방할 듯. 그 역할을 Spread Daemon 이 해주니까.</p>
+
+<p>게이트웨이 서버
+: M:N 관계에 있는 tier 에서의 중계 서버 역할. 가령 N개의 에이전트와 M개의 게임서버간의 연결을 TCP로 하게 되면 각 에이전트는 M개의 TCP연결을 하고 그것을 관리해야 한다. 이를 1개의 Spread 연결로 해결할 수 있다. (M개의 그룹에 대해 1개의 연결을 사용한다는 가정 하에서&#8230;) 마찬가지로 게임서버는 1개의 Spread 연결에 대해서만 처리하게 되므로 이벤트 드리븐이 간단하게 이루어진다. 가령 클라이언트가 에이전트에 로그인하고 이전 위치를 로딩하게 되면, 에이전트는 해당 서버 그룹에 join 하고, 클라이언트가 로그아웃하면 그룹에서 leave 하면 된다. (ref-counting을 사용하면 간단) 서버간 이동도 마찬가지로 처리할 수 있다. 단 이렇게 될 경우 데몬이 다운되면 게임 끝이다.</p>
+
+<p>브로드캐스트 서버
+: (현실성이 없는 이야기지만) 게임 서버의 각 브로드캐스트 영역(일명 Area)을 그룹으로 간주하고, 그 안에 들어있는 플레이어들에게 멀티캐스팅할 수 있겠다. 단 이런 모델은 잦은 그룹 join/leave 가 이루어지므로 Area 개수가 늘어날수록 부하가 심해질 듯. 1000개의 그룹일 경우 35ms 정도니까&#8230; 10000개면&#8230;</p>
+
+<p>데이터 복제 서버
+: 게임 서버의 경계 영역에서의 데이터 변화를, 이를 공유하는 다른 서버로 복제한다. 예를 들면, NPC 길찾기를 위한 동적 객체 정보를 게임 서버에서 NPC 에이전트로 복제하는 등.</p>
+
+<h1>참고사항</h1>
+
+<p>경험자의 말에 의하면, windows xp 와의 궁합이 잘 맞지 않다고 한다. 대신 windows 2000 에서는 잘 된다고 하는데, 커널의 네트워크 모듈과의 궁합 문제일 가능성이 있다고 한다. 즉 windows 2003 에서 테스트를 더 해봐야 한다는 의미.</p>
 
 <p>see also:</p>
 
-<pre><code>- [CSS2 specification](http://www.w3.org/TR/REC-CSS2)
-- [XHTML specification](http://www.w3.org/TR/xhtml-basic)
+<ul>
+<li><a href="http://www.spread.org/docs/guide/users_guide.pdf">Spread User Guide</a></li>
+<li><a href="http://www.zope.org/Members/tim_one/spread/">Python Spread</a></li>
+<li><a href="http://www3.telus.net/taj_khattra/luaspread.html">Lua Spread</a></li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2006/04/27/spread/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/27/python-tips/">Python Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:38:41+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>asyncore.dispatcher</h3>
+
+<ul>
+<li>원래부터 nonblocking 이다.</li>
+<li>set_socket 하는 시점에 map 에 등록된다.</li>
+</ul>
+
+
+<h3>StringIO.readline()</h3>
+
+<p>StringIO 는 file-like 객체이므로 readline() 을 지원한다. 그러나 write() 한 후 읽어들이면 None 을 리턴한다. 내부적으로 유지하는 offset 이 하나이기 때문인데, 만약 사용하려면 offset(0) 을 호출해서 포인터를 맨 앞으로 돌려줘야 한다. (너무 단순한가?)</p>
+
+<h3>zipfile</h3>
+
+<p>zip 포맷으로 특정 폴더를 압축하기 위해서는 다음과 같이 해야 한다. 이때 압축 포맷으로 ZIP_DEFLATED 를 사용해야 파일 크기가 작아진다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">zipdir</span><span class="p">(</span><span class="n">zfile</span><span class="p">,</span><span class="nb">dir</span><span class="p">,</span><span class="n">base</span><span class="o">=</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
+</span><span class='line'>  <span class="sd">&quot;&quot;&quot;zip directory recursively&quot;&quot;&quot;</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">zip </span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="nb">dir</span><span class="p">,</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">global</span> <span class="n">log</span>
+</span><span class='line'>  <span class="n">log</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;zip </span><span class="si">%s</span><span class="s">...&#39;</span><span class="o">%</span><span class="nb">dir</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">nf</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">nf</span><span class="p">):</span>
+</span><span class='line'>      <span class="n">zipdir</span><span class="p">(</span><span class="n">zfile</span><span class="p">,</span><span class="n">nf</span><span class="p">,</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="nb">dir</span><span class="p">))</span>
+</span><span class='line'>  <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">zfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">nf</span><span class="p">,</span>   <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">base</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="nb">dir</span><span class="p">),</span> <span class="n">f</span><span class="p">),</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>dict(zip(seq1,seq2))</h3>
+
+<p>keys와 values를 dict로 매치시킬 때 dict()와 zip()을 사용할 수 있다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&#39;aaa&#39;</span><span class="p">,</span> <span class="s">&#39;bbb&#39;</span><span class="p">,</span> <span class="s">&#39;ccc&#39;</span> <span class="p">]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">)</span>
+</span><span class='line'><span class="p">[(</span><span class="s">&#39;aaa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;bbb&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;ccc&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">))</span>
+</span><span class='line'><span class="p">{</span><span class="s">&#39;aaa&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;bbb&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;ccc&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>re.findall</h3>
+
+<p>스트링에서 특정 seperator 로 구분된 패턴으로 자를 때, string.split() 도 좋지만 re.findall() 을 강추</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">args</span> <span class="o">=</span> <span class="s">&#39;&quot;SELECT * FROM User&quot;,&quot;aaa,bbb,ccc,ddd&quot;&#39;</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">args</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;&quot;&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;SELECT * FROM User&#39;</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;aaa,bbb,ccc,ddd&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;&quot;(.+?)&quot;&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'><span class="p">[</span><span class="s">&#39;SELECT * FROM User&#39;</span><span class="p">,</span> <span class="s">&#39;aaa,bbb,ccc,ddd&#39;</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>re 를 이용한 파일명 변경</h3>
+
+<p>특정 폴더 안에 여러가지 파일명들을 바꾸기 위해서는 re 모듈을 잘 사용해야 한다. 다음은 파일명에 &#8230; 을 없엘 때 쓰는 스크립트이다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">re</span>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">target_folder</span><span class="p">)</span>
+</span><span class='line'><span class="k">for</span> <span class="n">old_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">new_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;\[.+\]&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="n">old_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">old_name</span><span class="p">,</span><span class="n">new_name</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/27/funny-memory-values/">Funny Memory Values</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:31:49+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>from <a href="http://www.samblackburn.com/wfc/technotes/WTN006.htm">WFC Technical Note 006 - Funny Memory Values</a></p>
+
+<p>윈도우 환경에서 디버깅을 하다 보면 0XCDCD 라든지 0XDDDD 같은 특이한 값들을 만날 수 있는데, 이게 그냥 가비지가 아니라 각각마다 특유의 의미를 가지고 있었다. 가령 0xDDDD는 이미 지워진 포인터라든지 0xFDFD는 힙에 할당한 값의 앞뒤에 위치하는 경계값이라든지 말이다.</p>
+
+<p>한글로 된 설명은 <a href="http://codian.net/wp/archives/352">요기</a>와 <a href="http://www.trozan.net/blog/tag/%B5%F0%B9%F6%B1%D7">요기</a>가 제일 잘 되어 있으니 참고하시길.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/27/sql-tips/">SQL Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-27T07:03:18+09:00" pubdate  data-updated="true" >Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>MS-SQL SERVER + Transact SQL Tip</p>
+
+<h2>IP 문자열에서 a.b.c 추출하기</h2>
+
+<p>declare @ip varchar(20)
+SET @ip = &#8216;111.22.33.22&#8217;
+SELECT LEFT(@ip,len(@ip)-patindex(&#8216;%.%&#8217;,reverse(@ip)))</p>
+
+<h2>리포팅 서비스</h2>
+
+<p><a href="http://network.hanbitbook.co.kr/view.php?bi_id=1048">IIS + ASP + VisualStudio.NET 을 이용한 리포트 서비스 제작</a></p>
+
+<h2>FTP 파일 업로드</h2>
+
+<p>DTS 에서 제공하는 파일 전송 프로토콜 작업(FTPTask)의 경우, 다운로드만 가능하고 업로드는 지원하지 않는다. 가령, 로컬 백업한 <em>.bak, </em>.trn 파일을 리모트 서버로 옮기려면 업로드 스크립트를 SQL 이나 VB 또는 Python으로 직접 개발해야 한다.</p>
+
+<h2>복구 모델</h2>
+
+<p>당연히, 트랜잭션 로그를 남기려면 FULL 복구 모델로 데이터베이스를 설정해야 한다. 백업 정책을 세울 때 꼭 모델을 체크하기 바란다. (기본적으로 FULL 모델로 만들어지는 것 같지만, 필수적으로 체크할 것)</p>
+
+<h2>SQLServerAgent</h2>
+
+<p>유지 관리 계획 등 주기적인 작업을 실행하려면 기본적으로 꺼져있는 SqlServerAgent 를 켜야 한다.</p>
+
+<h2>테이블 스키마 복사</h2>
+
+<p>스크립트로 추출해서 다른 DB 에 설치할 경우 디폴트값이 지정되지 않는 경우가 있다. 이때 DEFAULT 등 제약조건 스크립팅에 꼭 체크를 해야 한다. 아니면 그냥 데이터 내보내기를 사용하길.</p>
+
+<h2>노트북에 SQL Server 설치하기</h2>
+
+<p>SQL Server 상위 버전들은 기본적으로 서버급 OS 에서만 설치된다. 그러나 노트북은 대체로 XP Professional or Home Edition 을 사용하는 법. 이를 지원하는 SQL Server 버전들을 살펴보자.</p>
+
+<table>
+<thead>
+<th></th>
+<th>XP Home</th>
+<th>XP Pro</th>
+<th>comment</th>
+
+<tr>
+<td>MSDE</td>
+<td>O</td>
+<td>O</td>
+<td> </td>
+</tr>
+<tr>
+<td>Evaluation Edition</td>
+<td>O</td>
+<td>O</td>
+<td>120 일 평가판</td>
+</tr>
+<tr>
+<td>Persional Edition</td>
+<td>X</td>
+<td>O</td>
+<td> </td>
+</tr>
+<tr>
+<td>Developer Edition</td>
+<td>X</td>
+<td>O</td>
+<td> </td>
+</tr>
+</thead></table>
+
+
+<p>결국 XP Home Edition 을 사용하는 경우에는 평가판 또는 MSDE 를 사용해야 한다. 이참에 MSDE 의 새 버전인 SQL Server Express 2005 를 사용해보는 것도&#8230; <img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/icon_sad.gif' width='' height='' alt='(' title='('></p>
+
+<p>see also: * [http://www.microsoft.com/sql/evaluation/overview/default.asp SQL Server Overview] - 여기에 버전별 비교표가 들어있다 * [http://go.microsoft.com/?linkid=2534867 120일 평가판 다운로드]</p>
+
+<h2>NULL 비교</h2>
+
+<p>NULL 에 대한 비교는 is 로 하라!</p>
+
+<p>declare @a int
+SET @a = NULL</p>
+
+<p>IF @a = NULL
+print &#8216;@a=NULL&#8217;
+IF @a IS NULL
+print &#8216;@a is NULL&#8217;</p>
+
+<p>declare @b int
+SET @b = 1</p>
+
+<p>IF @b &lt;> NULL
+print &#8216;@b &lt;> NULL&#8217;
+IF @b IS NOT NULL
+print &#8216;@b is not NULL&#8217;</p>
+
+<p>&#8211; 실행 결과
+@a IS NULL
+@b IS NOT NULL</p>
+
+<h2>constraint 관리</h2>
+
+<p>디폴트 constraint 를 삭제하고 다시 추가하는 법&#8230;</p>
+
+<p>&#8211; 삭제
+ALTER TABLE [dbo].[테이블] DROP
+CONSTRAINT [DF<em>테이블</em>컬럼]</p>
+
+<p>&#8211; 추가
+ALTER TABLE [dbo].[테이블] WITH NOCHECK ADD
+CONSTRAINT [DF<em>테이블</em>컬럼] DEFAULT (디폴트값) FOR [관련컬럼]</p>
+
+<h2>CASE WHEN&#8230;</h2>
+
+<p>다음은 승률을 나타내는 컬럼을 계산해오는 방식이다.</p>
+
+<p>SELECT
+&#8230;.
+CASE
+WHEN (WinCount + LoseCount + DrawCount) = 0 THEN 0.00
+ELSE round((WinCount * 1.0) / (WinCount + LoseCount + DrawCount) , 2)
+END AS WinRate,
+&#8230;.</p>
+
+<h2>SELECT&#8230;INTO&#8230;</h2>
+
+<p>INSERT INTO&#8230;SELECT&#8230;가 존재하는 테이블에 데이터를 넣을 때 사용한다면, SELECT&#8230;INTO&#8230;는 새로운 테이블을 만들어 넣을 때 사용한다. 특히 통계 테이블에 데이터를 넣을 때, TRUNCATE TABLE xxx; INSERT INTO&#8230;SELECT를 하게 되면, 문제가 생길 수 있으므로 아예 DROP 한 다음 SELECT&#8230;INTO&#8230; 를 사용하도록 한다. (우리 DBA의 말씀~)</p>
+
+<p>SELECT.. INTO는 MS-SQL의 기능! . 일반적인 ANSI-SQL에서는 CREATE TABLE &#8230; SELECT 를 사용함.</p>
+
+<h2>대용량 데이터 빨리 넣기</h2>
+
+<pre><code>- 관련 데이터베이스의 로그 타입 변경 : EM에서 데이터베이스 등록정보를 선택, 복구 모델을 단순 또는 대량 로그로 임시 변경해준다.
+- ALTER TABLE ... 로 관련 테이블의 PK 제거하기. 그러나, FK 관계에 있을 경우에도 제거를 해야 하므로 EM 또는 VS 의 DB 다이어그램에서 삭제하는게 제일 간편하다. 단. 복구는 수동 -_-;
+- DROP INDEX ...로 관련 테이블의 인덱스 제거하기. 그러나, 다시 복구해야 하므로... 수작업 필수
+- BULK INSERT : DB 스트레스 테스트를 위해 백만건 이상의 데이터를 넣어야 할 때 사용하면 간편하다. 단 샘플 데이터 파일을 제공해줘야 한다.
+- INSERT INTO xxx () SELECT ...로 자기 자신 혹은 관련 테이블을 활용할 것. while + insert 1 보다 훨씬 빠르다. 테스트해본 결과 한줄씩 insert 할 경우 10만건에 40초, 그러나 위의 방법을 쓰면 2초로 해결 가능. 단, 용량이 너무 커질 경우 실행이 안되므로, 범위를 나눠야 할 듯. 300만건에서는 대충 됨.
+- PK/FK/Index/Trigger 복구하기. 800만건이 들어있는 테이블의 PK 를 복구하는데 Xeon Dual 0.8G 에서 무려 '''5분'''이나 걸렸다.
 </code></pre>
+
+<p>ALTER TABLE xxx ADD CONSTRAINT PK_xxx_yyy PRIMARY KEY(yyy)
+ALTER TABLE xxx ADD CONSTRAINT FK_xxx_yyy FORENGN KEY REFERENCES zzz(yyy) ON DELETE CASCADE
+CREATE [UNIQUE] INDEX IX_xxx_yyy ON xxx(yyy)</p>
+
+<h2>데드락 해결하기</h2>
+
+<p>sp_who2
+sp_lock pid
+KILL pid</p>
+
+<h2>like 와 인덱스</h2>
+
+<pre><code>- col like 'userid%'
+- col like '%userid%'
+- col like '%userid'
+</code></pre>
+
+<p>오직 1번만이 인덱스를 타게 된다. Index는 Binary Tree로 구성되어 있기 때문에 처음부터 찾아서 들어가는 것임. 당연히 첫자를 알 수 없다면 index를 경유하지 못함!!!</p>
+
+<h2>Update Trigger</h2>
+
+<p>특정 컬럼이 변경된 경우 로그 테이블에 row 를 추가해야할 경우 Update Trigger 를 사용하면 간편하다. 가령, 플레이어 레벨이 바뀌었을 때 레벨 테이블에 insert 를 해야 한다고 가정하면 트리거는 대략 다음과 같다.</p>
+
+<p>CREATE TRIGGER trigger_name ON src_tbl FOR UPDATE
+AS
+IF UPDATE(level)
+begin
+declare @old_level smallint, @new_level smallint
+SELECT @new_level = [Level] FROM inserted
+SELECT @old_level = [Level] FROM deleted
+IF @old_level &lt;> @new_level
+begin
+INSERT INTO log_tbl (&#8230;.) VALUES (&#8230;,@old_level,@new_level,&#8230;)
+end
+RETURN
+end</p>
+
+<h2>@@IDENTITY vs. SCOPE_IDENTITY()</h2>
+
+<p>전자의 경우, 현재 세션에서의 최종적인 IDENTITY 컬럼의 값을 리턴해준다. 단, 트리거에 의해서 다른 테이블에서 IDENTITY 가 바뀐 경우 그 값을 리턴해준다. 따라서, 최종적으로 직접 만진 테이블의 IDENTITY 값을 알아오려면 SCOPE_IDENTITY() 를 사용하는 것이 안전하다.</p>
+
+<h2>UPDLOCK</h2>
+
+<p>쿼리 분석기에서 좌측 쿼리를 먼저 실행한 후 우측 쿼리를 실행할 때, 첫번째 예제의 경우 그냥 실행이 되지만 두번째 예제는 block 된다. 오라클에는 select for update 라는 게 있다나&#8230;</p>
+
+<table>
+<tr>
+<td>nonblocked query</td>
+</tr>
+<tr>
+<td>begin trans</td>
+<td rowspan="2">select * from users</td>
+</tr>
+<tr>
+<td>select * from users with (updlock)</td>
+</tr>
+<tr>
+<td>blocked query</td>
+</tr>
+<tr>
+<td>begin trans</td>
+<td rowspan="2">select * from users with (updlock)</td>
+</tr>
+<tr>
+<td>select * from users with (updlock)</td>
+</tr>
+</table>
+
+
+<p>DB레벨에서 중복로그인을 처리할 경우, DB 컬럼에 LogOn flag 를 둬야 한다. LOGOFF - LOGON - GAME 이런 식의 상태 변화가 있다고 가정하면, 로그인시 LOGOFF -> LOGON 으로 바꿔주고 로그아웃시 LOGON -> LOGOFF 로 설정하게 될 것이다. 문제는 이걸 언제 어떻게 체크해서 바꾸느냐인데&#8230;</p>
+
+<p>&#8211; simplified login procedure
+declare @logon
+SELECT @logon=LogOn FROM users WHERE &#8230;
+IF ( @logon &lt;> LOGOFF )
+begin
+handle_error&#8230;
+end
+UPDATE users SET @logon = LOGON WHERE &#8230;</p>
+
+<p>이런 식으로 처리할 경우, abuser 에 의해서 동일 유저에 대한 로그온 프로시저가 DB에서 동시에 일어난다고 가정하면 중복로그인이 충분히 발생할 수 있게 된다. (아주 낮은 확률이지만&#8230;) 이를 손쉽게 막으려면 select with updlock를 사용하면 된다. (단, 이때 (Page,IU), (KEY,U), (Table,IX) 의 3가지의 락이 걸린다)</p>
+
+<p>웬지 불필요한 lock 을 피하기 위해서는, update 의 where 절에서 다시 한번 LogOn 필드를 체크(즉 select 해온 뒤 누가 바꿨는지 다시 확인) 해주면 될 거 같다.</p>
+
+<p>&#8211; simplified login procedure
+declare @logon
+SELECT @logon=LogOn FROM users WHERE &#8230;
+IF ( @logon &lt;> LOGOFF )
+begin
+handle_error&#8230;
+end
+UPDATE users SET @logon = LOGON WHERE &#8230; AND logon = LOGOFF
+IF ( @@rowcount &lt;> 1 )
+begin
+handle_error&#8230;
+end</p>
+
+<p>테스트 해 본 결과 양 쪽에서 select 한 후 한쪽에서 update 를 하면, 다른 쪽의 update 는 트랜잭션에 의해 block 되며 상대 트랜잭션이 끝나면 실패를 리턴하게 된다. (만약 where 절의 체크가 없다면 둘 다 로그인 성공으로 간주되므로 주의할 것)</p>
+
+<blockquote><p>이게 consistent non-blocking read을 지원하기 때문인데, 간혹 조금 이해하기 힘든 현상이 일어날 때도 있지. 하지만 Query 하나 들어갈때마다 table에 lock을 걸어버리는 방법은 너무 위험부담이 크기 때문에. consistent read에 대한 설명이 필요하다면 다음 기회에..</p></blockquote>
+
+
+<h2>sp_lock, sp_who2</h2>
+
+<pre><code>- sp_lock : 현재 시스템에 존재하는 lock 을 보여준다.
+- sp_who2 : 현재 시스템에서 실행되는 프로세스, 소유주, 접속지, 실행내용 등을 보여준다.
+</code></pre>
+
+<p>이 내용은 Enterprise Manager 의 관리에서 찾아볼 수 있다.</p>
+
+<h2>GOTO</h2>
+
+<p>어릴 적(?)부터 항상 GOTO 는 쓰지 말라는 이야기를 들어 왔지만, 프로시저에서 또 쓰게 될 줄은&#8230; 그러나, 트랜잭션이 존재할 경우 GOTO 를 쓰지 않으면 자꾸 if-else-if-else 로 indent 해들어가는 바람에 읽기가 힘들어져서&#8230;</p>
+
+<p>begin transaction
+&#8230;.
+&#8230;.
+IF ( error_found )
+begin
+rollback transaction
+SET @errorcode = -1
+goto Label
+end
+&#8230;.
+&#8230;.
+commit transaction
+&#8230;.
+&#8230;.
+Label:
+log something&#8230;
+&#8230;.
+&#8230;.</p>
+
+<h2>SET IDENTITY_INSERT</h2>
+
+<p>identity 컬럼의 경우 DELETE FROM tbl 하더라도 시드값은 계속 증가하게 되어 있다. 또한, 특정 값을 명시적으로 insert 할 수 없다. 이를 가능하게 하기 위해서는 아래와 같이 하면 된다.</p>
+
+<p>SET identity_insert tbl ON
+INSERT INTO tbl (identity_col,&#8230;) VALUES (N,&#8230;)
+SET identity_insert tbl off</p>
+
+<h2>@@ERROR / @@ROWCOUNT</h2>
+
+<p>프로시저 중간에 insert 나 update 할 경우 혹시 모를 실패에 대비해서 아래와 같이 체크해야 한다.</p>
+
+<p>INSERT &#8230;
+IF @@error &lt;> 0
+begin
+rollback transaction
+RETURN
+end</p>
+
+<p>update 의 경우 1개의 업데이트만 기대했는데, 2개가 업데이트된 경우 @@ERROR는 정상이 된다. 이때에는 @@ROWCOUNT 를 체크해야 한다.</p>
+
+<h2>시간 필드의 디폴트값</h2>
+
+<p>insert 시점의 시간을 저장하는 필드의 경우, 테이블 선언시</p>
+
+<p>CREATE TABLE xxx
+&#8230;
+yyy DATETIME DEFAULT GETDATE()
+&#8230;</p>
+
+<p>라고 해주면 insert 할때 굳이 명시할 필요가 없다.</p>
+
+<h2>현재 시간 + a</h2>
+
+<p>dateadd( datepart, N, getdate() )</p>
+
+<h2>스크립트 디버깅</h2>
+
+<p>exec sp_sdidebug &#8216;legacy_on&#8217;</p>
+
+<h2>시간 변환</h2>
+
+<p>convert(varchar(10),getdate(),121)</p>
+
+<h2>프로시저 실행시 파라미터</h2>
+
+<p>out 을 명시해주지 않으면 받아낼 수 없다</p>
+
+<p>execute proc @param1, @param2, @param3 out, @param4 out</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/26/codekeep/">CodeKeep</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-26T08:14:46+09:00" pubdate  data-updated="true" >Apr 26<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.JPG" title="codekeep.JPG"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/codekeep.thumbnail.JPG' width='' height='' alt='codekeep.JPG' title='codekeep.JPG'></a>
+<a href="http://msdn.microsoft.com/msdnmag/issues/05/12/VisualStudioAddins/default.aspx">Visual Studio Add-Ins Every Developer Should Download Now</a> 에서 비주얼 스튜디오를 위한 10 가지 필수 플러그인들을 만나볼 수 있다. 그 중에서 제일 마음에 드는 것은, 함수를 선택하면 파라미터를 읽어서 자동적으로 XML 코멘트를 만들어주는 <a href="http://www.roland-weigelt.de/ghostdoc">GhostDoc</a>과, 웹에서 코드 조각들을 검색해서 내 코드에 넣을 수 있는 <a href="http://www.codekeep.net/">CodeKeep</a>이라는 플러그인이다.</p>
+
+<p>단 GhostDoc은 아직 VS2005 영문판만 지원해서 CodeKeep만 구경해볼 수 있었는데, 아직은 기부된 코드의 양이 부족한 듯해서 아쉬웠다. del.icio.us처럼 많은 사람들이 사용해줘야 시너지 효과가 날텐데, 홈페이지만 <a href="http://goodhyun.com/archives/2006/04/_co_oe_aoea_a_2.php">웹2.0 디자인</a>을 닮으려고 해서는 안될 것이다. 이런 식으로 팀 내부적으로 코드조각을 공유할 수 있는 솔루션이 있었으면 좋으련만&#8230; (누가 위키 기반으로 만들어주시게~~)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2006-04-25T21:29:33+09:00" pubdate  data-updated="true" >Apr 25<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://udt.sf.net">UDT</a>는 Internet2 혹은 기가비트 이더넷과 같이 빠른 네트워크에서 수십~수백 기가 바이트의 대용량 데이터를 전송할 때 TCP가 매우 느리다는 점때문에 시작된 오픈소스 프로젝트이다. 버클리 소켓 API를 그대로 유지하고 있어서 접근성이 좋고, TCP의 슬라이딩 윈도우 같은 Congestion Control 을 사용자가 상황에 맞게 조정할 수 있다는 장점이 있다. 2.0 버전까지는 UDP 스트림만을 지원했는데 3.0부터는 UDP 다이어그램과 중첩입출력(Overlapped)도 지원하기 시작했다. 현재 3.0 beta 가 나와 있는 상태이다.</p>
+
+<p>이번에 reliable UDP 라이브러리 조사 도중 탐지망에 걸려 들어서 검토한 결과, 하나의 소켓에 대해서 내부적으로 입력과 출력 쓰레드를 1개씩 사용하는 것을 발견했다. 원래부터 데이터 전송을 목적으로 구현되어서 그런 듯한데, 이를 수정하지 않고는 게임 서버에서 사용하기는 힘들다는 판단을 내렸다. 시간이 난다면 IOCP를 연동할 수 있게 살짝 고쳐 보고 싶지만, 누구 말마따나 게임 회사는 연구소가 아닌 관계로&#8230; OTL</p>
+
+<p>결국 다시 RakNet으로 가야 된단 말인가&#8230;</p>
 </div>
   
   

@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="virtualenv - 분리된 파이썬 환경을 구축하기.  설치하기  easy_install virtualenv  개별 환경 구축하기  cd ~/Document/  virtualenv no-site-packages django_appengine  개별 환경 활성화 ...">
+  <meta name="description" content="최근 레이다에 자주 걸리던 MDA 프레임워크에 대한 게임 디자인 워크샵이 사내에서 피자와 함께 열려서 쉬귀군과 함께 참가했다.첫날에는 Sissyfight 3000을 1분 내에 끝내라는 퍼블리셔의 요청 메일을 받았다. 원작 게임이 재미없었던 우리 팀은, 두 세번 게...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,476 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/25/virtualenv-easy/">Virtualenv - 분리된 파이썬 환경을 구축하기. 설치하기 Easy&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-25T19:10:00+09:00" pubdate  data-updated="true" >Jan 25<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>virtualenv - 분리된 파이썬 환경을 구축하기.  설치하기  easy_install virtualenv  개별 환경 구축하기  cd ~/Document/  virtualenv no-site-packages django_appengine  개별 환경 활성화  cd django_appengine/bin  source activate  개별 환경에 라이브러리 설치  easy_install Django: 1.1.1 을 설치함  easy_install Django-1.1.tar: 미리 다운받아둔 1.1 버전 설치하기</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/17/starting-reiot/">Starting Reiot</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-17T09:35:57+09:00" pubdate  data-updated="true" >Jan 17<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2010/01/startup.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2010/01/startup.jpg' width='' height='' alt='' title=''></a></p>
-
-<p><a href="http://boxcatstudio.files.wordpress.com/2010/01/startup.jpg"></a>(이미 좀 기한이 지난 이야기지만) 2009년은 다시는 겪고 싶지 않은 인생 최악(?)의 해이면서, 유아기적 사고에서 벗어나 진짜 어른이 된 해다. 작년에 일어난 수많은 사건들이, 인생이 얼마나 덧없는가에 대해서, 가장의 건강이 왜 그렇게 소중한 것인지에 대해, 가족을 끝까지 책임져야 하는 사명이 얼마나 무거운가를 깨닫게 해 주었기 때문이다.</p>
-
-<p>건강이란 아무리 잘 관리해도 확률적으로 나빠질 수 있다는 점을 가정했을 때, 우리 나라처럼 사회안전망이 취약한 환경에서는 가장에게 문제가 발생하면 가족과 친지를 괴롭히다가 빈곤층으로 전락해 버릴 수 있다는 것은 알고 싶지 않은 공공연한 비밀이다. 그런 상황이 오기 전에 자산을 최대한 축적해 두는 것이 대한민국을 살아가는 재산세 내지 않는 이들의 운명이고. 이런 것들이 내가 트위터나 클리앙에서 MB와 그 알바들에게 극렬하게 반응하고, 북유럽의 천국같은 복지에 대해서 항상 부러워하고, 웰빙 먹거리에 대해서 떠들어대는 이유다.</p>
-
-<p>운좋게 회사에서 4개월 가까이 주3일만 출근해도 되도록 배려를 해줬고, 덕분에 아직까지 큰 탈 없이 버틸 정도의 체력을 유지할 수 있었다. 그러나, 이런 배려가 무한정 지속될 수는 없다는 것은 명백한 사실. 결국은 휴직 3개월차인 지난 주에 꾀죄죄한 모습으로 회사로 가서 사직서를 제출했다. 다행히 이번 <a href="http://bm.gametree.co.kr/">프로야구매니저</a>의 반응이 제법 좋은 편이어서, 미안함과 부담감은 덜고 한결 편안한 마음으로 작별 인사를 할 수 있었다.</p>
-
-<p>이제 새해의 목표는 간단하다. 최우선순위는 정상 컨디션의 레이옷으로 복원(?)하기. 그리고 자체 선순환 시스템- 내가 없어도 자산을 증식해주는 앞마당 커맨드 센터 -의 구축이 두 번째다. <a href="http://startup.hannal.net/">한날님</a>처럼 거창하게 오픈하기엔 현실이 참 소박하기에  그다지 할 말은 없지만, 새로 만들 조직의 최종적인 모습에 대해서는 코멘트할 게 좀 있다.</p>
-
-<pre><code>- 주35시간 근무
-- 아침엔 유기농 야채 샐러드. 점심엔 호텔식 부페
-- 무료 공정 무역 커피
-- 1년에 28일 refresh 휴가
-- 직원 및 가족의 의료 비용 전체 제공
-- 사옥 근처 직원 아파트 제공
-- 육아 및 교육 지원. 종신 보험 및 재무, 법무 컨설팅 제공
-- 전사원 아이폰 또는 안드로이드 제공
-- 모니터, 의자, 키보드, 마우스는 최고의 퀄리티로
-- 이익의 1%는 복지 분야로 기부
-</code></pre>
-
-<p>요약하자면, 소수 정예로 최고의 팀을 꾸리고, 업무에만 집중할 수 있는 최고의 환경을 제공한다..라는 거다. 아직은 꿈의 단편에 불과하고 언제 저런 것들이 이루어질지는 의문이지만, 회사 운영도 애자일하게 해나가면 시간을 많이 단축시킬 수 있을지도. 물론 스타트업의 3년 생존률이 1-5% 정도라는 걸 감안하면 초반엔 서바이벌 모드로 갈 수 밖에 없을 것 같다.</p>
-
-<p>스타트업의 세계는 기술력이 좋다고, 최신 트렌드를 많이 안다고 성공하는 영역이 아니라고 한다. 지식 보다는 지혜가 필요한 영역, 빠른 판단과 실행력이 중요한 세계라나. 그래서 블로그 이름도 Learning Reiot 에서 Starting Reiot 으로 바꿨다. 다음 주에 법인 등록을 마무리 지으면, 이제 컨디션이 허용하는 한 열심히 땅파는 거만 남았다. 다만 현재의 체력대로라면 조만간 재택 근무의 나날들이 이어질 거 같지만.. ^<sup>;;;</sup></p>
-
-<p>끝으로, 월급 몇 달째 못타오는 못난 남편 대신 생활비와 남편 약값, 시댁 생활비 대느라 야근 라이프를 반복중인 안사람에게 무한한 경의를 바친다. 여보~ 감사합니다~ 빨리 건강도 되찾고 돈도 많이 벌어올께요~ ㅠ_ㅠ</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/10/08/company-capitalism/">Company Capitalism</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-10-08T23:57:42+09:00" pubdate  data-updated="true" >Oct 8<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[caption id=&#8221;attachment_2253&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;오늘 업어온 따끈따끈한 노랑둥이&#8221;]<a href="http://boxcatstudio.files.wordpress.com/2009/10/sany0168.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/10/sany0168.jpg?w=300' width='' height='' alt='오늘 업어온 따끈따끈한 노랑둥이' title='오늘 업어온 따끈따끈한 노랑둥이'></a>[/caption]</p>
-
-<p><a href="http://dacumania.tistory.com/1334">EBS 다큐멘터리 &#8220;신뢰가 자본이다&#8221;</a> 에 따르면, 국부의 80%가 사회적 자본(Social Capitalism) - 구성원들이 상호 신뢰를 통해 자발적이며 솔직하게 협력해서 이루어내는 능력-이라고 한다. 그렇다면 여러 파트와 유관 부서로 구성된 게임 개발 프로젝트도 비슷한 규칙이 적용되지 않을까 하는 생각이 들었다.</p>
-
-<p>예를 들면 믿음직스럽지 못한 입코딩 개발자가 와서 &#8220;이러 저러한 이유로 A안으로 가야 한다&#8221;라고 말하면, 금방 A안의 약점을 머리속으로 리스트업해서 &#8220;그 안은 이러 저러한 문제가 있는데 생각은 해봤으며 대안이 있느냐?&#8221; 라든지  &#8221;이상적인 경우에는 맞는 이야기지만 현실적으로 어렵다&#8221;라고 하다가, 소모적인 논쟁 또는 감정 싸움이 발생하거나 어색한 침묵이 흐르다가 결국 아무 것도 해결되지 않고 서로 뒤돌아서서 욕만 하는 걸로 끝나는 경우가 종종 있다.</p>
-
-<p>반명 전적으로 믿고 있는 개발자가 비슷한 이야기를 꺼냈다면, 열의 아홉은 그가 내가 지금 막 떠올린 약점조차도 이미 파악했을 것이며, 문제가 생기더라도 어떻게든 해결할 것이라는 암묵적 신뢰 속에 동의하지 않을까. 후자 쪽이 빠른 의사 결정을 통해 신속하게 문제가 해결될 것이라는 것은 명백하다.</p>
-
-<p>보통 게임 개발은 실력보다는 커뮤니케이션이라고 하는게 아마 이런 이야기를 두루두루 일컫는 말일 게다. 싸가지없는 천재 개발자보다는 평범해도 성실한 개발자를 리더들이 선호하는 이유도 비슷할테고. (그래도 난 성실한 천재 개발자가 좋다. 후후)</p>
-
-<p>자. 여기까지 동의하신다면, 조직의 리더들은 무엇을 해야 할까? 를 상상해보자.</p>
-
-<p>보통 A급 개발자들을 케어하고 B/C급 개발자들은 폭주할 때까지 안심하고 버려두는 경우가 많을 것이다. 다만 개개인의 역량의 높낮이나 멋진 프로세스, 성과에 따른 인센티브, 근태 체크보다 중요한 것이 있지 않을까. 예를 들면, 어디에서 신뢰의 고리가 깨졌으며, 그 고리를 잇기 위해서는 무엇을 해야 하는가? 에 대한 고민 말이다. 자주 신뢰를 깨뜨리는 개발자는 능력을 떠나서 빨리 조치를 취해야 하며, 실무는 물론 팀 내외적으로 연결 고리 역할에 충실한 사람들에게 더 많은 유무형의 인센티브를 줘야 할 것이다. 이런 이유로 최근 몇 년째 중재자 - 네트워크 이론에서 허브의 역할을 하는 - 의 도입에 대해서 강력하게 주창하고 있는데,  &#8217;현실적인 이유로&#8217; 잘 먹혀들지 않고 있는게 사실이다. ^<sup>;;</sup></p>
-
-<p>요즘 이 허브의 역할에 대해서 개인적으로 연구 중인데, 조만간 아래와 같은 이야기들을 잘 풀어서 정리해보고 싶다.</p>
-
-<pre><code>- 강력한 신뢰 네트워크를 가진 허브들이 흔들릴 때가 바로 조직의 위기이다..
-- 어떤 조직을 흔들려면 허브를 공격하면 된다..
-- 튼튼한 팀을 꾸리거나 재정비할 때에는 기존의 허브를 공략한 후, 강력한 대형 허브를 하나 더 얻는다..
-- 불만쟁이 허브는 재빨리 제거한다..
-</code></pre>
-
-<p>이렇게 쓰다 보니 웬지 내가 그런 허브인 듯 하지만, 사실은 그냥 거대 허브 몇 개에 빨대를 꽂고 연명하는 말단 이파리(leaf)에 불과한 개발자일 뿐이다. 헷헷.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/10/07/ray-the-limited-edition/">Ray the Limited Edition</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-10-07T23:57:10+09:00" pubdate  data-updated="true" >Oct 7<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[caption id=&#8221;attachment_2249&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;분노의 그레이&#8221;]<a href="http://boxcatstudio.files.wordpress.com/2009/10/sany0068_2.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/10/sany0068_2.jpg?w=300' width='' height='' alt='분노의 그레이' title='분노의 그레이'></a>[/caption]</p>
-
-<p>I&#8217;m back again!</p>
-
-<p>최근 건강 문제도 있고 자체 검열도 많아져서 절필 비슷한 상태가 꽤 오래 지속되었다. 다행히 많은 분들의 관심과 배려로, 기본 스탯은 꽤 회복된 상태이지만, 요양 라이프는 더 지속될 전망이다. 여기 저기가 아프고 쑤셔서 다소 민감해진 데다가, 이제 하루만 출근만 해도 체력적으로 버거운 상태에 도달, 고민 끝에 조만간 1-2개월 정도 푹 쉴 계획이다. 최근 과로로 의식불명에 빠진 개발자가 지인의 친구 회사분이든지, 또 지병으로 젊은 나이에 운명을 달리하신 게임 개발자분의 이야기를 가까이서 접할 수 있어, 참 남의 일 같지가 않다. 이 자리를 빌어 고인의 명복을 빌어 본다.</p>
-
-<p>HP가 떨어진 삶이 계속되면서, 내가 한정된 에너지를 누구에게 또는 어디에 쏟아야 하는지 명백하게 알 수 있었다.</p>
-
-<p>어쨌거나 이제는 이런 네거티브한 상념에 발목잡히기엔 내 인생의 비트&amp;마이크로초가 아까우므로, 그냥 just:ignore 해버리고 오로지 health regeneration rate 를 높이는 데 주력할 계획이다. 김포 평야에서 자전거를 몰고 나가 금빛 벼물결 속에서 원기옥도 좀 모으고, 다양한 분야의 책도 많이 읽을 계획이고, 뜸했던 블로깅도 재개해서, 최근 3개월 동안 축적해둔 다양한 분야의 Draft들을 하나씩 공개해 보도록 하겠다.</p>
-
-<p>휴가 기간 동안 한정된 시간을 어떻게 잘 활용할 것인가?가 앞으로의 당면 과제 되겠다. 이른바 기간 한정판 레이옷인 셈이다. 클클.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/07/27/back-to-wordpress-com/">Back to Wordpress.com</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-07-27T10:03:38+09:00" pubdate  data-updated="true" >Jul 27<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[caption id=&#8221;attachment_2242&#8221; align=&#8221;alignnone&#8221; width=&#8221;300&#8221; caption=&#8221;배고픈 길냥이 오형제&#8221;]<a href="http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg?w=300' width='' height='' alt='배고픈 길냥이 오형제' title='배고픈 길냥이 오형제'></a>[/caption]</p>
-
-<p>호스팅 만료 한 달을 앞두고, 다시 wordpress.com 으로 전격 이사를 왔다.</p>
-
-<p>국내의 정치적 핍박을 참지 못하고 사이버 망명길에 오르기엔, 여긴 그저 조회수 낮은 힘없는 일개 프로그래머의 해우소일 뿐이지만, 그래도 최근 MB족들의 하는 꼬라지를 보면 언제 호스팅이 날아가고 데이터가 악의 손아귀에 들어갈 지 모를 터다.</p>
-
-<p>어쨌거나 설치형 워드프레스(이하 WP)에서 호스팅형으로 돌아갈 때 가장 걸리는 것은 바로 첨부 파일이다. 비록 WP가 XML 기반의 Export/Import 를 지원하긴 하지만 첨부 파일까지 자동으로 옮겨주지는 않기 때문이다. 그래서 처음 생각한 건 각종 이미지들을 구글의 피카사웹으로 올린 후, 그 URL을 찾아서 XML파일을 교체한다는 아이디어였다.</p>
-
-<p>일단 첨부파일들을 모두 다운받아서 피카사 업로더를 이용해서 올린 후, <a href="http://code.google.com/intl/ko/apis/picasaweb/developers_guide_python.html">구글 피카사웹 API 샘플</a>을 이용하니 손쉽게 URL을 알아낼 수 있었다. 주의할 점이라면 한글로된 앨범 이름을 위해서 유니코드를 써야 한다는 것 정도가 샘플과의 유일한 차이였다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">get_picasa_urls</span><span class="p">(</span><span class="n">email</span><span class="p">,</span><span class="n">password</span><span class="p">,</span><span class="n">wp_album</span><span class="p">):</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">gd_client</span> <span class="o">=</span> <span class="n">gdata</span><span class="o">.</span><span class="n">photos</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">PhotosService</span><span class="p">()</span>
-</span><span class='line'>  <span class="n">gd_client</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="n">email</span>
-</span><span class='line'>  <span class="n">gd_client</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
-</span><span class='line'>  <span class="n">gd_client</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s">&#39;wordpress_attachment_exporter&#39;</span>
-</span><span class='line'>  <span class="n">gd_client</span><span class="o">.</span><span class="n">ProgrammaticLogin</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;picasa web connected&#39;</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="n">dic</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">albums</span> <span class="o">=</span> <span class="n">gd_client</span><span class="o">.</span><span class="n">GetUserFeed</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s">&#39;default&#39;</span><span class="p">)</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">albums</span><span class="o">.</span><span class="n">entry</span><span class="p">),</span> <span class="s">&#39;albums found&#39;</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="k">for</span> <span class="n">album</span> <span class="ow">in</span> <span class="n">albums</span><span class="o">.</span><span class="n">entry</span><span class="p">:</span>
-</span><span class='line'>      
-</span><span class='line'>      <span class="k">if</span> <span class="n">album</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">!=</span> <span class="n">wp_album</span><span class="p">:</span>
-</span><span class='line'>          <span class="k">print</span> <span class="s">&#39;skipping album&#39;</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">album</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span><span class="p">,</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
-</span><span class='line'>          <span class="k">break</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="k">print</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">album</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span><span class="p">),</span> <span class="s">&#39;album found&#39;</span>
-</span><span class='line'>      
-</span><span class='line'>      <span class="c">#print &#39;title: %s, number of photos: %s, id: %s&#39; % (album.title.text,album.numphotos.text, album.gphoto_id.text)</span>
-</span><span class='line'>      <span class="n">photos</span> <span class="o">=</span> <span class="n">gd_client</span><span class="o">.</span><span class="n">GetFeed</span><span class="p">(</span><span class="s">&#39;/data/feed/api/user/default/albumid/</span><span class="si">%s</span><span class="s">?kind=photo&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">album</span><span class="o">.</span><span class="n">gphoto_id</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
-</span><span class='line'>      <span class="k">for</span> <span class="n">photo</span> <span class="ow">in</span> <span class="n">photos</span><span class="o">.</span><span class="n">entry</span><span class="p">:</span>
-</span><span class='line'>          <span class="c">#print &#39;  Photo:&#39;, photo.title.text, &#39; id:&#39;, photo.gphoto_id.text, &#39; url:&#39;, photo.content.src</span>
-</span><span class='line'>          <span class="n">dic</span><span class="p">[</span><span class="nb">unicode</span><span class="p">(</span><span class="n">photo</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span><span class="p">,</span><span class="s">&#39;utf-8&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">photo</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">src</span><span class="p">,</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
-</span><span class='line'>      
-</span><span class='line'>  <span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">dic</span><span class="p">),</span> <span class="s">&#39;images in picasa&#39;</span>
-</span><span class='line'>      
-</span><span class='line'>  <span class="k">return</span> <span class="n">dic</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>그다음 한 일은 내보내기한 XML 파일의 기존 URL을 위에서 찾아낸 새 URL로 교체하는 것인데, 정규식을 활용해보기로 했다. 문제는 이렇게 했는데도 실제로 미리보기가 안된다는 것이었는데, 아마도 flickr나 피카사 모두 직접 링크를 지원하지 않는 모양이었다. 그래서 어쩔 수 없이 모든 첨부파일을 손으로 하나씩 WP.com 으로 업로드한 후 그 URL을 적용하기로 했다.</p>
-
-<p>아래는 최종 버전.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">re</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">codecs</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># configuration</span>
-</span><span class='line'><span class="n">wp_export_xml</span> <span class="o">=</span> <span class="s">&#39;/Volumes/data/Downloads/wordpress.2009-07-25.xml&#39;</span>
-</span><span class='line'><span class="n">attachment_ext</span> <span class="o">=</span> <span class="s">&#39;jpg|JPG|gif|GIF|png|PNG|bmp|BMP|doc|docx&#39;</span>
-</span><span class='line'><span class="n">attachment_url_pattern</span> <span class="o">=</span> <span class="s">&#39;http://reiot[^&quot;</span><span class="se">\&#39;</span><span class="s">&lt;&gt;]+?\.(</span><span class="si">%s</span><span class="s">)&#39;</span><span class="o">%</span><span class="n">attachment_ext</span>
-</span><span class='line'><span class="n">attachment_filename_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;[^/=]+?\.(</span><span class="si">%s</span><span class="s">)&#39;</span><span class="o">%</span><span class="n">attachment_ext</span><span class="p">)</span>
-</span><span class='line'><span class="n">wpcom_prefix</span> <span class="o">=</span> <span class="s">&#39;http://boxcatstudio.files.wordpress.com/2009/07/&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">attachments</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># faster than open().read().encode(&#39;utf-8&#39;)</span>
-</span><span class='line'><span class="n">lines</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">wp_export_xml</span><span class="p">,</span><span class="s">&quot;r&quot;</span><span class="p">,</span><span class="s">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-</span><span class='line'><span class="n">itr</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">attachment_url_pattern</span><span class="p">)</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
-</span><span class='line'><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">itr</span><span class="p">:</span>
-</span><span class='line'>  <span class="n">orig_url</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
-</span><span class='line'>  <span class="n">new_url</span> <span class="o">=</span> <span class="n">wpcom_prefix</span> <span class="o">+</span> <span class="n">attachment_filename_pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">orig_url</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
-</span><span class='line'>  <span class="n">attachments</span><span class="p">[</span><span class="n">orig_url</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_url</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">attachments</span><span class="p">),</span> <span class="s">&#39;attachments found&#39;</span>
-</span><span class='line'>  
-</span><span class='line'><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">for</span> <span class="n">orig_url</span> <span class="ow">in</span> <span class="n">attachments</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-</span><span class='line'>  <span class="n">new_url</span> <span class="o">=</span> <span class="n">attachments</span><span class="p">[</span><span class="n">orig_url</span><span class="p">]</span>
-</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;[</span><span class="si">%d</span><span class="s">/</span><span class="si">%d</span><span class="s">] </span><span class="si">%s</span><span class="s"> =&gt; </span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">attachments</span><span class="p">),</span><span class="n">orig_url</span><span class="p">,</span><span class="n">new_url</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">lines</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">orig_url</span><span class="p">,</span><span class="n">new_url</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-</span><span class='line'>  
-</span><span class='line'><span class="n">out_xml</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">wp_export_xml</span><span class="o">+</span><span class="s">&quot;.converted.xml&quot;</span><span class="p">,</span><span class="s">&quot;w&quot;</span><span class="p">,</span><span class="s">&quot;utf-8&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="n">out_xml</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
-</span><span class='line'><span class="n">out_xml</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>정규식은 항상 볼 때마다 새로운 느낌이 들어서, 꽤 시간이 많이 걸렸다. 또 큰 파일에서 유니코드로 빠르게 읽으려면 codecs 모듈이 좋댄다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/07/22/most-valuable-asset/">Most Valuable Asset</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-07-22T09:47:03+09:00" pubdate  data-updated="true" >Jul 22<span>nd</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a></p>
-
-<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a></p>
-
-<div class="mceTemp mceIEcenter"><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a> <dl class="wp-caption  aligncenter"><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a> <dt class="wp-caption-dt"><a href="http://boxcatstudio.files.wordpress.com/2009/07/sany0089.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/sany0089.jpg?w=225' width='' height='' alt='우유 먹는 그레이' title='우유 먹는 그레이'></a></dt> <dd class="wp-caption-dd">우유 먹는 그레이</dd> </dl></div>
-
-
-<p>건강을 잃으면 모든 것을 잃는다고 누가 그랬나. 그 말이 정답. 일단 체력 회복을 최고 우선 순위에 올려 두고 살고 있으니, 너무 걱정마시길.</p>
-
-<p>시간 여유가 좀 생기면서 나의 관심은 아이폰에서 트위터 및 SNS 웹게임들로 옮겨 가고 있다. 며칠 전부터는 다시 구글 app engine 을 뒤적거리면서 트위터 기반의 <a href="http://www.zynga.com/games/index.php?game=mafiawars">zynga</a> clone를 구상해보고 있는 중이다.  task queue 가 생겨났으니 이제 slow turn 게임들은 클라우드로 옮겨 가는 것이 가능해진 셈이다.</p>
-
-<p>웹 동네의 구조들을 보면 <a href="http://danga.com:80/memcached/">memcached</a> 같은 미들웨어들을 적극 활용하고 있다. 게임에서도 <a href="http://dev.naver.com/projects/coord">coord</a> 같은 것들은 마련해두면 서버간 통신이라든지 DB 장비 구매 비용을  꽤나 줄일 수 있을 것 같다. 이런거나 만들면서 놀면 재미있을텐데..</p>
-
-<p>2009년은 정말 다이나믹한 해로 기억될 것 같다. 개인적으로도, 사회 생활에서도, 국가적으로도 더 이상 슬픈 일은 없었으면 한다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/05/22/idogame/">Idogame</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2009-05-22T07:38:27+09:00" pubdate  data-updated="true" >May 22<span>nd</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[caption id=&#8221;&#8221; align=&#8221;aligncenter&#8221; width=&#8221;404&#8221; caption=&#8221;동접 1천명 == 3백만원&#8221;]<img class='' src='http://images.hangame.co.kr/hangame/idogame/img/promotion/img_benefit01.gif' width='' height='' alt='' title=''>[/caption]</p>
-
-<p>매출 1조짜리 기업 NHN에서 출시한 <a href="http://idogame.hangame.com/">아이두 게임</a>과 게임 오븐에 대한 짧은 생각:</p>
-
-<pre><code>- 하루 최고 동접 1000명을 찍으면 한달에 300만원을 지급한다? 한게임 유입자수 풀을 키우려는 전략이겠지만, 너무 짜다. 돈은 현재의 2배 정도로 늘리되, in game ad를 무조건 탑재하도록 하면 윈윈이 되지 않을까.
-- 정말 이걸로 돈을 벌려면, 접속 시간을 최대한 늘이는 게임 또는 특정 시간의 접속 비율을 높이는 방향으로 게임을 디자인해야 할 것이다. (자꾸만 동접 늘리는 트릭만 구상하는 레이옷..)
-- 게임오븐 IDE은 &lt;del datetime="2009-07-26T20:47:43+00:00"&gt;.NET이 아니라&lt;/del&gt; Native C++으로 만들어졌고, 루아(luabind)로 서버 및 클라이언트를 개발한다. 놀라운 점은 IDE 자체적으로 스크립트 디버깅이 가능한데, 브레이크 포인트라든지 콜스택, watch를 모두 지원한다는 것. ([dev.naver.com/opensource](http://dev.naver.com/opensource/)에다가 이것만 따로 무료로 공개해주면 좋으련만!!!)
-- 네트워킹 역시 루아로 이루어지는데, key-value로 된 메시지를 보내거나 SyncObject라고 해서 자동적으로 테이블을 상대편으로 복제할 수 있다. 얘들도 __newindex 로 루아 테이블 내부 값의 생성, 삭제 및 변동을 추적했을까나~
-- 사실 게임 오븐으로 만든 서버를 어떻게 호스팅하는가? 가 가장 궁금하다. 그냥 서버 exe 를 적당한 서버로 배포해서 실행하지는 않을테니, 여기에 설마 클라우드 개념이 들어갔을까? 흐흠..
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -705,6 +235,343 @@
 <p><a href="http://mhaggag.wordpress.com/2006/11/04/gethostbyname-first-chance-exception-0x000006c5-the-tag-is-invalid/">조사해보니</a> 마이크로소프트도 포기한 예외였는데, 도무지 이걸 무시할 방법을 찾지 못하다가 (Win32 예외 목록에 없으니까!) 그저께 커스텀 예외도 추가할 수 있다는 것을 우연찮게 <del datetime="2009-04-30T15:10:21+00:00">겨우 이제서야</del> 알게 되었다.</p>
 
 <p>지금은&#8230; 마음이 편하다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-04-23T17:19:24+09:00" pubdate  data-updated="true" >Apr 23<span>rd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class='' src='http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80).gif' width='' height='' alt='' title=''></p>
+
+<p>비주얼 스튜디오 2005에서 어떤 솔루션만 열면 인텔리센스가 멈추지 않는 현상을 만나서 검색해니, SP1 이후로 <a href="http://code.msdn.microsoft.com/KB943969">한글판 핫픽스 하나</a>와 <a href="http://code.msdn.microsoft.com/KB947315">영문판 핫픽스 하나</a>가 나와 있었다.</p>
+
+<p>둘 중에서 후자만 깔아도 된다고는 하는데, 영문판 핫픽스는 한글판에서는 설치가 안된다는 것이 문제였다. 다행히도 쉬귀군의 팀은 영문판을 쓰고 있었기에 강제로 원격 설치(-_-)를 해서 <a href="http://blog.naver.com/PostView.nhn?blogId=dexylitol&amp;logNo=20045702640">관련 dll 들을 받아서</a> 그냥 덮어씌워보니 그럭저럭 잘 돌아가는 것 같았다. 조금 걱정이라면 디버그-릴리즈 전환할 때마다 인텔리센스가 돌아간다는 점이랄까.</p>
+
+<p>정리하자면, 영문판 사용자에게 부탁해서 다음 dll 들을 덮어쓰면 된다!</p>
+
+<pre><code>- VC/packages/vcpkg.dll
+- VC/packages/VCProjectEngine.dll
+- VC/packages/VCProject.dll
+</code></pre>
+
+<p>참고로, VC/bin/amd64 또는 x86_amd64 아래에도 버전은 같지만 크기가 다른 VCProjectEngine.dll 파일이 있긴 한데 얘네들은 안덮어써도 돌긴 돌아갔다&#8230;</p>
+
+<p>ps. <a href="http://kaistizen.net/EE/index.php/weblog/comments/visual_studio_2005_hotfixes/">컴파일이 빨라진다는 핫픽스</a>도 있구나..</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/04/13/cloud-computing-for-online-game/">Cloud Computing for Online Game</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-04-13T08:37:54+09:00" pubdate  data-updated="true" >Apr 13<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class='' src='http://farm2.static.flickr.com/1332/704056791_63f1e492d8.jpg' width='' height='' alt='Cloud Computing?' title='Cloud Computing?'></p>
+
+<p>때는 바야흐로 2003년, 게임 서버 개발은 조만간 그리드 컴퓨팅 기반으로 바뀔 거라고 믿고 아마존에서 관련 서적을 실컷 사 모았던 적이 있다. 막상 뚜껑을 열어 보니 대부분 웹서비스 기반이어서 뭔가 빠른 반응성과 연결된 세션간의 적절한 동기화가 필요한 게임 서버, 특히 MMORPG에는 맞지 않아 보였다. 결국 그 책들은 거의 읽혀지지도 않은 채 집에 방치되있고, 그리드를 주력으로 파겠다던 배짱좋은 예측 포스팅은 부끄러워서 내려 버렸다.</p>
+
+<p><img class='' src='http://bks0.books.google.com/books?id=8-0BofIhoU0C&printsec=frontcover&img=1&zoom=1&sig=ACfU3U2fcOHmSfNIjZtVjM-Gm5LZAw9dVg' width='' height='' alt='' title=''> <img class='' src='http://bks0.books.google.com/books?id=2e73K_jXdfcC&printsec=frontcover&img=1&zoom=1&sig=ACfU3U35K6wElPYG2wUE8zEBQ-QU0AgPfA' width='' height='' alt='' title=''> <img class='' src='http://bks0.books.google.com/books?id=b4LWXLRBRLsC&printsec=frontcover&img=1&zoom=1&sig=ACfU3U2FVscbkXMEdwtUQBeERDYIxVqmzg' width='' height='' alt='' title=''></p>
+
+<p>안보는 깨끗한 원서 팝니다 ㅠㅠ</p>
+
+<p>그리고나서 대략 4-5년 정도가 흘렀다. 지금은 많은 웹스타트업들이 클라우드 컴퓨팅을 적극 활용하고 있고, 어느새 나도 gmail 과 google docs 를 업무용으로 사용하고 있다. <a href="http://xguru.net/blog/488.html">마이크로소프트도 아마존과 구글의 뒤를 이어서 아쭈르(Azure)라는 걸 선보이고</a> 있고, (아마도 실버라이트랑 연계되지 않을까?) 최근에는 &#8220;사례로 읽는 클라우드 컴퓨팅&#8221;이라는 책도 사뒀는데, 버스에서 자느라 읽을 새가 없다. OTL</p>
+
+<p><img class='' src='http://image.kangcom.com/l_pic/200902100008.jpg' width='' height='' alt='사례로 읽는 클라우드 컴퓨팅' title='사례로 읽는 클라우드 컴퓨팅'>
+사례로 읽는 클라우드 컴퓨팅. 제목 그대로니까 속으면 곤란하다.</p>
+
+<p>몇 주 전<a href="http://betterways.tistory.com/"> Kay 님</a>이 클라우드 컴퓨팅을 이용한 게임 서버 퍼블리싱 사업(예전에 블레이스 서버 호스팅 비스므리한)은 어떻겠냐고 물으셨다. (이거 밝혀도 문제 없겠죠? ㅋㅋ) 그때 클라우드들이 HTTP의 느린 응답성이나 동기화가 왜 어려운가..라든지, 구글 앱 엔진이 스케줄링 같은 걸 지원하지 않는 것에 대해 한참 이야기를 했었다. 최근에 이런 저런 이야기를 많이 줏어들으며 곰곰히 생각해보니, 어떻게든 분산을 희생해서 적당히 요청을 한 곳에 몰아주는 정책만 허용해준다면 어떻게 될 법도 해 보였다. 그래도 MMORPG 서버 호스팅은 아직까지는 힘들고, 웹 게임들, 보드 게임들이나 시뮬레이션 게임들의 서버라든지, XBOX Live 나 Steamworks 같은 인증+커뮤니티+배포+리더보드+매치메이킹 정도의 활용 가능성은 충분해 보인다. (그러고 보니 <a href="http://www.steampowered.com/steamworks/index.php">스팀도 자기들이 클라우드라고 주장</a>하고 있다)</p>
+
+<blockquote><p>Store data in Steam Cloud for your users. The Steam Cloud API allows your game to write and retrieve files for each user. Use it for personalized settings like keyboard, mouse, and gamepad configurations, multiplayer sprays, or even saved games. Steam Cloud is a natural extension of the portability that Steam affords gamers. Shipped with Left 4 Dead, Steam Cloud is now a proven resource and is becoming an integral part of the Steam experience.</p></blockquote>
+
+
+<p>앱스토어의 흥행으로 삼성이나 NHN 같은 국내 회사들이 비슷한 걸 만들고 있단다. 퍼블리셔들도 이제는 정신차리고 괜히 50-100억 주고 비싼 게임 들여왔다가 돈 날리지 말고, 잡쉐어링을 위해서라도 개인이나 중소 게임사들이 손쉽게 퍼블리싱할 수 있게 이런 쪽으로 분발해주길 바란다. 구글앱엔진, 엑박라이브, 스팀, 앱스토어의 장점을 하나로 합치는 웹 기반의 게임 플랫폼 SDK 라도 좀 뿌려주면 얼마나 좋을까. 기본적으로 무료 트래픽, 수익은 1:9, 컨텐트는 루아, P2P는 기본, 웹용 무료 3D엔진 제공, 게임 동영상이나 커뮤니티는 다음이나 네이버 블로그/까페 연동, 스샷은 flickr, 실시간 방송은 아프리카, 간편하고 손쉬운 in-game 결제 시스템과 자동화된 상점, 신뢰할만한 보안 모듈(nprotect 말고), 플래시도 지원, 이슈 관리 시스템 및 소스 버전 관리도 제공, &#8230; 뭐 적다 보니 끝이 없구나. ㅋㅋ</p>
+
+<p>ps. 마지막 문단을 쓰고 나서 주위를 둘러보니 한숨만 나오는군하.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/04/07/xbox-360-new-ui/">XBOX 360 NEW UI</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-04-07T09:28:50+09:00" pubdate  data-updated="true" >Apr 7<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[caption id=&#8221;&#8221; align=&#8221;aligncenter&#8221; width=&#8221;640&#8221; caption=&#8221;XBOX 360 NEW UI&#8221;]<a href="http://arstechnica.com/gaming/news/2009/02/mature-games-dominate-most-popular-xbox-360-downloads.ars"><img class='' src='http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg' width='' height='' alt='' title=''></a>[/caption]</p>
+
+<p>오늘 봄맞이 대청소를 맞아서, 반 년 가량 전기밥을 못먹은 엑박의 봉인을 풀었다. 작년 가을에 바뀐 대시 보드를 이제서야 보게 된 셈인데, 이게 상당히 마음에 들었다. 아바타 서비스야 Wii 보다는 한참 나은 수준이라서 그러려니 하겠는데, 아이튠즈의 커버플로우에서 발전한 네비게이션 인터페이스는 제법 &#8220;끌리게&#8221; 잘 만들었다. 무엇보다도 웬지 더 사고 싶다는 느낌 - 일명 소장 가치 - 를 불러일으키는 사용자 경험을 마켓플레이스를 돌아다니면서 계속 느꼈으니 말이다.</p>
+
+<p>다만 작년부터 게임불감증에 빠져서 엑박 타이틀을 제법 사놓고도 엔딩을 못본게 제법 되는지라, 실질적인 구매로는 이어지지 않았다. 만약에 스팀이나 앱스토어처럼 소액결제로 손쉽게 살 수 있는 사회적 분위기(?)가 갖춰졌다면 지갑을 열었을지도.</p>
+
+<p>끝으로, 제작년부터 쭈욱 주위 사람들에게 강조해오던 건데, 다량의 데이터를 표현해야 하는 인터페이스를 설계할 때 왜 다들 비트맵 기반의 픽셀 고정 스타일 - 이른바 디자이너 의존적인 통짜 인터페이스 - 을 고집하는지 모르겠다. 바야흐로 시대적 대세는 프로그래머 지향적인 벡터 기반 인터페이스이며 (아아 사실 개인적 취향이라는 점, 인정한다), 특히나 데이터를 많이 표현하게 될 경우에는 텍스트를 최대한 활용해야 하는 법이다. 윈도우 가장자리 디자인을 다듬는 시간에 멋진 배경 그림 하나 더 넣고, 더욱 미려한 폰트를 구매하고, 게임 컨텐트에 집중하는게 시간과 돈을 절약하면서도 사용자에게 더 큰 감동을 불러일으킬 수 있다고 믿는다.</p>
+
+<p>ps. 스케일폼 그동안 돈 많이 벌었겠다. 쳇.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/04/01/dungeon-crawl-stone-soup/">Dungeon Crawl Stone Soup</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-04-01T09:37:42+09:00" pubdate  data-updated="true" >Apr 1<span>st</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/kobold.jpg"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/kobold-300x215.jpg' width='' height='' alt='kobold' title='kobold'></a></p>
+
+<p>코볼드 떼거지를 앞에 둔 용맹스러운 트롤 버서커 Reiot 의 모습을 담은 스크린샷이다. 요즘 틈틈히 집에서 하고 있는 roguelike 게임인 <a href="http://crawl-ref.sourceforge.net/">Dungeon Crawl : Stone Soup </a>인데, 매크로나 자동 네비게이션, 넓은 맵 등 다양한 편의 기능을 자랑한다. 매번마다 오크 광산 아래에 있는 엘프들의 동네에서 별 해괴한 소환 악마들한테 죽고 있어서, 좀 서럽긴 하다. (사실은 레벨업 좀 하고 천천히 놀러 가야 하는 곳이라고 하지만, 이상한 무한 차원으로 소환당해서 악마들에게 밟히는 건 정말 처참하다. -_-)</p>
+
+<p>로그매니아들이라면 한번쯤 도전해볼만한 게임이니, 다들 다운받으시기 바란다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/02/17/tasklist-taskkill/">Tasklist/Taskkill</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-02-17T09:31:15+09:00" pubdate  data-updated="true" >Feb 17<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;500&#8221; caption=&#8221;tasklist&#8221;]<a href="http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg"><img class='' src='http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg' width='' height='' alt='tasklist' title='tasklist'></a>[/caption]</p>
+
+<p>터미널에서 프로세스 관리자가 뜨지 않을 경우, 다른 터미날에서 띄운 프로세스를 죽이기가 참 난감할 때가 있다. 다행스럽게도 유닉스의 ps/kill 조합을 윈도우에서도 지원한다.</p>
+
+<pre><code>- tasklist
+- tasklist /SVC : 서비스 프로세스 리스트
+- taskkill /PID &lt;pid&gt;: PID로 죽이기
+- taskkill /F /IM &lt;name&gt; : (강제로) 이름으로 죽이기
+</code></pre>
+
+<p>가장 하일라이트는, 원격 컴퓨터의 프로세스 죽이기인데, 정말로 잘 되는지 회사에서 테스트해봐야겠다. ;)</p>
+
+<blockquote><p>tasklist /S <server> /U <username> /P <password> /FI &#8220;IMAGENAME eq *Server*.exe&#8221;</p><p>taskkill /S <server> /U <username> /P <password> /IM <process name></p></blockquote>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/02/17/boost-preprocessor/">Boost::preprocessor</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-02-17T09:23:42+09:00" pubdate  data-updated="true" >Feb 17<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>boost::preprocessor 는 템플릿을 이용한 메타프로그래밍에 있어서, 템플릿 파라미터들의 반복 같은 &#8221;<strong>문자열 토큰들의 패턴 처리</strong>&#8220;를 매크로를 이용해서 손쉽게 처리해주는 라이브러리이다. 보다 상세한 용법은 <a href="http://www.boost.org/doc/libs/1_38_0/libs/preprocessor/doc/index.html">공식 홈페이지</a> 혹은  <a href="http://rein.upnl.org/wordpress/archives/486">레인님 블로그</a>와 <a href="http://ricanet.com/new/view.php?id=blog/080607">리카넷 블로그</a>를 참조하기 바란다.</p>
+
+<p>이걸 이용해서 <a href="http://reiot.cafe24.com/2009/01/20/boost-tuple-based-serialization/">몇 주전에 포스팅한 boost::tuple 의 직렬화 코드</a>를 만들어봤다. 원래 계획과는 좀 많이 바뀌긴 했는데, 구글로 검색해보니 <a href="http://uint32t.blogspot.com/2008/03/update-serializing-boosttuple-using.html">tuple 을 boost::serialization 으로 직렬화하는 예제</a>가 를 (상당 부분!) 참조했음을 밝힌다.</p>
+
+<p>남은 작업은 여기에 vector 와 list 를 자동으로 직렬화하는 건데, 어째 아무리 검색해봐도 is_vector 라든지 is_list 같은 넘이 없어서 일단은 포기. 결국 mpl 을 뒤져봐야 할지도 모르겠다. </p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2009/02/17/boost-preprocessor/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/02/09/earl-grey/">Earl Grey</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2009-02-09T08:17:41+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><table style="width:auto;" border="0">
+<tbody>
+<tr>
+<td><a href="http://picasaweb.google.com/lh/photo/EY-Ym9sex9547IPeZxkRxA?feat=embedwebsite"><img class='' src='http://lh3.ggpht.com/_eFJUY9IzSSs/SY7efiJ2ZtI/AAAAAAAAAHA/_G7GJC2ySDY/s400/SANY0042.JPG' width='' height='' alt='' title=''></a></td>
+</tr>
+</tbody></table>
+
+
+<p>얘가 최근 영입한 그레이(♂). 스코티쉬 폴드인데, 유명한 홍차 이름인 얼 그레이에서 이름을 따왔다. 똥꼬발랄하고 선배 냥이들이 많이 귀찮아한다.</p>
+
+<table style="width:auto;" border="0">
+<tbody>
+<tr>
+<td><a href="http://picasaweb.google.com/lh/photo/HNhn36_UOIMobFZawSdIow?feat=embedwebsite"><img class='' src='http://lh3.ggpht.com/_eFJUY9IzSSs/SY7fXRsrXZI/AAAAAAAAAIQ/HMBpkjqwPZI/s400/SANY0036.JPG' width='' height='' alt='' title=''></a></td>
+</tr>
+</tbody></table>
+
+
+<p>이놈이 밤마다 시끄럽게 하는 24시간 발정묘 보리(♂). 코리안 똥고양이의 후손으로,  쌀-보리의 그 보리다. 와이프가 맨날 이쁘다고 해서 요즘은 이뻐보이기도 하지만&#8230; 하긴 퇴근할 때 마중나오는 놈은 보리 밖에 없긴 하다. 당연히 쉬귀군의 룬보다는 한참 날씬하다. (푸훗)</p>
+
+<table style="width:auto;" border="0">
+<tbody>
+<tr>
+<td><a href="http://picasaweb.google.com/lh/photo/TvwqxYaWG4rairUQ1OnVtg?feat=embedwebsite"><img class='' src='http://lh3.ggpht.com/_eFJUY9IzSSs/SY7iED5QewI/AAAAAAAAALo/uOLDbCG_T8o/s400/SANY0096.JPG' width='' height='' alt='' title=''></a></td>
+</tr>
+</tbody></table>
+
+
+<p>러시안 블루 아삼(♂). 역시 홍차 이름에서 따왔다. 진정한 고양이답게 날렵하고 점프력도 좋고 잘 울지도 않지만, 성격이 좀 까칠하다. 나랑은 어째 잘 맞는지, 부르면 가슴 위로 올라와서 머리를 부비는 애교도 부린다.</p>
+
+<p>더 많은 사진들은 <a href="http://picasaweb.google.com/Reiot94/yiFktC#">여기</a>에 있으니 구경해보시기 바란다. 그나저나 내 평생 고양이를 3마리나 키우게 될 줄은 몰랐다.</p>
 </div>
   
   

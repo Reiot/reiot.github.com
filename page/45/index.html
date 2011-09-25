@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="김학규님의 스트레스 테스트 삽질기에 비하면 아무 것도 아니지만, 오늘 미국 테스트 서버에서 특이한 버그를 만나게 되어서 한번 써본다.며칠 전부터 토너먼트 관련 UDP 버그가 발생한다는 보고를 받았다. 지정된 토너먼트 시각이 되면 자동적으로 방이 생성되고 사람들이 ...">
+  <meta name="description" content="Generic Text Mapping프로그램을 유니코드에 대응하기 위해서는 모든 single byte char 관련 타입들을 generic macro 를 사용하도록 수정해야 한다.모든 스트링 리터럴에는 T 또는 TEXT 를 붙일 것. 그러나, 특별히 wide st...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,323 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/02/11/%E1%84%8B%E1%85%A9%E1%84%82%E1%85%B3%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3/">오늘의 버그</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-02-11T04:58:51+09:00" pubdate  data-updated="true" >Feb 11<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>김학규님의 <a href="http://www.lameproof.com/zboard/zboard.php?id=bbs2&amp;no=381">스트레스 테스트 삽질기</a>에 비하면 아무 것도 아니지만, 오늘 미국 테스트 서버에서 특이한 버그를 만나게 되어서 한번 써본다.</p>
-
-<p>며칠 전부터 토너먼트 관련 UDP 버그가 발생한다는 보고를 받았다. 지정된 토너먼트 시각이 되면 자동적으로 방이 생성되고 사람들이 들어가는데, 유독 첫번째 방에서만 플레이가 되고 나머지 방에서는 100% UDP failed 가 생긴다는 것이었다. 도저히 소프트웨어 문제라고는 여겨지지 않아서 사내 테스트 환경에서는 테스트를 해봤지만 재현이 되지 않았다. 안되면 다 안되고 되면 다 되어야지 왜 딱 하나만 되는 것이며, 그것도 가장 첫번째 방만 되는 것인지 아무리 생각해도 믿어지지 않았지만 직접 눈으로 보게 되자 디버깅할 수 밖에 없었다. 30분정도 디버깅을 하다보니 아예 서버로부터 UDP 패킷이 오지 않는 걸 확인했고 그때 떠오른 게 바로 방화벽 설정이었다.</p>
-
-<p>알고보니 방화벽의 허용 범위의 맨 끝에 첫번째 방에서 사용하는 UDP 포트만이 운좋게 걸려 있었고 나머지는 out of bound 여서 생기는 문제였다. 미국은 거의 대부분 방화벽을 필수로 사용하고 있으며, 지난 번에도 역시 방화벽 때문에 한달 정도 고생을 한 적이 있어서 다행히 금방 문제를 찾을 수 있었다. 덕분에 미국 테스터들과 출장간 동료들이 좀 갈굼을 당했지만, 빨리 찾게 되었으니 그나마 다행이 아닐까 한다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/02/05/ogre-for-psp/">Ogre for PSP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-02-05T15:50:44+09:00" pubdate  data-updated="true" >Feb 5<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class='' src='http://www.ogre3d.org/images/M_images/ogrebtn.png' width='' height='' alt='' title=''> PSP에서 3D 프로그래밍을 하는 법을 검색하다가 우연히 <a href="http://www.ogre3d.org/phpBB2/viewtopic.php?p=123549">Ogre3D 엔진이 PSP로 포팅된다는 이야기</a>를 Ogre 포럼에서 찾아냈다. PPC 포팅을 담당한 개발자가 하는 김에 PSP포팅도 맡겠다는 이야기인 듯한데&#8230; 2월 내에는 나오지 않을까 하는 희망을 품어본다. SDL 특히 pygame이 포팅된다는 소문도 들리는 시점에, Ogre3D까지 포팅이 되면 결국 PSP에서는 python으로도 3D 프로그래밍이 가능해진다는 소리가 되는 셈이다.</p>
-
-<p>그나저나 OGRE를 보고도 /오우거/ 대신 글자 그대로 장난삼아 읽던 /오그레/라는 발음이 연상되어 큰일이다;;</p>
-
-<p>ps. <a href="http://luaplayer.org">LuaPlayer</a>가 <a href="http://www.goop.org/psp/gl/">PSPGL</a> 기반으로 재작성되고 있는 중인데, <a href="http://forums.ps2dev.org/viewtopic.php?t=4591">3D보다는 2D쪽 기능에 한정</a>될 것 같다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-02-02T09:46:35+09:00" pubdate  data-updated="true" >Feb 2<span>nd</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>총 15개의 통계 테이블의 리팩토링이 드디어 오늘 끝났고, 내일 테스트만 무사히 통과하면 다음 작업으로 넘어갈 수 있을 것 같다. arithmetic overflow 로 인해 모든 numeric 관련 로직을 계산 컬럼으로 추출해내고 하나씩 검증하는데 이틀이나 날려 먹었던 것이다. 실제로 이백라인에 가까웠던 프로시저가 거의 30% 정도로 분량이 줄었고 각 쿼리문들 역시 간단한 DDL 로 바뀌게 되었는데, 솔직히 너무 허탈하다. :(  </p>
-
-<p>테스트가 성공리에 끝이 나면, 이제 남은 이슈는 본섭 패치를 얼마나 손쉽게 자동화할 것인가? 이다. 변경된 프로시저의 경우 drop - create 로 해결할 수 있지만, 계산 컬럼으로 바꾸는 것은 녹녹치 않았다. 문제는 한번도 관리되지 않았던 DEFAULT constraint 들 때문인데&#8230;</p>
-
-<pre><code>- ALTER TABLE ALTER COLUMN 으로 일반 컬럼을 계산 컬럼으로 바꿀 수 없다
-- 결국 DROP COLUMN + ADD COLUMN 으로 해결해야 한다
-- DROP COLUMN 을 하려면 의존 관계가 없어야 한다
-- 그런데 바꿔야할 모든 컬럼들이 DEFAULT 제약조건을 가지고 있었고, 얘네들의 이름이 모두 랜덤이다. -_-
-</code></pre>
-
-<p>일단 DBA 와 상의해봐야 되겠지만 어째 해결책은 없을 듯하다. 따라서 오늘의 결론은</p>
-
-<blockquote><p>&#8220;모든 DEFAULT 제약 조건에 이름을 붙여라&#8221;</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/02/01/computed-column-divide-by-zero/">Computed Column &amp; Divide by Zero</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2006-02-01T10:37:01+09:00" pubdate  data-updated="true" >Feb 1<span>st</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>A = ( C != 0 ? B/C : 0 )</p></blockquote>
-
-<p>이러한 수식으로 구성된 계산 컬럼은 TSQL에서는 아래와 같이 표현할 수 있다.</p>
-
-<blockquote><p>[A] AS ( case when [C] = 0 then 0 else [B]/[C] end )</p></blockquote>
-
-<p>문제는 B 나 C 가 여러 컬럼으로 이루어지거나 또 다른 계산 컬럼일 경우이다. TSQL에서는 계산 컬럼이 다른 계산 컬럼을 내포할 수도 없고, 사용자 정의 함수를 포함할 수도 없기 때문에, 울며 겨자먹기로 중복 코드를 허용해야만 한다. 덕분에 오늘 현업에 들어온 이래, 가장 긴 계산 컬럼을 만들어볼 수 있었다.</p>
-
-<blockquote><p>(case when ([AB] + [BB] + [HBP] + [SF] = 0) then 0.0 else (convert(numeric(9,3),([H] + [BB] + [HBP])) / ([AB] + [BB] + [HBP] + [SF])) end + case when ([AB] = 0) then 0.0 else (convert(numeric(9,3),([H] + [B2] * 2 + [B3] * 3 + [HR] * 4)) / [AB]) end)</p></blockquote>
-
-<p>계산 컬럼의 내포가 되었다면 단순히 A+B 정도로 끝날 수도 있었고, 사용자 정의 함수만 지원했어도 SafeDiv(&#8230;,&#8230;)+SafeDiv(&#8230;,&#8230;) 정도로 줄일 수 있었는데.. 쩝.</p>
-
-<p>그런데 아래의 SET 옵션을 잘 이용하면 divide by zero를 우회함으로써 수식을 간단하게 표현할 수 있다. 어차피 계산 컬럼은 SELECT 에서만 사용되기 때문에 관련 SELECT 쿼리 앞뒤에 잘 지정하면 될 듯하지만, 이런 것도 된다는 것이며 추천하지는 않는다.</p>
-
-<blockquote><p>SET ARITHIGNORE ON &#8211; 에러 메시지 출력 안함</p>
-
-<p>SET ARITHABORT OFF &#8211; 종료하는 대신 NULL 삽입</p>
-
-<p>[A] AS (ISNULL(A/B,0.0))</p></blockquote>
-
-<p>상황에 따라서는 SET ANSI_WARNING OFF 도 함께 지정해줘야 하는 경우도 있으므로 유의하기 바란다. 관련 사항을 테스트해준 floyd, icebreak 님께 감사를~</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/28/os-%E1%84%8C%E1%85%A2%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%E1%84%92%E1%85%AE-%E1%84%89%E1%85%A9%E1%84%89%E1%85%B3%E1%84%89%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%91%E1%85%B3%E1%84%80%E1%85%A1-%E1%84%87%E1%85%A1%E1%84%87%E1%85%A9%E1%84%80%E1%85%A1-%E1%84%83%E1%85%AC%E1%86%AF-%E1%84%84%E1%85%A2/">OS 재설치후 소스세이프가 바보가 될 때</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2005-12-28T19:04:26+09:00" pubdate  data-updated="true" >Dec 28<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>파일을 체크아웃 받은 상태에서 OS 를 새로 설치할 때, 컴퓨터 이름을 이전과 같이 해야 한다. 소스세이프는 체크아웃된 위치를 컴퓨터 이름과 working folder 를 조합해서 사용하기 때문에, 컴퓨터 이름이 다르다면 다른 곳에 체크아웃을 했다고만 나온다.</p>
-
-<p>*괜히 삼성카드 홈페이지에서 연말정산 서류 플러그인을 설치하다가 애꿎은 OS만 날려먹었다. 소송해버릴까.. *</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/23/boostsingleton_pool-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8/">Boost::singleton_pool 사용법</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2005-12-23T05:20:36+09:00" pubdate  data-updated="true" >Dec 23<span>rd</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">struct</span> <span class="n">CharArray512</span> <span class="p">{};</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">int</span> <span class="n">_tmain</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">typedef</span> <span class="n">boost</span><span class="o">::</span><span class="n">singleton_pool</span><span class="o">&lt;</span><span class="n">CharArray512</span><span class="p">,</span><span class="mi">512</span><span class="o">&gt;</span> <span class="n">TestPool</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="o">*</span> <span class="n">pBuf</span> <span class="o">=</span> <span class="n">TestPool</span><span class="o">::</span><span class="n">malloc</span><span class="p">();</span>
-</span><span class='line'>  <span class="n">assert</span><span class="p">(</span> <span class="n">pBuf</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">TestPool</span><span class="o">::</span><span class="n">free</span><span class="p">(</span><span class="n">pBuf</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>singleton_pool 의 첫번째 템플릿 파라미터인 태그는, 동일한 크기의 버퍼에 대해서 각각 풀을 사용해야 할 때 구분자로 사용된다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/15/db-datafile-%E1%84%8B%E1%85%A9%E1%86%B1%E1%84%80%E1%85%B5%E1%84%80%E1%85%B5/">DB Datafile 옮기기</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2005-12-15T19:39:17+09:00" pubdate  data-updated="true" >Dec 15<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>그동안 사용했던 SQL Server evaluation 이 6개월만에 기한 만료되어 다른 머신에 똑같은 넘을 설치하게 되었다. 복구 방법은 생각보다 간단했는데&#8230;</p>
-
-<ul>
-<li>.mdf 와 .ldf 파일을 data/ 아래로 복사한다.</li>
-<li>엔터프라이즈 관리자를 띄워서 데이터베이스를 클릭한 후 [모든 작업] - [데이터베이스 연결]에서 mdf 파일을 찾아 추가하면 된다.</li>
-</ul>
-
-
-<p>방화벽에 TCP, UDP 1433 포트를 열어 주는 것만 잊지 않으면 30분만에 새 서버를 띄울 수 있게 된다. :)</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -592,6 +275,411 @@
 <h2>SubVersion 연동하기</h2>
 
 <p>eclipse 용 subversion 플러그인인 subclipse 를 이용하면 손쉽게 버전 관리가 가능하다. <a href="http://openframework.or.kr/JSPWiki/Wiki.jsp?page=Subversion">다음 글</a>을 참고할 것.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/12/11/%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%A7%E1%86%AF-%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%80%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8C%E1%85%B3%E1%86%B7-%E1%84%87%E1%85%B5%E1%84%80%E1%85%AD/">정렬 알고리즘 비교</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2005-12-11T19:42:11+09:00" pubdate  data-updated="true" >Dec 11<span>th</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><table>
+<thead>
+<tr>
+<th>name </th>
+<th> avg </th>
+<th> max </th>
+<th> # </th>
+<th> 비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.nist.gov/dads/HTML/bubblesort.html">Bubble Sort</a> </td>
+<td> O(n<sup>2)</sup> </td>
+<td> O(n<sup>2)</sup> </td>
+<td> 0 </td>
+<td></td>
+</tr>
+<tr>
+<td><a href="http://www.nist.gov/dads/HTML/quicksort.html">Quick Sort</a> </td>
+<td> O(nlogn) </td>
+<td> O(n<sup>2)</sup> </td>
+<td> O(logn) </td>
+<td></td>
+</tr>
+<tr>
+<td><a href="http://www.nist.gov/dads/HTML/heapSort.html">Heap Sort</a> </td>
+<td> O(nlogn) </td>
+<td> O(nlogn) </td>
+<td> 0 </td>
+<td></td>
+</tr>
+<tr>
+<td><a href="http://www.nist.gov/dads/HTML/radixsort.html">Radix Sort</a> </td>
+<td> O(wxn) </td>
+<td> O(wxn) </td>
+<td> O(n) </td>
+<td> w 는 자릿수</td>
+</tr>
+<tr>
+<td><a href="http://www.nist.gov/dads/HTML/mergesort.html">Merge Sort</a> </td>
+<td> O(nlogn) </td>
+<td> O(nlogn) </td>
+<td> O(n) </td>
+<td></td>
+</tr>
+<tr>
+<td><a href="http://www.nist.gov/dads/HTML/bitonicSort.html">Bitonic Sort</a> </td>
+<td> O(nlog<sup>2n)</sup> </td>
+<td> O(nlog<sup>2n)</sup> </td>
+<td> 0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/12/11/adonet-%E1%84%90%E1%85%B5%E1%86%B8/">ADO.NET 팁</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2005-12-11T19:19:48+09:00" pubdate  data-updated="true" >Dec 11<span>th</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ADO.NET + VB.NET 으로 게임 상점 관리툴을 개발하면서 얻은 팁들을 정리해보았다.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2005/12/11/adonet-%E1%84%90%E1%85%B5%E1%86%B8/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/12/11/adonet-%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%E1%86%AB/">ADO.NET 이란?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2005-12-11T19:02:45+09:00" pubdate  data-updated="true" >Dec 11<span>th</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>ADO.NET은 OLE DB 및 XML을 통해 제공되는 데이터 소스뿐 아니라 Microsoft SQL Server와 같은 &#8221;&#8217;데이터 소스에 대한 일관성 있는 액세스&#8221;&#8217;를 제공합니다. 데이터 공유 소비자 응용 프로그램은 ADO.NET을 사용해서 이러한 데이터 소스에 연결하여 &#8221;&#8217;데이터를 검색, 조작 및 업데이트&#8221;&#8217;할 수 있습니다.
+&#8211; from MSDN</p></blockquote>
+
+<ul>
+<li>모든 것은 데이터 소스 - DB, 엑셀, XML, 텍스트파일, &#8230;</li>
+<li>연결되지 않은 데이터 집합 - 캐싱 방식</li>
+<li>XML 과의 강력한 통합</li>
+<li>N 레이어 어플리케이션에 적합 - 특히 웹 어플리케이션&#8230;</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2005/12/11/adonet-%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%E1%86%AB/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/12/07/%E1%84%82%E1%85%A1%E1%84%88%E1%85%B3%E1%86%AB-%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B1%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8C%E1%85%A9%E1%87%82%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8/">나쁜 아이디어를 위한 좋은 방법</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2005-12-07T20:25:25+09:00" pubdate  data-updated="true" >Dec 7<span>th</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>지금 하고 있는 이런 하찮은 일은 대충 빨리 끝낼 예정이다. 난 멋진 프로젝트를 언젠가 해야할 몸이기 때문이다.</p></blockquote>
+
+<p>당연히 <a href="http://www.extra-project.com/bbs/view.php?id=keeping01&amp;page=1&amp;sn1=&amp;divpage=1&amp;sn=off&amp;ss=on&amp;sc=on&amp;select_arrange=headnum&amp;desc=asc&amp;no=82">웹 디자인에만 적용되는 이야기</a>는 아니며, 특히 legacy code 를 다루는 프로그래머들이 쉽게 빠지는 길이기도 하다. 사실 나를 포함한 우리 팀원들 대다수가 이런 마음가짐으로 일하고 있기에 더욱 가슴이 시리다. 물론 지금으로서는 빨리 끝내는 것만이 유일한 해결책이지만&#8230;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/11/23/vb%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%80%E1%85%AA-%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%AE%E1%86%BC%E1%84%83%E1%85%A9%E1%86%AF%E1%84%8E%E1%85%A6%E1%84%8F%E1%85%B3/">VB를 이용한 선분과 원의 충돌체크</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2005-11-23T22:32:24+09:00" pubdate  data-updated="true" >Nov 23<span>rd</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/collide.JPG" title="collide" target="_top"><img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/thumb_collide.JPG' width='' height='' alt='collide' title='collide'></a></p>
+
+<p>고등학교때까지만 해도 기하쪽은 상당히 자신있었는데 나이가 들어갈수록 3D 쪽에는 상당히 취약해서 가고 있다. 몇 달 전 관련 서적을 쭈욱 질러주고 조금 보다가 때려쳤었다. 그러다 이번에 유지 보수 중인 legacy code 에서 brute force 충돌 체크 코드를 좀 더 깔끔하게 해보고자 선분과 원의 충돌 체크를 구현해보게 되었다. 역시나 이럴 때에는 MFC 보다는 .NET winform 이 제일 손쉽기에 재빨리 VB.NET 을 띄워 줬다.</p>
+
+<p>우선 Matrix 나 Vector 류의 함수는 .NET framework 에서 지원하지 않기 때문에 DirectX 쪽의 참조를 갖고 와야 한다. 그다음 리얼타임렌더링 625 페이지를 펼쳐서 그대로 코딩하면 된다.  실제로 타이핑은 금방 끝났는데 웬걸 제대로 동작하지 않아서 이 사람 저 사람 붙잡고 물어보다가 잠이 들고, 오늘 회사에 와서 차분히 책을 읽어보니 그 중 한 넘이 normalized vector 여야 한다는 걸 찾아냈다. 뿌듯.. -_-+</p>
+
+<p>책은 반직선과 구의 충돌이라서 선분 충돌을 구하려면 교차 좌표 중 가까운 넘을 찾아내서 그 길이가 원래 반직선 길이보다 짧아야 진짜 충돌이 된다. 사실 3D 를 쭉 하던 사람들이야 너무 쉬운 것일테지만 수학책을 한동안 놓고 살았던 본인에게는 꽤나 막중한 과제였다. 역시나 해내고 나니 성취감 보다는 허탈감이 든다. 흑.</p>
+
+<p>Liquid error: ClassNotFound: no lexer for alias &#8216;vb&#8217; found</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/10/31/inet_ntoa-%E1%84%8B%E1%85%B4-%E1%84%8B%E1%85%B1%E1%84%92%E1%85%A5%E1%86%B7%E1%84%89%E1%85%A5%E1%86%BC/">Inet_ntoa 의 위험성</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2005-10-31T11:25:14+09:00" pubdate  data-updated="true" >Oct 31<span>st</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>아래와 같이 내부 버퍼를 리턴하는 함수를 연속적으로 사용할 경우에는 주의해야 한다. 그냥 string 으로 감싸서 사용하는 것이 정신건강에 좋다. (단 타이핑 횟수는 .c_str() 때문에 꽤 증가한다)</p>
+
+<p>  printf( &#8220;external_address=%s internal_address=%s&#8221;,
+  inet_ntoa(exaddr),
+  inet_ntoa(inaddr));</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/10/22/find_if-%E1%84%8B%E1%85%AA-boostlambda/">Find_if 와 Boost::lambda</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2005-10-22T10:56:59+09:00" pubdate  data-updated="true" >Oct 22<span>nd</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>STL 컨테이너를 만지작거리다보면 종종 algorithm 을 써서 코드를 간략하게 표현하고픈 충동이 든다. 그런데 STL에서 제공하는 각종 function template 의 파워는 생각보다 약하다. 가령 다음과 같이 컨테이너 내부 객체의 멤버 함수의 실행 결과를 기준으토 무언가를 하고 싶은 경우&#8230;</p>
+
+<pre><code>class Focker
+{
+public :
+    Focker(int v) : value(v) {}
+    int GetValue() const { return value; }
+private:
+    int value;
+};
+
+typedef list FOCKERS;
+
+FOCKERS fockers;
+
+fockers.push_back( Focker(1) );
+fockers.push_back( Focker(2) );
+fockers.push_back( Focker(3) );
+fockers.push_back( Focker(4) );
+fockers.push_back( Focker(5) );
+
+// how to find whose value ==3 ??
+</code></pre>
+
+<p>가장 단순한 방법으로는 하드코딩 함수자를 사용하면 된다.</p>
+
+<pre><code>class GetValueIs3
+{
+public :
+    GetValueIs3(){}
+    bool operator() ( const Focker &amp; f ) const
+    {
+        return f.GetValue() == 3;
+    }
+};
+
+FOCKERS::iterator itr;
+
+itr = find_if( fockers.begin(), fockers.end(), GetValueIs3() );
+assert( itr != fockers.end() );
+cout GetValue() GetValue() (),3),
+        mem_fun_ref(&amp;Focker::GetValue )) );
+</code></pre>
+
+<p>그래서 이걸 가능하게 하기 위해서 몇 시간동안 씨름하다가 mem_fun_ref 의 코드를 살짝 고쳐서 다음과 같은 코드를 만들어봤다.</p>
+
+<pre><code>template
+class my_const_mem_fun_ref_t
+    : public unary_function
+{
+public:
+    explicit my_const_mem_fun_ref_t(_Result (_Ty::*_Pm)() const, const _Fn &amp; f )
+        : _Pmemfun(_Pm), func(f)
+    {
+    }
+
+    typename _Fn::result_type operator()(const _Ty&amp; _Left) const
+    {
+        return (func((_Left.*_Pmemfun)()));
+    }
+
+private:
+    _Result (_Ty::*_Pmemfun)() const;   // the member function pointer
+    _Fn func;
+};
+
+template
+inline
+my_const_mem_fun_ref_t
+my_mem_fun_ref(_Result (_Ty::*_Pm)() const, const _Fn &amp; f)
+{
+    return (my_const_mem_fun_ref_t(_Pm,f));
+}
+
+itr = find_if( fockers.begin(), fockers.end(),
+    my_mem_fun_ref( &amp;Focker::GetValue, bind2nd(equal_to(),3) )
+);
+assert( itr != fockers.end() );
+cout GetValue() GetValue()
+</code></pre>
 </div>
   
   

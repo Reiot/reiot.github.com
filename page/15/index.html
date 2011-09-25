@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="jquery ui 의 modal dialog 의 경우, z-order 문제 때문에 body 맨 아래로 DOM 이 옮겨진다.  이로 인해서 jquery.load() 와 조합해서 dialog() 를 중복 호출하면 계속 DOM 이 중복 추가된다.  해결책은 기존의 DO...">
+  <meta name="description" content="트랜잭션  1. 트랜잭션으로 묶을 엔티티들은, 모두 하나의 root 엔티티를 부모로 삼는다.  2. db.run_in_transaction() 에서 실행한다.  - 부모키는 path 의 일부가 되기 때문에, 일단 정해지면 부모를 바꿀 수는 없다.  - 한 순간에 ...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,244 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/06/10/jquery-ui-modal-dialog-z-order/">Jquery Ui 의 Modal Dialog 의 경우, Z-order 문&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-06-10T03:43:00+09:00" pubdate  data-updated="true" >Jun 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jquery ui 의 modal dialog 의 경우, z-order 문제 때문에 body 맨 아래로 DOM 이 옮겨진다.  이로 인해서 jquery.load() 와 조합해서 dialog() 를 중복 호출하면 계속 DOM 이 중복 추가된다.  해결책은 기존의 DOM 을 삭제하는 것.  $(.dialog.ui-dialog-content).dialog(destroy).remove();  $(.dialog).dialog({});</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/05/28/http4locwordpresscom20090428doc/">http://4loc.wordpress.com/2009/04/28/doc&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-05-28T23:01:00+09:00" pubdate  data-updated="true" >May 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://4loc.wordpress.com/2009/04/28/documentready-vs-windowload/">http://4loc.wordpress.com/2009/04/28/documentready-vs-windowload/</a>  $(document).ready - html 을 로딩하고 DOM 이 빌드된 직후, 즉 리소스와는 무관.  $(window).load - 모든 리소스들이 로딩된 직후</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/05/27/git-ignore/">Git Ignore 는 아직 커밋되지 않은 파일을 무시할 때 사용한다. &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-05-27T21:52:00+09:00" pubdate  data-updated="true" >May 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>git ignore 는 아직 커밋되지 않은 파일을 무시할 때 사용한다.  git update-index assume-unchanged FILENAME 은 커밋된 파일을 더이상 추적하지 않을때 사용한다.  .gitignore 는 현재 폴더 기준으로 특정 패턴을 무시한다.  .git/info/exclude 는 글로벌 패턴을 등록한다.  다만 양쪽 모두 웬지 레파지토리에 등록되어 공유되지는 않는 느낌이란 말이지</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/05/17/css-width-fixed/">CSS 가로 가운데 정렬하기 - 텍스트의 경우 Width 를 Fixed &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-05-17T21:56:00+09:00" pubdate  data-updated="true" >May 17<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>CSS 가로 가운데 정렬하기  - 텍스트의 경우 width 를 fixed size 로 지정하고 margin-left/right 를 auto 로 잡기  - 이미지의 경우 display 를 block 으로 바꾸고, 좌우 마진을 auto 로 잡기. 기본적으로 이미지는 inline 이다.  세로 정렬은 오직 table-cell 만 지원한다.  min-height: 10em;  display: table-cell;  vertical-align: middle</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/05/16/files-owner-nib-firs/">File&#039;s Owner - Nib 파일의 사본을 소유한 객체. Firs&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-05-16T20:56:00+09:00" pubdate  data-updated="true" >May 16<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Files Owner - nib 파일의 사본을 소유한 객체. Xib 파일의 소유자는 보통 같은 이름의 컨트롤러 클래스다  First Responder - 사용자가 현재 인터랙션하고 있는 객체. == 포커스를 받고 있는 컨트롤.  icon.png - 특별히 plist 에 등록하지 않아도 자동으로 인식한다.  outlet - 컨트롤러에 정의되는 변수. nib 내부 객체에 대한 포인터.  action - 컨트롤러에 정의되는 함수. IB 에서 호출할 수 있다.  @property - .h 에 정의하는 컨트롤러 변수에 대한 getter, setter  retain - reference counter 를 사용하라  nonatomic - MT-unsafe. 동기화 금지. 아이폰에서는 거의 안쓴다. 속도는 당연 빠름.  @synthesize - .m 에 정의하는 프라퍼티 getter, setter 를 자동 생성하는 매크로.  Option+double click - 현재 키워드에 대한 도움말을 보여준다.  탭뷰 컨트롤러 - 보통 first controller 가 된다. app delegate 에 선언된다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/05/12/safari-empty-get-img-src/">유독 Safari 에서 Empty GET 이 오는 경우, Img Src=&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-05-12T01:22:00+09:00" pubdate  data-updated="true" >May 12<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>유독 safari 에서 empty GET 이 오는 경우, img src= 태그를 확인할 것. 아무 것도 없는 데에도 요청이 온다. 덜덜덜.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/05/06/back-referece-property/">트랜잭션 처리시 주의사항: - Back Referece Property &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-05-06T18:39:00+09:00" pubdate  data-updated="true" >May 6<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>트랜잭션 처리시 주의사항:  - back referece property 를 순회하는 코드는 무조건 기존에 캐싱된 값을 날려버린다.  for song in album.songs:  update song # changed  for song in album.songs:  show show # not changed because of reloaded  해결책은 업데이트된 엔티티를 별도로 리스트에 저장해둬야 한다.  updated = []  for song in album.songs:  update song # changed  updated.append(song)  for song in album.songs:  show show # not changed because of reloaded  db.put(updated)</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -394,6 +156,244 @@
 
 
   <div class="entry-content"><p>URL anchor &amp; query format from <a href="http://www.ietf.org/rfc/rfc2396.txt">http://www.ietf.org/rfc/rfc2396.txt</a>  URI-reference = [ absoluteURI | relativeURI ] [ # fragment ]  relativeURI  = ( net_path | abs_path | rel_path ) [ ? query ]  즉 #anchor 는?query 다음에 오는게 맞다.  <a href="http://somewhere.com/some/where/?query+string#anchor">http://somewhere.com/some/where/?query+string#anchor</a>  아무래도 쿼리 문자열로 인해서 리소스의 유일성이 달라질 수 있으므로, 앵커의 우선순위는 쿼리보다 낮다고 본다는 뜻이리라.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/23/appyaml-static-view/">앱엔진에서 app.yaml 에서 Static 으로 지정된 폴더는 View&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-23T21:54:00+09:00" pubdate  data-updated="true" >Apr 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>앱엔진에서 app.yaml 에서 static 으로 지정된 폴더는 view 에서 파이썬으로 접근할 수 없다. 그냥 로컬 파일은 문제 없이 읽을 수 있지만  심볼릭 링크를 걸어서 복사로 올리거나, 아예 복제해둬야 한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/23/firebug-consolexxx/">Firebug 가 없는 브라우저에서 console.xxx 자바스크립트 에&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-23T18:12:00+09:00" pubdate  data-updated="true" >Apr 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>firebug 가 없는 브라우저에서 console.xxx 자바스크립트 에러가 날 경우  if (typeof console==undefined){console={log:function(A){var B=false;if(B){alert(A)}}}}</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/22/overlayview-floatpane-overlay/">OverlayView 를 floatPane 에 두면, 이게 Overlay&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-22T20:50:00+09:00" pubdate  data-updated="true" >Apr 22<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>OverlayView 를 floatPane 에 두면, 이게 overlayMouseTarget 레이어보다 높기 때문에 mouseover 시 간섭이 발생한다. (일명 커서 떨림 현상)  해결책은  - overlayMouseTarget 보다 낮은 레이어에 넣으면 간섭이 발생하지 않는다.  - 즉, 마커에 따라다니는 라벨 같은 오버레이들은 overlayImage 레이어에서 다 넣고, z-index 를 가지고 조절한다  - 그래도 높이 조절이 안되면, floatShadow 에 넣어버린다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/21/css-div-webkit-animation/">웹킷용 CSS 애니메이션 태그 Div { -webkit-animation&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-21T19:06:00+09:00" pubdate  data-updated="true" >Apr 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>@-webkit-keyframes pulse {  from {  opacity: 0.0;  font-size: 100%;  }  to {  opacity: 1.0;  font-size: 200%;  }  }  div {  -webkit-animation-name: pulse;  -webkit-animation-duration: 2s;  -webkit-animation-iteration-count: infinite;  -webkit-animation-timing-function: ease-in-out;  -webkit-animation-direction: alternate;  }</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/21/pane-floatpane/">구글맵 Pane 의 레이어(높은 순으로) floatPane : 정보창 레&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-21T16:44:00+09:00" pubdate  data-updated="true" >Apr 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>구글맵 pane 의 레이어(높은 순으로)  floatPane: 정보창 레이어. 가장 높다.  overlayMouseTarget: 마커 이벤트 처리를 위한 레이어. 보이지는 않는다. 정보창 그림자 안의 마커도 클릭할 수 있게 하기 위해서 요기에 있다.  floatShadow: 정보창 그림자. 마커보다 높다.  overlayImage: 마커 아이콘 레이어  overlayShadow  : 마커 그림자 레이어  overlayLayer: 폴리라인, 폴리곤, 바닥 오버레이, 타일 오버레이  mapPane  배경 맵 타일 바로 위. 제일 낮다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/20/httprazorjacknetquicksand-jquery/">http://razorjack.net/quicksand/ Jquery 아&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-20T20:47:00+09:00" pubdate  data-updated="true" >Apr 20<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://razorjack.net/quicksand/">http://razorjack.net/quicksand/</a>  jquery 아이콘 리스트 플러그인. 필터링 + 애니메이션이 멋지다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/20/httpzwoptexzwopplecom-cocos2d/">http://zwoptex.zwopple.com/ Cocos2d 용 스프&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-20T20:45:00+09:00" pubdate  data-updated="true" >Apr 20<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://zwoptex.zwopple.com/">http://zwoptex.zwopple.com/</a>  cocos2d 용 스프라이트 툴로, 통합된 png 파일과 각 이미지의 좌표 정보를 담은 plist 을 리턴한다.</p>
 </div>
   
   

@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="앱엔진에서 app.yaml 에서 static 으로 지정된 폴더는 view 에서 파이썬으로 접근할 수 없다. 그냥 로컬 파일은 문제 없이 읽을 수 있지만  심볼릭 링크를 걸어서 복사로 올리거나, 아예 복제해둬야 한다.">
+  <meta name="description" content="plist 파일을 ajax 로 다운받을 때 parseerror 가 나는 경우  app.yaml 에서 mime type 을 잘 지정해야 된다.  - url: /images/sprites/(.*).plist  static_dir: static/images/sprite...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,244 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/23/appyaml-static-view/">앱엔진에서 app.yaml 에서 Static 으로 지정된 폴더는 View&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-23T21:54:00+09:00" pubdate  data-updated="true" >Apr 23<span>rd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>앱엔진에서 app.yaml 에서 static 으로 지정된 폴더는 view 에서 파이썬으로 접근할 수 없다. 그냥 로컬 파일은 문제 없이 읽을 수 있지만  심볼릭 링크를 걸어서 복사로 올리거나, 아예 복제해둬야 한다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/23/firebug-consolexxx/">Firebug 가 없는 브라우저에서 console.xxx 자바스크립트 에&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-23T18:12:00+09:00" pubdate  data-updated="true" >Apr 23<span>rd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>firebug 가 없는 브라우저에서 console.xxx 자바스크립트 에러가 날 경우  if (typeof console==undefined){console={log:function(A){var B=false;if(B){alert(A)}}}}</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/22/overlayview-floatpane-overlay/">OverlayView 를 floatPane 에 두면, 이게 Overlay&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-22T20:50:00+09:00" pubdate  data-updated="true" >Apr 22<span>nd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>OverlayView 를 floatPane 에 두면, 이게 overlayMouseTarget 레이어보다 높기 때문에 mouseover 시 간섭이 발생한다. (일명 커서 떨림 현상)  해결책은  - overlayMouseTarget 보다 낮은 레이어에 넣으면 간섭이 발생하지 않는다.  - 즉, 마커에 따라다니는 라벨 같은 오버레이들은 overlayImage 레이어에서 다 넣고, z-index 를 가지고 조절한다  - 그래도 높이 조절이 안되면, floatShadow 에 넣어버린다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/21/css-div-webkit-animation/">웹킷용 CSS 애니메이션 태그 Div { -webkit-animation&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-21T19:06:00+09:00" pubdate  data-updated="true" >Apr 21<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>@-webkit-keyframes pulse {  from {  opacity: 0.0;  font-size: 100%;  }  to {  opacity: 1.0;  font-size: 200%;  }  }  div {  -webkit-animation-name: pulse;  -webkit-animation-duration: 2s;  -webkit-animation-iteration-count: infinite;  -webkit-animation-timing-function: ease-in-out;  -webkit-animation-direction: alternate;  }</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/21/pane-floatpane/">구글맵 Pane 의 레이어(높은 순으로) floatPane : 정보창 레&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-21T16:44:00+09:00" pubdate  data-updated="true" >Apr 21<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>구글맵 pane 의 레이어(높은 순으로)  floatPane: 정보창 레이어. 가장 높다.  overlayMouseTarget: 마커 이벤트 처리를 위한 레이어. 보이지는 않는다. 정보창 그림자 안의 마커도 클릭할 수 있게 하기 위해서 요기에 있다.  floatShadow: 정보창 그림자. 마커보다 높다.  overlayImage: 마커 아이콘 레이어  overlayShadow  : 마커 그림자 레이어  overlayLayer: 폴리라인, 폴리곤, 바닥 오버레이, 타일 오버레이  mapPane  배경 맵 타일 바로 위. 제일 낮다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/20/httprazorjacknetquicksand-jquery/">http://razorjack.net/quicksand/ Jquery 아&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-20T20:47:00+09:00" pubdate  data-updated="true" >Apr 20<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://razorjack.net/quicksand/">http://razorjack.net/quicksand/</a>  jquery 아이콘 리스트 플러그인. 필터링 + 애니메이션이 멋지다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/20/httpzwoptexzwopplecom-cocos2d/">http://zwoptex.zwopple.com/ Cocos2d 용 스프&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-20T20:45:00+09:00" pubdate  data-updated="true" >Apr 20<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://zwoptex.zwopple.com/">http://zwoptex.zwopple.com/</a>  cocos2d 용 스프라이트 툴로, 통합된 png 파일과 각 이미지의 좌표 정보를 담은 plist 을 리턴한다.</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -394,6 +156,247 @@
 
 
   <div class="entry-content"><p>이미 kind 를 아는 상태에서는 XXX.get_by_key_name() 를 사용해서 접근할 수 있다. 그러나 일견 비슷해보이는 db.Model.get_by_key_name() 은 동작하지 않는다. 분명 parent 가 없는 엔티티인데도  from apps.game.models import *  f = Front.all().filter(name =,aa).get()  if not f:  f = Front(key_name=aaaa,name=aa)  f.put()  f2 = db.Model.get_by_key_name(f.key().name())  print Model.get_by_key_name:,f2  f3 = Front.get_by_key_name(f.key().name())  print Front.get_by_key_name:,f3  f4 = db.class_for_kind(Front).get_by_key_name(f.key().name())  print db.class_for_kind().get_by_key_name:,f4  generic 하게 key name 만으로 접근하는 방법을 알아내야 할 듯.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/15/bulkloaderpy-appcfgpy/">bulkloader.py 또는 appcfg.py 로 데이터를 익스포트(다&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-15T21:46:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>BadRequestError: app AAA cannot access app BBBs data  bulkloader.py 또는 appcfg.py 로 데이터를 익스포트(다운로드) 할 때 디폴트 구현인 keyname 대신 key 자체를 저장하는 방식(-_-)을 선택한 경우, appid 가 다른 datastore 로 업로드(임포트)할 때, 기존 키값이 존재할 경우 받아들일 수 없게 된다. 특히나 sql3 로 덤프받은 데이터 역시 호환이 되지 않는다.  해결책은  - CSV 로 바꾸고, 키값은 모두 삭제해서 자동 생성 되도록 한다. 이때의 문제는 reference key 가 문제가 된다. 손쉬운 해결책은 keyname 을 쓰는 건데 이것도 못할 짓이다.  - 모든 키를 돌면서 appid 부분을 교체하는 것도 하나의 해결책이다. ==> 존재하지 않는 키는 받아들이지 않는다. 오직 keyname 만 받아들임. ==> 그래서 CSV 내보내기할 때 keyname 만 내보내는 구만.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/15/app-engine-listpropertyint-export/">App Engine 에서 ListProperty(int) 를 Export&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-15T20:51:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>app engine 에서 ListProperty(int) 를 export/import 할 때 사용해야 하는 함수  - export:  (field-name, lambda x: ,.join([str(y) for y in x]), None),  - import:  (field-name, lambda x: list([ int(y) for y in x.split(,)]) ),</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/15/jqueryextendtargetobj1-obj2/">jQuery.extend(target,obj1, Obj2) 자바스크립트 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-15T19:01:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>jQuery.extend(target,obj1, obj2)  자바스크립트 사전을 merge 한다. 이때 target 은 변경된다는 점에 유의.  var object = $.extend({}, object1, object2);</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/15/app-engine-environment-variables/">App Engine Environment Variables</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-15T16:06:00+09:00" pubdate  data-updated="true" >Apr 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>APPLICATION_ID  - CURRENT_VERSION_ID: X.Y. 메이저 버전은 app.yaml 에 있는 대로. 마이너 버전은 서버에서 자동으로 증가. 개발 서버에서 마이너 버전은 항상 1  - AUTH_DOMAIN: 도메인 인증시 도메인명.  - SERVER_SOFTWARE: 개발 서버는 Development/X.Y 앱엔진에 올라가면 Google App Engine/X.Y.Z.</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/14/httpwwwselectorgadgetcom-dom/">http://www.selectorgadget.com/ DOM 을 클릭하&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-14T00:12:00+09:00" pubdate  data-updated="true" >Apr 14<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.selectorgadget.com/">http://www.selectorgadget.com/</a>  DOM 을 클릭하면 그에 해당하는 적절한 jquery selector 를 알려준다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/14/httpspritemeorg/">http://spriteme.org/ 화면에 등장하는 이미지들을 하나의 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-14T00:11:00+09:00" pubdate  data-updated="true" >Apr 14<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://spriteme.org/">http://spriteme.org/</a>  화면에 등장하는 이미지들을 하나의 스프라이트로 만들어준다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/12/css-transparentclass-filteralph/">반투명 CSS .transparent_class { Filter:alph&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-04-12T23:02:00+09:00" pubdate  data-updated="true" >Apr 12<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>반투명 CSS  .transparent_class {     filter:alpha(opacity=50);   -moz-opacity:0.5;   -khtml-opacity: 0.5;    opacity: 0.5;  }  주의할 점은, 부모의 opacity 값이 정해지면 자식은 override 할 수 없다. 1픽셀 이미지를 배경색으로 쓰던가, position=absolute 를 이용해서 자식으로 만들지 않으면 된다.</p>
 </div>
   
   

@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="canvas app 에서 post authorize redirect URL 의 주소는 canvas_url 을 prefix 로 가져야 한다.  ex> http://apps.facebook.com/yourapp/welcome/">
+  <meta name="description" content="site-packages/ 절대 경로 알아내기  python -c from distutils.sysconfig import get_python_lib; print get_python_lib()">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,244 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/05/canvas-app-post-authorize-redirect-ur/">Canvas App 에서 Post Authorize Redirect UR&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-05T23:19:00+09:00" pubdate  data-updated="true" >Apr 5<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>canvas app 에서 post authorize redirect URL 의 주소는 canvas_url 을 prefix 로 가져야 한다.  ex> <a href="http://apps.facebook.com/yourapp/welcome/">http://apps.facebook.com/yourapp/welcome/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/05/raise-http404errorstring/">Raise Http404(error_string) 으로 하면 디버그 모드&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-05T21:51:00+09:00" pubdate  data-updated="true" >Apr 5<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>raise Http404(error_string) 으로 하면 디버그 모드에서 에러 메시지를 브라우저에서도 볼 수 있다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/05/ie-iframe/">IE &amp; 사파리에서 Iframe 으로부터 넘어오는 쿠키를 받지 않기 때문&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-05T16:49:00+09:00" pubdate  data-updated="true" >Apr 5<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>IE &amp; 사파리에서 iframe 으로부터 넘어오는 쿠키를 받지 않기 때문에, 아예 쿠키 기반의 인증은 포기하도록 한다. 브라우저 보안 설정은 건드리면 안되니까.  결국 iframe 내부 링크에다가 무조건 fb_sig* 들을 붙이는 것이 가장 장땡이다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/05/canvas-iframe-application-fbrequest/">Canvas Iframe Application 에서, Fb:request&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-04-05T16:39:00+09:00" pubdate  data-updated="true" >Apr 5<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>canvas iframe application 에서, fb:request-form.action 파라미터에는 CONNECT_URL or CANVAS_CALLBACK_URL 을 넣어야, 리다이렉팅될 때 프레임안에 프레임이 생기지 않는다.  ex> <a href="http://yourdomain.com/facebook/">http://yourdomain.com/facebook/</a>  see also: <a href="http://stackoverflow.com/questions/973642/facebook-iframe-app-fbrequest-form-action-attribute-problem">http://stackoverflow.com/questions/973642/facebook-iframe-app-fbrequest-form-action-attribute-problem</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/31/facebook-400-bad-request-with-loginstat/">Facebook 400 Bad Request With Login_stat&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-03-31T20:54:00+09:00" pubdate  data-updated="true" >Mar 31<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Facebook 400 Bad Request with login_status.php (with Facebook Canvas Iframe Application)  - include appropriate FeatureLoader.js  ex> <a href="http://static.ak.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php">http://static.ak.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php</a> (O, for F8 canvas iframe)  <a href="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php">http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php</a> (X, for F8 connect app??)  - cross domain channel file (xd_receiver.htm)s URL should have Application Setting - Connect - Connect Url as PREFIX  ex> <a href="http://yourdomain.com/xxx/xd_receiver.htm">http://yourdomain.com/xxx/xd_receiver.htm</a> ==> Connect URL should be http://yourdomain.com/xxx/</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/31/jqueryeach-break-re/">jquery.each() 에서 루프를 제어하는 방법 Break == Re&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-03-31T18:38:00+09:00" pubdate  data-updated="true" >Mar 31<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jquery.each() 에서 루프를 제어하는 방법  break == return false  continue == return true</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/29/advanced-sandbox-mode/">Advanced - Sandbox Mode : 개발자가 아닐 경우, 해당&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-03-29T18:38:00+09:00" pubdate  data-updated="true" >Mar 29<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>advanced - sandbox mode : 개발자가 아닐 경우, 해당 app 주소로 가보면 페이지를 찾을 수 없다라고 나옴.  이 모드를 끌 경우에는 authorize 창이 나온다.</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -394,6 +156,279 @@
 
 
   <div class="entry-content"><p>app engine bulk loader 나 appcfg.py 로 덤프를 하다 보면 sql3 파일들이 textmage sidebar 에 자동 등록되곤 한다. 이때 사이드바의 최상위 폴더에서 애플+I 를 눌러서 File Pattern 에 아래 문자열을 등록할 것.  !(pyc|DS_Store|bulkloader-log-.+|bulkloader-result-.+|bulkloader-results-.+|bulkloader-progress-.+)$</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-03-10T16:08:00+09:00" pubdate  data-updated="true" >Mar 10<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>python tip, tricks and hacks from <a href="https://www.siafoo.net/article/52">https://www.siafoo.net/article/52</a>  <strong>부분 문자열 포함 테스트는 in 연산자를 사용할 것</strong><br/>
+if &#8216;aaa&#8217; in &#8216;aaabbb&#8217;:
+  <strong>리스트를 , 로 합칠 경우 seperator . join ( list ) 형식을 사용할 것</strong><br/>
+&#8217;,&#8217;.join([&#8216;aaa&#8217;,&#8217;bbb&#8217;,&#8217;ccc&#8217;]
+  <strong>람다 함수는 anonymous function 으로 이해하면 된다. C 의 a? b: c 대용으로는 사용할 수 없을 듯.</strong><br/>
+map( lambda x : x<em>x, [1,2,3,4,5] ) # 리스트를 순회하면서 제곱을 한 걸 리턴한다.
+  <strong>map 함수는 리스트 comprehension 으로 대체할 수 있다. 위의 예제는 아래처럼 고칠 수 있다.</strong><br/>
+[ x</em>x for x in [1,2,3,4,5] ]
+  <strong>filter 함수는 for .. in  if  으로 대체할 수 있다.</strong><br/>
+filter( lambda x: x&lt;4, [1,2,3,4,5] )  == [ x for x in [1,2,3,4,5] if x &lt; 4 ]
+  <strong>generator 는 [] 대신 () 로 감싸서 for 에 넘길 수 있다.</strong><br/>
+for x in ( y<em>y for y in [1,2,3,4,5] if y</em>y &lt; 10 ):</p>
+
+<p>  print x
+  <strong>nested for + if + single statement 는 한줄로 표현할 수 있다.</strong><br/>
+for x in (0,1,2,3):</p>
+
+<p>  for y in (0,1,2,3):</p>
+
+<p>    if x &lt; y:</p>
+
+<p>      print (x,y,x*y)</p>
+
+<p>==> print [(x,y,x*y) for x in (0,1,2,3) for y in (0,1,2,3) if x &lt; y] # 다만 리스트다.
+  <strong>reduce 를 이용하면 리스트를 순회하면서 각 값들을 특정 값에 누적 연산시킬 수 있다.</strong><br/>
+result = 1</p>
+
+<p>for i in [1,2,3,4,5]:</p>
+
+<p>  result *= i</p>
+
+<p>==> reduce( lambda a,b: a*b, [1,2,3,4,5] )  <strong>dictionary 생성시 { &#8216;a&#8217;: 1, &#8216;b&#8217;: 2 } 대신 dict( a=1, b=2 ) 로 만들 수 있다.  </strong>  <strong>C 의 a ? b : c 는 다음과 같이 할 수 있다.  </strong></p>
+
+<p>b if a else c  <strong>C 의 switch 문은 딕셔너리.get( key, default ) 로 대체할 수 있다.  </strong></p>
+
+<p>if key == a: return 1  elif key == b: return 2  else return 3  ==> dict( a=1, b=2 ).get( key, 3 )  <strong>@staticmethod 데코레이터는 클래스 스태틱 함수를 의미한다.</strong></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/09/httpweb-graphicscommtarchiveitalia/">http://web-graphics.com/mtarchive/Italia&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-03-09T18:46:00+09:00" pubdate  data-updated="true" >Mar 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://web-graphics.com/mtarchive/ItalianMenu.html">http://web-graphics.com/mtarchive/ItalianMenu.html</a>  <a href="http://www.benmeadowcroft.com/webdev/articles/definition-lists.shtml">http://www.benmeadowcroft.com/webdev/articles/definition-lists.shtml</a>  DL - definition list  정의 항목의 리스트  DT - definition term  용어 정의  DD - definition description  용어 설명  사전, 메뉴판을 생각하면 이해가 빠를 듯.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/05/jquerydata-key-json/">jquery.data() - 특정 노드에 (Key, Json ) 를 저장&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-03-05T18:57:00+09:00" pubdate  data-updated="true" >Mar 5<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>jquery.data()  - 특정 노드에 (key, json ) 를 저장할 수 있다.  - 여러 값을 저장하고 읽어오는 캐시의 역할을 한다.  - 다만 HTML 안에 값이 보이진 않는다.  jquery metadata plugin  - 특정 노드의 속성 혹은 script type=application/json 태그 안에 json 을 읽어온다.  - 기본적으로 class 속성 안에 저장한다. 물론 다른 속성에 넣을 수도 있다.  - 하나의 노드에는 하나의 메타데이터만 들어간다.  - HTML 코드 레벨에서 값을 볼 수 있다. 즉 서버에서 미리 준비해둘 수 있다.  - 일단 파싱하면 메모리에 저장되므로 초기값을 변경해서 저장할 수 있다. (타이머 등등에서)  jQuery.metadata.setType( type, name )  - 기본적인 저장 위치를 설정. 커스텀 속성에 저장할 경우 이걸 해두면 그냥 metadata() 만 호출하면 된다.  .metadata()  - 딕셔너리를 리턴한다. 이 딕셔너리에 값을 변경하면 그 다음번 접근에서도 변경된 값이 리턴된다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/04/div-width-margin-0/">Div 가로 가운데 정렬 : Width 를 지정하고, Margin : 0&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-03-04T03:28:00+09:00" pubdate  data-updated="true" >Mar 4<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>div 가로 가운데 정렬: width 를 지정하고, margin: 0px auto; 로 설정하면 된다.  세로도 마찬가지일 듯.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/03/visibility-hidden-jqueryshow/">Visibility : Hidden 으로 하면 아예 jQuery.show&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-03-03T23:01:00+09:00" pubdate  data-updated="true" >Mar 3<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>visibility: hidden 으로 하면 아예 jQuery.show() hide() 로 보이게 할 수 없다.  그냥 최초엔 숨겨져 있다가 어떤 이벤트시 보여야 할 경우 display:none; 으로 설정해둘 것.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/26/python-instanceclas/">Python 에서 부모 클래스 이름 알아내기 instance.__clas&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-26T21:44:00+09:00" pubdate  data-updated="true" >Feb 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>python 에서 부모 클래스 이름 알아내기  instance.<strong>class</strong>.<strong>bases</strong>[0].<strong>name</strong></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/26/def-fa-argkwarg-pass-f0-123/">Def F(a, *arg,**kwarg): Pass F(0, 1,2,3,&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-26T21:30:00+09:00" pubdate  data-updated="true" >Feb 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>def f(a, *arg,**kwarg): pass  f(0, 1,2,3,x=4,y=5)  a = 0  arg = (1,2,3)  kwarg = {x:4,y:5}</p>
 </div>
   
   

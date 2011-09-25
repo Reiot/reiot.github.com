@@ -92,17 +92,25 @@
 
 <p>기억 소멸을 방지하기 위해 대충 순서를 정리해본다 :P</p>
 
-<ul>
-<li>sudo yum install git-core</li>
-<li>git clone https://github.com/ry/node.git</li>
-<li>sudo yum install gcc</li>
-<li>sudo yum install gcc-c++</li>
-<li>sudo yum install openssl-devel</li>
-<li>./configure</li>
-<li>make </li>
-<li>sudo make install</li>
-<li>make test</li>
-</ul>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo yum install git-core
+</span><span class='line'><span class="nv">$ </span>git cloneÂ https://github.com/ry/node.git
+</span><span class='line'><span class="nv">$ </span>sudo yum install gcc
+</span><span class='line'><span class="nv">$ </span>sudo yum install gcc-c++
+</span><span class='line'><span class="nv">$ </span>sudo yum install openssl-devel
+</span><span class='line'><span class="nv">$ </span>./configure
+</span><span class='line'><span class="nv">$ </span>makeÂ 
+</span><span class='line'><span class="nv">$ </span>sudo make install
+</span><span class='line'><span class="nv">$ </span>make <span class="nb">test</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>마이크로 인스턴스에서 빌드 시간은 17분 정도 걸린다. configure 할 때 select/eio/kqueue 를 찾는 걸 보니, 내부적으로 저런 걸 쓰는 모양이다. 내 경우에는  test-exec,  test-repl, test-http-curl-chunk-problem 3개의 테스트가 실패했다 :(</p>

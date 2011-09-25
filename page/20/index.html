@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="python tip, tricks and hacks from https://www.siafoo.net/article/52  부분 문자열 포함 테스트는 in 연산자를 사용할 것if &#8216;aaa&#8217; in &#8216;aaabbb&#8217;:  리스트...">
+  <meta name="description" content="python subprocess Popen  - 기존의 os.popen spawn system 함수를 대체함  - Popen.communicate() 는 eof 때까지 입력을 모두 받음. 따라서 버퍼를 미리 적당히 잡아둬야 함. 무한 입력류는 안됨.  -">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,279 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-03-10T16:08:00+09:00" pubdate  data-updated="true" >Mar 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>python tip, tricks and hacks from <a href="https://www.siafoo.net/article/52">https://www.siafoo.net/article/52</a>  <strong>부분 문자열 포함 테스트는 in 연산자를 사용할 것</strong><br/>
-if &#8216;aaa&#8217; in &#8216;aaabbb&#8217;:
-  <strong>리스트를 , 로 합칠 경우 seperator . join ( list ) 형식을 사용할 것</strong><br/>
-&#8217;,&#8217;.join([&#8216;aaa&#8217;,&#8217;bbb&#8217;,&#8217;ccc&#8217;]
-  <strong>람다 함수는 anonymous function 으로 이해하면 된다. C 의 a? b: c 대용으로는 사용할 수 없을 듯.</strong><br/>
-map( lambda x : x<em>x, [1,2,3,4,5] ) # 리스트를 순회하면서 제곱을 한 걸 리턴한다.
-  <strong>map 함수는 리스트 comprehension 으로 대체할 수 있다. 위의 예제는 아래처럼 고칠 수 있다.</strong><br/>
-[ x</em>x for x in [1,2,3,4,5] ]
-  <strong>filter 함수는 for .. in  if  으로 대체할 수 있다.</strong><br/>
-filter( lambda x: x&lt;4, [1,2,3,4,5] )  == [ x for x in [1,2,3,4,5] if x &lt; 4 ]
-  <strong>generator 는 [] 대신 () 로 감싸서 for 에 넘길 수 있다.</strong><br/>
-for x in ( y<em>y for y in [1,2,3,4,5] if y</em>y &lt; 10 ):</p>
-
-<p>  print x
-  <strong>nested for + if + single statement 는 한줄로 표현할 수 있다.</strong><br/>
-for x in (0,1,2,3):</p>
-
-<p>  for y in (0,1,2,3):</p>
-
-<p>    if x &lt; y:</p>
-
-<p>      print (x,y,x*y)</p>
-
-<p>==> print [(x,y,x*y) for x in (0,1,2,3) for y in (0,1,2,3) if x &lt; y] # 다만 리스트다.
-  <strong>reduce 를 이용하면 리스트를 순회하면서 각 값들을 특정 값에 누적 연산시킬 수 있다.</strong><br/>
-result = 1</p>
-
-<p>for i in [1,2,3,4,5]:</p>
-
-<p>  result *= i</p>
-
-<p>==> reduce( lambda a,b: a*b, [1,2,3,4,5] )  <strong>dictionary 생성시 { &#8216;a&#8217;: 1, &#8216;b&#8217;: 2 } 대신 dict( a=1, b=2 ) 로 만들 수 있다.  </strong>  <strong>C 의 a ? b : c 는 다음과 같이 할 수 있다.  </strong></p>
-
-<p>b if a else c  <strong>C 의 switch 문은 딕셔너리.get( key, default ) 로 대체할 수 있다.  </strong></p>
-
-<p>if key == a: return 1  elif key == b: return 2  else return 3  ==> dict( a=1, b=2 ).get( key, 3 )  <strong>@staticmethod 데코레이터는 클래스 스태틱 함수를 의미한다.</strong></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/09/httpweb-graphicscommtarchiveitalia/">http://web-graphics.com/mtarchive/Italia&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-03-09T18:46:00+09:00" pubdate  data-updated="true" >Mar 9<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://web-graphics.com/mtarchive/ItalianMenu.html">http://web-graphics.com/mtarchive/ItalianMenu.html</a>  <a href="http://www.benmeadowcroft.com/webdev/articles/definition-lists.shtml">http://www.benmeadowcroft.com/webdev/articles/definition-lists.shtml</a>  DL - definition list  정의 항목의 리스트  DT - definition term  용어 정의  DD - definition description  용어 설명  사전, 메뉴판을 생각하면 이해가 빠를 듯.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/05/jquerydata-key-json/">jquery.data() - 특정 노드에 (Key, Json ) 를 저장&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-03-05T18:57:00+09:00" pubdate  data-updated="true" >Mar 5<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jquery.data()  - 특정 노드에 (key, json ) 를 저장할 수 있다.  - 여러 값을 저장하고 읽어오는 캐시의 역할을 한다.  - 다만 HTML 안에 값이 보이진 않는다.  jquery metadata plugin  - 특정 노드의 속성 혹은 script type=application/json 태그 안에 json 을 읽어온다.  - 기본적으로 class 속성 안에 저장한다. 물론 다른 속성에 넣을 수도 있다.  - 하나의 노드에는 하나의 메타데이터만 들어간다.  - HTML 코드 레벨에서 값을 볼 수 있다. 즉 서버에서 미리 준비해둘 수 있다.  - 일단 파싱하면 메모리에 저장되므로 초기값을 변경해서 저장할 수 있다. (타이머 등등에서)  jQuery.metadata.setType( type, name )  - 기본적인 저장 위치를 설정. 커스텀 속성에 저장할 경우 이걸 해두면 그냥 metadata() 만 호출하면 된다.  .metadata()  - 딕셔너리를 리턴한다. 이 딕셔너리에 값을 변경하면 그 다음번 접근에서도 변경된 값이 리턴된다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/04/div-width-margin-0/">Div 가로 가운데 정렬 : Width 를 지정하고, Margin : 0&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-03-04T03:28:00+09:00" pubdate  data-updated="true" >Mar 4<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>div 가로 가운데 정렬: width 를 지정하고, margin: 0px auto; 로 설정하면 된다.  세로도 마찬가지일 듯.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/03/visibility-hidden-jqueryshow/">Visibility : Hidden 으로 하면 아예 jQuery.show&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-03-03T23:01:00+09:00" pubdate  data-updated="true" >Mar 3<span>rd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>visibility: hidden 으로 하면 아예 jQuery.show() hide() 로 보이게 할 수 없다.  그냥 최초엔 숨겨져 있다가 어떤 이벤트시 보여야 할 경우 display:none; 으로 설정해둘 것.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/26/python-instanceclas/">Python 에서 부모 클래스 이름 알아내기 instance.__clas&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-26T21:44:00+09:00" pubdate  data-updated="true" >Feb 26<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>python 에서 부모 클래스 이름 알아내기  instance.<strong>class</strong>.<strong>bases</strong>[0].<strong>name</strong></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/26/def-fa-argkwarg-pass-f0-123/">Def F(a, *arg,**kwarg): Pass F(0, 1,2,3,&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-26T21:30:00+09:00" pubdate  data-updated="true" >Feb 26<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>def f(a, *arg,**kwarg): pass  f(0, 1,2,3,x=4,y=5)  a = 0  arg = (1,2,3)  kwarg = {x:4,y:5}</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -429,6 +156,244 @@ result = 1</p>
 
 
   <div class="entry-content"><p><a href="http://www.python.org/doc/2.5.4/lib/lib.html">http://www.python.org/doc/2.5.4/lib/lib.html</a>  2.5.4 매뉴얼</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/25/a-query-can-return-entity-keys-instead-o/">A Query Can Return Entity Keys Instead O&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-25T22:11:00+09:00" pubdate  data-updated="true" >Feb 25<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A query can return entity keys instead of full entities. You can trigger this behavior by passing keys_only=True to Query, or by using SELECT <strong>key</strong> in GQL.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/25/private/">파이썬에서 __ 로 시작하는 멤버는 Private 로 간주된다. 이런 프&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-25T20:31:00+09:00" pubdate  data-updated="true" >Feb 25<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>파이썬에서 <strong> 로 시작하는 멤버는 private 로 간주된다. 이런 프라퍼티들은 충돌을 막기 위해서 _baseclass 라는 prefix 가 자동으로 붙게 된다.  ex> class A 에 </strong>test 라는 변수가 있을 경우, A.<strong>dict</strong> 를 살펴보면 A._A__test 라는 변수가 들어 있다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/25/decorator/">@decorator 의 단점 - 함수를 래핑해서 실행하므로 속도가 느리다&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-25T19:31:00+09:00" pubdate  data-updated="true" >Feb 25<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>@decorator 의 단점  - 함수를 래핑해서 실행하므로 속도가 느리다  - 문제 발생시 콜스택이 복잡해진다</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/25/httpcodegooglecompgoogle-app-engi/">http://code.google.com/p/google-app-engi&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-25T17:02:00+09:00" pubdate  data-updated="true" >Feb 25<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://code.google.com/p/google-app-engine-django/issues/detail?id=103&amp;q=datastore">http://code.google.com/p/google-app-engine-django/issues/detail?id=103&amp;q=datastore</a>  appengine_django 에서 위 패치를 적용하면 datastore_path 를 지정할 수 있다.  이름만 지정하면 .datastore 라는 파일에 저장이 된다.  이렇게 저장한 파일은 버전 관리 시스템에 넣어두면, 혼자 작업할 때에는 환경이 달라져도 OK!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/24/javascript-regexp-var-level-dexe/">Javascript Regexp Var Level = /d+/.exe&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-24T22:26:00+09:00" pubdate  data-updated="true" >Feb 24<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>javascript regexp  var level = /\d+/.exec($(this).attr(id));</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/24/layout-helpers-ui-helper-hidden-applie/">Layout Helpers .ui-helper-hidden: Applie&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-24T21:57:00+09:00" pubdate  data-updated="true" >Feb 24<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Layout helpers  .ui-helper-hidden: Applies display: none to elements.  .ui-helper-hidden-accessible: Applies accessible hiding to elements (via abs positioning off the page)  .ui-helper-reset:  A basic style reset for UI elements. Resets things such as padding, margins, text-decoration, list-style, etc.  .ui-helper-clearfix: Applies float wrapping properties to parent elements  .ui-helper-zfix: Applies iframe fix css to iframe elements when needed in overlays.  Component containers  .ui-widget: Class to be applied on outer container of all widgets. Applies font family and font size to widget. Also applies same family and 1em font size to child form elements specifically, to combat inheritance issues in Win browsers.  .ui-widget-header: Class to be applied to header containers. Applies header container styles to an element and its child text, links, and icons.  .ui-widget-content: Class to be applied to content containers. Applies content container styles to an element and its child text, links, and icons. (can be applied to parent or sibling of header)  Interaction states  .ui-state-default: Class to be applied to clickable button-like elements. Applies clickable default container styles to an element and its child text, links, and icons.  .ui-state-hover: Class to be applied on mouseover to clickable button-like elements. Applies clickable hover container styles to an element and its child text, links, and icons.  .ui-state-active: Class to be applied on mousedown to clickable button-like elements. Applies clickable active container styles to an element and its child text, links, and icons.  Interaction Cues  .ui-state-highlight: Class to be applied to highlighted or selected elements. Applies highlight container styles to an element and its child text, links, and icons.  .ui-state-error: Class to be applied to error messaging container elements. Applies error container styles to an element and its child text, links, and icons.  .ui-state-error-text: An additional class that applies just the error text color without background. Can be used on form labels for instance. Also applies error icon color to child icons.  .ui-state-disabled: Applies a dimmed opacity to disabled UI elements. Meant to be added in addition to an already-styled element.  .ui-priority-primary: Class to be applied to a priority-1 button in situations where button hierarchy is needed. Applies bold text.  .ui-priority-secondary: Class to be applied to a priority-2 button in situations where button hierarchy is needed. Applies normal weight text and slight transparency to element.  Icons  States and images  .ui-icon: Base class to be applied to an icon element. Sets dimensions to 16px square block, hides inner text, sets background image to content state sprite image. Note: .ui-icon class will be given a different sprite background image depending on its parent container. For example, a ui-icon element within a ui-state-default container will get colored according to the ui-state-defaults icon color.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/23/httpwwwhunlockcomblogsmasteringj/">http://www.hunlock.com/blogs/Mastering_J&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-23T15:49:00+09:00" pubdate  data-updated="true" >Feb 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.hunlock.com/blogs/Mastering_Javascript_Arrays">http://www.hunlock.com/blogs/Mastering_Javascript_Arrays</a>  자바스크립트 배열</p>
 </div>
   
   

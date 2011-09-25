@@ -86,47 +86,79 @@
 
 <div class="entry-content"><p>각종 다양한 node의 라이브러리를 사용하려면 패키지 매니저인 npm 부터 가장 먼저 설치해야 된다. 이때 패키지들을 /usr/local 대신 사용자 폴더(~/.node_libraries)에 저장하기 위해서 .npmrc 를 만들어야 한다. (via <a href="http://blog.outsider.ne.kr/539">http://blog.outsider.ne.kr/539</a>)</p>
 
-<h2>- git clone <a href="https://github.com/isaacs/npm.git">https://github.com/isaacs/npm.git</a></h2>
-
-<p>cat~/.npmrc NPMRC  root = $HOME/.node_libraries  binroot = $HOME/bin  manroot = $HOME/share/man  NPMRC</p>
-
-<ul>
-<li>make</li>
-<li>npm install express </li>
-<li>npm install socket.io</li>
-</ul>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone https://github.com/isaacs/npm.git
+</span><span class='line'><span class="nv">$ </span>cat &gt;&gt; ~/.npmrc <span class="s">&lt;&lt; NPMRC</span>
+</span><span class='line'><span class="s">root = $HOME/.node_libraries</span>
+</span><span class='line'><span class="s">binroot = $HOME/bin</span>
+</span><span class='line'><span class="s">manroot = $HOME/share/man</span>
+</span><span class='line'><span class="s">NPMRC</span>
+</span><span class='line'><span class="nv">$ </span>make
+</span><span class='line'><span class="nv">$ </span>npm install expressÂ 
+</span><span class='line'><span class="nv">$ </span>npm install socket.io
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>참고로, 모든 npm 소스는 ~/.node_libraries/.npm 아래에 저장되어 있다.</p>
 
 <p>가장 간단한 express 서버는 다음과 같다. curl 로 로컬 서버에 접속해볼 수 있지만, 먼저 테스트를 위해서 아마존 EC2 콘솔에 접속해서 방화벽의 8080 포트를 열어둬야 한다.</p>
 
-<blockquote><p><code>var app = require('express').createServer();<br/>app.get('/', function(req, res){<br/>  res.send('hello world');<br/>});<br/>app.listen(8080);</code></p></blockquote>
+<blockquote><p>var app = require(&#8216;express&#8217;).createServer();<br/>app.get(&#8216;/&#8217;, function(req, res){<br/>  res.send(&#8216;hello world&#8217;);<br/>});<br/>app.listen(8080);</p></blockquote>
 
 
 <p>가장 간단한 socket.io 서버와 클라이언트는 github 에 존재한다. (이상하게도 제대로된 매뉴얼을 찾기가 힘드니, 그냥 <a href="https://github.com/LearnBoost/Socket.IO-node/blob/0.6.1/example/server.js">샘플 코드</a>를 보기를 권한다) </p>
 
-<blockquote><p><code>git clone git://github.com/LearnBoost/Socket.IO-node.git socket.io<br/>cd socket.io/example/<br/>sudo node server.js</code></p></blockquote>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone git://github.com/LearnBoost/Socket.IO-node.git socket.io
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>socket.io/example/
+</span><span class='line'><span class="nv">$ </span>sudo node server.js
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>서버와 클라이언트간의 통신은 순전히 JSON 으로 구현된다. 보내는 쪽에서</p>
 
-<blockquote><p>socket.send({ id:chat, type:whisper, target:reiot, message:Hello World! })</p></blockquote>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>socket.send<span class="o">({</span> id:chat, <span class="nb">type</span>:whisper, target:reiot, message:Hello World! <span class="o">})</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>라고 보내고, 받는 쪽에서는</p>
 
-<blockquote><p><code>socket.on('message',function(data){<br/>  if('id' in data){<br/>  if(data.id=='chat'){<br/>  show_message(data.message);<br/>  }<br/>  }<br/>});<br/></code></p></blockquote>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>socket.on<span class="o">(</span><span class="s1">&#39;message&#39;</span>,function<span class="o">(</span>data<span class="o">){</span>
+</span><span class='line'>  <span class="k">if</span><span class="o">(</span><span class="s1">&#39;id&#39;</span> in data<span class="o">){</span>
+</span><span class='line'>      <span class="k">if</span><span class="o">(</span>data.id<span class="o">==</span><span class="s1">&#39;chat&#39;</span><span class="o">){</span>
+</span><span class='line'>          show_message<span class="o">(</span>data.message<span class="o">)</span>;
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">})</span>;
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>이런 식의 전통적인 소켓 프로그래밍이 이루어진다. 브로드캐스팅은 그냥 소켓에 대고</p>
 
-<blockquote><p>socket.broadcast({something:special})</p></blockquote>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>socket.broadcast<span class="o">({</span>something:special<span class="o">})</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>이라고 하면 끝. </p>
-
-<p>첫 소감은 </p>
+<p>이라고 하면 끝. 첫 소감은 </p>
 
 <ul>
 <li>아 쉽다. 처음 소켓 프로그래밍을 배울 때의 느낌이야. 왜 지금까지 이런게 안되었을까..</li>

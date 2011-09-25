@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="python manage.py flush 는 서버를 끈 상태에서 해야 한다.">
+  <meta name="description" content="GoogleAppEngineLauncher 의 파라미터로 debug 를 지정해도 logging.debug() 는 안보이네. 불필요한 로그도 너무 많고 흑..  http://code.google.com/intl/ko/appengine/docs/python/tools...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,244 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/python-managepy-flush/">Python manage.py Flush 는 서버를 끈 상태에서 해야 한&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-27T19:11:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>python manage.py flush 는 서버를 끈 상태에서 해야 한다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/django-form-requestgetget/">Django Form 처리 변수 접근법 request.GET.get(&#039;&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-27T16:21:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>django form 처리  변수 접근법  request.GET.get(q, ) // safe  request.POST[q] // unsafe  메써드에 따른 분기  request.method == GET or POST  기타 request, response 객체에 대한 설명  <a href="http://docs.djangoproject.com/en/dev/ref/request-response/">http://docs.djangoproject.com/en/dev/ref/request-response/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/str-unicode-utf-8/">__str__은 내부적으로 __unicode__ 를 호출해서 UTF-8 &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-27T14:56:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>str</strong>은 내부적으로 <strong>unicode</strong> 를 호출해서 UTF-8 로 바꾼다.  결국 각 객체들은 <strong>unicode</strong> 하나만 정의해도 무방하다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/django-11-httpwwwdjangoproject/">Django 1.1 다운받기 http://www.djangoproject&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-27T02:57:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>django 1.1 다운받기  <a href="http://www.djangoproject.com/download/1.1/tarball/">http://www.djangoproject.com/download/1.1/tarball/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/virtualenv-which-python/">Virtualenv 실행 후 환경 점검하기 &gt; Which Python #&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-27T01:54:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>virtualenv 실행 후 환경 점검하기  > which python # 파이썬 인터프리터 경로  > python  import sys  sys.path  sys.executable</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/virtualenvwrapper-httpwwwdoughellman/">Virtualenvwrapper http://www.doughellman&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-27T01:02:00+09:00" pubdate  data-updated="true" >Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>virtualenvwrapper  <a href="http://www.doughellmann.com/docs/virtualenvwrapper/">http://www.doughellmann.com/docs/virtualenvwrapper/</a>  개요  - 가상환경을 한 군데에서 관리: mkvirtualenv, rmvirtualenv  - 손쉬운 환경 선택: workon, deactivate  - 가상환경폴더로 이동: cdvirtualenv, cdsitepackages  설치 방법(OSX 기준)  > mkdir ~/.virtualenvs  > vi ~/.bashrc  export WORKON_HOME=$HOME/.virtualenvs  source /Library/Frameworks/Python.framework/Versions/2.5/bin/virtualenvwrapper_bashrc  > source ~/.bashrc  > mkvirtualenv no-django  > deactivate  > mkvirtualenv django-1.1  > deactivate  > mkvirtualenv django-1.1.1  > deactivate</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/26/in-settingspy-import-logging-l/">&quot;&quot;&quot; # in settings.py Import Logging L&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-01-26T22:15:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>  # in settings.py  import logging  logging.basicConfig(  level = logging.DEBUG,  format = %(asctime)s %(levelname)s %(message)s,  #filename = /tmp/django.log,  #filemode = w  )  # Anywhere else  # import logging  # logging.debug(A log message)  #  # tail -f /tmp/django.log    <a href="http://www.slideshare.net/simon/debugging-django">http://www.slideshare.net/simon/debugging-django</a></p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -394,6 +156,244 @@
 
 
   <div class="entry-content"><p>django helper 의 BaseModel 을 사용하면 app engine admin (/_ah/admin) 에서 에러 발생함.  manage.py runserver -v 2 이렇게 왜 설정이 안될까?  서버 콘솔에 로그를 남기고 싶은데 logging.xxx() 로는 아무 것도 안남는다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/bigtable-schemeless/">왜 Bigtable 은 스키마가 없는가? (Schemeless) - 아무&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T18:50:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>왜 bigtable 은 스키마가 없는가? (schemeless)  - 아무리 모델 구조가 바뀌어도 저장 가능.  - 하나의 테이블에 서로 다른 구조의 객체가 들어있을 수 있음.  - 즉 검증의 책임은 프로그램에게 있음.  - 마이그레이션의 책임도 따라서 프로그램에게 있음.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/httptoolsdynamicdrivecomfavicon-f/">http://tools.dynamicdrive.com/favicon/ F&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T18:38:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://tools.dynamicdrive.com/favicon/">http://tools.dynamicdrive.com/favicon/</a>  favicon generator  app.yaml 에 넣는 방법  - url: /favicon.ico  static_files: static/images/favicon.ico  upload: static/images/favicon.ico</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/httpgithubcomguidesignore-for-git/">http://github.com/guides/ignore-for-git &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T18:19:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://github.com/guides/ignore-for-git">http://github.com/guides/ignore-for-git</a>  git ignore 에 대한 설명</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/httpwwwdjangosnippetsorg/">http://www.djangosnippets.org/ 장고 코드 조각 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T16:26:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.djangosnippets.org/">http://www.djangosnippets.org/</a>  장고 코드 조각 모음</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/httpbitbucketorgofflinedjango-anno/">http://bitbucket.org/offline/django-anno&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T16:26:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://bitbucket.org/offline/django-annoying/wiki/Home">http://bitbucket.org/offline/django-annoying/wiki/Home</a>  장고용 간편 데코레이터 모음</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/testmate-bundle-hotkey-html/">Testmate Bundle Hotkey HTML - 태그 닫기 : 애플&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T16:22:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>단축키  기본  - 파일 열기: 애플+T  HTML  - 태그 닫기: 애플 + Alt + .  - 태그 감싸기: Ctrl + Shift + W  - 코맨트 토글: 애플 + /</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/26/warningrootcould-not-read-datastore-da/">WARNING:root:Could Not Read Datastore Da&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-01-26T16:00:00+09:00" pubdate  data-updated="true" >Jan 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>WARNING:root:Could not read datastore data from /var/folders/14/14qYis9LFCi2OZNyz05woU+++TI/-Tmp-/django_google-app-engine-django.datastore  django helper 경고. 최초로 객체를 저장하면 없어진다고 함.</p>
 </div>
   
   

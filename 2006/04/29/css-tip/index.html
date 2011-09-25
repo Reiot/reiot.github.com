@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="[공지사항] : 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 http://reiot.springnote.com/pages/22538 에서 보실 수 있습니다.id &amp; classclass는 여러 곳에 쓸 수 있지만 id는 한 군데만 써야 하고, 특히 ...">
+  <meta name="description" content="id &amp; classclass는 여러 곳에 쓸 수 있지만 id는 한 군데만 써야 하고, 특히 id는 anchor 의 타겟으로도 사용될 수 있다.1234567891011121314151617&lt;table&gt;&lt;thead&gt;&lt;th&gt;sel...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,69 +84,81 @@
   </header>
 
 
-<div class="entry-content"><p><strong>[공지사항] : 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/22538">http://reiot.springnote.com/pages/22538</a> 에서 보실 수 있습니다.</strong></p>
-
-<h1>id &amp; class</h1>
+<div class="entry-content"><h2>id &amp; class</h2>
 
 <p>class는 여러 곳에 쓸 수 있지만 id는 한 군데만 써야 하고, 특히 id는 anchor 의 타겟으로도 사용될 수 있다.</p>
 
-<table>
-<thead>
-<th>selector</th>
-<th>scope</th>
-<th>example</th>
-
-<tr>
-<td>id selector</td>
-<td>instance level style (single)</td>
-<td>H1 #xxx {&#8230;}</td>
-</tr>
-<tr>
-<td>class selector</td>
-<td>class level style (multiple)</td>
-<td>H1.xxx {&#8230;}</td>
-</tr>
-</thead></table>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;table&gt;</span>
+</span><span class='line'><span class="nt">&lt;thead&gt;</span>
+</span><span class='line'><span class="nt">&lt;th&gt;</span>selector<span class="nt">&lt;/th&gt;</span>
+</span><span class='line'><span class="nt">&lt;th&gt;</span>scope<span class="nt">&lt;/th&gt;</span>
+</span><span class='line'><span class="nt">&lt;th&gt;</span>example<span class="nt">&lt;/th&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;tr&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>id selector<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>instance level style (single)<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>H1 #xxx {...}<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;/tr&gt;</span>
+</span><span class='line'><span class="nt">&lt;tr&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>class selector<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>class level style (multiple)<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;td&gt;</span>H1.xxx {...}<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;/tr&gt;</span>
+</span><span class='line'><span class="nt">&lt;/thead&gt;&lt;/table&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>&#8217;*&#8217; 문자는 생략 가능하기 때문에, 다음의 두 표현식은 동등하다.</p>
 
-<p>*#xxx {&#8230;}</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">*</span><span class="nf">#xxx</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+</span><span class='line'><span class="nf">#xxx</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h1>xxx {&#8230;}</h1>
 
-<h1>padding &amp; margin</h1>
+<h2>padding &amp; margin</h2>
 
-<p>padding 은 box 영역의 안쪽, margin 은 바깥쪽을 의미하는데, 본문 바깥쪽의 여백을 나타낸다는 것을 연상하면 쉬울 것이다. 각 방향별 속성을 지정할 수도 있고, 한꺼번에 지정할 수도 있다. 이때, 위에서부터 시계방향이라는 것만 외우면 편하다.</p>
+<p>padding 은 box 영역의 안쪽, margin 은 바깥쪽을 의미하는데, 본문 바깥쪽의 여백을 나타낸다는 것을 연상하면 쉬울 것이다. 각 방향별 속성을 지정할 수도 있고, 한꺼번에 지정할 수도 있다. 이때, 위에서부터 시계방향이라는 것만 외우면 편하다. <a href="http://www.w3.org/TR/REC-CSS2/box.html#mpb-examples">padding &amp; margin example</a>을 참고할 것.</p>
 
-<p>padding-top: 1px;
-padding-bottom: 2em;
-padding : &#8216;top&#8217; &#8216;right&#8217; &#8216;bottom&#8217; &#8216;left&#8217;;</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">padding-top</span><span class="o">:</span> <span class="nt">1px</span><span class="o">;</span>
+</span><span class='line'><span class="nt">padding-bottom</span><span class="o">:</span> <span class="nt">2em</span><span class="o">;</span>
+</span><span class='line'><span class="nt">padding</span> <span class="o">:</span> <span class="s1">&#39;top&#39;</span> <span class="s1">&#39;right&#39;</span> <span class="s1">&#39;bottom&#39;</span> <span class="s1">&#39;left&#39;</span><span class="o">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p><a href="http://www.w3.org/TR/REC-CSS2/box.html#mpb-examples">padding &amp; margin example</a>을 참고할 것.</p>
 
-<h1>div &amp; span</h1>
-
-<p>div는 해당 블럭에 특정 id 또는 class 속성을 적용한다. 아래의 예제는 2개의 테이블 모두를 우측 정렬을 하기 위해서 DIV 태그를 사용했다.</p>
-
-<p><a href="http://december.com/html/4/element/div.html">&lt;div</a> align=&#8221;right&#8221;>
-<a href="http://december.com/html/4/element/table.html"><table></a>&#8230;</table>
-<a href="http://december.com/html/4/element/table.html"><table></a>&#8230;</table>
-</div></p>
-
-<p>반면 span은 inline 으로 특정 id 또는 class 속성을 적용한다. 아래의 예제는 P 전체에 클래스 스타일을 적용해서 폰트 크기 및 종류를 지정한 다음, &#8217; 에 대해서만 빨간색으로 표시하기 위해서 SPAN 태그를 사용했다.</p>
-
-<p><a href="http://december.com/html/4/element/p.html">&lt;p</a> class=&#8221;oreiot&#8221;>O<a href="http://december.com/html/4/element/span.html">&lt;span</a> class=&#8221;red&#8221;>&#8217;</span>REIOT</p></p>
-
-<h1>font size</h1>
+<h2>font size</h2>
 
 <p>픽셀 등의 단위를 사용하게 되면, 화면 해상도에 관계없이 크기가 고정되게 된다. 이렇게 할 경우, 브라우저의 문자 크기 확대-축소를 해도 바뀌지 않는다. 눈이 나쁜 사람들을 위해서도 픽셀 고정 보다는 아래의 크기를 사용하는 것을 권장한다. (순수 디자인의 관점에서는 맞지 않을지도?)</p>
 
-<p>xx-small &lt;x-small &lt;small &lt;medium &lt;large &lt;x-large &lt;xx-large</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">xx-small</span> <span class="o">&lt;</span> <span class="nt">x-small</span> <span class="o">&lt;</span> <span class="nt">small</span> <span class="o">&lt;</span> <span class="nt">medium</span> <span class="o">&lt;</span> <span class="nt">large</span> <span class="o">&lt;</span> <span class="nt">x-large</span> <span class="o">&lt;</span> <span class="nt">xx-large</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>아니면, 상대 크기인 smaller - larger를 써서, 자신의 부모 객체의 폰트보다 크거나 작도록 지정할 수도 있다.</p>
 
-<h1>호환성 있는 페이지 만들기</h1>
+<h2>호환성 있는 페이지 만들기</h2>
 
 <p>우선, 해당 페이지를 순수하게 텍스트로 렌더링하는 페이지를 만든다. 이때, h1, h2, &#8230;, p, hr, ul, ol, li, b 등의 텍스트형 태그만을 사용하도록 한다. (당연히 font 류의 데코레이션형 태그는 사용하지 않도록 한다.)</p>
 
@@ -154,22 +166,17 @@ padding : &#8216;top&#8217; &#8216;right&#8217; &#8216;bottom&#8217; &#8216;left
 
 <p>끝으로 CSS validate 및 HTML validate 를 통해서 호환성을 검증한다. 브라우저 테스트는 기본.</p>
 
-<h1>float &amp; clear</h1>
+<h2>float &amp; clear</h2>
 
 <p>박스 또는 이미지가 다른 레이어와 충돌하지 않는 상태에서, 좌측 또는 우측으로 정렬될 수 있게 해준다. 가끔은, float 박스가 2개 이상의 레이어에 걸치지 않았으면 할 때가 있다. 이럴 경우, float 를 포함한 상위 레이어에다가 clear:both 속성을 지정해주면 걸치기를 막을 수 있다.</p>
 
 <p><a href="http://www.w3.org/TR/REC-CSS2/visuren.html">Visual Formatting Model</a>을 참고할 것.</p>
 
-<h1>기타 태그 설명</h1>
+<h2>Relative Percentage Positioning</h2>
 
-<pre><code>- line-height : 줄 간격
-</code></pre>
+<p>Relative Positioning 에서 비율을 사용할 때, 항상 부모 블럭의 크기의 비율이라는 점에 유의할 것.즉 -50% 는 부모 크기의 50% 만큼 음의 방향으로 이동한다는 거다. 만약 나의 크기가 부모의 크기와 같다면 그것은 나의 절반만큼 이동한다는 의미가 된다. 다만, vertical 에 대해서는 잘 동작하지 않는 느낌.</p>
 
-<p>see also:</p>
-
-<pre><code>- [CSS2 specification](http://www.w3.org/TR/REC-CSS2)
-- [XHTML specification](http://www.w3.org/TR/xhtml-basic)
-</code></pre>
+<p>see also: <a href="http://jsfiddle.net/Reiot/UUADc/">http://jsfiddle.net/Reiot/UUADc/</a></p>
 </div>
 
 

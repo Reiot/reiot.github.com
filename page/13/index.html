@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="구글 앱 엔진으로 개발하면서 학습한 내용을 정리합니다. 이론적으로 혹은 실제 서비스할 때 잘못되거나 틀린 부분이 있을 수 있음을 미리 알려 드립니다.검증 및 마이그레이션의 책임은 &#8216;프로그래머&#8217;가 진다.관계형 데이터베이스의 경우, 스키마 및 그...">
+  <meta name="description" content="jslint 에서 글로벌 변수가 선언되지 않은 경고가 나올 때 파일 맨 처음에  /global var:true, var2:false /  로 선언한다.  true 변수는 readonly 이며, false 변수는 파일 내부에서 assign 될 수 있다. 보통은 파일...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,316 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/13/google-app-engine-tips/">Google App Engine Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-08-13T00:15:00+09:00" pubdate  data-updated="true" >Aug 13<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png' width='' height='' alt='' title=''></a>구글 앱 엔진으로 개발하면서 학습한 내용을 정리합니다. 이론적으로 혹은 실제 서비스할 때 잘못되거나 틀린 부분이 있을 수 있음을 미리 알려 드립니다.</p>
-
-<p><strong>검증 및 마이그레이션의 책임은 &#8216;프로그래머&#8217;가 진다.</strong></p>
-
-<p>관계형 데이터베이스의 경우, 스키마 및 그 정합성을 검증할 책임이 데이터베이스 엔진에 있는 반면, 구글 데이터스토어는 분산 및 속도 향상을 위해, 스키마와 검증의 책임이 프로그램 쪽으로 넘어와 있다. 이게 무슨 뜻이냐 하면, 같은 모델(테이블)에 서로 다른 필드로 구성된 객체(Entity,열)가 들어갈 수 있다는 뜻이다. 따라서 데이터스토어는 임의의 데이터 집합을 쿼리해서 읽어왔을 때, 그 안에 어떤 데이터가 들어가 있을지 모르기 때문에, 마이그레이션 역시 프로그램이 책임지고 구현해야 한다. 새로 속성(Property,컬럼)을 추가하거나, 삭제하려면 해당 모델에 속한 모든 객체들을 찾아서 하나씩 변경해줘야 한다.</p>
-
-<p>예를 들어, 어떤 모델의 속성이 더이상 필요없어져서 삭제하려면, 무려 <a href="http://code.google.com/intl/ko-KR/appengine/articles/update_schema.html">소스 코드에서 모델의 부모 클래스를 바꿔서 저장한 후, 서버에 터미널을 열고 수동으로 해당 속성들을 지우고 다시 돌아와서 코드를 롤백하는 등의 수고로움</a>이 필요하다.</p>
-
-<p>이런 이유로, 가급적이면 앱엔진에서 서비스중에, 모델의 특정 속성 이름을 바꾸는 일은 피해야 한다.</p>
-
-<p><strong>트랜잭션으로 묶을 객체들은 &#8216;생성&#8217; 시점에 부모를 지정해야 한다.</strong></p>
-
-<p>관계형 데이터베이스에서는 서비스 이후에도 적당히 쿼리 최적화와 마이그레이션을 통해서 새로 트랜잭션을 추가할 수 있다. 그런데, 데이터스토어는 좀 다르다. 왜냐하면 일단 만들어진 객체의 키값은 절대 변경될 수 없는데, 트랜젹션으로 묶을 객체들은 생성 시점에 미리 같은 부모 객체를 지정해서, 같은 엔티티 그룹으로 만들어 줘야 하기 때문이다. 아마도 분산 트랜잭션을 피하기 위해서, 같은 그룹에 속한 객체들을 동일한(또는, 가급적 가까운?) 물리적인 노드에 두기 위함일테다.</p>
-
-<p>또한 동시에 여러 명이 같은 데이터를 변경하는 등의 충돌을 방지하려면, 주의깊게 부모 엔티티를 고르거나 아예 이런 일이 없도록 설계하는 것이 중요하다. 이런 제약으로 인해, 개발 시점에 어떤 트랜잭션이 필요할 것인지를 미리 예측하고, 코드 레벨에서 부모 객체를 미리 만들어둬야 한다. 구체적인 예를 들자면, 어떤 플레이어에 속한 모든 아이템, 도전과제, 퀘스트 같은 하위 객체들은 플레이어를 부모로 가지는 게 정신 건강에 좋다는 정도가 되겠다.</p>
-
-<p>이처럼 앱엔진 개발은 유지 보수의 책임이 데이터베이스가 아니라 프로그래머의 영역이 된다는 점을 항상 염두에 둬야 한다.</p>
-
-<p><strong>키 이름(key_name), 아이디(id)의 용도를 잘 구분해야 한다.</strong></p>
-
-<p>모든 객체는 시스템에서 유일한 키 값을 가진다는 점은 비교적 이해하기가 쉽다. 그런데, 키 이름(문자열)과 아이디(정수) 중 하나만을 가져야 한다는 점은 처음에 좀 헷갈렸다. 과연 어떤 객체에는 키 이름을 쓰고, 어디에는 아이디를 자동 생성해야 하는지가 할까? 처음엔, 해석을 잘못해서 키 이름이 시스템 전체에서 유일한 줄 알아서 많이 헤맸었는데, 알고보니 같은 모델(정확하게는 엔티티 그룹)안에서만 유일하면 된다는 것을 늦게서야 알게 되었다.</p>
-
-<p>결론부터 말하자면, 내가 맞게 쓰고 있는 건지는 모르지만, 개발 시점에 미리 생성해둬야 하는 정적인 객체들(아이템 정보, 맵 정보, 밸런싱 데이터 등 유일성을 개발 시점에 파악할 수 있는 객체들)에게는 유일한 키 이름을 할당해서, 향후 빠른 변경 및 접근을 할 수 있게 하고, 런타임에 생성하기 때문에 유일성을 미리 파악하기 힘든 다른 수많은 객체들(계정, 플레이어, 아이템 인스턴스, 도전 과제 인스턴스 등)은 자동으로 아이디를 할당받게 하는 게 좋다.</p>
-
-<p>그런데, 개발을 위해서 동일한 코드를 기반으로 서로 다른 app-id를 가진 구글 앱엔진 서버(Development - Test - Production)를 운영할 경우, 자동으로 만들어져서 아이디를 가진 객체들 - 특히나 ReferenceProperty 로 관계가 맺어진 넘들-을 다른 서버로 옮기는 것이 거의 불가능하다는 점에 유의해야 한다. 왜냐하면 객체의 키값에 이미 app-id 가 들어가 있기 때문에 CSV 등으로 백업해서 복원할 경우, 만약  기존에 동일한 id 를 가진 객체가 존재하면 그냥 덮어써버리기 때문이다. :(</p>
-
-<p><strong>쿼리(datastore_v3.RunQuery)와 읽기(datastore_v3.Get)의 차이를 이해해야 한다.</strong></p>
-
-<p>ReferenceProperty 를 이용하면, 1:N 의 관계를 표현할 수 있다. 아래의 코드처럼</p>
-
-<p>[code language=&#8221;python&#8221;]
-class Player(db.Model):
-  pass
-class Item(db.Model):
-  player = db.ReferenceProperty(Player,collection_name=&#8221;items&#8221;)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>과 같이 정의된 경우, player.items 라는 역참조가 자동적으로 만들어진다. 문제는 이게 코드를 읽을 때에는 왠지 캐싱이 될 것처럼 보이지만, 내부적으로 datastore_v3.RunQuery 라는 RPC가 호출되기 때문에 매번마다 다시 데이터스토어에서 읽어온다는 점이다. 무조건 [appstat](http://code.google.com/intl/ko-KR/appengine/docs/python/tools/appstats.html) 을 활성화시켜 두고, 조금이라도 반응 속도가 느린 요청이 있으면 항상 확인하는 버릇을 길러야 한다.
-</span><span class='line'>
-</span><span class='line'>반대로 이미 키값을 알고 있는 item 의 소유자 이름을 읽어오려면, item.player.name 처럼만 하면 된다. 그런데 내부적으로 datastore_v3.Get 요청은 특정 필드만 읽어오는 기능을 지원하지 않기 때문에, 항상 모든 속성들이 다 읽어지게 된다. 더욱 무서운 점은 그냥 item.player 나 item.player.key() 라고만 해도 Get 요청이 이루어진다는 거다. 만약 참조하는 객체의 하위 속성이 아니라 오직 키값만 알고 있으면 되는 경우에는 model_name.reference_prop.get_value_for_datastore(entity) 를 이용하면, 코드는 더러워지지만 불필요한 요청을 피할 수 있다.
-</span><span class='line'>
-</span><span class='line'>특히 루프 안에서 참조키의 하위 속성을 읽는 짓은 가급적 피하는 것을 권장한다.
-</span><span class='line'>
-</span><span class='line'>[code language="python"]
-</span><span class='line'>for item in Item.all().filter():
-</span><span class='line'>  if item.player.hp == 0: # bad bad
-</span><span class='line'>  pass</span></code></pre></td></tr></table></div></figure>
-
-
-<p>계속 추가할 예정입니다 :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/10/jquery-removeclass-css-sprite/">Jquery removeClass 를 이용해서 Css Sprite 교체하&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-08-10T17:25:00+09:00" pubdate  data-updated="true" >Aug 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>css sprite 는 특정 DIV 에 CSS 스프라이트 클래스를 설정해서 배경 이미지를 보여주는 방식인데, 문제는 이전에 어떤 클래스 이름이 들어가 있는지 알 수 없다는 거다. 즉 정규식으로 클래스 이름을 검색해서 스프라이트 클래스만을 찾아서 지우고 새 스프라이트 클래스를 넣어야 한다. <code></p>
-
-<p>.removeClass(function(index,class_str){
-  var class_list = class_str.split(' ');
-  for ( var i = 0 ; i &lt; class_list.length ; i ++ ) {
-  var cls = class_list[i];
-  if ( cls.match(/unit-.+?_(L|R)/) ) {
-  return cls;
-  }
-  }
-}</p>
-
-<p></code> 주의할 점은, 이 콜백 함수가 $.each 처럼 기존 클래스 명 하나하나마다 호출되는게 아니라, 그냥 공백으로 구분된 클래스 이름 문자열을 파라미터로 넘겨서 한번만 실행된다는 점이다. (index 는 왜 있는 거지;;;)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/10/class-adbmodel-b-dbreferenceprope/">Class A(db.Model): B = db.ReferencePrope&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-08-10T16:40:00+09:00" pubdate  data-updated="true" >Aug 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>class A(db.Model):  b = db.ReferenceProperty()  <em>b = load_B()  for a in A.all().fetch(1000):  if a.b == </em>b.key():  print we found  break  위와 같은 예제에서 단지 특정 모델의 ReferenceProperty 키값만을 비교하려고 할 때에도 datastore_v3.Get 이 일어나서, 참조하는 모델의 전체 값을 읽어오게 된다. 이때 get_value_for_datastore() 를 사용하면 불필요한 로딩을 막아준다.  for a in A.all().fetch(1000):  if A.b.get_value_for_datastore(a)!= _b.key():</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/10/jquery-ui-dialog-o/">Jquery Ui Dialog 의 경우 (같은 다이얼로그라 할지라도) O&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-08-10T01:05:00+09:00" pubdate  data-updated="true" >Aug 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jquery ui dialog 의 경우 (같은 다이얼로그라 할지라도) open 할 때마다 z-index 가 증가한다.  초반 생성자에서 zIndex 를 넣어도 안된다;;;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/07/30/safari-iframe-cookie-iframe/">Safari Iframe Cookie 문제 사파리는 Iframe 안에 있&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-07-30T00:38:00+09:00" pubdate  data-updated="true" >Jul 30<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>safari iframe cookie 문제  사파리는 iframe 안에 있는 외부 사이트가 보낸 쿠키를 무시한다. 만약 사용자가 의도적으로 클릭하거나, (또는 ajax, 자동 redirecting 등으로) 해당 사이트와 통신을 하고 난 다음에는, 해당 사이트의 쿠키를 받아들인다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/07/20/git-branch-d-r-origi/">리모트 브랜치 목록에서 삭제하기 Git Branch -d -r Origi&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-07-20T21:36:00+09:00" pubdate  data-updated="true" >Jul 20<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>리모트 브랜치 목록에서 삭제하기  git branch -d -r origin/  리모트 브랜치를 실제로 지우기  git push origin :branch_to_delete</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/07/16/css3-css-lilast/">[Css3] CSS 선택자에서 마지막 엘리먼트를 고를 때 Li:last-&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-07-16T22:03:00+09:00" pubdate  data-updated="true" >Jul 16<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[css3] CSS 선택자에서 마지막 엘리먼트를 고를 때  li:last-child {}  처럼 할 것. first-child 는 IE7 부터 대충 지원하긴 한다</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -466,6 +156,244 @@ class Item(db.Model):
 
 
   <div class="entry-content"><p>jquery ui icon 을 텍스트와 함께 사용할 때 이넘이 기본적으로 box 이기 때문에 다음과 같이 할 것.  [span class=ui-icon ui-icon-xxx style=display: inline-block ] text here [/span]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/25/git-config-mergetool-yourtool-git/">Git Config merge.tool &quot;your.tool&quot; Git &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-25T17:06:00+09:00" pubdate  data-updated="true" >Jun 25<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>git config merge.tool your.tool  git mergetool  <a href="http://stackoverflow.com/questions/161813/how-do-i-fix-merge-conflicts-in-git">http://stackoverflow.com/questions/161813/how-do-i-fix-merge-conflicts-in-git</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/25/git-checkout-commit-filename/">Git Checkout $commit Filename : 과거 버전의 파&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-25T17:06:00+09:00" pubdate  data-updated="true" >Jun 25<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>git 로 롤백하기  아직 커밋하지 않은 경우  git checkout $commit filename: 과거 버전의 파일을 작업중인 파일에 덮어쓴다. 당연히 커밋해야 된다.  git reset hard $commit: 커밋하지 않은 모든 파일을 날리고, 과거 버전으로 작업 폴더를 덮어쓴다.  이미 커밋한 경우  git revert  <a href="http://book.git-scm.com/4_undoing_in_git_-_reset,_checkout_and_revert.html">http://book.git-scm.com/4_undoing_in_git<em>-</em>reset,_checkout_and_revert.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/23/zwoptex-plist-format/">Zwoptex Plist Format 원본 이미지에서 알파 영역은 모두 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-23T21:28:00+09:00" pubdate  data-updated="true" >Jun 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>zwoptex plist format  원본 이미지에서 알파 영역은 모두 제거해서 더 압축하는 듯하다.  frame: { { x,y},{width,height } }  offset:?  sourceColorRect:  sourceSize: 원본 이미지의 { width, height }</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/22/python-dictionary/">Python Dictionary 를 값으로 정렬해서 최대값을 가진 키를 &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-22T21:30:00+09:00" pubdate  data-updated="true" >Jun 22<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>python dictionary 를 값으로 정렬해서 최대값을 가진 키를 찾기.  d = { x:1, y:2, z:3 }  l = d.items()  l.sort( key=lambda x: x[1] , reverse=True )  print l[0][0]  <a href="http://code.activestate.com/recipes/304440-sorting-dictionaries-by-value-in-python-24/">http://code.activestate.com/recipes/304440-sorting-dictionaries-by-value-in-python-24/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/22/model-property-dbexpando/">Model Property 삭제하는 법 - db.Expando 상속 - &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-22T20:45:00+09:00" pubdate  data-updated="true" >Jun 22<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>model property 삭제하는 법  - 임시적으로 db.Expando 상속  - 코드에서 property 삭제  - delattr(entity,property)  - db.Model 롤백  <a href="http://code.google.com/intl/ko-KR/appengine/articles/update_schema.html">http://code.google.com/intl/ko-KR/appengine/articles/update_schema.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/21/django-settingspy-osenvion/">최초 Django 실행시 settings.py 에서는 os.envion &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-21T22:49:00+09:00" pubdate  data-updated="true" >Jun 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>최초 django 실행시 settings.py 에서는 os.envion 을 인식하지 않는다.  DEVELOPMENT = os.environ[SERVER_SOFTWARE].startswith(Development)  APPENGINE = os.environ[SERVER_SOFTWARE].startswith(Google App Engine)  SERVER_NAME = os.environ[SERVER_NAME]  따라서 위와 같은 코드는 request 가 존재하는 view 에서만 사용 가능하다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/21/djangosettingmodule/">DJANGO_SETTING_MODULE * 환경 변수를 통해서 지정할 수&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-06-21T22:47:00+09:00" pubdate  data-updated="true" >Jun 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>DJANGO_SETTING_MODULE  * 환경 변수를 통해서 지정할 수 있다. export DJANGO_SETTINGS_MODULE=mysettings  * 실행 인자를 통해서도 지정 가능: settings=mysettings  * 단, 위 방법 모두 appengine_django 에서는 현재 동작하지 않는다.</p>
 </div>
   
   

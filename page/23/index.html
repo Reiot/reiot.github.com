@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="http://pypi.python.org/pypi/decorator  데코레이터를 만들어주는 데코레이터. @trace @deprecated 등을 만들어볼 수 있다.">
+  <meta name="description" content="http://sunilarora.posterous.com/9658192  클래스를 serializable 하게 만드는 데코레이터">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -60,244 +60,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/11/httppypipythonorgpypidecorator/">http://pypi.python.org/pypi/decorator 데코&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-11T18:11:00+09:00" pubdate  data-updated="true" >Feb 11<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://pypi.python.org/pypi/decorator">http://pypi.python.org/pypi/decorator</a>  데코레이터를 만들어주는 데코레이터. @trace @deprecated 등을 만들어볼 수 있다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/10/javascript-array-0-base-inde/">Javascript Array 를 키 없이 쓸 경우 0-base Inde&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-10T21:11:00+09:00" pubdate  data-updated="true" >Feb 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>javascript Array 를 키 없이 쓸 경우 0-base index 를 써서  for( var i = 0; i &lt; arr.length; i = i + 1 )  을 할 수 있지만, associative array 로 쓸 경우에는  for ( key in arr )  로 써야 한다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/10/basemodel-django-serializerjson-s/">BaseModel =&gt; Django Serializer(json) : S&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-10T16:08:00+09:00" pubdate  data-updated="true" >Feb 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>BaseModel => django serializer(json): str has no _meta error.  커스텀 serializer 를 만들었지만 circular reference detected 에러 발생.  결국은 직렬화용 딕셔너리에 수동 삽입해서 simplejson 으로 보냄. ㅠㅠ</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/09/gql-in-subquery/">GQL 의 in 이나 != 연산자는 내부적으로 Subquery 로 이루어&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-09T21:19:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>GQL 의 IN 이나!= 연산자는 내부적으로 subquery 로 이루어진다.  최대 30개 이상은 할 수 없다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/09/django-test-app-testspy/">Django Test App 폴더에 tests.py 를 넣어두면 끗.</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-09T20:32:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>django test  app 폴더에 tests.py 를 넣어두면 끗.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/09/python-custom-property/">Python Custom @property 들은 인스턴스가 아니라 클래스&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-09T19:28:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>python custom @property 들은 인스턴스가 아니라 클래스의 <strong>dict</strong> 안에 있다.  dir(obj) 로도 검색할 수 있다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/09/simplejsondumps-is-not-json-serial/">simplejson.dumps() 에서 Is Not JSON Serial&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2010-02-09T18:23:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>simplejson.dumps() 에서 is not JSON serializable 에러가 날 경우, 직렬화가 안되는 객체라는 의미이다.  default 파라미터에 함수를 넘겨, 일반 파이썬 객체로 바꿔주도록 한다.  def serialize_helper(obj):  if isinstance(obj,BaseModel):  def <em>MakeReprTuple(prop_name):  prop = getattr(obj.<strong>class</strong>, prop_name)  return (prop_name, prop.get_value_for_datastore(obj))  return dict([</em>MakeReprTuple(prop_name) for prop_name in obj.properties()])  return obj</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -394,6 +156,244 @@
 
 
   <div class="entry-content"><p><a href="http://wadofstuff.blogspot.com/2009/02/full-django-serializers-part-ii.html">http://wadofstuff.blogspot.com/2009/02/full-django-serializers-part-ii.html</a>  <a href="http://code.google.com/p/wadofstuff/wiki/DjangoFullSerializers">http://code.google.com/p/wadofstuff/wiki/DjangoFullSerializers</a>  full django serializer: excludes 등을 지원한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/09/restful-web-service-httpwwwxmlco/">Restful Web Service 요약 http://www.xml.co&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-09T14:45:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>restful web service 요약  <a href="http://www.xml.com/pub/a/2004/12/01/restful-web.html">http://www.xml.com/pub/a/2004/12/01/restful-web.html</a>  PUT for create, POST for update.  GET object-list/ > get all objects  PUT object-list/ > create new object  GET object/id/ > get single object  POST object/id/ > update ..  DELETE object/id/ > delete ..  <a href="http://jcalcote.wordpress.com/2008/10/16/put-or-post-the-rest-of-the-story/">http://jcalcote.wordpress.com/2008/10/16/put-or-post-the-rest-of-the-story/</a>  Create = PUT iff you are sending the full content of the specified resource (URL).  Create = POST if you are sending a command to the server to create a subordinate of the specified resource, using some server-side algorithm.  Retrieve = GET.  Update = PUT iff you are updating the full content of the specified resource.  Update = POST if you are requesting the server to update one or more subordinates of the specified resource.  Delete = DELETE.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/09/httpwwwtoddreednamecontentdjango/">http://www.toddreed.name/content/django-&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-09T01:16:00+09:00" pubdate  data-updated="true" >Feb 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.toddreed.name/content/django-view-class/">http://www.toddreed.name/content/django-view-class/</a>  View 를 클래스로 만드는 방법.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/06/datastore-query-filter-fo/">Datastore Query() 는 Filter 만 해서는 템플릿의 Fo&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-06T07:49:00+09:00" pubdate  data-updated="true" >Feb 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>datastore Query() 는 filter 만 해서는 템플릿의 for 로 넘길 수 없다. fetch 를 해야 실제로 가져와서 iterating 할 수 있다.  issues = Issue.all().filter(owner =, user )  logging.info(#issues=%d%issues.count())  return {  issues: issues.fetch(1000),  }</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/05/datastore-python-api-overview/">Datastore Python API Overview</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-05T23:00:00+09:00" pubdate  data-updated="true" >Feb 5<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>소개  entity == ROW</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/05/div-my/">주기적으로 특정 DIV 의 값을 최신으로 바꾸고 싶을 때. $(&#039;#my&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-05T16:28:00+09:00" pubdate  data-updated="true" >Feb 5<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>주기적으로 특정 DIV 의 값을 최신으로 바꾸고 싶을 때.  $(#my-profile).load(/profile/myname);  <a href="http://api.jquery.com/load/">http://api.jquery.com/load/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/05/settingspy-timezone-asiaseoul/">settings.py TIME_ZONE = &#039;Asia/Seoul&#039;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-05T16:25:00+09:00" pubdate  data-updated="true" >Feb 5<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>시간 및 언어 설정하기  settings.py  TIME_ZONE = Asia/Seoul  LANGUAGE_CODE = ko-KR</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/04/parseint-parsefloat-evaluation/">parseInt, parseFloat 는 Evaluation 을 하지 않&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2010-02-04T19:55:00+09:00" pubdate  data-updated="true" >Feb 4<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>parseInt, parseFloat 는 evaluation 을 하지 않는다. 수식일 경우 eval 을 사용할 것.  eval(10/20) = 0.5;</p>
 </div>
   
   
