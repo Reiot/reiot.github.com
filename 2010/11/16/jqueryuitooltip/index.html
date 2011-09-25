@@ -98,26 +98,48 @@
 
 <h2>툴팁 내부에 템플릿을 적용한 후 Progressbar 넣기</h2>
 
-<p><code>xxx.tooltip({
-  content: function(){
-  return $('#building-unit-tooltip-tmpl')
-  .tmpl(unit);
-  },
-  open: function(event){
-  var timeRatio = (unit.maxTime-unit.remainTime) / unit.maxTime * 100;
-  var $tooltip = $(this).data('tooltip').widget();
-  $tooltip
-  .find('div.progressbar')
-  .progressbar({value:timeRatio})
-  .end()
-  .find('.ui-progressbar-value')
-  .animate({
-  width: "100%"
-  }, {
-  duration: unit.remainTime*1000
-  });
-  }});
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">xxx</span><span class="p">.</span><span class="nx">tooltip</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">content</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#building-unit-tooltip-tmpl&#39;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">tmpl</span><span class="p">(</span><span class="nx">unit</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">open</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">timeRatio</span> <span class="o">=</span> <span class="p">(</span><span class="nx">unit</span><span class="p">.</span><span class="nx">maxTime</span><span class="o">-</span><span class="nx">unit</span><span class="p">.</span><span class="nx">remainTime</span><span class="p">)</span> <span class="o">/</span> <span class="nx">unit</span><span class="p">.</span><span class="nx">maxTime</span> <span class="o">*</span> <span class="mi">100</span><span class="p">;</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">$tooltip</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;tooltip&#39;</span><span class="p">).</span><span class="nx">widget</span><span class="p">();</span>
+</span><span class='line'>      <span class="nx">$tooltip</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;div.progressbar&#39;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">progressbar</span><span class="p">({</span><span class="nx">value</span><span class="o">:</span><span class="nx">timeRatio</span><span class="p">})</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.ui-progressbar-value&#39;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">.</span><span class="nx">animate</span><span class="p">({</span>
+</span><span class='line'>          <span class="nx">width</span><span class="o">:</span> <span class="s2">&quot;100%&quot;</span>
+</span><span class='line'>      <span class="p">},</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">duration</span><span class="o">:</span> <span class="nx">unit</span><span class="p">.</span><span class="nx">remainTime</span><span class="o">*</span><span class="mi">1000</span>
+</span><span class='line'>      <span class="p">});</span>
+</span><span class='line'>  <span class="p">}});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 
@@ -143,7 +165,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/categories/regular/'>regular</a>
+    <a class='category' href='/categories/programming/'>programming</a>
   
 </span>
 

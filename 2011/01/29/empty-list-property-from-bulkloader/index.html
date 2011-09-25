@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="벌크 로더를 이용해서 ListProperty을 내보내거나 읽어들일 때, 보통 다음과 같은 람다 함수를 사용한다.  import_transform: "lambda x: [transform.create_foreign_key('Product')(key_name) for...">
+  <meta name="description" content="벌크 로더를 이용해서 ListProperty을 내보내거나 읽어들일 때, 보통 다음과 같은 람다 함수를 사용한다.12import_transform: &quot;lambda x: [transform.create_foreign_key(&#39;Product&#39;)(...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,22 +86,23 @@
 
 <div class="entry-content"><p>벌크 로더를 이용해서 ListProperty을 내보내거나 읽어들일 때, 보통 다음과 같은 람다 함수를 사용한다.</p>
 
-<p><code>  import_transform: "lambda x: [transform.create_foreign_key('Product')(key_name) for key_name in x.split(',')] if x else None"
-  export_transform: "lambda x: ','.join([str(key.name()) for key in x]) if x else ''"
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">import_transform</span><span class="p-Indicator">:</span> <span class="s">&quot;lambda</span><span class="nv"> </span><span class="s">x:</span><span class="nv"> </span><span class="s">[transform.create_foreign_key(&#39;Product&#39;)(key_name)</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">key_name</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">x.split(&#39;,&#39;)]</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">None&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">export_transform</span><span class="p-Indicator">:</span> <span class="s">&quot;lambda</span><span class="nv"> </span><span class="s">x:</span><span class="nv"> </span><span class="s">&#39;,&#39;.join([str(key.name())</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">key</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">x])</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">&#39;&#39;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>내보내기는 어떻게 하든 관계없지만, 읽어들일 때에는 문제가 발생한다. 기본적으로 ListProperty 는 [] 를 받아들이지 않는 데다가, None 을 넣어 두면 그 다음 읽을 때 BadValueError 가 발생하기 때문이다.</p>
+
+<p>내보내기는 어떻게 하든 관계없지만, 읽어들일 때에는 문제가 발생한다. 기본적으로 ListProperty 는 빈 리스트를 받아들이지 않는 데다가, None 을 넣어 두면 그 다음 읽을 때 BadValueError 가 발생하기 때문이다.</p>
 
 <ul>
-<li>default=None: BadValueError</li>
-<li>required=False: 허용되지 않음</li>
-<li>validator=lambda x:x: BadValueError</li>
+<li>default=None 으로 선언한 경우 BadValueError 발생</li>
+<li>required=False 은 허용되지 않음</li>
+<li>validator=lambda x:x 역시 BadValueError 가 발생</li>
 </ul>
 
 
-<p>현재 해결책은 참고 링크처럼 소스를 고치지 않는 한 없는 듯하다. :(</p>
-
-<p><a href="http://groups.google.com/group/google-appengine/browse_thread/thread/72ce87c83d3441e3">another link</a></p>
+<p>현재 해결책은 <a href="http://groups.google.com/group/google-appengine/browse_thread/thread/72ce87c83d3441e3">참고 링크</a>처럼 소스를 고치지 않는 한 없는 듯하다. :(</p>
 </div>
 
 
@@ -127,7 +128,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/categories/regular/'>regular</a>
+    <a class='category' href='/categories/programming/'>programming</a>
   
 </span>
 

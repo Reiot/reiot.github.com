@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 jsFiddle에 있으니 관심있는 분들은 뜯어보시길..$(function() {  var...">
+  <meta name="description" content="jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 jsFiddle에 있으니 관심있는 분들은 뜯어보시길..1234567891011121314...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,38 +86,63 @@
 
 <div class="entry-content"><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
 
-<p><code><script id="test" type="script/x-jquery-tmpl">
-  <div>
-  <h1>${name}</h1>
-  <p>${description}</p>
-  <div class="progressbar"></div>
-  </div>
-</script></p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script id="test" type="script/x-jquery-tmpl"&gt;
+</span><span class='line'>  &lt;div&gt;
+</span><span class='line'>  &lt;h1&gt;${name}&lt;/h1&gt;
+</span><span class='line'>  &lt;p&gt;${description}&lt;/p&gt;
+</span><span class='line'>  &lt;div class="progressbar"&gt;&lt;/div&gt;
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>&lt;/script&gt;
+</span><span class='line'>&lt;script id="test2" type="script/x-jquery-tmpl"&gt;
+</span><span class='line'>  &lt;h1&gt;${name}&lt;/h1&gt;
+</span><span class='line'>  &lt;p&gt;${description}&lt;/p&gt;
+</span><span class='line'>  &lt;div class="progressbar"&gt;&lt;/div&gt;
+</span><span class='line'>&lt;/script&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;div id="here"&gt;&lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>$(function() {
+</span><span class='line'>  var data = {name: 'Hello', description: 'World', value:50};
+</span><span class='line'>  var data2 = {name: 'JavaScript' ,description: 'Rules', value: 80};
+</span><span class='line'>  var $tmpl = $('#test').tmpl(data);
+</span><span class='line'>
+</span><span class='line'>  $tmpl.find('.progressbar').progressbar({value:data.value});
+</span><span class='line'>  $tmpl.appendTo('#here');
+</span><span class='line'>
+</span><span class='line'>  var tmpl2 = $('#test2').tmpl(data2);
+</span><span class='line'>  tmpl2.find('.progressbar').progressbar({value:data2.value}); // not working
+</span><span class='line'>  tmpl2.appendTo('#here');
+</span><span class='line'>
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
 
-<script id="test2" type="script/x-jquery-tmpl">
-  <h1>${name}</h1>
-  <p>${description}</p>
-  <div class="progressbar"></div>
-</script>
-
-
-<div id="here"></div>
-
-
-<p>$(function() {
-  var data = {name: &#8216;Hello&#8217;, description: &#8216;World&#8217;, value:50};
-  var data2 = {name: &#8216;JavaScript&#8217; ,description: &#8216;Rules&#8217;, value: 80};
-  var $tmpl = $(&#8216;#test&#8217;).tmpl(data);</p>
-
-<p>  $tmpl.find(&#8216;.progressbar&#8217;).progressbar({value:data.value});
-  $tmpl.appendTo(&#8216;#here&#8217;);</p>
-
-<p>  var tmpl2 = $(&#8216;#test2&#8217;).tmpl(data2);
-  tmpl2.find(&#8216;.progressbar&#8217;).progressbar({value:data2.value}); // not working
-  tmpl2.appendTo(&#8216;#here&#8217;);</p>
-
-<p>});
-</code></p>
 
 <p>위 예제처럼, #test 는 하나의 DIV 로 묶여져 있어서 appendTo 하기 전에 위젯을 만들 수 있지만, #test2 처럼 여러 개의 엘리먼트들이 나눠져 있는 경우에는 .tmpl(data) 로 렌더링을 하면 [h1, p, div.progressbar] 의 배열이 튀어나오는데, 이 배열에다가 대고 find 를 해도 아무 일도 발생하지 않는다. (for 를 돌아도 마찬가지)</p>
 
@@ -147,7 +172,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/categories/regular/'>regular</a>
+    <a class='category' href='/categories/programming/'>programming</a>
   
 </span>
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="jQuery UI widget 은 기본적으로 한번에 여러 개의 옵션을 설정할 수 있다.$('...').somewidget('option',{aa:bb, cc:dd});하나의 옵션을 설정할 때의 추가적인 로직을 넣으려면  _setOption() 을 재정의하면 된다....">
+  <meta name="description" content="jQuery UI widget 은 기본적으로 한번에 여러 개의 옵션을 설정할 수 있다.1$(&#39;...&#39;).somewidget(&#39;option&#39;,{aa:bb, cc:dd});하나의 옵션을 설정할 때의 추가적인 로직을 넣으려면  _setOpt...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,42 +86,72 @@
 
 <div class="entry-content"><p>jQuery UI widget 은 기본적으로 한번에 여러 개의 옵션을 설정할 수 있다.</p>
 
-<p><code>$('...').somewidget('option',{aa:bb, cc:dd});
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;...&#39;</span><span class="p">).</span><span class="nx">somewidget</span><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">,{</span><span class="nx">aa</span><span class="o">:</span><span class="nx">bb</span><span class="p">,</span> <span class="nx">cc</span><span class="o">:</span><span class="nx">dd</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>하나의 옵션을 설정할 때의 추가적인 로직을 넣으려면  _setOption() 을 재정의하면 된다.</p>
 
-<p><code>_setOption: function(key,value){
-  if(key=='some'){...do something...}
-}
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">_setOption</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="nx">value</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="nx">key</span><span class="o">==</span><span class="s1">&#39;some&#39;</span><span class="p">){...</span><span class="k">do</span> <span class="nx">something</span><span class="p">...}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>가끔은 여러 개의 옵션을 한번에 설정할 때, 그 중 몇몇 옵션이 바뀔 경우에 대한 추가적인 로직을 넣으려면  _setOptions 를 재정의하면 된다. jQuery UI Dialog 의 코드가 가장 좋은 예제일 것이다. 다만 1.8.6 부터 지원하니까 버전에 주의하길.</p>
 
-<p><code>_setOptions: function( options ) {
-  var self = this,
-  resizableOptions = {},
-  resize = false;</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">_setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">resizableOptions</span> <span class="o">=</span> <span class="p">{},</span>
+</span><span class='line'>  <span class="nx">resize</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">options</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">self</span><span class="p">.</span><span class="nx">_setOption</span><span class="p">(</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">sizeRelatedOptions</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">resize</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">resizableRelatedOptions</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">resizableOptions</span><span class="p">[</span> <span class="nx">key</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span> <span class="nx">resize</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">_size</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">uiDialog</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span> <span class="s2">&quot;:data(resizable)&quot;</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">uiDialog</span><span class="p">.</span><span class="nx">resizable</span><span class="p">(</span> <span class="s2">&quot;option&quot;</span><span class="p">,</span> <span class="nx">resizableOptions</span> <span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>  $.each( options, function( key, value ) {
-  self._setOption( key, value );</p>
-
-<p>  if ( key in sizeRelatedOptions ) {
-  resize = true;
-  }
-  if ( key in resizableRelatedOptions ) {
-  resizableOptions[ key ] = value;
-  }
-  });</p>
-
-<p>  if ( resize ) {
-  this._size();
-  }
-  if ( this.uiDialog.is( ":data(resizable)" ) ) {
-  this.uiDialog.resizable( "option", resizableOptions );
-  }
-},
-</code></p>
 </div>
 
 
@@ -147,7 +177,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/categories/regular/'>regular</a>
+    <a class='category' href='/categories/programming/'>programming</a>
   
 </span>
 

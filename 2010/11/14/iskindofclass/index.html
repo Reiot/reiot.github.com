@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="id is NSString or something else?id var;if ([var isKindOfClass:[NSString class]]) {  // yes this is NSString} else {  // nope}참고로, var 가 실제로 문자열일 때...">
+  <meta name="description" content="id is NSString or something else?123456id var;if ([var isKindOfClass:[NSString class]]) {  // yes this is NSString} else {  // nope}참고로, var 가 실제로 ...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,13 +86,20 @@
 
 <div class="entry-content"><p>id is NSString or something else?</p>
 
-<p><code>id var;
-if ([var isKindOfClass:[NSString class]]) {
-  // yes this is NSString
-} else {
-  // nope
-}
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="kt">id</span> <span class="n">var</span><span class="p">;</span>
+</span><span class='line'><span class="k">if</span> <span class="p">([</span><span class="n">var</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">NSString</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// yes this is NSString</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// nope</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>참고로, var 가 실제로 문자열일 때 [var class] == [NSString class] 는 실패한다 :)</p>
 </div>
@@ -120,7 +127,7 @@ if ([var isKindOfClass:[NSString class]]) {
 
 <span class="categories">
   
-    <a class='category' href='/categories/regular/'>regular</a>
+    <a class='category' href='/categories/programming/'>programming</a>
   
 </span>
 

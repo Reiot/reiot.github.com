@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>app engine python with django 1.2 - Social Reiot</title>
+  <title>Using django 1.2 with app engine - Social Reiot</title>
   <meta name="author" content="Ray Yun">
 
   
@@ -63,7 +63,7 @@
   
   <header>
     
-      <h1 class="entry-title">App Engine Python With Django 1.2</h1>
+      <h1 class="entry-title">Using Django 1.2 With App Engine</h1>
     
     
       <p class="meta">
@@ -86,7 +86,7 @@
 
 <div class="entry-content"><p>구글 앱엔진에서 django 1.2 를 사용하려면, main.py 와 appengine_config.py  에 아래 코드를 넣어야 한다. 그런데, remote_api_shell.py 로 연결할 때에도 실행해야 하기 때문에, 가급적 별도의 파일에 넣어서 한번에 import 를 하는 걸 권장한다. (via <a href="http://stackoverflow.com/questions/4994913/app-engine-default-django-version-change">stackoverflow.com</a>)</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -103,7 +103,7 @@
 
 <p>원래 _(&#8220;xxx&#8221;) 는 윈도우 계열에서 유니코드를 위한 매크로인데, 아마 위 코드랑 충돌이 있을지도 모르겠다. :P</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext</span> <span class="k">as</span> <span class="n">_</span>
 </span></code></pre></td></tr></table></div></figure>
 

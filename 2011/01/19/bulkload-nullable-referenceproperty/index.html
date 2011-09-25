@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="어떤 모델의 참조 속성은 꼭 키값이 들어있지 않고 때로는 None 일 수도 있다. 만약 Null 인 참조 속성을 업로드할 때- property: field  external_name: field  import_transform: transform.create_fo...">
+  <meta name="description" content="어떤 모델의 참조 속성은 꼭 키값이 들어있지 않고 때로는 None 일 수도 있다. 만약 Null 인 참조 속성을 업로드할 때 1234- property: field  external_name: field  import_transform: transform.crea...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,16 +86,23 @@
 
 <div class="entry-content"><p>어떤 모델의 참조 속성은 꼭 키값이 들어있지 않고 때로는 None 일 수도 있다. 만약 Null 인 참조 속성을 업로드할 때</p>
 
-<p><code>- property: field
-  external_name: field
-  import_transform: transform.create_foreign_key('Field')
-  export_transform: transform.key_id_or_name_as_string
-</code></p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">property</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">field</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">external_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">field</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">import_transform</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">transform.create_foreign_key(&#39;Field&#39;)</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">export_transform</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">transform.key_id_or_name_as_string</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>처럼 하게 되면, 에러가 발생한다. 이를 해결하려면 import_transform 을 다음과 같이 수정하면 된다.</p>
 
-<p><code>  import_transform: transform.none_if_empty(transform.create_foreign_key('Field'))
-</code></p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">import_transform</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">transform.none_if_empty(transform.create_foreign_key(&#39;Field&#39;))</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -121,7 +128,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/categories/regular/'>regular</a>
+    <a class='category' href='/categories/programming/'>programming</a>
   
 </span>
 

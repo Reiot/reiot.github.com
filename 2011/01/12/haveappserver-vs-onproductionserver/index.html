@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="사실 하고 싶은 건, (app id, on production server) 조합으로 적합한 facebook setting 을 로딩하는 건데.. 웬지 잘 안되었던 것 같은 느낌 :)from google.appengine.api import apiproxy_stub...">
+  <meta name="description" content="사실 하고 싶은 건, (app id, on production server) 조합으로 적합한 facebook setting 을 로딩하는 건데.. 웬지 잘 안되었던 것 같은 느낌 :)12345from google.appengine.api import apiproxy...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,12 +86,18 @@
 
 <div class="entry-content"><p>사실 하고 싶은 건, (app id, on production server) 조합으로 적합한 facebook setting 을 로딩하는 건데.. 웬지 잘 안되었던 것 같은 느낌 :)</p>
 
-<p><code>from google.appengine.api import apiproxy_stub_map
-import os
-have_appserver = bool(apiproxy_stub_map.apiproxy.GetStub('datastore_v3'))
-on_production_server = have_appserver and \
-  not os.environ.get('SERVER_SOFTWARE', '').lower().startswith('devel')
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">google.appengine.api</span> <span class="kn">import</span> <span class="n">apiproxy_stub_map</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">os</span>
+</span><span class='line'><span class="n">have_appserver</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">apiproxy_stub_map</span><span class="o">.</span><span class="n">apiproxy</span><span class="o">.</span><span class="n">GetStub</span><span class="p">(</span><span class="s">&#39;datastore_v3&#39;</span><span class="p">))</span>
+</span><span class='line'><span class="n">on_production_server</span> <span class="o">=</span> <span class="n">have_appserver</span> <span class="ow">and</span> \
+</span><span class='line'>  <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;SERVER_SOFTWARE&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;devel&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -117,7 +123,7 @@ on_production_server = have_appserver and \
 
 <span class="categories">
   
-    <a class='category' href='/categories/regular/'>regular</a>
+    <a class='category' href='/categories/programming/'>programming</a>
   
 </span>
 

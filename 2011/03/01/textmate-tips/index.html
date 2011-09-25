@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="깔끔하게 지우기1234rm ~/Library/Preferences/com.macromates.*rm -rf /Library/Application Support/TextMate/rm -rf ~/Library/Application Support/TextMate/한글 ...">
+  <meta name="description" content="깔끔하게 지우기123$ rm ~/Library/Preferences/com.macromates.*$ rm -rf /Library/Application Support/TextMate/$ rm -rf ~/Library/Application Support/TextMat...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,14 +86,13 @@
 
 <div class="entry-content"><h2>깔끔하게 지우기</h2>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>rm ~/Library/Preferences/com.macromates.*
-</span><span class='line'>rm -rf /Library/Application Support/TextMate/
-</span><span class='line'>rm -rf ~/Library/Application Support/TextMate/</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rm ~/Library/Preferences/com.macromates.*
+</span><span class='line'><span class="nv">$ </span>rm -rf /Library/Application Support/TextMate/
+</span><span class='line'><span class="nv">$ </span>rm -rf ~/Library/Application Support/TextMate/
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>한글 폰트 설치</h3>
@@ -106,85 +105,71 @@
 
 <p>⌘(cmd, window) ⌥ (option, alt) ^(control) ⇧(shift)</p>
 
-<pre><code>- ⌘T : 빠른 파일 찾아가기
-- ⇧⌘T : 현재 파일의 심볼 찾기
-- ^⇧V : 현재 파일의 정적 분석 및 검증(Validation). 파이썬일 경우 pylint, 자바스크립트일 경우 jslint 가 실행된다.
-- ⌃⌘R : 현재 편집중인 파일을 Project+ 사이드바로 찾기
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>⌘T : 빠른 파일 찾아가기
+</span><span class='line'>⇧⌘T : 현재 파일의 심볼 찾기
+</span><span class='line'>^⇧V : 현재 파일의 정적 분석 및 검증<span class="o">(</span>Validation<span class="o">)</span>. 파이썬일 경우 pylint, 자바스크립트일 경우 jslint 가 실행된다.
+</span><span class='line'>⌃⌘R : 현재 편집중인 파일을 Project+ 사이드바로 찾기
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>더 많은 팁은 <a href="http://stackoverflow.com/questions/99807/what-are-some-useful-textmate-shortcuts">http://stackoverflow.com/questions/99807/what-are-some-useful-textmate-shortcuts</a> 에서 찾아볼 수 있다.</p>
 
 <h2>추천 번들 &amp; 플러그인</h2>
 
-<h3>zen coding</h3>
+<ul>
+<li><a href="http://code.google.com/p/zen-coding/">Zen Coding</a>: TextMate도 강력한 툴이지만 이놈도 만만치않다. 마법같은 ⌘R 의 힘을 느껴보시라.</li>
+<li><a href="http://ciaranwal.sh/projectplus">Project+</a>: 보다 똑똑해진 사이드바</li>
+<li><a href="http://solutions.treypiepmeier.com/2009/02/25/installing-getbundles-on-a-fresh-copy-of-textmate/">Get Bundles</a>: 번들 다운로드 및 업데이트를 위한 번들</li>
+</ul>
 
-<p>via <a href="http://code.google.com/p/zen-coding/">http://code.google.com/p/zen-coding/</a></p>
 
-<p>TextMate 도 강력한 툴이지만 이놈도 만만치않다. 마법같은 ⌘R 의 힘을 느껴보시라.</p>
-
-<h3>Project+</h3>
-
-<p>via <a href="http://ciaranwal.sh/projectplus">http://ciaranwal.sh/projectplus</a></p>
-
-<h3>GetBundles</h3>
-
-<p>via <a href="http://solutions.treypiepmeier.com/2009/02/25/installing-getbundles-on-a-fresh-copy-of-textmate/">solutions.treypiepmeier.com</a></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>mkdir -p ~/Library/Application\ Support/TextMate/Bundles
-</span><span class='line'>cd !$
-</span><span class='line'>svn co http://svn.textmate.org/trunk/Review/Bundles/GetBundles.tmbundle/
-</span><span class='line'>osascript -e 'tell app "TextMate" to reload bundles'</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mkdir -p ~/Library/Application<span class="se">\ </span>Support/TextMate/Bundles
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> !<span class="err">$</span>
+</span><span class='line'><span class="nv">$ </span>svn co http://svn.textmate.org/trunk/Review/Bundles/GetBundles.tmbundle/
+</span><span class='line'><span class="nv">$ </span>osascript -e <span class="s1">&#39;tell app &quot;TextMate&quot; to reload bundles&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>YUI compressor textmate bundle</h3>
+<ul>
+<li>PyLint: 파이썬 소스 파일에 대해서 ^⇧V 로 정적 분석 및 검증을 할 수 있다. 설치한 후 TextMate PATH 에 /usr/local/bin 을 추가해야 한다. 각종 경고 목록은 <a href="http://www.logilab.org/card/pylintfeatures">http://www.logilab.org/card/pylintfeatures</a> 에 있다. 
+현재 파일에서 경고를 끄려면, 파일 맨 위에 <strong># pylint: disable=W0232,R0902,C0103,C0301</strong> 를 넣으면 된다. (가급적 .pylintrc 를 사용하길 권한다.)</li>
+</ul>
 
-<p>via <a href="http://www.experienceinternet.co.uk/software/yui-compressor-textmate-bundle/">http://www.experienceinternet.co.uk/software/yui-compressor-textmate-bundle/</a></p>
-
-<h3>PyLint</h3>
-
-<p>파이썬 소스 파일에 대해서 ^⇧V 로 정적 분석 및 검증을 할 수 있다. 설치한 후 TextMate PATH 에 /usr/local/bin 을 추가해야 한다. 참고로 easy_install 으로 모듈을 설치할 때 파이썬 버전을 지정하려면 아래와 같이 하면 된다.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo easy_install-2.5 pylint```
-</span><span class='line'>
-</span><span class='line'>각종 경고 목록은 [http://www.logilab.org/card/pylintfeatures](http://www.logilab.org/card/pylintfeatures) 에 있다. 
-</span><span class='line'>현재 파일에서 경고를 끄려면, </span></code></pre></td></tr></table></div></figure>
-
-
-<h1>pylint: disable=W0232,R0902,C0103,C0301&#8220;`</h1>
 
 <h2>정규식</h2>
 
 <h3>Basic</h3>
 
-<pre><code>- 캡처한 문자열은 $1, $2 .. 를 이용한다. $0 은 전체를 의미한다.
-</code></pre>
+<ul>
+<li>캡처한 문자열은 $1, $2 .. 를 이용한다. $0 은 전체를 의미한다.</li>
+</ul>
+
 
 <h3>no trailing space after comma</h3>
 
-<p>pylint 를 돌려보면 콤마(,) 다음에 공백을 무조건 넣으라고 한다. negative look  ahead  를 이용하면 간단하다.</p>
+<p>pylint 를 돌려보면 콤마(,) 다음에 공백을 무조건 넣으라고 한다. negative look ahead를 이용하면 간단하다.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>Find: ",(?![\s])"
-</span><span class='line'>Replace: ", "</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Find: <span class="s2">&quot;,(?![\s])&quot;</span>
+</span><span class='line'>Replace: <span class="s2">&quot;, &quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>참고 자료</h2>
 
-<pre><code>- [http://al3x.net/2008/12/03/how-i-use-textmate](http://al3x.net/2008/12/03/how-i-use-textmate.html)
-</code></pre>
+<ul>
+<li><a href="http://al3x.net/2008/12/03/how-i-use-textmate.html">http://al3x.net/2008/12/03/how-i-use-textmate</a></li>
+</ul>
+
 </div>
 
 
@@ -210,7 +195,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/categories/stories/'>stories</a>
+    <a class='category' href='/categories/programming/'>programming</a>
   
 </span>
 

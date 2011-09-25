@@ -84,35 +84,35 @@
   </header>
 
 
-<div class="entry-content"><p><strong>Property vs. Var</strong></p>
+<div class="entry-content"><h2>Property vs. Var</h2>
 
 <p>상수인 Property은 하위 Target 에게 보이지 않지만, 변수인 Var 는 보인다.</p>
 
-<p><strong>특정 확장자를 가진 파일만 삭제하기(recursive)</strong></p>
+<h2>특정 확장자를 가진 파일만 삭제하기(recursive)</h2>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;delete&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;fileset</span> <span class="na">dir=</span><span class="s">&quot;${dir}/..&quot;</span> <span class="na">includes=</span><span class="s">&quot;**/*.js&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;fileset</span> <span class="na">dir=</span><span class="s">&quot;${dir}/..&quot;</span> <span class="na">includes=</span><span class="s">&quot;## /*.js&quot;</span><span class="nt">/&gt;</span>
 </span><span class='line'><span class="nt">&lt;/delete&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>특정 폴더 이하 모든 하위 폴더를 삭제하기(빈 폴더 포함)</strong></p>
+<h2>특정 폴더 이하 모든 하위 폴더를 삭제하기(빈 폴더 포함)</h2>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;delete</span> <span class="na">includeemptydirs=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;fileset</span> <span class="na">dir=</span><span class="s">&quot;${dir}&quot;</span> <span class="na">includes=</span><span class="s">&quot;**/*&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;fileset</span> <span class="na">dir=</span><span class="s">&quot;${dir}&quot;</span> <span class="na">includes=</span><span class="s">&quot;## /*&quot;</span><span class="nt">/&gt;</span>
 </span><span class='line'><span class="nt">&lt;/delete&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>정규식을 이용해서 파일 이름 바꾸기</strong></p>
+<h2>정규식을 이용해서 파일 이름 바꾸기</h2>
 
-<p>apply task 보다는 move task + regexpmapper 를 이용하면 간단하다. move 는 대상 폴더가 없으면 무조건 만들기 때문에 편하다!<strong> </strong></p>
+<p>apply task 보다는 move task + regexpmapper 를 이용하면 간단하다. move 는 대상 폴더가 없으면 무조건 만들기 때문에 편하다!</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -145,7 +145,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>경로에서 부모 폴더(dirname)와 파일명(basename)으로 분리하기</strong></p>
+<h2>경로에서 부모 폴더(dirname)와 파일명(basename)으로 분리하기</h2>
 
 <p>basename 의 suffix 를 지정하면 확장자 없는 순수 파일명만 저장할 수 있다.</p>
 
@@ -156,7 +156,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>파일명에 정규식을 적용해서 속성에 저장하기</strong></p>
+<h2>파일명에 정규식을 적용해서 속성에 저장하기</h2>
 
 <p>propertyregex 를 이용하면 된다. 이때 디폴트값을 정해줄 수도 있다.</p>
 
@@ -173,9 +173,9 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>하위 폴더 각각에 대해서 특정 타겟을 실행하기</strong></p>
+<h2>하위 폴더 각각에 대해서 특정 타겟을 실행하기</h2>
 
-<p>foreach task 를 이용하면 된다. 이때 dirset 은 항상 부모 폴더 자신(./)을 포함하는데, excludes=./ 등으로 자신을 제거할 수 없으므로, 아래처럼 includes=*/** 으로 제외할 수 있다.</p>
+<p>foreach task 를 이용하면 된다. 이때 dirset 은 항상 부모 폴더 자신(./)을 포함하는데, excludes=./ 등으로 자신을 제거할 수 없으므로, 아래처럼 includes=*/##  으로 제외할 수 있다.</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -184,13 +184,13 @@
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;foreach</span> <span class="na">param=</span><span class="s">&quot;dir&quot;</span> <span class="na">target=</span><span class="s">&quot;xxx&quot;</span><span class="nt">&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;path&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;dirset</span> <span class="na">dir=</span><span class="s">&quot;${parentdir}&quot;</span> <span class="na">includes=</span><span class="s">&quot;*/**&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;dirset</span> <span class="na">dir=</span><span class="s">&quot;${parentdir}&quot;</span> <span class="na">includes=</span><span class="s">&quot;*/## &quot;</span><span class="nt">/&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;/path&gt;</span>
 </span><span class='line'><span class="nt">&lt;/foreach&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>Exec vs. Apply</strong></p>
+<h2>Exec vs. Apply</h2>
 
 <p>exec 는 커맨드라인 명령을 1회 실행하지만, apply 는 특정 집합에 대해서 for 루프처럼 실행이 가능하다.
 이때 arg value 는 -v 나 -f 같은 단일 파라미터이고, arg line 은 &#8211;output xxx 처럼 공백이 들어가는 긴 파라미터에 사용한다.
@@ -214,7 +214,7 @@
 </pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;exec</span> <span class="na">executable=</span><span class="s">&quot;${file.python}&quot;</span><span class="nt">&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;trim.py&quot;</span><span class="nt">/&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--verbose&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  json ${trim.dir}/anchor.json&quot;/&gt;
+</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">line=</span><span class="s">&quot;--json ${trim.dir}/anchor.json&quot;</span><span class="nt">/&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;${trim.dir}&quot;</span><span class="nt">/&gt;</span>
 </span><span class='line'><span class="nt">&lt;/exec&gt;</span>
 </span><span class='line'><span class="nt">&lt;apply</span> <span class="na">executable=</span><span class="s">&quot;${file.python}&quot;</span><span class="nt">&gt;</span>
@@ -229,7 +229,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>파일 출력</strong></p>
+<h2>파일 출력</h2>
 
 <p>echo task를 이용하면 화면 출력 뿐만 아니라, 파일에 임의의 문자열을 append를 할 수 있다. 이걸 이용하면 concat task 를 쓰지 않고도 header 나 footer 를 간단하게 넣을 수 있다.</p>
 
@@ -244,7 +244,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>파일 이어붙일 때 필터링하기</strong></p>
+<h2>파일 이어붙일 때 필터링하기</h2>
 
 <p>filterchain 을 이용해서 특정 문자열을 포함한 라인을 제거하거나, tokenfilter + replaceregex 를 이용해서 문자열을 바꿀 수도 있다.</p>
 
@@ -285,7 +285,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>파일을 복사하면서 이름 바꾸기</strong></p>
+<h2>파일을 복사하면서 이름 바꾸기</h2>
 
 <p>copy task 와 globmapper 를 쓰면 파일을 복사하면서 단순하게 이름을 바꿀 수 있다.</p>
 
@@ -306,9 +306,9 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>명령 실행시 입력 리다이렉트 적용하기</strong></p>
+<h2>명령 실행시 입력 리다이렉트 적용하기</h2>
 
-<p>잘 알려지진 않았지만, 구글 앱엔진의 패스워드를 파일에 저장한 후, appcfg.py &#8211;passin &lt; file 을 이용하면 자동화가 가능하다. ant 에서는 exec 의 inputstring 으로 대체할 수 있다.</p>
+<p>잘 알려지진 않았지만, 구글 앱엔진의 패스워드를 파일에 저장한 후, <strong>appcfg.py &#8211;passin &lt; file</strong> 을 이용하면 자동화가 가능하다. ant 에서는 exec 의 inputstring 으로 대체할 수 있다.</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -331,7 +331,7 @@
 </span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--kind=${bulkload.kind}&quot;</span><span class="nt">/&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--filename=${bulkload.csv}&quot;</span><span class="nt">/&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--no_cookies&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  passin&quot;/&gt;
+</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--passin&quot;</span><span class="nt">/&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;/exec&gt;</span>
 </span></code></pre></td></tr></table></div></figure>

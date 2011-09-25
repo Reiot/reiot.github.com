@@ -92,12 +92,14 @@
 
 <p>기본적인 사항들은 <a href="http://code.google.com/p/bulkloader-gdata-connector/wiki/GettingStarted">가이드 문서</a>를 읽어보면 되고, 아래 다음 사항들을 참고하면 된다.</p>
 
-<pre><code>- django 1.2 를 사용할 경우, 코드 맨 위에    use_library('django', '1.2')를 추가할 것. 그렇지 않으면 무서운 0.96.4 is already in use 에러를 맛보리라.
-- 구글앱스 도메인을 사용할 경우 GenerateAuthSubURL(..., domain='yourapps.com') 을 추가할 것.
-- 컬럼 이름에는 공백, underscore(_), 대문자를 사용하면 안된다.
-- 내보내기는 제법 오랜 시간이 걸리지만, 불러오는 건 꽤 빠르다. 즉 최초에 한번 내보내고 그 다음부터는 금방 금방 불러올 수 있다는 뜻이다. :)
-- 단점이라면, 데이터를 불러오려면 콘솔 즉 프로그래머의 개입(==패스워드 입력)이 필요하다는 점이다. 웹 기반 UI 에서 Connector를 어찌어찌 잘 부를 수 있으면 좋겠는데, 워낙 코드가 복잡해서;;
-</code></pre>
+<ul>
+<li>django 1.2 를 사용할 경우, 코드 맨 위에    use_library(&#8216;django&#8217;, &#8216;1.2&#8217;)를 추가할 것. 그렇지 않으면 무서운 0.96.4 is already in use 에러를 맛보리라.</li>
+<li>구글앱스 도메인을 사용할 경우 GenerateAuthSubURL(&#8230;, domain=&#8217;yourapps.com&#8217;) 을 추가할 것.</li>
+<li>컬럼 이름에는 공백, underscore(_), 대문자를 사용하면 안된다.</li>
+<li>내보내기는 제법 오랜 시간이 걸리지만, 불러오는 건 꽤 빠르다. 즉 최초에 한번 내보내고 그 다음부터는 금방 금방 불러올 수 있다는 뜻이다. :)</li>
+<li>단점이라면, 데이터를 불러오려면 콘솔 즉 프로그래머의 개입(==패스워드 입력)이 필요하다는 점이다. 웹 기반 UI 에서 Connector를 어찌어찌 잘 부를 수 있으면 좋겠는데, 워낙 코드가 복잡해서;;</li>
+</ul>
+
 </div>
 
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="깔끔하게 지우기1234rm ~/Library/Preferences/com.macromates.*rm -rf /Library/Application Support/TextMate/rm -rf ~/Library/Application Support/TextMate/한글 ...">
+  <meta name="description" content="깔끔하게 지우기123$ rm ~/Library/Preferences/com.macromates.*$ rm -rf /Library/Application Support/TextMate/$ rm -rf ~/Library/Application Support/TextMat...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,14 +89,13 @@
 
   <div class="entry-content"><h2>깔끔하게 지우기</h2>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>rm ~/Library/Preferences/com.macromates.*
-</span><span class='line'>rm -rf /Library/Application Support/TextMate/
-</span><span class='line'>rm -rf ~/Library/Application Support/TextMate/</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rm ~/Library/Preferences/com.macromates.*
+</span><span class='line'><span class="nv">$ </span>rm -rf /Library/Application Support/TextMate/
+</span><span class='line'><span class="nv">$ </span>rm -rf ~/Library/Application Support/TextMate/
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>한글 폰트 설치</h3>
@@ -109,85 +108,71 @@
 
 <p>⌘(cmd, window) ⌥ (option, alt) ^(control) ⇧(shift)</p>
 
-<pre><code>- ⌘T : 빠른 파일 찾아가기
-- ⇧⌘T : 현재 파일의 심볼 찾기
-- ^⇧V : 현재 파일의 정적 분석 및 검증(Validation). 파이썬일 경우 pylint, 자바스크립트일 경우 jslint 가 실행된다.
-- ⌃⌘R : 현재 편집중인 파일을 Project+ 사이드바로 찾기
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>⌘T : 빠른 파일 찾아가기
+</span><span class='line'>⇧⌘T : 현재 파일의 심볼 찾기
+</span><span class='line'>^⇧V : 현재 파일의 정적 분석 및 검증<span class="o">(</span>Validation<span class="o">)</span>. 파이썬일 경우 pylint, 자바스크립트일 경우 jslint 가 실행된다.
+</span><span class='line'>⌃⌘R : 현재 편집중인 파일을 Project+ 사이드바로 찾기
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>더 많은 팁은 <a href="http://stackoverflow.com/questions/99807/what-are-some-useful-textmate-shortcuts">http://stackoverflow.com/questions/99807/what-are-some-useful-textmate-shortcuts</a> 에서 찾아볼 수 있다.</p>
 
 <h2>추천 번들 &amp; 플러그인</h2>
 
-<h3>zen coding</h3>
+<ul>
+<li><a href="http://code.google.com/p/zen-coding/">Zen Coding</a>: TextMate도 강력한 툴이지만 이놈도 만만치않다. 마법같은 ⌘R 의 힘을 느껴보시라.</li>
+<li><a href="http://ciaranwal.sh/projectplus">Project+</a>: 보다 똑똑해진 사이드바</li>
+<li><a href="http://solutions.treypiepmeier.com/2009/02/25/installing-getbundles-on-a-fresh-copy-of-textmate/">Get Bundles</a>: 번들 다운로드 및 업데이트를 위한 번들</li>
+</ul>
 
-<p>via <a href="http://code.google.com/p/zen-coding/">http://code.google.com/p/zen-coding/</a></p>
 
-<p>TextMate 도 강력한 툴이지만 이놈도 만만치않다. 마법같은 ⌘R 의 힘을 느껴보시라.</p>
-
-<h3>Project+</h3>
-
-<p>via <a href="http://ciaranwal.sh/projectplus">http://ciaranwal.sh/projectplus</a></p>
-
-<h3>GetBundles</h3>
-
-<p>via <a href="http://solutions.treypiepmeier.com/2009/02/25/installing-getbundles-on-a-fresh-copy-of-textmate/">solutions.treypiepmeier.com</a></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>mkdir -p ~/Library/Application\ Support/TextMate/Bundles
-</span><span class='line'>cd !$
-</span><span class='line'>svn co http://svn.textmate.org/trunk/Review/Bundles/GetBundles.tmbundle/
-</span><span class='line'>osascript -e 'tell app "TextMate" to reload bundles'</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mkdir -p ~/Library/Application<span class="se">\ </span>Support/TextMate/Bundles
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> !<span class="err">$</span>
+</span><span class='line'><span class="nv">$ </span>svn co http://svn.textmate.org/trunk/Review/Bundles/GetBundles.tmbundle/
+</span><span class='line'><span class="nv">$ </span>osascript -e <span class="s1">&#39;tell app &quot;TextMate&quot; to reload bundles&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>YUI compressor textmate bundle</h3>
+<ul>
+<li>PyLint: 파이썬 소스 파일에 대해서 ^⇧V 로 정적 분석 및 검증을 할 수 있다. 설치한 후 TextMate PATH 에 /usr/local/bin 을 추가해야 한다. 각종 경고 목록은 <a href="http://www.logilab.org/card/pylintfeatures">http://www.logilab.org/card/pylintfeatures</a> 에 있다. 
+현재 파일에서 경고를 끄려면, 파일 맨 위에 <strong># pylint: disable=W0232,R0902,C0103,C0301</strong> 를 넣으면 된다. (가급적 .pylintrc 를 사용하길 권한다.)</li>
+</ul>
 
-<p>via <a href="http://www.experienceinternet.co.uk/software/yui-compressor-textmate-bundle/">http://www.experienceinternet.co.uk/software/yui-compressor-textmate-bundle/</a></p>
-
-<h3>PyLint</h3>
-
-<p>파이썬 소스 파일에 대해서 ^⇧V 로 정적 분석 및 검증을 할 수 있다. 설치한 후 TextMate PATH 에 /usr/local/bin 을 추가해야 한다. 참고로 easy_install 으로 모듈을 설치할 때 파이썬 버전을 지정하려면 아래와 같이 하면 된다.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo easy_install-2.5 pylint```
-</span><span class='line'>
-</span><span class='line'>각종 경고 목록은 [http://www.logilab.org/card/pylintfeatures](http://www.logilab.org/card/pylintfeatures) 에 있다. 
-</span><span class='line'>현재 파일에서 경고를 끄려면, </span></code></pre></td></tr></table></div></figure>
-
-
-<h1>pylint: disable=W0232,R0902,C0103,C0301&#8220;`</h1>
 
 <h2>정규식</h2>
 
 <h3>Basic</h3>
 
-<pre><code>- 캡처한 문자열은 $1, $2 .. 를 이용한다. $0 은 전체를 의미한다.
-</code></pre>
+<ul>
+<li>캡처한 문자열은 $1, $2 .. 를 이용한다. $0 은 전체를 의미한다.</li>
+</ul>
+
 
 <h3>no trailing space after comma</h3>
 
-<p>pylint 를 돌려보면 콤마(,) 다음에 공백을 무조건 넣으라고 한다. negative look  ahead  를 이용하면 간단하다.</p>
+<p>pylint 를 돌려보면 콤마(,) 다음에 공백을 무조건 넣으라고 한다. negative look ahead를 이용하면 간단하다.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>Find: ",(?![\s])"
-</span><span class='line'>Replace: ", "</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Find: <span class="s2">&quot;,(?![\s])&quot;</span>
+</span><span class='line'>Replace: <span class="s2">&quot;, &quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>참고 자료</h2>
 
-<pre><code>- [http://al3x.net/2008/12/03/how-i-use-textmate](http://al3x.net/2008/12/03/how-i-use-textmate.html)
-</code></pre>
+<ul>
+<li><a href="http://al3x.net/2008/12/03/how-i-use-textmate.html">http://al3x.net/2008/12/03/how-i-use-textmate</a></li>
+</ul>
+
 </div>
   
   
@@ -221,7 +206,7 @@
   </header>
 
 
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2011/02/safari_script_debugging.png"><img class='' src='http://boxcatstudio.files.wordpress.com/2011/02/safari_script_debugging.png' width='' height='' alt='' title=''></a></p>
+  <div class="entry-content"><p><img class='' src='http://boxcatstudio.files.wordpress.com/2011/02/safari_script_debugging.png' width='' height='' alt='' title=''></a></p>
 
 <p>웹킷 기반 브라우저(크롬, 사파리)의 오류 콘솔 - 스크립트 탭에서 저 버튼을 두 번 눌러 보라색으로 만들면, 미확인 예외들이 발생할 경우 자동으로 브레이크가 걸린다. 이걸 이제서야 알았다니..</p>
 </div>
@@ -293,22 +278,23 @@
 
   <div class="entry-content"><p>벌크 로더를 이용해서 ListProperty을 내보내거나 읽어들일 때, 보통 다음과 같은 람다 함수를 사용한다.</p>
 
-<p><code>  import_transform: "lambda x: [transform.create_foreign_key('Product')(key_name) for key_name in x.split(',')] if x else None"
-  export_transform: "lambda x: ','.join([str(key.name()) for key in x]) if x else ''"
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">import_transform</span><span class="p-Indicator">:</span> <span class="s">&quot;lambda</span><span class="nv"> </span><span class="s">x:</span><span class="nv"> </span><span class="s">[transform.create_foreign_key(&#39;Product&#39;)(key_name)</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">key_name</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">x.split(&#39;,&#39;)]</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">None&quot;</span>
+</span><span class='line'><span class="l-Scalar-Plain">export_transform</span><span class="p-Indicator">:</span> <span class="s">&quot;lambda</span><span class="nv"> </span><span class="s">x:</span><span class="nv"> </span><span class="s">&#39;,&#39;.join([str(key.name())</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">key</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">x])</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">&#39;&#39;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>내보내기는 어떻게 하든 관계없지만, 읽어들일 때에는 문제가 발생한다. 기본적으로 ListProperty 는 [] 를 받아들이지 않는 데다가, None 을 넣어 두면 그 다음 읽을 때 BadValueError 가 발생하기 때문이다.</p>
+
+<p>내보내기는 어떻게 하든 관계없지만, 읽어들일 때에는 문제가 발생한다. 기본적으로 ListProperty 는 빈 리스트를 받아들이지 않는 데다가, None 을 넣어 두면 그 다음 읽을 때 BadValueError 가 발생하기 때문이다.</p>
 
 <ul>
-<li>default=None: BadValueError</li>
-<li>required=False: 허용되지 않음</li>
-<li>validator=lambda x:x: BadValueError</li>
+<li>default=None 으로 선언한 경우 BadValueError 발생</li>
+<li>required=False 은 허용되지 않음</li>
+<li>validator=lambda x:x 역시 BadValueError 가 발생</li>
 </ul>
 
 
-<p>현재 해결책은 참고 링크처럼 소스를 고치지 않는 한 없는 듯하다. :(</p>
-
-<p><a href="http://groups.google.com/group/google-appengine/browse_thread/thread/72ce87c83d3441e3">another link</a></p>
+<p>현재 해결책은 <a href="http://groups.google.com/group/google-appengine/browse_thread/thread/72ce87c83d3441e3">참고 링크</a>처럼 소스를 고치지 않는 한 없는 듯하다. :(</p>
 </div>
   
   
@@ -412,16 +398,23 @@
 
   <div class="entry-content"><p>어떤 모델의 참조 속성은 꼭 키값이 들어있지 않고 때로는 None 일 수도 있다. 만약 Null 인 참조 속성을 업로드할 때</p>
 
-<p><code>- property: field
-  external_name: field
-  import_transform: transform.create_foreign_key('Field')
-  export_transform: transform.key_id_or_name_as_string
-</code></p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">property</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">field</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">external_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">field</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">import_transform</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">transform.create_foreign_key(&#39;Field&#39;)</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">export_transform</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">transform.key_id_or_name_as_string</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>처럼 하게 되면, 에러가 발생한다. 이를 해결하려면 import_transform 을 다음과 같이 수정하면 된다.</p>
 
-<p><code>  import_transform: transform.none_if_empty(transform.create_foreign_key('Field'))
-</code></p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">import_transform</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">transform.none_if_empty(transform.create_foreign_key(&#39;Field&#39;))</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
   
   
@@ -544,16 +537,26 @@
 
 <p>다음 샘플은 클래스명이 unit- 으로 시작하는 걸 찾아서 지우는 코드다.</p>
 
-<p><code>$(...).removeClass(function(index,class_list_str){
-  var class_list = class_list_str.split(' ');
-  for ( var i = 0 ; i &lt; class_list.length ; i ++ ) {
-  var cls = class_list[i];
-  if ( cls.match(/unit-.+?_(L|R)/) ) {
-  return cls;
-  }
-  }
-})
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(...).</span><span class="nx">removeClass</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span><span class="nx">class_list_str</span><span class="p">){</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">class_list</span> <span class="o">=</span> <span class="nx">class_list_str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">class_list</span><span class="p">.</span><span class="nx">length</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">cls</span> <span class="o">=</span> <span class="nx">class_list</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span> <span class="nx">cls</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/unit-.+?_(L|R)/</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="k">return</span> <span class="nx">cls</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
   
   

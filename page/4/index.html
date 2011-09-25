@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="id is NSString or something else?id var;if ([var isKindOfClass:[NSString class]]) {  // yes this is NSString} else {  // nope}참고로, var 가 실제로 문자열일 때...">
+  <meta name="description" content="id is NSString or something else?123456id var;if ([var isKindOfClass:[NSString class]]) {  // yes this is NSString} else {  // nope}참고로, var 가 실제로 ...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,13 +89,20 @@
 
   <div class="entry-content"><p>id is NSString or something else?</p>
 
-<p><code>id var;
-if ([var isKindOfClass:[NSString class]]) {
-  // yes this is NSString
-} else {
-  // nope
-}
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="kt">id</span> <span class="n">var</span><span class="p">;</span>
+</span><span class='line'><span class="k">if</span> <span class="p">([</span><span class="n">var</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">NSString</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// yes this is NSString</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// nope</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>참고로, var 가 실제로 문자열일 때 [var class] == [NSString class] 는 실패한다 :)</p>
 </div>
@@ -133,38 +140,63 @@ if ([var isKindOfClass:[NSString class]]) {
 
   <div class="entry-content"><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
 
-<p><code><script id="test" type="script/x-jquery-tmpl">
-  <div>
-  <h1>${name}</h1>
-  <p>${description}</p>
-  <div class="progressbar"></div>
-  </div>
-</script></p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script id="test" type="script/x-jquery-tmpl"&gt;
+</span><span class='line'>  &lt;div&gt;
+</span><span class='line'>  &lt;h1&gt;${name}&lt;/h1&gt;
+</span><span class='line'>  &lt;p&gt;${description}&lt;/p&gt;
+</span><span class='line'>  &lt;div class="progressbar"&gt;&lt;/div&gt;
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>&lt;/script&gt;
+</span><span class='line'>&lt;script id="test2" type="script/x-jquery-tmpl"&gt;
+</span><span class='line'>  &lt;h1&gt;${name}&lt;/h1&gt;
+</span><span class='line'>  &lt;p&gt;${description}&lt;/p&gt;
+</span><span class='line'>  &lt;div class="progressbar"&gt;&lt;/div&gt;
+</span><span class='line'>&lt;/script&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;div id="here"&gt;&lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>$(function() {
+</span><span class='line'>  var data = {name: 'Hello', description: 'World', value:50};
+</span><span class='line'>  var data2 = {name: 'JavaScript' ,description: 'Rules', value: 80};
+</span><span class='line'>  var $tmpl = $('#test').tmpl(data);
+</span><span class='line'>
+</span><span class='line'>  $tmpl.find('.progressbar').progressbar({value:data.value});
+</span><span class='line'>  $tmpl.appendTo('#here');
+</span><span class='line'>
+</span><span class='line'>  var tmpl2 = $('#test2').tmpl(data2);
+</span><span class='line'>  tmpl2.find('.progressbar').progressbar({value:data2.value}); // not working
+</span><span class='line'>  tmpl2.appendTo('#here');
+</span><span class='line'>
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
 
-<script id="test2" type="script/x-jquery-tmpl">
-  <h1>${name}</h1>
-  <p>${description}</p>
-  <div class="progressbar"></div>
-</script>
-
-
-<div id="here"></div>
-
-
-<p>$(function() {
-  var data = {name: &#8216;Hello&#8217;, description: &#8216;World&#8217;, value:50};
-  var data2 = {name: &#8216;JavaScript&#8217; ,description: &#8216;Rules&#8217;, value: 80};
-  var $tmpl = $(&#8216;#test&#8217;).tmpl(data);</p>
-
-<p>  $tmpl.find(&#8216;.progressbar&#8217;).progressbar({value:data.value});
-  $tmpl.appendTo(&#8216;#here&#8217;);</p>
-
-<p>  var tmpl2 = $(&#8216;#test2&#8217;).tmpl(data2);
-  tmpl2.find(&#8216;.progressbar&#8217;).progressbar({value:data2.value}); // not working
-  tmpl2.appendTo(&#8216;#here&#8217;);</p>
-
-<p>});
-</code></p>
 
 <p>위 예제처럼, #test 는 하나의 DIV 로 묶여져 있어서 appendTo 하기 전에 위젯을 만들 수 있지만, #test2 처럼 여러 개의 엘리먼트들이 나눠져 있는 경우에는 .tmpl(data) 로 렌더링을 하면 [h1, p, div.progressbar] 의 배열이 튀어나오는데, 이 배열에다가 대고 find 를 해도 아무 일도 발생하지 않는다. (for 를 돌아도 마찬가지)</p>
 
@@ -202,16 +234,24 @@ if ([var isKindOfClass:[NSString class]]) {
   </header>
 
 
-  <div class="entry-content"><p>Dont use window.setInterval() for infinite blinking.</p>
+  <div class="entry-content"><p>Don`t use window.setInterval() for infinite blinking.</p>
 
-<p><code>$.fn.blink = function(interval, opacity){
-  return this
-  .fadeTo(interval, opacity)
-  .fadeTo(interval, 1, function(){
-  $(this).blink(interval,opacity);
-  });
-};
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">blink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span> <span class="nx">opacity</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="k">this</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">fadeTo</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span> <span class="nx">opacity</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">fadeTo</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">blink</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span><span class="nx">opacity</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
   
   

@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="Dont use window.setInterval() for infinite blinking.$.fn.blink = function(interval, opacity){  return this  .fadeTo(interval, opacity)  .fadeTo(int...">
+  <meta name="description" content="Don`t use window.setInterval() for infinite blinking.1234567$.fn.blink = function(interval, opacity){  return this  .fadeTo(interval, opacity)  .fa...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,16 +84,24 @@
   </header>
 
 
-<div class="entry-content"><p>Dont use window.setInterval() for infinite blinking.</p>
+<div class="entry-content"><p>Don`t use window.setInterval() for infinite blinking.</p>
 
-<p><code>$.fn.blink = function(interval, opacity){
-  return this
-  .fadeTo(interval, opacity)
-  .fadeTo(interval, 1, function(){
-  $(this).blink(interval,opacity);
-  });
-};
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">blink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span> <span class="nx">opacity</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="k">this</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">fadeTo</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span> <span class="nx">opacity</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">fadeTo</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">blink</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span><span class="nx">opacity</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -119,7 +127,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/categories/regular/'>regular</a>
+    <a class='category' href='/categories/programming/'>programming</a>
   
 </span>
 
