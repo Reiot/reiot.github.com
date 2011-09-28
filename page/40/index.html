@@ -22,7 +22,7 @@
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
   <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
@@ -31,7 +31,7 @@
 
 </head>
 
-<body  >
+<body   >
   <header role="banner"><hgroup>
   <h1><a href="/">Social Reiot</a></h1>
   
@@ -164,17 +164,17 @@
 
   <div class="entry-content"><p>한국 대 프랑스전을 기다리면서 <a href="http://developer.valvesoftware.com/wiki/">하프라이프2 위키</a> 중에서 <a href="http://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking">Source Multiplayer Networking</a> 부분을 요약 정리해보았다.</p>
 
-<p><img class='' src='http://developer.valvesoftware.com/w/images/e/ea/Networking1.gif' width='' height='' alt='하프라이프2 서버와 클라이언트' title='하프라이프2 서버와 클라이언트'></p>
+<p><img src="http://developer.valvesoftware.com/w/images/e/ea/Networking1.gif" title="하프라이프2 서버와 클라이언트" ></p>
 
 <p>퀘이크나 하프라이프2(이하 HL2) 같은 클라이언트-서버 기반의 FPS 게임에서, 클라이언트는 기본적으로 렌더링 더미(dummy)라고 봐야 한다. 왜냐하면 클라이언트가 키보드나 마우스 입력을 샘플링해서 서버로 보내면, 서버는 초당 30-40회의 시뮬레이션을 거친 후 그 결과(snapshot)를 주기적으로 브로드캐스트하며, 클라이언트는 스냅샷을 받아서 렌더링을 하는 방식으로 구현되기 때문이다. 대신 서버는 보안적인 이유 때문에 대부분의 이동, 공격, 인증, 보안 체크를 해야 한다. (참고로, HL2 서버는 초당 33회의 시뮬레이션을 거치고 20회의 스냅샷을 브로드캐스트하며, 클라이언트는 초당 20회의 입력샘플링을 한다.)</p>
 
 <p>문제는 사용자의 입력 결과가 도착해서 실제로 그려지기까지의 시간이 꽤 오래 걸린다는 점이다. 이 랙(lag)을 해결하기 위해서 입력 예측(Input Prediction)이 사용되는데, 이는 내 캐릭터만큼은 서버의 결과를 기다리지 않고 먼저 움직이게 한다는 것이다. 이를 위해서 이동에 관련된 시뮬레이션 로직을 서버와 클라이언트 모두에 탑재해야 하며, 클라이언트는 서버에 입력을 보내자마자 로컬 시뮬레이션을 거쳐 내 캐릭터를 이동시킨 후, 서버에서 도착한 결과가 너무 차이가 많이 날 경우에만 보정을 하게 된다.</p>
 
-<p><img class='' src='http://developer.valvesoftware.com/w/images/c/ca/Lag_compensation.jpg' width='' height='' alt='Lag Compensation' title='Lag Compensation'></p>
+<p><img src="http://developer.valvesoftware.com/w/images/c/ca/Lag_compensation.jpg" title="Lag Compensation" ></p>
 
 <p>그런데 이것만으로 제대로된 FPS를 구현하기엔 조금 부족하다. 내가 보는 다른 사람의 위치는 언제나 과거이기 때문에, 명중 판정이 매우 곤란해지기 때문이다. (특히 퀘이크 시리즈의 레일건처럼 <a href="http://reiot.cafe24.com/archives/386">발사와 동시에 판정이 일어나야 하는 무기의 명중 판정</a>을 서버에서 해야 한다고 상상해보라.) HL2에서는 이를 <a href="http://reiot.cafe24.com/archives/303">랙 보상(Lag Compensation)</a> 기법으로 해결하는데, 서버에서 클라이언트의 위치 정보의 히스토리를 갖고 있다가 공격 패킷이 도착하면 발사 시간에서의 목표의 과거 위치를 찾아서 명중 체크를 한다는 것이다.</p>
 
-<p><img class='' src='http://developer.valvesoftware.com/w/images/4/49/Interpolation.gif' width='' height='' alt='Entity Interpolation' title='Entity Interpolation'></p>
+<p><img src="http://developer.valvesoftware.com/w/images/4/49/Interpolation.gif" title="Entity Interpolation" ></p>
 
 <p>이 정도면 정상적인 네트워크에서의 기본적인 이동과 전투 까지는 해결할 수 있지만, 만약 패킷 손실을 고려하지 않으면 불안한 네트워크에서 캐릭터가 마구 점프하는 모습을 보게 될 것이다. 물론 적절한 데드 레커닝으로 해결할 수도 있겠지만, HL2 클라이언트에서는 서버가 보낸 스냅샷을 즉시 처리하는 대신 일정 시간(100ms)동안 버퍼링을 한 후, 내삽(interpolation)과 외삽(extrapolation)을 이용해서 패킷 손실에 우아하게 처리한다. 위 그림을 보면 짐작하겠지만, 최소한 2개의 패킷을 버퍼링함으로써 둘 중 하나가 손실되더라도 나머지 패킷으로 추정이 가능하다.</p>
 
@@ -865,7 +865,7 @@ pObject->Update();
 
 <p>for_each( gameObjects.begin(), gameObject.end(), mem_fun(&amp;GameObject::Update) );</p>
 
-<p>코드는 간단해졌지만 익숙하지 않은 관계로 팀원들이 싫어할 지도 모른다. 그러나, 타이핑하는 글자수도 적으면서 성능도 훨씬 더 좋다는데&#8230; 그 누가 안 쓸수 있으랴? (대신 디버깅할 때에는 멤버함수에다가 breakpoint 를 걸어야 하는 단점이 있을 수도 있다 <img class='' src='http://boxcatstudio.files.wordpress.com/2009/07/icon_wink.gif' width='' height='' alt=';)' title=';)'>  )</p>
+<p>코드는 간단해졌지만 익숙하지 않은 관계로 팀원들이 싫어할 지도 모른다. 그러나, 타이핑하는 글자수도 적으면서 성능도 훨씬 더 좋다는데&#8230; 그 누가 안 쓸수 있으랴? (대신 디버깅할 때에는 멤버함수에다가 breakpoint 를 걸어야 하는 단점이 있을 수도 있다 <img src="http://boxcatstudio.files.wordpress.com/2009/07/icon_wink.gif" title=";)" >  )</p>
 
 <p>포인터의 컨테이너일 경우에는 mem_fun 을, 객체의 컨테이너라면 mem_fun_ref 를 사용하면 된다. 만약 멤버함수에 파라미터를 넘겨야 한다면, 아래와 같이 bind 함수를 사용할 것.</p>
 
@@ -1580,7 +1580,6 @@ assert( </em>(teams.find(&amp;t4)) == &amp;t4 );
     <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
   
 </section>
-
 
 
 

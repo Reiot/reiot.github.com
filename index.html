@@ -22,7 +22,7 @@
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
   <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
@@ -31,7 +31,7 @@
 
 </head>
 
-<body  >
+<body   >
   <header role="banner"><hgroup>
   <h1><a href="/">Social Reiot</a></h1>
   
@@ -87,7 +87,7 @@
   </header>
 
 
-  <div class="entry-content"><p><img class='left ' src='http://octopress.org/images/logo.png' width='' height='' alt='해커 전용 블로깅 프레임워크?' title='해커 전용 블로깅 프레임워크?'></p>
+  <div class="entry-content"><p><img class="left" src="http://octopress.org/images/logo.png" title="해커 전용 블로깅 프레임워크?" ></p>
 
 <p><a href="http://octopress.org">Octopress</a>는 정적 사이트 생성기인 <a href="http://jekyllrb.com/">Jekyll</a> 을 이용해서 블로그를 손쉽게 구성하도록 해주는 루비 프레임워크다. 말 그대로 정적 HTML 파일들을 미리 만들어서 어딘가로 올려서 서비스하는 거라, GitHub에서 블로그를 서비스할 수 있음은 물론, Amason S3나 구글 앱엔진에서도 블로그 서비스가 가능하다.</p>
 
@@ -506,8 +506,11 @@ if __name__ == '__main__':
 <li>data-backbtn=&#8221;false&#8221;: jQM 1.0a4.1 까지는 페이지 전환시 자동적으로 헤더에 Back 버튼이 추가되므로, 돌아가기 버튼이 필요없는 메인 페이지 등에서는 이 속성을 지정하면 된다.</li>
 <li>원치않는 nested list : ul-li-thumb 와 마찬가지로 li 바로 아래에 ul 이나 ol 이 있으면 자동적으로 페이지가 만들어지므로, 다른 태그로 둘러싸면 된다.</li>
 <li>사용자가 추가한 버튼에 live(&#8220;click tap&#8221;) 을 지정하면 이벤트가 2개 발생되는 모양이다. 그냥 tap 만 넣어도 컴퓨터에서는 잘 동작한다.</li>
-<li>자바스크립트로 리스트 아이템을 추가한 후 listview(&#8220;refresh&#8221;)를 해도 그 안에 있는 inset listview 는 별도의 쿼리를 통해서 listview 위젯으로 만들어야 한다. 샘플 코드는 여기 <a href="http://jsfiddle.net/Reiot/CpudD/">http://jsfiddle.net/Reiot/CpudD/</a></li>
+<li>자바스크립트로 리스트 아이템을 추가한 후 listview(&#8220;refresh&#8221;)를 해도 그 안에 있는 inset listview 는 별도의 쿼리를 통해서 listview 위젯으로 만들어야 한다.</li>
 </ul>
+
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/Reiot/CpudD/embedded/js,resources,html,css,result/light/"></iframe>
 
 
 <p> </p>
@@ -544,7 +547,7 @@ if __name__ == '__main__':
   </header>
 
 
-  <div class="entry-content"><p><img class='' src='http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png' width='' height='' alt='' title=''></p>
+  <div class="entry-content"><p><img src="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png"></p>
 
 <p>와이프가 아이패드에서 클리앙을 보시는게 너무 불편해 보여서, jQuery Mobile 공부 삼아 간단히 웹앱을 만들어봤습니다. 소스 코드는 GitHub 에 공개해두었습니다.</p>
 
@@ -1072,13 +1075,13 @@ if __name__ == '__main__':
   </header>
 
 
-  <div class="entry-content"><p><img class='' src='http://stoodit.com/wp-content/uploads/final4-640x360.jpg' width='' height='' alt='' title=''></p>
+  <div class="entry-content"><p><img src="http://stoodit.com/wp-content/uploads/final4-640x360.jpg"></p>
 
 <p><a href="http://stoodit.com/2011/03/create-a-memory-collage-in-photoshop/">Create a Memory Collage in Photoshop | StoodIt</a></p>
 
 <p>콜라쥬 만들 때의 그림자, 리얼한 그래디언트의 처리법&#8230;</p>
 
-<p><img class='' src='http://d2f8dzk2mhcqts.cloudfront.net/0648_mp3/tutorial-mp3-player-137.jpg' width='' height='' alt='' title=''></p>
+<p><img src="http://d2f8dzk2mhcqts.cloudfront.net/0648_mp3/tutorial-mp3-player-137.jpg"></p>
 
 <p><a href="http://feedproxy.google.com/~r/psdtuts/~3/1OZKcddJBiY/">Create a Sleek and Clean MP3 Player Interface</a></p>
 </div>
@@ -1231,7 +1234,6 @@ if __name__ == '__main__':
     <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
   
 </section>
-
 
 
 
