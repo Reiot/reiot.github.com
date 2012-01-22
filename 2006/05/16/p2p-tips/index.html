@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다)분석 및 검토게임성 분석만들고...">
+  <meta name="description" content="P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다) 분석 및 검토 게임성 분석 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://reiot.com/2006/05/16/p2p-tips/">
+  <link rel="canonical" href="http://reiot.com/2006/05/16/p2p-tips">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -28,6 +28,20 @@
   <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
 <link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-247024-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -44,12 +58,14 @@
   <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
+  
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:reiot.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
+  
 <ul role=main-navigation>
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
@@ -73,11 +89,13 @@
 
 
 
+
+
+
   
 
 
-
-<time datetime="2006-05-16T09:46:34+09:00" pubdate  data-updated="true" >May 16<span>th</span>, 2006</time>
+<time datetime="2006-05-16T09:46:34+09:00" pubdate data-updated="true">May 16<span>th</span>, 2006</time>
         
       </p>
     
@@ -163,11 +181,13 @@
 
 
 
+
+
+
   
 
 
-
-<time datetime="2006-05-16T09:46:34+09:00" pubdate  data-updated="true" >May 16<span>th</span>, 2006</time>
+<time datetime="2006-05-16T09:46:34+09:00" pubdate data-updated="true">May 16<span>th</span>, 2006</time>
       
 
 
@@ -178,11 +198,20 @@
   <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/05/16/p2p-tips/" data-via="reiot" data-counturl="http://reiot.com/2006/05/16/p2p-tips/" >Tweet</a>
   
   
-  <div class="g-plusone" data-size="medium"></div>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
   
 </div>
 
     
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/05/16/iocp-tips/" title="Previous Post: IOCP Tips">&laquo; IOCP Tips</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/05/26/boostany/" title="next Post: boost::any">boost::any &raquo;</a>
+      
+    </p>
   </footer>
 </article>
 
@@ -265,9 +294,11 @@
   </script>
   <script src="/javascripts/twitter.js" type="text/javascript"> </script>
   
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
   
 </section>
+
+
 
 
 
@@ -278,7 +309,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2011 - Ray Yun -
+  Copyright &copy; 2012 - Ray Yun -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -286,16 +317,15 @@
   
 
 <script type="text/javascript">
-    (function () {
       var disqus_shortname = 'reiot';
       
         
         // var disqus_developer = 1;
         var disqus_identifier = 'http://reiot.com/2006/05/16/p2p-tips/';
         var disqus_url = 'http://reiot.com/2006/05/16/p2p-tips/';
-        var disqus_script = 'embed.js'
+        var disqus_script = 'embed.js';
       
-
+    (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
       dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -303,31 +333,20 @@
 </script>
 
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
-  
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
 
 
-  
+
   <script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
@@ -337,6 +356,9 @@
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
+
+
+
 
 
 </body>

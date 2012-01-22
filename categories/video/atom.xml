@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: video | Social Reiot]]></title>
+  <link href="http://reiot.com/categories/video/atom.xml" rel="self"/>
+  <link href="http://reiot.com/"/>
+  <updated>2012-01-22T10:06:24+09:00</updated>
+  <id>http://reiot.com/</id>
+  <author>
+    <name><![CDATA[Ray Yun]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Huge HD Bike Jump Movie!!!]]></title>
+    <link href="http://reiot.com/2010/10/11/huge-hd-bike-jump-movie/"/>
+    <updated>2010-10-11T19:18:35+09:00</updated>
+    <id>http://reiot.com/2010/10/11/huge-hd-bike-jump-movie</id>
+    <content type="html"><![CDATA[<p>[youtube=[youtube=http://www.youtube.com/watch?v=B3GribQCg6c&amp;rel=0&amp;hl=en_US&amp;feature=player_embedded&amp;version=3]]</p>
+]]></content>
+  </entry>
+  
+</feed>

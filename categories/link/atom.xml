@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: link | Social Reiot]]></title>
+  <link href="http://reiot.com/categories/link/atom.xml" rel="self"/>
+  <link href="http://reiot.com/"/>
+  <updated>2012-01-22T10:06:24+09:00</updated>
+  <id>http://reiot.com/</id>
+  <author>
+    <name><![CDATA[Ray Yun]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Create a Memory Collage in Photoshop]]></title>
+    <link href="http://reiot.com/2011/03/08/create-a-memory-collage-in-photoshop/"/>
+    <updated>2011-03-08T04:30:44+09:00</updated>
+    <id>http://reiot.com/2011/03/08/create-a-memory-collage-in-photoshop</id>
+    <content type="html"><![CDATA[<p><img src="http://stoodit.com/wp-content/uploads/final4-640x360.jpg"></p>
+
+<p><a href="http://stoodit.com/2011/03/create-a-memory-collage-in-photoshop/">Create a Memory Collage in Photoshop | StoodIt</a></p>
+
+<p>콜라쥬 만들 때의 그림자, 리얼한 그래디언트의 처리법...</p>
+
+<p><img src="http://d2f8dzk2mhcqts.cloudfront.net/0648_mp3/tutorial-mp3-player-137.jpg"></p>
+
+<p><a href="http://feedproxy.google.com/~r/psdtuts/~3/1OZKcddJBiY/">Create a Sleek and Clean MP3 Player Interface</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Create Realitic Paper Texture]]></title>
+    <link href="http://reiot.com/2011/01/30/create-realitic-paper-texture/"/>
+    <updated>2011-01-30T17:08:53+09:00</updated>
+    <id>http://reiot.com/2011/01/30/create-realitic-paper-texture</id>
+    <content type="html"><![CDATA[<p><a href="http://www.fortabbasonline.com/quick-tip-create-a-realistic-paper-texture/#more-159">Create Realitic Paper Texture</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[150+ best icon sets of 2010]]></title>
+    <link href="http://reiot.com/2011/01/28/150-best-icon-sets-of-2010/"/>
+    <updated>2011-01-28T09:10:00+09:00</updated>
+    <id>http://reiot.com/2011/01/28/150-best-icon-sets-of-2010</id>
+    <content type="html"><![CDATA[<p><a href="http://iconlibrary.iconshock.com/icons/150-best-icon-sets/">150+ best icon sets of 2010</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Windows Remote Desktop for Mac]]></title>
+    <link href="http://reiot.com/2011/01/26/windows-remote-desktop-for-mac/"/>
+    <updated>2011-01-26T11:38:00+09:00</updated>
+    <id>http://reiot.com/2011/01/26/windows-remote-desktop-for-mac</id>
+    <content type="html"><![CDATA[<p><a href="http://www.microsoft.com/downloads/en/details.aspx?FamilyID=68346E0D-44D3-4065-99BB-B664B27EE1F0#Overview">Windows Remote Desktop for Mac</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[11 Killer CSS3 Text Effects to replace Photoshop]]></title>
+    <link href="http://reiot.com/2010/10/13/11-killer-css3-text-effects-to-replace-photoshop/"/>
+    <updated>2010-10-13T10:08:16+09:00</updated>
+    <id>http://reiot.com/2010/10/13/11-killer-css3-text-effects-to-replace-photoshop</id>
+    <content type="html"><![CDATA[<p><a href="http://www.addictivefonts.com/various/css3/css3-text-effects/">11 Killer CSS3 Text Effects to replace Photoshop</a></p>
+]]></content>
+  </entry>
+  
+</feed>

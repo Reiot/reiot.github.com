@@ -9,7 +9,7 @@
   <meta name="author" content="Ray Yun">
 
   
-  <meta name="description" content="UDT는 Internet2 혹은 기가비트 이더넷과 같이 빠른 네트워크에서 수십~수백 기가 바이트의 대용량 데이터를 전송할 때 TCP가 매우 느리다는 점때문에 시작된 오픈소스 프로젝트이다. 버클리 소켓 API를 그대로 유지하고 있어서 접근성이 좋고, TCP의 슬라이...">
+  <meta name="description" content="UDT는 Internet2 혹은 기가비트 이더넷과 같이 빠른 네트워크에서 수십~수백 기가 바이트의 대용량 데이터를 전송할 때 TCP가 매우 느리다는 점때문에 시작된 오픈소스 프로젝트이다. 버클리 소켓 API를 그대로 유지하고 있어서 접근성이 좋고, TCP의 슬라이딩 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://reiot.com/2006/04/25/udt-udp-based-data-transfer-library/">
+  <link rel="canonical" href="http://reiot.com/2006/04/25/udt-udp-based-data-transfer-library">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -28,6 +28,20 @@
   <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
 <link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-247024-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -44,12 +58,14 @@
   <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
+  
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:reiot.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
+  
 <ul role=main-navigation>
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
@@ -73,11 +89,13 @@
 
 
 
+
+
+
   
 
 
-
-<time datetime="2006-04-25T21:29:33+09:00" pubdate  data-updated="true" >Apr 25<span>th</span>, 2006</time>
+<time datetime="2006-04-25T21:29:33+09:00" pubdate data-updated="true">Apr 25<span>th</span>, 2006</time>
         
       </p>
     
@@ -105,11 +123,13 @@
 
 
 
+
+
+
   
 
 
-
-<time datetime="2006-04-25T21:29:33+09:00" pubdate  data-updated="true" >Apr 25<span>th</span>, 2006</time>
+<time datetime="2006-04-25T21:29:33+09:00" pubdate data-updated="true">Apr 25<span>th</span>, 2006</time>
       
 
 <span class="categories">
@@ -126,11 +146,20 @@
   <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/04/25/udt-udp-based-data-transfer-library/" data-via="reiot" data-counturl="http://reiot.com/2006/04/25/udt-udp-based-data-transfer-library/" >Tweet</a>
   
   
-  <div class="g-plusone" data-size="medium"></div>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
   
 </div>
 
     
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/04/24/memory-leak-detection-tools/" title="Previous Post: Memory Leak Detection Tools">&laquo; Memory Leak Detection Tools</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/04/26/codekeep/" title="next Post: CodeKeep">CodeKeep &raquo;</a>
+      
+    </p>
   </footer>
 </article>
 
@@ -213,9 +242,11 @@
   </script>
   <script src="/javascripts/twitter.js" type="text/javascript"> </script>
   
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @reiot</a>
+    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
   
 </section>
+
+
 
 
 
@@ -226,7 +257,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2011 - Ray Yun -
+  Copyright &copy; 2012 - Ray Yun -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -234,16 +265,15 @@
   
 
 <script type="text/javascript">
-    (function () {
       var disqus_shortname = 'reiot';
       
         
         // var disqus_developer = 1;
         var disqus_identifier = 'http://reiot.com/2006/04/25/udt-udp-based-data-transfer-library/';
         var disqus_url = 'http://reiot.com/2006/04/25/udt-udp-based-data-transfer-library/';
-        var disqus_script = 'embed.js'
+        var disqus_script = 'embed.js';
       
-
+    (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
       dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -251,31 +281,20 @@
 </script>
 
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
-  
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
 
 
-  
+
   <script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
@@ -285,6 +304,9 @@
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
+
+
+
 
 
 </body>

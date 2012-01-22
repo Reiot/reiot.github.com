@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: gamedev | Social Reiot]]></title>
+  <link href="http://reiot.com/categories/gamedev/atom.xml" rel="self"/>
+  <link href="http://reiot.com/"/>
+  <updated>2012-01-22T10:06:24+09:00</updated>
+  <id>http://reiot.com/</id>
+  <author>
+    <name><![CDATA[Ray Yun]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Fail Fast, Fail Often]]></title>
+    <link href="http://reiot.com/2009/05/18/fail-fast-fail-often/"/>
+    <updated>2009-05-18T08:24:10+09:00</updated>
+    <id>http://reiot.com/2009/05/18/fail-fast-fail-often</id>
+    <content type="html"><![CDATA[<p>최근 레이다에 자주 걸리던 <a href="http://sites.google.com/site/gdworkshop/materials/mda-framework">MDA 프레임워크</a>에 대한 <a href="http://epiphany.tistory.com/">게임 디자인 워크샵</a>이 사내에서 <strong>피자와 함께</strong> 열려서 쉬귀군과 함께 참가했다.</p>
+
+<p>첫날에는 <a href="http://sites.google.com/site/gdworkshop/materials/sissyfight-3000">Sissyfight 3000</a>을 <a href="http://kaistizen.net/EE/index.php/weblog/comments/game_design_workshop/">1분 내에 끝내라는 퍼블리셔의 요청 메일</a>을 받았다. 원작 게임이 재미없었던 우리 팀은, 두 세번 게임을 뒤집어 엎어 포커 버전으로 만들다가, 종료 5분 전 공격 카드는 버리고 색깔 카드와 방어 카드 만으로 2분짜리 클베 버전을 출시할 수 있었다. 뭔가 개발이 잘 풀리지 않아 잘나가는 옆테이블로 이직을 하고 싶었는데, 막상 출시를 하고 보니 사용자들이 제법 만족해서 좀 당황하기도 했다.</p>
+
+<p>둘째 날에는 타워 디펜스를 페이퍼 프로토타이핑으로 만들었다. 초반부터 <a href="http://www.thisisgame.com/board/view.php?id=26414&amp;category=103">에이전트005</a>가 투입되어서 자꾸 지금 방향이 틀렸고 자기 방식이 맞다고 주장해서 개발 기간을 제법 까먹었다. 클베를 하고 나서는 테스터들의 의견을 적극 반영하다 보니 원래 추구하는 미학과는 다른 방향으로 바뀌기도 했다. 워낙 타워 디펜스의 종류가 다양하다보니 협동이냐 경쟁이냐들 두고 초반부터 설전을 벌였는데, 실제로 테스터들로부터도 비슷한 문제를 지적받았다. 막판 30초를 남기고 뭔가 재미있어 보이는 버전이 나오긴 했는데 테스트도 못해봐서 결국 클베 버전을 출시할 수 밖에 없었다. 흑.</p>
+
+<p>어쨌든 뭔가 쓸만한 걸 하나 배웠답시고 무려 <strong>주말</strong>에 출근해서 MDA를 시험 적용해 보기로 했다. 현재 상태에서  재미있는 것과 없는 것들을 나열하고, 도저히 버릴 수 없는 제약 조건을 뺀 나머지 기능들은 모두 <a href="http://aker.tistory.com/231">feature creep</a>이라는 누명을 씌워서 버렸다. 다음에는 무엇을 핵심적인 재미요소로 구현할 건가를 이야기했는데, 의외로 내가 생각하는 재미를 단 한 명에게 공감시키기조차도 힘들었다. 그래서 내 의도와 비슷한 동영상을 구해서 보여준 후, Fail Fast 을 해보니 몇 시간만에 비교적 게임이라고 부를만한 상태로 바꾸는 데까지는 성공했다. (물론 난 옆에서 서핑만하고 쉬귀군이 열심히 코딩을 했지만..) 그래도 보여주기엔 남부끄러운 수준이고, 핵심적인 제약 사항은 완수하지도 못했기에 일단 퇴근했다. 결과적으로는 실패로 끝난 거구만. OTL</p>
+
+<p>TDD가 소프트웨어의 최종적인 진화의 방향을 점진적으로 설계해주는 것처럼, Fail Fast이 게임 디자인에 있어서 비슷한 역할을 하는 것 같다. 즉, 어느 정도 팀내에 공감이 이루어 졌다면, 한 두명이 안되는 이유를 1부터 10까지 나열하며 떠들 시간에 닥치고 일단 만들고 보자는 건데, 그러고 보니 쉬귀군의 신묘한 개똥 철학과 공통점이 많은 것 같다. (물론 일반적인 개발자는 따라해서는 안된다. 흐흐) 다만 이를 위해서는 빠른 변경이 가능한 게임 엔진 및 툴의 개발이 선행되거나 동시에 진행되어야 한다는 게 우리의 숙제일 것이다.</p>
+
+<p>덕분에 몸은 좀 피곤하지만, 미학 - 사용자들에게 주고자 하는 재미 - 에 대한 확고한 비전의 공유가 얼마나 중요한지를 깨달을 수 있었던 한 주였다. 프리 프러덕션 기간에 게임의 재미에 대해서 명확하게 확정을 짓지 않고 프러덕션 단계로 들어가면, 항상 나중에 참가한 멤버들이나 경영진, 테스터 또는 퍼블리셔로부터 <strong>너무 낙관적으로 개발을 해서</strong> 그런지 재미가 없다는 이야기를 듣고는, 자의반 타의반으로 feature creep의 유혹을 받게 된다는 경험적 법칙이랄까.  옛날 게임 기획할 때 누가 이런 걸 가르쳐줬으면 지금쯤 성공한 기획자가 되었을지도 모르겠다. ㅎㅎ</p>
+
+<p>짧은 시간에 게임 개발을 압축해서 경험할 수 있기에, 기획자나 프로그래머는 물론이거니와 중간 관리자들도 한번쯤 들어볼 만한 워크샵이다. 이런 좋은 경험을 혼자 낼름하지 않고 널리 전파하시느라 수고하신 <a href="http://betterways.tistory.com/">Kay</a> 님과 <a href="http://epiphany.tistory.com/">epiphany</a>님께 감사드린다. (후기 상품은 내꺼임!!)</p>
+
+<p>see also:</p>
+
+<pre><code>- [사후 검토: Sissy Fight 3000 - 제 2회 게임 디자인 워크샵](http://www.heartcomplex.net/blogs/516)
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cloud Computing For Online Game]]></title>
+    <link href="http://reiot.com/2009/04/13/cloud-computing-for-online-game/"/>
+    <updated>2009-04-13T08:37:54+09:00</updated>
+    <id>http://reiot.com/2009/04/13/cloud-computing-for-online-game</id>
+    <content type="html"><![CDATA[<p><img src="http://farm2.static.flickr.com/1332/704056791_63f1e492d8.jpg" title="Cloud Computing?" ></p>
+
+<p>때는 바야흐로 2003년, 게임 서버 개발은 조만간 그리드 컴퓨팅 기반으로 바뀔 거라고 믿고 아마존에서 관련 서적을 실컷 사 모았던 적이 있다. 막상 뚜껑을 열어 보니 대부분 웹서비스 기반이어서 뭔가 빠른 반응성과 연결된 세션간의 적절한 동기화가 필요한 게임 서버, 특히 MMORPG에는 맞지 않아 보였다. 결국 그 책들은 거의 읽혀지지도 않은 채 집에 방치되있고, 그리드를 주력으로 파겠다던 배짱좋은 예측 포스팅은 부끄러워서 내려 버렸다.</p>
+
+<p><img src="http://bks0.books.google.com/books?id=8-0BofIhoU0C&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2fcOHmSfNIjZtVjM-Gm5LZAw9dVg"> <img src="http://bks0.books.google.com/books?id=2e73K_jXdfcC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U35K6wElPYG2wUE8zEBQ-QU0AgPfA"> <img src="http://bks0.books.google.com/books?id=b4LWXLRBRLsC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2FVscbkXMEdwtUQBeERDYIxVqmzg"></p>
+
+<p>안보는 깨끗한 원서 팝니다 ㅠㅠ</p>
+
+<p>그리고나서 대략 4-5년 정도가 흘렀다. 지금은 많은 웹스타트업들이 클라우드 컴퓨팅을 적극 활용하고 있고, 어느새 나도 gmail 과 google docs 를 업무용으로 사용하고 있다. <a href="http://xguru.net/blog/488.html">마이크로소프트도 아마존과 구글의 뒤를 이어서 아쭈르(Azure)라는 걸 선보이고</a> 있고, (아마도 실버라이트랑 연계되지 않을까?) 최근에는 "사례로 읽는 클라우드 컴퓨팅"이라는 책도 사뒀는데, 버스에서 자느라 읽을 새가 없다. OTL</p>
+
+<p><img src="http://image.kangcom.com/l_pic/200902100008.jpg" title="사례로 읽는 클라우드 컴퓨팅" >
+사례로 읽는 클라우드 컴퓨팅. 제목 그대로니까 속으면 곤란하다.</p>
+
+<p>몇 주 전<a href="http://betterways.tistory.com/"> Kay 님</a>이 클라우드 컴퓨팅을 이용한 게임 서버 퍼블리싱 사업(예전에 블레이스 서버 호스팅 비스므리한)은 어떻겠냐고 물으셨다. (이거 밝혀도 문제 없겠죠? ㅋㅋ) 그때 클라우드들이 HTTP의 느린 응답성이나 동기화가 왜 어려운가..라든지, 구글 앱 엔진이 스케줄링 같은 걸 지원하지 않는 것에 대해 한참 이야기를 했었다. 최근에 이런 저런 이야기를 많이 줏어들으며 곰곰히 생각해보니, 어떻게든 분산을 희생해서 적당히 요청을 한 곳에 몰아주는 정책만 허용해준다면 어떻게 될 법도 해 보였다. 그래도 MMORPG 서버 호스팅은 아직까지는 힘들고, 웹 게임들, 보드 게임들이나 시뮬레이션 게임들의 서버라든지, XBOX Live 나 Steamworks 같은 인증+커뮤니티+배포+리더보드+매치메이킹 정도의 활용 가능성은 충분해 보인다. (그러고 보니 <a href="http://www.steampowered.com/steamworks/index.php">스팀도 자기들이 클라우드라고 주장</a>하고 있다)</p>
+
+<p><blockquote><p>Store data in Steam Cloud for your users. The Steam Cloud API allows your game to write and retrieve files for each user. Use it for personalized settings like keyboard, mouse, and gamepad configurations, multiplayer sprays, or even saved games. Steam Cloud is a natural extension of the portability that Steam affords gamers. Shipped with Left 4 Dead, Steam Cloud is now a proven resource and is becoming an integral part of the Steam experience.</p></blockquote></p>
+
+<p>앱스토어의 흥행으로 삼성이나 NHN 같은 국내 회사들이 비슷한 걸 만들고 있단다. 퍼블리셔들도 이제는 정신차리고 괜히 50-100억 주고 비싼 게임 들여왔다가 돈 날리지 말고, 잡쉐어링을 위해서라도 개인이나 중소 게임사들이 손쉽게 퍼블리싱할 수 있게 이런 쪽으로 분발해주길 바란다. 구글앱엔진, 엑박라이브, 스팀, 앱스토어의 장점을 하나로 합치는 웹 기반의 게임 플랫폼 SDK 라도 좀 뿌려주면 얼마나 좋을까. 기본적으로 무료 트래픽, 수익은 1:9, 컨텐트는 루아, P2P는 기본, 웹용 무료 3D엔진 제공, 게임 동영상이나 커뮤니티는 다음이나 네이버 블로그/까페 연동, 스샷은 flickr, 실시간 방송은 아프리카, 간편하고 손쉬운 in-game 결제 시스템과 자동화된 상점, 신뢰할만한 보안 모듈(nprotect 말고), 플래시도 지원, 이슈 관리 시스템 및 소스 버전 관리도 제공, ... 뭐 적다 보니 끝이 없구나. ㅋㅋ</p>
+
+<p>ps. 마지막 문단을 쓰고 나서 주위를 둘러보니 한숨만 나오는군하.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[XBOX 360 NEW UI]]></title>
+    <link href="http://reiot.com/2009/04/07/xbox-360-new-ui/"/>
+    <updated>2009-04-07T09:28:50+09:00</updated>
+    <id>http://reiot.com/2009/04/07/xbox-360-new-ui</id>
+    <content type="html"><![CDATA[<p>[caption id="" align="aligncenter" width="640" caption="XBOX 360 NEW UI"]<a href="http://arstechnica.com/gaming/news/2009/02/mature-games-dominate-most-popular-xbox-360-downloads.ars"><img src="http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg"></a>[/caption]</p>
+
+<p>오늘 봄맞이 대청소를 맞아서, 반 년 가량 전기밥을 못먹은 엑박의 봉인을 풀었다. 작년 가을에 바뀐 대시 보드를 이제서야 보게 된 셈인데, 이게 상당히 마음에 들었다. 아바타 서비스야 Wii 보다는 한참 나은 수준이라서 그러려니 하겠는데, 아이튠즈의 커버플로우에서 발전한 네비게이션 인터페이스는 제법 "끌리게" 잘 만들었다. 무엇보다도 웬지 더 사고 싶다는 느낌 - 일명 소장 가치 - 를 불러일으키는 사용자 경험을 마켓플레이스를 돌아다니면서 계속 느꼈으니 말이다.</p>
+
+<p>다만 작년부터 게임불감증에 빠져서 엑박 타이틀을 제법 사놓고도 엔딩을 못본게 제법 되는지라, 실질적인 구매로는 이어지지 않았다. 만약에 스팀이나 앱스토어처럼 소액결제로 손쉽게 살 수 있는 사회적 분위기(?)가 갖춰졌다면 지갑을 열었을지도.</p>
+
+<p>끝으로, 제작년부터 쭈욱 주위 사람들에게 강조해오던 건데, 다량의 데이터를 표현해야 하는 인터페이스를 설계할 때 왜 다들 비트맵 기반의 픽셀 고정 스타일 - 이른바 디자이너 의존적인 통짜 인터페이스 - 을 고집하는지 모르겠다. 바야흐로 시대적 대세는 프로그래머 지향적인 벡터 기반 인터페이스이며 (아아 사실 개인적 취향이라는 점, 인정한다), 특히나 데이터를 많이 표현하게 될 경우에는 텍스트를 최대한 활용해야 하는 법이다. 윈도우 가장자리 디자인을 다듬는 시간에 멋진 배경 그림 하나 더 넣고, 더욱 미려한 폰트를 구매하고, 게임 컨텐트에 집중하는게 시간과 돈을 절약하면서도 사용자에게 더 큰 감동을 불러일으킬 수 있다고 믿는다.</p>
+
+<p>ps. 스케일폼 그동안 돈 많이 벌었겠다. 쳇.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Teamcide]]></title>
+    <link href="http://reiot.com/2009/01/12/teamcide/"/>
+    <updated>2009-01-12T09:04:43+09:00</updated>
+    <id>http://reiot.com/2009/01/12/teamcide</id>
+    <content type="html"><![CDATA[<div>
+
+[caption id="" align="alignnone" width="478" caption="Micro management (from conveniencebits.com)"]<a href="http://conveniencebits.com/2008/07/25/micromanaging-is-positive/"><img src="http://conveniencebits.com/pics/micromanage.jpg" title="Micromanagement" ></a>[/caption]
+
+</div>
+
+
+<div>Teamcide는 최근에 구독을 시작한 [코딩 호러](http://www.codinghorror.com/)의 [마이크로매니지먼트 좀비](http://www.codinghorror.com/blog/archives/001205.html)라는 글에서 발견한 7가지 팀관리의 안티 패턴이다. 알고 보니 피플웨어에서 소개된 이야기라고 해서 책을 찾아보려고 했는데, 어딘가에 쳐박혀 있는지 책이 보이지 않아, [일본어 웹문서 번역](http://translate.google.com/translate?prev=&hl=ko&ie=UTF-8&u=http://yuuntim.fc2web.com/chapter20.html&sl=auto&tl=ko&history_state0=)을 통해서 짤막하게만 정리해본다.</div>
+
+
+<div>
+
+    - 자기 방어적인 관리(Defensive Management)
+    - 관료주의(Bureaucracy)
+    - 팀원들을 여기 저기로 흩어 놓아서, 이동 거리를 멀게 하기(Physical Separation)
+    - 한 명에게 여러 가지 작업을 시키기(Fragmentation of People's Time)
+    - 납기일을 위해 품질을 희생하기(Quality Reduction of the Product)
+    - 무의미한, 또는 가짜 데드라인(Phony Deadlines)
+    - 파벌이 무서워서 프로젝트 종료 후 팀을 해체하기(Clique Control)
+
+</div>
+
+
+<p>거리 이야기는 이제 상식 수준이고, 마지막 파벌 이야기는 좀 비현실적이긴 한데, 가짜 데드라인 같은 이야기는 나도 종종 유혹을 느꼈기에, 이 시간을 빌어 씁쓸한 반성을 해본다.</p>
+
+<p>때로는 빠른 의사 결정과 그에 따른 무한한 책임을 지는 <a href="http://seoworld.net/tt/261">잡스 같은 카리스마적인 독재자</a>와 일해보고 싶기도 하다. 다만, 거의 무개념 폭군이라는 이미지가 강한 초기의 잡스보다는, 이제 필 쉴러 아저씨에게 키노트 진행을 양보(?)한 최근의 잡스가 더 나을 것 같다.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Redmine]]></title>
+    <link href="http://reiot.com/2009/01/08/redmine/"/>
+    <updated>2009-01-08T07:36:12+09:00</updated>
+    <id>http://reiot.com/2009/01/08/redmine</id>
+    <content type="html"><![CDATA[<p><a href="http://www.redmine.org/screenshots/gantt.png"><img src="http://www.redmine.org/screenshots/gantt_tn.png"></a></p>
+
+<p><a href="http://bitnami.org/stack/mantis">bitnami mantis</a> 는 한글이 안되고, trac은 뭔가 플러그인 설치가 귀찮아서, 아<a href="http://www.redmine.org/wiki/redmine/Features">름다운 간트 차트</a>도 지원하는  <a href="http://bitnami.org/stack/redmine">bitnami redmine </a>을 써보기로 했다. (<a href="http://twiny.tistory.com/1676">twiny 님</a> 감사~)</p>
+
+<p>평소대로라면 최신 버전(0.8)을 위해 ruby 와 rails 부터 설치했겠지만, 이런 삽질은 꿈도 못 꿀 정도로 바빠서, 그냥 0.7 버전을 마음 편하게 깔아버렸다. 한글 문제(이슈, 파일 업로드)는 전혀 없었고, SMTP와 https svn 저장소 연결만 남은 상태인데, 각각 한번씩 해보고 연결이 안되길래 과감하게 포기했다. 참고로, <a href="http://www.redmine.org/wiki/redmine/ThemeBasecamp">베이스캠프 테마</a>를 설치하면 mantis 보다 100배 미려한 화면을 볼 수 있다. :)</p>
+
+<p>아쉬운 점이라면 위키 포맷이 익숙치 않은 textile 이라는 점과, 이미 <a href="http://www.gtdinbox.com/">GTDinbox </a>에 적응해버렸다는 정도. 그러고보니 GTD를 지원하는 이슈 관리 시스템은 없을까나~</p>
+
+<p>ps. 드디어 SQL 2005 스키마의 개별 객체들을 <a href="http://www.sqlservercentral.com/articles/Administering/2896/">각각 SQL 로 추출해주는 방법</a>을 찾았다. 소스 코드르 다운받아서 약간만 수정해주면 SQL  스키마의 버전 관리는 끝!</p>
+]]></content>
+  </entry>
+  
+</feed>
