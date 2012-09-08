@@ -76,7 +76,7 @@
 <ul>
 <li>invalid byte sequence in UTF-8 : 이건 본문 중에 애매한 문자열이 있다는 건데, 강제로 유니코드로 변환했음에도 발생한다. 알아서 찾아서 고치는 수 밖에 없다. 단 octopress 소스를 아래와 같이 고쳐야 한다.</li>
 </ul>
-<pre><code>ruby octopress/plugins/post_filters.rb
+<pre><code>#ruby octopress/plugins/post_filters.rb
     def do_layout(payload, layouts)
       pre_render if respond_to?(:pre_render)
       begin
