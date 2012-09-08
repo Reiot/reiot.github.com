@@ -63,6 +63,82 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/07/01/fps-게임의-복제-프레임워크-분석/">FPS 게임의 복제 프레임워크 분석</a> <small>2006-07-01</small></h1>
+	</div>
+	<div><p>다음 글을 읽기 전에 우선 <a href="http://reiot.cafe24.com/archives/571">전통적인 FPS게임의 네트워크 구현</a>부터 읽어보기를 권장한다. 참고한 원문은 <a href="http://developer.valvesoftware.com/wiki/Networking_Entities">하프2위키:Networking_Entities</a>이며, 단순 번역이 아니라 코드를 기반으로 정리한 내용임을 미리 밝힌다.</p>
+<p>가장 먼저 알아야 할 점은, 소스 엔진에서는 서버에서 클라이언트로의 단방향 복제(replication)만이 일어난다는 점이다. 반대의 경우에는 입력 샘플링과 메시징 시스템만 사용할 수 있다. 아무래도 양방향 복제의 경우 경쟁 조건 같은 문제들이 골치 아프기 때문에, 자체적인 복제 프레임워크를 구축하는 분들에게도 단방향 복제만 구현하는 것을 권장한다.</p>
+<p><a class="imagelink" title="entity.png" href="http://boxcatstudio.files.wordpress.com/2009/07/entity.png"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/entity.png" src="http://boxcatstudio.files.wordpress.com/2009/07/entity.png" /></p>
+<p>복제는 서버와 클라이언트에 정의된 엔티티(entity) 사이에서 이루어진다. 이때 동일한 클래스를 C/S 공통으로 사용하는 대신, 서버에서는 CBaseEntity 를, 클라이언트에서는 C_BaseEntity를 상속받은 엔티티를 각각 따로 정의한다.</p>
+<p>복제의 최소 단위는 엔티티 내부에 존재하는 네트워크 변수(CNetworkVar)이다. 단순히 이름이나 좌표 같은 visual 데이터 뿐만이 아니라 애니메이션 프레임이나 물리 엔진에서 사용하는 미시적인 데이터까지도 복제되는 것을 확인할 수 있다. 참고로 CBaseEntity -&gt; C_BaseEntity 간에 복제되는 네트워크 변수가 26가지나 되는 걸로 봐서, 소스 엔진에서의 복제 프레임워크의 비중이 매우 크다는 것을 알 수 있다.</p>
+<pre><code>
+// server base entity
+class CBaseEntity : public IServerEntity {
+    CNetworkVector( m_vecOrigin );
+    CNetworkQAngle( m_angRotation );
+};
+
+// client base entity
+class C_BaseEntity : public ICilentEntity {
+    Vector m_vecOrigin;
+    QAngle m_angRotation;
+};
+
+</code></pre>
+
+<p>네트워크 변수들은 다양한 연산자 오버로딩을 지원하기 때문에 일반적인 빌트인 타입처럼 사용할 수 있다. 또한, 서버 엔티티의 특정 네트워크 변수가 바뀌게 되면 해당 엔티티의 dirty flag가 자동적으로 켜져서 다음 번 스냅샷에 포함되게 되어 있다. 최종적인 코드는 꽤 간단해보이지만, 이를 구현하기 위해서 매크로와 void * 를 이용한 offset 처리, 그리고 템플릿이 꽤나 복잡하게 얽혀 있어서, 분석에 애를 좀 먹었다. 관심 있는 사람은 내공 증진을 위해 한번 훑어 보는 것을 권장한다.</p>
+<p>네트워크 변수의 복제는 비트스트림(bitbuf)을 통해서 이루어진다. 각각의 엔티티에는 네트워크 변수들을 비트스트림으로 변환하는 방법을 담은 데이터 테이블(DataTable)이 클래스 static 변수로 정의되어 있다. 앞서 밝혔듯이 오직 단방향 복제만 지원되기 때문에, 서버 엔티티의 데이터 테이블은 Send Table, 클라이언트 엔티티의 데이터 테이블은 Recv Table 이라고 불린다. 데이터 테이블을 만드는 함수인 SendProp()과 RecvProp()들을 이용하면, 네트워크 변수를 주고 받을 때, 타입과 비트 크기, 복제용 플래그, 변경될 경우에 호출할 프록시 함수(==콜백 함수)등을 지정할 수 있다.</p>
+<pre><code>
+// CBaseEntity Send Table
+
+IMPLEMENT_SERVERCLASS_ST_NOBASE( CBaseEntity, DT_BaseEntity )
+    ...
+    SendPropVector  (SENDINFO(m_vecOrigin), -1,  SPROP_COORD|SPROP_CHANGES_OFTEN,
+        0.0f, HIGH_DEFAULT, SendProxy_Origin ),
+    SendPropQAngles (SENDINFO(m_angRotation), 13, SPROP_CHANGES_OFTEN, SendProxy_Angles ),
+    ...
+END_SEND_TABLE()
+
+// C_BaseEntity Recv Table
+
+BEGIN_RECV_TABLE_NOBASE(C_BaseEntity, DT_BaseEntity)
+    ...
+    RecvPropVector( RECVINFO_NAME( m_vecNetworkOrigin, m_vecOrigin ) ),
+    RecvPropQAngles( RECVINFO_NAME( m_angNetworkAngles, m_angRotation ) ),
+    ...
+END_RECV_TABLE()
+</code></pre>
+
+<p>여기까지만 구현하면 기본적인 객체 및 데이터의 복제는 끝난다. 그러나 이것만으로 랙이나 손실 등의 다양한 예외 상황을 처리하기는 곤란하다. 이것이 바로 복제 프레임워크가 Interpolation 을 지원해야 하는 이유이다. 손쉽게 외삽과 내삽을 구현하려면 복제된 데이터의 히스토리를 일정 분량동안 저장한 후 다양한 보간 함수들을 이용해서 예측을 해야 하는데, 이런 기능을 도와주는 것이 바로 IInterpolatedVar 이다. 어떤 네트워크 변수가 Interpolate 를 지원하게 하려면 해당 엔티티에 CInterpolatedVar 를 함께 정의한 후, AddVar()를 이용해서 매핑을 시키면 된다. 그러면 네트워크 변수가 서버에 의해 업데이트 될 때마다 히스토리가 쌓이게 되며 필요할 때마다 적당히 보간된 값을 얻어올 수 있게 된다.</p>
+<pre><code>
+// client base entity
+class C_BaseEntity : public ICilentEntity {
+  Vector m_vecOrigin;
+  CInterpolatedVar m_iv_vecOrigin;
+  QAngle m_angRotation;
+  CInterpolatedVar m_iv_angRotation;
+};
+
+C_BaseEntity::C_BaseEntity() :
+    m_iv_vecOrigin( &quot;m_iv_vecOrigin&quot; ),
+    m_iv_angRotation( &quot;m_iv_angRotation&quot; )
+{
+    AddVar( &amp;m_vecOrigin, &amp;m_iv_vecOrigin, LATCH_SIMULATION_VAR );
+    AddVar( &amp;m_angRotation, &amp;m_iv_angRotation, LATCH_SIMULATION_VAR );
+}
+</code></pre>
+
+<p>정리하면, 소스 엔진의 복제 프레임워크는</p>
+<ul>
+<li>상속을 통해서 객체 복제를 구현한다. 반면 언리얼 엔진에서는 스크립트와 C++간의 바인딩을 이용한다. 아무래도 속도는 C++ 레벨에서 복제하는 소스 엔진 쪽이 더 우세할 것으로 추측한다.</li>
+<li>복제하려는 데이터의 선별은 C++ 클래스 디자인 단계에서 이루어진다. 데이터의 송수신은 매크로로 간단히 구현되며, 객체 단위가 아니라 데이터 단위로 콜백을 지정할 수 있다.</li>
+<li>Interpolation은 히스토리를 관리할 객체를 더 필요로 하며, 원본 데이터가 바뀔 때마다 자동적으로 히스토리에 쌓이도록 되어 있어서, 개발자의 스트레스를 꽤 많이 덜어줄 것 같다.</li>
+</ul>
+<p>어제 위 내용을 토대로 기존에 작성된 복제 프레임워크를 뜯어 고치다가 영식군이 힐끗 보고 말하길 "도대체 우리 게임에 객체가 몇 개나 되길래 그렇게 최적화를 하냐?"는 이야기를 듣고 적당히 포기하기로 했다. 흑. </a></p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/06/23/vs2005-vs2003-함께-사용하기/">VS2005 & VS2003 함께 사용하기</a> <small>2006-06-23</small></h1>
 	</div>
 	<div><p>Visual Studio 2005를 설치한 다음 Visual Studio 2003을 설치하면, 우선 탐색기에서 솔루션과 프로젝트 파일에 대한 연결이 깨지며, 두번째로는 크래시 발생시 디버거 선택 창에서 VS2005 가 사라진다. 원래 VS2005에서는 이런 문제를 해결하기 위해서 Visual Studio Version Selector(%ProgramFiles%\Common Files\Microsoft Shared\MSEnv\VSLauncher.exe)를 제공하는데, 설치 순서가 바뀌는 바람에 이게 날아가는 바람에 생기는 문제들이다.</p>
@@ -474,63 +550,6 @@ end</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a> <small>2006-06-04</small></h1>
-	</div>
-	<div><h2>multiple result set + parameter binding</h2>
-<pre><code>- 캐릭터 정보 로딩과 같이, 하나의 프로시저에서 여러 테이블의 row 들을 select 하면서 파라미터도 바인딩해야 할 경우, static binding 으로는 구현할 수 없으며, CDynamicParameterAccessor::GetParam()를 이용해야 한다.
-- 파라미터의 경우, select 해온 모든 result set 을 소진한 후, 가장 마지막에 읽어와야 한다. 즉 DB_S_NORESULT == GetNextResult(...); 를 실행한 후에만 유효하다는 뜻이다. 만약, 그 전에 읽게 되면 garbage 가 리턴된다.
-- Bind()와 무관하므로, GetInterface()!=NULL 체크를 할 필요가 없다.
-</code></pre>
-<h2>CCommand::Prepare()</h2>
-<p>한번 생성후 재사용하는 구조가 필요하다.</p>
-<h2>GetNextResult(rowCount)</h2>
-<p>웬지 계속 -1 이 넘어오는 걸로 봐서 뭔가 문제가 있는 듯? property 설정이 필요한가?</p>
-<h2>DateTime to String</h2>
-<pre><code>- VarBstrFromDate 이걸 써야 될까나~
-- use
-</code></pre>
-<p>HRESULT DataConvert (<br />
-DBTYPE          wSrcType,<br />
-DBTYPE          wDstType,<br />
-DBLENGTH        cbSrcLength,<br />
-DBLENGTH <em>      pcbDstLength,<br />
-void </em>          pSrc,<br />
-void <em>          pDst,<br />
-DBLENGTH        cbDstMaxLength,<br />
-DBSTATUS        dbsSrcStatus,<br />
-DBSTATUS </em>      pdbsStatus,<br />
-BYTE            bPrecision,<br />
-BYTE            bScale,<br />
-DBDATACONVERT   dwFlags);</p>
-<h2>Connection Pooling</h2>
-<pre><code>- SqlServer Provider 를 기반으로, ThreadPooling 을 이용해 쿼리를 할 경우, DataSource 가 1개이고 Session 이 N 개를 생성했다면, 실제 DB에 대한 연결은 N 개가 된다.
-- 즉, Session 이 내부적으로 연결 풀링을 사용하게 되므로, DataSource 객체는 1개만 만들어도 된다.
-</code></pre>
-<h2>어떤 Accessor 를 사용할 것인가?</h2>
-<p>MSDN 의 비교표를 간략하게 요약하면 다음과 같다.</p>
-<pre><code>- CAccessor : 매크로를 이용한 컴파일 타임 바인딩이므로 성능 면에서 가장 우수하지만, 쉽게 말해서 하드코딩이므로 귀찮은 작업들이 많다. 컬럼 및 파라미터 바인딩 모두 지원.
-- CDynamicAccessor : 런타임 바인딩. 따라서 컬럼 정보를 읽어와야한다. 대신 파라미터 바인딩은 불가능. 뭔가 컴파일 타임에 정보를 알기 힘든 경우, 또는 multiple result set 을 리턴하는 프로시저에 사용하면 된다.
-- CDynamicParameterAccessor : CDynamicAccessor 에 파라미터 바인딩 기능이 추가되었다. 당연히 더욱 느려졌다.
-- CDynamicStringAccessor : CDynamicAccessor 와 유사하지만 컬럼값을 스트링으로 리턴한다.
-- CManualAccessor : AddBindEntry(), AddParameterEntry() 를 이용해서 수동으로 컬럼과 파라미터를 바인딩한다. 아마 CAccessor 에 이어 두번째로 빠른 듯.
-- CXMLAccessor : CDynamicStringAccessor 와 같지만, XML 스트링의 형태로 컬럼값을 리턴한다.
-</code></pre>
-<p>성능적인 순서로 정렬해 본다면 대충 다음과 같지 않을까? (이건 본인의 추측)</p>
-<pre><code>- CAccessor &lt; CManualAccessor &lt; CDynamicAccessor &lt; CDynamicStringAccessor &lt; CXMLAccessor &lt; CDynamicParameterAccessor
-</code></pre>
-<p>단, 파라미터 바인딩을 지원하는 넘은 아래의 3가지 뿐이다.</p>
-<pre><code>- CAccessor
-- CManualAccessor
-- CDynamicParameterAccessor
-</code></pre>
-<p>see also</p>
-<pre><code>- [Which accessor should I use?](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/vcfaqwhichaccessorshouldiuse.asp) from MSDN
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -551,6 +570,10 @@ DBDATACONVERT   dwFlags);</p>
 	</li>
 	
 	<li>
+		<a href="/2006/07/01/fps-게임의-복제-프레임워크-분석/">FPS 게임의 복제 프레임워크 분석</a>
+	</li>
+	
+	<li>
 		<a href="/2006/06/23/vs2005-vs2003-함께-사용하기/">VS2005 & VS2003 함께 사용하기</a>
 	</li>
 	
@@ -564,10 +587,6 @@ DBDATACONVERT   dwFlags);</p>
 	
 	<li>
 		<a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a>
 	</li>
 	
 </ul>

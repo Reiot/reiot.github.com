@@ -63,6 +63,49 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/04/15/first-class-object/">First Class Object</a> <small>2006-04-15</small></h1>
+	</div>
+	<div><table>
+<thead>
+<tr>
+<th></th>
+<th>First Class Object</th>
+<th>Second Class Object</th>
+<th>Third Class Object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>함수처럼 호출될 수 있는가?</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>파라미터로 넘겨질 수 있는가?</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>함수의 리턴값으로 사용될 수 있는가?</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>변수에 대입될 수 있는가?</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/04/15/ethereal-tips/">Ethereal Tips</a> <small>2006-04-15</small></h1>
 	</div>
 	<div><p><strong>Local Packets</strong></p>
@@ -150,68 +193,6 @@ set PATHTOFIXES=Drive:\Update
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/03/22/relational-database-guidelines-for-mmogs-요약/">Relational Database Guidelines For MMOGs 요약</a> <small>2006-03-22</small></h1>
-	</div>
-	<div><p>원문 보기 : <a href="http://www.gamasutra.com/resource_guide/20030916/lee_01.shtml">Relational Database Guidelines For MMOGs</a> from Gamasutra</p>
-<h2>Naming Convention</h2>
-<ul>
-<li>프로그램에서의 이름과 DB에서의 이름을 일치시켜라.</li>
-<li>user-defined type 을 사용해라. (단 타입이 변할 경우 낭패!)</li>
-<li>필요할 경우 축약어를 사용해도 좋다.</li>
-</ul>
-<h2>Tables</h2>
-<ul>
-<li>정수형 키를 사용할 경우, 가능한한 큰 타입의 키값을 사용할 것. 서비스 도중 타입을 바꾸는 것은 권장하지 않는다.</li>
-<li>smart key(키값 자체의 의미를 담고 있는 키)는 절대 사용하지 말 것. 변경, 확장 및 유지 보수에 애로 사항이 꽃핀다.</li>
-<li>복합 키의 경우, 각 키값의 정렬 순서는 일치하는 편이 좋다. (하나는 증가, 하나는 감소..이러면 곤란)</li>
-<li>여러 개의 데이터베이스에서 동기화 되어야 할 키가 필요하다면, 범위를 잘 나눠야 한다. 그래야 나중에 합칠 때 좋다.</li>
-</ul>
-<h2>Table Index</h2>
-<ul>
-<li>정말 필요한 경우에만 인덱스를 추가할 것.</li>
-<li>프로파일러에서 느리다고 판명된 경우, 인덱스 추가 전후의 속도를 체크해서 인덱스 추가 후에 확실히 빨라졌다면 인정.</li>
-</ul>
-<h2>Schema Structure</h2>
-<ul>
-<li>denormalization 은 흑마술이므로, 자신 없으면 도전하지 말 것. 정 하려면 아래와 같은 룰을 따를 것.</li>
-<li>static 데이터는 서버 시작시 한꺼번에 메모리에 올릴 것.</li>
-<li>게임 객체 데이터 로딩시 - 여러 개의 테이블을 조인해야 하더라도 - 하나의 쿼리로 모든 데이터를 읽어들일 것. (당연히 그래야 하는 게 아닌가?.?)</li>
-<li>캐릭터와 소유 아이템 등 복잡한 데이터를 로딩할 때, 정말 필요할 때까지 로딩을 연기할 것(-_-). 또한, 이런 로딩도 비동기적이어야 함. (비동기 체인 쿼리?)</li>
-<li>계층적인 데이터를 실시간으로 변경하지 않도록 하라. (가령 인벤토리 내에 인벤토리 내의 인벤토리 같은 설계는 피할 것)</li>
-<li>데이터베이스 안에 또다른 데이터베이스를 만들지 말 것. 가령 여러 정보를 담고 있는 바이너리 컬럼이라든지, 컬럼 2개를 이용해서 1개의 값을 나타내는 등 SQL 쿼리로 다양한 데이터를 뽑아낼 때 추가적인 lookup 테이블이 필요한 디자인은 대략 좋지 않다.</li>
-</ul>
-<h2>Stored Procedure</h2>
-<ul>
-<li>{{{SELECT * FROM ...}}} 보다는 실제 컬럼을 지정하는 편이 좋다.</li>
-<li>모든 라이브러리가 프로시저의 리턴값을 받도록 되어 있진 않으므로, {{{SELECT 1; RETURN}}} 과 같이 SELECT 를 이용하는 것을 권장한다.</li>
-</ul>
-<h2>Transaction</h2>
-<ul>
-<li>여러 개의 테이블을 수정하는 경우 필수적으로 사용할 것. (당연하징)</li>
-<li>MSSQL 은 nested transaction 을 지원하지만, 부분적인 캔슬은 지원하지 않으므로 주의할 것.</li>
-</ul>
-<h2>Joins</h2>
-<ul>
-<li>Perform joins on columns that are system assigned keys with good cardinality values</li>
-<li>Add an index that verifiably speeds access if a join column is not the primary key on a table.</li>
-<li>Keep the number of different tables in the join down to the minimum, particular if the query will return a large number of rows from one or more tables.</li>
-<li>Offload the query to server startup time when we can better afford slower than optimal performance.</li>
-</ul>
-<h2>Null Value</h2>
-<ul>
-<li>Any operations attempted against a NULL value will give NULL as the result. (even NULL  NULL) :(</li>
-</ul>
-<h2>Referential Integrity</h2>
-<ul>
-<li>RI is not optional</li>
-<li>아이템 복사 등을 막으려면 unique + FK 를 사용할 것.</li>
-<li>컬럼 제약조건을 애용할 것.</li>
-</ul></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -232,6 +213,10 @@ set PATHTOFIXES=Drive:\Update
 	</li>
 	
 	<li>
+		<a href="/2006/04/15/first-class-object/">First Class Object</a>
+	</li>
+	
+	<li>
 		<a href="/2006/04/15/ethereal-tips/">Ethereal Tips</a>
 	</li>
 	
@@ -245,10 +230,6 @@ set PATHTOFIXES=Drive:\Update
 	
 	<li>
 		<a href="/2006/03/23/doxygen/">Doxygen</a>
-	</li>
-	
-	<li>
-		<a href="/2006/03/22/relational-database-guidelines-for-mmogs-요약/">Relational Database Guidelines For MMOGs 요약</a>
 	</li>
 	
 </ul>

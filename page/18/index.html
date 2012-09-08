@@ -63,6 +63,19 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/02/22/boostasio-documentation/">boost::asio documentation</a> <small>2008-02-22</small></h1>
+	</div>
+	<div><p><a href="http://c10k.googlecode.com/svn/trunk/Doxyfile">doxygen 환경 파일</a>과 <a href="http://c10k.googlecode.com/svn/trunk/asio.chm">직접 컴파일한 CHM 파일</a>을 구글 코드에 올려뒀으니 관심있는 분들의 많은 애용 바랍니다.</p>
+<p>단, chm 파일이 80메가가 넘으므로, 환경 파일을 받고 OUTPUT_DIRECTORY라든지 STRIP_FROM_PATH 등을 적당히 고친 후 직접 컴파일하는게 나을 수도 있겠네요 :)</p>
+<p>제 홈페이지에서도 직접 받으실 수 있습니다.</p>
+<pre><code>- [boost asio doxygen configuration](http://reiot.cafe24.com/Doxyfile)
+- [boost asio compiled html(chm)](http://reiot.cafe24.com/asio.chm)
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/02/18/getting-real/">Getting Real</a> <small>2008-02-18</small></h1>
 	</div>
 	<div><p><a href="http://gettingreal.37signals.com/GR_kor.php">Getting Real</a>은 단지 웹개발에 대한 지침이기도 하지만, 쌓여 있는 버그와 뒤죽박죽한 요구 사항 속에서 고민하는 게임 개발자에게도 꽤 유익한 내용이다. 가끔씩 길을 잘못 들고 있지 않을까 하는 불안감이 들 때마다 읽어봐야겠다.<br />
@@ -458,202 +471,6 @@ t.join();
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/02/04/boostasio-tcp-resolver/">boost::asio TCP resolver</a> <small>2008-02-04</small></h1>
-	</div>
-	<div><p>한가로운 주말, 최신 BOOST 를 vc81로 빌드하고 <a href="http://asio.sourceforge.net/">ASIO</a>를 만지작거려 봤다. 대충 훑어본 바, 이 정도면 지금 코드에서 충분히 ACE를 제거해도 될 수준의 기능인 듯하다. 어차피 둘 다 디버깅 들어가면 템플릿 사이에서 헤매이는 건 마찬가지니...</p>
-<!--more-->
-
-<pre><code>
-// TODO multiple ip address in localmachine (..localmachine)
-BOOST_AUTO_TEST_CASE( test_resolver )
-{
- boost::asio::io_service io_service;
- boost::system::error_code error;
- tcp::resolver resolver(io_service);
- tcp::resolver::iterator end_;
-
- // localmachine
- {
-  tcp::resolver::query query(boost::asio::ip::host_name(),&quot;&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;192.168.10.101&quot; );
- }
-
- // host -&gt; ip
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
- }
-
- // localhost
- {
-  tcp::resolver::query query(&quot;localhost&quot;,&quot;&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;127.0.0.1&quot; );
-  if ( ++iterator != end_ )
-  {
-   _endpoint = *iterator;
-   BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;192.168.10.101&quot; );
-  }
- }
-
- // http
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;http&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
-  BOOST_CHECK_EQUAL( _endpoint.port(), 80 );
- }
-
- // ftp
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;ftp&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
-  BOOST_CHECK_EQUAL( _endpoint.port(), 21 );
- }
-
- // telnet
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;telnet&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
-  BOOST_CHECK_EQUAL( _endpoint.port(), 23 );
- }
-
- // unknown host
- {
-  tcp::resolver::query query(&quot;reiot1.com&quot;,&quot;&quot;);
-  resolver.resolve(query,error);
-  BOOST_CHECK_EQUAL( error.value(), boost::asio::error::host_not_found );
- }
-
- // unknown service
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;test&quot;);
-  resolver.resolve(query,error);
-  BOOST_CHECK_EQUAL( error.value(), boost::asio::error::service_not_found );
- }
-}
-
-void print_address(const boost::system::error_code&amp; e, tcp::resolver::iterator itr )
-{
- tcp::endpoint endpoint_ = *itr;
- BOOST_MESSAGE( endpoint_.address() );
-}
-
-class AsyncResolveHandler
-{
-public :
- AsyncResolveHandler( int errorcode ) : address_(&quot;&quot;), port_(0), errorcode_(errorcode) {}
- AsyncResolveHandler( std::string addr, int port = 0 ) : address_(addr), port_(port) {}
- void operator() (const boost::system::error_code&amp; e, tcp::resolver::iterator itr )
- {
-  if ( !e )
-  {
-   tcp::endpoint endpoint_ = *itr;
-   BOOST_CHECK_EQUAL( endpoint_.address().to_string(), address_ );
-   if ( port_ != 0 )
-   {
-    BOOST_CHECK_EQUAL( endpoint_.port(), port_ );
-   }
-  }
-  else
-  {
-   BOOST_CHECK_EQUAL( e.value(), errorcode_ );
-  }
- }
- std::string address_;
- int port_;
- int errorcode_;
-};
-
-BOOST_AUTO_TEST_CASE( test_async_resolver )
-{
- boost::asio::io_service io_service;
-
- tcp::resolver resolver(io_service);
-
- boost::system::error_code error;
-
- // host -&gt; ip
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-
- // localhost -&gt; 127.0.0.1
- {
-  tcp::resolver::query query(&quot;localhost&quot;,&quot;&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(&quot;127.0.0.1&quot;));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-
- // http
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;http&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;,80));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
-
- }
-
- // ftp
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;ftp&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;,21));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-
- // telnet
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;telnet&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;,23));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-
- // unknown host
- {
-  tcp::resolver::query query(&quot;reiot1.com&quot;,&quot;&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(boost::asio::error::host_not_found));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-
- // unknown service
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;test&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(boost::asio::error::service_not_found));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-}
-
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -674,6 +491,10 @@ BOOST_AUTO_TEST_CASE( test_async_resolver )
 	</li>
 	
 	<li>
+		<a href="/2008/02/22/boostasio-documentation/">boost::asio documentation</a>
+	</li>
+	
+	<li>
 		<a href="/2008/02/18/getting-real/">Getting Real</a>
 	</li>
 	
@@ -687,10 +508,6 @@ BOOST_AUTO_TEST_CASE( test_async_resolver )
 	
 	<li>
 		<a href="/2008/02/09/boost-test-thread-safe/">boost::test thread safe</a>
-	</li>
-	
-	<li>
-		<a href="/2008/02/04/boostasio-tcp-resolver/">boost::asio TCP resolver</a>
 	</li>
 	
 </ul>

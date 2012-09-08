@@ -63,6 +63,17 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/02/14/lag-compensation/">Lag Compensation</a> <small>2006-02-14</small></h1>
+	</div>
+	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" /></p>
+<p>P2P 게임의 난제는 바로 동기화이다. 이는 내가 지금 보고 있는 것은 다른 사람의 과거이며, 때문에 100% 완벽한 동기화는 불가능하다는 사실에서 출발하게 된다. 보통은 <a href="http://www.g-matrix.pe.kr/feature/multi/deadreckoning.htm">Dead Reckoning</a> 으로 적당히 해결하게 되는데, 모든 사람들이 공 하나만 바라보는 스포츠 게임처럼 동기화가 치명적인 게임에서는 이것만으로는 부족한 감이 있다. 카운터 스트라이크와 같은 Dedicated 방식의 게임에서는 누군가가 총을 쏠 경우 그 사람의 latency 를 감안해서 서버에서 타겟의 과거 위치에 대해서 계산해주는 <a href="http://www.ra.is/unlagged/">랙 보상</a> 기법을 지원해주는데, 이걸 과연 P2P 게임에 도입할 수 있을지가 의문이다.</p>
+<p>완벽한 동기화를 고집한다면야 RTS게임에서 채택하는 synchronous P2P를 채택하면 되지만, 워크래프트3에서도 6:6밖에 안되는데 우리 수준에서 9:9+a 를 지원한다는 것은 사실상 불가능한 일. 그렇다고 디아블로2처럼 IDC수준으로 서버를 세팅해서 트래픽을 모두 감당한다는 건 너무 돈이 많이 들고... 과연 사악한 인터넷 환경에서 동기화도 잘 맞고 속도도 빠른 방식은 무엇일까? 고작 생각난다는 건 걔중에서 제일 빠르고 사양도 제법 좋은 놈의 컴퓨터에다가 서버 역할을 맡긴다는 건데, 이건 너무 구식이란 말이다. 흑.</p>
+<p>이번 기회에 체계적으로 P2P와 동기화에 대해서 제대로 공부 좀 해야 겠다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/02/13/sc-failure/">sc failure…</a> <small>2006-02-13</small></h1>
 	</div>
 	<div><p><a title="scfailure.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" /></a></p>
@@ -112,16 +123,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/02/05/ogre-for-psp/">Ogre for PSP</a> <small>2006-02-05</small></h1>
-	</div>
-	<div><p><img alt="http://www.ogre3d.org/images/M_images/ogrebtn.png" src="http://www.ogre3d.org/images/M_images/ogrebtn.png" /> PSP에서 3D 프로그래밍을 하는 법을 검색하다가 우연히 <a href="http://www.ogre3d.org/phpBB2/viewtopic.php?p=123549">Ogre3D 엔진이 PSP로 포팅된다는 이야기</a>를 Ogre 포럼에서 찾아냈다. PPC 포팅을 담당한 개발자가 하는 김에 PSP포팅도 맡겠다는 이야기인 듯한데... 2월 내에는 나오지 않을까 하는 희망을 품어본다. SDL 특히 pygame이 포팅된다는 소문도 들리는 시점에, Ogre3D까지 포팅이 되면 결국 PSP에서는 python으로도 3D 프로그래밍이 가능해진다는 소리가 되는 셈이다.</p>
-<p>그나저나 OGRE를 보고도 /오우거/ 대신 글자 그대로 장난삼아 읽던 /오그레/라는 발음이 연상되어 큰일이다;;</p>
-<p>ps. <a href="http://luaplayer.org">LuaPlayer</a>가 <a href="http://www.goop.org/psp/gl/">PSPGL</a> 기반으로 재작성되고 있는 중인데, <a href="http://forums.ps2dev.org/viewtopic.php?t=4591">3D보다는 2D쪽 기능에 한정</a>될 것 같다.</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -142,6 +143,10 @@
 	</li>
 	
 	<li>
+		<a href="/2006/02/14/lag-compensation/">Lag Compensation</a>
+	</li>
+	
+	<li>
 		<a href="/2006/02/13/sc-failure/">sc failure…</a>
 	</li>
 	
@@ -155,10 +160,6 @@
 	
 	<li>
 		<a href="/2006/02/10/pilot-movie/">파일럿 무비</a>
-	</li>
-	
-	<li>
-		<a href="/2006/02/05/ogre-for-psp/">Ogre for PSP</a>
 	</li>
 	
 </ul>

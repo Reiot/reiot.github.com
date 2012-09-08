@@ -63,6 +63,88 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2005/10/22/find_if-와-boostlambda/">find_if 와 boost::lambda</a> <small>2005-10-22</small></h1>
+	</div>
+	<div><p>STL 컨테이너를 만지작거리다보면 종종 algorithm 을 써서 코드를 간략하게 표현하고픈 충동이 든다. 그런데 STL에서 제공하는 각종 function template 의 파워는 생각보다 약하다. 가령 다음과 같이 컨테이너 내부 객체의 멤버 함수의 실행 결과를 기준으토 무언가를 하고 싶은 경우...</p>
+<pre><code>class Focker
+{
+public :
+    Focker(int v) : value(v) {}
+    int GetValue() const { return value; }
+private:
+    int value;
+};
+
+typedef list FOCKERS;
+
+FOCKERS fockers;
+
+fockers.push_back( Focker(1) );
+fockers.push_back( Focker(2) );
+fockers.push_back( Focker(3) );
+fockers.push_back( Focker(4) );
+fockers.push_back( Focker(5) );
+
+// how to find whose value ==3 ??
+</code></pre>
+<p>가장 단순한 방법으로는 하드코딩 함수자를 사용하면 된다.</p>
+<pre><code>class GetValueIs3
+{
+public :
+    GetValueIs3(){}
+    bool operator() ( const Focker &amp; f ) const
+    {
+        return f.GetValue() == 3;
+    }
+};
+
+FOCKERS::iterator itr;
+
+itr = find_if( fockers.begin(), fockers.end(), GetValueIs3() );
+assert( itr != fockers.end() );
+cout GetValue() GetValue() (),3),
+        mem_fun_ref(&amp;Focker::GetValue )) );
+</code></pre>
+<p>그래서 이걸 가능하게 하기 위해서 몇 시간동안 씨름하다가 mem_fun_ref 의 코드를 살짝 고쳐서 다음과 같은 코드를 만들어봤다.</p>
+<pre><code>template
+class my_const_mem_fun_ref_t
+    : public unary_function
+{
+public:
+    explicit my_const_mem_fun_ref_t(_Result (_Ty::*_Pm)() const, const _Fn &amp; f )
+        : _Pmemfun(_Pm), func(f)
+    {
+    }
+
+    typename _Fn::result_type operator()(const _Ty&amp; _Left) const
+    {
+        return (func((_Left.*_Pmemfun)()));
+    }
+
+private:
+    _Result (_Ty::*_Pmemfun)() const;   // the member function pointer
+    _Fn func;
+};
+
+template
+inline
+my_const_mem_fun_ref_t
+my_mem_fun_ref(_Result (_Ty::*_Pm)() const, const _Fn &amp; f)
+{
+    return (my_const_mem_fun_ref_t(_Pm,f));
+}
+
+itr = find_if( fockers.begin(), fockers.end(),
+    my_mem_fun_ref( &amp;Focker::GetValue, bind2nd(equal_to(),3) )
+);
+assert( itr != fockers.end() );
+cout GetValue() GetValue()
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2005/10/21/sourceanywhere-remote-vss-tools/">SourceAnyWhere - Remote VSS tools</a> <small>2005-10-21</small></h1>
 	</div>
 	<div><p>미국 출장가는 쉬귀군을 위해서 테스트를 해봐야겠다. 근데 이거 정품을 살바엔 cvs 나 subversion 을 쓰지..</p>
@@ -113,57 +195,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a> <small>2005-09-06</small></h1>
-	</div>
-	<div><h2>Overview</h2>
-<p>한동안 메신저 + zip 파일 기반의 배포 시스템을 고집하다가 더 이상 참을 수가 없어서 결국 <a href="http://www.itefix.no/cwrsync/">cwRsync </a>라는 툴을 테스트 해보게 되었다. Cygwin + rsync + openssh 를 NullSoft 인스톨러로 깔끔하게 패키징한 이 유틸리티는 약간의 삽질 만으로 간편하면서도 공짜 파일 배포 시스템을 구축할 수 있게 해준다. 당연히 호스트 접근 제어도 가능하고, SSH 를 통해서만 배포할 수도 있다.</p>
-<p>이전 프로젝트에서도 <a href="http://www.dillobits.com/insync.html">InSync </a>를 이용해서 팀 내부에 클라이언트를 배포했었다. 클라이언트 프로그래머가 최신 파일들을 특정 공유 폴더에다가 업데이트하면, 각자가 로컬에 설치된 프로그램을 실행해서 변경된 파일들을 받아오는 방식인데, 가끔 동시에 많은 사람이 업데이트를 받을 경우 문제가 있었고, 무엇보다도 shareware 여서 어둠과자를 사용해야만 했다.</p>
-<h2>Install</h2>
-<p>이번에 테스트한 것은 '안전하지 않은' no-ssh 배포 방식. 간단히 삽질한 내용을 정리해보면...</p>
-<ul>
-<li>우선 cwRsync 서버를 설치하고 rsyncd.conf 를 열어 모듈을 설정하라. 모듈은 rsync 로 파일을 받아갈 때의 대표 이름으로 CVS 의 그것과 같다. 일반적으로 서버측의 파일을 클라이언트에서 받아가므로 read only 는 true 로 설정할 것.</li>
-</ul>
-<p>[모듈명]<br />
-path = /cygdrive/드라이브/배포폴더<br />
-read only = true<br />
-transfer logging = yes</p>
-<ul>
-<li>prepare a directory for upload 명령을 실행해서 rsync 서버가 제대로 폴더를 읽고 쓸 수 있게 하라.</li>
-<li>서비스는 기본적으로 꺼져 있는 상태. 자동 실행으로 만든 다음 서비스를 시작하라. 또한 방화벽에서 TCP 873 포트를 열어주는 것을 잊지 말 것.</li>
-<li>클라이언트를 설치하고 배치 파일을 작성하라. 기본적으로 제공하는 cwrsync.cmd 파일을 복사한 다음 적절히 수정해주면 된다. 특정 rsync 서버의 모듈을 recursive 로 받아오려면 다음과 같이 하면 된다.</li>
-</ul>
-<p>rsync -avr 서버::모듈 /cygdrive/드라이브/다운받을폴더</p>
-<ul>
-<li>물론 로컬 파일을 업로드하려면 순서를 뒤집으면 된다. 이때 서버측에서 read only = false 여야만 가능하다.</li>
-</ul>
-<p>rsync -avr /cygdrive/드라이브/업로드할폴더 서버::모듈</p>
-<h2>Filter</h2>
-<p>rsync 는 강력한 파일 필터링 기능을 제공한다. 물론 커맨드라인으로 지정할 수도 있지만 수정을 쉽게 하려면 필터 파일을 만들어 두는 것을 권장.  자세한 도움말은 <a href="http://rsync.samba.org/ftp/rsync/rsync.html">rsync 도움말</a>을 참조할 것. 아래의 필터 파일 예제는 log/ upload/ 폴더 및 로그 파일, VSS 관련 파일들을 무시한다는 의미이다.</p>
-<ul>
-<li>log/</li>
-<li>upload/</li>
-<li>*.log</li>
-<li>*.scc</li>
-</ul>
-<p>필터 파일을 지정하려면 '--exclude-from=필터파일명' 을 지정해주면 된다.</p>
-<h2>마치며</h2>
-<p>사실 내부 테스트를 위해서도 패치 시스템을 구축하는 것이 가장 좋겠지만, 보유중인 패치 시스템의 인터페이스가 간편하지 않다면 오히려 낭패... 차라리 부담없이 GNU 툴들을 도입해 보는 것이 정신 건강상 더 나을 듯하다.</p>
-<p>그리고, 아무래도 안정적으로 파일을 배포하려면, <br />
-개발 머신 --(rsync)--&gt; 패치 서버 --(rsync)--&gt; 팀 배포<br />
- 의 2단계를 거치는 것이 좋은데, 이를 위해서는 서버에 같은 폴더를 나타내는 upload 모듈과 download 모듈을 만들어 둬야 한다. 또한 실행 파일만을 배포할 경우를 위한 배치 파일도 따로 만드는 것을 권장한다. (아무래도 recursive 로 검색을 하면 시간이 좀 걸린다)</p></div>
-	
-	<p>
-	
-		<a href="/tag/ci/"><span class="label">ci</span></a>
-	
-		<a href="/tag/cwrsync/"><span class="label">cwrsync</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -184,6 +215,10 @@ transfer logging = yes</p>
 	</li>
 	
 	<li>
+		<a href="/2005/10/22/find_if-와-boostlambda/">find_if 와 boost::lambda</a>
+	</li>
+	
+	<li>
 		<a href="/2005/10/21/sourceanywhere-remote-vss-tools/">SourceAnyWhere - Remote VSS tools</a>
 	</li>
 	
@@ -197,10 +232,6 @@ transfer logging = yes</p>
 	
 	<li>
 		<a href="/2005/09/23/client-network-utility/">Client Network Utility</a>
-	</li>
-	
-	<li>
-		<a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a>
 	</li>
 	
 </ul>

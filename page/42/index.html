@@ -63,6 +63,57 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a> <small>2005-09-06</small></h1>
+	</div>
+	<div><h2>Overview</h2>
+<p>한동안 메신저 + zip 파일 기반의 배포 시스템을 고집하다가 더 이상 참을 수가 없어서 결국 <a href="http://www.itefix.no/cwrsync/">cwRsync </a>라는 툴을 테스트 해보게 되었다. Cygwin + rsync + openssh 를 NullSoft 인스톨러로 깔끔하게 패키징한 이 유틸리티는 약간의 삽질 만으로 간편하면서도 공짜 파일 배포 시스템을 구축할 수 있게 해준다. 당연히 호스트 접근 제어도 가능하고, SSH 를 통해서만 배포할 수도 있다.</p>
+<p>이전 프로젝트에서도 <a href="http://www.dillobits.com/insync.html">InSync </a>를 이용해서 팀 내부에 클라이언트를 배포했었다. 클라이언트 프로그래머가 최신 파일들을 특정 공유 폴더에다가 업데이트하면, 각자가 로컬에 설치된 프로그램을 실행해서 변경된 파일들을 받아오는 방식인데, 가끔 동시에 많은 사람이 업데이트를 받을 경우 문제가 있었고, 무엇보다도 shareware 여서 어둠과자를 사용해야만 했다.</p>
+<h2>Install</h2>
+<p>이번에 테스트한 것은 '안전하지 않은' no-ssh 배포 방식. 간단히 삽질한 내용을 정리해보면...</p>
+<ul>
+<li>우선 cwRsync 서버를 설치하고 rsyncd.conf 를 열어 모듈을 설정하라. 모듈은 rsync 로 파일을 받아갈 때의 대표 이름으로 CVS 의 그것과 같다. 일반적으로 서버측의 파일을 클라이언트에서 받아가므로 read only 는 true 로 설정할 것.</li>
+</ul>
+<p>[모듈명]<br />
+path = /cygdrive/드라이브/배포폴더<br />
+read only = true<br />
+transfer logging = yes</p>
+<ul>
+<li>prepare a directory for upload 명령을 실행해서 rsync 서버가 제대로 폴더를 읽고 쓸 수 있게 하라.</li>
+<li>서비스는 기본적으로 꺼져 있는 상태. 자동 실행으로 만든 다음 서비스를 시작하라. 또한 방화벽에서 TCP 873 포트를 열어주는 것을 잊지 말 것.</li>
+<li>클라이언트를 설치하고 배치 파일을 작성하라. 기본적으로 제공하는 cwrsync.cmd 파일을 복사한 다음 적절히 수정해주면 된다. 특정 rsync 서버의 모듈을 recursive 로 받아오려면 다음과 같이 하면 된다.</li>
+</ul>
+<p>rsync -avr 서버::모듈 /cygdrive/드라이브/다운받을폴더</p>
+<ul>
+<li>물론 로컬 파일을 업로드하려면 순서를 뒤집으면 된다. 이때 서버측에서 read only = false 여야만 가능하다.</li>
+</ul>
+<p>rsync -avr /cygdrive/드라이브/업로드할폴더 서버::모듈</p>
+<h2>Filter</h2>
+<p>rsync 는 강력한 파일 필터링 기능을 제공한다. 물론 커맨드라인으로 지정할 수도 있지만 수정을 쉽게 하려면 필터 파일을 만들어 두는 것을 권장.  자세한 도움말은 <a href="http://rsync.samba.org/ftp/rsync/rsync.html">rsync 도움말</a>을 참조할 것. 아래의 필터 파일 예제는 log/ upload/ 폴더 및 로그 파일, VSS 관련 파일들을 무시한다는 의미이다.</p>
+<ul>
+<li>log/</li>
+<li>upload/</li>
+<li>*.log</li>
+<li>*.scc</li>
+</ul>
+<p>필터 파일을 지정하려면 '--exclude-from=필터파일명' 을 지정해주면 된다.</p>
+<h2>마치며</h2>
+<p>사실 내부 테스트를 위해서도 패치 시스템을 구축하는 것이 가장 좋겠지만, 보유중인 패치 시스템의 인터페이스가 간편하지 않다면 오히려 낭패... 차라리 부담없이 GNU 툴들을 도입해 보는 것이 정신 건강상 더 나을 듯하다.</p>
+<p>그리고, 아무래도 안정적으로 파일을 배포하려면, <br />
+개발 머신 --(rsync)--&gt; 패치 서버 --(rsync)--&gt; 팀 배포<br />
+ 의 2단계를 거치는 것이 좋은데, 이를 위해서는 서버에 같은 폴더를 나타내는 upload 모듈과 download 모듈을 만들어 둬야 한다. 또한 실행 파일만을 배포할 경우를 위한 배치 파일도 따로 만드는 것을 권장한다. (아무래도 recursive 로 검색을 하면 시간이 좀 걸린다)</p></div>
+	
+	<p>
+	
+		<a href="/tag/ci/"><span class="label">ci</span></a>
+	
+		<a href="/tag/cwrsync/"><span class="label">cwrsync</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2005/08/10/cpb-2/">CPB 맛보기</a> <small>2005-08-10</small></h1>
 	</div>
 	<div><p>지금까지는 애용해왔던 XML 기반의 tweaking 방식이 너무 귀찮아서, 이번에 <a href="http://www.thomasandamy.com/projects/CPB/">CPB</a> 를 써보기로 마음을 먹었다. 근무 시간에 삽질을 하기엔 힘든 상황이라 집에 와서 해야만 했다. :(</p>
@@ -700,46 +751,6 @@ test_suite * test_MMSocket()
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/03/01/trac/">Trac</a> <small>2005-03-01</small></h1>
-	</div>
-	<div><p>TRAC = 위키 + 이슈 트래킹 + 버그 트래킹 + 이벤트 트래킹 + 소스 브라우징 &amp; diff + 리포팅....</p>
-<p>더군다나, 파이썬으로 구현되었고, SQLLite 를 쓰며, SubVersion 연동이라니... 이 정도라면, 새 회사에서 KMS 로 쓰려고 했던 모니위키와는 무조건 이별을 해야 할 듯 하다.. 만티스도 안녕... phpBB도 안녕...</p>
-<p>그렇잖아도, 동료 개발자들의 check-in 여부를 확인하려고 모인모인 위키에서 파이썬으로 VSS 히스토리 뷰어 매크로를 작성하다가 이상한 이유로 포기한 전적이 있었기에... 더욱 기대가 된다. :)</p>
-<p>위키에서 디자인, 구현, 테스트의 전 개발과정을 진행하고 싶은 사람에게 권장한다. 단 과도한 욕심은 금물... ;)</p>
-<h2>한글화</h2>
-<p>한글 페이지를 만들기 위한 문법은, [wiki:한글링크 한글링크]와 같이 사용한다. 이걸 가능하게 하려면...</p>
-<ul>
-<li><a href="http://cjkpython.i18n.org/">CJK-Python</a>을 설치할 것. (CJK-Python은 Python2.4부터는 포함되어 있지만, Trac은 Python2.3을 사용한다~)</li>
-<li>trac.ini 에서 default charset = euc-kr 을 사용할 것.</li>
-<li>Wiki.py 를 다음과 같이 수정할 것.</li>
-</ul>
-<pre><code>
-30 from util import escape, TracError, get_reporter_id, to_utf8
-
-191  def render(self):
-192  name = to_utf8(self.args.get('page', 'WikiStart'),'euc-kr')
-</code></pre>
-
-<ul>
-<li>한글 템플릿은 <a href="http://openlook.org/distfiles/trac-ktdms-041222.tar.gz">OpenLook</a>에서 다운받을 것.</li>
-</ul>
-<p>see also:<br />
-<em> [http://trac.edgewall.com/ TRAC Official Homepage]<br />
-</em> [http://openlook.org/blog/reviews/0412TracInAction Trac과 함께 한 2주]<br />
-<em> Trac:TracInstall - TRAC 설치 매뉴얼(영문)<br />
-</em> Trac:TracOnWindows - TRAC on 윈도우즈 설치 매뉴얼(영문)<br />
-* [http://synergy.kaist.ac.kr/~paraon/tt/index.php?pl=59 Trac 0.8 On WindowsXP] - 한글 관련 설치 팁</p></div>
-	
-	<p>
-	
-		<a href="/tag/trac/"><span class="label">trac</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -760,6 +771,10 @@ test_suite * test_MMSocket()
 	</li>
 	
 	<li>
+		<a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a>
+	</li>
+	
+	<li>
 		<a href="/2005/08/10/cpb-2/">CPB 맛보기</a>
 	</li>
 	
@@ -773,10 +788,6 @@ test_suite * test_MMSocket()
 	
 	<li>
 		<a href="/2005/03/21/tortoisesvn/">TortoiseSvn</a>
-	</li>
-	
-	<li>
-		<a href="/2005/03/01/trac/">Trac</a>
 	</li>
 	
 </ul>

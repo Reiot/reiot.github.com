@@ -63,6 +63,76 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a> <small>2010-11-15</small></h1>
+	</div>
+	<div><p>구글맵처럼 (바닥 - 마커 - 오버레이) 등 여러 개의 레이어로 구성하고, 그 안에 위치한 각종 마커들끼리의 z-index 를 상황(?)에 따라서 코드 레벨에서 정렬해야 한다고 가정하자.</p>
+<pre><code>&lt;div id=&quot;map&quot;&gt;
+  &lt;div id=&quot;ground&quot;&gt;
+  &lt;div id=&quot;first&quot; class=&quot;marker&quot;&gt;1st&lt;/div&gt;
+  &lt;div id=&quot;second&quot; class=&quot;marker&quot;&gt;2nd&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;overlay&quot;&gt;
+  &lt;div id=&quot;third&quot; class=&quot;overlay&quot;&gt;3rd&lt;/div&gt;
+  &lt;div id=&quot;fourth&quot; class=&quot;overlay&quot;&gt;4th&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>보통 맵은 relative, 레이어들은 absolute 로 두게 된다. 이때 레이어들의 z-index 를 지정하지 않으면(또는 auto 로 설정하면), #first 마커의 z-index 를 9999 로 잡으면 상위 레이어 위로 올라오게 된다.</p>
+<pre><code>#map {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background-color: gray;
+}
+.marker, .overlay {
+  position: absolute;
+  text-align: center;
+}
+#ground {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #ededed;
+  z-index: 1000;
+}
+#overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1001;
+}
+#first {
+  width: 100px;height: 100px;
+  background-color: yellow;
+}
+#second {
+  width: 50px;height: 200px;
+  background-color: green;
+}
+#third {
+  width: 200px;height: 50px;
+  background-color: red;
+}
+#fourth {
+  width: 50px;height: 300px;
+  background-color: blue;
+ }
+</code></pre>
+
+<p>대신 그냥 <strong>각 레이어들의 z-index 를 각각 1000,1001 로 설정</strong>하기만 하면, 아무리 하위 레이어의 마커에 높은 z-index 를 줘도, 절대 상위 레이어를 침범하지는 않게 된다.</p>
+<p>관련 테스트 코드는 <a href="http://jsfiddle.net/Reiot/dPYcJ/embedded/result">jsfiddle</a>에서 볼 수 있다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/css/"><span class="label">css</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a> <small>2010-11-11</small></h1>
 	</div>
 	<div><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
@@ -221,40 +291,6 @@ sudo node server.js
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/10/12/photoshop-shortcuts/">Photoshop Shortcuts</a> <small>2010-10-12</small></h1>
-	</div>
-	<div><ul>
-<li>영역 선택시 shift 는 더하고, alt 는 빼고, shift+alt 는 교집합이 된다.</li>
-<li>굳이 move(v) 를 선택하지 않아도 ctrl 을 누르면 현재 레이어를 이동시킬 수 있다. </li>
-<li>ctrl 을 누르고 현재 레이어의 미리보기(썸네일) 아이콘을 누르면 레이어만을 선택할 수 있다. 이 상태에서 ctrl + shift 로 다른 레이어 미리보기를 선택하면 영역이 더해지고, ctrl + alt 를 누르면 빼지고, ctrl + shift + alt 를 누르면 교집합 영역이 골라진다.</li>
-<li>툴 단축키는 shift 를 누르면 비슷한 다른 툴들이 순차적으로 선택된다.</li>
-<li>ctrl + 오른쪽 클릭: 현재 마우스 위치의 레이어 목록이 보인다. 레이어 리스트 없이 특정 레이어를 고를때 편하다. 대신 레이어 이름을 잘 붙여둬야 한다.</li>
-<li>ctrl + G 는 선택된 레이어들을 그룹으로 묶어준다. ctrl + alt + G 는 클리핑 마스크를 만든다. </li>
-<li>클리핑 마스크를 만들면 브러시가 아래 하위 레이어의 영역에서만 칠해진다. 실제로 레이어의 그레디언트나 패턴 이펙트들은 클리핑 마스크로 구현되어 있다. (각각의 이펙트를 별도의 레이어로 분리해보면 알 수 있다) 썸네일을 상위 레이어로 ALT 드래그하면 클리핑을 할 수 있다. 썸네일을 폴더로 드래그하면 폴더에 속한 레이어들 전체에 마스크가 씌여진다. shift 를 누르고 썸네일을 클릭하면 해당 마스크를 disable 시킬 수 있다.</li>
-<li>레이어 목록에서 ctrl 드래그는 복사, alt 드래그는 위치 이동이다. (그냥 드래그해도 이동이긴 하다)</li>
-<li>글로벌 라이트는 모든 열린 문서를 끈 상태에서 설정해야 한다.</li>
-<li>브러쉬 크기 조절은 [] 로 할 수 있다. alt 를 누르면 잠시 스포이드(eyedropper) 모드로 색깔을 지정할 수 있다. </li>
-<li>ctrl + 1 또는 줌 버튼을 더블클릭하면 100% 크기로 볼 수 있다. 줌을 바꾸려면 ctrl + alt + wheel 을 누르면 된다.</li>
-<li>ctrl + [] 은 현재 레이어를 아래 위로 옮기는 반면, alt + [] 는 아래 위로 레이어를 선택한다. ctrl + shift + [] 는 가장 위 또는 가장 아래로 레이어를 보낸다. </li>
-<li>ctrl 을 누른 상태에서 새 레이어 버튼을 누르면 현재 레이어 아래에 새 레이어가 만들어진다. 그냥 ctrl + shift  + N 은 현재 레이어 위에 만든다.</li>
-<li>alt 를 누른 상태에서 레이어의 눈 아이콘을 누르면, 해당 레이어만 보여준다. ctrl + alt 를 누른 상태에서 다시 누르면 모두 다 보이게 된다.</li>
-<li>shift 를 누른 상태에서 +- 를 누르면, 블렌딩 모드를 순차적으로 바꿀 수 있다. move 툴을 선택한 상태에서 숫자키를 누르면 opacity 를 바꿀 수 있다. </li>
-<li>각종 숫자로 된 입력창에 포커스를 두고, ctrl 을 누르고 좌우로 드래그하면 마우스로도 바꿀 수 있다. ctrl + shift 를 누르면 10단위로 바뀐다. 그냥 휠만 움직이면 1씩 증감된다. 화살표 상하 키로도 휠과 동일한 효과를 줄 수 있다.</li>
-<li>폰트 크기를 바꾸려면 ctrl + shift + &lt;&gt;</li>
-<li>브러시 모드에서 1-0 숫자를 누르면 opacity 를 바꿔서 칠할 수 있다.</li>
-<li>ctrl + T 로 크기 변환할 때 shift 를 누르면 비율이 고정되고, alt + shift 는 중심이 고정되고, ctrl + shift 는 현재 점 외의 다른 점들이 고정된다.</li>
-</ul></div>
-	
-	<p>
-	
-		<a href="/tag/photoshop/"><span class="label">photoshop</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -275,6 +311,10 @@ sudo node server.js
 	</li>
 	
 	<li>
+		<a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a>
+	</li>
+	
+	<li>
 		<a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a>
 	</li>
 	
@@ -288,10 +328,6 @@ sudo node server.js
 	
 	<li>
 		<a href="/2010/11/02/custom-tag/"><% raw %> custom tag</a>
-	</li>
-	
-	<li>
-		<a href="/2010/10/12/photoshop-shortcuts/">Photoshop Shortcuts</a>
 	</li>
 	
 </ul>

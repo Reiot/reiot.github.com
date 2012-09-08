@@ -63,6 +63,68 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/03/22/relational-database-guidelines-for-mmogs-요약/">Relational Database Guidelines For MMOGs 요약</a> <small>2006-03-22</small></h1>
+	</div>
+	<div><p>원문 보기 : <a href="http://www.gamasutra.com/resource_guide/20030916/lee_01.shtml">Relational Database Guidelines For MMOGs</a> from Gamasutra</p>
+<h2>Naming Convention</h2>
+<ul>
+<li>프로그램에서의 이름과 DB에서의 이름을 일치시켜라.</li>
+<li>user-defined type 을 사용해라. (단 타입이 변할 경우 낭패!)</li>
+<li>필요할 경우 축약어를 사용해도 좋다.</li>
+</ul>
+<h2>Tables</h2>
+<ul>
+<li>정수형 키를 사용할 경우, 가능한한 큰 타입의 키값을 사용할 것. 서비스 도중 타입을 바꾸는 것은 권장하지 않는다.</li>
+<li>smart key(키값 자체의 의미를 담고 있는 키)는 절대 사용하지 말 것. 변경, 확장 및 유지 보수에 애로 사항이 꽃핀다.</li>
+<li>복합 키의 경우, 각 키값의 정렬 순서는 일치하는 편이 좋다. (하나는 증가, 하나는 감소..이러면 곤란)</li>
+<li>여러 개의 데이터베이스에서 동기화 되어야 할 키가 필요하다면, 범위를 잘 나눠야 한다. 그래야 나중에 합칠 때 좋다.</li>
+</ul>
+<h2>Table Index</h2>
+<ul>
+<li>정말 필요한 경우에만 인덱스를 추가할 것.</li>
+<li>프로파일러에서 느리다고 판명된 경우, 인덱스 추가 전후의 속도를 체크해서 인덱스 추가 후에 확실히 빨라졌다면 인정.</li>
+</ul>
+<h2>Schema Structure</h2>
+<ul>
+<li>denormalization 은 흑마술이므로, 자신 없으면 도전하지 말 것. 정 하려면 아래와 같은 룰을 따를 것.</li>
+<li>static 데이터는 서버 시작시 한꺼번에 메모리에 올릴 것.</li>
+<li>게임 객체 데이터 로딩시 - 여러 개의 테이블을 조인해야 하더라도 - 하나의 쿼리로 모든 데이터를 읽어들일 것. (당연히 그래야 하는 게 아닌가?.?)</li>
+<li>캐릭터와 소유 아이템 등 복잡한 데이터를 로딩할 때, 정말 필요할 때까지 로딩을 연기할 것(-_-). 또한, 이런 로딩도 비동기적이어야 함. (비동기 체인 쿼리?)</li>
+<li>계층적인 데이터를 실시간으로 변경하지 않도록 하라. (가령 인벤토리 내에 인벤토리 내의 인벤토리 같은 설계는 피할 것)</li>
+<li>데이터베이스 안에 또다른 데이터베이스를 만들지 말 것. 가령 여러 정보를 담고 있는 바이너리 컬럼이라든지, 컬럼 2개를 이용해서 1개의 값을 나타내는 등 SQL 쿼리로 다양한 데이터를 뽑아낼 때 추가적인 lookup 테이블이 필요한 디자인은 대략 좋지 않다.</li>
+</ul>
+<h2>Stored Procedure</h2>
+<ul>
+<li>{{{SELECT * FROM ...}}} 보다는 실제 컬럼을 지정하는 편이 좋다.</li>
+<li>모든 라이브러리가 프로시저의 리턴값을 받도록 되어 있진 않으므로, {{{SELECT 1; RETURN}}} 과 같이 SELECT 를 이용하는 것을 권장한다.</li>
+</ul>
+<h2>Transaction</h2>
+<ul>
+<li>여러 개의 테이블을 수정하는 경우 필수적으로 사용할 것. (당연하징)</li>
+<li>MSSQL 은 nested transaction 을 지원하지만, 부분적인 캔슬은 지원하지 않으므로 주의할 것.</li>
+</ul>
+<h2>Joins</h2>
+<ul>
+<li>Perform joins on columns that are system assigned keys with good cardinality values</li>
+<li>Add an index that verifiably speeds access if a join column is not the primary key on a table.</li>
+<li>Keep the number of different tables in the join down to the minimum, particular if the query will return a large number of rows from one or more tables.</li>
+<li>Offload the query to server startup time when we can better afford slower than optimal performance.</li>
+</ul>
+<h2>Null Value</h2>
+<ul>
+<li>Any operations attempted against a NULL value will give NULL as the result. (even NULL  NULL) :(</li>
+</ul>
+<h2>Referential Integrity</h2>
+<ul>
+<li>RI is not optional</li>
+<li>아이템 복사 등을 막으려면 unique + FK 를 사용할 것.</li>
+<li>컬럼 제약조건을 애용할 것.</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/03/22/mmp-database-mini-cookbook-요약/">MMP Database Mini-Cookbook 요약</a> <small>2006-03-22</small></h1>
 	</div>
 	<div><ul>
@@ -215,20 +277,6 @@ m_pLogger-&gt;SafeLog(m_Message);
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/03/15/dont-reinvent-the-ace/">Don’t reinvent the ACE</a> <small>2006-03-15</small></h1>
-	</div>
-	<div><p><img alt="http://www.cs.wustl.edu/~schmidt/gifs/ace-copy1.jpg" src="http://www.cs.wustl.edu/~schmidt/gifs/ace-copy1.jpg" /><a href="http://www.cs.wustl.edu/~schmidt/ACE.html">ACE</a>를 처음 소개받은 때는 윈도우용 서버를 처음 개발하던 2003년도였다. 그러나 그 방대한 프레임워크와 학습량에 질려 제대로 써보지도 못하고 결국 포기하고, 대신 Proactor 와 비동기 입출력 부분만 직접 구현, 일년 정도의 정제 과정 끝에 5분만에 새 서비스를 만들어서 띄울 수 있는 수준까지 서버 코어를 완성할 수 있었다. (물론 일부 몰지각한 버그들로 인해서 삽질도 많이 했었다.)</p>
-<p>이제 와서 돌이켜보면 그간의 과정들은 <a href="http://gatorlog.com/?p=68">바퀴를 재발명</a>하는 것과 비슷했다. 이미 ACE에 도입된 ACE_Task 같은 개념들을 열심히 재구현하고 있거나, win32 API를 래핑하고 있는 자신을 발견하는 경우가 한두번이 아니었다. 물론 ACE의 무게나 최적화에 대해서는 많은 이견이 있지만, 동접 수십만의 MMORPG를 만들지 않는 한 괜찮지 않을까 하는 검증되지 않은 희망을 품고 있다.</p>
-<p>그 외에도 이번에 만들 <strike>진정한</strike> 분산 서버를 위한 기능들이 이미 ACE에 존재하고 있다는 점도 매력적이다. 물론 다운 버그를 잡느라 프레임워크 속에서 허우적대며 디버깅하는 모습이 상상되긴 하지만, 한번 도전해보련다. 캬캬~</p>
-<p>ps. 그런데 벌써부터 vc8 + unit test + ACE 의 궁합(/clr:safe 옵션)이 잘 맞지 않고 있다. :(</p>
-<p>see also:</p>
-<pre><code>- [ACE 팁 모음](http://reiot.cafe24.com/archives/413)
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -249,6 +297,10 @@ m_pLogger-&gt;SafeLog(m_Message);
 	</li>
 	
 	<li>
+		<a href="/2006/03/22/relational-database-guidelines-for-mmogs-요약/">Relational Database Guidelines For MMOGs 요약</a>
+	</li>
+	
+	<li>
 		<a href="/2006/03/22/mmp-database-mini-cookbook-요약/">MMP Database Mini-Cookbook 요약</a>
 	</li>
 	
@@ -262,10 +314,6 @@ m_pLogger-&gt;SafeLog(m_Message);
 	
 	<li>
 		<a href="/2006/03/21/ace-tips/">ACE Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/03/15/dont-reinvent-the-ace/">Don’t reinvent the ACE</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,51 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/08/13/default-key-binding-dict/">DefaultKeyBinding.dict</a> <small>2008-08-13</small></h1>
+	</div>
+	<div><p>OSX 에서 윈도우와 같은 키조합을 사용하려면 <strong>~/Library/KeyBindings/DefaultKeyBinding.dict </strong>파일을 아래와 같이 만든 후, 키바인딩을 적용하려는 어플리케이션을 재시작하면 된다.</p>
+<pre><code>
+{
+    &quot;$\Uf700&quot; = &quot;moveUpAndModifySelection:&quot;;
+    &quot;$\Uf701&quot; = &quot;moveDownAndModifySelection:&quot;;
+    &quot;$\Uf702&quot; = &quot;moveLeftAndModifySelection:&quot;;
+    &quot;$\Uf703&quot; = &quot;moveRightAndModifySelection:&quot;;
+    &quot;$\Uf729&quot; = &quot;moveToBeginningOfLineAndModifySelection:&quot;;
+    &quot;$\Uf72b&quot; = &quot;moveToEndOfLineAndModifySelection:&quot;;
+    &quot;^\b&quot; = &quot;deleteWordBackward:&quot;;
+    &quot;^$\Uf702&quot; = &quot;moveWordBackwardAndModifySelection:&quot;;
+    &quot;^$\Uf703&quot; = &quot;moveWordRightAndModifySelection:&quot;;
+    &quot;^$\Uf729&quot; = &quot;moveToBeginningOfDocumentAndModifySelection:&quot;;
+    &quot;^$\Uf72b&quot; = &quot;moveToEndOfDocumentAndModifySelection:&quot;;
+    &quot;^a&quot; = &quot;selectAll:&quot;;
+    &quot;^c&quot; = &quot;copy:&quot;;
+    &quot;^s&quot; = &quot;saveDocument:&quot;;
+    &quot;^v&quot; = &quot;paste:&quot;;
+    &quot;^x&quot; = &quot;cut:&quot;;
+    &quot;^z&quot; = &quot;undo:&quot;;
+    &quot;^&quot; = &quot;deleteWordForward:&quot;;
+    &quot;^\Uf702&quot; = &quot;moveWordLeft:&quot;;
+    &quot;^\Uf703&quot; = &quot;moveWordRight:&quot;;
+    &quot;^\Uf728&quot; = &quot;deleteWordForward:&quot;;
+    &quot;^\Uf729&quot; = &quot;moveToBeginningOfDocument:&quot;;
+    &quot;^\Uf72b&quot; = &quot;moveToEndOfDocument:&quot;;
+    &quot;\Uf729&quot; = &quot;moveToBeginningOfLine:&quot;;
+    &quot;\Uf72b&quot; = &quot;moveToEndOfLine:&quot;;
+    &quot;\Uf72c&quot; = &quot;pageUp:&quot;;
+    &quot;\Uf72d&quot; = &quot;pageDown:&quot;;
+}
+
+</code></pre>
+
+<p>Ctrl+D 같은 손에 익은 키조합들을 적용하려면 아래의 문서들을 참고하기 바란다.</p>
+<pre><code>- [Cocoa Text System](http://www.hcs.harvard.edu/~jrus/Site/System%20Bindings.html)
+- [Customizing Cocoa Text System](http://www.hcs.harvard.edu/~jrus/site/cocoa-text.html)
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/08/07/the-abcs-of-xbox-360-dlc/">The ABCs of Xbox 360 DLC</a> <small>2008-08-07</small></h1>
 	</div>
 	<div><p><img alt="http://www.xbox.com/NR/rdonlyres/C185D8B7-F8C7-4AED-AF90-E5415D383212/0/ilmmarketplace001.jpg" src="http://www.xbox.com/NR/rdonlyres/C185D8B7-F8C7-4AED-AF90-E5415D383212/0/ilmmarketplace001.jpg" /></p>
@@ -108,54 +153,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/07/10/game-development-meme/">Game Development Meme</a> <small>2008-07-10</small></h1>
-	</div>
-	<div><div class="posthead">요즘 웬지 [Software Development Meme](http://www.wintellect.com/CS/blogs/jrobbins/archive/2008/07/10/software-development-meme.aspx)라는 게 유행하던데, 아무도 안 시켜 줘서 혼자서라도 한번 써본다.</div>
-
-<div class="postcontent">
-
-**몇 살 때 게임 개발을 시작했나요?**
-
-현업 게임이라면 그때가 지구가 멸망한다던 1999년의 8월쯤이었으니, 스물 다섯살인가? 아마추어 게임이라면 97년도의 그 유명한 무빙 채팅 머신이니까 스물 세살 쯤 되겠다.
-
-**어떻게 게임 개발을 시작하게 되었는가? **
-
-대구 삼성소프트웨어 멤버쉽에서 학과 아해들과 2D 그래픽 머드(요즘 말로 치면 2D MMORPG)를 만든답시고 까불다가, 맨날 스타랑 디아블로만 하고 놀다가, 시험도 치고 술도 먹고 하다 보니 흐지부지 되어버렸다. 역시 아마추어로는 되는게 없겠다 싶던 찰나, 서울서 게임을 만들고 있던 후배 녀석이 꼬시는 바람에 급작스럽게 상경해서 프로젝트를 시작하게 되었다.
-
-**게임 개발을 처음 시작했을 때의 개발 환경은? **
-
-Linux 2.0 대 커널 + GCC 2.x + VI 로 서버랑 네트워크 라이브러리를 개발했다. 참고로, 상경 당시 자바 코드에 심취했던때라, 코드에다가 exception throw-catch 로 도배한 걸로 10년째 갈굼을 당하고 있다.
-
-**최초로 개발한 상용 게임은 어떤 게임이었나? **
-
-다크에덴([http://darkeden.com](http://darkeden.com)). 아직도 절찬리에 서비스중인 초장수 게임. 만들면서도 우여 곡절이 많은 게임이었다. 하핫.
-
-**게임을 개발해오면서 사용했던 프로그래밍 언어들은? **
-
-C++, VB.NET, LUA, Python, Mysql, SQL Server, XML, YAML
-
-**다시 직업을 선택하라고 해도 또 게임 개발을 선택할 것인가?**
-
-흐음. 요즘 주위에 아픈 사람이 종종 생기면서 틈틈히 의사가 되는게 좋지 않았을까 싶긴 하다만... 집안에 돈만 많다면 또 이 직업을 택하지 않을까 싶다. 대신 절대 회사 주식을 돈 주고 사지는 않으리.
-
-**신입 게임 개발자에게 알려주고픈 딱 한가지만 고른다면? **
-
-학교에서 데이터 구조랑, 시스템 프로그래밍, 어셈블리 수업 시간에 딴 짓을 하지 마라.  그러다 보면 단순 라이브러리 사용자가 될 뿐이다. 오래 살아남는 사람은 기초가 튼튼한 사람이다.
-
-**게임 개발을 하면서 가장 감동적이었던 것은? **
-
-쉬귀 블로그에 붐붐차차 다시 서비스해달라는 플레이어들의 리플이 달렸을 때.
-
-**다음 사람은? **
-
-쑥갓. 소니.
-
-</div></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -176,6 +173,10 @@ C++, VB.NET, LUA, Python, Mysql, SQL Server, XML, YAML
 	</li>
 	
 	<li>
+		<a href="/2008/08/13/default-key-binding-dict/">DefaultKeyBinding.dict</a>
+	</li>
+	
+	<li>
 		<a href="/2008/08/07/the-abcs-of-xbox-360-dlc/">The ABCs of Xbox 360 DLC</a>
 	</li>
 	
@@ -189,10 +190,6 @@ C++, VB.NET, LUA, Python, Mysql, SQL Server, XML, YAML
 	
 	<li>
 		<a href="/2008/07/18/collaboration-through-google-spreadsheet/">Collaboration through Google Spreadsheet</a>
-	</li>
-	
-	<li>
-		<a href="/2008/07/10/game-development-meme/">Game Development Meme</a>
 	</li>
 	
 </ul>

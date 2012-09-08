@@ -63,6 +63,104 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a> <small>2009-01-18</small></h1>
+	</div>
+	<div><p>얼랭으로 만든, 가장 단순한 UDP Echo 서버와 클라이언트는 이렇게 생겨먹었다. (워드프레스에서 들여쓰기가 자꾸 날아가는 버그가 있으므로, 귀찮아서 고치지는 않겠다.)</p>
+<pre><code>
+-module(udp_server).
+-compile(export_all).
+
+init(ServerPort) -&gt;
+{ok, Sock} = gen_udp:open(ServerPort,[binary,inet]),
+loop().
+
+loop() -&gt;
+io:format(&quot;server_loop~n&quot;),
+receive
+{udp, Sock, ClientIP, ClientPort, Packet } -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[ClientIP,ClientPort,Packet]),
+ok = gen_udp:send(Sock,ClientIP,ClientPort,Packet),
+loop()
+end.
+</code></pre>
+
+<pre><code>
+-module(udp_client).
+-compile(export_all).
+
+init(ServerPort) -&gt;
+{ok, Sock} = gen_udp:open(0),
+gen_udp:send(Sock,&quot;localhost&quot;,ServerPort,&quot;Hello World!&quot;),
+loop().
+
+loop() -&gt;
+io:format(&quot;waiting response...~n&quot;),
+receive
+{udp, Peer, PeerIP, PeerPort, Packet } -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[PeerIP,PeerPort,Packet])
+after 1000 -&gt;
+io:format(&quot;timeout..~n&quot;)
+end.
+
+</code></pre>
+
+<p>여기에서 바로 OTP로 만들겠다고 뛰어들었다가 삽질을 한 후,  <a href="http://www.trapexit.org/Building_a_Non-blocking_TCP_server_using_OTP_principles">Building_a_Non-blocking_TCP_server_using_OTP_principles</a> 와 <a href="http://erlrtpproxy.googlecode.com/svn-history/r19/trunk/rtpproxy.erl">구글에서 검색한 gen_udp 예제</a>을 참고해서 겨우 성공한 게 다음의 코드이다.</p>
+<pre><code>
+-module(udp_otp_server).
+-compile(export_all).
+
+% stand-alone server version
+start() -&gt;
+gen_server:start({local, ?MODULE}, ?MODULE, [], []).
+
+% supervision tree version
+start_link() -&gt;
+gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
+
+init([]) -&gt;
+process_flag(trap_exit,true),
+{ok, Sock} = gen_udp:open(1111,[binary,inet]),
+io:format(&quot;udp server started...~n&quot;),
+{ok,0}.
+
+handle_call(Request, From, State) -&gt;
+io:format(&quot;~p~n&quot;,[Request]),
+{noreply,State}.
+
+handle_cast(_Msg,State) -&gt;
+io:format(&quot;handle_cast(~p)~n&quot;,_Msg),
+{noreply, State}.
+
+%% udp message should be handled here
+handle_info({udp,Sock, ClientIP, ClientPort, Packet}, State) -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[ClientIP,ClientPort,Packet]),
+ok = gen_udp:send(Sock,ClientIP,ClientPort,Packet),
+{noreply, State}
+;
+
+handle_info(_Info,State) -&gt;
+io:format(&quot;handle_info~n&quot;),
+{noreply, State}.
+
+terminate(_Reason,N) -&gt;
+io:format(&quot;stopping...~n&quot;),
+ok.
+code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
+
+</code></pre>
+
+<p>핵심 요지는, UDP 메시지는 handle_call 이나 cast 가 아니라, handle_info에서 처리해야 한다는 점이다. 요즘 <strong>업.무.가. 바.빠.서.</strong> 얼랭을 3주 정도 못봤는데 또 서서히 기억이 소멸하기 시작했다. OTP에서는 함수의 리턴값 규칙을 정말 잘 맞춰야 하는 관계로, 다음 번부터는 gen_server 템플릿 하나 정도는 갖고 시작해야겠다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/erlang/"><span class="label">erlang</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2009/01/12/teamcide/">Teamcide</a> <small>2009-01-12</small></h1>
 	</div>
 	<div><div>
@@ -189,30 +287,6 @@ end.
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/12/21/memory-wall/">Memory Wall</a> <small>2008-12-21</small></h1>
-	</div>
-	<div><p><img alt="http://lh6.ggpht.com/_nOquiran9-s/Rur1hp0B7kI/AAAAAAAAALI/rjrpIObJtMo/IMG_1987.JPG" src="http://lh6.ggpht.com/_nOquiran9-s/Rur1hp0B7kI/AAAAAAAAALI/rjrpIObJtMo/IMG_1987.JPG" /></p>
-<p>9.11 Memory Wall</p>
-<p>구글에서 memory wall 을 검색하면 위와 같은 사진들이 나온다. 아마도 기억과 회상을 위한 그림이나 사진, 메모들을 붙이는 벽을  memory wall 또는 remembrance wall 이라고 부르는 모양이다.</p>
-<p>훗날 128 코어의 시대가 도래하면 얼랭 게임 서버가 혹시 대세가 되지는 않을까 했는데, 벌써부터 <a href="http://minjang.egloos.com/2166350">멀티 코어에도 메모리 장벽이라는 한계가 있다는 이야기</a>가 솔솔 들린다. 이로 인해 <a href="http://devnote.net/86">8-16코어를 넘어서기가 힘들다고 해서 널티코어 효과(Nulticore Effect)</a>라고 부른다니.. <a href="http://xeraph.egloos.com/4781141">xeraph님이 GG하신 게</a> 정답이지도? :)</p>
-<p>보통 물리적/논리적으로 서버 프로세스가 늘어날수록 디버깅이 어려워지고, 관리 비용도 증가한다고 한다. 그래서 요즘은 분산을 고려해서 모듈끼리도 메시지 통신을 하도록 한 후, 개별 모듈들을 최대한으로 단순하게 구현하려고 노력중이다. 대신 메시지를 만드는게 여간 귀찮은 일이 아니라서, 언제 시간이 나면 후딱 XML 메시지 같은 걸 만들어볼까 싶기도 한데... 그럴 여유도 없을 뿐더러, 만들어도 같이 감동해줄 전우가 없다는 게 안타깝다. 크흑.</p>
-<pre><code>
- 
-
-</code></pre></div>
-	
-	<p>
-	
-		<a href="/tag/multicore/"><span class="label">multicore</span></a>
-	
-		<a href="/tag/erlang/"><span class="label">erlang</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -233,6 +307,10 @@ end.
 	</li>
 	
 	<li>
+		<a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a>
+	</li>
+	
+	<li>
 		<a href="/2009/01/12/teamcide/">Teamcide</a>
 	</li>
 	
@@ -246,10 +324,6 @@ end.
 	
 	<li>
 		<a href="/2008/12/27/networking-metaphore/">Networking Metaphor</a>
-	</li>
-	
-	<li>
-		<a href="/2008/12/21/memory-wall/">Memory Wall</a>
 	</li>
 	
 </ul>

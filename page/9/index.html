@@ -63,6 +63,42 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/02/08/earl-grey/">Earl Grey</a> <small>2009-02-08</small></h1>
+	</div>
+	<div><table style="width:auto;" border="0">
+<tbody>
+<tr>
+<td><a href="http://picasaweb.google.com/lh/photo/EY-Ym9sex9547IPeZxkRxA?feat=embedwebsite">![http://lh3.ggpht.com/_eFJUY9IzSSs/SY7efiJ2ZtI/AAAAAAAAAHA/_G7GJC2ySDY/s400/SANY0042.JPG](http://lh3.ggpht.com/_eFJUY9IzSSs/SY7efiJ2ZtI/AAAAAAAAAHA/_G7GJC2ySDY/s400/SANY0042.JPG)</a></td>
+</tr>
+</tbody></table>
+
+<p>얘가 최근 영입한 그레이(♂). 스코티쉬 폴드인데, 유명한 홍차 이름인 얼 그레이에서 이름을 따왔다. 똥꼬발랄하고 선배 냥이들이 많이 귀찮아한다.<br />
+<table style="width:auto;" border="0"><br />
+<tbody><br />
+<tr><br />
+<td><a href="http://picasaweb.google.com/lh/photo/HNhn36_UOIMobFZawSdIow?feat=embedwebsite"><img alt="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7fXRsrXZI/AAAAAAAAAIQ/HMBpkjqwPZI/s400/SANY0036.JPG" src="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7fXRsrXZI/AAAAAAAAAIQ/HMBpkjqwPZI/s400/SANY0036.JPG" /></a></td><br />
+</tr><br />
+</tbody></table><br />
+이놈이 밤마다 시끄럽게 하는 24시간 발정묘 보리(♂). 코리안 똥고양이의 후손으로,  쌀-보리의 그 보리다. 와이프가 맨날 이쁘다고 해서 요즘은 이뻐보이기도 하지만... 하긴 퇴근할 때 마중나오는 놈은 보리 밖에 없긴 하다. 당연히 쉬귀군의 룬보다는 한참 날씬하다. (푸훗)<br />
+<table style="width:auto;" border="0"><br />
+<tbody><br />
+<tr><br />
+<td><a href="http://picasaweb.google.com/lh/photo/TvwqxYaWG4rairUQ1OnVtg?feat=embedwebsite"><img alt="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7iED5QewI/AAAAAAAAALo/uOLDbCG_T8o/s400/SANY0096.JPG" src="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7iED5QewI/AAAAAAAAALo/uOLDbCG_T8o/s400/SANY0096.JPG" /></a></td><br />
+</tr><br />
+</tbody></table><br />
+러시안 블루 아삼(♂). 역시 홍차 이름에서 따왔다. 진정한 고양이답게 날렵하고 점프력도 좋고 잘 울지도 않지만, 성격이 좀 까칠하다. 나랑은 어째 잘 맞는지, 부르면 가슴 위로 올라와서 머리를 부비는 애교도 부린다.</p>
+<p>더 많은 사진들은 <a href="http://picasaweb.google.com/Reiot94/yiFktC#">여기</a>에 있으니 구경해보시기 바란다. 그나저나 내 평생 고양이를 3마리나 키우게 될 줄은 몰랐다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/cat/"><span class="label">cat</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2009/01/27/google-app-engine-overvie/">Google App Engine Overview</a> <small>2009-01-27</small></h1>
 	</div>
 	<div><p>google app engine 은 파이썬 2.5 기반의 웹 개발 프레임워크이다. 사실 수많은 웹 개발환경이 많고 많은데 유독 이놈이 눈에 띄는 건, 기본적으로 구글에서 제공하는 다양한 분산 기반의 서비스들을 손쉽게 사용할 수 있기 때문이다.</p>
@@ -334,104 +370,6 @@ long</tt></td><br />
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a> <small>2009-01-18</small></h1>
-	</div>
-	<div><p>얼랭으로 만든, 가장 단순한 UDP Echo 서버와 클라이언트는 이렇게 생겨먹었다. (워드프레스에서 들여쓰기가 자꾸 날아가는 버그가 있으므로, 귀찮아서 고치지는 않겠다.)</p>
-<pre><code>
--module(udp_server).
--compile(export_all).
-
-init(ServerPort) -&gt;
-{ok, Sock} = gen_udp:open(ServerPort,[binary,inet]),
-loop().
-
-loop() -&gt;
-io:format(&quot;server_loop~n&quot;),
-receive
-{udp, Sock, ClientIP, ClientPort, Packet } -&gt;
-io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[ClientIP,ClientPort,Packet]),
-ok = gen_udp:send(Sock,ClientIP,ClientPort,Packet),
-loop()
-end.
-</code></pre>
-
-<pre><code>
--module(udp_client).
--compile(export_all).
-
-init(ServerPort) -&gt;
-{ok, Sock} = gen_udp:open(0),
-gen_udp:send(Sock,&quot;localhost&quot;,ServerPort,&quot;Hello World!&quot;),
-loop().
-
-loop() -&gt;
-io:format(&quot;waiting response...~n&quot;),
-receive
-{udp, Peer, PeerIP, PeerPort, Packet } -&gt;
-io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[PeerIP,PeerPort,Packet])
-after 1000 -&gt;
-io:format(&quot;timeout..~n&quot;)
-end.
-
-</code></pre>
-
-<p>여기에서 바로 OTP로 만들겠다고 뛰어들었다가 삽질을 한 후,  <a href="http://www.trapexit.org/Building_a_Non-blocking_TCP_server_using_OTP_principles">Building_a_Non-blocking_TCP_server_using_OTP_principles</a> 와 <a href="http://erlrtpproxy.googlecode.com/svn-history/r19/trunk/rtpproxy.erl">구글에서 검색한 gen_udp 예제</a>을 참고해서 겨우 성공한 게 다음의 코드이다.</p>
-<pre><code>
--module(udp_otp_server).
--compile(export_all).
-
-% stand-alone server version
-start() -&gt;
-gen_server:start({local, ?MODULE}, ?MODULE, [], []).
-
-% supervision tree version
-start_link() -&gt;
-gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
-
-init([]) -&gt;
-process_flag(trap_exit,true),
-{ok, Sock} = gen_udp:open(1111,[binary,inet]),
-io:format(&quot;udp server started...~n&quot;),
-{ok,0}.
-
-handle_call(Request, From, State) -&gt;
-io:format(&quot;~p~n&quot;,[Request]),
-{noreply,State}.
-
-handle_cast(_Msg,State) -&gt;
-io:format(&quot;handle_cast(~p)~n&quot;,_Msg),
-{noreply, State}.
-
-%% udp message should be handled here
-handle_info({udp,Sock, ClientIP, ClientPort, Packet}, State) -&gt;
-io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[ClientIP,ClientPort,Packet]),
-ok = gen_udp:send(Sock,ClientIP,ClientPort,Packet),
-{noreply, State}
-;
-
-handle_info(_Info,State) -&gt;
-io:format(&quot;handle_info~n&quot;),
-{noreply, State}.
-
-terminate(_Reason,N) -&gt;
-io:format(&quot;stopping...~n&quot;),
-ok.
-code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
-
-</code></pre>
-
-<p>핵심 요지는, UDP 메시지는 handle_call 이나 cast 가 아니라, handle_info에서 처리해야 한다는 점이다. 요즘 <strong>업.무.가. 바.빠.서.</strong> 얼랭을 3주 정도 못봤는데 또 서서히 기억이 소멸하기 시작했다. OTP에서는 함수의 리턴값 규칙을 정말 잘 맞춰야 하는 관계로, 다음 번부터는 gen_server 템플릿 하나 정도는 갖고 시작해야겠다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/erlang/"><span class="label">erlang</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -452,6 +390,10 @@ code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
 	</li>
 	
 	<li>
+		<a href="/2009/02/08/earl-grey/">Earl Grey</a>
+	</li>
+	
+	<li>
 		<a href="/2009/01/27/google-app-engine-overvie/">Google App Engine Overview</a>
 	</li>
 	
@@ -465,10 +407,6 @@ code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
 	
 	<li>
 		<a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a>
-	</li>
-	
-	<li>
-		<a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a>
 	</li>
 	
 </ul>

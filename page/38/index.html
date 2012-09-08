@@ -63,6 +63,16 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/02/05/ogre-for-psp/">Ogre for PSP</a> <small>2006-02-05</small></h1>
+	</div>
+	<div><p><img alt="http://www.ogre3d.org/images/M_images/ogrebtn.png" src="http://www.ogre3d.org/images/M_images/ogrebtn.png" /> PSP에서 3D 프로그래밍을 하는 법을 검색하다가 우연히 <a href="http://www.ogre3d.org/phpBB2/viewtopic.php?p=123549">Ogre3D 엔진이 PSP로 포팅된다는 이야기</a>를 Ogre 포럼에서 찾아냈다. PPC 포팅을 담당한 개발자가 하는 김에 PSP포팅도 맡겠다는 이야기인 듯한데... 2월 내에는 나오지 않을까 하는 희망을 품어본다. SDL 특히 pygame이 포팅된다는 소문도 들리는 시점에, Ogre3D까지 포팅이 되면 결국 PSP에서는 python으로도 3D 프로그래밍이 가능해진다는 소리가 되는 셈이다.</p>
+<p>그나저나 OGRE를 보고도 /오우거/ 대신 글자 그대로 장난삼아 읽던 /오그레/라는 발음이 연상되어 큰일이다;;</p>
+<p>ps. <a href="http://luaplayer.org">LuaPlayer</a>가 <a href="http://www.goop.org/psp/gl/">PSPGL</a> 기반으로 재작성되고 있는 중인데, <a href="http://forums.ps2dev.org/viewtopic.php?t=4591">3D보다는 2D쪽 기능에 한정</a>될 것 같다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a> <small>2006-02-02</small></h1>
 	</div>
 	<div><p>총 15개의 통계 테이블의 리팩토링이 드디어 오늘 끝났고, 내일 테스트만 무사히 통과하면 다음 작업으로 넘어갈 수 있을 것 같다. arithmetic overflow 로 인해 모든 numeric 관련 로직을 계산 컬럼으로 추출해내고 하나씩 검증하는데 이틀이나 날려 먹었던 것이다. 실제로 이백라인에 가까웠던 프로시저가 거의 30% 정도로 분량이 줄었고 각 쿼리문들 역시 간단한 DDL 로 바뀌게 되었는데, 솔직히 너무 허탈하다. :(  </p>
@@ -137,19 +147,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/12/15/db-datafile-옮기기/">DB datafile 옮기기</a> <small>2005-12-15</small></h1>
-	</div>
-	<div><p>그동안 사용했던 SQL Server evaluation 이 6개월만에 기한 만료되어 다른 머신에 똑같은 넘을 설치하게 되었다. 복구 방법은 생각보다 간단했는데...</p>
-<ul>
-<li>.mdf 와 .ldf 파일을 data/ 아래로 복사한다.</li>
-<li>엔터프라이즈 관리자를 띄워서 데이터베이스를 클릭한 후 [모든 작업] - [데이터베이스 연결]에서 mdf 파일을 찾아 추가하면 된다.</li>
-</ul>
-<p>방화벽에 TCP, UDP 1433 포트를 열어 주는 것만 잊지 않으면 30분만에 새 서버를 띄울 수 있게 된다. :)</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -170,6 +167,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	</li>
 	
 	<li>
+		<a href="/2006/02/05/ogre-for-psp/">Ogre for PSP</a>
+	</li>
+	
+	<li>
 		<a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a>
 	</li>
 	
@@ -183,10 +184,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	<li>
 		<a href="/2005/12/22/boostsingleton_pool-사용법/">boost::singleton_pool 사용법</a>
-	</li>
-	
-	<li>
-		<a href="/2005/12/15/db-datafile-옮기기/">DB datafile 옮기기</a>
 	</li>
 	
 </ul>

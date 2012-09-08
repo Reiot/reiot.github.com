@@ -63,6 +63,20 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/03/15/dont-reinvent-the-ace/">Don’t reinvent the ACE</a> <small>2006-03-15</small></h1>
+	</div>
+	<div><p><img alt="http://www.cs.wustl.edu/~schmidt/gifs/ace-copy1.jpg" src="http://www.cs.wustl.edu/~schmidt/gifs/ace-copy1.jpg" /><a href="http://www.cs.wustl.edu/~schmidt/ACE.html">ACE</a>를 처음 소개받은 때는 윈도우용 서버를 처음 개발하던 2003년도였다. 그러나 그 방대한 프레임워크와 학습량에 질려 제대로 써보지도 못하고 결국 포기하고, 대신 Proactor 와 비동기 입출력 부분만 직접 구현, 일년 정도의 정제 과정 끝에 5분만에 새 서비스를 만들어서 띄울 수 있는 수준까지 서버 코어를 완성할 수 있었다. (물론 일부 몰지각한 버그들로 인해서 삽질도 많이 했었다.)</p>
+<p>이제 와서 돌이켜보면 그간의 과정들은 <a href="http://gatorlog.com/?p=68">바퀴를 재발명</a>하는 것과 비슷했다. 이미 ACE에 도입된 ACE_Task 같은 개념들을 열심히 재구현하고 있거나, win32 API를 래핑하고 있는 자신을 발견하는 경우가 한두번이 아니었다. 물론 ACE의 무게나 최적화에 대해서는 많은 이견이 있지만, 동접 수십만의 MMORPG를 만들지 않는 한 괜찮지 않을까 하는 검증되지 않은 희망을 품고 있다.</p>
+<p>그 외에도 이번에 만들 <strike>진정한</strike> 분산 서버를 위한 기능들이 이미 ACE에 존재하고 있다는 점도 매력적이다. 물론 다운 버그를 잡느라 프레임워크 속에서 허우적대며 디버깅하는 모습이 상상되긴 하지만, 한번 도전해보련다. 캬캬~</p>
+<p>ps. 그런데 벌써부터 vc8 + unit test + ACE 의 궁합(/clr:safe 옵션)이 잘 맞지 않고 있다. :(</p>
+<p>see also:</p>
+<pre><code>- [ACE 팁 모음](http://reiot.cafe24.com/archives/413)
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/03/08/z-net/">Z-Net</a> <small>2006-03-08</small></h1>
 	</div>
 	<div><p><strong>Z-Net</strong> is lua-based network middleware which supports</p>
@@ -125,17 +139,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/02/14/lag-compensation/">Lag Compensation</a> <small>2006-02-14</small></h1>
-	</div>
-	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" /></p>
-<p>P2P 게임의 난제는 바로 동기화이다. 이는 내가 지금 보고 있는 것은 다른 사람의 과거이며, 때문에 100% 완벽한 동기화는 불가능하다는 사실에서 출발하게 된다. 보통은 <a href="http://www.g-matrix.pe.kr/feature/multi/deadreckoning.htm">Dead Reckoning</a> 으로 적당히 해결하게 되는데, 모든 사람들이 공 하나만 바라보는 스포츠 게임처럼 동기화가 치명적인 게임에서는 이것만으로는 부족한 감이 있다. 카운터 스트라이크와 같은 Dedicated 방식의 게임에서는 누군가가 총을 쏠 경우 그 사람의 latency 를 감안해서 서버에서 타겟의 과거 위치에 대해서 계산해주는 <a href="http://www.ra.is/unlagged/">랙 보상</a> 기법을 지원해주는데, 이걸 과연 P2P 게임에 도입할 수 있을지가 의문이다.</p>
-<p>완벽한 동기화를 고집한다면야 RTS게임에서 채택하는 synchronous P2P를 채택하면 되지만, 워크래프트3에서도 6:6밖에 안되는데 우리 수준에서 9:9+a 를 지원한다는 것은 사실상 불가능한 일. 그렇다고 디아블로2처럼 IDC수준으로 서버를 세팅해서 트래픽을 모두 감당한다는 건 너무 돈이 많이 들고... 과연 사악한 인터넷 환경에서 동기화도 잘 맞고 속도도 빠른 방식은 무엇일까? 고작 생각난다는 건 걔중에서 제일 빠르고 사양도 제법 좋은 놈의 컴퓨터에다가 서버 역할을 맡긴다는 건데, 이건 너무 구식이란 말이다. 흑.</p>
-<p>이번 기회에 체계적으로 P2P와 동기화에 대해서 제대로 공부 좀 해야 겠다.</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -156,6 +159,10 @@
 	</li>
 	
 	<li>
+		<a href="/2006/03/15/dont-reinvent-the-ace/">Don’t reinvent the ACE</a>
+	</li>
+	
+	<li>
 		<a href="/2006/03/08/z-net/">Z-Net</a>
 	</li>
 	
@@ -169,10 +176,6 @@
 	
 	<li>
 		<a href="/2006/02/15/zero-ping/">Zero Ping</a>
-	</li>
-	
-	<li>
-		<a href="/2006/02/14/lag-compensation/">Lag Compensation</a>
 	</li>
 	
 </ul>

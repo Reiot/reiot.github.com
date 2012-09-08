@@ -63,6 +63,129 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/12/18/데드락-추적하기/">데드락 추적하기</a> <small>2006-12-18</small></h1>
+	</div>
+	<div><ul>
+<li>원문 : <a href="http://support.microsoft.com/kb/832524">How to resolve a deadlock</a></li>
+</ul>
+<p>SQL 서버에서 데드락이 걸리면 락 매니저는 그 중 하나를 victim 으로 삼아서 죽이게 된다. 문제는 기본 설정 만으로는 어떤 SQL문끼리의 충돌인지를 확인할 수 없다는 점인데, SQL Server 에러 로그를 이용해서 이를 쉽게 알아낼 수 있다.</p>
+<h2>normal deadlock</h2>
+<p>dbcc traceon(1204,3605,-1) 를 이용하면, 데드락 이벤트(1204)가 발생할 경우 에러 로그에 남길 수 있다. -1 은 세션 설정이 아닌 서버 전역 설정을 의미한다. 가장 좋은 방법은 시스템 시작 파라미터에다가 -T1204 를 넘겨주는 방식. 단 성능에 문제가 있을 수 있으므로, 데드락을 잡고 나서 끄는 것을 잊지 말도록.</p>
+<p>주기적으로 sp_readerrorlog 또는 엔터프라이즈 매니저에서 확인해보다 보면 아래와 같은 로그가 나올 때가 있다.</p>
+<pre><code>
+Deadlock encountered .... Printing deadlock information 0
+2006-12-13 14:31:13.11 spid4    0
+2006-12-13 14:31:13.11 spid4  Wait-for graph    0
+2006-12-13 14:31:13.11 spid4    0
+2006-12-13 14:31:13.11 spid4  Node:1    0
+2006-12-13 14:31:13.11 spid4  RID: 8:1:3534:228  CleanCnt:1 Mode: X Flags: 0x2  0
+2006-12-13 14:31:13.11 spid4  Grant List 2::    0
+2006-12-13 14:31:13.11 spid4  Owner:0x4ae74ca0 Mode: X  Flg:0x0 Ref:0 Life:02000000 SPID:64 ECID:0  0
+2006-12-13 14:31:13.11 spid4  SPID: 64 ECID: 0 Statement Type: UPDATE Line #: 12    0
+2006-12-13 14:31:13.11 spid4  Input Buf: Language Event: insert into take_time_table (type, name, userID, takeTime) values (4, 'PickupServerApp', 50780, 6493)  0
+2006-12-13 14:31:13.11 spid4  Requested By:     0
+2006-12-13 14:31:13.11 spid4  ResType:LockOwner Stype:'OR' Mode: S SPID:58 ECID:0 Ec:(0x778C9508) Value:0x7321ac20 Cost:(0/1BC) 0
+2006-12-13 14:31:13.11 spid4    0
+2006-12-13 14:31:13.11 spid4  Node:2    0
+2006-12-13 14:31:13.11 spid4  RID: 8:1:3535:117  CleanCnt:1 Mode: X Flags: 0x2  0
+2006-12-13 14:31:13.11 spid4  Grant List 1::    0
+2006-12-13 14:31:13.11 spid4  Owner:0x3e54c7c0 Mode: X  Flg:0x0 Ref:0 Life:02000000 SPID:58 ECID:0  0
+2006-12-13 14:31:13.11 spid4  SPID: 58 ECID: 0 Statement Type: CONDITIONAL Line #: 8    0
+2006-12-13 14:31:13.11 spid4  Input Buf: Language Event: insert into take_time_table (type, name, userID, takeTime) values (2, 'GatewayServerApp', 50977, 0)    0
+2006-12-13 14:31:13.11 spid4  Requested By:     0
+2006-12-13 14:31:13.11 spid4  ResType:LockOwner Stype:'OR' Mode: U SPID:64 ECID:0 Ec:(0x611CD508) Value:0x4ae74e20 Cost:(0/134) 0
+2006-12-13 14:31:13.11 spid4  Victim Resource Owner:    0
+2006-12-13 14:31:13.11 spid4  ResType:LockOwner Stype:'OR' Mode: U SPID:64 ECID:0 Ec:(0x611CD508) Value:0x4ae74e20 Cost:(0/134) 0
+
+</code></pre>
+
+<p>위 로그에 의하면 single insert statement 2개를 동시에 실행할 때 데드락이 걸렸다. 처음에는 legacy 서버에서 스토어드 프로시저 대신 raw SQL을 실행했기 때문에 발생된 것으로 추측했는데, 논리적으로 이 둘이 데드락을 유발시키기는 좀 힘든 상황이었다. 이 경우 dbcc page 명령을 이용하면, 구체적으로 어떤 메모리 페이지에서 락이 걸렸는지를 확인해볼 수 있다. 위 로그에서 RID 부분을 찾아서 넘겨주면 끝. (단 이 명령을 실행하면 역시나 에러 로그에 남기 때문에, 나중에 보고 놀래지 말 것!)</p>
+<p>[sql]<br />
+dbcc page(8,1,3534,3)<br />
+dbcc page(8,1,3535,3)<br />
+[/sql]</p>
+<p>결국 문제는 저 테이블에는 <strong>다른 테이블로 또다시 select &amp; insert 하는 무지몽매한 트리거(-_-)</strong>가 걸려 있어서 생긴 문제였다. 하아.</p>
+<h2>Key deadlock</h2>
+<p>이번엔 키 데드락 로그를 살펴보자. 이 경우 RID 대신 KEY 라고 나오는데, SELECT OBJECT_NAME(KeyID) 를 이용해서 어떤 오브젝트에서 락이 걸렸는지를 알아낼 수 있다.</p>
+<pre><code>
+Deadlock encountered .... Printing deadlock information 0
+2006-12-20 20:37:35.73 spid4    0
+2006-12-20 20:37:35.73 spid4  Wait-for graph    0
+2006-12-20 20:37:35.73 spid4    0
+2006-12-20 20:37:35.73 spid4  Node:1    0
+2006-12-20 20:37:35.73 spid4  KEY: 8:612197231:1 (5000dcb808b7) CleanCnt:1 Mode: Range-S-U Flags: 0x0   0
+2006-12-20 20:37:35.73 spid4  Grant List 1::    0
+2006-12-20 20:37:35.73 spid4  Grant List 3::    0
+2006-12-20 20:37:35.73 spid4  Owner:0x25bdf860 Mode: Range-S-S Flg:0x0 Ref:0 Life:02000000 SPID:69 ECID:0   0
+2006-12-20 20:37:35.73 spid4  SPID: 69 ECID: 0 Statement Type: EXECUTE Line #: 0    0
+2006-12-20 20:37:35.73 spid4  Input Buf: RPC Event: sp_cursoropen;1 0
+2006-12-20 20:37:35.73 spid4  Requested By:     0
+2006-12-20 20:37:35.73 spid4  ResType:LockOwner Stype:'OR' Mode: X SPID:57 ECID:0 Ec:(0x39939508) Value:0x5223ee00 Cost:(0/1070)    0
+2006-12-20 20:37:35.73 spid4    0
+2006-12-20 20:37:35.73 spid4  Node:2    0
+2006-12-20 20:37:35.73 spid4  KEY: 8:612197231:1 (d000bebebbe4) CleanCnt:2 Mode: X Flags: 0x0   0
+2006-12-20 20:37:35.73 spid4  Wait List:    0
+2006-12-20 20:37:35.73 spid4  Owner:0x3dc49b20 Mode: S  Flg:0x0 Ref:1 Life:00000000 SPID:65 ECID:0  0
+2006-12-20 20:37:35.73 spid4  SPID: 65 ECID: 0 Statement Type: SELECT Line #: 1 0
+2006-12-20 20:37:35.73 spid4  Input Buf: Language Event: select b.charid from user_table a join char_table b on a.userid=b.userid where b.disable=0 and b.usertype=2 and a.username='throwrocks@me.com' 0
+2006-12-20 20:37:35.73 spid4  Requested By:     0
+2006-12-20 20:37:35.73 spid4  ResType:LockOwner Stype:'OR' Mode: Range-S-S SPID:69 ECID:0 Ec:(0x3A7A1548) Value:0x68dded80 Cost:(0/0)   0
+2006-12-20 20:37:35.73 spid4    0
+2006-12-20 20:37:35.73 spid4  Node:3    0
+2006-12-20 20:37:35.73 spid4  KEY: 8:612197231:1 (d000bebebbe4) CleanCnt:2 Mode: X Flags: 0x0   0
+2006-12-20 20:37:35.73 spid4  Grant List 1::    0
+2006-12-20 20:37:35.73 spid4  Owner:0x4f336b40 Mode: X  Flg:0x0 Ref:0 Life:02000000 SPID:57 ECID:0  0
+2006-12-20 20:37:35.73 spid4  SPID: 57 ECID: 0 Statement Type: UPDATE Line #: 135   0
+2006-12-20 20:37:35.73 spid4  Input Buf: RPC Event: U_CharacterSaveLocker;1 0
+2006-12-20 20:37:35.73 spid4  Requested By:     0
+2006-12-20 20:37:35.73 spid4  ResType:LockOwner Stype:'OR' Mode: S SPID:65 ECID:0 Ec:(0x74FA7548) Value:0x3dc49b20 Cost:(0/0)   0
+2006-12-20 20:37:35.73 spid4  Victim Resource Owner:    0
+2006-12-20 20:37:35.73 spid4  ResType:LockOwner Stype:'OR' Mode: S SPID:65 ECID:0 Ec:(0x74FA7548) Value:0x3dc49b20 Cost:(0/0)   0
+2006-12-20 20:37:40.73 spid4    0
+</code></pre>
+
+<h2>DBCC PSS</h2>
+<p>DBCC PSS(uid [, spid]) 를 통해서 특정 pid 의 다양한 속성들을 알 수 있다. uid 는 select * from sysusers 로 체크하고, 프로세스는 sp_who2 로 알아내면 된다. 물론 spid 를 생략하면 해당 유저의 모든 프로세스의 정보가 뜬다.</p>
+<pre><code>
+PSS @0x1B9E71E0
+---------------
+pspid = 53  m_dwLoginFlags = 0x03e0  plsid = 1827921760
+pbackground = 0
+pbSid
+-----
+81ee3246 10030a4a 8c19c980 f40a127f  ..2F...J........
+sSecFlags = 0x2  pdeadlockpri = 0  poffsets = 0x0
+pss_stats = 0x0  ptickcount = 905625531
+pcputickcount = 2711581261636168  ploginstamp = 313917
+ptimestamp = 2006-12-18 03:18:26.550  plangid = 0
+pdateformat = 1  pdatefirst = 7  Language = us_english
+UserName = ubo_game  poptions = 0x28400020  poptions2 = 0x3f438
+pline = 1  pcurstepno = 0  prowcount = 1
+pstatlist = 0  pcurcmd = 253  pseqstat = 0
+ptextsize = 2147483647  pretstat = 0  CNestLevel = 0
+@@procid = 0  pslastbatchstarttime = 2006-12-21 23:36:14.363
+pmemusage = -2095  hLicense = 0  tpFlags = 0x1
+isolation_level = 0  fips_flag = 0x0  sSaveSecFlags = 0x0
+psavedb = 0  pfetchstat = 0  pcrsrows = 0
+pslastbatchtime = 2006-12-21 23:36:14.363  pubexecdb = 0
+fInReplicatedProcExec = 0 pMsqlXact = 0x6D6AD038  presSemCount = [0]0
+presSemCount = [0]0  pcputot = 5182694  pcputotstart = 5182694
+pcpucmdstart = 5182694  pbufread = 346  pbufreadstart = 346
+plogbufread = 11300361  plogbufreadstart = 11300354
+pbufwrite = 6374  pbufwritestart = 6374  pLockTimeout = 4294967295
+pUtilResultSet = 0x00000000
+</code></pre>
+
+<p>[sql]<br />
+SET SHOWPLAN_ALL ON<br />
+SET STATISTICS PROFILE ON<br />
+[/sql]<br />
+DB에 문제가 생기면 언제나 무료로 컨설팅해주시는 <a href="http://changaya.tistory.com">자칭 초보 DBA 창아군</a>에게 Special Thanks를 보낸다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/11/15/online-sql-beautifier/">Online SQL beautifier</a> <small>2006-11-15</small></h1>
 	</div>
 	<div><p><img alt="sqlpponline" src="http://www.wangz.net/gsqlparser/sqlpp/sqlpponline.gif" /></p>
@@ -108,25 +231,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/10/19/steam-war-함대전-mmofps/">Steam War : 함대전 MMOFPS</a> <small>2006-10-19</small></h1>
-	</div>
-	<div><p><a href="http://www.lazeska.com/" class="imagelink" title="라제스카"><img alt="라제스카" src="http://boxcatstudio.files.wordpress.com/2009/07/lz.jpg" /></a><br />
-<a href="http://www.lazeska.com/">이 그림 한장 </a>덕분에 잊혀졌던 함대전 MMOFPS의 추억이 되살아났다. (역시나 수백번 글로 써봐도 그림 한장이 주는 감동은 따라갈 수 없다) 어쨌든, 한동안 비공개로 해놓고 혼자 끄적여 봤는데, 아무래도 몇 년 동안은 MMO 개발을 할 수 없을 것 같아서 이참에 공개해본다. 재미로 쓴 글이므로 현실감이 없더라도 웃으면 곤란. 핫핫.<a href="http://boxcatstudio.files.wordpress.com/2009/07/203.jpg"><br />
-</a></p>
-<pre><code>- 드넓은 하늘에서 수백, 수천대의 비행선, 비공정들이 펼치는 치열한 대규모 공중전. (그렇다. 레이옷은 XBOX의 크림슨 스카이에서 많은 감명을 받았다. 물론 코난이나 나우시카, 라퓨타, 붉은돼지 같은 지브리표 비공정도 무척 좋아한다. 무엇보다도 멋진 것은 은하영웅전설의 멋진 전술과 전략들을 리얼타임으로 구현해 내는 것.)
-- 때는 1940년대, 증기기관이 전세계적 주동력이 되어버린 팩션(가상역사)의 세계. 신기술을 기반으로 나치 동맹군은 세계대전을 일으킨다. 플레이어는 연합군과 동맹군, 중립국연합 중의 하나의 세력을 선택해서 전쟁을 치른다.
-- 다른 플레이어들 또는 AI 편대를 이끌고 나치(혹은 연합군)를 무찔러라. 수 십 대의 모선에서 출발한 수 백 대의 프로펠러기가 날아다니며, 수 백개의 미사일, 수 천발의 총알 속에서 살아남아라. 거대한 비공정을 건조하고, 수 십대의 동료 모선들과 함께 전략을 구상하고 전술을 실행하라. 히틀러, 괴벨, 롬멜, 처칠 같은 영웅 NPC가 지휘하는 초거대비공정을 수백명의 동지들과 함께 공략하라. (레이드?)
-- 레벨이 올라가면 다수의 편대를 이끌거나, 보다 거대하고 화력이 강한 비행선을 조종할 수 있다. 대형 비공정은 여러 플레이어가 역할을 분담해서 움직여야 한다.
-- 모든 비행기들은 증기 기관 또는 열기구를 주 동력원으로 사용하며, 이동을 위해서는 프로펠러를 사용한다. 오직 작은 미사일만이 화약추진체를 사용할 수 있다.  기본적인 무기는 느린 대포와 빠른 기관총, 그리고 아주 초기적인 유도 성능을 가진 미사일 만을 사용할 수 있다. 초기적인 레이다를 사용할 수 있다.  상대를 무찌르면 무기, 부품 등의 아이템이 떨어진다. 현상금을 받아 돈을 벌어 비행기를 업그레이드하거나 새로 산다. 부품이나 완제품을 경매장에 사고 팔 수 있다.
-- 세계 지도를 띄우면 언제 어디에서 전투가 일어나는지를 확인할 수 있다. 여기에서 AI 대전 또는 플레이어 대전을 선택하고 전투에 임한다. 각 전투 지역에는 몇 명이 참가해서 몇 분동안 싸우고 있는지 확인할 수 있다. 100 명 이상이 참가할 수 있는 대규모 전투는, 일정 시간마다 리스폰된다. 세계 지도에는 초대형 모선의 위치가 그려진다. 대체로 전투는 이 주위에서 이루어진다.
-- 전투 지역을 선택하면 AI가 움직이는 대형 모선에서 전투가 시작된다. (대체로 전투는 비슷한 규모로 시작된다. 만약 규모가 다르면 AI에 의해서 조정된다.) 이 대형 모선은 맵의 정반대편에서 대기하고 있으며, 방어력과 공격력이 좋아서 혼자 힘으로는 파괴하기가 어렵다. 불리할 경우 모선 안으로 대피해서 후퇴할 수 있다.
-</code></pre>
-<p>누가 빨리 만들어주세요. 매달 이만오천원 이하면 결제해 드립니다.</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -147,6 +251,10 @@
 	</li>
 	
 	<li>
+		<a href="/2006/12/18/데드락-추적하기/">데드락 추적하기</a>
+	</li>
+	
+	<li>
 		<a href="/2006/11/15/online-sql-beautifier/">Online SQL beautifier</a>
 	</li>
 	
@@ -160,10 +268,6 @@
 	
 	<li>
 		<a href="/2006/10/20/조금은-오래된-재미있는-it-개발자들의-토론/">조금은 오래된, 재미있는 IT 개발자들의 토론</a>
-	</li>
-	
-	<li>
-		<a href="/2006/10/19/steam-war-함대전-mmofps/">Steam War : 함대전 MMOFPS</a>
 	</li>
 	
 </ul>
