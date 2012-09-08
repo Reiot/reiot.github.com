@@ -63,6 +63,79 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2011/03/01/textmate-tips/">TextMate Tips</a> <small>2011-03-01</small></h1>
+	</div>
+	<div><h2>깔끔하게 지우기</h2>
+<pre><code>rm ~/Library/Preferences/com.macromates.*
+rm -rf /Library/Application Support/TextMate/
+rm -rf ~/Library/Application Support/TextMate/
+</code></pre>
+
+<h3>한글 폰트 설치</h3>
+<p>2바이트 문자들이 모두 깨지는 관계로 전용 한글 폰트를 구해야 한다. 누가 나눔코딩글꼴의 TextMate 버전을 안 만들어줄까?</p>
+<p><a href="http://www.appleforum.com/application/45362-textmate%EC%97%90%EC%84%9C-%ED%95%9C%EA%B8%80-%EA%B8%80%EA%BC%B4%ED%8F%AD-%EB%AC%B8%EC%A0%9C.html">http://www.appleforum.com/application/45362-textmate에서-한글-글꼴폭-문제.html</a></p>
+<h3>유용한 단축키</h3>
+<p>⌘(cmd, window) ⌥ (option, alt) ^(control) ⇧(shift)</p>
+<ul>
+<li>⌘T : 빠른 파일 찾아가기</li>
+<li>⇧⌘T : 현재 파일의 심볼 찾기</li>
+<li>^⇧V : 현재 파일의 정적 분석 및 검증(Validation). 파이썬일 경우 pylint, 자바스크립트일 경우 jslint 가 실행된다.</li>
+<li>⌃⌘R : 현재 편집중인 파일을 Project+ 사이드바로 찾기</li>
+</ul>
+<p>더 많은 팁은 <a href="http://stackoverflow.com/questions/99807/what-are-some-useful-textmate-shortcuts">http://stackoverflow.com/questions/99807/what-are-some-useful-textmate-shortcuts</a> 에서 찾아볼 수 있다.</p>
+<h2>추천 번들 &amp; 플러그인</h2>
+<h3>zen coding</h3>
+<p>via <a href="http://code.google.com/p/zen-coding/">http://code.google.com/p/zen-coding/</a></p>
+<p>TextMate 도 강력한 툴이지만 이놈도 만만치않다. 마법같은 ⌘R 의 힘을 느껴보시라.</p>
+<h3>Project+</h3>
+<p>via <a href="http://ciaranwal.sh/projectplus">http://ciaranwal.sh/projectplus</a></p>
+<h3>GetBundles</h3>
+<p>via <a href="http://solutions.treypiepmeier.com/2009/02/25/installing-getbundles-on-a-fresh-copy-of-textmate/">solutions.treypiepmeier.com</a></p>
+<pre><code>
+mkdir -p ~/Library/Application\ Support/TextMate/Bundles
+cd !$
+svn co http://svn.textmate.org/trunk/Review/Bundles/GetBundles.tmbundle/
+osascript -e 'tell app &quot;TextMate&quot; to reload bundles'
+</code></pre>
+
+<h3>YUI compressor textmate bundle</h3>
+<p>via <a href="http://www.experienceinternet.co.uk/software/yui-compressor-textmate-bundle/">http://www.experienceinternet.co.uk/software/yui-compressor-textmate-bundle/</a></p>
+<h3>PyLint</h3>
+<p>파이썬 소스 파일에 대해서 ^⇧V 로 정적 분석 및 검증을 할 수 있다. 설치한 후 TextMate PATH 에 /usr/local/bin 을 추가해야 한다. 참고로 easy_install 으로 모듈을 설치할 때 파이썬 버전을 지정하려면 아래와 같이 하면 된다.</p>
+<pre><code>sudo easy_install-2.5 pylint
+</code></pre>
+
+<p>각종 경고 목록은 <a href="http://www.logilab.org/card/pylintfeatures">http://www.logilab.org/card/pylintfeatures</a> 에 있다. <br />
+현재 파일에서 경고를 끄려면,</p>
+<pre><code># pylint: disable=W0232,R0902,C0103,C0301
+</code></pre>
+
+<h2>정규식</h2>
+<h3>Basic</h3>
+<p>캡처한 문자열은 $1, $2 .. 를 이용한다. $0 은 전체를 의미한다.</p>
+<h3>no trailing space after comma</h3>
+<p>pylint 를 돌려보면 콤마(,) 다음에 공백을 무조건 넣으라고 한다. negative look  ahead  를 이용하면 간단하다.</p>
+<pre><code>Find: &quot;,(?![\s])&quot;
+Replace: &quot;, &quot;
+</code></pre>
+
+<h2>참고 자료</h2>
+<ul>
+<li><a href="http://al3x.net/2008/12/03/how-i-use-textmate.html">http://al3x.net/2008/12/03/how-i-use-textmate</a></li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/Programming/"><span class="label">Programming</span></a>
+	
+		<a href="/tag/textmate/"><span class="label">textmate</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2011/01/12/haveappserver-vs-onproductionserver/">have_app_server vs. on_production_server</a> <small>2011-01-12</small></h1>
 	</div>
 	<div><p>사실 하고 싶은 건, (app id, on production server) 조합으로 적합한 facebook setting 을 로딩하는 건데.. 웬지 잘 안되었던 것 같은 느낌 :)</p>
@@ -248,51 +321,6 @@ on_production_server = have_appserver and \
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a> <small>2010-11-11</small></h1>
-	</div>
-	<div><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
-<pre><code>&lt;script id=&quot;test&quot; type=&quot;script/x-jquery-tmpl&quot;&gt;
-  &lt;div&gt;
-  &lt;h1&gt;${name}&lt;/h1&gt;
-  &lt;p&gt;${description}&lt;/p&gt;
-  &lt;div class=&quot;progressbar&quot;&gt;&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/script&gt;
-&lt;script id=&quot;test2&quot; type=&quot;script/x-jquery-tmpl&quot;&gt;
-  &lt;h1&gt;${name}&lt;/h1&gt;
-  &lt;p&gt;${description}&lt;/p&gt;
-  &lt;div class=&quot;progressbar&quot;&gt;&lt;/div&gt;
-&lt;/script&gt;
-&lt;div id=&quot;here&quot;&gt;&lt;/div&gt;
-
-$(function() {
-  var data = {name: 'Hello', description: 'World', value:50};
-  var data2 = {name: 'JavaScript' ,description: 'Rules', value: 80};
-  var $tmpl = $('#test').tmpl(data);
-
-  $tmpl.find('.progressbar').progressbar({value:data.value});
-  $tmpl.appendTo('#here');
-
-  var tmpl2 = $('#test2').tmpl(data2);
-  tmpl2.find('.progressbar').progressbar({value:data2.value}); // not working
-  tmpl2.appendTo('#here');
-
-});
-</code></pre>
-
-<p>위 예제처럼, #test 는 하나의 DIV 로 묶여져 있어서 appendTo 하기 전에 위젯을 만들 수 있지만, #test2 처럼 여러 개의 엘리먼트들이 나눠져 있는 경우에는 .tmpl(data) 로 렌더링을 하면 [h1, p, div.progressbar] 의 배열이 튀어나오는데, 이 배열에다가 대고 find 를 해도 아무 일도 발생하지 않는다. (for 를 돌아도 마찬가지)</p>
-<p>일단은 그냥 마음편하게 하나로 묶는게 유일한 해답일 거 같은데, 그나저나 .tmplItem 은 도대체 어디에 쓰는 물건일까?</p></div>
-	
-	<p>
-	
-		<a href="/tag/jquery.tmpl/"><span class="label">jquery.tmpl</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -313,6 +341,10 @@ $(function() {
 	</li>
 	
 	<li>
+		<a href="/2011/03/01/textmate-tips/">TextMate Tips</a>
+	</li>
+	
+	<li>
 		<a href="/2011/01/12/haveappserver-vs-onproductionserver/">have_app_server vs. on_production_server</a>
 	</li>
 	
@@ -326,10 +358,6 @@ $(function() {
 	
 	<li>
 		<a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a>
-	</li>
-	
-	<li>
-		<a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a>
 	</li>
 	
 </ul>

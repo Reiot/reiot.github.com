@@ -63,6 +63,86 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2005/12/11/adonet-이란/">ADO.NET 이란?</a> <small>2005-12-11</small></h1>
+	</div>
+	<div><blockquote>
+<p>ADO.NET은 OLE DB 및 XML을 통해 제공되는 데이터 소스뿐 아니라 Microsoft SQL Server와 같은 '''데이터 소스에 대한 일관성 있는 액세스'''를 제공합니다. 데이터 공유 소비자 응용 프로그램은 ADO.NET을 사용해서 이러한 데이터 소스에 연결하여 '''데이터를 검색, 조작 및 업데이트'''할 수 있습니다.<br />
+-- from MSDN</p>
+</blockquote>
+<ul>
+<li>모든 것은 데이터 소스 - DB, 엑셀, XML, 텍스트파일, ...</li>
+<li>연결되지 않은 데이터 집합 - 캐싱 방식</li>
+<li>XML 과의 강력한 통합</li>
+<li>N 레이어 어플리케이션에 적합 - 특히 웹 어플리케이션...</li>
+</ul>
+<!--more-->
+
+<h2>ADO.NET의 구성 요소</h2>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" /></a></p>
+<h3>DataSet</h3>
+<p>메모리에 존재하는 데이터들 (쉽게 말하자면 in 메모리 DB, but...)</p>
+<ul>
+<li>데이터 테이블(들) + 데이터 관계(들)</li>
+<li>형식화된 데이터 집합 vs. 형식화되지 않은 데이터 집합</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ado1.jpg" /></a><br />
+<a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO2.jpg" /></a></p>
+<h3>DataTable</h3>
+<p>동일한 데이터(DataRow)의 집합.</p>
+<ul>
+<li>PK. Unique, Auto Increment, Not Null 등의 Constraint 를 지정할 수 있다.</li>
+<li>DB 테이블과 유사하다. 그러나, 완벽하게 같지 않다 -&gt; DB View 또는 조인을 통해 데이터 테이블로 갖고 올 수도 있고, 로컬에서 수동 생성도 가능하다.</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO3.jpg" /></a></p>
+<h3>DataRelation</h3>
+<p>데이터 테이블간의 관계.</p>
+<ul>
+<li>PK. FK. Unique, Auto Increment</li>
+<li>데이터 그리드의 navigation 에서 사용됨.</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO4.jpg" /></a></p>
+<h3>DataAdapter</h3>
+<p>데이터 소스에서 데이터를 읽어 데이터집합을 채운다. 그리고, 데이터집합의 변경 사항을 데이터 소스로 반영한다.</p>
+<ul>
+<li>SelectCommand, UpdateCommand, DeleteCommand, InsertCommand...</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO5.jpg" /></a></p>
+<h3>DataView</h3>
+<p>특정 데이터 테이블을 row 필터링한 부분 집합.</p>
+<ul>
+<li>컬럼 필터링은 안됨</li>
+<li>데이터 테이블의 조인도 안됨</li>
+<li>SQL 처럼 WHERE 필터를 걸 수 있다.</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO6.jpg" /></a></p>
+<h3>DataGrid</h3>
+<p>테이블 형태의 데이터를 보여주는 강력한 .NET 컨트롤</p>
+<ul>
+<li>정렬, 추가, 삭제, 수정, 네비게이션, 등등 웬만한 기본 기능들은 모두 들어 있다.</li>
+<li>텍스트박스, 체크박스만이 포함될 수 있다. 그러나, 커스텀 컨트롤을 만들면 딴 넘들도 가능.</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO8.jpg" /></a></p>
+<h3>DataBinding</h3>
+<p>데이터와 컨트롤의 자동 매핑</p>
+<ul>
+<li>텍스트 박스, 체크 박스 등 단순 컨트롤과의 바인딩</li>
+<li>콤보박스, 그리드 등 복잡한 컨트롤과의 바인딩</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO9.jpg" /></a></p>
+<h2>VB.NET 으로 데이터베이스 어플리케이션 만들기</h2>
+<p>가장 빨리 DB 어플리케이션을 만드는 방법!</p>
+<ol>
+<li>2개의 테이블을 드래그 앤 드랍해와서, 형식화된 데이터 집합을 만든다</li>
+<li>XSD를 수정해서 관계를 만든다.</li>
+<li>데이터 그리드를 추가, 바인딩한다.</li>
+<li>수정후 업데이트하기</li>
+<li>끝.</li>
+</ol></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2005/12/07/나쁜-아이디어를-위한-좋은-방법/">나쁜 아이디어를 위한 좋은 방법</a> <small>2005-12-07</small></h1>
 	</div>
 	<div><blockquote>
@@ -240,18 +320,6 @@ cout GetValue() GetValue()
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/10/21/sourceanywhere-remote-vss-tools/">SourceAnyWhere - Remote VSS tools</a> <small>2005-10-21</small></h1>
-	</div>
-	<div><p>미국 출장가는 쉬귀군을 위해서 테스트를 해봐야겠다. 근데 이거 정품을 살바엔 cvs 나 subversion 을 쓰지..</p>
-<ul>
-<li><a href="http://www.dynamsoft.com/SAW_Overview.html">Official SourceAnyWhere Homepage</a></li>
-<li><a href="http://www.perl.or.kr/okbb/okbview.php?cmd=view&amp;lm=list&amp;site=Site&amp;forum=Perl&amp;lang=Corea&amp;p=4&amp;msg_id=2081&amp;sch=&amp;sn=&amp;ss=&amp;st=">Remote VSS tools 비교 분석</a></li>
-</ul></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -272,6 +340,10 @@ cout GetValue() GetValue()
 	</li>
 	
 	<li>
+		<a href="/2005/12/11/adonet-이란/">ADO.NET 이란?</a>
+	</li>
+	
+	<li>
 		<a href="/2005/12/07/나쁜-아이디어를-위한-좋은-방법/">나쁜 아이디어를 위한 좋은 방법</a>
 	</li>
 	
@@ -285,10 +357,6 @@ cout GetValue() GetValue()
 	
 	<li>
 		<a href="/2005/10/22/find_if-와-boostlambda/">find_if 와 boost::lambda</a>
-	</li>
-	
-	<li>
-		<a href="/2005/10/21/sourceanywhere-remote-vss-tools/">SourceAnyWhere - Remote VSS tools</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,18 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/04/15/ethereal-tips/">Ethereal Tips</a> <small>2006-04-15</small></h1>
+	</div>
+	<div><p><strong>Local Packets</strong></p>
+<p>로컬 어플리케이션 간의 TCP/IP 패킷 전송은 캡처되지 않는다. 뭔가 내가 모르는게 있는걸까?</p>
+<p><strong>Conversation</strong></p>
+<p><a title="EtherealConversation.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.thumbnail.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.thumbnail.JPG" /></a>특정 어플리케이션에 대해서 패킷 캡처를 하고 나면, 캡처 하는 동안 발생했던 다른 쓸모없는 패킷들까지도 뒤섞여 있기 때문에, 이를 잘 필터링해야 한다. 물론 Display Filter 를 써서 수동으로 하나씩 필터링하는 방법도 있지만, Statistics - Conversation 메뉴를 통해서 그동안 전송된 패킷들을 프로토콜별로 분류해 놓은 표를 통해서 필터링하는 방법도 있다.</p>
+<p>이 표를 보면 프로토콜별/주소별 패킷 분류가 되어 있으며, 각 분류마다 전송 횟수가 표시되어 있으므로 원하는 프로토콜과 주소지를 잘 선택하면 끝.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/04/11/migrate-to-ace/">Migrate To ACE</a> <small>2006-04-11</small></h1>
 	</div>
 	<div><p><a href="http://reiot.cafe24.com/archives/404">예전에도 밝혔다시피</a> 요즘 legacy server core framework 를 <a href="http://reiot.cafe24.com/archives/413">ACE</a> 기반으로 마이그레이션하고 있다. 기존 코드의 경우 골치아픈 동기화와 데드락을 최대한 피하기 위해서 IOCP를 썼음에도 불구하고 polling 을 통한 순차 처리를 하도록 되어 있어서, 일단 이 형태를 그대로 ACE 기반으로 재구성 한 후 제대로 된 이벤트 드리븐을 구현해보려고 노력 중이다. 사실, 테스트 결과는 그다지 좋지는 않지만, 숨겨진 병목 부분을 해결하면 원래 코드의 80-90% 정도는 따라갈 수 있으리라고 예상중이다.</p>
@@ -200,43 +212,6 @@ set PATHTOFIXES=Drive:\Update
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/03/22/mmp-database-mini-cookbook-요약/">MMP Database Mini-Cookbook 요약</a> <small>2006-03-22</small></h1>
-	</div>
-	<div><ul>
-<li>원문 보기 : <a href="http://www.gamasutra.com/resource_guide/20040920/lee_01.shtml">MMP Database Mini-Cookbook: A Half Dozen Recipes To Aid Development</a> from Gamasutra</li>
-</ul>
-<h2>Unique Identifiers for Painless Game World Transfer</h2>
-<ul>
-<li>계정을 다른 서버(월드)로 이전할 경우에 대비, 캐릭터에 유니크한 (정수) 아이디를 할당할 때, 월드 개수만큼 아이디를 증가시킨다. 이를 통해서 월드-유니크한 아이디를 할당할 수 있으며, 아이템 같은 종속 데이터의 이전도 용이하다.</li>
-<li>월드의 최대 개수는 고정(255)이다. 따라서, 늘어나서는 곤란!</li>
-</ul>
-<h2>Managing Localization Data</h2>
-<ul>
-<li>NPC 스크립트, 다이얼로그 등의 텍스트 등을 DB 에 저장해두면 편하다.</li>
-<li>이때, localization 을 고려해서 저장할 것. 수정은 자체 툴을 만들어라..</li>
-<li>DarkEden 에서도 이와 비슷하게 구현했다고 한다. (본인은 월드 추가전에 나와서.. 소문만 들었다.)</li>
-</ul>
-<h2>Character Inventory Management and Shared Banking</h2>
-<ul>
-<li>인벤토리-은행-퀘스트 간 아이템 이동, '''특히 캐릭터간 아이템 이동'''을 용이하게 하기 위해서 <code>PlayerID - CharacterID - InventoryType - ItemID</code> 방식으로 테이블을 설계할 것.</li>
-<li>DarkEden 에서도 바닥-마우스-인벤토리-창고 등의 인벤토리 타입을 사용했었다.</li>
-</ul>
-<h2>Mapping Class Inheritance to Database Tables</h2>
-<ul>
-<li>다양한 아이템을 DB에 저장할 때, 클래스 속성(per-class)과 인스턴스 속성(per-instance)으로 테이블을 분리한다.</li>
-<li>모든 아이템마다 필요한 공통 데이터를 공통 Item 테이블에 정의하고, 하위 아이템을 위한 데이터는 하위 아이템 테이블에 정의한다.</li>
-<li><code>ex: (ItemClass-ItemInstance)-(WeaponClass-WeaponInstance)</code></li>
-<li>DarkEden에서도 이와 비슷하게, 각 아이템 종류별 Info 테이블과 Object 테이블을 두고, 관리를 했었다. 단점이라면, 테이블이 많아지면서 관리가 귀찮아지는 점과, Save-Load 프로시저가 길어진다는 점이 있겠다.</li>
-</ul>
-<h2>Shared Game Configuration Parameters</h2>
-<ul>
-<li>월드별 서버 환경 설정을 데이터베이스에 유지하면, 굳이 config 파일을 고치지 않아도 되므로 편하다. (서버가 많아지면 서버별 환경 설정 하는 것도 꽤 힘든 일이 되니까...)</li>
-</ul></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -257,6 +232,10 @@ set PATHTOFIXES=Drive:\Update
 	</li>
 	
 	<li>
+		<a href="/2006/04/15/ethereal-tips/">Ethereal Tips</a>
+	</li>
+	
+	<li>
 		<a href="/2006/04/11/migrate-to-ace/">Migrate To ACE</a>
 	</li>
 	
@@ -270,10 +249,6 @@ set PATHTOFIXES=Drive:\Update
 	
 	<li>
 		<a href="/2006/03/22/relational-database-guidelines-for-mmogs-요약/">Relational Database Guidelines For MMOGs 요약</a>
-	</li>
-	
-	<li>
-		<a href="/2006/03/22/mmp-database-mini-cookbook-요약/">MMP Database Mini-Cookbook 요약</a>
 	</li>
 	
 </ul>

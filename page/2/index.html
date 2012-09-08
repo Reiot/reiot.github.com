@@ -63,6 +63,35 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a> <small>2011-07-09</small></h1>
+	</div>
+	<div><p><a href="http://www.slideshare.net/AddyOsmani/jquery-proven-performance-tips-tricks">jQuery Proven Performance Tips &amp; Tricks</a> 간단 요약</p>
+<ul>
+<li>최신 버전을 사용해라. (1.4 보다 1.6이 2배 가까이 빠르다)</li>
+<li>id 선택자가 class 선택자보다 5-10배 이상 빠르다.</li>
+<li>가상 선택자는 느리니까 최대한 쓰지 말 것. 검색 영역의 모든 요소를 다 뒤진다!!</li>
+<li>부모에서 자식을 찾는 방법은 $parent.find('.child') 가 제일 빠르다. 다른 것은 잊어라. (근데 왜 children() 이 더 안빠르지..)</li>
+<li>jQuery 객체는 꼭 필요할 때에만 만들 것.</li>
+<li>항상 캐싱할 것</li>
+<li>체인 방식을 애용할 것. 이미 필터링된 집합을 이용하므로 빠르다. 코드도 간단해진다.</li>
+<li>bind, live 보다 delegate가 좋다!</li>
+<li>DOM insert/append 는 가급적 한번에 끝낼 것. 무거운 연산을 해야 할 경우 일단 detach 했다가 다시 넣으면 좋다.</li>
+<li>$.each() 는 느리니까 그냥 for 를 쓸 수 있으면 써라.</li>
+<li>$.method 보다 로레벨 함수인 $.fn.method 가 빠르다.</li>
+</ul>
+<p>대체로 아는 이야기라는 점이 슬프다. 그걸 아는 놈이 짠 코드가 이 모양이라니.. ㅠㅠ</p>
+<p>그나저나 jsperf.com 같은 걸로 브라우저별로 검증해보지 않으면 다 공허한 이야기인 듯. 재미있는 건 IE 6/7 클래스 선택자의 속도가 다른 브라우저보다 1000-2000배 느리다는 점과, 크롬 13.x 의 성능이 갑자기 앞뒤버전보다 확 떨어졌다는 것. :)</p></div>
+	
+	<p>
+	
+		<a href="/tag/jquery/"><span class="label">jquery</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a> <small>2011-06-18</small></h1>
 	</div>
 	<div><p>jQuery Mobile(이후 jQM)으로 아이패드용 클리앙 뷰어를 만든 경험을 토대로 팁을 정리했습니다. 이후, 편의상 경어를 사용합니다.</p>
@@ -304,79 +333,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2011/03/01/textmate-tips/">TextMate Tips</a> <small>2011-03-01</small></h1>
-	</div>
-	<div><h2>깔끔하게 지우기</h2>
-<pre><code>rm ~/Library/Preferences/com.macromates.*
-rm -rf /Library/Application Support/TextMate/
-rm -rf ~/Library/Application Support/TextMate/
-</code></pre>
-
-<h3>한글 폰트 설치</h3>
-<p>2바이트 문자들이 모두 깨지는 관계로 전용 한글 폰트를 구해야 한다. 누가 나눔코딩글꼴의 TextMate 버전을 안 만들어줄까?</p>
-<p><a href="http://www.appleforum.com/application/45362-textmate%EC%97%90%EC%84%9C-%ED%95%9C%EA%B8%80-%EA%B8%80%EA%BC%B4%ED%8F%AD-%EB%AC%B8%EC%A0%9C.html">http://www.appleforum.com/application/45362-textmate에서-한글-글꼴폭-문제.html</a></p>
-<h3>유용한 단축키</h3>
-<p>⌘(cmd, window) ⌥ (option, alt) ^(control) ⇧(shift)</p>
-<ul>
-<li>⌘T : 빠른 파일 찾아가기</li>
-<li>⇧⌘T : 현재 파일의 심볼 찾기</li>
-<li>^⇧V : 현재 파일의 정적 분석 및 검증(Validation). 파이썬일 경우 pylint, 자바스크립트일 경우 jslint 가 실행된다.</li>
-<li>⌃⌘R : 현재 편집중인 파일을 Project+ 사이드바로 찾기</li>
-</ul>
-<p>더 많은 팁은 <a href="http://stackoverflow.com/questions/99807/what-are-some-useful-textmate-shortcuts">http://stackoverflow.com/questions/99807/what-are-some-useful-textmate-shortcuts</a> 에서 찾아볼 수 있다.</p>
-<h2>추천 번들 &amp; 플러그인</h2>
-<h3>zen coding</h3>
-<p>via <a href="http://code.google.com/p/zen-coding/">http://code.google.com/p/zen-coding/</a></p>
-<p>TextMate 도 강력한 툴이지만 이놈도 만만치않다. 마법같은 ⌘R 의 힘을 느껴보시라.</p>
-<h3>Project+</h3>
-<p>via <a href="http://ciaranwal.sh/projectplus">http://ciaranwal.sh/projectplus</a></p>
-<h3>GetBundles</h3>
-<p>via <a href="http://solutions.treypiepmeier.com/2009/02/25/installing-getbundles-on-a-fresh-copy-of-textmate/">solutions.treypiepmeier.com</a></p>
-<pre><code>
-mkdir -p ~/Library/Application\ Support/TextMate/Bundles
-cd !$
-svn co http://svn.textmate.org/trunk/Review/Bundles/GetBundles.tmbundle/
-osascript -e 'tell app &quot;TextMate&quot; to reload bundles'
-</code></pre>
-
-<h3>YUI compressor textmate bundle</h3>
-<p>via <a href="http://www.experienceinternet.co.uk/software/yui-compressor-textmate-bundle/">http://www.experienceinternet.co.uk/software/yui-compressor-textmate-bundle/</a></p>
-<h3>PyLint</h3>
-<p>파이썬 소스 파일에 대해서 ^⇧V 로 정적 분석 및 검증을 할 수 있다. 설치한 후 TextMate PATH 에 /usr/local/bin 을 추가해야 한다. 참고로 easy_install 으로 모듈을 설치할 때 파이썬 버전을 지정하려면 아래와 같이 하면 된다.</p>
-<pre><code>sudo easy_install-2.5 pylint
-</code></pre>
-
-<p>각종 경고 목록은 <a href="http://www.logilab.org/card/pylintfeatures">http://www.logilab.org/card/pylintfeatures</a> 에 있다. <br />
-현재 파일에서 경고를 끄려면,</p>
-<pre><code># pylint: disable=W0232,R0902,C0103,C0301
-</code></pre>
-
-<h2>정규식</h2>
-<h3>Basic</h3>
-<p>캡처한 문자열은 $1, $2 .. 를 이용한다. $0 은 전체를 의미한다.</p>
-<h3>no trailing space after comma</h3>
-<p>pylint 를 돌려보면 콤마(,) 다음에 공백을 무조건 넣으라고 한다. negative look  ahead  를 이용하면 간단하다.</p>
-<pre><code>Find: &quot;,(?![\s])&quot;
-Replace: &quot;, &quot;
-</code></pre>
-
-<h2>참고 자료</h2>
-<ul>
-<li><a href="http://al3x.net/2008/12/03/how-i-use-textmate.html">http://al3x.net/2008/12/03/how-i-use-textmate</a></li>
-</ul></div>
-	
-	<p>
-	
-		<a href="/tag/Programming/"><span class="label">Programming</span></a>
-	
-		<a href="/tag/textmate/"><span class="label">textmate</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -397,6 +353,10 @@ Replace: &quot;, &quot;
 	</li>
 	
 	<li>
+		<a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a>
+	</li>
+	
+	<li>
 		<a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
 	</li>
 	
@@ -410,10 +370,6 @@ Replace: &quot;, &quot;
 	
 	<li>
 		<a href="/2011/04/14/ant-cookbook/">Ant Cookbook</a>
-	</li>
-	
-	<li>
-		<a href="/2011/03/01/textmate-tips/">TextMate Tips</a>
 	</li>
 	
 </ul>

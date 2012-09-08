@@ -63,6 +63,96 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2004/11/26/visual-studio-tips/">Visual Studio Tips</a> <small>2004-11-26</small></h1>
+	</div>
+	<div><h2>.h &lt;-&gt; .cpp 단축키</h2>
+<p>Visual Assist 를 사용하시는 분은, [도구]-[옵션]-[환경]-[키보드] 에서 VAOpenOpposite를 Ctrl+Q등으로 단축키를 지정하면 파일 전환을 보다 쉽게 할 수 있다.</p>
+<h2>Alt + F7</h2>
+<p>[도구]-[옵션]-[환경]-[키보드]에서  빌드.선택영역빌드를 Alt+F7로 단축키 지정하면, 현재 프로젝트를 키보드만으로 빌드할 수 있다.</p>
+<h2>외부 도구</h2>
+<p>레이옷은 현재 솔루션의 각 프로젝트의 산출물(exe,pdb,xml 등)들을 서버에 배포하기 위해서 Python 으로 배포 스크립트를 제작했다. 문제는 이 넘을 실행하기 위해서 꼭 탐색기를 띄워서 찾아가서 실행하는게 너무 귀찮았다는 점. 그러나 [도구]-[외부도구]-[외부명령] 으로 새 명령을 등록할 수 있다. 아래와 같이 등록하면, 이제 파이썬 스크립트를 메뉴에서 실행할 수 있게 된다. 특히 출력창 사용을 선택하면 스크립트의 표준 출력을 Visual Studio 에서 살펴볼 수 있다.</p>
+<p><img alt="external_tool.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/external_tool.JPG" /><br />
+</p>
+<p>또한 이 명령을 도구모음에 등록하면 더욱 편하다. [도구]-[사용자지정]-[새로만들기]에서 도구바를 하나 만든 다음, [명령] 탭을 눌러 아까 등록한 넘을 [범주]-[도구]-[외부명령N]에서 찾아 드래그 앤 드랍으로 새 도구바로 옮겨 주면 끝. 그나저나, 아이콘을 새로 등록하고 싶지만 어떻게 하는지 모르겠다.</p>
+<h2>한글폴더/파일</h2>
+<p>가능하면 사용하지 말라. 레이옷은 빈태군의 권유를 듣고 한쪽귀로 흘리다가 다음과 같은 고생을 하게 되었다.</p>
+<pre><code>- xerces c++ 라이브러리 사용시, XML 파일의 절대 경로를 파싱할 때 한글 폴더가 포함될 경우 [Unicode] 로 경로 문자열을 넘겨야 한다.
+- DevPartner 사용시 디버깅 정보가 찾아지지 않는다.
+- 이 외에도, 프로젝트 폴더명 중에 space 가 포함될 경우에도 항상 $(InputDir) 등의 매크로들을 " " 으로 둘러싸줘야 한다.
+</code></pre>
+<h2>정규식</h2>
+<p>global replace 할 때, 정규식을 사용하면 매우 편리하다. 다음 예를 살펴보자</p>
+<p>string strValue = __NODE_TEXT(pStrNode);           // ----&gt; string strValue = pStrNode.ToString();<br />
+int iValue = __NODE_INT(pIntNode);                 // ----&gt; int iValue = pIntNode.ToInt(); </p>
+<p>MSXML 에서 xerces 로 XML 라이브러리를 교체할 때, 위와 같은 코드가 이곳 저곳에 수두룩 했다. 이를 고치기 위해 다음 정규식을 사용했다.<br />
+<table><br />
+<thead><br />
+<th>필드</th><br />
+<th>입력</th></p>
+<tr>
+<td>Find</td>
+<td>__NODE_TEXT({.+})</td>
+</tr>
+
+<tr>
+<td>Replace</td>
+<td>{{{\1.ToString()}}}</td>
+</tr>
+
+<p></thead></table></p>
+<pre><code>- () 의 경우 backslash escape 를 해줘야 한다
+- .+ 는 설명안해도 알 듯?? ㅋㅋ
+- 특정 패턴을 replace 에서 사용하려면 {패턴}으로 검색하고, (발견순서대로) \N 으로 사용하면 된다
+- replace 는 정규식이 아니니깐 막 써도 된다
+</code></pre>
+<p>일반 문자열 "xxx" 를 _T("xxx") 로 바꾸는 정규식<br />
+<table><br />
+<thead><br />
+<th>필드</th><br />
+<th>입력</th></p>
+<tr>
+<td>Find</td>
+<td>\"{:Al@}\" || 문자열 가운데 ' ' 또는 '_' 가 있을 경우 인식이 안된다.</td>
+</tr>
+
+<tr>
+<td>Replace</td>
+<td>_T("\1")</td>
+</tr>
+
+<p></thead></table></p>
+<h2>빌드 이벤트</h2>
+<p>UnitTest나 EventLog 를 위한 Message DLL 등을 만들 때 사용되는 사용자 지정 빌드 단계에 대해서 알아보자. 우선, MSDN 에 나오는 Visual Studio 빌드 이벤트 및 사용자 지정 빌드 단계의 순서는 다음과 같다.</p>
+<pre><code>- '''빌드 전 이벤트'''
+- 개별 파일에 대한 사용자 지정 빌드 단계
+- 프록시 생성기
+- MIDL
+- 리소스 컴파일러
+- C/C++ 컴파일러
+- '''링크 전 이벤트'''
+- 링커 또는 라이브러리 관리자(해당되는 경우)
+- BSCMake
+- 프로젝트에 대한 사용자 지정 빌드 단계
+- 웹 배포 도구
+- '''빌드 후 이벤트'''
+</code></pre>
+<p>UnitTest를 자동으로 실행하게 하려면, '''프로젝트 사용자 지정 빌드 단계''' 또는 '''빌드 후 이벤트'''가 적절하다.</p>
+<h2>Command Line Build</h2>
+<p>특이하게도 한 순간에 한가지 프로젝트, 한가지 빌드 타겟만이 가능하다. 결국 여러 개의 프로젝트를 함께 빌드하려면 각각을 따로 명시해야 할 듯. /out 의 경우 이전 파일에 로그를 append 한다.</p>
+<p>devenv  /project  /build  /out</p></div>
+	
+	<p>
+	
+		<a href="/tag/visual studio/"><span class="label">visual studio</span></a>
+	
+		<a href="/tag/tip/"><span class="label">tip</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2004/11/26/python-service/">Python Service</a> <small>2004-11-26</small></h1>
 	</div>
 	<div><p>win32serviceutil.ServiceFramework를 상속받아서 SvcStop(), SvcDoRun() 을 override 하면 가장 기본적인 서비스를 구현할 수 있다. 아래의 예제는 Python Programming on Win32 에서 발췌한 것이다.</p>
@@ -246,21 +336,6 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2004/11/24/xml-tips/">XML tips</a> <small>2004-11-24</small></h1>
-	</div>
-	<div><h2>Unicode XML in code</h2>
-<p>코드 안에 L" " 을 붙여서 정의한 XML 스트링은 당연히 UTF-16 이다. 만약 UTF-8 로 바꾸고 싶다면 컨버팅 함수를 통하는 수 밖에 없다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/xml/"><span class="label">xml</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -281,6 +356,10 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 	</li>
 	
 	<li>
+		<a href="/2004/11/26/visual-studio-tips/">Visual Studio Tips</a>
+	</li>
+	
+	<li>
 		<a href="/2004/11/26/python-service/">Python Service</a>
 	</li>
 	
@@ -294,10 +373,6 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 	
 	<li>
 		<a href="/2004/11/24/내맘대로-쓰는-게임-개발-방법론/">내맘대로 쓰는 게임 개발 방법론</a>
-	</li>
-	
-	<li>
-		<a href="/2004/11/24/xml-tips/">XML tips</a>
 	</li>
 	
 </ul>

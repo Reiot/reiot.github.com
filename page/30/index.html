@@ -63,6 +63,41 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/06/23/vs2005-vs2003-함께-사용하기/">VS2005 & VS2003 함께 사용하기</a> <small>2006-06-23</small></h1>
+	</div>
+	<div><p>Visual Studio 2005를 설치한 다음 Visual Studio 2003을 설치하면, 우선 탐색기에서 솔루션과 프로젝트 파일에 대한 연결이 깨지며, 두번째로는 크래시 발생시 디버거 선택 창에서 VS2005 가 사라진다. 원래 VS2005에서는 이런 문제를 해결하기 위해서 Visual Studio Version Selector(%ProgramFiles%\Common Files\Microsoft Shared\MSEnv\VSLauncher.exe)를 제공하는데, 설치 순서가 바뀌는 바람에 이게 날아가는 바람에 생기는 문제들이다.</p>
+<h2>파일 연결 복구</h2>
+<p>파일 연결을 복구하는 것은 간단하다.</p>
+<ul>
+<li>솔루션이나 프로젝트 파일을 시프트+우클릭을 해서 연결 프로그램을 선택한 다음 Version Selector를 지정하면 된다.</li>
+<li><strong>도구 - 옵션 - 환경 - 일반</strong> 에서 파일 연결 복원 버튼을 누른다.</li>
+</ul>
+<h2>디버거 연결 복구</h2>
+<p>디버거 연결을 복구하는 방법은 여러 가지가 있다.</p>
+<ul>
+<li>레지스트리 수정 : regedit 로 AeDebug 키를 찾은 다음 Debug 하위키를 아래와 같이 변경하면 된다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug\Debug</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"C:\WINDOWS\system32\vsjitdebugger.exe" -p %ld -e %ld</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>도구 - 옵션 - 디버깅 - Just-In-Time</strong> 메뉴에서 적당히 선택한 후 저장한다.</li>
+<li><strong>도구 - 설정 가져오기 및 내보내기</strong>에서 모두 다시 설정을 선택해도 된다.</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a> <small>2006-06-19</small></h1>
 	</div>
 	<div><p>한국 대 프랑스전을 기다리면서 <a href="http://developer.valvesoftware.com/wiki/">하프라이프2 위키</a> 중에서 <a href="http://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking">Source Multiplayer Networking</a> 부분을 요약 정리해보았다.</p>
@@ -496,362 +531,6 @@ DBDATACONVERT   dwFlags);</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/06/01/stl-tips/">STL Tips</a> <small>2006-06-01</small></h1>
-	</div>
-	<div><pre><code></code></pre>
-
-<pre><code>***이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 http://reiot.springnote.com/pages/87168에서 보실 수 있습니다.***```
-</code></pre>
-
-<pre><code>## dll + STL
-
-dll 에서 hash_set 을 멤버로 가진 클래스를 만들려다가 nested class 인 _Hash 라든지 hash_compare 등등을 모두 dllexport 하라길래 포기하고 PIMPL 패턴으로 해결해야만 했다.
-
-    - [How To Exporting STL Components Inside &amp; Outside of a Class](http://support.microsoft.com/default.aspx?scid=kb;EN-US;168958)
-
-## boost::lambda
-
-아래의 mem_fun_if 류와 비슷한 역할을 하는 것이 바로 boost::lambda 라이브러리다. 일단 아래처럼 포인터 컨테이너를 순회하면서 NOT NULL 일 경우에 특정 멤버 함수를 호출하는 예제를 살펴보자.
-
-</code></pre>
-
-<p>for_each( l.begin(), l.end(),<br />
-if_then( _1 != constant((A*)NULL), bind( &amp;A::print, _1 ) ) );</p>
-<pre><code>lambda 라이브러리를 사용하면 위와 같이 간단한 코드로 표현이 가능하다. 대신 컴파일 속도는... ㅠㅠ
-## mem_fun_if
-
-일반적으로 포인터 컨테이너를 순회하면서 특정 조건을 만족할 경우 멤버 함수를 호출하는 패턴을 위한 자작 adapter function 이다. (물론 const 버전과 파라미터 1개를 받는 버전, 합쳐서 총 4개의 클래스와 4개의 함수를 만들어야 하지만... 시간상 생략)
-
-</code></pre>
-
-<dl>
-<dt>template<class _Pred, class _Result, class _Ty></dt>
-<dt>class mem_fun_if_t : public unary_function&lt;_Ty *, _Result&gt;</dt>
-<dt>{</dt>
-<dt>public:</dt>
-<dt>explicit mem_fun_if_t( _Pred pred, _Result (_Ty::*_Pm)())</dt>
-<dd>_pred(pred), _Pmemfun(_Pm), _count(0)<br />
-  {<br />
-  }</dd>
-</dl>
-<p>// 단점이라면 멤버함수의 리턴값은... 도무지 캐치불가능...<br />
-  bool operator()(_Ty <em>_Pleft) const<br />
-  {<br />
-  if ( _pred(_Pleft) )<br />
-  {<br />
-  ((_Pleft-&gt;</em>_Pmemfun)());<br />
-_count++;<br />
-  return true;<br />
-  }<br />
-  return false;<br />
-  }</p>
-<p>int count() const { return _count; }</p>
-<p>private:<br />
-_Pred _pred;  // predicate<br />
-_Result (_Ty::*_Pmemfun)(); // the member function pointer<br />
-mutable int _count;<br />
-};</p>
-<p>template<class _Pred, class _Result, class _Ty><br />
-inline<br />
-mem_fun_if_t&lt;_Pred,_Result, _Ty&gt;<br />
-mem_fun_if(_Pred pred,_Result (_Ty::*_Pm)())<br />
-{<br />
-  return (mem_fun_if_t&lt;_Pred,_Result, _Ty&gt;(pred,_Pm));<br />
-}</p>
-<pre><code>이를 이용한 샘플이다.
-
-</code></pre>
-
-<p>using namespace std;</p>
-<p>class A<br />
-{<br />
-public :<br />
-  explicit A( const string &amp; s ): str(s) {}<br />
-  void print() { cout &lt;&lt;str &lt;&lt;endl; }<br />
-string str;<br />
-};</p>
-<h1>define not_null(T) bind2nd( not_equal_to<T*>(), (T*)0)</h1>
-<p>int _tmain(int argc, _TCHAR* argv[])<br />
-{<br />
-list<A*> l;<br />
-l.push_back( new A("Hello") );<br />
-l.push_back( NULL );<br />
-l.push_back( new A("World") );<br />
-l.push_back( NULL );<br />
-l.push_back( new A("!") );</p>
-<p>for_each( l.begin(), l.end(), mem_fun_if( bind2nd( not_equal_to<A*>(), (A*)0 ), &amp;A::print ) );<br />
-for_each( l.begin(), l.end(), mem_fun_if( not_null(A), &amp;A::print ) );</p>
-<p>return 0;<br />
-}```</p>
-<h2>if_not_null</h2>
-<p>다음은 포인터 컨테이너에서 NOT NULL 인 갯수를 찾는 코드이다.</p>
-<pre><code>
-count_if( l.begin(), l.end(),
-bind2nd( not_equal_to&lt;A*&gt;(), (A*)0 ) );
-</code></pre>
-
-<h2>ptr_fun and not1, not2</h2>
-<p>ptr_fun 은 말 그대로 pointer to function 이다.</p>
-<pre><code>
-template&lt;class Arg, class Result&gt;
-pointer_to_unary_function&lt;Arg, Result&gt;
-ptr_fun(Result (_*pfunc)(Arg));
-
-template&lt;class Arg1, class Arg2, class Result&gt;
-pointer_to_binary_function&lt;Arg1, Arg2, Result&gt;
-ptr_fun(Result (_*pfunc)(Arg1, Arg2));
-
-not1 은 unary_function 의 negate 이며, not2 는 binary_function 의 negate 이다.
-
-template&lt;class UnaryPredicate&gt;
-unary_negate&lt;UnaryPredicate&gt; not1(
-const UnaryPredicate&amp; _Pred
-);
-
-template&lt;class Predicate&gt;
-class unary_negate
-: public unary_function&lt;
-typename Predicate::argument_type,
-bool&gt;
-{
-public:
-explicit unary_negate(
-const Predicate&amp; _Func
-);
-bool operator()(
-const typename Predicate::argument_type&amp; _Left ) const;
-};
-
-template&lt;class BinaryPredicate&gt;
-binary_negate&lt;BinaryPredicate&gt; not2(
-const BinaryPredicate&amp; _Func
-);
-
-template&lt;class Operation&gt;
-class binary_negate
-: public binary_function &lt;
-typename Operation::first_argument_type,
-typename Operation::second_argument_type,
-bool&gt;
-{
-public:
-explicit binary_negate(
-const Operation&amp; _Func
-);
-bool operator()(
-const typename Operation::first_argument_type&amp; _Left,
-const typename Operation::second_argument_type&amp; _Right
-) const;
-};
-</code></pre>
-
-<p>그럼 그동안 배운 것을 토대로 다음 MSDN 샘플을 살펴보자.</p>
-<p>not1( bind2nd( ptr_fun(strcmp), "pearly" ) )</p>
-<p>만약 1초만에 strcmp(X,"pearly")==0 임을 인지해 냈다면 당신은 STL의 고수... ㅠㅠ</p>
-<h2>mem_fun vs. mem_fun_ref</h2>
-<p>EffectiveSTL 에도 나오는 이야기이니, 책을 가지신 분은 43 아이템을 참고하라.</p>
-<p>나를 비롯한 대부분의 프로그래머들은 이런 코드를 사랑한다.</p>
-<p>for ( list<GameObject*>::iterator itr = gameObjects.begin() ; itr != gameObjects.end() ; itr ++ )<br />
-{<br />
-GameObject * pObject = *itr;<br />
-__ASSERT(pObject!=NULL); /// be a paranoid!!!<br />
-pObject-&gt;Update();<br />
-}</p>
-<p>너무나도 직관적인 코드이지만, 사실 mem_fun 을 사용하면 한 줄로 해결이 가능하다.</p>
-<p>for_each( gameObjects.begin(), gameObject.end(), mem_fun(&amp;GameObject::Update) );</p>
-<p>코드는 간단해졌지만 익숙하지 않은 관계로 팀원들이 싫어할 지도 모른다. 그러나, 타이핑하는 글자수도 적으면서 성능도 훨씬 더 좋다는데... 그 누가 안 쓸수 있으랴? (대신 디버깅할 때에는 멤버함수에다가 breakpoint 를 걸어야 하는 단점이 있을 수도 있다 <img alt=";)" src="http://boxcatstudio.files.wordpress.com/2009/07/icon_wink.gif" />  )</p>
-<p>포인터의 컨테이너일 경우에는 mem_fun 을, 객체의 컨테이너라면 mem_fun_ref 를 사용하면 된다. 만약 멤버함수에 파라미터를 넘겨야 한다면, 아래와 같이 bind 함수를 사용할 것.</p>
-<p>for_each( gameObjects.begin(), gameObject.end(), bind2nd( mem_fun(&amp;GameObject::SetHP),100) );</p>
-<h2>bind1st vs. bind2nd</h2>
-<p>우선 bind 함수를 알아보기에 앞서, unary_function 과 binary_function 에 대해서 알아보자. 이들은 단지 파라미터와 리턴타입에 대한 typedef 만을 담는 template structure 일 뿐이다. 즉 이들은 혼자서는 아무런 기능도 하지 않지만, 이를 상속받은 하위 클래스에서 타입 정보를 적절히 참조하기 좋도록 디자인된 베이스 클래스라는 뜻이다.</p>
-<p>template<class Arg, class Result><br />
-struct unary_function {<br />
-typedef Arg argument_type;<br />
-typedef Result result_type;<br />
-};</p>
-<p>template<class Arg1, class Arg2, class Result><br />
-struct binary_function {<br />
-typedef Arg1 first_argument_type;<br />
-typedef Arg2 second_argument_type;<br />
-typedef Result result_type;<br />
-};</p>
-<p>기본적으로 STL 알고리즘에서 사용되는 Predicate 등의 함수들은 unary_function 의 형태를 띄어야 한다. 쉽게 말하면, find(), for_each(), count() 의 마지막 인자가 해당 컨테이너 내부의 객체 하나만을 인자로 받는 함수 객체라는 뜻이다.</p>
-<p>가령 list<int> 에서 10보다 큰 객체를 찾으려면 대략 다음과 같은 predicate 을 작성해야 한다.</p>
-<p>class GreaterThan10<br />
-{<br />
-public :<br />
-bool operator() ( int i ) { return i&gt;= 10; }<br />
-};</p>
-<p>사실 이렇게 짜면 너무 코드가 범용적이지 못하므로, 대부분의 경우에는 이렇게 구현할 것이다.</p>
-<p>class GreaterThanN<br />
-{<br />
-public :<br />
-GreaterThenN( int N ) : m_N(N) {}<br />
-bool operator() ( int i ) { return i&gt;= m_N; }<br />
-private :<br />
-int m_N;<br />
-};</p>
-<p>이걸 STL 적인 생각으로 다시 구현한 것이 바로 bind 함수들이다. bindN(A,B) 은 binary_function A 의 N 번째 파라미터로 parameter B 을 바인딩해서, unary_function 을 만들어주는 놈이다. 얘네들을 잘 활용하면 단순 함수들은 간단히 한줄로 구현할 수 있게 된다.</p>
-<pre><code>- bind1st( BINARY_FUNC, PARAM ) : PARAM 을 BINARY_FUNC의 1st 파라미터로 바인딩한다.
-
-- ex&gt; bind1st( greater, 10 ) --&gt; 10 &gt; N
-
-- bind2nd( BINARY_FUNC, PARAM ) : PARAM 을 BINARY_FUNC의 2nd 파라미터로 바인딩한다.
-
-- bind2nd( greater, 10 ) --&gt; N &gt; 10
-</code></pre>
-<p>bind1st( greater, 10 ) 이 어떻게 10 &gt; N 이라는 함수로 바뀌는지 자세히 살펴본다면...</p>
-<pre><code>- greater는 binary_function 이다.
-</code></pre>
-<p>template<class Type><br />
-struct greater : public binary_function <Type, Type, bool><br />
-{<br />
-bool operator()(<br />
-const Type&amp; _Left,<br />
-const Type&amp; _Right<br />
-) const;<br />
-};</p>
-<pre><code>- bind1st(A,B) 는 binder1st 객체를 리턴한다.
-</code></pre>
-<p>template<class Operation, class Type><br />
-binder1st <Operation> bind1st(<br />
-const Operation&amp; _Func,<br />
-const Type&amp; _Left<br />
-);</p>
-<pre><code>- binder1st&lt;A&gt; 는 A의 두번째 파라미터를 파라미터로 받고, A의 리턴값을 리턴하는 함수 객체이다. 이때 이 클래스의 생성자의 인자 목록을 유심히 살펴보면, binary_function 하나와 이놈의 하나의 파라미터는 받고 있다. (나머지 하나는 당연히 container 에서 받게 된다.)
-</code></pre>
-<dl>
-<dt>template<class Operation></dt>
-<dt>class binder1st</dt>
-<dd>public unary_function &lt;<br />
-typename Operation::second_argument_type,<br />
-typename Operation::result_type&gt;<br />
-{<br />
-public:<br />
-typedef typename Operation::second_argument_type argument_type;<br />
-typedef typename Operation::result_type result_type;<br />
-binder1st(<br />
-const Operation &amp; _Func,<br />
-const typename Operation::first_argument_type&amp; _Left<br />
-);<br />
-result_type operator()(<br />
-const argument_type&amp; _Right<br />
-);<br />
-result_type operator()(<br />
-const argument_type&amp; _Right<br />
-) const;<br />
-protected:<br />
-Operation op;<br />
-typename Operation::first_argument_type value;<br />
-};</dd>
-</dl>
-<h2>SafeDeleter</h2>
-<p>템플릿 클래스 버전을 사용할 경우, 매번마다 타입을 지정해줘야 하지만, 템플릿 멤버함수 버전을 사용하면 타입 없이도 사용할 수 있다. 아직까지 이걸 몰랐다니.. ㅠㅠ 쑥갓군 땡큐~</p>
-<p>/// template class version<br />
-template <class T><br />
-class SafeDeleter<br />
-{<br />
-public :<br />
-void operator () ( T * &amp; ptr ) const<br />
-{<br />
-SAFE_DELETE(ptr);<br />
-}<br />
-};</p>
-<p>for_each( a.begin(), a.end(), SafeDeleter<A>() );</p>
-<p>/// template member function version<br />
-class SafeDeleter2<br />
-{<br />
-public :<br />
-template <class T><br />
-void operator () ( T * &amp; ptr ) const<br />
-{<br />
-SAFE_DELETE(ptr);<br />
-}<br />
-};</p>
-<p>for_each( a.begin(), a.end(), SafeDeleter2() );</p>
-<h2>Static Key vs. Dynamic Key</h2>
-<p>class Object<br />
-{<br />
-KeyType_t Key;<br />
-....;<br />
-};<br />
-map<KeyType_t,Obj*> orderedObjects;</p>
-<p>위와 같이 객체의 특정 필드의 값으로 정렬된 map이 있다고 하자. 일단 map에 객체를 넣고 난 다음에 Key 값을 변경하면 map 내부의 트리가 깨지므로 바꿔서는 곤란해진다. 그러나, 때로는 Key 값이 바뀌어야 할 필요가 있다. 언제나 실시간으로 바꿔주려면 map 에서 객체를 빼낸 다음 Key 값을 바꾸고 다시 넣어야 하는데, 항상 넣었다 뺐다 하기에는 성능적인 부분이 걱정되는데...</p>
-<p>이럴 경우에는 외부에서 필요할 때마다 새로운 키를 저장한 다음, 적당히 바꿀 타이밍이 되면 객체를 map 에서 빼낸 다음 키값을 업데이트해주면 된다. 특히 아래와 같이, 정적인 메인 키의 맵으로 구성된 객체의 매니저가 내부에 특정 순서로 정렬된 서브 키의 맵을 가진 경우, 위와 같은 패턴을 사용하면 꽤 편하다.</p>
-<p>class Object<br />
-{<br />
-StaticKeyType_t MainKey;<br />
-DynamicKeyType_t SubKey;<br />
-DynamicKeyType_t NewSubKey;<br />
-....;<br />
-};</p>
-<p>class ObjectManager : public map<StaticKeyType_t,Object*><br />
-{<br />
-map<DynamicKeyType_t,Object*> orderedObjects;<br />
-void ChangeSubKey( StaticKeyType_t mainKey, DynamicKeyType_t newSubKey );<br />
-void UpdateSubMap();<br />
-};</p>
-<p><strong>어쨌든, map 의 키값을 외부에서 바꿨다가는 큰 낭패를 볼 것이다.</strong></p>
-<p>see also:</p>
-<pre><code>- [Boost Multi-index Containers Library](http://boost.org/libs/multi_index/doc/index.html)
-</code></pre>
-<h2>multixxx::erase(key_type)</h2>
-<p>일반적인 erase()는 iterator/const_iterator 를 파라미터로 받아서 그 넘을 지우는 역할을 한다. 그런데, multimap/multiset 에서는 key_type 만 넘겨서 해당 값을 지우는 메쏘드를 제공한다. 대체로 이는 잘 동작하지만 predicate 가 명시된 multimap/multiset 에서는 생각대로 동작하지 않는다. 다음 예를 보자.</p>
-<p>class TeamInfo<br />
-{<br />
-public :<br />
-TeamInfo ( int point = 0 )  : TeamPoint(point) {}<br />
-int TeamPoint;<br />
-};</p>
-<p>class GreaterTeam<br />
-{<br />
-public :<br />
-bool operator () (const TeamInfo<em> l, const TeamInfo</em> r) const<br />
-{<br />
-return l-&gt;TeamPoint&gt; r-&gt;TeamPoint;<br />
-}<br />
-};</p>
-<p>void<br />
-test_multiset()<br />
-{<br />
-typedef multiset<TeamInfo*,GreaterTeam> TEAMS;</p>
-<p>TEAMS teams;</p>
-<p>TeamInfo t1(1);<br />
-TeamInfo t2(1);<br />
-TeamInfo t3(0);<br />
-TeamInfo t4(2);</p>
-<p>teams.insert( &amp;t1 );<br />
-teams.insert( &amp;t2 );<br />
-teams.insert( &amp;t3 );<br />
-teams.insert( &amp;t4 );</p>
-<p>// erase by key test <br />
-teams.erase( &amp;t4 ); assert( teams.size() == 3 );<br />
-teams.erase( &amp;t1 ); assert( teams.size() == 1 );  // t1 과 t2 를 지운다. 낭패~</p>
-<p>// erase with iterator test<br />
-teams.clear();<br />
-teams.insert( &amp;t1 );<br />
-teams.insert( &amp;t2 );<br />
-teams.insert( &amp;t3 );<br />
-teams.insert( &amp;t4 );</p>
-<p>pair<TEAMS::iterator,TEAMS::iterator> itrs = teams.equal_range(&amp;t1);<br />
-teams.erase( find( itrs.first, itrs.second, &amp;t1 ) );<br />
-assert( teams.size() == 3 );</p>
-<p>assert( <em>(teams.find(&amp;t1)) == &amp;t2 ); // t1 을 찾으면 t2 가 나온다는 놀라운 사실!<br />
-assert( </em>(teams.find(&amp;t2)) == &amp;t2 );<br />
-assert( <em>(teams.find(&amp;t3)) == &amp;t3 );<br />
-assert( </em>(teams.find(&amp;t4)) == &amp;t4 );<br />
-}</p>
-<p>여기서 배울 수 있는 교훈은</p>
-<pre><code>- 코드상으로는 equal_range(&amp;t1)이라는 것이 t1을 찾는 것처럼 보이지만, 실제로는 key_type과 무관하며 오직 predicate 를 이용해서 검색을 한다!
-- multi 시리즈에서는 find()나 erase()에 있어서 항상 동일한 값이 존재할 수 있다!
-- predicate 의 비교문에서 &gt;= 을 사용하면 다른 결과가 나온다!
-- predicate 관련 변수(m_TeamPoint)와 같이, 비교 로직에 영향을 주는 무언가를 외부에서 바꾸게 되면 multixxx 내부의 트리가 깨지게 된다. 너무나 당연한 사실이지만, Key 를 바꾸는게 아니라서 안전할 거 같아 보이는 것도 사실이다. 이를 방지하려면 일단 container 에서 해당 값을 erase한 다음 값을 수정하고 다시 insert 하는 것을 권장한다.
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -872,6 +551,10 @@ assert( </em>(teams.find(&amp;t4)) == &amp;t4 );<br />
 	</li>
 	
 	<li>
+		<a href="/2006/06/23/vs2005-vs2003-함께-사용하기/">VS2005 & VS2003 함께 사용하기</a>
+	</li>
+	
+	<li>
 		<a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a>
 	</li>
 	
@@ -885,10 +568,6 @@ assert( </em>(teams.find(&amp;t4)) == &amp;t4 );<br />
 	
 	<li>
 		<a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/01/stl-tips/">STL Tips</a>
 	</li>
 	
 </ul>

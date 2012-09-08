@@ -63,6 +63,26 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2007/05/07/_has_iterator_debugging/">_HAS_ITERATOR_DEBUGGING</a> <small>2007-05-07</small></h1>
+	</div>
+	<div><p>디버그 버전에서 STL (특히 collection iterating) 로 인해서 무지막지하게 느려지는 경우가 종종 있다. 이때<br />
+<code>***#define _HAS_ITERATOR_DEBUGGING 0***</code><br />
+만으로 두 배 가량의 속도 향상을 얻을 수 있다. <a href="http://reiot.springnote.com/pages/87168">STL팁 페이지</a>에 정리된 예제를 통해서 얻은 결과를 살펴보면,</p>
+<pre><code>- **end() 를 for 안에 포함할 경우 : 234ms**
+- end() 를 for 바깥쪽에 둘 경우 : 172ms
+- **accumulate : 31ms**
+</code></pre>
+<p>반면 _HAS_ITERATOR_DEBUGGING을 끌 경우,</p>
+<pre><code>- end() 를 for 안에 포함할 경우 : 125ms
+- ***end() 를 for 바깥쪽에 둘 경우 : 94ms***
+- **accumulate : 31ms**
+</code></pre>
+<p>이 결과로만 본다면 디버그 버전에서, 거대한 컨테이너에 한해,  200% 정도의 속도 향상을 얻은 셈이다. 그러나 가장 빠른 것은 STL 알고리즘을 사용하는 것이라는 것도 잊지 말기 바란다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2007/05/01/manifesto-for-agile-software-development/">Manifesto for Agile Software Development</a> <small>2007-05-01</small></h1>
 	</div>
 	<div><h2>Manifesto for Agile Software Development</h2>
@@ -121,19 +141,6 @@ the right, we value the items on the left more.</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2007/02/21/ea가-iphone용-게임을-만든다/">EA가 IPhone용 게임을 만든다?</a> <small>2007-02-21</small></h1>
-	</div>
-	<div><p><a href="http://www.osweekly.com/index.php?option=com_content&amp;task=view&amp;id=2475&amp;Itemid=449">Apple gets into gaming</a></p>
-<pre><code>- EA가 IPhone용 게임을 만들기 위해서 애플과 협의중이다.
-- &lt;font size="2"&gt;&lt;/font&gt;&lt;font face="arial,helvetica,sans-serif"&gt;비주얼드를 만든 PopCap Games가 애플TV용 게임을 만들고 싶어 한다고 한다.
-</code></pre>
-<p></font></p>
-<p>흠. OSX를 지원하는 모바일 3D 엔진이 있으면 꽤 뜨겠는걸?</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -154,6 +161,10 @@ the right, we value the items on the left more.</p>
 	</li>
 	
 	<li>
+		<a href="/2007/05/07/_has_iterator_debugging/">_HAS_ITERATOR_DEBUGGING</a>
+	</li>
+	
+	<li>
 		<a href="/2007/05/01/manifesto-for-agile-software-development/">Manifesto for Agile Software Development</a>
 	</li>
 	
@@ -167,10 +178,6 @@ the right, we value the items on the left more.</p>
 	
 	<li>
 		<a href="/2007/02/28/70ms-최대-입력-딜레이/">70ms : 최대 입력 딜레이</a>
-	</li>
-	
-	<li>
-		<a href="/2007/02/21/ea가-iphone용-게임을-만든다/">EA가 IPhone용 게임을 만든다?</a>
 	</li>
 	
 </ul>

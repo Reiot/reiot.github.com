@@ -63,6 +63,20 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/02/13/sc-failure/">sc failure…</a> <small>2006-02-13</small></h1>
+	</div>
+	<div><p><a title="scfailure.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" /></a></p>
+<p>sc create 를 이용하면 손쉽게 서비스를 설치할 수 있다는 사실은 잘 알려져 있다. 문제는 서비스가 시작할 때 문제가 발생할 경우 복구 방법에 대한 설정이다. 이 경우 error 파라미터를 잘 조정하면 될 것 같지만 실제로는 <a href="http://www.microsoft.com/technet/prodtechnol/windowsserver2003/ko/library/ServerHelp/0a658e97-51d5-4109-b461-a474c799964e.mspx">sc failure</a> 라는 다른 명령어를 사용해야 한다. (자세한 용법은 내일 삽질 후에 올리도록 하겠다)</p>
+<blockquote>
+<p>sc failure MyServiceName reset= 0 actions= "restart/5000/restart/5000/reboot/5000"</p>
+</blockquote>
+<p>위 명령은 서비스의 시작 실패시 처음과 두번째에는 5초후 서비스 재시작, 세번째까지 실패하면 시스템 리붓을 하라는 이야기다. actions 의 단위는 밀리초라는 점에 유의할 것. reset 파라미터는 일단 서비스가 성공적으로 뜬 경우 몇 초 후에 실패 횟수를 초기화하느냐인데 그냥 0 으로 두는 편이 무난할 것 같다. actions 파라미터에 run 이 들어갈 경우 command 파라미터를 지정해줘야 하며, reboot 이 들어갈 경우 reboot 파라미터에다가 메시지를 넣어주면 훗날 디버깅이 용이할 것이다. (단 actions 을 사용할 경우 항상 reset 을 지정해야 하는 것처럼 필수 사항은 아니다.)</p>
+<p>참고로 이 명령은 오래된 MSDN 에서는 확인할 수 없다. 아무래도 최신 OS에서만 지원되는 것일지도?</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/02/13/console-vs-service/">Console vs. Service</a> <small>2006-02-13</small></h1>
 	</div>
 	<div><p>지금까지는 command line 파라미터로 콘솔로 실행할 것인지 아니면 서비스로 실행할 것인지를 결정했다. 그러지 말고 아예 ConsoleRunner 와 ServiceRunner 를 외부 실행 파일로 만들어버리고 나머지 코드는 dll 로 만들어버리는건 어떨까?</p>
@@ -108,24 +122,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a> <small>2006-02-02</small></h1>
-	</div>
-	<div><p>총 15개의 통계 테이블의 리팩토링이 드디어 오늘 끝났고, 내일 테스트만 무사히 통과하면 다음 작업으로 넘어갈 수 있을 것 같다. arithmetic overflow 로 인해 모든 numeric 관련 로직을 계산 컬럼으로 추출해내고 하나씩 검증하는데 이틀이나 날려 먹었던 것이다. 실제로 이백라인에 가까웠던 프로시저가 거의 30% 정도로 분량이 줄었고 각 쿼리문들 역시 간단한 DDL 로 바뀌게 되었는데, 솔직히 너무 허탈하다. :(  </p>
-<p>테스트가 성공리에 끝이 나면, 이제 남은 이슈는 본섭 패치를 얼마나 손쉽게 자동화할 것인가? 이다. 변경된 프로시저의 경우 drop - create 로 해결할 수 있지만, 계산 컬럼으로 바꾸는 것은 녹녹치 않았다. 문제는 한번도 관리되지 않았던 DEFAULT constraint 들 때문인데...</p>
-<pre><code>- ALTER TABLE ALTER COLUMN 으로 일반 컬럼을 계산 컬럼으로 바꿀 수 없다
-- 결국 DROP COLUMN + ADD COLUMN 으로 해결해야 한다
-- DROP COLUMN 을 하려면 의존 관계가 없어야 한다
-- 그런데 바꿔야할 모든 컬럼들이 DEFAULT 제약조건을 가지고 있었고, 얘네들의 이름이 모두 랜덤이다. -_-
-</code></pre>
-<p>일단 DBA 와 상의해봐야 되겠지만 어째 해결책은 없을 듯하다. 따라서 오늘의 결론은</p>
-<blockquote>
-<p>"모든 DEFAULT 제약 조건에 이름을 붙여라"</p>
-</blockquote></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -146,6 +142,10 @@
 	</li>
 	
 	<li>
+		<a href="/2006/02/13/sc-failure/">sc failure…</a>
+	</li>
+	
+	<li>
 		<a href="/2006/02/13/console-vs-service/">Console vs. Service</a>
 	</li>
 	
@@ -159,10 +159,6 @@
 	
 	<li>
 		<a href="/2006/02/05/ogre-for-psp/">Ogre for PSP</a>
-	</li>
-	
-	<li>
-		<a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a>
 	</li>
 	
 </ul>

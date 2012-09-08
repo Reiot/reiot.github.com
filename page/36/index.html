@@ -63,6 +63,43 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/03/22/mmp-database-mini-cookbook-요약/">MMP Database Mini-Cookbook 요약</a> <small>2006-03-22</small></h1>
+	</div>
+	<div><ul>
+<li>원문 보기 : <a href="http://www.gamasutra.com/resource_guide/20040920/lee_01.shtml">MMP Database Mini-Cookbook: A Half Dozen Recipes To Aid Development</a> from Gamasutra</li>
+</ul>
+<h2>Unique Identifiers for Painless Game World Transfer</h2>
+<ul>
+<li>계정을 다른 서버(월드)로 이전할 경우에 대비, 캐릭터에 유니크한 (정수) 아이디를 할당할 때, 월드 개수만큼 아이디를 증가시킨다. 이를 통해서 월드-유니크한 아이디를 할당할 수 있으며, 아이템 같은 종속 데이터의 이전도 용이하다.</li>
+<li>월드의 최대 개수는 고정(255)이다. 따라서, 늘어나서는 곤란!</li>
+</ul>
+<h2>Managing Localization Data</h2>
+<ul>
+<li>NPC 스크립트, 다이얼로그 등의 텍스트 등을 DB 에 저장해두면 편하다.</li>
+<li>이때, localization 을 고려해서 저장할 것. 수정은 자체 툴을 만들어라..</li>
+<li>DarkEden 에서도 이와 비슷하게 구현했다고 한다. (본인은 월드 추가전에 나와서.. 소문만 들었다.)</li>
+</ul>
+<h2>Character Inventory Management and Shared Banking</h2>
+<ul>
+<li>인벤토리-은행-퀘스트 간 아이템 이동, '''특히 캐릭터간 아이템 이동'''을 용이하게 하기 위해서 <code>PlayerID - CharacterID - InventoryType - ItemID</code> 방식으로 테이블을 설계할 것.</li>
+<li>DarkEden 에서도 바닥-마우스-인벤토리-창고 등의 인벤토리 타입을 사용했었다.</li>
+</ul>
+<h2>Mapping Class Inheritance to Database Tables</h2>
+<ul>
+<li>다양한 아이템을 DB에 저장할 때, 클래스 속성(per-class)과 인스턴스 속성(per-instance)으로 테이블을 분리한다.</li>
+<li>모든 아이템마다 필요한 공통 데이터를 공통 Item 테이블에 정의하고, 하위 아이템을 위한 데이터는 하위 아이템 테이블에 정의한다.</li>
+<li><code>ex: (ItemClass-ItemInstance)-(WeaponClass-WeaponInstance)</code></li>
+<li>DarkEden에서도 이와 비슷하게, 각 아이템 종류별 Info 테이블과 Object 테이블을 두고, 관리를 했었다. 단점이라면, 테이블이 많아지면서 관리가 귀찮아지는 점과, Save-Load 프로시저가 길어진다는 점이 있겠다.</li>
+</ul>
+<h2>Shared Game Configuration Parameters</h2>
+<ul>
+<li>월드별 서버 환경 설정을 데이터베이스에 유지하면, 굳이 config 파일을 고치지 않아도 되므로 편하다. (서버가 많아지면 서버별 환경 설정 하는 것도 꽤 힘든 일이 되니까...)</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/03/22/half-sync-half-async-pattern/">Half Sync Half Async Pattern</a> <small>2006-03-22</small></h1>
 	</div>
 	<div><p>IOCP의 경우 입출력 요청은 비동기적으로 이루어지지만 커널 내부에서 존재하는 큐를 통해 GQCS()를 호출하는 쓰레드들에게는 동기적으로 할당하게 된다. 이처럼 비동기 레이어와 동기 레이어, 그리고 이를 연결시켜주는 메시지큐로 구성되는 패턴을 Half Sync Half Async Pattern 이라고 부른다. 이 패턴은 다음과 같은 곳에 적용되었다.</p>
@@ -192,27 +229,6 @@ m_pLogger-&gt;SafeLog(m_Message);
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/03/08/z-net/">Z-Net</a> <small>2006-03-08</small></h1>
-	</div>
-	<div><p><strong>Z-Net</strong> is lua-based network middleware which supports</p>
-<pre><code>- automated data &amp; function call replication
-- topology independent
-- protocol independent
-- reliablility control
-- bandwidth control
-- prediction layer
-- lag-simulation
-- replay
-- massive spectator mode
-- secure
-- inspired by Unreal Script
-</code></pre>
-<p>하여튼 뭐 저런 엔진을 만들고 있습니다. 어디까지가 루아이고 어디까지가 C++ 일지는 아직 불명.</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -233,6 +249,10 @@ m_pLogger-&gt;SafeLog(m_Message);
 	</li>
 	
 	<li>
+		<a href="/2006/03/22/mmp-database-mini-cookbook-요약/">MMP Database Mini-Cookbook 요약</a>
+	</li>
+	
+	<li>
 		<a href="/2006/03/22/half-sync-half-async-pattern/">Half Sync Half Async Pattern</a>
 	</li>
 	
@@ -246,10 +266,6 @@ m_pLogger-&gt;SafeLog(m_Message);
 	
 	<li>
 		<a href="/2006/03/15/dont-reinvent-the-ace/">Don’t reinvent the ACE</a>
-	</li>
-	
-	<li>
-		<a href="/2006/03/08/z-net/">Z-Net</a>
 	</li>
 	
 </ul>

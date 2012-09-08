@@ -63,6 +63,268 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/02/04/anticheatengine/">AntiCheatEngine</a> <small>2008-02-04</small></h1>
+	</div>
+	<div><p>원래는 Cheat Engine 으로도 freeze 를 걸 수 없는 안전한 변수를 만들기 위해서 만든 클래스다. 여기에 CRC라든지 XOR도 넣고, 또 값이 바뀔 때마다 위치도 바꾸고 할려고 했는데, 가만히 생각해보니 속도도 제법 느리고 막상 함수 내에 아래와 같이 로컬 캐시가 있다면 그걸 바꿔버리면 전혀 쓸모 없어져서 그냥 포기버렸다.</p>
+<pre><code>
+float speed = ac.Get&lt;float&gt;(&quot;speed&quot;);
+// -- inject code here --
+check_next_pos(pos,speed);
+</code></pre>
+
+<p><a href="http://reiot.cafe24.com/2008/02/03/ai-game-programming-wisdom-3/">어제 주문한 책들</a>이 도착하면 다시 한번 도전해볼까 싶기도 하지만, assembly 쪽 지식이 전무해서...</p>
+<!--more-->
+
+<pre><code>
+// AntiCheatEngine.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.
+//
+
+#include &quot;stdafx.h&quot;
+#include &lt;string&gt;
+#include &lt;set&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;hash_map&gt;
+
+#pragma warning(disable:4819)
+#define BOOST_TEST_MAIN
+#include &lt;boost/format.hpp&gt;
+#include &lt;boost/test/unit_test.hpp&gt;
+
+using std::string;
+
+size_t GenerateIndex()
+{
+static size_t key = 0;
+return key++;
+}
+
+class AntiCheat
+{
+typedef std::vector&lt;size_t&gt; INDEX_LIST;
+typedef stdext::hash_map&lt;string, INDEX_LIST &gt; KEY_MAP;
+
+public :
+
+AntiCheat( size_t N = 1024*64 )
+{
+m_Buffer.assign(N,0);
+m_UnusedIndex.assign(N,0);
+std::generate(m_UnusedIndex.begin(),m_UnusedIndex.end(),GenerateIndex);
+std::random_shuffle(m_UnusedIndex.begin(),m_UnusedIndex.end());
+}
+
+bool IsValid() const { return true; }
+
+unsigned int GetCRC() { return m_CRC; }
+
+// FIXME use ASSERT, dont check return value
+template&lt;class T&gt;
+bool Set( const string &amp; name , const T &amp; valueIn )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+INDEX_LIST idxList;
+for ( size_t i = 0 ; i &lt; sizeof(valueIn); i ++ )
+{
+if ( m_UnusedIndex.empty() )
+return false;
+size_t idx = m_UnusedIndex.back();
+m_UnusedIndex.pop_back();
+idxList.push_back(idx);
+}
+
+itr = m_Keys.insert(make_pair(name,idxList)).first;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+m_Buffer[idx] = reinterpret_cast&lt;const char*&gt;(&amp;valueIn)[i];
+}
+
+return true;
+}
+
+template&lt;typename T&gt;
+bool Get( const string &amp; name, T &amp; valueOut )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+return false;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+reinterpret_cast&lt;char*&gt;(&amp;valueOut)[i] = m_Buffer[idx];
+}
+return true;
+}
+
+size_t GetUnusedIndexCount() const { return m_UnusedIndex.size(); }
+
+unsigned int m_CRC;
+
+INDEX_LIST m_UnusedIndex;
+std::vector&lt;unsigned char&gt; m_Buffer;
+KEY_MAP m_Keys;
+};
+
+//////////////////////////////////////////////////////////////////////////
+template&lt;&gt;
+bool AntiCheat::Set&lt;string&gt;( const string &amp; name, const string &amp; valueIn )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+INDEX_LIST idxList;
+for ( size_t i = 0 ; i &lt; valueIn.size(); i ++ )
+{
+if ( m_UnusedIndex.empty() )
+return false;
+size_t idx = m_UnusedIndex.back();
+m_UnusedIndex.pop_back();
+idxList.push_back(idx);
+}
+
+itr = m_Keys.insert(make_pair(name,idxList)).first;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+m_Buffer[idx] = valueIn[i];
+}
+
+return true;
+}
+
+template&lt;&gt;
+bool AntiCheat::Get&lt;string&gt;( const string &amp; name, string &amp; valueOut )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+return false;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+// FIXME 최초 크기 보다 작은 사이즈는 저장할 수 없다?
+valueOut.assign(indexList.size(),0);
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+valueOut[i] = m_Buffer[idx];
+}
+return true;
+}
+
+BOOST_AUTO_TEST_CASE( test1 )
+{
+AntiCheat ac(100);
+
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100 );
+
+BOOST_CHECK( ac.IsValid() );
+
+string strIn = &quot;World&quot;, strOut;
+
+{
+ac.Set(&quot;string&quot;,strIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;string&gt;(&quot;string&quot;,strOut) );
+BOOST_CHECK_EQUAL( strIn, strOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size());
+}
+
+{
+int intIn, intOut;
+
+intIn = 1;
+ac.Set(&quot;int&quot;,intIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;int&gt;(&quot;int&quot;,intOut) );
+BOOST_CHECK_EQUAL( intIn, intIn );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int));
+
+intIn = -1;
+ac.Set(&quot;int&quot;,intIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;int&gt;(&quot;int&quot;,intOut) );
+BOOST_CHECK_EQUAL( intIn, intIn );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int));
+}
+
+{
+bool boolIn, boolOut;
+
+boolIn = true;
+ac.Set(&quot;bool&quot;,boolIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;bool&gt;(&quot;bool&quot;,boolOut) );
+BOOST_CHECK_EQUAL( boolIn, boolOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool));
+
+boolIn = true;
+ac.Set(&quot;bool&quot;,boolIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;bool&gt;(&quot;bool&quot;,boolOut) );
+BOOST_CHECK_EQUAL( boolIn, boolOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool));
+}
+
+{
+float floatIn, floatOut;
+
+floatIn = 1.234f;
+ac.Set(&quot;float&quot;,floatIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;float&gt;(&quot;float&quot;,floatOut) );
+BOOST_CHECK_EQUAL( floatIn, floatOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool)-sizeof(float));
+
+floatIn = -56.78f;
+ac.Set(&quot;float&quot;,floatIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;float&gt;(&quot;float&quot;,floatOut) );
+BOOST_CHECK_EQUAL( floatIn, floatOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool)-sizeof(float));
+}
+
+}
+
+/*
+
+값을 바꾸면 Key 및 CRC 가 바뀐다
+멤버 함수가 아닌 다른 경로로 값을 바꾸면 CRC 체크가 깨져야 한다.
+AntiCheat 는 하나의 큰 버퍼를 가진다. (ex: 32k)
+여기에 변수를 키값을 이용해서 저장하고 읽어낸다.
+이때 각 변수들은 바이트 단위로 흩어진다. 이때 흩어지는 인덱스는 저장하는 순간 랜덤하게, 중복되지 않게 결정된다.
+(이때문에 unused index set 이 필요함)
+또한 각 변수들은 Verifier 라는 range-checker 와 연동될 수 있다.
+키값 역시 다이나믹하게 결정된다. (가령 player.hp 의 경우 매크로에 의해서 __K(PlayerHP) -&gt; 세션키와의 XOR 등등 )
+Verify()를 호출하면 각 키에 대해서 Verify 한 다음,
+특정 영역 마다 0xEF 등 boundry checker 를 넣어두고, 바뀌었는지 체크한다.
+
+문자열일 경우 (길이 2바이트,본문) 이렇게 저장해야 한다. 만약 길이가 달라질 경우 인덱스를 새로 얻어 오거나 반납해야 한다.
+
+*/
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/01/29/solid-compression/">Solid Compression</a> <small>2008-01-29</small></h1>
 	</div>
 	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/learning_reiot.png" title="learning_reiot.png"><img alt="learning_reiot.png" src="http://boxcatstudio.files.wordpress.com/2009/07/learning_reiot.png" /></a></p>
@@ -143,24 +405,6 @@ Encoding : latin1 + latin1_general_ci```
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/01/21/get-precompiled-boost-library/">Get Precompiled Boost Library</a> <small>2008-01-21</small></h1>
-	</div>
-	<div><p><a href="http://www.boost-consulting.com/products/free" title="boost-consulting.PNG"><img alt="boost-consulting.PNG" src="http://boxcatstudio.files.wordpress.com/2009/07/boost-consulting.PNG" /></a></p>
-<p>다들 아는 사실이겠지만, boost-consulting 에 가면<a href="http://www.boost-consulting.com/products/free"> Visual Studio 용으로 컴파일된 바이너리를 다운 받을 수 있는 인스톨러</a>를 제공한다. VS2005용으로 빌드된 라이브러리를 다 다운받을 경우 대략 1.8G 정도의 분량을 다운받아야 한다. 이 기회에 회사 프로젝트의 boost도 슬슬 업그레이드해야 겠다.</p>
-<p>참고 삼아서, 최신 Boost.Test 에서는 단 6줄 만으로 간단한 테스트 프로젝트를 만들 수 있다.</p>
-<pre><code>
-#define BOOST_TEST_MAIN
-#include &lt;boost/test/unit_test.hpp&gt;
-BOOST_AUTO_TEST_CASE( test1 )
-{
-BOOST_CHECK( 2 == 1 );
-}
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -181,6 +425,10 @@ BOOST_CHECK( 2 == 1 );
 	</li>
 	
 	<li>
+		<a href="/2008/02/04/anticheatengine/">AntiCheatEngine</a>
+	</li>
+	
+	<li>
 		<a href="/2008/01/29/solid-compression/">Solid Compression</a>
 	</li>
 	
@@ -194,10 +442,6 @@ BOOST_CHECK( 2 == 1 );
 	
 	<li>
 		<a href="/2008/01/23/upgrade-mantis-111/">Upgrade Mantis 1.1.1</a>
-	</li>
-	
-	<li>
-		<a href="/2008/01/21/get-precompiled-boost-library/">Get Precompiled Boost Library</a>
 	</li>
 	
 </ul>

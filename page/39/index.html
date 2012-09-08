@@ -63,6 +63,24 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a> <small>2006-02-02</small></h1>
+	</div>
+	<div><p>총 15개의 통계 테이블의 리팩토링이 드디어 오늘 끝났고, 내일 테스트만 무사히 통과하면 다음 작업으로 넘어갈 수 있을 것 같다. arithmetic overflow 로 인해 모든 numeric 관련 로직을 계산 컬럼으로 추출해내고 하나씩 검증하는데 이틀이나 날려 먹었던 것이다. 실제로 이백라인에 가까웠던 프로시저가 거의 30% 정도로 분량이 줄었고 각 쿼리문들 역시 간단한 DDL 로 바뀌게 되었는데, 솔직히 너무 허탈하다. :(  </p>
+<p>테스트가 성공리에 끝이 나면, 이제 남은 이슈는 본섭 패치를 얼마나 손쉽게 자동화할 것인가? 이다. 변경된 프로시저의 경우 drop - create 로 해결할 수 있지만, 계산 컬럼으로 바꾸는 것은 녹녹치 않았다. 문제는 한번도 관리되지 않았던 DEFAULT constraint 들 때문인데...</p>
+<pre><code>- ALTER TABLE ALTER COLUMN 으로 일반 컬럼을 계산 컬럼으로 바꿀 수 없다
+- 결국 DROP COLUMN + ADD COLUMN 으로 해결해야 한다
+- DROP COLUMN 을 하려면 의존 관계가 없어야 한다
+- 그런데 바꿔야할 모든 컬럼들이 DEFAULT 제약조건을 가지고 있었고, 얘네들의 이름이 모두 랜덤이다. -_-
+</code></pre>
+<p>일단 DBA 와 상의해봐야 되겠지만 어째 해결책은 없을 듯하다. 따라서 오늘의 결론은</p>
+<blockquote>
+<p>"모든 DEFAULT 제약 조건에 이름을 붙여라"</p>
+</blockquote></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/02/01/computed-column-divide-by-zero/">computed column & divide by zero</a> <small>2006-02-01</small></h1>
 	</div>
 	<div><blockquote>
@@ -132,68 +150,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/12/11/정렬-알고리즘-비교/">정렬 알고리즘 비교</a> <small>2005-12-11</small></h1>
-	</div>
-	<div><table>
-<thead>
-<tr>
-<th>name</th>
-<th>avg</th>
-<th>max</th>
-<th>#</th>
-<th>비고</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/bubblesort.html">Bubble Sort</a></td>
-<td>O(n^2)</td>
-<td>O(n^2)</td>
-<td>0</td>
-<td></td>
-</tr>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/quicksort.html">Quick Sort</a></td>
-<td>O(nlogn)</td>
-<td>O(n^2)</td>
-<td>O(logn)</td>
-<td></td>
-</tr>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/heapSort.html">Heap Sort</a></td>
-<td>O(nlogn)</td>
-<td>O(nlogn)</td>
-<td>0</td>
-<td></td>
-</tr>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/radixsort.html">Radix Sort</a></td>
-<td>O(wxn)</td>
-<td>O(wxn)</td>
-<td>O(n)</td>
-<td>w 는 자릿수</td>
-</tr>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/mergesort.html">Merge Sort</a></td>
-<td>O(nlogn)</td>
-<td>O(nlogn)</td>
-<td>O(n)</td>
-<td></td>
-</tr>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/bitonicSort.html">Bitonic Sort</a></td>
-<td>O(nlog^2n)</td>
-<td>O(nlog^2n)</td>
-<td>0</td>
-<td></td>
-</tr>
-</tbody>
-</table></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -214,6 +170,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	</li>
 	
 	<li>
+		<a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a>
+	</li>
+	
+	<li>
 		<a href="/2006/02/01/computed-column-divide-by-zero/">computed column & divide by zero</a>
 	</li>
 	
@@ -227,10 +187,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	<li>
 		<a href="/2005/12/15/db-datafile-옮기기/">DB datafile 옮기기</a>
-	</li>
-	
-	<li>
-		<a href="/2005/12/11/정렬-알고리즘-비교/">정렬 알고리즘 비교</a>
 	</li>
 	
 </ul>

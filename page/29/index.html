@@ -63,6 +63,69 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/07/22/radrails-tips/">RadRails Tips</a> <small>2006-07-22</small></h1>
+	</div>
+	<div><p>가장 먼저 RadRails 홈에서 제공하는 <a href="http://download.radrails.org.nyud.net:8090/video/RadRailsScreencast.mov">스크린캐스트</a>를 보면서 eclipse 워크벤치의 기능에 대해서 습득하기 바란다.</p>
+<h3>빈 프로젝트만 만들어질 때</h3>
+<p>윈도우 환경에서 <a href="http://www.radrails.org">RadRails</a> 는 <a href="http://instantrails.rubyforge.org">InstantRails</a> 배포판을 필요로 한다. 따라서 처음 설치시 ruby 와 rails 의 PATH 를 설정해 줄 필요가 있다. window-&gt;preferences 에서 Ruby 와 Rails 의 옵션을 아래와 같이 수정할 것.</p>
+<table>
+<thead>
+<tr>
+<th>옵션</th>
+<th>설정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ruby &gt; installed interpreters</td>
+<td>name=ruby, path=c:\instantrails\ruby\bin\ruby.exe</td>
+</tr>
+<tr>
+<td>ruby &gt; RI/RDoc</td>
+<td>ri=c:\instantrails\ruby\bin\ri, rdoc=c:\instantrails\ruby\bin\rdoc</td>
+</tr>
+<tr>
+<td>rails &gt; rails installs</td>
+<td>name=rails, path=c:\instantrails\ruby</td>
+</tr>
+</tbody>
+</table>
+<p>맥 OSX 에서 이와 같은 문제를 만났다면 <a href="http://hivelogic.com/articles/2005/12/01/ruby_rails_lighttpd_mysql_tiger">이 문서에 따라서 루비와 GEM을 재설치</a>한 후, 아래와 같이 설정해보기 바란다.</p>
+<table>
+<thead>
+<tr>
+<th>옵션</th>
+<th>설정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ruby &gt; installed interpreters</td>
+<td>name=ruby, path=/usr/local/bin/ruby</td>
+</tr>
+<tr>
+<td>ruby &gt; RI/RDoc</td>
+<td>ri=/usr/local/bin/ri, rdoc=/usr/local/bin/rdoc</td>
+</tr>
+<tr>
+<td>rails &gt; rails installs</td>
+<td>name=rails, path=/usr/local/</td>
+</tr>
+</tbody>
+</table>
+<h2>Before updating scaffolding from new DB schema, try creating a table for your model (XXX)</h2>
+<p>scaffold 를 생성할 때 위와 같은 에러 메시지가 뜰 때가 있다. InstantRails에 함께 따라온 mysql의 인코딩과 테이블 인코딩의 차이 때문에 생기는 문제인 듯. 데이터베이스 전역 charset과 테이블의 charset을 일치시키면 해결된다. UTF8을 추천한다.</p>
+<h2>WEBrick Server 추가하기</h2>
+<p>Server View 에서 기존에 존재하는 서버를 삭제할 경우 Rails Navigator 에서 오른쪽 클릭을 한 후 New - WEBrick Server 를 이용해서 새로 추가할 수 있다. (이걸 몰라서 계속 재설치하고 삽질했던 나 자신이 부끄럽다. 알고보니 기본적으로 배포되는 RadRails 문서에 잘 나와 있었다.)</p>
+<p>see also:</p>
+<ul>
+<li><a href="http://reiot.cafe24.com/archives/312">Eclipse 팁</a></li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/07/06/visual-assist-x의-리팩토링-기능을-활용해보자/">Visual Assist X의 리팩토링 기능을 활용해보자</a> <small>2006-07-06</small></h1>
 	</div>
 	<div><p>WholeTomato의 <a href="http://www.wholetomato.com/products/matrixRefactoring.html">Visual Assist X 베타 버전</a>을 아직도 안 써보셨다면 지금 <a href="http://www.wholetomato.com/support/history.html">당장 다운받은 후 설치</a>하기 바란다. 최근 추가된 환상적인 C++ 리팩토링 기능 덕분에 최근 몇 주간 정말 행복했다. 그래서 드디어 오늘 몇 카피 사달라고 상부에 보고를 해서 내일 결제할 예정이다. 후훗.</p>
@@ -229,41 +292,6 @@ C_BaseEntity::C_BaseEntity() :
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/06/23/vs2005-vs2003-함께-사용하기/">VS2005 & VS2003 함께 사용하기</a> <small>2006-06-23</small></h1>
-	</div>
-	<div><p>Visual Studio 2005를 설치한 다음 Visual Studio 2003을 설치하면, 우선 탐색기에서 솔루션과 프로젝트 파일에 대한 연결이 깨지며, 두번째로는 크래시 발생시 디버거 선택 창에서 VS2005 가 사라진다. 원래 VS2005에서는 이런 문제를 해결하기 위해서 Visual Studio Version Selector(%ProgramFiles%\Common Files\Microsoft Shared\MSEnv\VSLauncher.exe)를 제공하는데, 설치 순서가 바뀌는 바람에 이게 날아가는 바람에 생기는 문제들이다.</p>
-<h2>파일 연결 복구</h2>
-<p>파일 연결을 복구하는 것은 간단하다.</p>
-<ul>
-<li>솔루션이나 프로젝트 파일을 시프트+우클릭을 해서 연결 프로그램을 선택한 다음 Version Selector를 지정하면 된다.</li>
-<li><strong>도구 - 옵션 - 환경 - 일반</strong> 에서 파일 연결 복원 버튼을 누른다.</li>
-</ul>
-<h2>디버거 연결 복구</h2>
-<p>디버거 연결을 복구하는 방법은 여러 가지가 있다.</p>
-<ul>
-<li>레지스트리 수정 : regedit 로 AeDebug 키를 찾은 다음 Debug 하위키를 아래와 같이 변경하면 된다.</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug\Debug</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>"C:\WINDOWS\system32\vsjitdebugger.exe" -p %ld -e %ld</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><strong>도구 - 옵션 - 디버깅 - Just-In-Time</strong> 메뉴에서 적당히 선택한 후 저장한다.</li>
-<li><strong>도구 - 설정 가져오기 및 내보내기</strong>에서 모두 다시 설정을 선택해도 된다.</li>
-</ul></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -284,6 +312,10 @@ C_BaseEntity::C_BaseEntity() :
 	</li>
 	
 	<li>
+		<a href="/2006/07/22/radrails-tips/">RadRails Tips</a>
+	</li>
+	
+	<li>
 		<a href="/2006/07/06/visual-assist-x의-리팩토링-기능을-활용해보자/">Visual Assist X의 리팩토링 기능을 활용해보자</a>
 	</li>
 	
@@ -297,10 +329,6 @@ C_BaseEntity::C_BaseEntity() :
 	
 	<li>
 		<a href="/2006/07/01/fps-게임의-복제-프레임워크-분석/">FPS 게임의 복제 프레임워크 분석</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/23/vs2005-vs2003-함께-사용하기/">VS2005 & VS2003 함께 사용하기</a>
 	</li>
 	
 </ul>

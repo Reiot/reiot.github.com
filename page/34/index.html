@@ -63,6 +63,46 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/04/24/odbc-tips/">ODBC Tips</a> <small>2006-04-24</small></h1>
+	</div>
+	<div><p><strong>Timestamp -&gt; C</strong></p>
+<p>TIMESTAMP 값을 C 에서 받는 방법은 다양하다. 단순 SELECT 를 통해 날짜 스트링으로 받던가, SQL 문으로 적절히 CONVERT 한 변형된 스트링을 받던가, 아예 아래처럼 구조체로 바로 받을 수 있다.</p>
+<pre><code>
+// SQL_C_TYPE_DATE
+struct tagDATE_STRUCT {
+SQLSMALLINT year;
+SQLUSMALLINT month;
+SQLUSMALLINT day;
+} DATE_STRUCT;
+
+// SQL_C_TYPE_TIME
+struct tagTIME_STRUCT {
+SQLUSMALLINT hour;
+SQLUSMALLINT minute;
+SQLUSMALLINT second;
+} TIME_STRUCT;
+
+// SQL_C_TYPE_TIMESTAMP
+struct tagTIMESTAMP_STRUCT {
+SQLSMALLINT year;
+SQLUSMALLINT month;
+SQLUSMALLINT day;
+SQLUSMALLINT hour;
+SQLUSMALLINT minute;
+SQLUSMALLINT second;
+SQLUINTEGER fraction;[b]
+} TIMESTAMP_STRUCT;
+</code></pre>
+
+<p>see also:</p>
+<pre><code>- [ODBC  C
+</code></pre>
+<p>](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/odbcc_data_types.asp)</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/04/24/memory-leak-detection-tools/">Memory Leak Detection Tools</a> <small>2006-04-24</small></h1>
 	</div>
 	<div><p>from <a href="http://www.rakkarsoft.com/raknet/forum/index.php?topic=251.0">RakNet forum</a></p>
@@ -197,18 +237,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/15/ethereal-tips/">Ethereal Tips</a> <small>2006-04-15</small></h1>
-	</div>
-	<div><p><strong>Local Packets</strong></p>
-<p>로컬 어플리케이션 간의 TCP/IP 패킷 전송은 캡처되지 않는다. 뭔가 내가 모르는게 있는걸까?</p>
-<p><strong>Conversation</strong></p>
-<p><a title="EtherealConversation.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.thumbnail.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.thumbnail.JPG" /></a>특정 어플리케이션에 대해서 패킷 캡처를 하고 나면, 캡처 하는 동안 발생했던 다른 쓸모없는 패킷들까지도 뒤섞여 있기 때문에, 이를 잘 필터링해야 한다. 물론 Display Filter 를 써서 수동으로 하나씩 필터링하는 방법도 있지만, Statistics - Conversation 메뉴를 통해서 그동안 전송된 패킷들을 프로토콜별로 분류해 놓은 표를 통해서 필터링하는 방법도 있다.</p>
-<p>이 표를 보면 프로토콜별/주소별 패킷 분류가 되어 있으며, 각 분류마다 전송 횟수가 표시되어 있으므로 원하는 프로토콜과 주소지를 잘 선택하면 끝.</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -229,6 +257,10 @@
 	</li>
 	
 	<li>
+		<a href="/2006/04/24/odbc-tips/">ODBC Tips</a>
+	</li>
+	
+	<li>
 		<a href="/2006/04/24/memory-leak-detection-tools/">Memory Leak Detection Tools</a>
 	</li>
 	
@@ -242,10 +274,6 @@
 	
 	<li>
 		<a href="/2006/04/15/first-class-object/">First Class Object</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/15/ethereal-tips/">Ethereal Tips</a>
 	</li>
 	
 </ul>

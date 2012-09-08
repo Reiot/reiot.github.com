@@ -63,6 +63,205 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/04/26/spread/">Spread</a> <small>2006-04-26</small></h1>
+	</div>
+	<div><h1>개요</h1>
+<p><a href="http://www.spread.org">Spread</a>는 그룹 기반의 UDP 메시징 라이브러리로, unicast &amp; multicast 및 scattered send/receive를 지원한다. 단 PeerToPeer 모델이 아니라, 독립적인 어플리케이션인 Spread 데몬이 가운데에서 중계를 해주는, 일종의 메시지 버스의 역할을 한다. RakNet 과 마찬가지로 다양한 UDP 전송 방식을 지원한다.</p>
+<table>
+<thead>
+<tr>
+<th>전송방식</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unreliable</td>
+<td>least</td>
+</tr>
+<tr>
+<td>Reliable</td>
+<td>will get there, no ordering</td>
+</tr>
+<tr>
+<td>Fifo</td>
+<td>reliable and ordered fifo by source</td>
+</tr>
+<tr>
+<td>Causal</td>
+<td>reliable and all mesg from any source of this  level are causally ordered</td>
+</tr>
+<tr>
+<td>Agreed</td>
+<td>reliable and all mesg from any source of this level are totally ordered</td>
+</tr>
+<tr>
+<td>Safe</td>
+<td>Agreed ordering and mesg will not be delivered to application until the mesg has reached ALL receipients' daemons</td>
+</tr>
+</tbody>
+</table>
+<h1>성능</h1>
+<p>문서에 의하면 1k 메시지 8000개를 1초에 전송 보장한다고 하며, 또한, <a href="http://www.cnds.jhu.edu/pub/papers/cnds-2004-1.pdf">The Spread Toolkit: Architecture and Performance</a>에 따르면 만개의 그룹에서 Safe 메시지를 보낼 때의 지연 시간이 6ms 라고 나온다. 실제로, 파이썬 바인딩을 이용한 클라이언트와 (아무런 부하를 주지 않은) localhost 데몬과의 테스트 결과 0.25ms 정도의 반응 시간을 보여줬다.</p>
+<table>
+<thead>
+<tr>
+<th>전송방식</th>
+<th>평균 ping 시간</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UNRELIABLE_MESS</td>
+<td>0.248ms</td>
+</tr>
+<tr>
+<td>RELIABLE_MESS</td>
+<td>0.248ms</td>
+</tr>
+<tr>
+<td>FIFO_MESS</td>
+<td>0.247ms</td>
+</tr>
+<tr>
+<td>CAUSAL_MESS</td>
+<td>0.247ms</td>
+</tr>
+<tr>
+<td>AGREED_MESS</td>
+<td>0.247ms</td>
+</tr>
+<tr>
+<td>SAFE_MESS</td>
+<td>0.248ms</td>
+</tr>
+</tbody>
+</table>
+<p>로컬랜에 연결된 2개의 머신에서 한쪽(Windows XP, P4 2G + 512M)에 데몬을 real time priority 로 띄우고 다른 쪽에 송수신 전용 쓰레드를 가진 테스트 클라이언트를 붙인 다음, 초당 8000개의 4byte 메시지를 보내는 경우 CPU 사용량 100% 에 RTT 0.8s 가 나왔다. 즉 1초 안에 전송은 보장하지만 반응 속도는 영 좋지 않았다. 그리고 로컬랜의 방화벽 바깥에 있는 머신(Windows 2003 + P4 2.8G + RAM 2G)에 데몬을 띄우고 방화벽 안쪽에서 테스트한 결과, 초당 4000개를 보내면 연결이 끊기며 초당 1000개를 보내면 0.8s 의 반응 속도를 보여줬다.</p>
+<h1>예상되는 용도</h1>
+<dl>
+<dt>컨텐트 중계 서버</dt>
+<dd>채팅 채널, 파티 채팅, 길드 채팅을 중계해주는 서버. 굳이 채팅 서버를 두지 않아도 무방할 듯. 그 역할을 Spread Daemon 이 해주니까.</dd>
+<dt>게이트웨이 서버</dt>
+<dd>M:N 관계에 있는 tier 에서의 중계 서버 역할. 가령 N개의 에이전트와 M개의 게임서버간의 연결을 TCP로 하게 되면 각 에이전트는 M개의 TCP연결을 하고 그것을 관리해야 한다. 이를 1개의 Spread 연결로 해결할 수 있다. (M개의 그룹에 대해 1개의 연결을 사용한다는 가정 하에서...) 마찬가지로 게임서버는 1개의 Spread 연결에 대해서만 처리하게 되므로 이벤트 드리븐이 간단하게 이루어진다. 가령 클라이언트가 에이전트에 로그인하고 이전 위치를 로딩하게 되면, 에이전트는 해당 서버 그룹에 join 하고, 클라이언트가 로그아웃하면 그룹에서 leave 하면 된다. (ref-counting을 사용하면 간단) 서버간 이동도 마찬가지로 처리할 수 있다. 단 이렇게 될 경우 데몬이 다운되면 게임 끝이다.</dd>
+<dt>브로드캐스트 서버</dt>
+<dd>(현실성이 없는 이야기지만) 게임 서버의 각 브로드캐스트 영역(일명 Area)을 그룹으로 간주하고, 그 안에 들어있는 플레이어들에게 멀티캐스팅할 수 있겠다. 단 이런 모델은 잦은 그룹 join/leave 가 이루어지므로 Area 개수가 늘어날수록 부하가 심해질 듯. 1000개의 그룹일 경우 35ms 정도니까... 10000개면...</dd>
+<dt>데이터 복제 서버</dt>
+<dd>게임 서버의 경계 영역에서의 데이터 변화를, 이를 공유하는 다른 서버로 복제한다. 예를 들면, NPC 길찾기를 위한 동적 객체 정보를 게임 서버에서 NPC 에이전트로 복제하는 등.</dd>
+</dl>
+<h1>참고사항</h1>
+<p>경험자의 말에 의하면, windows xp 와의 궁합이 잘 맞지 않다고 한다. 대신 windows 2000 에서는 잘 된다고 하는데, 커널의 네트워크 모듈과의 궁합 문제일 가능성이 있다고 한다. 즉 windows 2003 에서 테스트를 더 해봐야 한다는 의미.</p>
+<p>see also:</p>
+<ul>
+<li><a href="http://www.spread.org/docs/guide/users_guide.pdf">Spread User Guide</a></li>
+<li><a href="http://www.zope.org/Members/tim_one/spread/">Python Spread</a></li>
+<li><a href="http://www3.telus.net/taj_khattra/luaspread.html">Lua Spread</a></li>
+</ul>
+<!--more-->
+
+<pre><code>
+#format python
+import spread
+import unittest
+import time
+
+daemon = '3333@localhost'
+
+class SpreadTest(unittest.TestCase):
+  def testConnect(self):
+  mbox = spread.connect(daemon,'test1')
+  self.failUnless( mbox.fileno &gt; 0 )
+  mbox.disconnect()
+  def testJoin(self):
+  mbox = spread.connect(daemon,'test2')
+  mbox.join('test1')
+  if mbox.poll() &gt; 0:
+  msg = mbox.receive()
+  self.failUnlessEqual( str(type(msg)) , &quot;&quot; )
+  self.failUnlessEqual( msg.group , &quot;test1&quot; )
+  self.failUnlessEqual( msg.reason, spread.CAUSED_BY_JOIN )
+  mbox.leave('test1')
+  if mbox.poll() &gt; 0:
+  msg = mbox.receive()
+  self.failUnlessEqual( str(type(msg)) , &quot;&quot; )
+  self.failUnlessEqual( msg.group , &quot;test1&quot; )
+  self.failUnlessEqual( msg.reason, spread.CAUSED_BY_LEAVE )
+  mbox.disconnect()
+  def testLeave(self):
+  mbox = spread.connect(daemon,'test2')
+  mbox.join('test1')
+  mbox.leave('test2')
+  mbox.disconnect()
+  def testSend(self):
+  mbox = spread.connect(daemon,'test3')
+  group = 'StressTesters'
+  message = 'Hello Spread!'
+  mbox.join(group)
+  if mbox.poll() &gt; 0:
+  msg = mbox.receive()
+  self.failUnlessEqual( msg.reason, spread.CAUSED_BY_JOIN )
+  mbox.multicast( spread.FIFO_MESS, group, message)
+  if mbox.poll() &gt; 0:
+  msg = mbox.receive()
+  self.failUnlessEqual( msg.groups[0], group )
+  self.failUnlessEqual( msg.message, message )
+  mbox.leave(group)
+  mbox.disconnect()
+
+def testPing( trycount = 100 ):
+  mbox = spread.connect(daemon,'StressTester')
+  group = 'StressTesters'
+  mbox.join(group)
+  msg = mbox.receive()
+  assert msg.reason == spread.CAUSED_BY_JOIN
+
+  service_types = (
+  spread.UNRELIABLE_MESS,
+  spread.RELIABLE_MESS,
+  spread.FIFO_MESS,
+  spread.CAUSAL_MESS,
+  spread.AGREED_MESS,
+  spread.SAFE_MESS )
+  service_type_str = (
+  'UNRELIABLE_MESS',
+  'RELIABLE_MESS',
+  'FIFO_MESS',
+  'CAUSAL_MESS',
+  'AGREED_MESS',
+  'SAFE_MESS' )
+  ping_stat = []
+
+  for service_type in service_types:
+  ping_count = 0
+  total_ping = 0
+  for i in range(0,trycount):
+  mbox.multicast( service_type, group, str(time.clock()) )
+  msg = mbox.receive()
+  total_ping = total_ping + time.clock() - float( msg.message )
+  ping_count = ping_count + 1
+
+  if ping_count &gt; 0 :
+  ping_stat.append( total_ping / ping_count )
+  else:
+  ping_stat.append(0)
+
+  for i in range( 0, len(service_type_str) ):
+  print &quot;%15s : %8f&quot; %( service_type_str[i],ping_stat[i])
+
+  mbox.leave(group)
+  msg = mbox.receive()
+  assert msg.reason == spread.CAUSED_BY_LEAVE
+
+  mbox.disconnect()
+if __name__ == '__main__':
+  testPing(10000)
+  #unittest.main()
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/04/26/python-tips/">Python Tips</a> <small>2006-04-26</small></h1>
 	</div>
 	<div><h3># asyncore.dispatcher</h3>
@@ -155,46 +354,6 @@ os.rename(old_name,new_name)
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/24/odbc-tips/">ODBC Tips</a> <small>2006-04-24</small></h1>
-	</div>
-	<div><p><strong>Timestamp -&gt; C</strong></p>
-<p>TIMESTAMP 값을 C 에서 받는 방법은 다양하다. 단순 SELECT 를 통해 날짜 스트링으로 받던가, SQL 문으로 적절히 CONVERT 한 변형된 스트링을 받던가, 아예 아래처럼 구조체로 바로 받을 수 있다.</p>
-<pre><code>
-// SQL_C_TYPE_DATE
-struct tagDATE_STRUCT {
-SQLSMALLINT year;
-SQLUSMALLINT month;
-SQLUSMALLINT day;
-} DATE_STRUCT;
-
-// SQL_C_TYPE_TIME
-struct tagTIME_STRUCT {
-SQLUSMALLINT hour;
-SQLUSMALLINT minute;
-SQLUSMALLINT second;
-} TIME_STRUCT;
-
-// SQL_C_TYPE_TIMESTAMP
-struct tagTIMESTAMP_STRUCT {
-SQLSMALLINT year;
-SQLUSMALLINT month;
-SQLUSMALLINT day;
-SQLUSMALLINT hour;
-SQLUSMALLINT minute;
-SQLUSMALLINT second;
-SQLUINTEGER fraction;[b]
-} TIMESTAMP_STRUCT;
-</code></pre>
-
-<p>see also:</p>
-<pre><code>- [ODBC  C
-</code></pre>
-<p>](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/odbcc_data_types.asp)</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -215,6 +374,10 @@ SQLUINTEGER fraction;[b]
 	</li>
 	
 	<li>
+		<a href="/2006/04/26/spread/">Spread</a>
+	</li>
+	
+	<li>
 		<a href="/2006/04/26/python-tips/">Python Tips</a>
 	</li>
 	
@@ -228,10 +391,6 @@ SQLUINTEGER fraction;[b]
 	
 	<li>
 		<a href="/2006/04/25/codekeep/">CodeKeep</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/24/odbc-tips/">ODBC Tips</a>
 	</li>
 	
 </ul>
