@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2008/12/27/networking-metaphore/">Networking Metaphor</a> <small>2008-12-27</small></h1>
+	</div>
+	<div><p>[caption id="" align="aligncenter" width="500" caption="http://www.flickr.com/photos/jasoncross/1260110610/"]<a href="http://www.flickr.com/photos/jasoncross/1260110610/"><img alt="http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg" src="http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg" /></a>[/caption]</p>
+<p>네트워크 프로그래머가 클라이언트 서버간 통신(혹은 P2P 통신)을 바라보는 메타포에 대해서 갑자기 궁금해졌다.</p>
+<p>가장 흔한 개념은 바로 패킷이다. 만약 컨텐트 코드에서 Packet 이나 Command, Message 같은 객체와, Send 와 Receive 같은 함수가 노출되어 있다면, 그걸 만든 사람은 데이터 통신을 바이트의 전송이라는 개념으로 인지하는 것이 아닐까? 데이터를 던지고 받는다는 개념의 네트워킹은 아마도 귀찮은 하드코딩 노가다 작업일 확률이 높다. 흐흐.</p>
+<p>조금 높은 레벨(?)로 올라간다면 원격 함수 호출(RPC)이 있겠다. 무언가를 상대방에게 요청(request)하면, 상대방은 그걸 처리한 후 성공이나 실패 같은 결과(response)를 보내준다. 이런 메타포에서는 동기/비동기라든지, 타임아웃 같은 처리들이 따라오게 된다. 만약 네트워크로 무언가를 요청하는 행위가 함수 호출 인터페이스처럼 잘 래핑되어 있다면, 대략 1초간 으쓱해도 무방하겠다. :P</p>
+<p><img alt="http://ou800doc.caldera.com/en/SDK_netapi/graphics/rpc.gif" src="http://ou800doc.caldera.com/en/SDK_netapi/graphics/rpc.gif" /></p>
+<p>추가적으로, 결과가 없는 요청은 특별히 이벤트(event) 혹은 통지(notification)라는 메타포라고 부를 수 있겠다. 사실 매번 렌더링을 해야 하는 게임 클라이언트나, 항상 빠른 응답 속도를 보장해야 하는 서버가 동기적 요청을 하는 일은 정말 드문 경우이다. 이런 이유로 비동기적인 통신이 대부분이기 때문에 적당히 현재 상황을 알려주고 잊어버리고 있다가, 혹시나 결과(보통은 에러)가 오면 음..그런가? 하고 처리하는 느낌으로 코드를 만들 때가 있다. 시간이 나면 Notify 같은 이름들이 있는지 한번 체크해보시라.</p>
+<p>위에 나온 것들은 대체로 즉각적인 처리를 필요로 하는 반면, 어떤 이벤트들은 시간축으로 늘어질 때가 있다. 무슨 말이냐 하면 이동, 공격, 물리 같이 float 단위의 정밀한 사건들은 공간 뿐만 아니라 시간과도 밀접한 관계가 있기 때문이다. 이런 상황을 아름답게 처리하려면, 받는 족족 무언가를 처리하기보다는, 데이터를 시간순으로 쌓아두고 예측, 보간을 통해 그럴듯하게 보여줄 필요가 있다. 이런 걸 보통 동기화(synchronization) 또는 복제(replication)이라고 부른다. 보통 이런 코드들은 네트워크를 넘어선 상위 로직 레벨에 존재하는 경우가 많은데, 어떤 네트워크 라이브러리들은 이런 수준도 알아서 잘 처리하기도 한다.</p>
+<p>[caption id="" align="aligncenter" width="300" caption="from http://www.problogger.net"]<a href="http://www.problogger.net"><img alt="http://www.problogger.net/wp-content/uploads/2007/08/rss-buttons.gif" src="http://www.problogger.net/wp-content/uploads/2007/08/rss-buttons.gif" /></a>[/caption]</p>
+<p>좀 억지스럽긴 하나, 이메일이나 RSS 등에서 주로 쓰이는 발행(publish)과 구독(subscribe)이라는 메타포는 어떨까?  채팅 채널 같이 지속적인 이벤트가 간간히 발생하는 논리적인 영역에 참가하면, 꾸준히 어떤 이벤트들이 날아오게 된다. 사람들이 바글바글 거리는 지역에 발생하는 수많은 이벤트들을 클라이언트에게 알려줄 때 즉각적인 브로드캐스팅 대신, 이런 개념을 사용한다면 필터링을 통해 트래픽 절감의 효과를 손쉽게 얻을 지도 모르겠다. 후후.</p>
+<p>이렇게 단순한 이야기를 현학적으로 어렵게 쓴 이유는, 사실 며칠 전 XML로 프로토콜을 정의하고 코드를 만드는 걸 한번 해볼까 하고, <a href="http://www.codalogic.com/lmx/xsd-overview.html">스키마 튜토리얼</a>을 살펴 보다가, 프로토콜은 XML이 아니라 XSD에 들어가는게 맞지 않냐는 생각이 들어서였다. 물론 XSD도 사실 XML이니까, 쓸데없는 고민 없이 그냥 해도 될 것 같기도 한데... 그러다보니 또 굳이 요즘 세상에 트래픽이 많은 게임이 아니라면 XML 프로토콜을 쓰고, 파싱 및 검증을 XSD로 하는 것도 괜찮지 않냐는 망상에서 허우적 거리고 있다.</p>
+<p><img alt="http://upload.wikimedia.org/wikipedia/en/3/32/CheckEmail.png" src="http://upload.wikimedia.org/wikipedia/en/3/32/CheckEmail.png" /></p>
+<p>또 한편으로는 클래스 다이어그램과 시퀀스 다이어그램으로 클라이언트/서버간 통신을 표현하고, 그걸 파싱해서 각종 RPC 함수들의 골격을 만들어내면 인생이 좀 수월해지지 않을까 하는 생각도 든다. 물론 프로토콜이 바뀔 때에 기존 코드가 날아가지 않도록 코드 제너레이터를 잘 짜야겠지.</p>
+<p>글 시작과 끝의 주제가 다른 걸로 봐서, 아무래도 요즘 스트레스를 많이 받나 보다. ㅋㅋ</p></div>
+	
+	<p>
+	
+		<a href="/tag/xml/"><span class="label">xml</span></a>
+	
+		<a href="/tag/protocol/"><span class="label">protocol</span></a>
+	
+		<a href="/tag/schema/"><span class="label">schema</span></a>
+	
+	</p>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

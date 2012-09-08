@@ -1,588 +1,196 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="plist 파일을 ajax 로 다운받을 때 parseerror 가 나는 경우 app.yaml 에서 mime type 을 잘 지정해야 된다. - url: /images/sprites/(.*).plist static_dir: static/images/sprites &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/16">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/20/plist-ajax-parseerror/">Plist 파일을 Ajax 로 다운받을 때 Parseerror 가 나는 &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-20T20:44:00+09:00" pubdate data-updated="true">Apr 20<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>plist 파일을 ajax 로 다운받을 때 parseerror 가 나는 경우  app.yaml 에서 mime type 을 잘 지정해야 된다.  - url: /images/sprites/(.*).plist  static_dir: static/images/sprites  mime_type: text/xml</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/19/httpspritegenwebsite-performanceorg/">http://spritegen.website-performance.org&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-19T19:03:00+09:00" pubdate data-updated="true">Apr 19<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://spritegen.website-performance.org/">http://spritegen.website-performance.org/</a>  zip 파일로 이미지를 업로드하면 파일 하나로 합치고 스프라이트 정보를 제공해준다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/16/kind-xxxgetbykeyname/">이미 Kind 를 아는 상태에서는 XXX.get_by_key_name()&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-16T01:41:00+09:00" pubdate data-updated="true">Apr 16<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>이미 kind 를 아는 상태에서는 XXX.get_by_key_name() 를 사용해서 접근할 수 있다. 그러나 일견 비슷해보이는 db.Model.get_by_key_name() 은 동작하지 않는다. 분명 parent 가 없는 엔티티인데도  from apps.game.models import *  f = Front.all().filter(name =,aa).get()  if not f:  f = Front(key_name=aaaa,name=aa)  f.put()  f2 = db.Model.get_by_key_name(f.key().name())  print Model.get_by_key_name:,f2  f3 = Front.get_by_key_name(f.key().name())  print Front.get_by_key_name:,f3  f4 = db.class_for_kind(Front).get_by_key_name(f.key().name())  print db.class_for_kind().get_by_key_name:,f4  generic 하게 key name 만으로 접근하는 방법을 알아내야 할 듯.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/15/bulkloaderpy-appcfgpy/">bulkloader.py 또는 appcfg.py 로 데이터를 익스포트(다&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-15T21:46:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>BadRequestError: app AAA cannot access app BBBs data  bulkloader.py 또는 appcfg.py 로 데이터를 익스포트(다운로드) 할 때 디폴트 구현인 keyname 대신 key 자체를 저장하는 방식(-_-)을 선택한 경우, appid 가 다른 datastore 로 업로드(임포트)할 때, 기존 키값이 존재할 경우 받아들일 수 없게 된다. 특히나 sql3 로 덤프받은 데이터 역시 호환이 되지 않는다.  해결책은  - CSV 로 바꾸고, 키값은 모두 삭제해서 자동 생성 되도록 한다. 이때의 문제는 reference key 가 문제가 된다. 손쉬운 해결책은 keyname 을 쓰는 건데 이것도 못할 짓이다.  - 모든 키를 돌면서 appid 부분을 교체하는 것도 하나의 해결책이다. ==> 존재하지 않는 키는 받아들이지 않는다. 오직 keyname 만 받아들임. ==> 그래서 CSV 내보내기할 때 keyname 만 내보내는 구만.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/15/app-engine-listpropertyint-export/">App Engine 에서 ListProperty(int) 를 Export&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-15T20:51:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>app engine 에서 ListProperty(int) 를 export/import 할 때 사용해야 하는 함수  - export:  (field-name, lambda x: ,.join([str(y) for y in x]), None),  - import:  (field-name, lambda x: list([ int(y) for y in x.split(,)]) ),</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/15/jqueryextendtargetobj1-obj2/">jQuery.extend(target,obj1, Obj2) 자바스크립트 &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-15T19:01:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jQuery.extend(target,obj1, obj2)  자바스크립트 사전을 merge 한다. 이때 target 은 변경된다는 점에 유의.  var object = $.extend({}, object1, object2);</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/15/app-engine-environment-variables/">App Engine Environment Variables</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-15T16:06:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>APPLICATION_ID  - CURRENT_VERSION_ID: X.Y. 메이저 버전은 app.yaml 에 있는 대로. 마이너 버전은 서버에서 자동으로 증가. 개발 서버에서 마이너 버전은 항상 1  - AUTH_DOMAIN: 도메인 인증시 도메인명.  - SERVER_SOFTWARE: 개발 서버는 Development/X.Y 앱엔진에 올라가면 Google App Engine/X.Y.Z.</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/14/httpwwwselectorgadgetcom-dom/">http://www.selectorgadget.com/ DOM 을 클릭하&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-14T00:12:00+09:00" pubdate data-updated="true">Apr 14<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.selectorgadget.com/">http://www.selectorgadget.com/</a>  DOM 을 클릭하면 그에 해당하는 적절한 jquery selector 를 알려준다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/14/httpspritemeorg/">http://spriteme.org/ 화면에 등장하는 이미지들을 하나의 &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-14T00:11:00+09:00" pubdate data-updated="true">Apr 14<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://spriteme.org/">http://spriteme.org/</a>  화면에 등장하는 이미지들을 하나의 스프라이트로 만들어준다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/12/css-transparentclass-filteralph/">반투명 CSS .transparent_class { Filter:alph&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-12T23:02:00+09:00" pubdate data-updated="true">Apr 12<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>반투명 CSS  .transparent_class {     filter:alpha(opacity=50);   -moz-opacity:0.5;   -khtml-opacity: 0.5;    opacity: 0.5;  }  주의할 점은, 부모의 opacity 값이 정해지면 자식은 override 할 수 없다. 1픽셀 이미지를 배경색으로 쓰던가, position=absolute 를 이용해서 자식으로 만들지 않으면 된다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/17/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/15/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/05/22/teamwork-talent/">Teamwork > Talent</a> <small>2008-05-22</small></h1>
+	</div>
+	<div><p>```<br />
+<em>"Talent wins games, but teamwork and intelligence wins championships."</em> <strong><a class="extiw" title="Wikipedia:Michael Jordan" href="http://en.wikipedia.org/wiki/Michael_Jordan"></a></strong></p>
+<p><strong><a href="http://en.wikipedia.org/wiki/Michael_Jordan">Michael Jordan</a></strong>```<br />
+from <a href="http://developer.valvesoftware.com/wiki/Successful_Mod_Team_Tips">valve wiki</a></p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/05/02/libjingle/">libjingle</a> <small>2008-05-02</small></h1>
+	</div>
+	<div><p>어제 출시된 <a href="https://partner.steamgames.com/documentation/api">SteamWorks 1.0 API</a> 을 살펴보다가 얘네들이 <a href="http://code.google.com/apis/talk/libjingle/index.html">libjingle </a>을 쓰고 있다는 사실을 발견했다.<br />
+<code>libjingle is a collection of open-source C++ code and sample applications  that enables you to build a peer-to-peer application. The code handles  creating a network connection (through NAT and firewall devices, relay  servers, and proxies), negotiating session details (codecs, formats,  etc.), and exchanging data. It also provides helper tasks such as parsing  XML, and handling network proxies.</code><br />
+시간이 꽤 흘러 또 기억이 가물가물해졌지만, 역시나 홀펀칭은 <a href="http://www.ietf.org/rfc/rfc3489.txt">STUN</a> 인가보다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/05/01/customize-wordpress-prologue-theme/">Customize Wordpress Prologue theme</a> <small>2008-05-01</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/prologue.png"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/prologue-269x300.png" src="http://boxcatstudio.files.wordpress.com/2009/07/prologue-269x300.png" /></a></p>
+<p>이런 저런 스트레스가 머리끝까지 다다른 어느날, 불현듯 팀 내에 저레벨(?) 커뮤니케이션의 필요성이 느껴져서, 얼마전부터 <a href="http://wordpress.com/blog/2008/01/28/introducing-prologue/">prologue </a>테마를 한글화해서 뒷담화 온라인이라는 이름으로 절찬리에 운영중이다. 며칠 쓰다보니 외부 링크를 보다 손쉽게 추가할 수 있게 해달라는 요청이 들어와서, Custom Field 를 저장하고 보여주는 기능을 구현해봤다.</p>
+<p>가장 먼저 post-form.php 에 link 라는 이름의 input text 필드를 추가했다.</p>
+<pre><code>
+&lt;input type=&quot;text&quot; name=&quot;link&quot; id=&quot;link&quot; autocomplete=&quot;off&quot; /&gt;
+
+</code></pre>
+
+<p>이걸 link 라는 이름의 custom field 로 저장하기 위해서 function.php 에 다음과 같은 함수와 콜백을 추가했다.</p>
+<pre><code>
+function add_link_custom_field($post_id) {
+if( $_POST['link'] ) {
+add_post_meta($post_id, 'link', $_POST['link'], true) or update_post_meta($post_id, 'link', $_POST['link']);
+}
+}
+add_action('publish_post', add_link_custom_field );
+</code></pre>
+
+<p>이제 글을 작성할 때마다 link 폼으로 넘어온 값이 custom field 에 저장이 될 것이다. 다음은 이걸 화면에 아이콘으로 보여주는 코드를 살펴보자.</p>
+<pre><code>
+&lt;?php
+$links = get_post_custom_values('link');
+if(count($links)&gt;0)
+{
+echo &quot;&lt;a href='&quot; . $links[0] . &quot;'&gt;&lt;img src='/blog/wp-content/uploads/link.jpg' /&gt;&lt;/a&gt;&quot;;
+}
+?&gt;
+
+</code></pre>
+
+<p>가끔은 정형화된 인트라넷에서는 쏟아낼 수 없는, 너무 소소하고 쓸데없는 잡담들을 펼쳐줄 공간이 회사원에게는 필요할지도 모르겠다. 물론 그걸 악용하고 소모적으로 사용하는 경우는 없어야겠지만. 결국은 쓰는 사람이 그 선을 잘 지켜줘야 할 게다. 그런 의미에서 확실히 자신의 얼굴을 보여준다는 건 참 괜찮은 아이디어인 듯하다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/04/14/boost-with-visual-studio-2008-express/">boost with Visual Studio 2008 express</a> <small>2008-04-14</small></h1>
+	</div>
+	<div><p>visual studio express 시리즈들이 커맨드라인 빌드를 지원하지 않는다고만 알고 있었는데, 구글님께 여쭤보니 역시나 해결책이 있었다.<br />
+<code>bjam --toolset=msvc-9.0express --with-system --with-thread --with-date_time --with-regex --with-serialization --with-test --stagedir=. debug release link=static runtime-link=shared threading=multi stage</code></p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/04/05/boost-135/">boost 1.35</a> <small>2008-04-05</small></h1>
+	</div>
+	<div><p>지난 달에 boost 1.34.1 을 일년만에 업그레이드해서 소스 트리에 넣었다가 느리다는 불평을 많이 들었는데, 금방 <a href="http://boost.org/users/news/version_1_35_0">1.35가 나와버렸다</a>. 이번에는 <a href="http://boost.org/libs/asio/index.html">ASIO 가 정식으로 포함</a>되었고, 그 외에 <a href="http://boost.org/libs/circular_buffer/index.html">Circular Buffer</a> 라든지 <a href="http://boost.org/libs/interprocess/index.html">Interprocess </a>같은 라이브러리들이 새로 추가되었다.</p>
+<p>이 정도라면 boost 만으로도 game server 을 만들어내도 될 법한 분위기렸다. 누가 boost.reliable_udp 이라든지 boost.patch, boost.crash_dump 같은 거 만들어줬으면...</p></div>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/17/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/17">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2008/05/22/teamwork-talent/">Teamwork > Talent</a>
+	</li>
+	
+	<li>
+		<a href="/2008/05/02/libjingle/">libjingle</a>
+	</li>
+	
+	<li>
+		<a href="/2008/05/01/customize-wordpress-prologue-theme/">Customize Wordpress Prologue theme</a>
+	</li>
+	
+	<li>
+		<a href="/2008/04/14/boost-with-visual-studio-2008-express/">boost with Visual Studio 2008 express</a>
+	</li>
+	
+	<li>
+		<a href="/2008/04/05/boost-135/">boost 1.35</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

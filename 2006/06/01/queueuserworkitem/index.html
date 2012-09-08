@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a> <small>2006-06-01</small></h1>
+	</div>
+	<div><p>Windows 에서 제공하는 ThreadPooling API인 QueueUserWorkItem()에 대해서 알아보자.</p>
+<h2>QueueUserWorkItem()</h2>
+<p>Programming Application for Microsoft Windows 에 의하면 ThreadPooling 시 새로운 쓰레드가 추가되기 위한 factor 에는 아래와 같은 것이 있다.</p>
+<ul>
+<li>쓰레드가 추가된 지 몇 초가 지나면, 한번 고민해본다</li>
+<li>WT_EXECUTELONGFUNCTION 이 사용될 경우, 한번 고민해본다</li>
+<li>큐잉된 작업의 개수가 일정 threadhold 를 넘어설 경우, 한번 고민해본다.</li>
+</ul>
+<p>그러나, 상세한 파라미터는 알려져 있지 않아서.. 테스트를 해 보았다.</p>
+<pre><code>
+const int MAX_WORK = 1000;
+LONG WorkCounter = 0;
+int add_time = 1;
+int work_time = 10;
+int nloop = 1;
+bool bPreQueue = false;
+int pre_queue_time = 1000;
+bool bMiddleSleep = false;
+int middle_sleep_time = 1000;
+
+DWORD WINAPI MyWorkThreadProc(PVOID pParam)
+{
+    MyWork* pWork = (MyWork*)pParam;
+
+    Sleep(pWork-&gt;workTime);
+
+    pWork-&gt;threadID = ::GetCurrentThreadId();
+    pWork-&gt;output = pWork-&gt;input * 2;
+
+    InterlockedIncrement( &amp;WorkCounter );
+
+    return 0;
+}
+
+void
+thread_pool_test_fixture::test_really_pooling()
+{
+    for ( int k = 0 ; k  0 )
+            {
+                Sleep(pre_queue_time);
+            }
+        }
+
+        MyWork works[MAX_WORK];
+        for (int i=0; i 0 )
+            {
+                Sleep(add_time);
+            }
+
+            if ( i == 500 &amp;&amp; bMiddleSleep &amp;&amp; middle_sleep_time &gt; 0 )
+            {
+                Sleep( middle_sleep_time );
+            }
+        }
+
+        while ( WorkCounter  threads;
+        for (int i=0; i::iterator itr = threads.begin() ; itr != threads.end() ; itr ++ )
+        {
+            BOOST_MESSAGE( *itr  처리 시간 |
+| 10 | 10 | 1  | 큐잉되는 시간 == 처리 시간 |
+| 10 | 20 | 3  | 큐잉되는 시간
+</code></pre></div>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

@@ -1,699 +1,490 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="jQuery.load 방식으로 서버에서 FBML 을 받아서 fb:request-form + fb:multi-friend-selector 를 띄우는 법 new javascript SDK 초기화시 xfbml 파싱 off FB.init({xfbml:false}) 다음과 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/9">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/16/fbserverfbml-requires-the-fbml-attribute/">Fb:serverfbml Requires the &quot;fbml&quot; Attribute.</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-16T11:31:00+09:00" pubdate data-updated="true">Sep 16<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jQuery.load 방식으로 서버에서 FBML 을 받아서 fb:request-form + fb:multi-friend-selector 를 띄우는 법</p>
-
-<p>new javascript SDK 초기화시 xfbml 파싱 off</p>
-
-<blockquote><p>FB.init({xfbml:false})</p></blockquote>
-
-
-<p>다음과 같이 DOM 을 준비</p>
-
-<blockquote><p><div id=wrapper><fb:serverFbml id=invite-fbml></fb:serverFbml></div></p></blockquote>
-
-
-<p>다음과 같이 스크립트를 준비</p>
-
-<blockquote><p>$(#invite-fbml).load(url,function(){</p><p>FB.XFBML.parse($(#wrapper)[0]);</p><p>});</p></blockquote>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/14/no-submodule-mapping-found-in-gitmodules/">No Submodule Mapping Found in .gitmodules</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-14T10:29:50+09:00" pubdate data-updated="true">Sep 14<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>.gitmodules 에 해당 모듈이 없는데도 발생한다면, 서브모듈 캐시에서 삭제한 후 커밋해야 한다.</p>
-
-<figure class='code'><figcaption><span>캐싱된 서브 모듈을 지우기 </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git rm --cached path/to/submodule
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/14/fbsig/">Fb_sig</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-14T07:34:43+09:00" pubdate data-updated="true">Sep 14<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>in_canvas: FBML (always canvas)</li>
-<li>in_iframe: Canvas IFrame</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/13/req-choice-required-as-part-of-request-form-content/">Req-choice Required as Part of Request-form Content</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-13T12:44:00+09:00" pubdate data-updated="true">Sep 13<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>append fb:choice to fb:request-form s content parameter.</p>
-
-<p> &lt;fb:request-form </p>
-
-<p> content=<strong>Join Me! &lt;fb:req-choice url=xxxxx label=Accept/></strong> </p>
-
-<p> invite=true></p>
-
-<p> &lt;fb:multi-friend-selector </p>
-
-<p> actiontext=Select the friends you want to invite                 </p>
-
-<p> selected_rows=0 </p>
-
-<p> style=width: 200px; /></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/13/env-getpost-cookie-session/">ENV &gt; GET/POST &gt; COOKIE &gt; Session</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-13T11:56:00+09:00" pubdate data-updated="true">Sep 13<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Variable Priority</p>
-
-<ul>
-<li>Environment Variables</li>
-<li>POST</li>
-<li>GET</li>
-<li>Cookie</li>
-<li>Session ( server side cached variables )</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/13/cookie-expire-time/">Cookie Expire Time</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-13T11:52:12+09:00" pubdate data-updated="true">Sep 13<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>expire 를 지정하지 않으면 브라우저를 끄면 사라진다. :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/12/prefilledids-not-supported/">Prefilled_ids Not Supported</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-12T10:34:29+09:00" pubdate data-updated="true">Sep 12<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>정책적인 문제로, 친구 초대시 무조건 직접 친구를 선택해야 한다. 즉 커스텀 다이얼로그에서 페이스북 친구 초대로 prefilled_ids 를 넘길 수는 없으므로 포기할 것.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/11/facebook-canvas-oauth-todo/">Facebook Canvas OAuth TODO</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-11T21:53:15+09:00" pubdate data-updated="true">Sep 11<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>django middleware</li>
-<li>appengine middleware</li>
-<li>firefox test</li>
-<li>IE test</li>
-<li><strike>safari cookie test</strike></li>
-<li>local expire test: event .. </li>
-<li>fbml render test: multi friend invite, fixed friends request after custom dialog</li>
-<li>canvas resize</li>
-<li><strike>invalid access: logout, no authorize, no perm</strike></li>
-<li>fql test: bookmark, dashboard,  </li>
-<li>bulk query graph API</li>
-<li>cookie exist but logout => handle with first graph api call</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/11/algorithm-for-facebook-canvas-oauth/">Algorithm for Facebook Canvas OAuth</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-11T20:59:00+09:00" pubdate data-updated="true">Sep 11<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Currently I have no working sample. :)</p>
-
-<ul>
-<li><p>no signed_request: without facebook login</p></li>
-<li><p><em>redirect to facebook or app page.</em></p></li>
-<li><p>with signed_request: logon user</p></li>
-<li>no user_id &amp; oauth_token: unauthorized. permission dialog needed.</li>
-</ul>
-
-
-<h2>- <em><em>top.location.href=</em><a href="https://graph.facebook.com/oauth/authorize?client_id=XXX&amp;redirect_uri=YYY&amp;signed_request=ZZZ">https://graph.facebook.com/oauth/authorize?client_id=XXX&amp;redirect_uri=YYY&amp;signed_request=ZZZ</a></em></h2>
-
-<p><em>see also **<a href="http://www.phpfour.com/blog/2010/05/quick-start-on-new-facebook-php-sdk-iframe-based/">http://www.phpfour.com/blog/2010/05/quick-start-on-new-facebook-php-sdk-iframe-based/</a></em></p>
-
-<ul>
-<li>with user_id &amp; oauth_token: authorized</li>
-<li><p>oauth token expired</p></li>
-<li><p>make reload parent page to get new signed_request.</p></li>
-<li><p>oauth token ok</p></li>
-<li>signed_request not from cookie: first access (today).</li>
-<li>set cookie signed_request with P3P header.</li>
-<li><p>&lt;Cross Domain Cookie Things</p></li>
-<li><p>signed_request from cookie: </p></li>
-<li>but actually user ready logout: first Graph API call can verify it.</li>
-<li>finally arrived.</li>
-</ul>
-
-
-<p>Solutions for cross domain cookie things:</p>
-
-<ul>
-<li>append signed_request it every GET/POST/Ajax</li>
-<li>require every anchor(a tag) need signed_request as argument</li>
-<li>require every form need middleware need signed_request as hidden input</li>
-<li><p>so, make middleware with heavy regular expression~</p></li>
-<li><p>require every ajax request need signed_request.</p></li>
-<li><p>redirect to make cookie</p></li>
-<li>modern browser except safari will send cookie at 2nd request.</li>
-<li><p>so its safe with signed_request from GET.</p></li>
-<li><p>safari doesnt. next request will miss signed_request OMG.</p></li>
-<li>just redirect to cross-domain-helper.html </li>
-<li>auto submit with POST. (GET will work?)</li>
-<li>redirect to original page.</li>
-<li>done.</li>
-</ul>
-
-
-<p>% every view should have p3p &amp; set-cookie header.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/11/useful-devappserverpy-options/">Useful devappserver.py Options</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-11T19:36:07+09:00" pubdate data-updated="true">Sep 11<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>address 0.0.0.0</li>
-<li>port</li>
-<li>debug: show logging.debug()</li>
-<li>datastore_path</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/10/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/8/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/27/google-app-engine-overvie/">Google App Engine Overview</a> <small>2009-01-27</small></h1>
+	</div>
+	<div><p>google app engine 은 파이썬 2.5 기반의 웹 개발 프레임워크이다. 사실 수많은 웹 개발환경이 많고 많은데 유독 이놈이 눈에 띄는 건, 기본적으로 구글에서 제공하는 다양한 분산 기반의 서비스들을 손쉽게 사용할 수 있기 때문이다.</p>
+<p>아마도 구글 앱스를 사용중인 회사에서 인트라넷이나 백오피스 웹서비스를 만들어야 한다면 이놈을 쓰면 편해질 것 같다. 대충 훝어본 <a href="http://code.google.com/intl/ko-KR/appengine/docs/python/apis.html">Service API</a> 들을 요약해보겠다.</p>
+<h3>Datastore</h3>
+<p>구글 데이터 저장 인프라(?)에 정보를 저장하고 읽어오는 API.  객체 기반 쿼리와 SQL을 닮은 GQL 기반 쿼리를 제공한다. yaml 로 인덱스도 정의할 수 있고, FK와 트랜잭션도 지원한다.</p>
+<pre><code>
+class Person(db.Model):
+    first_name = db.StringProperty()
+    last_name = db.StringProperty()
+    city = db.StringProperty()
+    birth_year = db.IntegerProperty()
+    height = db.IntegerProperty()
+
+q = Person.all()
+q.filter(&quot;last_name =&quot;, &quot;Smith&quot;)
+q.filter(&quot;height &lt;&quot;, 72)
+q.order(&quot;-height&quot;)
+
+# The GqlQuery interface prepares a query using a GQL query string.
+q = db.GqlQuery(&quot;SELECT * FROM Person &quot; +
+    &quot;WHERE last_name = :1 AND height &lt; :2 &quot; +
+    &quot;ORDER BY height DESC&quot;,
+    &quot;Smith&quot;, 72)
+</code></pre>
+
+<h3>Memcache</h3>
+<p>매번마다 DB에서 읽어오면 성능이 떨어지니까, 어느 정도 변화가 적은 애들은 DB에서 읽어온 다음 Key-Value 기반의 메모리 캐시에다가 저장했다가 필요할 때마다 재빨리 읽어온다. 별거 아닌 것처럼 보이지만, 이게 분산 서버에서 모두 참조가 가능하다.. 어쨌거나 문자열키로 특정 객체를 꺼내오는 이런 패턴은 게임 서버에도 자주 써야 할 것 같다. (요즘은 변수 선언하는게 어찌나 귀찮은지..)</p>
+<pre><code>
+def get_data():
+    data = memcache.get(&quot;key&quot;)
+    if data is not None:
+        return data
+    else:
+        data = self.query_for_data()
+        memcache.add(&quot;key&quot;, data, 60)
+        return data
+</code></pre>
+
+<h3>URL Fetch</h3>
+<p>다른 웹서버에다가 URL 기반 요청을 해서 결과를 읽어올 수 있다. 즉, 다른 웹서비스들과의 연동이 가능하다는 이야기. </p>
+<pre><code>
+url = &quot;http://www.google.com/&quot;
+result = urlfetch.fetch(url)
+if result.status_code == 200:
+    doSomethingWithResult(result.content)
+</code></pre>
+
+<h3>Mail</h3>
+<p>손쉽게 메일을 보낼 수 있다. 파일 첨부도 가능하다고는 하나, 단순하니까 예제는 생략.</p>
+<h3>Images</h3>
+<p>업로드된 이미지의 크기 변경, 회전, 상하좌우 뒤집기, 자르기, 컨트라스트/색상 보정 등의 조작이 가능하다. 이것도 있어보이는 기능이지만 일단 생략.</p>
+<h3>Google Accounts</h3>
+<p>구글 계정과의 연동 지원. 별명, 이메일 주소 등을 얻어오는 기능이다.</p>
+<h3>기타 구글 Data API 연동</h3>
+<p>이게 가장 핵심적인 기능인데, 대충 아래와 같은 API 들을 연동할 수 있다. (그런데 이걸 갖고 뭘 어떻게 할 것인가가 사실은 제일 중요하겠지..)</p>
+<pre><code>- [Authentication](http://code.google.com/apis/gdata/auth.html#AuthSub)
+- [Google Base](http://code.google.com/apis/base/pythondevguide.html)
+- [Calendar](http://code.google.com/apis/calendar/developers_guide_python.html)
+- [Contacts](http://code.google.com/apis/contacts/developers_guide_python.html)
+- [Documents](http://code.google.com/apis/documents/developers_guide_python.html)
+- [Picasa Web Albums](http://code.google.com/apis/picasaweb/developers_guide_python.html)
+- [Spreadsheets](http://code.google.com/apis/spreadsheets/developers_guide_python.html)
+- [YouTube](http://code.google.com/apis/youtube/developers_guide_python.html)
+</code></pre>
+<p>레일즈 등 다른 웹 프레임워크에 비해서 좀 부족한 점이 많지만,  구글의 다양한 서비스들과의 연동과 분산에 강한 웹 서비스를 만들어야 한다면 좋은 선택이 될 것 같다. 사실 웹 시뮬레이션 게임을 만들때 좋을 것 같아서 살펴봤는데, 역시 GUI 표현이 걸림돌이 될 것 같다. <a href="http://code.google.com/intl/ko-KR/apis/chart/">차트 API</a> 정도라면 비지니스 관련 웹서비스는 어째 될 것 같은데, 게임은 좀...  </p>
+<p>API 목록을 보다 보니 특이한 서비스가 좀 많다. 다들 한번쯤 구경해보면 좋을지도?</p>
+<pre><code>- [Google Health API](http://code.google.com/intl/ko-KR/apis/health/)
+- [Google Radio Automation API](http://code.google.com/intl/ko-KR/apis/gra/)
+- [Google Visualization API](http://code.google.com/intl/ko-KR/apis/visualization/documentation/gallery.html)
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/google/"><span class="label">google</span></a>
+	
+		<a href="/tag/app engine/"><span class="label">app engine</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/27/erlide/">Erlide</a> <small>2009-01-27</small></h1>
+	</div>
+	<div><p><a href="http://www.eclipse.org/"> </a><a href="http://www.eclipse.org/"><img alt="Eclipse logo" src="http://erlide.sourceforge.net/img/rea_eclipse_pos_logo_fc_sm.jpg" /></a></p>
+<p><a href="http://www.eclipse.org/">이클립스</a>의 얼랭 개발환경(perspective)인 <a href="http://erlide.sourceforge.net/">erlide</a>를 사용하면, 매번마다 c(module) 로 컴파일하는 번거로움에서 벗어날 수 있다. 그<strong>냥 Save 만 하면, 알아서 코드를 컴파일하고 경고나 오류를 보여주기 때문이다. </strong>일단 <a href="http://erlide.sourceforge.net/erlide.html">매뉴얼</a>에 써 있는 대로 설정하고 나면, 이클립스 IDE의 기능들을 간단히 쓸 수 있으므로, 얼랭 초보라면 반드시 eclipse 부터 설치하기를 권장한다.</p>
+<p>어차피 매뉴얼에 다 나오는 내용인데, 핵심 기능들만 간단하게만 소개하자면</p>
+<pre><code>- gen_server, gen_fsm 등 OTP 기본 템플릿 제공
+- F3 - 함수 정의/선언으로 바로가기
+- Ctrl + I - 자동 들여쓰기
+- Ctrl + Space - 자동 완성
+- Alt + O - 개요 보기
+- Ctrl + Up/Down - 콘솔창에서 히스토리 기능
+- 브레이크 포인트는 라인 맨 앞을 더블클릭
+- 디버깅 끝낼 때에는 perspective 를 다시 얼랭으로 전환할 것
+</code></pre>
+<p>특히 놀라운 것은, (사실 erl 콘솔에서도 볼 수 있지만) Process List View 에서 보면 무려 36개의 얼랭 프로세스들이 떠 있다는 점이다. 루아나 파이썬처럼 그냥 달랑 스크립트만 실행되는 게 아니라는 건 짐작하고 있었지만, 조금은 부하가 걱정될 정도로많이 떠 있긴 하다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/erlang/"><span class="label">erlang</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/27/change-the-battle-field/">Change the Battle Field</a> <small>2009-01-27</small></h1>
+	</div>
+	<div><p>MS, Google, Intel, IBM, Adobe, Dell, Sony, Sanyo... <a href="http://itviewpoint.com/98855">놀라운 감원 쯔나미</a>는 겨우 시작일 뿐이다.</p>
+<p>성장 동력이 없거나 멈춘 국내 게임 회사들이, 직원 월급을 못주고 있다는 첩보가 속속 입수되고 있다.  정말 <a href="http://reiot.cafe24.com/2008/11/16/prepare-the-battle/">대충 예상해본 것</a>들이 슬슬 현실로 다가 오고 있다는 이야기다. 그나마 반가운 소식은 <a href="http://qu2ik.tistory.com/297">게임이 불황에도 웃음지을 수 있는 몇 안되는 산업이라는 뉴스 </a>정도다.  </p>
+<p>혹자는 힘들 때일수록 몸집을 줄이고 직원 교육에 투자하라고 조언하지만, 내가 사장이라도 그건 쉽지 않은 일이다.  마구 사람을 잘라내고 있는 서구 기업들은 과연 바보라서 그러는 걸까. 그럼 우리는 이 추운 겨울을 어떻게 견디어내야 할까? 개인적으로도 <a href="http://blog.daum.net/tudler/15659618">선 거두절미 후 줄탁동시</a>를 시행해야 한다고 본다. 즉,</p>
+<pre><code>- 무엇보다도 가장 먼저 바보 C급 인재들을 내보낸다. 기회 비용을 고려해 봤을 때, 무작정 열심히 일하는 C급 인재야말로 회사의 최대 적이다. 덤으로 불만분자들도 함께 처분하면 더욱 좋다. (뜨끔!!)
+- A급 리더들은 쓰다듬어주기만 해도 알아서 잘 할테니, 웅크리고 있는 B급 인재들에게는 인센티브 강화 같은 당근과 **** 등의 채찍을 제공한다. 개인적으로 테라의 공개된 영상에 많은 감명을 받았는데, 외부의 공격(?)이 내부의 결속을 강화시킨 좋은 예가 아닐까 한다. 
+- 돈, 지식, 노하우, 그리고 열정적인 핵심 인재들 등 축적할 수 있는 모든 리소스들을 아껴서, 더욱 더 길어질 겨울에 대비한다. 아무리 생각해도, 이번 겨울은 10년짜리다. 
+- 부동산 난개발과 같은 불필요한 중복 개발을 자제하고, 제대로된 게임을 최대한 빨리 출시할 수 있는 프로세스를 다진다. 이걸 갖춘 회사만이 10년을 살아남을 게다. 결과적으로 개발을 투명하게 바라볼 수 있게 해주는, 애자일 프로세스의 전사적 도입도 좋은 방법이 되겠지만, 준비되지 않은 상태에서는 오히려 반감만 불러일으킬 확률이 99.999% 되겠다.
+- 무엇보다도 전장 플랫폼을 바꾼다. 살아남는 자가 강한 것처럼, 하고 싶어 하는 것보다는 잘하는 분야를 계속 파나가고, 그걸 다른 플랫폼으로 옮겨가는 전략은 어떨까. 돈먹는 하마인 MMO, 다 비슷비슷한 캐주얼, 횡스크롤 액션..  새로운 성장 동력 찾기가 쉽지 않은 건 알고 있는데, 너무 멀리서 찾다가 피같은 돈을 다 날려먹으면 곤란하다. 물론 와우를 능가하는 MMO를 만들어서 년간 1조씩 벌어들여도 되겠지만.
+</code></pre>
+<p>뻔한 이야기를 시니컬하게 쓰면 다들 우러러 보는 게 요즘 트렌드이길래, 나도 덩달아서 비스무리하게 써 봤다. 그러나 요즘은 불유쾌한 예언을 하는 자가 잡혀 들어가는 세상인지라, 또 쓸데없이 오해 크리나 받지나 않을까 해서 고이 모셔뒀었는데, 오늘 또<a href="http://news.bbc.co.uk/2/hi/business/7851481.stm"> ING 7천, 필립스 6천, GM 2천 등 총 7만명짜리 GLOBAL JOB CUTS</a> 이 있었다길래 어째 으스스해서 공개해본다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a> <small>2009-01-20</small></h1>
+	</div>
+	<div><p>boost serialization를 사용하려면 이모저모로 귀찮은 점이 많아서, 생각해본 것이 <a href="http://docs.python.org/library/struct.html?highlight=pack">파이썬의 struct 라이브러리</a>와 같은 느낌으로 프로토콜 포맷을 정의하고, 이걸 boost tuple 코드로 뽑아낸다는 아이디어이다.</p>
+<p>대강의 포맷은<br />
+<table border="1" cellspacing="0" cellpadding="1"><br />
+<tbody></tbody><br />
+<thead><br />
+<tr><br />
+<th class="head">Format</th><br />
+<th class="head">C Type</th><br />
+<th class="head">Python</th><br />
+<th class="head">Notes</th><br />
+</tr><br />
+</thead><br />
+<tbody><br />
+<tr><br />
+<td><tt class="docutils literal">x</tt></td><br />
+<td>pad byte</td><br />
+<td>no value</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">c</tt></td><br />
+<td><tt class="xref docutils literal">char</tt></td><br />
+<td>string of length 1</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">b</tt></td><br />
+<td><tt class="xref docutils literal">signed char</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">B</tt></td><br />
+<td><tt class="xref docutils literal">unsigned char</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">?</tt></td><br />
+<td><tt class="xref docutils literal">_Bool</tt></td><br />
+<td>bool</td><br />
+<td>(1)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">h</tt></td><br />
+<td><tt class="xref docutils literal">short</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">H</tt></td><br />
+<td><tt class="xref docutils literal">unsigned short</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">i</tt></td><br />
+<td><tt class="xref docutils literal">int</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">I</tt></td><br />
+<td><tt class="xref docutils literal">unsigned int</tt></td><br />
+<td>integer or long</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">l</tt></td><br />
+<td><tt class="xref docutils literal">long</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">L</tt></td><br />
+<td><tt class="xref docutils literal">unsigned long</tt></td><br />
+<td>long</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">q</tt></td><br />
+<td><tt class="xref docutils literal">long long</tt></td><br />
+<td>long</td><br />
+<td>(2)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">Q</tt></td><br />
+<td><tt class="xref docutils literal">unsigned long<br />
+long</tt></td><br />
+<td>long</td><br />
+<td>(2)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">f</tt></td><br />
+<td><tt class="xref docutils literal">float</tt></td><br />
+<td>float</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">d</tt></td><br />
+<td><tt class="xref docutils literal">double</tt></td><br />
+<td>float</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">s</tt></td><br />
+<td><tt class="xref docutils literal">char[]</tt></td><br />
+<td>string</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">p</tt></td><br />
+<td><tt class="xref docutils literal">char[]</tt></td><br />
+<td>string</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">P</tt></td><br />
+<td><tt class="xref docutils literal">void *</tt></td><br />
+<td>long</td><br />
+<td> </td><br />
+</tr><br />
+</tbody></table><br />
+가령 로그인 메시지를 "ppl" 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
+<p>typedef boost::tuple<string,string,long> msgLogin;</p>
+<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
+<pre><code>- 64 bit integer
+- datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)
+- STL 지원 : list, vector, map, set
+- 비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.
+</code></pre>
+<p>단점이라면 내부 멤버 접근을 userid, passwd 같은 이름 기반이 아니라 get&lt;1&gt;, get&lt;2&gt; 처럼 해야 한다는 점인데, 이건 좀 심하게 귀찮긴 하겠다. 역시 이름 기반 접근이 그나마 컴파일러가 검증해주니 제일 좋은 방법인가.</p>
+<p>자. 만들어주세요.</p></div>
+	
+	<p>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a> <small>2009-01-18</small></h1>
+	</div>
+	<div><p>얼랭으로 만든, 가장 단순한 UDP Echo 서버와 클라이언트는 이렇게 생겨먹었다. (워드프레스에서 들여쓰기가 자꾸 날아가는 버그가 있으므로, 귀찮아서 고치지는 않겠다.)</p>
+<pre><code>
+-module(udp_server).
+-compile(export_all).
+
+init(ServerPort) -&gt;
+{ok, Sock} = gen_udp:open(ServerPort,[binary,inet]),
+loop().
+
+loop() -&gt;
+io:format(&quot;server_loop~n&quot;),
+receive
+{udp, Sock, ClientIP, ClientPort, Packet } -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[ClientIP,ClientPort,Packet]),
+ok = gen_udp:send(Sock,ClientIP,ClientPort,Packet),
+loop()
+end.
+</code></pre>
+
+<pre><code>
+-module(udp_client).
+-compile(export_all).
+
+init(ServerPort) -&gt;
+{ok, Sock} = gen_udp:open(0),
+gen_udp:send(Sock,&quot;localhost&quot;,ServerPort,&quot;Hello World!&quot;),
+loop().
+
+loop() -&gt;
+io:format(&quot;waiting response...~n&quot;),
+receive
+{udp, Peer, PeerIP, PeerPort, Packet } -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[PeerIP,PeerPort,Packet])
+after 1000 -&gt;
+io:format(&quot;timeout..~n&quot;)
+end.
+
+</code></pre>
+
+<p>여기에서 바로 OTP로 만들겠다고 뛰어들었다가 삽질을 한 후,  <a href="http://www.trapexit.org/Building_a_Non-blocking_TCP_server_using_OTP_principles">Building_a_Non-blocking_TCP_server_using_OTP_principles</a> 와 <a href="http://erlrtpproxy.googlecode.com/svn-history/r19/trunk/rtpproxy.erl">구글에서 검색한 gen_udp 예제</a>을 참고해서 겨우 성공한 게 다음의 코드이다.</p>
+<pre><code>
+-module(udp_otp_server).
+-compile(export_all).
+
+% stand-alone server version
+start() -&gt;
+gen_server:start({local, ?MODULE}, ?MODULE, [], []).
+
+% supervision tree version
+start_link() -&gt;
+gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
+
+init([]) -&gt;
+process_flag(trap_exit,true),
+{ok, Sock} = gen_udp:open(1111,[binary,inet]),
+io:format(&quot;udp server started...~n&quot;),
+{ok,0}.
+
+handle_call(Request, From, State) -&gt;
+io:format(&quot;~p~n&quot;,[Request]),
+{noreply,State}.
+
+handle_cast(_Msg,State) -&gt;
+io:format(&quot;handle_cast(~p)~n&quot;,_Msg),
+{noreply, State}.
+
+%% udp message should be handled here
+handle_info({udp,Sock, ClientIP, ClientPort, Packet}, State) -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[ClientIP,ClientPort,Packet]),
+ok = gen_udp:send(Sock,ClientIP,ClientPort,Packet),
+{noreply, State}
+;
+
+handle_info(_Info,State) -&gt;
+io:format(&quot;handle_info~n&quot;),
+{noreply, State}.
+
+terminate(_Reason,N) -&gt;
+io:format(&quot;stopping...~n&quot;),
+ok.
+code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
+
+</code></pre>
+
+<p>핵심 요지는, UDP 메시지는 handle_call 이나 cast 가 아니라, handle_info에서 처리해야 한다는 점이다. 요즘 <strong>업.무.가. 바.빠.서.</strong> 얼랭을 3주 정도 못봤는데 또 서서히 기억이 소멸하기 시작했다. OTP에서는 함수의 리턴값 규칙을 정말 잘 맞춰야 하는 관계로, 다음 번부터는 gen_server 템플릿 하나 정도는 갖고 시작해야겠다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/erlang/"><span class="label">erlang</span></a>
+	
+	</p>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/10/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/10">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2009/01/27/google-app-engine-overvie/">Google App Engine Overview</a>
+	</li>
+	
+	<li>
+		<a href="/2009/01/27/erlide/">Erlide</a>
+	</li>
+	
+	<li>
+		<a href="/2009/01/27/change-the-battle-field/">Change the Battle Field</a>
+	</li>
+	
+	<li>
+		<a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a>
+	</li>
+	
+	<li>
+		<a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2008/02/09/boost-test-thread-safe/">boost::test thread safe</a> <small>2008-02-09</small></h1>
+	</div>
+	<div><p>다른 표준 라이브러리와 마찬가지로, boost::test 역시 멀티쓰레드에 대해서 안전하지 않다. 물론 BOOST_CHECK 등의 테스트 매크로들은 내부적으로 싱글톤을 사용하기 때문에, 쓰레드 함수 내부에서 사용하더라도 실패할 경우 에러 메시지를 출력해주지만, 다른 쓰레드에서 동일한 순간에 역시 같은 매크로를 호출하게 되면 콜스택 깊은 곳에서 난감한 에러를 뱉어버린다.</p>
+<p>이걸 해결하려면 결국 mutex 로 테스트 매크로들을 wrap 한 또다른 매크로를 만들어서 써야 하는 수 밖에 없다.</p>
+<pre><code>
+#define SAFE_BOOST_CHECK_EQUAL(m,x,y) { \
+boost::mutex::scoped_lock lock(m); \
+BOOST_CHECK_EQUAL(x,y); }
+
+void boost_check_always( boost::mutex * m )
+{
+boost::timer timer_;
+
+while(timer_.elapsed() &lt; 10.f )
+{
+SAFE_BOOST_CHECK_EQUAL(*m,1,1);
+}
+
+}
+
+BOOST_AUTO_TEST_CASE( test_boost_check_always )
+{
+boost::mutex m;
+boost::thread t(boost::bind(boost_check_always,&amp;m));
+
+boost::timer timer_;
+while(timer_.elapsed() &lt; 10.f )
+{
+SAFE_BOOST_CHECK_EQUAL(m,1,1);
+}
+
+t.join();
+}
+</code></pre></div>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

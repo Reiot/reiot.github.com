@@ -1,894 +1,798 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="from RakNet forum - [http://www.flipcode.com/articles/article_memoryleaks.shtml](http://www.flipcode.com/articles/article_memoryleaks.shtml)
-- [http &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/42">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/24/memory-leak-detection-tools/">Memory Leak Detection Tools</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-24T19:43:04+09:00" pubdate data-updated="true">Apr 24<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>from <a href="http://www.rakkarsoft.com/raknet/forum/index.php?topic=251.0">RakNet forum</a></p>
-
-<pre><code>- [http://www.flipcode.com/articles/article_memoryleaks.shtml](http://www.flipcode.com/articles/article_memoryleaks.shtml)
-- [http://www.flipcode.com/cgi-bin/fcarticles.cgi?show=64744](http://www.flipcode.com/cgi-bin/fcarticles.cgi?show=64744)
-- [http://www.embedded.com/story/OEG20020321S0021](http://www.embedded.com/story/OEG20020321S0021)
-- [http://wyw.dcweb.cn/leakage.htm](http://wyw.dcweb.cn/leakage.htm)
-- [http://www.codeproject.com/cpp/MemoryHooks.asp](http://www.codeproject.com/cpp/MemoryHooks.asp)
-- [http://www.codeproject.com/tools/leakfinder.asp](http://www.codeproject.com/tools/leakfinder.asp)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/24/odbc-tips/">ODBC Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-24T10:15:46+09:00" pubdate data-updated="true">Apr 24<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>Timestamp -> C</strong></p>
-
-<p>TIMESTAMP 값을 C 에서 받는 방법은 다양하다. 단순 SELECT 를 통해 날짜 스트링으로 받던가, SQL 문으로 적절히 CONVERT 한 변형된 스트링을 받던가, 아예 아래처럼 구조체로 바로 받을 수 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="c1">// SQL_C_TYPE_DATE</span>
-</span><span class='line'><span class="k">struct</span> <span class="n">tagDATE_STRUCT</span> <span class="p">{</span>
-</span><span class='line'><span class="n">SQLSMALLINT</span> <span class="n">year</span><span class="p">;</span>
-</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">month</span><span class="p">;</span>
-</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">day</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span> <span class="n">DATE_STRUCT</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// SQL_C_TYPE_TIME</span>
-</span><span class='line'><span class="k">struct</span> <span class="n">tagTIME_STRUCT</span> <span class="p">{</span>
-</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">hour</span><span class="p">;</span>
-</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">minute</span><span class="p">;</span>
-</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">second</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span> <span class="n">TIME_STRUCT</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// SQL_C_TYPE_TIMESTAMP</span>
-</span><span class='line'><span class="k">struct</span> <span class="n">tagTIMESTAMP_STRUCT</span> <span class="p">{</span>
-</span><span class='line'><span class="n">SQLSMALLINT</span> <span class="n">year</span><span class="p">;</span>
-</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">month</span><span class="p">;</span>
-</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">day</span><span class="p">;</span>
-</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">hour</span><span class="p">;</span>
-</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">minute</span><span class="p">;</span>
-</span><span class='line'><span class="n">SQLUSMALLINT</span> <span class="n">second</span><span class="p">;</span>
-</span><span class='line'><span class="n">SQLUINTEGER</span> <span class="n">fraction</span><span class="p">;[</span><span class="n">b</span><span class="p">]</span>
-</span><span class='line'><span class="p">}</span> <span class="n">TIMESTAMP_STRUCT</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>see also:</p>
-
-<pre><code>- [ODBC  C
-</code></pre>
-
-<p>](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/odbcc_data_types.asp)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/23/oblivion-story/">오블리비언 스토리</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-23T22:53:30+09:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/umbraplusskooma.jpg" title="umbraplusskooma.jpg"></a></p>
-
-<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/umbraplusskooma.jpg" title="umbraplusskooma.jpg"><img src="http://boxcatstudio.files.wordpress.com/2009/07/umbraplusskooma.jpg" title="umbraplusskooma.jpg" ></a></p>
-
-<p>오블리비언을 하면서 감동받았거나 놀라웠던 장면들, 재미있는 퀘스트들을 모아봤다. (단, 이 옆 장면과 <a href="http://img.photobucket.com/albums/v284/c00lizz/OblivionLewd.jpg">요 장면</a>은 본인이 연출한게 아니다. XBOX360은 캡처 불가라는 점을 이해 바람.)</p>
-
-<p><strong>Atronach</strong></p>
-
-<p>연휴동안 Breton 여자 마법사를 키우고 있다. 마나 재생이 없는 대신 +150 마나 보너스, 마법 흡수 50%의 별자리인 Atronach 를 선택했기 때문에, 어떻게든 물약빨로 마나를 대신해야 하는 상황이다. 결국 모든 마법사 길드를 돌면서 책과 연금술 도구, 심지어는 은수저와 은그릇까지 주워다가 팔아서 물약값을 벌어야 했다. 또한 연금술을 빨리 올려야만 물약 자체 조달이 가능하기 때문에, 상점에 있는 모든 시약들도다 사거나 훔쳐서 물약으로 만들어서 돈을 긁어모으고 있다. 하루 빨리 이 헝그리한 삶에서 벗어나야 할텐데..</p>
-
-<p><strong>Gang of Anvil</strong></p>
-
-<p>대륙 남서쪽의 Anvil 에 가면 술집에서 남자를 꼬셔서 자기 집에 데리고 간 다음 귀중품을 강탈하는 여자 갱단이 있다. 매번 남자 (오크-_-)로 플레이 할때에는 술집에서 작업 들어오면 집까지 가서 본색을 드러낼 때 처치해야 했는데, 과연 여자 캐릭터로 하면 어떤 스토리가 나올지 궁금했다.</p>
-
-<p>아니나 다를까, 술집에 가자마자 그뇬들이 다가와서 하는 말이 일품이었다. &#8220;우리 갱단에 들어와서 용돈이나 벌어라.. 괜히 가드들한테 일러바치면 죽는줄 알아라.. 대신 남자들이 털끝 하나라도 못건드리게 해주겠다&#8221;</p>
-
-<p><strong>사슴과 사냥꾼</strong></p>
-
-<p>들판을 헤매다 보면 사슴들이 플레이어를 보고 놀라서 도망가는 장면을 쉽게 볼 수 있는데, 가끔은 그 사슴을 활을 쏘며 추격하는 사냥꾼도 볼 수 있다. 사슴 고기는 생명력을 올려주는 연금재료이므로 필히 잡아야 하지만, 활이 아니면 꽤 잡기가 힘들다.</p>
-
-<p><strong>움브라(Umbra)</strong></p>
-
-<p>임페리얼 시티의 7시 방향에 엘프 유적에는 에보니 풀셋 갑옷과 움브라 소드를 지닌 움브라(Umbra)라는 유명한 여자가 살고 있다. 이것은 Nine Divines의 신들이 주는 퀘스트 중 하나인데 낮은 레벨로 시도했다가는 한 두 방에 죽어 버릴 정도로 어려운 퀘스트이다. 그런데 AI의 맹점을 이용한 공략법이 이것 저것 나와 있는데, 다들 너무 재미있어서 소개해본다.</p>
-
-<pre><code>- 도발 후 도망가면 움브라가 쫒아오는데 속도가 너무 빠르므로 말을 타고 도망쳐야 한다. 수도까지 끌고 오면 경비병들과 움브라가 싸우게 되는데 보통 경비병 10명 정도는 죽게 되는데, 문제는 선공을 하게 되면 경비병이 플레이어까지 공격한다는 점. 어떻게 하든 움브라가 먼저 공격을 하게 만들면 OK.
-- 움브라를 밖으로 끌어내서 절벽으로 유인, 떨어졌다 올라갔다를 반복해서 낙하 데미지를 누적 시켜서 죽일 수도 있다. (단 본인과 말도 죽을 수 있다.)
-- 유적 안에는 독가스가 나오는 방이 있다. 이를 이용한 팁이 몇 가지 있는데 첫번째는 몬스터를 소환해서 싸우게 되면 NPC들이 놀라서(?) 도망가는 헛점을 이용해서 죽일 수 있다. 단 몬스터가 사라지면 다시 제자리로 가게 되는데 타이밍을 잘 맞춰서 계속 가스실에서 나오지 못하도록 해야 한다. (이게 너무 귀찮아서 10분 정도 도전하다가 포기) 두번째는 움브라에게 멀찌감치 떨어져 소매치기를 하게 되면 움브라가 말을 하려고 다가오는데 이때 뛰지 않고 천천히 걸어서 가스실로 도망가는 방법이다. 문제는 본인도 가스에 중독된다는 사실.
-</code></pre>
-
-<p><strong>Unfriendly Competition </strong></p>
-
-<p>수도인 임페리얼 시티의 상인들은 덤핑 판매로 골치를 썩이는 Thoronir 가 도대체 어디서 그런 값싼(?) 아이템들을 구해 오는지 알아와 달라고 한다. 폐점 시간인 8-9시까지 기다리면, Thoronir가 가게를 떠나 여관에 가서 한 시간 정도 쉴새없이 술을 마신 다음, 수도의 여기 저기를 서성이다가 동네 뒷골목에서 Agarmir라는 남자와 밀담을 나누는 것을 발견할 수 있다. 그 다음엔 이 남자의 집을 조사하게 되는데 집 안에는 온갖 뼈와 해골, 시체 부스러기와 삽, 그리고 언제 누가 죽었는지를 기록한 책을 발견할 수 있다. 이걸 갖고 Thoronir에게 가서 따지면 잘못을 빌면서 제발 더이상의 도굴을 막아달라고 부탁하게 되는 그런 퀘스트이다.</p>
-
-<p>끝 무렵에는 Agarmir가 타락한 경비병과 함께 무덤에서 매복해 기다리는데, 보통은 플레이어에게 다가와서 &#8220;기다렸다. 죽어라!&#8221;라고 한 후 전투가 시작된다. 그런데, 새로 키우는(-_-) 우드엘프 도적으로 들어가자마자 sneak 해서 가드와 도굴꾼을 죽인 적이 있었는데, 정당 방어가 아닌 살인으로 카운트가 되어 버렸다. 문제는 아이템을 뒤지고 있는데 갑자기 또다른 경비병이 무덤 안으로 뛰어 들어와서 시체를 검시하고는 벌금 80골을 뜯어가 버렸다는 사실. 1000골드 날리는 줄 알고 쫄아 있었는데, 과연 죄목이 무엇이었는지 궁금하다. (아마도 아침을 기다리기 싫어서 NPC 상점의 문을 따고 들어가다가 걸린 것일지도&#8230;)</p>
-
-<p><strong>The Elven Maiden</strong></p>
-
-<p>도둑 길드에 가입해서 받는 두 번째 퀘스트는 성당 지하에서 작은 반신상을 훔쳐오는 것이다. 경비병이 왔다 갔다 하는 와중에 몰래 훔쳐오면 되는 간단한 퀘스트인데 성사금을 받으려고 다시 수도로 돌아와보니 난리가 나버렸다. 사실 바로 직전의 퀘스트가 Hieronymus Lex라는 경비대장의 방에 숨어 들어가 수도의 재개발지구(?)에 사는 거지들과 가난한 자들에게 뺏어간 세금과 인명부를 훔쳐오는 것이었는데, Lex가 열받아서 비상을 선포한 것이었다. 평소에는 점잖게 걸어다니던 경비병들이 계속 여기 저기 뛰어다니질 않나, 나를 보면 그넘 어디갔냐고 묻질 않나&#8230; 그러다가 또다른 길드원이 찾아와서 길드에 Lex가 심어둔 스파이가 있으니 훔쳐온 반신상을 스파이 집에다가 숨긴 다음 Lex에게 알려주라고 하는데, 결국은 Lex 가 스파이를 연행해 가는 것으로 끝나게 된다.</p>
-
-<p>과연 AI가 어디까지 구현되어 있나 싶어서 Lex를 끝까지 따라가봤는데, 예상대로 Warterfront 에서 감옥까지 맵을 4개나 넘어서까지 연행해가는 것이 아닌가? 그러나, 감옥 안에 도착하니 감옥 문과 감방문이 모두 잠겨 있어서 최종 수감 장면은 볼 수가 없었다. 간수에게 이야기해서 감옥 문은 친절하게 열었지만 감방 문을 여는 프로시저는 없는 듯했다. :P</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/16/ethereal-tips/">Ethereal Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-16T06:38:50+09:00" pubdate data-updated="true">Apr 16<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>Local Packets</strong></p>
-
-<p>로컬 어플리케이션 간의 TCP/IP 패킷 전송은 캡처되지 않는다. 뭔가 내가 모르는게 있는걸까?</p>
-
-<p><strong>Conversation</strong></p>
-
-<p><a title="EtherealConversation.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.JPG"><img src="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.thumbnail.JPG"></a>특정 어플리케이션에 대해서 패킷 캡처를 하고 나면, 캡처 하는 동안 발생했던 다른 쓸모없는 패킷들까지도 뒤섞여 있기 때문에, 이를 잘 필터링해야 한다. 물론 Display Filter 를 써서 수동으로 하나씩 필터링하는 방법도 있지만, Statistics - Conversation 메뉴를 통해서 그동안 전송된 패킷들을 프로토콜별로 분류해 놓은 표를 통해서 필터링하는 방법도 있다.</p>
-
-<p>이 표를 보면 프로토콜별/주소별 패킷 분류가 되어 있으며, 각 분류마다 전송 횟수가 표시되어 있으므로 원하는 프로토콜과 주소지를 잘 선택하면 끝.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/16/first-class-object/">First Class Object</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-16T06:26:44+09:00" pubdate data-updated="true">Apr 16<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><table>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/08/10/cpb-2/">CPB 맛보기</a> <small>2005-08-10</small></h1>
+	</div>
+	<div><p>지금까지는 애용해왔던 XML 기반의 tweaking 방식이 너무 귀찮아서, 이번에 <a href="http://www.thomasandamy.com/projects/CPB/">CPB</a> 를 써보기로 마음을 먹었다. 근무 시간에 삽질을 하기엔 힘든 상황이라 집에 와서 해야만 했다. :(</p>
+<p>소스와 함께 배포되는 솔루션을 열고 적당한 루아 라이브러리와 링킹해서 실행해보면 별 문제가 없지만, 이걸 실제로 쓰기 위해 라이브러리와 샘플 프로젝트로 분리해서 해보면 잘 되지 않는다.  바로 test.lua 안에서 pdb 파일명이 틀려서 생긴 문제이다. 물론 샘플 프로젝트 이름을 CPTest 로 만들었다면 당신은 천재...</p>
+<p>CPB 가 사용하는 것은 <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/diasdk/html/vsoriDebugInterfaceAccessSDK.asp">Debugging Access Interface (DIA) SDK </a>로, Visual Studio .NET 2003 을 설치하면 Visual Studio SDKs/ 아래에 함께 설치가 된다. 물론 CPB 와 함께 배포되는 놈과 완전히 같다. 괜히 본인처럼 Platform SDK를 설치할 필요는 없다.</p>
+<p>pdb 파일을 한번 읽어서 .cpb 파일로 만들어서 배포할 수 있기 때문에 클라이언트 어플리케이션에 사용해도 무방하다. (이걸로 크랙하면 낭패겠지만..과연..) 물론 서버쪽이라면 매번 배포할 때마다 .cpb 파일을 만들기보다는 그냥 pdb 파일을 함께 배포해주는 것이 더 편할 것 같다.</p>
+<p>ps. 테스트 도중 갑자기 실행 파일 크기가 6k 로 줄어들면서 16비트 MS-DOS 프로그램을 CPU 에서 실행할 수 없다는 오류 메시지가 떴다. '아직 안정화가 덜 된 건가..' 하면서 접으려고 했는데, 프로젝트를 새로 만들어보니 문제가 없었다. 사실은 Ctrl+F5 로 실행하기 위해서 dll 과 lua 파일을 사용자 지정 작업에서 복사하도록 했는데, 이때 복사 위치를 $(TargetDir) 대신 $(TargetPath) 로 해서 생긴 문제.. *그 6k 짜리 실행파일은 사실은 test.lua 였었다는 사실.. *</p>
+<p>ps2. 여전히 namespace 지원은 안된다. 즉 어떤 변수나 클래스가 namespace 안에 존재할 경우 바인딩이 불가능하다. 이 말은, std::string 을 바인딩할 수 없다는 뜻이며, char * 변수에 대한 direct assignment 가 지원되지 않기에 이 문제는 조금 귀차니즘을 불러 일으키게 될 듯. :(</p>
+<p>ps3. const char * 를 리턴하는 함수를 호출해서 print 해보려고 했으나, 단지 userdata 로만 인식함. 약간은 서운한;;; (먼가 모르는 듯)</p></div>
+	
+	<p>
+	
+		<a href="/tag/lua/"><span class="label">lua</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a> <small>2005-07-12</small></h1>
+	</div>
+	<div><p><img alt="mantis" src="http://manual.mantisbt.org/mantis_logo.gif" /></p>
+<p>오래전부터 맨티스에다가 중요도나 우선순위 상수를 추가해달라는 요청이 있었으나, 소스를 고쳐야 하기 때문에 방법이 없다고 모른 척 했었다가, 이번에 잠시 짬을 내어 추가를 해 보았다. 관련 자료를 아래에 정리했으니 심심할 때 한번 읽어보시길. :)</p>
+<p>see also : <a href="http://reiot.cafe24.com/wiki/MantisCustomize">MantisCustomize </a></p></div>
+	
+	<p>
+	
+		<a href="/tag/mantis/"><span class="label">mantis</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/06/02/boosttest/">boost::test</a> <small>2005-06-02</small></h1>
+	</div>
+	<div><p>레이옷은 종전까지 <a href="http://sourceforge.net/projects/cppunit">CppUnit</a>를 애용해왔다. 그러나 이넘은 VC7 에서는 컴파일조차 되지 않았다.  그리하여, 새로운 UnitTest 툴을 찾다가 발견한 것이 바로 이 Boost Library 에 포함된 BoostTest 이다. 이하 설명은 모두 VC7 을 사용한다고 가정하고 설명하겠다.</p>
+<h2>사용법</h2>
+<p>BoostTest 에는 아래와 같은 모듈이 포함되어 있다.</p>
+<table>
 <thead>
 <tr>
-<th></th>
-<th></th>
-<th> First Class Object </th>
-<th> Second Class Object </th>
-<th> Third Class Object </th>
+<th>모듈</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td></td>
-<td> 함수처럼 호출될 수 있는가?  </td>
-<td> Yes </td>
-<td> Yes </td>
-<td> Yes |</td>
+<td>Execution Monitor</td>
+<td>실행 모니터, 아래 프로그램 실행 모니터 및 테스트 실행 모니터의 베이스 모듈</td>
 </tr>
 <tr>
-<td></td>
-<td> 파라미터로 넘겨질 수 있는가?  </td>
-<td> Yes </td>
-<td> Yes </td>
-<td> No  |</td>
+<td>Program Execution Mointor</td>
+<td>배포되는 실행 프로그램의 테스트를 위해</td>
 </tr>
 <tr>
-<td></td>
-<td> 함수의 리턴값으로 사용될 수 있는가? </td>
-<td> Yes </td>
-<td> No  </td>
-<td> No  |</td>
+<td>Test Execution Mointor</td>
+<td>개발중인 실행 프로그램의 테스트를 위해</td>
 </tr>
 <tr>
-<td></td>
-<td> 변수에 대입될 수 있는가?  </td>
-<td> Yes </td>
-<td> No  </td>
-<td> No  |</td>
+<td>Unit Test Framework</td>
+<td>유닛 테스트.. 우리가 사용할 것이 이거다</td>
+</tr>
+<tr>
+<td>Test Tools</td>
+<td>위에 4개 모듈에서 사용하는 각종 테스트 루틴 및 매크로들</td>
 </tr>
 </tbody>
 </table>
+<p>이 중에서 레이옷이 사용하는 것은 Unit Test Framework ( + Test Tools ) 이다. 우선 상세한 내용은 같이 배포되는 문서를 참고하기 바란다. 여기서는 실제 프로젝트와 어떻게 연관지을 것인가만을 고민한다.</p>
+<ul>
+<li>테스트할 모듈의 프로젝트 이름이 XXX 라고 하자.</li>
+<li>그러면 이 프로젝트를 테스트할 프로젝트인 test_XXX 를 솔루션에 새로 추가한다.</li>
+<li>이 프로젝트를 LibXXX 프로젝트에 종속되도록 설정한다.</li>
+<li>Build Event 의 '''Custom Build''' 에 다음과 같은 내용을 추가하라.</li>
+<li>"$(TargetPath)" --report_level=detailed --log_level=all</li>
+<li>참고로 --log_level 은 BOOST_MESSAGE, BOOST_WARN_MESSAGE, BOOST_CHECKPOINT 등의 매크로들의 출력을 화면에 나타낸다.</li>
+<li>나중에 메시지들이 귀찮아지면 모두 끄도록 한다. 이에 대한 내용 역시 문서를 참고할 것</li>
+</ul>
+<h2>BoostTest with wstring</h2>
+<p>UniCode 기반의 어플리케이션을 테스트할 때, BOOST_XXX 매크로에서 wide string 이 포함될 경우, 변환할 수 없다는 에러가 발생한다. 그럴 경우 아래의 코드를 해당 테스트 상단에 넣어주면 임시방편으로 수정이 가능하다. 물론 wstring  string 컨버팅 함수는 직접 작성해야 한다. :)</p>
+<pre><code>
+namespace boost { namespace test_tools { namespace tt_detail {
+    template
+    struct print_log_value
+    {
+        void  operator()( std::ostream&amp; ostr, std::wstring t )
+        {
+            std::string s = convert_wstring_to_string(t);
+            ostr
 
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/15/how-to-test-my-server-frameworks-performance/">How to Test My Server Framework&#8217;s Performance?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-15T09:16:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>갓 만들어진 서버 프레임워크의 성능을 제대로 테스트하기란 쉽지 않다. 대체로 (서비스 예정인) 표준 하드웨어 사양 하에서 가상 클라이언트를 1000-2000 개 정도 붙이고 적절한 트래픽을 주었을 때 반응 속도라든지 CPU 점유율, 메모리 사용량 등을 측정하는 것이 일반적인데, 문제는 서버 프레임워크에서 채택한 내부 구조에 따라서, 특히 동기화, 쓰레드 같은 민감한 요소들에 따라 결과가 천차만별이 된다는 것이다.</p>
-
-<p>예를 들면 이런 구조에서는 트래픽이 늘어날수록 CPU 사용량이 폭주할 수도 있고, 저런 구조에서는 접속자가 늘어날수록 반응속도가 느려질 수도 있다는 것인데, <a href="http://reiot.cafe24.com/archives/434">이번 마이그레이션</a>에서도 비슷한 현상을 경험했다. 사실 어제 아침까지만 해도 테스트 결과가 좋아서 안심하고 있었는데, 혹시나 해서 트래픽을 2배로 늘린 후 성능 모니터링을 해보니 CPU 점유율이 130%까지 급증하는게 아닌가&#8230; 반면 예전에 만들어둔 코드는 동일 조건에서도 CPU 점유율은 40%를 넘지 않았다. 흑흑.</p>
-
-<p>오늘 Visual Studio .NET 2005 에 내장된 프로파일러로 을사오적(?)들을 찾아내서 모두 제거하고,  최종적으로 6배 트래픽으로 테스트한 결과 debug에서는 120%, release에서는 150% 정도 빨라진 놈을 완성할 수 있었다. 아직 idle 체크를 위한 타이머 처리라든지, 메시지 핸들러 같은 구태의연한 작업이 남아있긴 하지만, 웬지 성공적으로 끝이 날 것 같다는 희망에 차 있는 상태다. :)</p>
-
-<p>아무튼 이번 삽질을 통해, 가상 클라이언트를 이용한 서버 프레임워크의 테스트 방법론에 대해서 좀 더 체계화를 해야 할 필요성을 느꼈다. 이번 주에 한 일이라고는 고작, 2개의 머신에서 파라미터를 적절히 바꿔가면서 서버와 클라이언트를 수동으로 실행하고, 성능 모니터링 도구를 이용해서 CPU 및 메모리 사용량을 눈으로 살펴보고, 최종적으로 클라이언트측에 남겨진 통계 로그 파일을 위키 페이지로 복사한 후, 성능의 변동을 살펴보는 단순 작업들을 반복해왔기 때문이다. 물론 밀린 일정 덕에 자동화에 투자할 시간은 더이상 없겠지만 대략 다음과 같은 테스트 프레임워크를 구성해 볼 기회가 있었으면 좋겠다.</p>
-
-<p><strong>준비물</strong></p>
-
-<pre><code>- 커맨드라인 명령으로 내부 구조를 실시간으로 변경할 수 있는 서버 프레임워크
-- 클라이언트 개수, 초당 트래픽 등을 손쉽게 제어할 수 있는 가상 클라이언트
-- CPU 점유율, 메모리 사용량 등의 통계 데이터를 XML 이나 CSV 형식으로 저장
-- 다른 머신으로 원클릭 자동 배포를 지원하는 도구
-- 다른 머신에서 특정 실행 파일을 실행해주는 도구
-- 다른 머신에서 통계 데이터 파일을 읽어와서 적절히 merge 해주는 도구
-- 테스트 케이스의 리스트에 등록된 테스트를 위 도구를 이용해서 잘 실행해주는 통합 도구
-- 다른 머신의 특정 프로세스의 다양한 성능 카운터들을 실시간 그래프로 보여주는 도구
 </code></pre>
 
-<p><strong>테스트 도구 디자인</strong></p>
+<pre><code>
+// testLibCore.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.
+//
 
-<p>유닛 테스트의 개념과 형식을 빌어오면 좋을 듯하다.</p>
+#include &quot;stdafx.h&quot;
 
-<pre><code>- TestSuite : 트리 방식으로 실행할 테스트 슈트 및 케이스를 지정할 수 있어야 한다. NUnit 를 상상하면 가장 좋을 듯.
-- TestCase : 테스트하고자 하는 서버와 클라이언트 실행 파일을 선택하고 각각의 커맨드라인 옵션을 설정한다.
-- Setup, TearDown : 관련 파일을 특정 머신으로 복사하거나 덮어쓴다. 테스트가 끝이 나면 결과를 받아온다.
-- TestTools : 각 머신에서 살펴보고자 하는 성능 카운터를 선택하고, 예상하는 한계치를 설정한다.
-- TestRunner : 특정 머신에 복사된 파일을 지정된 파라미터로 실행한다. 만약을 위해서 adplus 도 붙여주는 센스!
-</code></pre>
+#include
+using namespace boost::unit_test_framework;
 
-<p><strong>테스트 리포트</strong></p>
+#include &quot;MMSocket.h&quot;
 
-<p>(내부 구조, 클라이언트 개수, 트래픽)에 따른 (반응 속도, CPU 점유율, 메모리 사용량)의 변화를 한눈에 알아볼 수 있어야 한다.</p>
+void test_winsock()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
-<pre><code>- 테스트 개요
+    MMSocket::EndWinsock();
+}
 
-- 테스트 아이디
-- 테스트 설명
-- 테스트 시각
-- 빌드
-- 서버 환경
-- 클라이언트 환경
+void test_socket_ctor()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
-- 서버/클라이언트 성능 카운터 및 통계 데이터
+    MMSocket client;
+        BOOST_CHECK( !client.IsAlive() );
+        BOOST_CHECK( client.GetErrorCode() == 0 );
+        BOOST_CHECK( client.GetHost() == MMString(TEXT(&quot;Unknown&quot;)) );
+        BOOST_CHECK( client.GetPort() == 0 );
 
-- CPU 통계
-- 메모리 통계
-- 트래픽 통계
-- 각종 서버 성능 카운터
-- 서버의 반응 속도
-</code></pre>
+    BOOST_CHECK( client.Create() );
+        BOOST_CHECK( client.IsAlive() );
 
-<p>웬지 마이크로소프트나 ant 같은 것들이 이런 기능을 제공할 법도 한데 말이다. 혹시나 비슷한 기능을 가진 도구를 아시는 분은 꼭 코멘트 부탁드린다.</p>
-</div>
-  
-  
+    client.Close();
+        BOOST_CHECK( !client.IsAlive() );
 
+    MMSocket::EndWinsock();
+}
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/11/migrate-to-ace/">Migrate to ACE</a></h1>
-    
-    
-      <p class="meta">
-        
+void test_serversocket_create_with_port()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
+    WORD wPort = 8888;
 
+    MMServerSocket server;
+        BOOST_CHECK( server.IsAlive() );
+        BOOST_CHECK( server.GetErrorCode() == 0 );
+        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;Unknown&quot;)) );
+        BOOST_CHECK( server.GetPort() == 0 );
 
+    BOOST_CHECK( server.Bind(wPort) );
+        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;localhost&quot;)) );
+        // default host = localhost
+        BOOST_CHECK( server.GetPort() == wPort );
 
+    server.Close();
+        BOOST_CHECK( !server.IsAlive() );
 
+    MMSocket::EndWinsock();
+}
 
+void test_serversocket_create_with_addr()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
+    MMString strHost = TEXT(&quot;localhost&quot;);
+    WORD wPort = 8888;
 
-  
+    MMServerSocket server;
+        BOOST_CHECK( server.IsAlive() );
 
+    BOOST_CHECK( server.Bind(wPort) );
+        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;localhost&quot;)) );
+        BOOST_CHECK( server.GetPort() == wPort );
 
-<time datetime="2006-04-11T10:51:27+09:00" pubdate data-updated="true">Apr 11<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
+    server.Close();
 
+    MMSocket::EndWinsock();
+}
 
-  <div class="entry-content"><p><a href="http://reiot.cafe24.com/archives/404">예전에도 밝혔다시피</a> 요즘 legacy server core framework 를 <a href="http://reiot.cafe24.com/archives/413">ACE</a> 기반으로 마이그레이션하고 있다. 기존 코드의 경우 골치아픈 동기화와 데드락을 최대한 피하기 위해서 IOCP를 썼음에도 불구하고 polling 을 통한 순차 처리를 하도록 되어 있어서, 일단 이 형태를 그대로 ACE 기반으로 재구성 한 후 제대로 된 이벤트 드리븐을 구현해보려고 노력 중이다. 사실, 테스트 결과는 그다지 좋지는 않지만, 숨겨진 병목 부분을 해결하면 원래 코드의 80-90% 정도는 따라갈 수 있으리라고 예상중이다.</p>
+void test_serversocket_create_with_public_ip()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
-<p>그런데 작업 도중 오랜만에 동기화 관련 버그를 만났다. ACE_ASSERT( p != 0 ); 에서 에러가 났는데 디버거로 쫒아가면 우습게도 포인터가 정상이 아닌가&#8230; 처음엔 VS2005를 탓하면서 한동안 헤롱거리다가 가만히 생각해보니, ASSERT가 발생한 직후 다른 쓰레드가 재빨리 값을 바꾸어 버리는 것 외에는 이유가 없다는 것을 깨달았다. 알고 보니 ACE API 의 호출 순서를 헷갈려서 생긴 문제였다. :(</p>
+    MMString strHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 8888;
 
-<p>이번 마이그레이션의 최종 목표는 ACE 기반으로 제대로 된 gather-scatter I/O를 구현하는 것이다. 프레임워크가 잘 만들어져 있어서 금방 할 수 있긴 한데, 가능한한 락과 복사를 하지 않고 구현하려고 하니 잘 안되는 듯했다. (lock 으로 보호되는 ACE_Message_Block 을 duplicate() 해서 각각의 출력 버퍼에 concat 하고 출력 스트림에다가 writev() 만 하면 되는데 말이다. 물론 메모리 풀링도 필요하다.) 과연 하나의 버퍼에 복사한 후 플러시하는 게 빠를지, 버퍼 복사 없이 리스트로 관리하다가 한꺼번에 플러시하는게 빠를지&#8230; 결과가 기대된다. (ref-count 를 위한 락 때문에 더욱 결과가 모호하다 ㅋㅋ)</p>
+    MMServerSocket server;
+        BOOST_CHECK( server.IsAlive() );
 
-<p>이거 외에도 써먹어야 할 ACE 고급 기능들이 부지기수인데&#8230;  스케줄은 늘어지고, 야근은 하기 싫고, 오블리비언도 해야 되고&#8230; 진퇴양난이다.</p>
-</div>
-  
-  
+    BOOST_CHECK( server.Bind(strHost,wPort) );
+        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;61.74.134.38&quot;)) );
+        BOOST_CHECK( server.GetPort() == wPort );
 
+    server.Close();
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/03/23/doxygen/">Doxygen</a></h1>
-    
-    
-      <p class="meta">
-        
+    MMSocket::EndWinsock();
+}
 
+void test_serversocket_create_with_private_ip()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
+    MMString strHost = TEXT(&quot;192.168.0.1&quot;);
+    WORD wPort = 8888;
 
+    MMServerSocket server;
+        BOOST_CHECK( server.IsAlive() );
 
+    BOOST_CHECK( server.Bind(strHost,wPort) );
+        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;192.168.0.1&quot;)) );
+        BOOST_CHECK( server.GetPort() == wPort );
 
+    server.Close();
 
+    MMSocket::EndWinsock();
+}
 
+void test_serversocket_listen()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
-  
+    PTCHAR szHost = TEXT(&quot;192.168.0.1&quot;);
+    WORD wPort = 8888;
 
+    MMServerSocket server;
 
-<time datetime="2006-03-23T09:32:58+09:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2006</time>
-        
-      </p>
-    
-  </header>
+    BOOST_CHECK( server.Bind(szHost,wPort) );
+    BOOST_CHECK( server.Listen() );
 
+    MMSocket::EndWinsock();
+}
 
-  <div class="entry-content"><h2>설치</h2>
+void test_socket_connect()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
-<ul>
-<li><a href="http://doxygen.org%20Doxygen">공식 홈페이지</a>에서 최신 Doxygen 을 받아서 설치한다.</li>
-<li><a href="http://www.graphviz.org/">Graphiz 홈페이지</a>에서 dot 툴을 받아서 설치한다.</li>
-<li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/htmlhelp/html/hwMicrosoftHTMLHelpDownloads.asp">Microsoft HTML Helper</a>를 받아서 설치한다.</li>
-</ul>
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 8888;
 
+    MMServerSocket server;
 
-<h2>설정</h2>
+    BOOST_CHECK( server.Bind(szHost,wPort) );
+    BOOST_CHECK( server.Listen() );
+        BOOST_CHECK( server.IsAlive() );
 
-<ul>
-<li>Doxygen GUI frontend 를 실행한 후, 맨 처음에는 Wizard 모드로 기본 설정을 하고, 다시 Expert 모드로 상세하게 설정을 해주면 된다. 이때 매번마다 환경을 변경한 다음에는 Doxyfile 로 저장하는 것을 잊지 말도록.</li>
-<li><a href="http://serious-code.net/moin.cgi/DoxyGenSetup">SeriousCode:DoxygenSetup</a> 을 참고해서 배치파일을 잘 만들어두면 편하다.</li>
-</ul>
+    MMSocket client;
+    client.Create();
+        BOOST_CHECK( client.IsAlive() );
+    BOOST_CHECK( client.Connect(szHost,wPort) );
 
+    client.Close();
+    server.Close();
 
-<h2>DoxygenTips</h2>
+    MMSocket::EndWinsock();
+}
 
-<ul>
-<li>상대경로를 애용할 것 : 범용성을 위해 INPUT 및 OUTPUT_DIRECTORY 는 상대 경로로 지정하고, DoxyWizard 의 Working Directory 를 절대 경로를 사용할 것. Doxygen 이 알아서 둘을 조합한다.</li>
-<li>CREATE_SUBDIR 을 설정하면, html 폴더에 너무 많은 파일들이 몰리는 현상을 막을 수 있다.</li>
-<li>FULL_PATH_NAMES 를 설정하고, STRIP_FROM_PATH 에 Working Directory 를 추가해주면, 여러 개의 하위 폴더에 나눠진 파일들의 경로를 출력할 수 있다</li>
-<li>HHC_LOCATION 은 일반적으로 C:/Program Files/HTML Help Workshop/hhc.exe를 지정하면 된다. (Visual Studio 를 설치하면 저기에 자동으로 설치가 되기 때문)</li>
-<li>DOT_IMAGE_FORMAT 은 png 로 설정하면 용량이 많이 줄어든다. 단 jpg + DOT_TRANSPARENT 의 조합은 용량이 무지막지하게 커지므로 주의할 것.</li>
-<li>DOT_PATH 는 일반적으로 <code>C:/Program Files/ATT/Graphviz/bin</code>을 지정할 것</li>
-</ul>
+void test_socket_connect_fail()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 8888;
 
-<p>see also:</p>
+    MMServerSocket server;
 
-<ul>
-<li><a href="http://serious-code.net/moin.cgi/DoxyGen">SeriousCode:DoxyGen</a></li>
-</ul>
+    BOOST_CHECK( server.Bind(szHost,wPort) );
+    BOOST_CHECK( server.Listen() );
+        BOOST_CHECK( server.IsAlive() );
 
-</div>
-  
-  
+    MMSocket client;
+    client.Create();
+        BOOST_CHECK( client.IsAlive() );
+    BOOST_CHECK( !client.Connect(szHost,wPort-1) ); // must be failed
 
+    client.Close();
+    server.Close();
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/03/23/%E1%84%8B%E1%85%B1%E1%86%AB%E1%84%83%E1%85%A9%E1%84%8B%E1%85%AE%E1%84%8C%E1%85%B3-%E1%84%86%E1%85%AE%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5/">윈도우즈 무인설치</a></h1>
-    
-    
-      <p class="meta">
-        
+    MMSocket::EndWinsock();
+}
 
+void test_serversocket_accept()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 8888;
 
+    MMServerSocket server;
 
+    BOOST_CHECK( server.Bind(szHost,wPort) );
+    BOOST_CHECK( server.Listen() );
+        BOOST_CHECK( server.IsAlive() );
 
+    MMSocket client;
+    client.Create();
+        BOOST_CHECK( client.IsAlive() );
+    BOOST_CHECK( client.Connect(szHost,wPort) );
 
+    MMSocket * pClient = server.Accept();
+        BOOST_CHECK( pClient != NULL );
+        BOOST_CHECK( pClient-&gt;IsAlive() );
+        //BOOST_CHECK( pClient-&gt;GetHost() == client.GetHost() );
+        //BOOST_CHECK( pClient-&gt;GetPort() == client.GetPort() );
 
+    client.Close();
+    server.Close();
 
-  
+    MMSocket::EndWinsock();
+}
 
+/*
+ *  accept 전에 닫아도 accept 된다.. 음냐..
+ */
+void test_serversocket_accept_failed()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
-<time datetime="2006-03-23T09:27:26+09:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2006</time>
-        
-      </p>
-    
-  </header>
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 8888;
 
+    MMServerSocket server;
 
-  <div class="entry-content"><p>5 대 이상의 머신에 OS를 가장 빨리 (그리고 안전하게) 설치하는 방법에 대해서 정리한 문서이다.</p>
+    BOOST_CHECK( server.Bind(szHost,wPort) );
+    BOOST_CHECK( server.Listen() );
+        BOOST_CHECK( server.IsAlive() );
 
-<h3>개요</h3>
+    MMSocket client;
+    client.Create();
+        BOOST_CHECK( client.IsAlive() );
+    BOOST_CHECK( client.Connect(szHost,wPort) );
+    client.Close();     // close before accept
 
-<p>이번에 ETRI 에서 주관하는 온라인게임테스트베드에 당첨되어, 서버를 설치하러 분당 KT IDC 에 가야 한다. 그런데, 많은 회사들이 회선을 공유하는지라 완전히 OS 를 설치하고 패치를 적용하고 백신을 설치해야만 인터넷 연결을 허용한다고 해서, 철저하게 CD 를 준비해서 재빨리 설치하고 돌아와야 한다!!</p>
+    Sleep(100);
 
-<ul>
-<li>사용 OS : Windows Server 2003 Standard</li>
-<li>대상 머신 : HP DL580 (1 EA), HP DL360 (4 EA)</li>
-</ul>
+    MMSocket * pClient = server.Accept();
+        BOOST_WARN_MESSAGE( pClient == NULL, &quot;헹.. 널이어야 할텐데..&quot; );
 
+    server.Close();
 
-<h3>순서</h3>
+    MMSocket::EndWinsock();
+}
 
-<ul>
-<li>http://v4.windowsupdate.microsoft.com/catalog/ko/default.asp 에서 해당 OS 의 최신 패치들을 다운받아서 CD 에 굽는다.</li>
-<li>http://support.microsoft.com/?kbid=296861 을 기반으로 다운받은 패치들을 한번만에 적용하기 위해, CD 의 루트에다가 다음과 같은 배치 파일을 만든다.</li>
-</ul>
+/*
+ *  정말 nonblocking 인지 확인해봐야 하지 않나?? 그걸 알아내는 방법은?
+ */
+void test_socket_blocking()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
+    MMSocket client;
+    client.Create();
+    BOOST_CHECK( client.EnableNonblock() );
+    BOOST_CHECK( client.DisableNonblock() );
+    client.Close();
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@echo off
-</span><span class='line'>setlocal
-</span><span class='line'>set PATHTOFIXES=Drive:\Update
-</span><span class='line'>%PATHTOFIXES%\WindowsServer2003-KB######-Platform-LLL.exe /Z /U
-</span><span class='line'>%PATHTOFIXES%\WindowsServer2003-KB######-Platform-LLL.exe /Z /U
-</span><span class='line'>%PATHTOFIXES%\WindowsServer2003-KB######-Platform-LLL.exe /Z /U</span></code></pre></td></tr></table></div></figure>
+    MMSocket::EndWinsock();
+}
 
+void test_socket_linger()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
-<ul>
-<li>리부팅한 후, 이제 인터넷과 연결한다. (방화벽 및 백신은 꼭 설정할 것)</li>
-</ul>
+    MMSocket client;
+    client.Create();
 
+    BOOST_CHECK( !client.IsEnabledLinger() );           // no linger at default
+        BOOST_CHECK( client.GetLingerTime() == 0 );
 
-<p>see also:</p>
+    BOOST_CHECK( client.EnableLinger(100) );
+        BOOST_CHECK( client.IsEnabledLinger() );
+        BOOST_CHECK( client.GetLingerTime() == 100 );
 
-<ul>
-<li>SeriousCode:AutomatingWindowsInstallation</li>
-<li>IpSec - IP 레벨의 접근 제어에 대해</li>
-</ul>
+    BOOST_CHECK( client.DisableLinger() );
+        BOOST_CHECK( !client.IsEnabledLinger() );
+        BOOST_CHECK( client.GetLingerTime() == 100 );   // do not cleared
 
-</div>
-  
-  
+    client.Close();
 
+    MMSocket::EndWinsock();
+}
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/03/23/half-sync-half-async-pattern/">Half Sync Half Async Pattern</a></h1>
-    
-    
-      <p class="meta">
-        
+void test_socket_recv_buffer()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
+    MMSocket client;
+    client.Create();
 
+    BOOST_CHECK( client.GetRecvBufferSize() == 8192 );  // default buffer size
 
+    BOOST_CHECK( client.SetRecvBufferSize(10000) );
+    BOOST_CHECK( client.GetRecvBufferSize() == 10000 );
 
+    BOOST_CHECK( client.SetRecvBufferSize(65535) );
+    BOOST_CHECK( client.GetRecvBufferSize() == 65535 );
 
+    BOOST_CHECK( client.SetRecvBufferSize(65535*2) );
+    BOOST_CHECK( client.GetRecvBufferSize() == 65535*2 );
 
+    client.Close();
 
+    MMSocket::EndWinsock();
+}
 
-  
+void test_socket_send_buffer()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
+    MMSocket client;
+    client.Create();
 
-<time datetime="2006-03-23T05:04:02+09:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2006</time>
-        
-      </p>
-    
-  </header>
+    BOOST_CHECK( client.GetSendBufferSize() == 8192 );  // default buffer size
 
+    BOOST_CHECK( client.SetSendBufferSize(10000) );
+    BOOST_CHECK( client.GetSendBufferSize() == 10000 );
 
-  <div class="entry-content"><p>IOCP의 경우 입출력 요청은 비동기적으로 이루어지지만 커널 내부에서 존재하는 큐를 통해 GQCS()를 호출하는 쓰레드들에게는 동기적으로 할당하게 된다. 이처럼 비동기 레이어와 동기 레이어, 그리고 이를 연결시켜주는 메시지큐로 구성되는 패턴을 Half Sync Half Async Pattern 이라고 부른다. 이 패턴은 다음과 같은 곳에 적용되었다.</p>
+    BOOST_CHECK( client.SetSendBufferSize(65535) );
+    BOOST_CHECK( client.GetSendBufferSize() == 65535 );
 
-<ul>
-<li>select() (UNIX/Linux) - 커널에서 입출력 처리는 비동기적으로 이루어지지만, 이들은 유저 프로세스에서 순차적으로 받아서 처리한다.</li>
-<li>IOCP &amp; ThreadPooling (Windows)</li>
-<li>ACE_Task (ACE)</li>
-</ul>
+    BOOST_CHECK( client.SetSendBufferSize(65535*2) );
+    BOOST_CHECK( client.GetSendBufferSize() == 65535*2 );
 
+    BOOST_CHECK( client.SetSendBufferSize(-1) );
+    BOOST_CHECK( client.GetSendBufferSize() == -1 );
 
-<p>see also :</p>
+    client.Close();
 
-<ul>
-<li><a href="http://www.cs.wustl.edu/~schmidt/PDF/PLoP-95.pdf">http://www.cs.wustl.edu/~schmidt/PDF/PLoP-95.pdf</a></li>
-</ul>
+    MMSocket::EndWinsock();
+}
 
-</div>
-  
-  
+void test_socket_nagle()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
 
+    MMSocket client;
+    client.Create();
 
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/43/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/41/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
+    BOOST_CHECK( client.IsEnabledNagle() );     // enabled at default
 
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
+    BOOST_CHECK( client.DisableNagle() );
+        BOOST_CHECK( !client.IsEnabledNagle() );
+    BOOST_CHECK( client.EnableNagle() );
+        BOOST_CHECK( client.IsEnabledNagle() );
+
+    client.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_serversocket_reuseaddr()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMServerSocket server;
+    BOOST_CHECK( server.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
+
+    MMServerSocket server2;
+    BOOST_CHECK( !server2.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
+    server2.Close();
+
+    MMServerSocket server3;
+    BOOST_CHECK( server3.EnableReuseAddr() );
+    BOOST_CHECK( server3.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
+    server3.Close();
+
+    MMServerSocket server4;
+    BOOST_CHECK( server4.EnableReuseAddr() );
+    BOOST_CHECK( server4.DisableReuseAddr() );
+    BOOST_CHECK( !server4.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
+    server4.Close();
+
+    server.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_socket_gethostbyname()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    PTCHAR szHost = TEXT(&quot;comeng.ce.knu.ac.kr&quot;);
+    BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(TEXT(&quot;155.230.29.10&quot;)) );
+
+    szHost = TEXT(&quot;mudmania.org&quot;);
+    BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(TEXT(&quot;61.74.134.38&quot;)) );
+
+    //szHost = TEXT(&quot;reiot.cafe24.com&quot;);
+    //BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(TEXT(&quot;61.74.134.38&quot;)) );
+
+    szHost = TEXT(&quot;mudmania2.org&quot;);
+    BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(&quot;&quot;) );
+
+    MMSocket::EndWinsock();
+}
+
+void test_socket_send()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 9999;
+
+        MMServerSocket server;
+        BOOST_CHECK( server.Bind(szHost,wPort) );
+        BOOST_CHECK( server.Listen() );
+
+    MMSocket client;
+    client.Create();
+    BOOST_CHECK( client.Connect(szHost,wPort) );
+
+        MMSocket * pClient = server.Accept();
+        BOOST_CHECK( pClient != NULL );
+
+    PTCHAR szSendMsg = TEXT(&quot;Hello World!&quot;);
+    int iSendMsgLen = lstrlen(szSendMsg);
+
+    BOOST_CHECK( iSendMsgLen == client.Send(szSendMsg,iSendMsgLen) );
+
+        TCHAR szRecvMsg[1024];
+        int iRecvMsgLen = pClient-&gt;Receive(szRecvMsg,1024);
+        if ( iRecvMsgLen &gt; 0 )
+        {
+            szRecvMsg[iRecvMsgLen] = 0;
         }
+        BOOST_CHECK_MESSAGE( iRecvMsgLen == iSendMsgLen, &quot;Received Msg : &quot; Receive(szRecvMsg,1024);
+        BOOST_CHECK_MESSAGE( iRecvMsgLen == 0 ,
+        &quot;second recv = &quot; GetErrorCode() );
 
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+        pClient-&gt;Close();
+        SAFE_DELETE(pClient);
+
+    server.Close();
+
+    MMSocket::EndWinsock();
+}
+
+/* just receive (guess socket is nonblocking) */
+void test_socket_nonblocked_recv()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 80;
+
+    MMSocket client;
+    client.Create(true);
+
+    BOOST_CHECK( client.Connect(szHost,wPort) );
+
+    client.EnableNonblock();
+
+    TCHAR szRecvMsg[1024];
+    int iRecvMsgLen = client.Receive(szRecvMsg,1024);
+    BOOST_CHECK( iRecvMsgLen == -1 );
+    BOOST_CHECK( client.GetErrorCode() == WSAEWOULDBLOCK );
+    client.Close();
+
+    MMSocket::EndWinsock();
+}
+
+/*
+
+*TODO*
+
+- connect
+- socket constructor
+- error code checking
+- invalid address
+- socket buffer
+- socket blocking
+- 연결 실패
+
+*/
+
+test_suite * test_MMSocket()
+{
+    test_suite * test = BOOST_TEST_SUITE( &quot;MMSocket Test&quot; );
+
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_winsock ) , 0 );
+  test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_ctor ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_port ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_addr ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_public_ip ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_private_ip ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_listen ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_gethostbyname ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_connect ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_connect_fail ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_accept ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_accept_failed ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_blocking ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_linger ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_recv_buffer ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_send_buffer ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_nagle ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_reuseaddr ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_send ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_nonblocked_recv ) , 0 );
+
+  return test;
+}
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/test/"><span class="label">test</span></a>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+		<a href="/tag/TDD/"><span class="label">TDD</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/03/21/tortoisesvn/">TortoiseSvn</a> <small>2005-03-21</small></h1>
+	</div>
+	<div><p>탐색기에서의 버전 관리라니... 아무래도 IDE 에 연동되는 것에 비해서는 좀 불편하지 않을까? 하는 것이 나의 첫 느낌이었다. 물론 Visual Studio .NET 에 연동되는 넘이 있긴 하지만, 아직까지 안정화되어 있지 않다는 소문 때문에, 결국 거북이SVN 으로 오게 되었다. 그런데 이틀 정도 써보니까 어째 예전에 비해서 심리적인 면에서 더 편해졌다는 느낌이 들었다.</p>
+<p>우선, '체크아웃하시겠습니까? 라는 창이 안떠서 좋았다.' 사실 이건 VSS 옵션을 끄면 되는 것이지만, 웬지 새로운 소스를 고치기 전 경건한 마음을 가지자는 의미에서 그냥 켜두곤 했는데, 실제로는 꽤나 심리적인 불편함과 강박 관념(너는 소스를 더럽히고 있다..)을 개발자에게 주고 있다는 생각이 들었다. 좀더 코드에 편하게 접근할 수 있게 되었다고나 할까? (만약 아직 VSS를 사용하고 있다면 이 옵션을 끄고 작업해 보기 바란다.)</p>
+<p>두번째는 IDE에서 작업하고 탐색기에서 커밋할 때의 심리적인 해방감이 들게 되었다는 점. 가장 비슷한 예라면 회사에서 양복을 입다가 집에서 평상복을 입을 때의 느낌이리라. 딱딱한 IDE에서 비교적 화려한 탐색기 + 바탕화면으로 전환되면서 내가 이제 커밋을 하게 된다는 마음 자세로 바뀌더라는, 실로 억지스러운 주장이다. :)</p>
+<p>세번째로는 로컬 워킹 카피에 있는 삭제된 파일들을 손쉽게 관리할 수 있게 되었다는 점이다. VSS를 쓸 경우 버전 관리되던 파일을 삭제하려면 로컬 카피도 지우고 저장소에서도 지워 줘야 한다. IDE에서 삭제하는 것까지 감안하면 세 군데에서 지워줘야 한다. 역시나 이것도 저장소에서 삭제시 로컬 파일도 삭제한다는 VSS 옵션이 있긴 하지만 좀 위험한 감이 있어서 실제로 쓰기는 곤란했었는데, SubVersion 에서는 아예 파일 관리를 탐색기에서 다 할 수 있어서 괜찮은 듯 했다.</p>
+<p>난감한 점이라면, 아무 생각없이 그냥 파일을 삭제하다가는 피를 본다는 점(물론 재빨리 업데이트해서 파일을 받아와야 한다.), 그리고  작업중인 .svn 폴더를 삭제하면 버전 관리 정보가 날아가서 다시 add 를 해야 한다는 점 등이다. 그리고 '''거북이CVS와 함께 사용할 경우 탐색기의 오른쪽클릭 메뉴가 너무 길어진다'''는 사소한 단점도 있다. :(</p>
+<p>사실 아직까지 태그, 브랜치, 머지를 해보지 않아서 이 부분에서 얼마나 더 매력적인 모습을 보여줄런지는 의문이다. 유니코드 비교시 문자열을 잘 표현해주는지도 미확인. 빨리 이 부분에 대해서도 테스트를 해봐야 겠다.</p>
+<h2>Ignore List</h2>
+<p>글로벌 ignore 리스트는 TortoiseSvn - 설정 메뉴에서 지정하며, 이 값은 레지스트리의 HKEY_LOCAL_MACHINE\Software\Tigris.org\Subversion\Config\Miscellany\global-ignores에 들어있다.</p>
+<p>반면 로컬 ignore 리스트는 해당 파일의 상위 폴더의 .svn/dir-props 에 들어있다. 이 값을 지우려면 그냥 탐색기에서 속성 메뉴에서 TortoiseSvn 메뉴에서 지우면 된다. TortoiseSvn 의 CHM 도움말에서 4.9. Get/Set Information About Files/Directories 항목을 참조하도록.</p>
+<p>see also:<br />
+<em> <a href="http://tortoisesvn.tigris.org">거북이SVN 공식 홈페이지</a><br />
+</em> SubVersion<br />
+<em> SeriousCode:Subversion<br />
+</em> <a href="http://wiki.kldp.org/wiki.php/DocbookSgml/Subversion-HOWTO">KLDP:SubVersion</a></p></div>
+	
+	<p>
+	
+		<a href="/tag/subversion/"><span class="label">subversion</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/03/01/trac/">Trac</a> <small>2005-03-01</small></h1>
+	</div>
+	<div><p>TRAC = 위키 + 이슈 트래킹 + 버그 트래킹 + 이벤트 트래킹 + 소스 브라우징 &amp; diff + 리포팅....</p>
+<p>더군다나, 파이썬으로 구현되었고, SQLLite 를 쓰며, SubVersion 연동이라니... 이 정도라면, 새 회사에서 KMS 로 쓰려고 했던 모니위키와는 무조건 이별을 해야 할 듯 하다.. 만티스도 안녕... phpBB도 안녕...</p>
+<p>그렇잖아도, 동료 개발자들의 check-in 여부를 확인하려고 모인모인 위키에서 파이썬으로 VSS 히스토리 뷰어 매크로를 작성하다가 이상한 이유로 포기한 전적이 있었기에... 더욱 기대가 된다. :)</p>
+<p>위키에서 디자인, 구현, 테스트의 전 개발과정을 진행하고 싶은 사람에게 권장한다. 단 과도한 욕심은 금물... ;)</p>
+<h2>한글화</h2>
+<p>한글 페이지를 만들기 위한 문법은, [wiki:한글링크 한글링크]와 같이 사용한다. 이걸 가능하게 하려면...</p>
+<ul>
+<li><a href="http://cjkpython.i18n.org/">CJK-Python</a>을 설치할 것. (CJK-Python은 Python2.4부터는 포함되어 있지만, Trac은 Python2.3을 사용한다~)</li>
+<li>trac.ini 에서 default charset = euc-kr 을 사용할 것.</li>
+<li>Wiki.py 를 다음과 같이 수정할 것.</li>
+</ul>
+<pre><code>
+30 from util import escape, TracError, get_reporter_id, to_utf8
+
+191  def render(self):
+192  name = to_utf8(self.args.get('page', 'WikiStart'),'euc-kr')
+</code></pre>
+
+<ul>
+<li>한글 템플릿은 <a href="http://openlook.org/distfiles/trac-ktdms-041222.tar.gz">OpenLook</a>에서 다운받을 것.</li>
+</ul>
+<p>see also:<br />
+<em> [http://trac.edgewall.com/ TRAC Official Homepage]<br />
+</em> [http://openlook.org/blog/reviews/0412TracInAction Trac과 함께 한 2주]<br />
+<em> Trac:TracInstall - TRAC 설치 매뉴얼(영문)<br />
+</em> Trac:TracOnWindows - TRAC on 윈도우즈 설치 매뉴얼(영문)<br />
+* [http://synergy.kaist.ac.kr/~paraon/tt/index.php?pl=59 Trac 0.8 On WindowsXP] - 한글 관련 설치 팁</p></div>
+	
+	<p>
+	
+		<a href="/tag/trac/"><span class="label">trac</span></a>
+	
+	</p>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/43/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/43">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2005/08/10/cpb-2/">CPB 맛보기</a>
+	</li>
+	
+	<li>
+		<a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a>
+	</li>
+	
+	<li>
+		<a href="/2005/06/02/boosttest/">boost::test</a>
+	</li>
+	
+	<li>
+		<a href="/2005/03/21/tortoisesvn/">TortoiseSvn</a>
+	</li>
+	
+	<li>
+		<a href="/2005/03/01/trac/">Trac</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

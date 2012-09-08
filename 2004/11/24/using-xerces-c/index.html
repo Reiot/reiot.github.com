@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/using-xerces-c/">Using Xerces C++</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>Xerces는 XML 파싱을 위한 C++/Java 공개 라이브러리다. 기존의 Microsoft XML SDK를 이용한 XML 파싱 라이브러리가 있음에도 불구하고, Xerces를 이용한 파서를 새로 만들게 된 것은 Microsoft XML SDK가 Visual C++에서만 컴파일이 정상적으로 되었기 때문이다. Borland C++ Builder를 이용해서 기존의 라이브러리를 컴파일하기 위해 몇가지 시도를 해보았지만, 정상적으로 되지가 않았다. 결국 포기하고 다른 방편으로 Xerces를 이용하게 되었다.</p>
+<p>파싱 클래스나 함수 등은 W3C에서 이미 규정한 것이기 때문에 Xerces나 Microsoft나 별반 다르지 않다. 차이점은 함수의 프로토타입이나, 내부적으로 사용하는 유틸리티 클래스들인데, 이는 쉽게 넘어갈 수 있는 문제였다. 게다가 나중에 유닉스 계열로 가도 이 라이브러리를 그대로 이용할 수 있으니 이 어찌 즐겁지 않으리요.</p>
+<h2>Install For Microsoft Visual C++</h2>
+<pre><code>- http://xml.apache.org 에서 Xerces 바이너리를 다운받는다. 소스를 다운받아도 상관없으나 컴파일하는 수고를 덜려면 바이너리를 받는 게 낫다.
+- 인스톨하고, Visual C++에서 PATH를 잡아준다.
+- 프로젝트 링크 탭에다가 xerces-c_2.lib 또는 xerces-c_2D.lib 라이브러리를 집어넣는다.
+- xerces-c_2.lib라면 xerces-c_2_2_0.dll을, xerces-c_2D.lib라면 xerces-c_2_2_0D.dll을 PATH로 잡혀있는 디렉토리 어디엔가 복사해둔다.
+- 컴파일하고 실행한다.
+</code></pre>
+<h2>주의해야할 점</h2>
+<p>Xerces를 사용해서 XML 문서를 다룰 때, 한글을 사용하기 위해서는</p>
+<pre><code>  &lt; ?xml version=&quot;1.0&quot; encoding=&quot;Windows-1252&quot;?&gt;```
+과 같은 헤더를 붙여줘야한다. 인터넷 익스플로러에서 보면 한글이 깨져서 보이지만, 실제로 프로그램에서 돌릴 때는 괜찮다.
+</code></pre>
+
+<p>&lt; ?xml version="1.0" encoding="euc-kr"?&gt;```<br />
+로 하는 경우에는 인터넷 익스플로러에서는 보면 괜찮지만, 프로그램 돌릴 때는 한글 문자가 깨지게 된다.</p>
+<p>see also:</p>
+<pre><code>- [http://xml.apache.org](http://xml.apache.org/)
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/xml/"><span class="label">xml</span></a>
+	
+		<a href="/tag/xerces/"><span class="label">xerces</span></a>
+	
+	</p>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

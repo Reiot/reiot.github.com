@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a> <small>2006-05-28</small></h1>
+	</div>
+	<div><p>템플릿 프로그래밍을 하다 보면, 문자열이나 사용자 정의 클래스(UDT) 같은 특정 타입에 대한 특수화(specializaiton)를 할 경우가 있다. 그 중에서 가장 헷갈리는 부분이 바로 특정 클래스의 포인터를 템플릿 인자로 받아서 특수화해야 하는 경우인데, boost typetraits 중 하나인 boost::is_base_of를 사용하면 손쉽게 해결할 수 있다.</p>
+<pre><code>
+template
+void old_algorithm ( const T &amp; value )
+{
+  // do generic something
+}
+</code></pre>
+
+<p>위와 같은 함수 템플릿에 대해서 Base 클래스의 하위 클래스 포인터를 받았을 때를 위한 특수화를 해야 할 경우, 다음과 같은 패턴을 사용하라. 핵심은 is_base_of::type 이 true_type 또는 false_type 이라는 2 개의 서로 다른 타입을 리턴하며, 이 값을 이용해서 특수화를 한다는 것이다.</p>
+<pre><code>
+template
+void new_algorithm ( const T &amp; value )
+{
+  typedef typename boost::is_base_of::type is_derived_class;
+
+  // call impl
+  new_algorithm_impl(value,is_derived_class());
+}
+
+template
+void new_algorithm_impl ( const T &amp; value, const boost::true_type&amp; )
+{
+  // do specialized for Base class
+}
+
+template
+void new_algorithm_impl ( const T &amp; value, const boost::false_type&amp; )
+{
+  // do generic something
+}
+
+</code></pre></div>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

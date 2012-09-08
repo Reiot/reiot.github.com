@@ -1,585 +1,332 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="pull 할 때 다음 에러가 뜰 경우 You asked me to pull without telling me which branch you want to merge with, and branch.master.merge in your configuration file &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/17">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/10/pull-you-asked-me-to-pul/">Pull 할 때 다음 에러가 뜰 경우 You Asked Me to Pul&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-10T14:24:00+09:00" pubdate data-updated="true">Apr 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>pull 할 때 다음 에러가 뜰 경우  You asked me to pull without telling me which branch you  want to merge with, and branch.master.merge in  your configuration file does not tell me either.  Please  specify which branch you want to merge on the command line and  try again (e.g. git pull  ).  See git-pull(1) for details.  If you often merge with the same branch, you may want to  configure the following variables in your configuration  file:  branch.master.remote =  branch.master.merge =  remote..url =  remote..fetch =  See git-config(1) for details.  git config -l 로 살펴보면 이미 remote 들은 등록이 되어 있다. 여기서 할 일은 branch master 를 설정하는 거다.  git config branch.master.remote origin  git config branch.master.merge refs/heads/master  이걸 해주면 된다.  <a href="http://stackoverflow.com/questions/2335343/how-to-tell-git-to-always-pull-the-master-branch">http://stackoverflow.com/questions/2335343/how-to-tell-git-to-always-pull-the-master-branch</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/09/iframe-firebug/">기본적으로 Iframe 안에 있는 코드는 Firebug 에서 접근이 안된&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-09T00:55:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>기본적으로 iframe 안에 있는 코드는 firebug 에서 접근이 안된다. (부모 문서만 보이니까)  북마클릿으로 자동화하려면 다음 코드를 참고할 것.  <a href="http://stackoverflow.com/questions/2495313/firebug-and-jquery-selectors-in-an-iframe">http://stackoverflow.com/questions/2495313/firebug-and-jquery-selectors-in-an-iframe</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/09/css-id-class/">Css 상속 우선 순위 - Id 가 Class 에 우선한다. 즉 보다 구&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-09T00:44:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>css 상속 우선 순위  - id 가 class 에 우선한다. 즉 보다 구체적인 필터가 가장 우선시된다.  ex> #aaa bbb > ddd.eee fff</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/08/ui-helper-clearfix/">Ui-helper-clearfix 이걸 지정한 엘리먼트는 부모의 영역 안&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-08T22:34:00+09:00" pubdate data-updated="true">Apr 8<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ui-helper-clearfix  이걸 지정한 엘리먼트는 부모의 영역 안으로 들어간다. 튀어나오게 하지 않기 위함!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/08/canvas-page-app-760-width/">페이스북 Canvas Page App 에다가 760 그리드(width: &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-08T19:26:00+09:00" pubdate data-updated="true">Apr 8<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>페이스북 Canvas Page App 에다가 760 그리드(width: 760px)을 사용하면 가로 스크롤바가 생긴다. ㅠㅠ  결국 750 그리드를 만들면 ok.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/08/append-prepend-pull/">Append, Prepend : 앞 뒤로 빈 그리드를 추가하기. Pull&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-08T17:00:00+09:00" pubdate data-updated="true">Apr 8<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>960 grid 시스템 개요  - container_N: 그리드 전체 컨테이너. N개의 컬럼으로 구성된다. float: left &amp; position: relative  - grid_N: 컬럼 N 개 만큼으로 width 를 설정한다.  - prefix_N: 앞쪽으로 padding-left 를 이용해서 공간을 추가  - suffix_N: 뒷쪽으로 padding-right 을 이용해서 공간을 추가.  - pull_N: 음수의 left 값을 이용, 원래 위치보다 왼쪽으로 이동.  - push_N: 오른쪽으로 옮김. 양수의 left 값을 이용.  - clear: float 를 끔으로써 row 를 내린다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/07/canvas-page-app-iframe/">Canvas Page App 에서 Iframe 으로 인해 브라우저가 쿠키&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-07T17:43:00+09:00" pubdate data-updated="true">Apr 7<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Canvas Page App 에서 iframe 으로 인해 브라우저가 쿠키를 거부할 경우에 대한 대안: 모든 GET/POST 에 파라미터를 넘긴다는 것.  관련 미들웨어 코드:  <a href="http://www.djangosnippets.org/snippets/1540/">http://www.djangosnippets.org/snippets/1540/</a>  <a href="http://www.djangosnippets.org/snippets/1235/">http://www.djangosnippets.org/snippets/1235/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/07/httpwikidevelopersface/">페이스북 개인보호 정책 http://wiki.developers.face&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-07T05:21:00+09:00" pubdate data-updated="true">Apr 7<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>페이스북 개인보호 정책  <a href="http://wiki.developers.facebook.com/index.php/Policy_Examples_and_Explanations/Data_and_Privacy">http://wiki.developers.facebook.com/index.php/Policy_Examples_and_Explanations/Data_and_Privacy</a>  - 모든 페이지, 특히 프로파일 페이지에다가 Privacy Policy 에 대한 링크를 제공한다.  - Storable 데이터(id류), 오프라인 접근권한을 받은 것들을 제외한 모든 데이터들(이름,사진 등)은 24시간 이상 캐시할 수 없다.  - 추가적으로 개인 정보를 수집하려고 할 때, API 로부터 받은 데이터를 FORM 에 auto-fill 할 수 없다. 사용자가 원하는 경우에만 채우도록 해야 한다. (일종의 강제 수집이라서 그런듯?)  - 사용자가 능동적으로 개인정보를 오픈하지 않는한, 디폴트로는 숨겨야 한다. (최초 등록시 자동 정보 공개 플래그를 둬서는 안된다는 뜻인듯?)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/07/user-uid-email-gid-p/">페이스북 User 데이터 저장 정책 - Uid, Email, Gid, P&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-07T05:14:00+09:00" pubdate data-updated="true">Apr 7<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>페이스북 user 데이터 저장 정책  - uid, email, gid, page_id, profile_update_time 무기한으로 명시된게 아니면 24시간 이상 저장할 수 없다.  - 각 id 간의 관계는 저장할 수 없다. 오직 user-network 만 저장 가능.  - 즉 이름, 성별, 프로필사진 URL 등 개인을 구분할 수 있는 모든 데이터는 무기한 저장 불가.  - 사용자가 해지할 경우 user id 이외의 모든 데이터는 삭제해야 한다. userid 만큼은 무기한 가지고 있다가 다시 돌아올 경우 또는 ban 한 경우를 대비한다.  - 인터넷이 안되거나 문제가 생긴 경우를 위해서, 나머지 데이터는 24시간 이상 유지하되 개별 앱 서버가 아니라 클라이언트에 저장할 수는 있다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/06/pyfacebook-post-validat/">Pyfacebook 에서 서버로 POST 요청을 할 경우, Validat&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-06T23:15:00+09:00" pubdate data-updated="true">Apr 6<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>pyfacebook 에서 서버로 POST 요청을 할 경우, validate_signature() 를 통과하려면 fb_sig* 역시 POST 로 보내야 된다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/18/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/16/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/03/21/svn-mkactivity-403-forbidden/">SVN MKACTIVITY 403 Forbidden</a> <small>2008-03-21</small></h1>
+	</div>
+	<div><p>회사에서 <a href="http://www.subversionary.org/sspidomainauth">Collabnet Subversion 에 SSPI 를 연동</a>해서 별 문제없이 사용하던 어느 날, 저장소에 Boost 1.34.1 트리를 넣고 난 다음부터 update/commit 이 무지막지하게 느려졌었다. 혹시나 신 버전에서는 해결된 문제가 아닐까 해서 Collabnet 을 업그레이드했으나, 역시나 파일 개수가 많아서 생긴 문제였고, 날 잡아서 사용하지 않는 서드파티 라이브러리들을 모조리 삭제하고 난 후에야 그럭저럭 제 속도를 얻을 수 있었다.</p>
+<p>그러나, 이게 끝이 아니었으니,  갑자기 미국에 출장간 일부 개발자들이 update는 되는데 commit이 안된다는 보고를 해왔다. 아파치 로그를 살펴보니</p>
+<p>Access denied: '<username>' MKACTIVITY <repository-name>:</p>
+<p>라는 메시지가 나왔다. 그렇다고 모두 안되면 다시 롤백이라도 하겠는데, 특정 사용자만 안되었고, 새로 만든 아이디를 만들어서 권한을 부여해도 안되고, 그런데 또 관리자 계정을 사용하면 되는 기묘한 현상이었다.</p>
+<p>3-4 시간 정도 구글링해본 결과 도무지 해답을 찾을 수가 없어서, 포기하고 Collabnet Enterprise Subversion 을 구매하려다가 놀랄만한 가격 때문에 좌절해있던 찰라, 문제를 보고한 개발자가 <a href="http://www.alagad.com/go/blog-entry/subversion-mkactivity-and-403-forbidden-headaches">한방에 구글에서 해답</a>을 찾아내었다.  정답은 subversion 서버의 버전이 올라가면서 레파지토리 이름의 대소문자를 타이트하게 구분하게 되면서 생긴 문제였다. 결국 relocating만 하면 해결되는 것이었다는 슬픈 전설이 전해진다.</p>
+<p>이 이야기의 교훈은, 구글 검색어를 어떻게 조합하냐에 따라 O(N^2)으로 해결할 문제도 O(1)로 해결할  수 있다..일까?</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/03/16/boost-asio-udp-relay-server/">boost::asio udp relay server</a> <small>2008-03-16</small></h1>
+	</div>
+	<div><p>조만간 회사에서 쓸 일이 있을 것 같아서 만들어본 udp relay 서버. 하는 일이라고는 패킷을 잠시 저장해뒀다가 원래 주소로 쏘는 일인데, ASIO를 쓰면 얼마나 코드가 간단해질까 해서 만들어봤다. 이 코드는 서버에만 쓰고, 클라이언트에 붙일 넘은 IOCP까지는 필요없고 그냥 Win32 + winsock2 + 폴링 쓰레드로 만들어볼까 싶다.</p>
+<pre><code>
+class udp_relay_server
+{
+    struct relay_policy
+    {
+        udp::endpoint from_, to_;
+        DWORD delay_;
+    };
+
+    struct relay_message
+    {
+        boost::shared_ptr&lt;std::string&gt; message_;
+        udp::endpoint destination_;
+        DWORD expire_clock_;
+    };
+
+    enum
+    {
+        MIN_SLEEP_DELAY = 10
+    };
+
+public:
+
+    udp_relay_server(boost::asio::io_service&amp; io_service, short port)
+        : socket_(io_service, udp::endpoint(udp::v4(), port))
+        , timer_(io_service)
+    {
+        do_receive();
+        do_timer();
+    }
+
+    udp_relay_server(boost::asio::io_service&amp; io_service, const udp::endpoint &amp; endpoint_ )
+        : socket_(io_service, endpoint_)
+        , timer_(io_service)
+    {
+        do_receive();
+        do_timer();
+    }
+
+    void add_policy( const udp::endpoint &amp; from_, const udp::endpoint &amp; to_, DWORD delay = 0 )
+    {
+        relay_policy p;
+        p.from_ = from_;
+        p.to_ = to_;
+        p.delay_ = delay;
+        policies.push_back(p);
+    }
+
+    void add_policy( string from_addr, short from_port, string to_addr, short to_port, DWORD delay = 0 )
+    {
+        udp::endpoint from_( boost::asio::ip::address::from_string(from_addr), from_port );
+        udp::endpoint to_( boost::asio::ip::address::from_string(to_addr), to_port );
+        add_policy( from_, to_, delay );
+    }
+
+    void clear_policy() { policies.clear(); }
+
+private:
+
+    void do_timer()
+    {
+        timer_.expires_from_now(boost::posix_time::milliseconds(MIN_SLEEP_DELAY));
+        timer_.async_wait(boost::bind(&amp;udp_relay_server::handle_timer,this,boost::asio::placeholders::error));
+    }
+
+    void handle_timer( const boost::system::error_code &amp; ec )
+    {
+        if ( !queue_.empty() )
+        {
+            DWORD cur_clock = GetTickCount();
+            std::list&lt; relay_message &gt;::iterator itr = queue_.begin();
+            while ( itr != queue_.end() )
+            {
+                relay_message &amp; m = *itr;
+                if ( cur_clock &gt; m.expire_clock_ )
+                {
+                    socket_.async_send_to(boost::asio::buffer(*m.message_), m.destination_,
+                        boost::bind(&amp;udp_relay_server::handle_send, this, m.message_, boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred) );
+                    itr = queue_.erase(itr++);
+                }
+                else
+                {
+                    itr++;
+                }
+            }
+        }
+        do_timer();
+    }
+
+    void do_receive()
+    {
+        socket_.async_receive_from(
+            boost::asio::buffer(recv_buffer_), remote_endpoint_,
+            boost::bind(&amp;udp_relay_server::handle_receive, this,
+            boost::asio::placeholders::error,
+            boost::asio::placeholders::bytes_transferred));
+    }
+
+    void handle_receive(const boost::system::error_code&amp; error, std::size_t bytes_transferred)
+    {
+        if (!error)
+        {
+            bool bRelayed = false;
+            for(size_t i = 0 ; i &lt; policies.size() ; i ++ )
+            {
+                relay_policy &amp; p = policies[i];
+                if ( p.from_ == remote_endpoint_ )
+                {
+                    udp::endpoint relay_to(p.to_);
+                    boost::shared_ptr&lt;std::string&gt; message(new string(recv_buffer_.data(),bytes_transferred));
+                    if ( p.delay_ &gt; 0 )
+                    {
+                        relay_message m;
+                        m.message_ = message;
+                        m.destination_ = relay_to;
+                        m.expire_clock_ = GetTickCount() + p.delay_;
+                        queue_.push_back( m );
+                    }
+                    else
+                    {
+                        do_send( message, relay_to );
+                    }
+                    bRelayed = true;
+                    break;
+                }
+            }
+            do_receive();
+        }
+    }
+
+    void do_send( boost::shared_ptr&lt;std::string&gt; message, const udp::endpoint &amp; destination )
+    {
+        socket_.async_send_to(boost::asio::buffer(*message), destination,
+            boost::bind(&amp;udp_relay_server::handle_send, this,
+                message, boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred) );
+    }
+
+    void handle_send(boost::shared_ptr&lt;std::string&gt; message, const boost::system::error_code&amp; error, std::size_t bytes_transferred )
+    {
+    }
+
+    udp::socket socket_;
+    udp::endpoint remote_endpoint_;
+    boost::array&lt;char, 128&gt; recv_buffer_;
+    vector&lt;relay_policy&gt; policies;
+    boost::asio::deadline_timer timer_;
+    std::list&lt; relay_message &gt; queue_;
+};
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/03/01/rbo-on-cnn/">제가 참가했던 프로젝트가 CNN을 탔습니다</a> <small>2008-03-01</small></h1>
+	</div>
+	<div><p><a href="http://nckstudio.com/2008/02/29/rbo-on-cnn/"><img alt="http://nckstudio.com/wp-content/uploads/2008/02/ripken.jpg" src="http://nckstudio.com/wp-content/uploads/2008/02/ripken.jpg" /></a></p>
+<p><a href="http://nckstudio.com/">제가 몸담고 있는 회사</a>에서 <a href="http://www.playrealbaseball.com/">서비스중인 게임</a>이 <a href="http://www.cnn.com/video/#/video/sports/2008/02/28/intv.cal.ripken.cnn?iref=videosearch">CNN 방송에 등장</a>했습니다.  <a href="http://www.youtube.com/watch?v=Rhq9ZcZ-_U0">유투브에도 해당 방송 분량</a>이 따로 올라왔네요. 언뜻 보기엔 좀 오래된 게임처럼 보이지만,  정말로 오래된 게임이라서 그렇습니다 :(</p>
+<p>저도 저 게임의 서버와 P2P, DB쪽 유지 보수 작업을 잠시 맡았다가, 지금은 저 게임의 후속작을 개발중입니다.  혹시나 MLB 2k7 이나 MLB 07 같은 리얼 온라인 야구 게임에 관심있는 개발자분들이 계시다면 <a href="http://reiot.cafe24.com/contact/">연락</a> 바랍드립니다. 참고로 <a href="http://kini.tistory.com/461">미국에서는 불세출의 야구 영웅</a>이라고 칭송받지만, 우리 회사에서는 그냥 횽아라고 불리는 <a href="http://en.wikipedia.org/wiki/Cal_Ripken,_Jr.">칼 립켄 주니어</a>는 저희 회사의 주주이기도 합니다.</p>
+<p>see also:</p>
+<pre><code>- [http://nckstudio.com/2008/02/29/rbo-on-cnn/](http://nckstudio.com/2008/02/29/rbo-on-cnn/)
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/02/22/wow-warden-as-spyware/">WOW Warden as Spyware</a> <small>2008-02-22</small></h1>
+	</div>
+	<div><p><a href="http://www.amazon.com/exec/obidos/ASIN/0132271915/ref=nosim/learreio-20"><img alt="Exploiting Online Games: Cheating Massively Distributed Systems" src="http://ecx.images-amazon.com/images/I/311RgaO6v4L.jpg" /></a></p>
+<p><a href="http://www.amazon.com/exec/obidos/ASIN/0132271915/ref=nosim/learreio-20">Exploiting Online Games</a>에 와우의 보안 프로그램인 <a href="http://en.wikipedia.org/wiki/Warden_%28software%29">Warden</a>이 어떻게 동작하는지에 대한 간략한 설명이 나와 있다.</p>
+<pre><code>- 서버로부터 실시간으로 전송받는 듯하다. (스크립트일지도?)
+- 15초에 한번씩 사용자의 컴퓨터를 검색한다.
+- 와우 클라이언트의 주소 공간에 로딩된 모든 DLL 의 정보를 읽어들인다. (ToolHelp API)
+- 모든 윈도우 타이틀의 텍스트를 GetWindowTextA 로 읽어들인 다음, 해싱을 거쳐서 미리 등록된 금지 어플리케이션 목록과 비교한다.
+- 모든 프로세스의 코드 영역(0x004**** 이나 0x0041****)의 10-20바이트를 읽어서, 역시 해싱을 거쳐 미리 등록된 금지 어플리케이션 목록과 비교한다.
+</code></pre>
+<p><a href="http://www.rootkit.com/">이 책의 저자는</a>, 윈도우 타이틀에 SSN이나 카드 번호, URL, 이메일 등의 개인 정보가 블리자드로 빠져나갈 수 있고, 또한 내가 실행하고 있는 프로세스의 기밀 정보가 유출될 수 있기에, Warden이 안티해킹툴이라기 보다는 스파이웨어라고 주장하고 있다.</p>
+<p>한 명의 게이머의 입장에서는 저자의 주장에 수긍이 가지만, 이런 저런 해킹에 시달리는 게임 개발자의 관점에서 보면 이런 통계 기반의 해킹 체크도 한번 도입해보면 재미있지 않을까 하는 호기심도 솟아오른다. 우헷.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/02/22/boostasio-documentation/">boost::asio documentation</a> <small>2008-02-22</small></h1>
+	</div>
+	<div><p><a href="http://c10k.googlecode.com/svn/trunk/Doxyfile">doxygen 환경 파일</a>과 <a href="http://c10k.googlecode.com/svn/trunk/asio.chm">직접 컴파일한 CHM 파일</a>을 구글 코드에 올려뒀으니 관심있는 분들의 많은 애용 바랍니다.</p>
+<p>단, chm 파일이 80메가가 넘으므로, 환경 파일을 받고 OUTPUT_DIRECTORY라든지 STRIP_FROM_PATH 등을 적당히 고친 후 직접 컴파일하는게 나을 수도 있겠네요 :)</p>
+<p>제 홈페이지에서도 직접 받으실 수 있습니다.</p>
+<pre><code>- [boost asio doxygen configuration](http://reiot.cafe24.com/Doxyfile)
+- [boost asio compiled html(chm)](http://reiot.cafe24.com/asio.chm)
+</code></pre></div>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/18/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/18">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2008/03/21/svn-mkactivity-403-forbidden/">SVN MKACTIVITY 403 Forbidden</a>
+	</li>
+	
+	<li>
+		<a href="/2008/03/16/boost-asio-udp-relay-server/">boost::asio udp relay server</a>
+	</li>
+	
+	<li>
+		<a href="/2008/03/01/rbo-on-cnn/">제가 참가했던 프로젝트가 CNN을 탔습니다</a>
+	</li>
+	
+	<li>
+		<a href="/2008/02/22/wow-warden-as-spyware/">WOW Warden as Spyware</a>
+	</li>
+	
+	<li>
+		<a href="/2008/02/22/boostasio-documentation/">boost::asio documentation</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

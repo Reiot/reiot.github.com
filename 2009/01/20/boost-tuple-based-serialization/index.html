@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a> <small>2009-01-20</small></h1>
+	</div>
+	<div><p>boost serialization를 사용하려면 이모저모로 귀찮은 점이 많아서, 생각해본 것이 <a href="http://docs.python.org/library/struct.html?highlight=pack">파이썬의 struct 라이브러리</a>와 같은 느낌으로 프로토콜 포맷을 정의하고, 이걸 boost tuple 코드로 뽑아낸다는 아이디어이다.</p>
+<p>대강의 포맷은<br />
+<table border="1" cellspacing="0" cellpadding="1"><br />
+<tbody></tbody><br />
+<thead><br />
+<tr><br />
+<th class="head">Format</th><br />
+<th class="head">C Type</th><br />
+<th class="head">Python</th><br />
+<th class="head">Notes</th><br />
+</tr><br />
+</thead><br />
+<tbody><br />
+<tr><br />
+<td><tt class="docutils literal">x</tt></td><br />
+<td>pad byte</td><br />
+<td>no value</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">c</tt></td><br />
+<td><tt class="xref docutils literal">char</tt></td><br />
+<td>string of length 1</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">b</tt></td><br />
+<td><tt class="xref docutils literal">signed char</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">B</tt></td><br />
+<td><tt class="xref docutils literal">unsigned char</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">?</tt></td><br />
+<td><tt class="xref docutils literal">_Bool</tt></td><br />
+<td>bool</td><br />
+<td>(1)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">h</tt></td><br />
+<td><tt class="xref docutils literal">short</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">H</tt></td><br />
+<td><tt class="xref docutils literal">unsigned short</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">i</tt></td><br />
+<td><tt class="xref docutils literal">int</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">I</tt></td><br />
+<td><tt class="xref docutils literal">unsigned int</tt></td><br />
+<td>integer or long</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">l</tt></td><br />
+<td><tt class="xref docutils literal">long</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">L</tt></td><br />
+<td><tt class="xref docutils literal">unsigned long</tt></td><br />
+<td>long</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">q</tt></td><br />
+<td><tt class="xref docutils literal">long long</tt></td><br />
+<td>long</td><br />
+<td>(2)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">Q</tt></td><br />
+<td><tt class="xref docutils literal">unsigned long<br />
+long</tt></td><br />
+<td>long</td><br />
+<td>(2)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">f</tt></td><br />
+<td><tt class="xref docutils literal">float</tt></td><br />
+<td>float</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">d</tt></td><br />
+<td><tt class="xref docutils literal">double</tt></td><br />
+<td>float</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">s</tt></td><br />
+<td><tt class="xref docutils literal">char[]</tt></td><br />
+<td>string</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">p</tt></td><br />
+<td><tt class="xref docutils literal">char[]</tt></td><br />
+<td>string</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">P</tt></td><br />
+<td><tt class="xref docutils literal">void *</tt></td><br />
+<td>long</td><br />
+<td> </td><br />
+</tr><br />
+</tbody></table><br />
+가령 로그인 메시지를 "ppl" 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
+<p>typedef boost::tuple<string,string,long> msgLogin;</p>
+<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
+<pre><code>- 64 bit integer
+- datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)
+- STL 지원 : list, vector, map, set
+- 비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.
+</code></pre>
+<p>단점이라면 내부 멤버 접근을 userid, passwd 같은 이름 기반이 아니라 get&lt;1&gt;, get&lt;2&gt; 처럼 해야 한다는 점인데, 이건 좀 심하게 귀찮긴 하겠다. 역시 이름 기반 접근이 그나마 컴파일러가 검증해주니 제일 좋은 방법인가.</p>
+<p>자. 만들어주세요.</p></div>
+	
+	<p>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+	</p>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

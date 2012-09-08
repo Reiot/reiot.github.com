@@ -1,697 +1,305 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="dry_run 벌크 로드할 때 dry_run 을 사용해서 실제로 변환이 잘 되는지, configuration 문제는 없는지 체크할 것. 포스트 프로세싱 1. 내보내기할 때 필터링하기 def post_export (instance, dictionary, &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/page/12">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/11/02/weekends-idle-thoughts/">Weekends Idle Thoughts</a> <small>2008-11-02</small></h1>
+	</div>
+	<div><div id="photoImgDiv2108199423" class="photoImgDiv" style="width:502px;">![회원님이 촬영한 AQUA, Anantara, Maldives.](http://farm3.static.flickr.com/2212/2108199423_a3fac43d56.jpg?v=0)</div>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
+<p>오랜만에 사건 사고 없는 한가한 주말이다.</p>
+<p>먼저 boost asio 를 이용해서 이상적인 아름다운 윈도우 서버 코어를 만든다면? 이라는 상상의 나래를 펴봤다. 누가 봐도 멋진 서버 코어가 되려면 어떤 특성을 가져야 할까?</p>
+<pre><code>- 손쉬운 확장성 : 한대의 머신에서 하나의 프로세스로 1천명에서 최대 1만 명을 처리할 수 있도록 확장하는데 무리가 없어야 한다. 즉, IOCP 핸들와 Non I/O Worker 쓰레드를 M:N 으로 조합할 수 있는 구조가 되어야 한다.
+- 이벤트 기반 : 사용자가 늘어나면 폴링은 최대한 피해야 한다. 즉 주기적으로 체크해야 하는 Idle Check 같은 코드들은 타이머 쓰레드에서 Post 시켜야 한다.
+- 메모리 풀 기반의 버퍼 관리 : 입출력 버퍼를 세션이나 소켓과 1:1 정적으로 매핑시키기 보다는, 메모리풀에서 필요할 때마다 주고 받는 구조를 쓰자. Gathering &amp; Scattering 을 위해서는 필수적이다.
+- 버퍼 복사의 최소화 : 어차피 1-recv 는 대세다. 즉, WSABUF를 개별 세션에 연관짓기보다는 메모리 풀에서 관리하고, I/O 쓰레드에서 입력이 완료되었을 때 메시지가 온전치 않으면 버퍼를 재사용해서 다시 요청에 들어가고, 아니면 새로운 버퍼를 게임 쓰레드로 넘기자. 브로드캐스팅할 때에도 버퍼 복사 없이 하나를 사용할 것! 출력의 경우라면 N-Send 를 쓸 수 밖에 없겠다.
+- 동기화의 최소화 : 쓰레드간 통신은 [lock free queue](http://www.codeproject.com/KB/cpp/lockfreeq.aspx) 를 사용해야 한다. 
+- 쓰레드의 최소화 : 서버간 통신, UDP, 추가적인 listen 소켓이 생겨도 쓰레드를 더 만들지 않을 수 있게, IOCP 를 최대한 활용해야 한다.
+- 멀티 코어 대응 : 단지 쓰레드를 많이 만들어서 적당히 잘 돌아가려니..하기 보다는 멀티 코어를 효율적으로 활용하는 방법을 고민해보자.
+- 서비스 기반 아키텍처 : ACE의 그것처럼 서비스를 하나의 프로세스에서 돌리다가 필요하면 다른 서버로 옮기더라도 무리없는 구조가 되어야 한다.
+</code></pre>
+<p>광고성 글이지만 일전에 <a href="http://code.google.com/p/c10k">c10k 라고 서버 코어를 괴롭히는 스트레스 테스트 클라이언트 프레임워크</a>를 구글 코드에 만들어뒀는데 boost asio 테스트만 하다가 중단된 상태다. 대충 아래 그림과 같은 건데...</p>
+<pre><code></code></pre>
 
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
+<p><img alt="http://farm2.static.flickr.com/1106/1248922047_20af4a2d8c_o.jpg" src="http://farm2.static.flickr.com/1106/1248922047_20af4a2d8c_o.jpg" /></p>
+<p>이런 걸 <a href="http://code.google.com/appengine/">구글 app engine</a> 으로 만들고 웹으로 요청하면 쓰레드 1만개 정도 만들어서 서버에 패킷을 보내면 괜찮을 거 같은데... 과연 구글에서 허용할까? (아마 SDK 레벨에서 쓰레드 생성이 막혀 있을 것 같다.) 만약 가능하다고 하면 대충 웹페이지에다가 서버 IP/Port 를 입력하고 테스트 시작을 누르면, 각 테스트 케이스들을 실행하고 성공/실패 여부를 화면에 출력해주는 느낌일 것 같다. (emule 에서 웹 기반으로 TCP 포트 체크하는 거랑 비슷한 거다) 헉. 역시나 찾아보니 안된단다.</p>
+<pre><code>An App Engine application cannot:
+&lt;ul class=&quot;doublespace&quot;&gt;
+    - write to the filesystem. Applications must use [the App Engine datastore](http://code.google.com/appengine/docs/datastore/) for storing persistent data. Reading from the filesystem is allowed, and all application files uploaded with the application are available. (Files uploaded as &quot;static&quot; files are not kept on the filesystem.)
+    - open a socket or access another host directly. An application can use [the App Engine URL fetch service](http://code.google.com/appengine/docs/urlfetch/) to make HTTP and HTTPS requests to other hosts on ports 80 and 443, respectively.
+    - spawn a sub-process or thread. A web request to an application must be handled in a single process within a few seconds. Processes that take a very long time to respond are terminated to avoid overloading the web server.
 
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/17/dryrun/">벌크 로드할 때 &#8211;dry_run 을 사용해서 실제로 변환이 잘 되는지,&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-08-17T03:11:00+09:00" pubdate data-updated="true">Aug 17<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>dry_run  벌크 로드할 때 dry_run 을 사용해서 실제로 변환이 잘 되는지, configuration 문제는 없는지 체크할 것.  포스트 프로세싱  1. 내보내기할 때 필터링하기  def post_export (instance, dictionary, bulkload_state):  if dictionary[‘access’] == ‘secret’:  return None  else:  return dictionary  2. 불러오기할 때 다른 엔티티 만들기  def post_import(input_dict, instance, bulkload_state):  child_instance = models.ChildKind(parent=instance, key_name=input_dict[‘childkey’], value=input_dict[‘childvalue’])  return (instance, child_instance)  데이터가 비어 있을 때 에러가 나지 않게 하기  – transform.none_if_empty (type) (on import)  – transform.empty_if_none (type) (on export)  모델 객체를 써서 검증하기  python_preamble:  - import: mymodels  transformers:  - model: mymodels.Customer</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/17/dblistproperty-bulkload/">db.ListProperty() 을 Bulkload 할 때, 다음 함수를&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-08-17T03:08:00+09:00" pubdate data-updated="true">Aug 17<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>db.ListProperty(string) 을 bulkload 할 때, 다음 함수를 사용할 것  import_transform: transformhelper.split_string(‘;’)  export_transform: transformhelper.join_list(‘;’)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/17/createdeepkey/">Create_deep_key</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-08-17T00:27:00+09:00" pubdate data-updated="true">Aug 17<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
-
-<pre><code>- 부모 키 : AAABBBCCCDDD
-- 자식 키 : AAABBBCCCDDDEEEFFF
+    - make other kinds of system calls, such as [signals](http://www.python.org/doc/2.5/lib/module-signal.html).
 </code></pre>
 
-<p>따라서,  부모의 키값과 자식의 키 아이디 또는 이름을 별도의 컬럼으로 내보내고, 반대로 가져올 때에는 하나로 합쳐서 원래의 키값을 복구해야 한다.</p>
+<p>그나저나 Windows Server 2008 에는 CreateThreadpoolIo() 라든지 GetCurrentProcessorNumber() 같은 해괴한 API 들이 많이 추가된 모양이다. 어디 새로 추가된 API 목록  정리된 페이지 같은 게 없을까?</p>
+<p><img alt="구글 막대 그래프 예제" src="http://www.ibm.com/developerworks/kr/library/wa-googlecode1/chart.jpg" /></p>
+<p>다음 잡상은 <a href="http://www.ibm.com/developerworks/kr/library/wa-googlecode1/">구글 가젯, 구글 스프레드시트 API, 구글 차트 API로 야구 핵을 만들어보자</a> 라는 글을 보고 떠올린 생각.</p>
+<p>서버 개발을 하다 보면 효율적인 리포팅에 대해서 한두번쯤 고민해본다. 수없이 쌓이는 개발자 로그라든지, 동시 접속자나 아이템 판매량 등등의 통계 그래프라든지, GM들에게 노출할 다양한 사용자 액션 추적 기능 같은 것들이 있을텐데, 이런 걸 구글 apps 기반에 통합해버리면 어떨까 하는 생각이다.</p>
+<p>요즘의 추세는 온라인으로 이 모든 정보를 확인할 수 있는 웹 기반 솔루션을 만드는 것일텐데, 그렇다면 가젯으로 만들어서 구글 시작 페이지에 넣고 권한 관리를 해버리면 되지 않을까? 자자. 이건 상상이니까 안되는 이유에 대해서는 고민하지 말자.</p>
+<p>전사적으로 수많은 서버들의 상황을 한번에 모니터링하기에는 꽤 괜찮은 솔루션일 듯하다.  (물론 MS의 리포팅 서비스가 더 멋지긴 하겠다만..)</p></div>
+	
+	<p>
+	
+		<a href="/tag/ASIO/"><span class="label">ASIO</span></a>
+	
+		<a href="/tag/google/"><span class="label">google</span></a>
+	
+		<a href="/tag/spreadsheet/"><span class="label">spreadsheet</span></a>
+	
+		<a href="/tag/chart/"><span class="label">chart</span></a>
+	
+		<a href="/tag/gardget/"><span class="label">gardget</span></a>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/10/27/blob-quiz/">Blob Quiz</a> <small>2008-10-27</small></h1>
+	</div>
+	<div><p><img alt="http://upload.wikimedia.org/wikipedia/en/d/df/The_Blob_poster.jpg" src="http://upload.wikimedia.org/wikipedia/en/d/df/The_Blob_poster.jpg" />요즘 고민하고 있는 문제인데, 보안상의 이유로 비유적으로 설명해보겠다. (실제로 이런 일을 하고 있는 건 아니다 -_-)</p>
+<p>이글아이처럼 우리 국정원에서도, 1분 정도의 음성 통화를 대충 100K 로 압축할 수 있는 압축 알고리즘을 기반으로 하는 휴대폰 통화 감청 시스템을 구축한다고 가정하자.  하루에 10 테라바이트 씩 쌓이긴 하지만, 당연히 각 통화 데이터 끼리의 연관성은 없고, 오직 2개의 송신/수신 전화번호의 키값으로 구분될 뿐이다.</p>
+<p>모든 데이터들은 프라이버시 보호보다는 HDD 부족으로 2주 정도만 지속되며, 오직 리만브라더즈 2명만 들을 수 있다. 물론 둘 다 바빠서 아무도 듣지 않을 수도 있지만, 그래도 무조건 남기긴 남겨야 하는 이 프로젝트를 당신이 맡게 되었다. (아싸 비유를 만들어내는 게 더 리얼하구나~)</p>
+<p>문제는, 연기금을 모두 주가 부양에 써버린 나머지 PC 조립 서버 몇 대만으로 최대한 싸게 구현해야 한다면, 어떤 솔루션을 선택해야 할까? (한줄로 요약하면, <strong>자잘한 BLOB 들이 산더미처</strong><strong>럼 만들어질 때의 안정적인 관리 및 검색</strong>의 문제인데 검색의 비중이 상당히 낮은 케이스라고 할 수 있다.)</p>
+<pre><code>- 파일 시스템 : 분산 컴퓨터들의 RAID로 보호되는 파일 시스템에 남기고, 검색은 그냥 폴더명으로.. 백업이 없어서 좀 무섭다.
+- 파일 시스템 + 복제 : 안전을 위해 남기는 넘과 읽는 넘을 분리. 안 읽는 넘도 복제해야 한다는게 좀 아깝지만.
+- 분산 데이터베이스 : blob insert 는 좀 힘들지만 어쨌든 검색은 쿼리다.
+- 분산 데이터베이스 + 복제 : 역시 불필요한 복제의 딜레마는 마찬가지.
+- 분산 파일 시스템 + 데이터베이스 : 검색은 파일 시스템, DB는 2차 백업으로... (이건 오버인가;;)
+- 기가비트 이더넷 + HTTP : 분산 컴퓨터들을 기가비트 이더넷으로 묶고, HTTP 서버가 공유 폴더로 인식, Rest 방식으로 다운로드
+- [in-memory 테이블이나 데이터베이스](http://en.wikipedia.org/wiki/In-memory_database): 어차피 용량의 한계로 안될 듯!
+</code></pre>
+<div>그러고보면 팝폴더 같은 파일 공유 서비스 회사에서, 어떻게 데이터를 관리하는지 궁금해지는구나.</div>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>property_map:
-</span><span class='line'>  - property: __key__
-</span><span class='line'>  external_name: Activity
-</span><span class='line'>  import_transform:  transform.create_deep_key((‘Visit’, ‘Visit’), (‘VisitActivity’, ‘Activity’))
-</span><span class='line'>  export:
-</span><span class='line'>  - external_name: Visit
-</span><span class='line'>  export_transform: transformhelper.extract_deep_key(1)
-</span><span class='line'>  - external_name: Activity
-</span><span class='line'>  export_transform: transformhelper.extract_deep_key(2)</span></code></pre></td></tr></table></div></figure>
+<div></div>
 
+<div>-- 추가 --</div>
 
-<p>이때 만약 키가 아니라 id/name 을 내보내고 싶다면,  transform.key_id_or_name_as_string_n(N) 을 사용할 것.</p>
+<div></div>
+
+<div>배래군의 조언에 의하면</div>
+
+<div>
+
+    - [memory mapped file](http://en.wikipedia.org/wiki/Memory-mapped_file)을 사용하려면 거의 무한한 크기를 지원하는 64비트 버전을 사용할 것
+    - 사용자 증가로 인해 시스템을 확장할때 스트레스 받지 않는 방법을 사용할 것. 안그러면 lock-in 됨.
+
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/13/google-app-engine-tips/">Google App Engine Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-08-13T00:15:00+09:00" pubdate data-updated="true">Aug 13<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png"><img src="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png"></a>구글 앱 엔진으로 개발하면서 학습한 내용을 정리합니다. 이론적으로 혹은 실제 서비스할 때 잘못되거나 틀린 부분이 있을 수 있음을 미리 알려 드립니다.</p>
-
-<p><strong>검증 및 마이그레이션의 책임은 &#8216;프로그래머&#8217;가 진다.</strong></p>
-
-<p>관계형 데이터베이스의 경우, 스키마 및 그 정합성을 검증할 책임이 데이터베이스 엔진에 있는 반면, 구글 데이터스토어는 분산 및 속도 향상을 위해, 스키마와 검증의 책임이 프로그램 쪽으로 넘어와 있다. 이게 무슨 뜻이냐 하면, 같은 모델(테이블)에 서로 다른 필드로 구성된 객체(Entity,열)가 들어갈 수 있다는 뜻이다. 따라서 데이터스토어는 임의의 데이터 집합을 쿼리해서 읽어왔을 때, 그 안에 어떤 데이터가 들어가 있을지 모르기 때문에, 마이그레이션 역시 프로그램이 책임지고 구현해야 한다. 새로 속성(Property,컬럼)을 추가하거나, 삭제하려면 해당 모델에 속한 모든 객체들을 찾아서 하나씩 변경해줘야 한다.</p>
-
-<p>예를 들어, 어떤 모델의 속성이 더이상 필요없어져서 삭제하려면, 무려 <a href="http://code.google.com/intl/ko-KR/appengine/articles/update_schema.html">소스 코드에서 모델의 부모 클래스를 바꿔서 저장한 후, 서버에 터미널을 열고 수동으로 해당 속성들을 지우고 다시 돌아와서 코드를 롤백하는 등의 수고로움</a>이 필요하다.</p>
-
-<p>이런 이유로, 가급적이면 앱엔진에서 서비스중에, 모델의 특정 속성 이름을 바꾸는 일은 피해야 한다.</p>
-
-<p><strong>트랜잭션으로 묶을 객체들은 &#8216;생성&#8217; 시점에 부모를 지정해야 한다.</strong></p>
-
-<p>관계형 데이터베이스에서는 서비스 이후에도 적당히 쿼리 최적화와 마이그레이션을 통해서 새로 트랜잭션을 추가할 수 있다. 그런데, 데이터스토어는 좀 다르다. 왜냐하면 일단 만들어진 객체의 키값은 절대 변경될 수 없는데, 트랜젹션으로 묶을 객체들은 생성 시점에 미리 같은 부모 객체를 지정해서, 같은 엔티티 그룹으로 만들어 줘야 하기 때문이다. 아마도 분산 트랜잭션을 피하기 위해서, 같은 그룹에 속한 객체들을 동일한(또는, 가급적 가까운?) 물리적인 노드에 두기 위함일테다.</p>
-
-<p>또한 동시에 여러 명이 같은 데이터를 변경하는 등의 충돌을 방지하려면, 주의깊게 부모 엔티티를 고르거나 아예 이런 일이 없도록 설계하는 것이 중요하다. 이런 제약으로 인해, 개발 시점에 어떤 트랜잭션이 필요할 것인지를 미리 예측하고, 코드 레벨에서 부모 객체를 미리 만들어둬야 한다. 구체적인 예를 들자면, 어떤 플레이어에 속한 모든 아이템, 도전과제, 퀘스트 같은 하위 객체들은 플레이어를 부모로 가지는 게 정신 건강에 좋다는 정도가 되겠다.</p>
-
-<p>이처럼 앱엔진 개발은 유지 보수의 책임이 데이터베이스가 아니라 프로그래머의 영역이 된다는 점을 항상 염두에 둬야 한다.</p>
-
-<p><strong>키 이름(key_name), 아이디(id)의 용도를 잘 구분해야 한다.</strong></p>
-
-<p>모든 객체는 시스템에서 유일한 키 값을 가진다는 점은 비교적 이해하기가 쉽다. 그런데, 키 이름(문자열)과 아이디(정수) 중 하나만을 가져야 한다는 점은 처음에 좀 헷갈렸다. 과연 어떤 객체에는 키 이름을 쓰고, 어디에는 아이디를 자동 생성해야 하는지가 할까? 처음엔, 해석을 잘못해서 키 이름이 시스템 전체에서 유일한 줄 알아서 많이 헤맸었는데, 알고보니 같은 모델(정확하게는 엔티티 그룹)안에서만 유일하면 된다는 것을 늦게서야 알게 되었다.</p>
-
-<p>결론부터 말하자면, 내가 맞게 쓰고 있는 건지는 모르지만, 개발 시점에 미리 생성해둬야 하는 정적인 객체들(아이템 정보, 맵 정보, 밸런싱 데이터 등 유일성을 개발 시점에 파악할 수 있는 객체들)에게는 유일한 키 이름을 할당해서, 향후 빠른 변경 및 접근을 할 수 있게 하고, 런타임에 생성하기 때문에 유일성을 미리 파악하기 힘든 다른 수많은 객체들(계정, 플레이어, 아이템 인스턴스, 도전 과제 인스턴스 등)은 자동으로 아이디를 할당받게 하는 게 좋다.</p>
-
-<p>그런데, 개발을 위해서 동일한 코드를 기반으로 서로 다른 app-id를 가진 구글 앱엔진 서버(Development - Test - Production)를 운영할 경우, 자동으로 만들어져서 아이디를 가진 객체들 - 특히나 ReferenceProperty 로 관계가 맺어진 넘들-을 다른 서버로 옮기는 것이 거의 불가능하다는 점에 유의해야 한다. 왜냐하면 객체의 키값에 이미 app-id 가 들어가 있기 때문에 CSV 등으로 백업해서 복원할 경우, 만약  기존에 동일한 id 를 가진 객체가 존재하면 그냥 덮어써버리기 때문이다. :(</p>
-
-<p><strong>쿼리(datastore_v3.RunQuery)와 읽기(datastore_v3.Get)의 차이를 이해해야 한다.</strong></p>
-
-<p>ReferenceProperty 를 이용하면, 1:N 의 관계를 표현할 수 있다. 아래의 코드처럼</p>
-
-<p>[code language=&#8221;python&#8221;]
-class Player(db.Model):
-  pass
-class Item(db.Model):
-  player = db.ReferenceProperty(Player,collection_name=&#8221;items&#8221;)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>과 같이 정의된 경우, player.items 라는 역참조가 자동적으로 만들어진다. 문제는 이게 코드를 읽을 때에는 왠지 캐싱이 될 것처럼 보이지만, 내부적으로 datastore_v3.RunQuery 라는 RPC가 호출되기 때문에 매번마다 다시 데이터스토어에서 읽어온다는 점이다. 무조건 [appstat](http://code.google.com/intl/ko-KR/appengine/docs/python/tools/appstats.html) 을 활성화시켜 두고, 조금이라도 반응 속도가 느린 요청이 있으면 항상 확인하는 버릇을 길러야 한다.
-</span><span class='line'>
-</span><span class='line'>반대로 이미 키값을 알고 있는 item 의 소유자 이름을 읽어오려면, item.player.name 처럼만 하면 된다. 그런데 내부적으로 datastore_v3.Get 요청은 특정 필드만 읽어오는 기능을 지원하지 않기 때문에, 항상 모든 속성들이 다 읽어지게 된다. 더욱 무서운 점은 그냥 item.player 나 item.player.key() 라고만 해도 Get 요청이 이루어진다는 거다. 만약 참조하는 객체의 하위 속성이 아니라 오직 키값만 알고 있으면 되는 경우에는 model_name.reference_prop.get_value_for_datastore(entity) 를 이용하면, 코드는 더러워지지만 불필요한 요청을 피할 수 있다.
-</span><span class='line'>
-</span><span class='line'>특히 루프 안에서 참조키의 하위 속성을 읽는 짓은 가급적 피하는 것을 권장한다.
-</span><span class='line'>
-</span><span class='line'>[code language="python"]
-</span><span class='line'>for item in Item.all().filter():
-</span><span class='line'>  if item.player.hp == 0: # bad bad
-</span><span class='line'>  pass</span></code></pre></td></tr></table></div></figure>
-
-
-<p>계속 추가할 예정입니다 :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/10/jquery-removeclass-css-sprite/">jQuery removeClass</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-08-10T17:25:00+09:00" pubdate data-updated="true">Aug 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>css sprite 는 특정 DIV 에 CSS 스프라이트 클래스를 설정해서 배경 이미지를 보여주는 방식인데, 문제는 이전에 어떤 클래스 이름이 들어가 있는지 알 수 없다는 거다. 즉 정규식으로 클래스 이름을 검색해서 스프라이트 클래스만을 찾아서 지우고 새 스프라이트 클래스를 넣어야 한다.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>.removeClass(function(index,class_str){
-</span><span class='line'>  var class_list = class_str.split(' ');
-</span><span class='line'>  for ( var i = 0 ; i &lt; class_list.length ; i ++ ) {
-</span><span class='line'>  var cls = class_list[i];
-</span><span class='line'>  if ( cls.match(/unit-.+?_(L|R)/) ) {
-</span><span class='line'>  return cls;
-</span><span class='line'>  }
-</span><span class='line'>  }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>주의할 점은, 이 콜백 함수가 $.each 처럼 기존 클래스 명 하나하나마다 호출되는게 아니라, 그냥 공백으로 구분된 클래스 이름 문자열을 파라미터로 넘겨서 한번만 실행된다는 점이다. (index 는 왜 있는 거지;;;)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/10/class-adbmodel-b-dbreferenceprope/">Class A(db.Model): B = db.ReferencePrope&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-08-10T16:40:00+09:00" pubdate data-updated="true">Aug 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>class A(db.Model):  b = db.ReferenceProperty()  <em>b = load_B()  for a in A.all().fetch(1000):  if a.b == </em>b.key():  print we found  break  위와 같은 예제에서 단지 특정 모델의 ReferenceProperty 키값만을 비교하려고 할 때에도 datastore_v3.Get 이 일어나서, 참조하는 모델의 전체 값을 읽어오게 된다. 이때 get_value_for_datastore() 를 사용하면 불필요한 로딩을 막아준다.  for a in A.all().fetch(1000):  if A.b.get_value_for_datastore(a)!= _b.key():</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/08/10/jquery-ui-dialog-o/">Jquery Ui Dialog 의 경우 (같은 다이얼로그라 할지라도) O&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-08-10T01:05:00+09:00" pubdate data-updated="true">Aug 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jquery ui dialog 의 경우 (같은 다이얼로그라 할지라도) open 할 때마다 z-index 가 증가한다.  초반 생성자에서 zIndex 를 넣어도 안된다;;;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/07/30/safari-iframe-cookie-iframe/">Safari Iframe Cookie 문제 사파리는 Iframe 안에 있&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-07-30T00:38:00+09:00" pubdate data-updated="true">Jul 30<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>safari iframe cookie 문제  사파리는 iframe 안에 있는 외부 사이트가 보낸 쿠키를 무시한다. 만약 사용자가 의도적으로 클릭하거나, (또는 ajax, 자동 redirecting 등으로) 해당 사이트와 통신을 하고 난 다음에는, 해당 사이트의 쿠키를 받아들인다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/07/20/git-branch-d-r-origi/">리모트 브랜치 목록에서 삭제하기 Git Branch -d -r Origi&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-07-20T21:36:00+09:00" pubdate data-updated="true">Jul 20<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>리모트 브랜치 목록에서 삭제하기  git branch -d -r origin/  리모트 브랜치를 실제로 지우기  git push origin :branch_to_delete</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/07/16/css3-css-lilast/">[Css3] CSS 선택자에서 마지막 엘리먼트를 고를 때 Li:last-&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-07-16T22:03:00+09:00" pubdate data-updated="true">Jul 16<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[css3] CSS 선택자에서 마지막 엘리먼트를 고를 때  li:last-child {}  처럼 할 것. first-child 는 IE7 부터 대충 지원하긴 한다</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/13/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/11/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+<div>분산 환경에서도 일관성있게 접근하려면 아무래도 중앙 집중화된 DB 인데, 용량의 제약이 있으니... 뭔가 하나의 URL로 분산된 컴퓨터들 어딘가에 저장된 리소스를 한번에 가져올 수 있는 솔루션이 뭐가 있지? </div>
+
+<div></div>
+
+<div>큰 flat 파일 안에 트랜잭션을 지원하는 small blob bulk insert & rarely select 가 빠른 무언가가 필요하다. 가상 파일 시스템중에서 찾아봐야 할까나~ 아니면 sqlite + virtual table + memory mapped file 라도 테스트해봐야 하나..</div></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/10/24/variadic-macros/">Variadic Macros</a> <small>2008-10-24</small></h1>
+	</div>
+	<div><p>GCC 3.0 과 Visual Studio 2005 에서부터 지원하는 <a href="http://en.wikipedia.org/wiki/Variadic_macro">가변인자 매크로</a>는 <strong>VA_ARGS</strong> 로 치환된다. 알고보니 이게 1999년도에 제정된 <a href="http://en.wikipedia.org/wiki/C99">C99 표준안중 하나</a>였다는데, <a href="http://www.swallowstudio.com/wiki/doku.php?id=technicalarticles:variadicmacros">GCC에서는 약간 다른 방식도 지원</a>했던 모양이다.</p>
+<p>[code language="cpp"]</p>
+<h1>define MY_LINUX_LOG(fmt,args...) printf(fmt,##args)</h1>
+<h1>define MY_WIN_LOG(fmt,...) printf(fmt,<strong>VA_ARGS</strong>)</h1>
+<p>```</p>
+<p>뭔가 있었던거 같은데 도저히 기억도 안나고 오후 무렵에는 인터넷도 안되어서 그냥 __noop 로 고쳤는데, 집에 와서 찾아보니 MSDN 전처리기 섹션에 버젓히 자리잡고 있었다. 쩝. (늙은건가!) 이 외에도 오늘 마이그레이션 과정에서 겪었던 내용을 조금 정리해보면...</p>
+<pre><code>- __func__ / __PRETTY_FUNCTION__ 과 __FUNCTION__ : 이런건 #define 으로 해결 가능하다.
+- sleep() 과 Sleep() : 초단위 계산 잘못하면 CPU를 99% 잡아먹는다. 헤헤.
+- gettimeofday() 는 리눅스에서만 지원한다. [윈도우에서는 직접 구현](http://alones.kr/blog/654?TSSESSIONaloneskrblog=2182012b6093486515612f823d0561d8)해야 한다.
+- random() 과 rand()
+- 매크로를 이용해서 모든 .cpp 에다가 #stdafx.h 붙이기 -_-;
+- buffer overflow 가 자주 발생하는 패턴을 정규식으로 찾아내서 일괄적으로 버퍼 크기 증가시키기
+</code></pre>
+<p>그 중에서도 압권은 바로 <a href="http://en.wikipedia.org/wiki/Variable-length_array">variable length array</a> 일 것이다. 물론 이건 GCC 에서만 가능한 일인데, 내일 출근해서 std::vector 로 고치고, 경고 레벨4로 다시 컴파일해봐야겠다. </p>
+<p>[code language="cpp"]<br />
+void func(int n)<br />
+{<br />
+    float  vals[n];<br />
+    //....<br />
+}<br />
+ ```</p>
+<p>그나저나, 일본에는 40살이 넘어도 리눅스에서 서버 프로그래밍을 한다던데... 웬지 그런 사회 풍조가 부러울 따름이다. 분명히 그 아저씨의 책상 옆에는 콜라 캔들이 정리되어 있고, vi 로 코딩하다가 make 걸어놓고 네트핵을 즐길 것 같은데 말이다.</p>
+<p>[caption id="" align="aligncenter" width="500" caption="요즘 네트핵은 이정도다!"]<a href="http://cfs2.tistory.com/upload_control/download.blog?fhandle=YmxvZzM4NjMxQGZzMi50aXN0b3J5LmNvbTovYXR0YWNoLzAvMS5qcGc=" target="_blank"><img alt="요즘 네트핵은 이정도다!" src="http://cfs2.tistory.com/upload_control/download.blog?fhandle=YmxvZzM4NjMxQGZzMi50aXN0b3J5LmNvbTovYXR0YWNoLzAvMS5qcGc=" /></a>[/caption]</p>
+<p>어쨌든, 이로서 오늘 시작한 리눅스에서 윈도우로의 마이그레이션은 내일중으로는 완료될 듯!!</p>
+<p>ps. 오늘 드디어 변태군의 야심작 <a href="http://game4.netmarble.net/prius/main.asp">프리우스 온라인</a>이 대망의 오픈 베타에 들어갔다. 회사에서 누가 해보길래 은근슬쩍 "제 후배가 이거 만들었어요" 라고 자랑을 하긴 했는데... ㅋㅋ 초반 다운 안되고 무사히 서비스되기를 기원해본다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/nethack/"><span class="label">nethack</span></a>
+	
+		<a href="/tag/migration/"><span class="label">migration</span></a>
+	
+		<a href="/tag/linux/"><span class="label">linux</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/10/22/tracking-solution-item-in-visual-studio/">Tracking Solution Item</a> <small>2008-10-22</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg" /></a></p>
+<p>현재 편집기에 선택한 문서를 솔루션 탐색기에서 찾아주는 옵션이다. 프로젝트가 여러 개이거나 폴더 트리가 깊을 경우 유용하다. (Visual Studio 2005 이상)</p>
+<p><a href="http://www.google.co.kr/search?rlz=1C1GGLS_koKR294&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=솔루션+탐색기에서+활성화된+항목+추적">아시는 분들</a>도 꽤 많으시지만, <a href="http://suigui.com/wordpress/2008/10/22/디버깅-watch/">DDD(Debugging Driven Development)의 창시자</a>이신 모군도 모르는 옵션이라고 해서 한번 써본다.</p>
+<p>ps. 소니군이 최근 <a href="http://sonee.com/253">미국 불황의 여파와 중국 올림픽 덕분에 캔슬된 비운의 프로젝트의 스크린샷</a>을 공개했으니 한번쯤 구경해주시기 바란다.</p>
+<p>[caption id="" align="aligncenter" width="500" caption="Real Baseball 2009(Ceased)"]<a href="http://sonee.com/253" target="_blank"><img alt="http://cfs15.tistory.com/upload_control/download.blog?fhandle=YmxvZzk4OTRAZnMxNS50aXN0b3J5LmNvbTovYXR0YWNoLzAvMC5qcGc=" src="http://cfs15.tistory.com/upload_control/download.blog?fhandle=YmxvZzk4OTRAZnMxNS50aXN0b3J5LmNvbTovYXR0YWNoLzAvMC5qcGc=" /></a>[/caption]</p></div>
+	
+	<p>
+	
+		<a href="/tag/visualstudio/"><span class="label">visualstudio</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/10/22/edit-pray/">Edit & Pray</a> <small>2008-10-22</small></h1>
+	</div>
+	<div><p><img alt="http://web.mit.edu/cat/Desktop/cat/images/pray.jpg" src="http://web.mit.edu/cat/Desktop/cat/images/pray.jpg" /></p>
+<pre><code>Changes in a system can be made in two primary ways. I like to call them* Edit And Pray *and *Cover and Modify.* Unfortunately, *Edit and Pray* is pretty much the industry standard.
+
+--Michael C. Feathers
+
+</code></pre>
+
+<p>TDD를 쓰지 않는 대부분의 프로그래머들은 <a href="http://suigui.com/wordpress/2008/10/10/editcontinue-쓰시나요/">Edit &amp;Continue</a> 보다는 Edit &amp; Pray 를 더 사랑한다. 물론 나도 컴파일러와 윈도우 커널와 쓰레드들에게 자주 빌기도 하지만, 언젠가부터 테스트 없이 일을 진행하면 아무리 실행이 잘되어도 마음 한구석이 편치 않게 되는 경우가 많아졌다. 테스트 통과 후 커밋할 때의 쾌감에 중독되었기 때문인데, 사소한 것까지 테스트한다고 잔소리를 들은 후에야 겨우 벗어날 수 있었다. 그래서 요즘에는 라이브러리 학습이나 개인적인 프로젝트에서만 테스트를 활용하고 있다. </p>
+<p>최근, 새 프로젝트에서 한정된 시간안에 핵심적인 로직을 제외한 나머지 - 플랫폼, 데이터베이스, 네트워크 프레임워크 외 다수- 들을 마이그레이션하면서 성능과 안정성을 동시에 만족시켜야 하는, 그야말로 도전적인 과제를 맡았다. 이 <a href="http://www.xevious7.com/300">세마리 토끼를 한방에 잡아주는 은총알이 없는 거야</a> 당연하지만, 그렇다고 점진적으로 리팩토링해나가면서 지켜보는 것도 불가능한 상황이다. 비유적으로 말하자면, <a href="http://www.google.co.kr/search?rlz=1C1GGLS_koKR294&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=직불금">새로 논밭을 사서 농사를 대충 짓다가 적당히 직불금을 받아먹은 후 양도세를 면제받은 후(응?)</a>, 기존의 집을 그대로 들어 올려서 새 토지에 얹어 놓고, 인테리어를 막판에 갈아 엎는 대공사를 할 수 밖에 없을 것 같다. 물론 기도를 빠뜨리면 안되겠지만.</p>
+<p>어쨌거나 기회가 되면 <a href="http://reiot.cafe24.com/2008/07/04/google-test/">google test</a>를 써보고 싶은데, 이 대운하에 버금가는 공사에서 가능할 것인지 나도 참 궁금하다. 쉬귀군이 밥먹다가 말한 것처럼 삽질이 되면 안되는데... 후덜덜.</p></div>
+	
+	<p>
+	
+		<a href="/tag/test/"><span class="label">test</span></a>
+	
+		<a href="/tag/refactoring/"><span class="label">refactoring</span></a>
+	
+		<a href="/tag/legacy/"><span class="label">legacy</span></a>
+	
+		<a href="/tag/TDD/"><span class="label">TDD</span></a>
+	
+	</p>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/13/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/13">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2008/11/02/weekends-idle-thoughts/">Weekends Idle Thoughts</a>
+	</li>
+	
+	<li>
+		<a href="/2008/10/27/blob-quiz/">Blob Quiz</a>
+	</li>
+	
+	<li>
+		<a href="/2008/10/24/variadic-macros/">Variadic Macros</a>
+	</li>
+	
+	<li>
+		<a href="/2008/10/22/tracking-solution-item-in-visual-studio/">Tracking Solution Item</a>
+	</li>
+	
+	<li>
+		<a href="/2008/10/22/edit-pray/">Edit & Pray</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
 </html>

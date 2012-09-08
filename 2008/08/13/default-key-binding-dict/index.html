@@ -1,382 +1,118 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>DefaultKeyBinding.dict - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="OSX 에서 윈도우와 같은 키조합을 사용하려면 ~/Library/KeyBindings/DefaultKeyBinding.dict 파일을 아래와 같이 만든 후, 키바인딩을 적용하려는 어플리케이션을 재시작하면 된다. 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2008/08/13/default-key-binding-dict">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
+	<article>
+	<div class="page-header">
+		<h1><a href="/2008/08/13/default-key-binding-dict/">DefaultKeyBinding.dict</a> <small>2008-08-13</small></h1>
+	</div>
+	<div><p>OSX 에서 윈도우와 같은 키조합을 사용하려면 <strong>~/Library/KeyBindings/DefaultKeyBinding.dict </strong>파일을 아래와 같이 만든 후, 키바인딩을 적용하려는 어플리케이션을 재시작하면 된다.</p>
+<pre><code>
+{
+    &quot;$\Uf700&quot; = &quot;moveUpAndModifySelection:&quot;;
+    &quot;$\Uf701&quot; = &quot;moveDownAndModifySelection:&quot;;
+    &quot;$\Uf702&quot; = &quot;moveLeftAndModifySelection:&quot;;
+    &quot;$\Uf703&quot; = &quot;moveRightAndModifySelection:&quot;;
+    &quot;$\Uf729&quot; = &quot;moveToBeginningOfLineAndModifySelection:&quot;;
+    &quot;$\Uf72b&quot; = &quot;moveToEndOfLineAndModifySelection:&quot;;
+    &quot;^\b&quot; = &quot;deleteWordBackward:&quot;;
+    &quot;^$\Uf702&quot; = &quot;moveWordBackwardAndModifySelection:&quot;;
+    &quot;^$\Uf703&quot; = &quot;moveWordRightAndModifySelection:&quot;;
+    &quot;^$\Uf729&quot; = &quot;moveToBeginningOfDocumentAndModifySelection:&quot;;
+    &quot;^$\Uf72b&quot; = &quot;moveToEndOfDocumentAndModifySelection:&quot;;
+    &quot;^a&quot; = &quot;selectAll:&quot;;
+    &quot;^c&quot; = &quot;copy:&quot;;
+    &quot;^s&quot; = &quot;saveDocument:&quot;;
+    &quot;^v&quot; = &quot;paste:&quot;;
+    &quot;^x&quot; = &quot;cut:&quot;;
+    &quot;^z&quot; = &quot;undo:&quot;;
+    &quot;^&quot; = &quot;deleteWordForward:&quot;;
+    &quot;^\Uf702&quot; = &quot;moveWordLeft:&quot;;
+    &quot;^\Uf703&quot; = &quot;moveWordRight:&quot;;
+    &quot;^\Uf728&quot; = &quot;deleteWordForward:&quot;;
+    &quot;^\Uf729&quot; = &quot;moveToBeginningOfDocument:&quot;;
+    &quot;^\Uf72b&quot; = &quot;moveToEndOfDocument:&quot;;
+    &quot;\Uf729&quot; = &quot;moveToBeginningOfLine:&quot;;
+    &quot;\Uf72b&quot; = &quot;moveToEndOfLine:&quot;;
+    &quot;\Uf72c&quot; = &quot;pageUp:&quot;;
+    &quot;\Uf72d&quot; = &quot;pageDown:&quot;;
+}
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">DefaultKeyBinding.dict</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-08-13T09:09:19+09:00" pubdate data-updated="true">Aug 13<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>OSX 에서 윈도우와 같은 키조합을 사용하려면 <strong>~/Library/KeyBindings/DefaultKeyBinding.dict </strong>파일을 아래와 같이 만든 후, 키바인딩을 적용하려는 어플리케이션을 재시작하면 된다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf700&quot;</span> <span class="o">=</span> <span class="s">&quot;moveUpAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf701&quot;</span> <span class="o">=</span> <span class="s">&quot;moveDownAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf702&quot;</span> <span class="o">=</span> <span class="s">&quot;moveLeftAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf703&quot;</span> <span class="o">=</span> <span class="s">&quot;moveRightAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfLineAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;$\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfLineAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^</span><span class="se">\b</span><span class="s">&quot;</span> <span class="o">=</span> <span class="s">&quot;deleteWordBackward:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^$\Uf702&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordBackwardAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^$\Uf703&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordRightAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^$\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfDocumentAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^$\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfDocumentAndModifySelection:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^a&quot;</span> <span class="o">=</span> <span class="s">&quot;selectAll:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^c&quot;</span> <span class="o">=</span> <span class="s">&quot;copy:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^s&quot;</span> <span class="o">=</span> <span class="s">&quot;saveDocument:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^v&quot;</span> <span class="o">=</span> <span class="s">&quot;paste:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^x&quot;</span> <span class="o">=</span> <span class="s">&quot;cut:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^z&quot;</span> <span class="o">=</span> <span class="s">&quot;undo:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^&quot;</span> <span class="o">=</span> <span class="s">&quot;deleteWordForward:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^\Uf702&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordLeft:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^\Uf703&quot;</span> <span class="o">=</span> <span class="s">&quot;moveWordRight:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^\Uf728&quot;</span> <span class="o">=</span> <span class="s">&quot;deleteWordForward:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfDocument:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;^\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfDocument:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;\Uf729&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToBeginningOfLine:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;\Uf72b&quot;</span> <span class="o">=</span> <span class="s">&quot;moveToEndOfLine:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;\Uf72c&quot;</span> <span class="o">=</span> <span class="s">&quot;pageUp:&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="s">&quot;\Uf72d&quot;</span> <span class="o">=</span> <span class="s">&quot;pageDown:&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+</code></pre>
 
 <p>Ctrl+D 같은 손에 익은 키조합들을 적용하려면 아래의 문서들을 참고하기 바란다.</p>
-
 <pre><code>- [Cocoa Text System](http://www.hcs.harvard.edu/~jrus/Site/System%20Bindings.html)
 - [Customizing Cocoa Text System](http://www.hcs.harvard.edu/~jrus/site/cocoa-text.html)
-</code></pre>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-08-13T09:09:19+09:00" pubdate data-updated="true">Aug 13<span>th</span>, 2008</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2008/08/13/default-key-binding-dict/" data-via="reiot" data-counturl="http://reiot.com/2008/08/13/default-key-binding-dict/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2008/08/08/the-abcs-of-xbox-360-dlc/" title="Previous Post: The ABCs of Xbox 360 DLC">&laquo; The ABCs of Xbox 360 DLC</a>
-      
-      
-        <a class="basic-alignment right" href="/2008/08/16/stay-hungry-stay-foolish/" title="next Post: Stay Hungry, Stay Foolish">Stay Hungry, Stay Foolish &raquo;</a>
-      
-    </p>
-  </footer>
+</code></pre></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2008/08/13/default-key-binding-dict/';
-        var disqus_url = 'http://reiot.com/2008/08/13/default-key-binding-dict/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

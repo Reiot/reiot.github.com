@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2006/06/23/vs2005-vs2003-함께-사용하기/">VS2005 & VS2003 함께 사용하기</a> <small>2006-06-23</small></h1>
+	</div>
+	<div><p>Visual Studio 2005를 설치한 다음 Visual Studio 2003을 설치하면, 우선 탐색기에서 솔루션과 프로젝트 파일에 대한 연결이 깨지며, 두번째로는 크래시 발생시 디버거 선택 창에서 VS2005 가 사라진다. 원래 VS2005에서는 이런 문제를 해결하기 위해서 Visual Studio Version Selector(%ProgramFiles%\Common Files\Microsoft Shared\MSEnv\VSLauncher.exe)를 제공하는데, 설치 순서가 바뀌는 바람에 이게 날아가는 바람에 생기는 문제들이다.</p>
+<h2>파일 연결 복구</h2>
+<p>파일 연결을 복구하는 것은 간단하다.</p>
+<ul>
+<li>솔루션이나 프로젝트 파일을 시프트+우클릭을 해서 연결 프로그램을 선택한 다음 Version Selector를 지정하면 된다.</li>
+<li><strong>도구 - 옵션 - 환경 - 일반</strong> 에서 파일 연결 복원 버튼을 누른다.</li>
+</ul>
+<h2>디버거 연결 복구</h2>
+<p>디버거 연결을 복구하는 방법은 여러 가지가 있다.</p>
+<ul>
+<li>레지스트리 수정 : regedit 로 AeDebug 키를 찾은 다음 Debug 하위키를 아래와 같이 변경하면 된다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug\Debug</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"C:\WINDOWS\system32\vsjitdebugger.exe" -p %ld -e %ld</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>도구 - 옵션 - 디버깅 - Just-In-Time</strong> 메뉴에서 적당히 선택한 후 저장한다.</li>
+<li><strong>도구 - 설정 가져오기 및 내보내기</strong>에서 모두 다시 설정을 선택해도 된다.</li>
+</ul></div>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

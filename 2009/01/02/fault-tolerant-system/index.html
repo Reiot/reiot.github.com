@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/02/fault-tolerant-system/">Fault Tolerant System</a> <small>2009-01-02</small></h1>
+	</div>
+	<div><p>얼랭스터디에서 얼랭/OTP 의 무정지성(Fault Tolerance)에 대해서 소개하자,</p>
+<pre><code>&quot;문제가 생긴 서버를 되살리는 것도 좋은데, 메모리상의 중요한 데이터들을 어떻게 다른 서버로 안전하게 전송할 수 있는가?&quot;```
+라는 질문이 나왔다. 여기에 대해서 가장 먼저 떠오른 생각은
+</code></pre>
+
+<p>"클라이언트와의 연결은 어차피 날아가는 거고, 과연 그 서버 안에 있는 데이터까지 살릴 만한 가치가 있는 것일까?"```<br />
+라는 것이었다. 일반적인 C++ 서버의 경우 오류로 인한 서버의 크래시가 발생했을 때 당연히 SEH 를 이용해서 그 순간을 캡처해낼 수는 있다. 그러나 문제는 그때의 메모리가 정말 DB에 저장하거나 다른 머신으로 보낼 만큼 신뢰성이 있는가? 하는 것이다. 치명적인 오류가 발생한지 시간이 좀 지나서, 이미 많은 데이터가 오염되었을 수도 있기 때문에, 보통은 그냥 데이터는 버리고 서버를 내려버리는 것이 정상이다.</p>
+<p>그러다보니 무정지성이라는 의미에 대해서 다시금 생각하게 되었다. 그래서, 위키피디아에서 <a href="http://en.wikipedia.org/wiki/Fault-tolerant_system">Fault Tolerant System</a>을 검색해보니 다음과 같이 나와 있었다.</p>
+<pre><code>
+    - No single point of failure
+    - No single point of repair
+    - Fault isolation to the failing component
+    - Fault containment to prevent propagation of the failure
+    - Availability of reversion modes
+
+</code></pre>
+
+<p>즉, 하나 죽었다고 전체 시스템이 마비된다든지, 복구하다가 바보가 된다든지, 실패한 모듈 때문에 나머지 시스템이 동작하지 않는 등의 현상이 없어야 된다는, Five Nine(99.999%) 수준의 가용성(Availability)에 대한 이야기이지 완벽하게 모든 것이 재가동되어야 한다는 이야기는 아니었다. DB에도 오류가 생기면 롤백을 하듯이, MMO의 서버 시스템 역시 어느 수준으로 롤백을 하더라도 나머지 사용자들이 모를 정도로만 감춰줘도 사장님한테 이쁨받기에 충분한 수준인 것이다.</p>
+<p>그런데, "<strong>진정한 변수</strong>"가 없는 얼랭에서는 - <em>정말 에러가 발생한 직후라는 확신이 든다면 </em>- 아래와 같은 코드를 이용해서, 오류를 다른 모듈로 확산시키지 않고도 로컬 코드 레벨에서 롤백이 가능하긴 하다.</p>
+<pre><code>
+loop( OldState ) -&gt;
+try handle_something(msg,OldState) of
+{ ok, NewState } -&gt;
+loop(NewState)
+catch
+{ error } -&gt;
+loop(OldState)
+end
+end.
+</code></pre>
+
+<p>여기에 얼랭/OTP의 슈퍼비전 트리가 결합하면 책에서 주장하는 것처럼 Nine Nine(99.9999999%)의 가용성이 보장된다고 하니, 초반에 생각했던 언어적 분산 네트워킹의 지원 보다는 이쪽이 더 매력적인 기능이 아닐까 싶다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/erlang/"><span class="label">erlang</span></a>
+	
+	</p>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

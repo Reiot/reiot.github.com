@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2008/03/16/boost-asio-udp-relay-server/">boost::asio udp relay server</a> <small>2008-03-16</small></h1>
+	</div>
+	<div><p>조만간 회사에서 쓸 일이 있을 것 같아서 만들어본 udp relay 서버. 하는 일이라고는 패킷을 잠시 저장해뒀다가 원래 주소로 쏘는 일인데, ASIO를 쓰면 얼마나 코드가 간단해질까 해서 만들어봤다. 이 코드는 서버에만 쓰고, 클라이언트에 붙일 넘은 IOCP까지는 필요없고 그냥 Win32 + winsock2 + 폴링 쓰레드로 만들어볼까 싶다.</p>
+<pre><code>
+class udp_relay_server
+{
+    struct relay_policy
+    {
+        udp::endpoint from_, to_;
+        DWORD delay_;
+    };
+
+    struct relay_message
+    {
+        boost::shared_ptr&lt;std::string&gt; message_;
+        udp::endpoint destination_;
+        DWORD expire_clock_;
+    };
+
+    enum
+    {
+        MIN_SLEEP_DELAY = 10
+    };
+
+public:
+
+    udp_relay_server(boost::asio::io_service&amp; io_service, short port)
+        : socket_(io_service, udp::endpoint(udp::v4(), port))
+        , timer_(io_service)
+    {
+        do_receive();
+        do_timer();
+    }
+
+    udp_relay_server(boost::asio::io_service&amp; io_service, const udp::endpoint &amp; endpoint_ )
+        : socket_(io_service, endpoint_)
+        , timer_(io_service)
+    {
+        do_receive();
+        do_timer();
+    }
+
+    void add_policy( const udp::endpoint &amp; from_, const udp::endpoint &amp; to_, DWORD delay = 0 )
+    {
+        relay_policy p;
+        p.from_ = from_;
+        p.to_ = to_;
+        p.delay_ = delay;
+        policies.push_back(p);
+    }
+
+    void add_policy( string from_addr, short from_port, string to_addr, short to_port, DWORD delay = 0 )
+    {
+        udp::endpoint from_( boost::asio::ip::address::from_string(from_addr), from_port );
+        udp::endpoint to_( boost::asio::ip::address::from_string(to_addr), to_port );
+        add_policy( from_, to_, delay );
+    }
+
+    void clear_policy() { policies.clear(); }
+
+private:
+
+    void do_timer()
+    {
+        timer_.expires_from_now(boost::posix_time::milliseconds(MIN_SLEEP_DELAY));
+        timer_.async_wait(boost::bind(&amp;udp_relay_server::handle_timer,this,boost::asio::placeholders::error));
+    }
+
+    void handle_timer( const boost::system::error_code &amp; ec )
+    {
+        if ( !queue_.empty() )
+        {
+            DWORD cur_clock = GetTickCount();
+            std::list&lt; relay_message &gt;::iterator itr = queue_.begin();
+            while ( itr != queue_.end() )
+            {
+                relay_message &amp; m = *itr;
+                if ( cur_clock &gt; m.expire_clock_ )
+                {
+                    socket_.async_send_to(boost::asio::buffer(*m.message_), m.destination_,
+                        boost::bind(&amp;udp_relay_server::handle_send, this, m.message_, boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred) );
+                    itr = queue_.erase(itr++);
+                }
+                else
+                {
+                    itr++;
+                }
+            }
+        }
+        do_timer();
+    }
+
+    void do_receive()
+    {
+        socket_.async_receive_from(
+            boost::asio::buffer(recv_buffer_), remote_endpoint_,
+            boost::bind(&amp;udp_relay_server::handle_receive, this,
+            boost::asio::placeholders::error,
+            boost::asio::placeholders::bytes_transferred));
+    }
+
+    void handle_receive(const boost::system::error_code&amp; error, std::size_t bytes_transferred)
+    {
+        if (!error)
+        {
+            bool bRelayed = false;
+            for(size_t i = 0 ; i &lt; policies.size() ; i ++ )
+            {
+                relay_policy &amp; p = policies[i];
+                if ( p.from_ == remote_endpoint_ )
+                {
+                    udp::endpoint relay_to(p.to_);
+                    boost::shared_ptr&lt;std::string&gt; message(new string(recv_buffer_.data(),bytes_transferred));
+                    if ( p.delay_ &gt; 0 )
+                    {
+                        relay_message m;
+                        m.message_ = message;
+                        m.destination_ = relay_to;
+                        m.expire_clock_ = GetTickCount() + p.delay_;
+                        queue_.push_back( m );
+                    }
+                    else
+                    {
+                        do_send( message, relay_to );
+                    }
+                    bRelayed = true;
+                    break;
+                }
+            }
+            do_receive();
+        }
+    }
+
+    void do_send( boost::shared_ptr&lt;std::string&gt; message, const udp::endpoint &amp; destination )
+    {
+        socket_.async_send_to(boost::asio::buffer(*message), destination,
+            boost::bind(&amp;udp_relay_server::handle_send, this,
+                message, boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred) );
+    }
+
+    void handle_send(boost::shared_ptr&lt;std::string&gt; message, const boost::system::error_code&amp; error, std::size_t bytes_transferred )
+    {
+    }
+
+    udp::socket socket_;
+    udp::endpoint remote_endpoint_;
+    boost::array&lt;char, 128&gt; recv_buffer_;
+    vector&lt;relay_policy&gt; policies;
+    boost::asio::deadline_timer timer_;
+    std::list&lt; relay_message &gt; queue_;
+};
+</code></pre></div>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

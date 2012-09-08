@@ -1,871 +1,242 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="Generic Text Mapping 프로그램을 유니코드에 대응하기 위해서는 모든 single byte char 관련 타입들을 generic macro 를 사용하도록 수정해야 한다. 모든 스트링 리터럴에는 T 또는 TEXT 를 붙일 것. 그러나, 특별히 wide &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/45">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/12/%E1%84%8B%E1%85%B2%E1%84%82%E1%85%B5%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%90%E1%85%B5%E1%86%B8/">유니코드 팁</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-12-12T03:08:26+09:00" pubdate data-updated="true">Dec 12<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Generic Text Mapping</h2>
-
-<p>프로그램을 유니코드에 대응하기 위해서는 모든 single byte char 관련 타입들을 generic macro 를 사용하도록 수정해야 한다.</p>
-
-<ul>
-<li>모든 스트링 리터럴에는 <em>T 또는 </em>TEXT 를 붙일 것. 그러나, 특별히 wide string 을 사용할 경우 L&#8221;abc&#8221; 처럼 L 을 붙일 것</li>
-<li>모든 문자 배열에 대해서는 TCHAR 를 사용할 것. 그러나, 특별히 wide char 를 사용할 경우 wchar_t 를 사용할 것.</li>
-<li>모든 스트링 포인터에 대해서 LPCTSTR 혹은 LPTSTR 을 붙일 것</li>
-<li>스트링 관련 C 함수들에 대한 T 시리즈들을 사용할 것.</li>
-</ul>
-
-
-<h2>XML 과 유니코드</h2>
-
-<p>유니코드로 인코딩된 XML 에 한글 엘리먼트 이름을 사용한 경우, 중문 혹은 영문 OS 에서 XPath 검색이 안되는 경우가 있다. 이는 프로그램 자체가 Non Unicode 이기 때문이며, 프로그램 자체를 유니코드로 만들면 문제가 없다.</p>
-
-<p>그러나, 그것이 힘들 경우, Windows XP 이상부터 설정 가능한 Non Unicode Program 의 디폴트 언어를 한글로 지정하면 된다. 단 98 과 같은 오래된 언어에서는 이것이 안되는데, 이를 위해서는 프로그램 코드 자체에 유니코드로 XPath 스트링을 지정하면 된다.</p>
-
-<blockquote><p>pNode = pXMLDom->selectNodes( L&#8221;//캐릭터정보/*&#8221; );</p></blockquote>
-
-<h2>STL 과 유니코드</h2>
-
-<p>STL은 OS independent 이어야 하므로 vc 전용 매크로인 <em>UNICODE 에 대응되는 어떤 정책도 가지고 있지 않다. 따라서, 개발자가 아래와 같이 자체적으로 typedef 를 해줘야 한다. 단 전자와 같이 새로운 typedef 를 하는 것보다는 이미 존재하는 타입을 사용한 #ifdef 방식이 더 좋다고 한다. (그러고보니 좋은 거 같다.. -</em>-)</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="c1">// ok but not recommended</span>
-</span><span class='line'><span class="k">typedef</span> <span class="n">basic_string</span><span class="err">〈</span><span class="n">TCHAR</span><span class="p">,</span>  <span class="n">char_traits</span><span class="err">〈</span><span class="n">TCHAR</span><span class="err">〉</span><span class="p">,</span>  <span class="n">allocator</span><span class="err">〈</span><span class="n">TCHAR</span><span class="err">〉〉</span> <span class="n">tstring</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">// better, recommended</span>
-</span><span class='line'><span class="cp">#ifdef _UNICODE</span>
-</span><span class='line'><span class="cp">#define tstring wstring</span>
-</span><span class='line'><span class="cp">#else</span>
-</span><span class='line'><span class="cp">#define tstring string</span>
-</span><span class='line'><span class="cp">#endif</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>see also:</p>
-
-<ul>
-<li><a href="http://msdn.microsoft.com/msdnmag/issues/04/08/CQA/">http://msdn.microsoft.com/msdnmag/issues/04/08/CQA/</a></li>
-</ul>
-
-
-<h2>스트링 길이 문제</h2>
-
-<ul>
-<li>문자의 개수 : sizeof(szBuffer) / sizeof(TCHAR)</li>
-<li>문자열의 길이 : sizeof(szBuffer) * sizeof(TCHAR)</li>
-<li>적절한 매크로를 만들어 사용하면 고민에서 해방될까?</li>
-</ul>
-
-
-<h2>%s 와 %S</h2>
-
-<p>만약 UNICODE 어플리케이션일 경우 %s 는 유니코드 문자열이며 %S 는 ANSI 문자열 포맷팅시 사용된다. 물론 MBCS 일 경우라면 반대가 된다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/11/vbnet-%E1%84%90%E1%85%B5%E1%86%B8/">VB.NET 팁</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-12-11T20:27:11+09:00" pubdate data-updated="true">Dec 11<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>레이옷이 추천하는, 온라인 게임 서버 및 운영을 위한 툴을 만드는데 가장 좋은 언어는 바로 VB.Net 이다. 당신이 클라이언트 프로그래머가 아닌 이상 온라인 게임에서 주로 사용되는 툴은, 대체로 시스템 관리, 제어, 모니터링, 분석, 로그에 관련된 툴이 분명하다. (때로는 스크립트 에디터 같은 툴이 필요할 때도 있지만) 진짜 간단한 것은 Python 을 사용한 콘솔 스크립트로 해결할 수 있지만, 프로그래머가 아닌 GM 이나 QA팀, 모니터링팀들이 계속 사용해야 하는 툴들은 이쁘고, 사용하기 쉽고, 자주 수정되어야 하는 특성을 지니는 것이 보통이다. 이럴때 VB.Net을 사용하면, 빠른 개발속도와 높은 생산성, 그리고 아름다운 GUI 를 쉽게 얻을 수 있다.</p>
-
-<p>특히 VB.Net은 MsSQL과는 거의 찰떡궁합이라고 할 수 있다. MS 특유의 데이터 공유가 한몫한다고 할 수 있다. 예전에는 Oracle과 문제가 좀 있었다고 하는데 지금은 좋다. 하지만 Oracle을 사용할 예정이라면 Developer가 아직도 짱~이다.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2005/12/11/vbnet-%E1%84%90%E1%85%B5%E1%86%B8/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/11/eclipse-%E1%84%90%E1%85%B5%E1%86%B8/">Eclipse 팁</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-12-11T20:03:56+09:00" pubdate data-updated="true">Dec 11<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>키 바인딩</h2>
-
-<p>가능하면 Visual Studio 랑 비슷하게 맞추려면 다음과 같이 하라.</p>
-
-<table>
-<thead>
-<tr>
-<th>Category </th>
-<th> Command </th>
-<th> Key</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Window </td>
-<td> Next Editor </td>
-<td> Ctrl + Tab</td>
-</tr>
-<tr>
-<td>Text Editing </td>
-<td> Delete Line </td>
-<td> Ctrl + L</td>
-</tr>
-<tr>
-<td>PyDev - Editor </td>
-<td> Python Comment </td>
-<td> Ctrl + K, Ctrl + C</td>
-</tr>
-<tr>
-<td>PyDev - Editor </td>
-<td> Python Uncomment </td>
-<td> Ctrl + K, Ctrl + U</td>
-</tr>
-<tr>
-<td>Run/Debug </td>
-<td> Run Last Launched </td>
-<td> Ctrl + F5</td>
-</tr>
-<tr>
-<td>Run/Debug </td>
-<td> Debug Last Launched </td>
-<td> F5</td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>SubVersion 연동하기</h2>
-
-<p>eclipse 용 subversion 플러그인인 subclipse 를 이용하면 손쉽게 버전 관리가 가능하다. <a href="http://openframework.or.kr/JSPWiki/Wiki.jsp?page=Subversion">다음 글</a>을 참고할 것.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/11/%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%A7%E1%86%AF-%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%80%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8C%E1%85%B3%E1%86%B7-%E1%84%87%E1%85%B5%E1%84%80%E1%85%AD/">정렬 알고리즘 비교</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-12-11T19:42:11+09:00" pubdate data-updated="true">Dec 11<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><table>
-<thead>
-<tr>
-<th>name </th>
-<th> avg </th>
-<th> max </th>
-<th> # </th>
-<th> 비고</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/bubblesort.html">Bubble Sort</a> </td>
-<td> O(n<sup>2)</sup> </td>
-<td> O(n<sup>2)</sup> </td>
-<td> 0 </td>
-<td></td>
-</tr>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/quicksort.html">Quick Sort</a> </td>
-<td> O(nlogn) </td>
-<td> O(n<sup>2)</sup> </td>
-<td> O(logn) </td>
-<td></td>
-</tr>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/heapSort.html">Heap Sort</a> </td>
-<td> O(nlogn) </td>
-<td> O(nlogn) </td>
-<td> 0 </td>
-<td></td>
-</tr>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/radixsort.html">Radix Sort</a> </td>
-<td> O(wxn) </td>
-<td> O(wxn) </td>
-<td> O(n) </td>
-<td> w 는 자릿수</td>
-</tr>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/mergesort.html">Merge Sort</a> </td>
-<td> O(nlogn) </td>
-<td> O(nlogn) </td>
-<td> O(n) </td>
-<td></td>
-</tr>
-<tr>
-<td><a href="http://www.nist.gov/dads/HTML/bitonicSort.html">Bitonic Sort</a> </td>
-<td> O(nlog<sup>2n)</sup> </td>
-<td> O(nlog<sup>2n)</sup> </td>
-<td> 0</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/11/adonet-%E1%84%90%E1%85%B5%E1%86%B8/">ADO.NET 팁</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-12-11T19:19:48+09:00" pubdate data-updated="true">Dec 11<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ADO.NET + VB.NET 으로 게임 상점 관리툴을 개발하면서 얻은 팁들을 정리해보았다.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2005/12/11/adonet-%E1%84%90%E1%85%B5%E1%86%B8/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/11/adonet-%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%E1%86%AB/">ADO.NET 이란?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-12-11T19:02:45+09:00" pubdate data-updated="true">Dec 11<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>ADO.NET은 OLE DB 및 XML을 통해 제공되는 데이터 소스뿐 아니라 Microsoft SQL Server와 같은 &#8221;&#8217;데이터 소스에 대한 일관성 있는 액세스&#8221;&#8217;를 제공합니다. 데이터 공유 소비자 응용 프로그램은 ADO.NET을 사용해서 이러한 데이터 소스에 연결하여 &#8221;&#8217;데이터를 검색, 조작 및 업데이트&#8221;&#8217;할 수 있습니다.
-&#8211; from MSDN</p></blockquote>
-
-<ul>
-<li>모든 것은 데이터 소스 - DB, 엑셀, XML, 텍스트파일, &#8230;</li>
-<li>연결되지 않은 데이터 집합 - 캐싱 방식</li>
-<li>XML 과의 강력한 통합</li>
-<li>N 레이어 어플리케이션에 적합 - 특히 웹 어플리케이션&#8230;</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2005/12/11/adonet-%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%E1%86%AB/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/07/%E1%84%82%E1%85%A1%E1%84%88%E1%85%B3%E1%86%AB-%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B1%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8C%E1%85%A9%E1%87%82%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8/">나쁜 아이디어를 위한 좋은 방법</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-12-07T20:25:25+09:00" pubdate data-updated="true">Dec 7<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>지금 하고 있는 이런 하찮은 일은 대충 빨리 끝낼 예정이다. 난 멋진 프로젝트를 언젠가 해야할 몸이기 때문이다.</p></blockquote>
-
-<p>당연히 <a href="http://www.extra-project.com/bbs/view.php?id=keeping01&amp;page=1&amp;sn1=&amp;divpage=1&amp;sn=off&amp;ss=on&amp;sc=on&amp;select_arrange=headnum&amp;desc=asc&amp;no=82">웹 디자인에만 적용되는 이야기</a>는 아니며, 특히 legacy code 를 다루는 프로그래머들이 쉽게 빠지는 길이기도 하다. 사실 나를 포함한 우리 팀원들 대다수가 이런 마음가짐으로 일하고 있기에 더욱 가슴이 시리다. 물론 지금으로서는 빨리 끝내는 것만이 유일한 해결책이지만&#8230;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/11/23/vb%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%80%E1%85%AA-%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%AE%E1%86%BC%E1%84%83%E1%85%A9%E1%86%AF%E1%84%8E%E1%85%A6%E1%84%8F%E1%85%B3/">VB를 이용한 선분과 원의 충돌체크</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-11-23T22:32:24+09:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/collide.JPG" title="collide" target="_top"><img src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_collide.JPG" title="collide" ></a></p>
-
-<p>고등학교때까지만 해도 기하쪽은 상당히 자신있었는데 나이가 들어갈수록 3D 쪽에는 상당히 취약해서 가고 있다. 몇 달 전 관련 서적을 쭈욱 질러주고 조금 보다가 때려쳤었다. 그러다 이번에 유지 보수 중인 legacy code 에서 brute force 충돌 체크 코드를 좀 더 깔끔하게 해보고자 선분과 원의 충돌 체크를 구현해보게 되었다. 역시나 이럴 때에는 MFC 보다는 .NET winform 이 제일 손쉽기에 재빨리 VB.NET 을 띄워 줬다.</p>
-
-<p>우선 Matrix 나 Vector 류의 함수는 .NET framework 에서 지원하지 않기 때문에 DirectX 쪽의 참조를 갖고 와야 한다. 그다음 리얼타임렌더링 625 페이지를 펼쳐서 그대로 코딩하면 된다.  실제로 타이핑은 금방 끝났는데 웬걸 제대로 동작하지 않아서 이 사람 저 사람 붙잡고 물어보다가 잠이 들고, 오늘 회사에 와서 차분히 책을 읽어보니 그 중 한 넘이 normalized vector 여야 한다는 걸 찾아냈다. 뿌듯.. -_-+</p>
-
-<p>책은 반직선과 구의 충돌이라서 선분 충돌을 구하려면 교차 좌표 중 가까운 넘을 찾아내서 그 길이가 원래 반직선 길이보다 짧아야 진짜 충돌이 된다. 사실 3D 를 쭉 하던 사람들이야 너무 쉬운 것일테지만 수학책을 한동안 놓고 살았던 본인에게는 꽤나 막중한 과제였다. 역시나 해내고 나니 성취감 보다는 허탈감이 든다. 흑.</p>
-
-<p>Liquid error: ClassNotFound: no lexer for alias &#8216;vb&#8217; found</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/10/31/inet_ntoa-%E1%84%8B%E1%85%B4-%E1%84%8B%E1%85%B1%E1%84%92%E1%85%A5%E1%86%B7%E1%84%89%E1%85%A5%E1%86%BC/">Inet_ntoa 의 위험성</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-10-31T11:25:14+09:00" pubdate data-updated="true">Oct 31<span>st</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>아래와 같이 내부 버퍼를 리턴하는 함수를 연속적으로 사용할 경우에는 주의해야 한다. 그냥 string 으로 감싸서 사용하는 것이 정신건강에 좋다. (단 타이핑 횟수는 .c_str() 때문에 꽤 증가한다)</p>
-
-<p>  printf( &#8220;external_address=%s internal_address=%s&#8221;,
-  inet_ntoa(exaddr),
-  inet_ntoa(inaddr));</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/10/22/find_if-%E1%84%8B%E1%85%AA-boostlambda/">Find_if 와 Boost::lambda</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-10-22T10:56:59+09:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>STL 컨테이너를 만지작거리다보면 종종 algorithm 을 써서 코드를 간략하게 표현하고픈 충동이 든다. 그런데 STL에서 제공하는 각종 function template 의 파워는 생각보다 약하다. 가령 다음과 같이 컨테이너 내부 객체의 멤버 함수의 실행 결과를 기준으토 무언가를 하고 싶은 경우&#8230;</p>
-
-<pre><code>class Focker
-{
-public :
-    Focker(int v) : value(v) {}
-    int GetValue() const { return value; }
-private:
-    int value;
-};
-
-typedef list FOCKERS;
-
-FOCKERS fockers;
-
-fockers.push_back( Focker(1) );
-fockers.push_back( Focker(2) );
-fockers.push_back( Focker(3) );
-fockers.push_back( Focker(4) );
-fockers.push_back( Focker(5) );
-
-// how to find whose value ==3 ??
-</code></pre>
-
-<p>가장 단순한 방법으로는 하드코딩 함수자를 사용하면 된다.</p>
-
-<pre><code>class GetValueIs3
-{
-public :
-    GetValueIs3(){}
-    bool operator() ( const Focker &amp; f ) const
-    {
-        return f.GetValue() == 3;
-    }
-};
-
-FOCKERS::iterator itr;
-
-itr = find_if( fockers.begin(), fockers.end(), GetValueIs3() );
-assert( itr != fockers.end() );
-cout GetValue() GetValue() (),3),
-        mem_fun_ref(&amp;Focker::GetValue )) );
-</code></pre>
-
-<p>그래서 이걸 가능하게 하기 위해서 몇 시간동안 씨름하다가 mem_fun_ref 의 코드를 살짝 고쳐서 다음과 같은 코드를 만들어봤다.</p>
-
-<pre><code>template
-class my_const_mem_fun_ref_t
-    : public unary_function
-{
-public:
-    explicit my_const_mem_fun_ref_t(_Result (_Ty::*_Pm)() const, const _Fn &amp; f )
-        : _Pmemfun(_Pm), func(f)
-    {
-    }
-
-    typename _Fn::result_type operator()(const _Ty&amp; _Left) const
-    {
-        return (func((_Left.*_Pmemfun)()));
-    }
-
-private:
-    _Result (_Ty::*_Pmemfun)() const;   // the member function pointer
-    _Fn func;
-};
-
-template
-inline
-my_const_mem_fun_ref_t
-my_mem_fun_ref(_Result (_Ty::*_Pm)() const, const _Fn &amp; f)
-{
-    return (my_const_mem_fun_ref_t(_Pm,f));
-}
-
-itr = find_if( fockers.begin(), fockers.end(),
-    my_mem_fun_ref( &amp;Focker::GetValue, bind2nd(equal_to(),3) )
-);
-assert( itr != fockers.end() );
-cout GetValue() GetValue()
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/46/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/44/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/cpb/">CPB</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><ul>
+<li>Windows 환경에서 PDB 파일에 저장된 심볼을 DIA SDK 를 이용해서 접근, 루아 스택에 바인딩해주는 라이브러리.</li>
+<li>코드를 수정하지 않아도 lua 레벨에서 원하는 변수에 접근해서 수정하는 것이 가능하다.</li>
+<li>tweaking 라이브러리가 필요하다면 강력 추천!</li>
+<li>namespace 지원 안함. 즉 std:: 시리즈나 namespace 안에 있는 변수들은 바인딩 불가. (version 006)</li>
+</ul>
+<p>see also:</p>
+<ul>
+<li><a href="http://www.thomasandamy.com/projects/CPB/">CPB official homepage</a></li>
+<li><a href="http://reiot.cafe24.com/?p=37">CPB 맛보기</a></li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/lua/"><span class="label">lua</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/code-review-tips/">Code Review Tips</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>당신의 프로그램이 다운된다면, 혹은 메모리 누수가 심하다면 다음과 같은 룰을 기반으로 코드를 리뷰하라. 이때, 코드 작성자가 아닌 다른 프로그래머를 항상 옆에 대동하면 버그를 찾을 확률은 200% 증가할 것이다. (사실 이건 내부 자료인데 몰래 공개하는 것이다. 헤헤)</p>
+<ul>
+<li>상속 관계의 베이스 클래스에 virtual destructor 를 선언했는가?</li>
+<li>배열 포인터를 delete[] 로 삭제하는가?</li>
+<li>delete:Wh*[]으로 정규식 검색을 하면 편하다.</li>
+<li>배열이 아닌 포인터를 delete[] 로 삭제하는가?</li>
+<li>memcpy(), memset(), memmove(), strcpy() 메모리 관련 함수들의 BoundCheck가 잘 되어 있는가?</li>
+<li>배열을 인덱싱할 때 파라미터의 BoundCheck 가 잘 되어 있는가?</li>
+<li>다른 peer 로 부터 넘어온 모든 정수형 파라미터에 대한 BoundCheck가 잘 되어 있는가? (특히 문자열 길이에 유의)</li>
+<li>STL string 을 사용한다면, %s 포맷팅할 때 c_str() 을 사용하는가?</li>
+<li>Singleton 이나 STL 컨테이너에 대해서 2개 이상의 쓰레드가 동시에 읽기/쓰기 모드로 접근하는 경우 lock 을 걸고 있는가?</li>
+<li>사용하지 않는 copy constructor, assignment operator 가 private 로 선언되어 있는가?</li>
+<li>포인터 멤버를 가진 객체를 복사할 때 assignment operator 를 재정의했는가?</li>
+<li>Warning Level 을 4 로 높인 다음 컴파일해봤는가?</li>
+<li>초기화하지 않고 사용하는 변수(또는 클래스 데이터 멤버)가 가장 위험하다.</li>
+<li>try ~ catch( ... )은 절대 사용하지 말라. SEH Exception 까지도 캐치해버린다.버그를 숨겨서 더 큰 버그를 만들 뿐이다.</li>
+<li>set_se_translator() 를 쓰지 마라. 쓰레드 로컬이라, 매 쓰레드마다 해줘야 한다. SetUnhandledExceptionFilter()는 프로세스 글로벌이다.</li>
+</ul>
+<p>see also:</p>
+<ul>
+<li><a href="http://imays.pe.kr:41414/moin/iwiki/moin.cgi/_bc_ad_b9_f6_20_c7_c1_b7_ce_b1_d7_b7_a5_20_c4_da_b5_f9_c0_c7_20_c1_d6_c0_c7_bb_e7_c7_d7">서버 프로그래밍시 주의사항</a> by imays님</li>
+<li><a href="http://www.myevan.net/phpBB/viewtopic.php?t=1484">서버 프로그래밍시 주의사항</a> by 빗자루님</li>
+<li><a href="http://www.macadamian.com/codereview.htm">Code Review Checklist</a></li>
+<li><a href="http://www.macadamian.com/column/completeBreakfast.html">Part of Your Complete Breakfast</a></li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/code review/"><span class="label">code review</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/about-mmorpg-balancing/">MMORPG 밸런싱은 너무 힘들어요</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><div style="text-align:center;">![http://boxcatstudio.files.wordpress.com/2009/07/DM.jpg](http://boxcatstudio.files.wordpress.com/2009/07/DM.jpg)</div>
+
+<p>부끄러운 이야기이지만 한때 MMORPG 기획물을 먹을 때, 공식 혹은 비공식적으로 밸런스를 더이상 하고 싶지 않다고 선언한 적이 있습니다. 꿈 많은 기획 초보에서 일년만에 타락한 실패한 기획자가 된 거죠. 알게 모르게 욕도 많이 먹었습니다. 대놓고 실력없다고 욕먹은 적도 있습니다. 그 암울했던 시절의 밸런싱 스토리를 한번 풀어내보겠습니다.</p>
+<p><strong>완벽한 밸런스?</strong></p>
+<p>모든 유저들의 마음에 쏙 드는 리밸런싱은 있을 수 없다. 그러나, 가장 많은 유저들이 만족한다면 그게 바로 제대로 된 밸런스다.</p>
+<p>기술이 추가되거나, 전투 공식이 수정되거나, 몬스터 배치가 바뀌거나, 아이템 가격이 변동되면 분명히 누군가는 불만을 토로하게 되더군요. 그 누군가가 게임 내에서 길마 등 일정 지위(-<em>-)에 도달해 있거나, 덕망(-</em>-)이 높거나, 사장과 안면이 있거나, 게시판 글발이 좋을 경우 후폭풍이 무조건 몰아치더라구요.</p>
+<p>물론 개발팀 특히 기획팀이 최선을 다하지 않아서 그랬겠지만, 결국 불쌍한 운영팀만 욕을 먹게 되더군요. 결국, 패치 후 필연적으로 발생하는 유저들의 불만을 눈가리고 아웅하기 위해,  불쌍한 기획자와 운영자들은 다음과 같은 얍삽한 노하우를 얻게 되었습니다.</p>
+<pre><code>- 모든 아이템의 가격은 시간이 흐름에 따라서 점차 떨어져야 한다
+- 모든 기술의 MP 소모량은 시간이 흐름에 따라서 점차  줄어들어야 한다
+- 동일 레벨의 필요경험치는 시간이 흐름에 따라서 점차  줄어들어야 한다
+- 동일 레벨의 육성 시간은 시간이 흐름에 따라서 점차 짧아져야 한다
+- 모든 제한 요소는 시간이 흐름에 따라서 점차  완화되어야 한다
+</code></pre>
+<p>즉, 어떤 새로운 기능이 들어갈 때 페널티 관련 파라미터들은, 이후 플레이어들의 비난을 감안해서, 약간 높게 책정되어야 한다는 건데요, 처음부터 적정 수준을 잡았다가 플레이어들이 시위를 할 경우 더이상 낮추다간 큰일나게 되기 때문입니다.</p>
+<p>이런 식의 데미지를 한번이라도 입어봤던 분들은, 요즘도 종종 이런 이야기를 합니다.</p>
+<pre><code>일단은 이정도로 하고 분위기를 봐서 낮추든가 합시다```
+**아무도 믿지 말라?**
+
+이 부분에 대해서는 제 잘못이 아주 큽니다. 왜냐하면, 기획자라는 넘이 캐릭터를 처음부터 끝까지 키워보지 않았기 때문이지요. 아무튼, 게임이 어떻게 돌아가는지, 요즘 플레이어들의 불만이 뭔지, 스스로 상황 파악이 안되고 주위 사람들에게 불평 불만을 들어야만 아는 상황이었으니... 이사람 말에 솔깃, 저사람 말에 갸웃하게 되는 지경이었습니다.
+
+그러다가, 열혈 플레이어였던 사장 운전사의 피를 토하는 한마디!
+</code></pre>
+
+<p>아.. 캐릭터 키우기가 너무 힘들어. 지금 다들 게임을 접으려고 하고 있단 말이야. 길마들 다 난리야!!!```<br />
+이 말을 듣고, 한쪽 종족의 성장 곡선을 완화시키는 패치를 내보냈더랍니다. 그 결과는... 다들 짐작하시겠지요. 그 이후, 열렙하는 개발자들의 하소연은 30-40% 허풍으로, 플레이어들의 게시판 이야기는 70-80% 과장으로 인식하게 되는 병을 얻었습니다. 게임 자체가 종족간 대립 구도를 채택해서 이런 불신증상은 더했다는... 웬만한 불만은 무시하고, 게시판에서 호소력이 있는 명문을 발견하거나, 여러 명한테서 동일한 불만을 듣게 되면, 보완 작업에 들어갔습니다.</p>
+<p>그나마, 이쪽 저쪽 불만을 모두 접하는 운영팀의 이야기가 가장 중립적이었습니다. 그치만, 자기 캐릭을 키우는 넘은 또 그게 아니더군요.</p>
+<pre><code>제가 좀더 많이 플레이를 했더라면 충분히 막을 수 있었던 실패담이지만, 웬지 모르게 그게 안되더군요. 다들 저보고 제발 플레이좀 해보라고 이야기하곤 했지만, 그냥 한귀로 흘려버렸다는.... (물론 다들 속으로 정말 답답해하고 어떤 사람은 욕도 많이 했겠지요) 프로페셔녈이라면 절대 그럴리가 없었겠지요. 자기가 만든 게임에 대한 애정 부족! 그때 저때문에 피보신 많은 분들께 여기서나마 잠시 사죄를 드려봅니다.```
+**밸런싱에 대한 주관적인 접근(X)**
+
+사실 이게 본론이 되겠습니다. 사실 나리티님의 글에서 나온 목록중에서 많은 부분에 대해서 고민을 안해본게 아닙니다만, 그런 데이터 수집 활동이 너무 주관적이며 신용도가 낮다는데 문제가 있습니다. 결론부터 말하자면, 플레이어들의 게임 플레이에 대한 로그 분석 활동이 기획자들의 주요 업무가 되어야 한다는 거구요. 그에 따른, 프로그래머들의 서포트가 있어야 한다는 겁니다. (라기보다는, 아예 초기 개발 시점부터 기획팀에서 이후 조사를 위한 필요 데이터를 명시한 기획서를 넘기고, 프로그램팀에서 관련 데이터를 가공하기 쉽도록 DB에 남긴다..가 되겠네요)
+
+지금 참가중인 프로젝트에서도 이런 부분이 너무 미숙해서, 회의에 들어가면 대체로 주관적인 평가들을 많이 하곤 합니다. 더군다나 퍼블리셔에서 누군가가 한마디한 것들이 점차 증폭되어 정말 진리인양 개발팀으로 흘러 들어오는 걸 보고 있노라면.. 으..
+
+    - 게임이 어려워서 동접이 늘지 않아요.
+    - 처음에 몇 번 해보고 다들 접어요.
+    - 유저중 절반이상이 어느 수준에서 게임을 포기해요.
+    - 하다보면 자꾸 튕기고, 짤려요.
+
+분명히 이런 부분은 데이터를 가지고 객관적으로 접근해야 하는 것임에도 불구하고, 다들 너무 즉흥적이면서 주관적으로 접근하는 경향이 있더군요. 처음부터 이런 부분을 감안하고 데이터를 남겨놓지 않으면, 정작 필요할 때 문제의 원인을 파악하기 힘든 경우가 많은데... 그렇다고 특별한 지시 없이도 알아서 필요 데이터를 잘 축적해주는 프로그래머는 드물지요.
+
+그렇다고 데이터 만능주의로 흐르다가는 게임의 본연의 모습을 잃어버릴지도 모르겠네요. 가령, 플레이 시작후 일주일만에 총 신규가입자의 10%가 떨어져나가는데 이 원인은 20레벨에서 25레벨의 경험치가 너무 많아서 그런게 아니라 퀘스트의 복잡도가 너무 높고 플레이 시간이 길어져서 중얼 중얼중얼... 퀘스트를 하루에 1.5개 이상 주어지고 초보들의 소지금액을 현재의 20%로 증가시키기 위한 대책안을 마련해서 중얼 중얼... 물론 비지니스로의 가치는 충분하겠습니다만.
+
+시스템 디자인 시점에서도 분명 나리띠님의 글처럼 안배가 되어 있어야 하겠지만, 과연 그게 원안대로 잘 적용되고 있는지, 플레이어들이 만족하고 있는지를 파악하려면, 테스트 시점이나 오픈 이후에도 분명 데이터 분석을 통한 사후 검증 및 개편작업은 필연적일 것입니다.
+
+**결론 : 데이터 마이닝(?)**
+
+전개가 좀 산만했네요. 억지로 정리를 해본다면, 완벽한 밸런싱이라고 하는 것은 다른 사람이나 자신의 주관적 판단보다는 객관적인 데이터를 토대로, 다수 플레이어들의 불평불만(?)을 가지치기하듯 최소화한다. 라고 우길 수 있겠습니다.
+
+DB 전문인 후배에게 물어보니, 다들 한번쯤 들어봤을 데이터 마이닝이나 OLAP 등의 분야가 이런 부분을 다루는 거라고 하네요. 단순한 데이터에서 의미를 마이닝(mining)해내어 트렌드를 찾아내고 정책을 결정하는 거라나요? 맨 위의 그림을 보면 대충 무슨 의미인지는 아시겠습니다만.
+
+큰 회사라면 몰라도, 고만고만한 작은 회사들에서는 이런 부분을 제대로 갖추기가 힘들지 않을까 합니다. 우선 무엇을 저장할지를 골라주는 경험많은 기획팀과, 어떻게 저장할지를 결정해주는 DBA, 그리고 데이터를 분석해서 적절히 플랜을 작성할 마케팅 담당자가 필수적이겠습니다. 물론, 프로그래머는 당연히 시키는 데로 데이터를 DB로 넘겨야죠.
+
+물론 지금도 많은 회사들은 접속 회수와 시간, 지역/성별/나이별 통계 자료, 시간대별 분포도 등을 기반으로 마케팅 플랜을 작성하는 곳은 많겠습니다만, 게임 내부적인 수많은 파라미터들을 남겨서 이후 리밸런싱에 활용하는 회사는... 글쎄요 NCSoft 라면 아마 그렇게 할지도 모르겠습니다.
+
+KGDA의 어딘가에서 본 글처럼, 아무래도 한국에는 이를 제대로 할 줄 아는 개발자가 많지 않은 듯 합니다. 이게 개발자가 알아서 해야 할 일은 아니겠지만요.
+</code></pre>
+
+<p>그나저나, 이렇게 결론지으면 뭐하나요? 동접이 늘어나질 않는데... ㅠㅠ```</p></div>
+	
+	<p>
+	
+		<a href="/tag/game design/"><span class="label">game design</span></a>
+	
+		<a href="/tag/balancing/"><span class="label">balancing</span></a>
+	
+	</p>
+	
+</article>
+			
+			<ul class="pager">
+			
+		  	
+				<li class="next">
+					<a href="/page/46">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/cpb/">CPB</a>
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/code-review-tips/">Code Review Tips</a>
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/about-mmorpg-balancing/">MMORPG 밸런싱은 너무 힘들어요</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

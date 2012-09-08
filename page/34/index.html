@@ -1,1448 +1,270 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="회사에서 Collabnet Subversion 에 SSPI 를 연동해서 별 문제없이 사용하던 어느 날, 저장소에 Boost 1.34.1 트리를 넣고 난 다음부터 update/commit 이 무지막지하게 느려졌었다. 혹시나 신 버전에서는 해결된 문제가 아닐까 해서 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/34">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/03/21/svn-mkactivity-403-forbidden/">SVN MKACTIVITY 403 Forbidden</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-03-21T09:13:37+09:00" pubdate data-updated="true">Mar 21<span>st</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>회사에서 <a href="http://www.subversionary.org/sspidomainauth">Collabnet Subversion 에 SSPI 를 연동</a>해서 별 문제없이 사용하던 어느 날, 저장소에 Boost 1.34.1 트리를 넣고 난 다음부터 update/commit 이 무지막지하게 느려졌었다. 혹시나 신 버전에서는 해결된 문제가 아닐까 해서 Collabnet 을 업그레이드했으나, 역시나 파일 개수가 많아서 생긴 문제였고, 날 잡아서 사용하지 않는 서드파티 라이브러리들을 모조리 삭제하고 난 후에야 그럭저럭 제 속도를 얻을 수 있었다.</p>
-
-<p>그러나, 이게 끝이 아니었으니,  갑자기 미국에 출장간 일부 개발자들이 update는 되는데 commit이 안된다는 보고를 해왔다. 아파치 로그를 살펴보니</p>
-
-<p>Access denied: &#8217;<username>&#8217; MKACTIVITY <repository-name>:</p>
-
-<p>라는 메시지가 나왔다. 그렇다고 모두 안되면 다시 롤백이라도 하겠는데, 특정 사용자만 안되었고, 새로 만든 아이디를 만들어서 권한을 부여해도 안되고, 그런데 또 관리자 계정을 사용하면 되는 기묘한 현상이었다.</p>
-
-<p>3-4 시간 정도 구글링해본 결과 도무지 해답을 찾을 수가 없어서, 포기하고 Collabnet Enterprise Subversion 을 구매하려다가 놀랄만한 가격 때문에 좌절해있던 찰라, 문제를 보고한 개발자가 <a href="http://www.alagad.com/go/blog-entry/subversion-mkactivity-and-403-forbidden-headaches">한방에 구글에서 해답</a>을 찾아내었다.  정답은 subversion 서버의 버전이 올라가면서 레파지토리 이름의 대소문자를 타이트하게 구분하게 되면서 생긴 문제였다. 결국 relocating만 하면 해결되는 것이었다는 슬픈 전설이 전해진다.</p>
-
-<p>이 이야기의 교훈은, 구글 검색어를 어떻게 조합하냐에 따라 O(N<sup>2)으로</sup> 해결할 문제도 O(1)로 해결할  수 있다..일까?</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/03/17/boost-asio-udp-relay-server/">Boost::asio Udp Relay Server</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-03-17T07:32:43+09:00" pubdate data-updated="true">Mar 17<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>조만간 회사에서 쓸 일이 있을 것 같아서 만들어본 udp relay 서버. 하는 일이라고는 패킷을 잠시 저장해뒀다가 원래 주소로 쏘는 일인데, ASIO를 쓰면 얼마나 코드가 간단해질까 해서 만들어봤다. 이 코드는 서버에만 쓰고, 클라이언트에 붙일 넘은 IOCP까지는 필요없고 그냥 Win32 + winsock2 + 폴링 쓰레드로 만들어볼까 싶다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">class</span> <span class="nc">udp_relay_server</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">struct</span> <span class="n">relay_policy</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">udp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">from_</span><span class="p">,</span> <span class="n">to_</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">DWORD</span> <span class="n">delay_</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">struct</span> <span class="n">relay_message</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">message_</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">udp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">destination_</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">DWORD</span> <span class="n">expire_clock_</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">enum</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">MIN_SLEEP_DELAY</span> <span class="o">=</span> <span class="mi">10</span>
-</span><span class='line'>  <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">public</span><span class="o">:</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">udp_relay_server</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">io_service</span><span class="o">&amp;</span> <span class="n">io_service</span><span class="p">,</span> <span class="kt">short</span> <span class="n">port</span><span class="p">)</span>
-</span><span class='line'>      <span class="o">:</span> <span class="n">socket_</span><span class="p">(</span><span class="n">io_service</span><span class="p">,</span> <span class="n">udp</span><span class="o">::</span><span class="n">endpoint</span><span class="p">(</span><span class="n">udp</span><span class="o">::</span><span class="n">v4</span><span class="p">(),</span> <span class="n">port</span><span class="p">))</span>
-</span><span class='line'>      <span class="p">,</span> <span class="n">timer_</span><span class="p">(</span><span class="n">io_service</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">do_receive</span><span class="p">();</span>
-</span><span class='line'>      <span class="n">do_timer</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">udp_relay_server</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">io_service</span><span class="o">&amp;</span> <span class="n">io_service</span><span class="p">,</span> <span class="k">const</span> <span class="n">udp</span><span class="o">::</span><span class="n">endpoint</span> <span class="o">&amp;</span> <span class="n">endpoint_</span> <span class="p">)</span>
-</span><span class='line'>      <span class="o">:</span> <span class="n">socket_</span><span class="p">(</span><span class="n">io_service</span><span class="p">,</span> <span class="n">endpoint_</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">,</span> <span class="n">timer_</span><span class="p">(</span><span class="n">io_service</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">do_receive</span><span class="p">();</span>
-</span><span class='line'>      <span class="n">do_timer</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">add_policy</span><span class="p">(</span> <span class="k">const</span> <span class="n">udp</span><span class="o">::</span><span class="n">endpoint</span> <span class="o">&amp;</span> <span class="n">from_</span><span class="p">,</span> <span class="k">const</span> <span class="n">udp</span><span class="o">::</span><span class="n">endpoint</span> <span class="o">&amp;</span> <span class="n">to_</span><span class="p">,</span> <span class="n">DWORD</span> <span class="n">delay</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">relay_policy</span> <span class="n">p</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">p</span><span class="p">.</span><span class="n">from_</span> <span class="o">=</span> <span class="n">from_</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">p</span><span class="p">.</span><span class="n">to_</span> <span class="o">=</span> <span class="n">to_</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">p</span><span class="p">.</span><span class="n">delay_</span> <span class="o">=</span> <span class="n">delay</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">policies</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">add_policy</span><span class="p">(</span> <span class="n">string</span> <span class="n">from_addr</span><span class="p">,</span> <span class="kt">short</span> <span class="n">from_port</span><span class="p">,</span> <span class="n">string</span> <span class="n">to_addr</span><span class="p">,</span> <span class="kt">short</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">DWORD</span> <span class="n">delay</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">udp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">from_</span><span class="p">(</span> <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">ip</span><span class="o">::</span><span class="n">address</span><span class="o">::</span><span class="n">from_string</span><span class="p">(</span><span class="n">from_addr</span><span class="p">),</span> <span class="n">from_port</span> <span class="p">);</span>
-</span><span class='line'>      <span class="n">udp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">to_</span><span class="p">(</span> <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">ip</span><span class="o">::</span><span class="n">address</span><span class="o">::</span><span class="n">from_string</span><span class="p">(</span><span class="n">to_addr</span><span class="p">),</span> <span class="n">to_port</span> <span class="p">);</span>
-</span><span class='line'>      <span class="n">add_policy</span><span class="p">(</span> <span class="n">from_</span><span class="p">,</span> <span class="n">to_</span><span class="p">,</span> <span class="n">delay</span> <span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">clear_policy</span><span class="p">()</span> <span class="p">{</span> <span class="n">policies</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span> <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">private</span><span class="o">:</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">do_timer</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">timer_</span><span class="p">.</span><span class="n">expires_from_now</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="n">MIN_SLEEP_DELAY</span><span class="p">));</span>
-</span><span class='line'>      <span class="n">timer_</span><span class="p">.</span><span class="n">async_wait</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">udp_relay_server</span><span class="o">::</span><span class="n">handle_timer</span><span class="p">,</span><span class="k">this</span><span class="p">,</span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">error</span><span class="p">));</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">handle_timer</span><span class="p">(</span> <span class="k">const</span> <span class="n">boost</span><span class="o">::</span><span class="n">system</span><span class="o">::</span><span class="n">error_code</span> <span class="o">&amp;</span> <span class="n">ec</span> <span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">queue_</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">DWORD</span> <span class="n">cur_clock</span> <span class="o">=</span> <span class="n">GetTickCount</span><span class="p">();</span>
-</span><span class='line'>          <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span> <span class="n">relay_message</span> <span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">queue_</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-</span><span class='line'>          <span class="k">while</span> <span class="p">(</span> <span class="n">itr</span> <span class="o">!=</span> <span class="n">queue_</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="p">)</span>
-</span><span class='line'>          <span class="p">{</span>
-</span><span class='line'>              <span class="n">relay_message</span> <span class="o">&amp;</span> <span class="n">m</span> <span class="o">=</span> <span class="o">*</span><span class="n">itr</span><span class="p">;</span>
-</span><span class='line'>              <span class="k">if</span> <span class="p">(</span> <span class="n">cur_clock</span> <span class="o">&gt;</span> <span class="n">m</span><span class="p">.</span><span class="n">expire_clock_</span> <span class="p">)</span>
-</span><span class='line'>              <span class="p">{</span>
-</span><span class='line'>                  <span class="n">socket_</span><span class="p">.</span><span class="n">async_send_to</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">buffer</span><span class="p">(</span><span class="o">*</span><span class="n">m</span><span class="p">.</span><span class="n">message_</span><span class="p">),</span> <span class="n">m</span><span class="p">.</span><span class="n">destination_</span><span class="p">,</span>
-</span><span class='line'>                      <span class="n">boost</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">udp_relay_server</span><span class="o">::</span><span class="n">handle_send</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">message_</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">error</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">bytes_transferred</span><span class="p">)</span> <span class="p">);</span>
-</span><span class='line'>                  <span class="n">itr</span> <span class="o">=</span> <span class="n">queue_</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">itr</span><span class="o">++</span><span class="p">);</span>
-</span><span class='line'>              <span class="p">}</span>
-</span><span class='line'>              <span class="k">else</span>
-</span><span class='line'>              <span class="p">{</span>
-</span><span class='line'>                  <span class="n">itr</span><span class="o">++</span><span class="p">;</span>
-</span><span class='line'>              <span class="p">}</span>
-</span><span class='line'>          <span class="p">}</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>      <span class="n">do_timer</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">do_receive</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">socket_</span><span class="p">.</span><span class="n">async_receive_from</span><span class="p">(</span>
-</span><span class='line'>          <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">buffer</span><span class="p">(</span><span class="n">recv_buffer_</span><span class="p">),</span> <span class="n">remote_endpoint_</span><span class="p">,</span>
-</span><span class='line'>          <span class="n">boost</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">udp_relay_server</span><span class="o">::</span><span class="n">handle_receive</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span>
-</span><span class='line'>          <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">error</span><span class="p">,</span>
-</span><span class='line'>          <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">bytes_transferred</span><span class="p">));</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">handle_receive</span><span class="p">(</span><span class="k">const</span> <span class="n">boost</span><span class="o">::</span><span class="n">system</span><span class="o">::</span><span class="n">error_code</span><span class="o">&amp;</span> <span class="n">error</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">bytes_transferred</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="kt">bool</span> <span class="n">bRelayed</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>          <span class="k">for</span><span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">policies</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">;</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
-</span><span class='line'>          <span class="p">{</span>
-</span><span class='line'>              <span class="n">relay_policy</span> <span class="o">&amp;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">policies</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span><span class='line'>              <span class="k">if</span> <span class="p">(</span> <span class="n">p</span><span class="p">.</span><span class="n">from_</span> <span class="o">==</span> <span class="n">remote_endpoint_</span> <span class="p">)</span>
-</span><span class='line'>              <span class="p">{</span>
-</span><span class='line'>                  <span class="n">udp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">relay_to</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">to_</span><span class="p">);</span>
-</span><span class='line'>                  <span class="n">boost</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">message</span><span class="p">(</span><span class="k">new</span> <span class="n">string</span><span class="p">(</span><span class="n">recv_buffer_</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="n">bytes_transferred</span><span class="p">));</span>
-</span><span class='line'>                  <span class="k">if</span> <span class="p">(</span> <span class="n">p</span><span class="p">.</span><span class="n">delay_</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
-</span><span class='line'>                  <span class="p">{</span>
-</span><span class='line'>                      <span class="n">relay_message</span> <span class="n">m</span><span class="p">;</span>
-</span><span class='line'>                      <span class="n">m</span><span class="p">.</span><span class="n">message_</span> <span class="o">=</span> <span class="n">message</span><span class="p">;</span>
-</span><span class='line'>                      <span class="n">m</span><span class="p">.</span><span class="n">destination_</span> <span class="o">=</span> <span class="n">relay_to</span><span class="p">;</span>
-</span><span class='line'>                      <span class="n">m</span><span class="p">.</span><span class="n">expire_clock_</span> <span class="o">=</span> <span class="n">GetTickCount</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="p">.</span><span class="n">delay_</span><span class="p">;</span>
-</span><span class='line'>                      <span class="n">queue_</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">m</span> <span class="p">);</span>
-</span><span class='line'>                  <span class="p">}</span>
-</span><span class='line'>                  <span class="k">else</span>
-</span><span class='line'>                  <span class="p">{</span>
-</span><span class='line'>                      <span class="n">do_send</span><span class="p">(</span> <span class="n">message</span><span class="p">,</span> <span class="n">relay_to</span> <span class="p">);</span>
-</span><span class='line'>                  <span class="p">}</span>
-</span><span class='line'>                  <span class="n">bRelayed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'>                  <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>              <span class="p">}</span>
-</span><span class='line'>          <span class="p">}</span>
-</span><span class='line'>          <span class="n">do_receive</span><span class="p">();</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">do_send</span><span class="p">(</span> <span class="n">boost</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">message</span><span class="p">,</span> <span class="k">const</span> <span class="n">udp</span><span class="o">::</span><span class="n">endpoint</span> <span class="o">&amp;</span> <span class="n">destination</span> <span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">socket_</span><span class="p">.</span><span class="n">async_send_to</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">buffer</span><span class="p">(</span><span class="o">*</span><span class="n">message</span><span class="p">),</span> <span class="n">destination</span><span class="p">,</span>
-</span><span class='line'>          <span class="n">boost</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">udp_relay_server</span><span class="o">::</span><span class="n">handle_send</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span>
-</span><span class='line'>              <span class="n">message</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">error</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">bytes_transferred</span><span class="p">)</span> <span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">handle_send</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">message</span><span class="p">,</span> <span class="k">const</span> <span class="n">boost</span><span class="o">::</span><span class="n">system</span><span class="o">::</span><span class="n">error_code</span><span class="o">&amp;</span> <span class="n">error</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">bytes_transferred</span> <span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">udp</span><span class="o">::</span><span class="n">socket</span> <span class="n">socket_</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">udp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">remote_endpoint_</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">boost</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="mi">128</span><span class="o">&gt;</span> <span class="n">recv_buffer_</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">vector</span><span class="o">&lt;</span><span class="n">relay_policy</span><span class="o">&gt;</span> <span class="n">policies</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">deadline_timer</span> <span class="n">timer_</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span> <span class="n">relay_message</span> <span class="o">&gt;</span> <span class="n">queue_</span><span class="p">;</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/03/02/rbo-on-cnn/">제가 참가했던 프로젝트가 CNN을 탔습니다</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-03-02T05:59:44+09:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://nckstudio.com/2008/02/29/rbo-on-cnn/"><img src="http://nckstudio.com/wp-content/uploads/2008/02/ripken.jpg"></a></p>
-
-<p><a href="http://nckstudio.com/">제가 몸담고 있는 회사</a>에서 <a href="http://www.playrealbaseball.com/">서비스중인 게임</a>이 <a href="http://www.cnn.com/video/#/video/sports/2008/02/28/intv.cal.ripken.cnn?iref=videosearch">CNN 방송에 등장</a>했습니다.  <a href="http://www.youtube.com/watch?v=Rhq9ZcZ-_U0">유투브에도 해당 방송 분량</a>이 따로 올라왔네요. 언뜻 보기엔 좀 오래된 게임처럼 보이지만,  정말로 오래된 게임이라서 그렇습니다 :(</p>
-
-<p>저도 저 게임의 서버와 P2P, DB쪽 유지 보수 작업을 잠시 맡았다가, 지금은 저 게임의 후속작을 개발중입니다.  혹시나 MLB 2k7 이나 MLB 07 같은 리얼 온라인 야구 게임에 관심있는 개발자분들이 계시다면 <a href="http://reiot.cafe24.com/contact/">연락</a> 바랍드립니다. 참고로 <a href="http://kini.tistory.com/461">미국에서는 불세출의 야구 영웅</a>이라고 칭송받지만, 우리 회사에서는 그냥 횽아라고 불리는 <a href="http://en.wikipedia.org/wiki/Cal_Ripken,_Jr.">칼 립켄 주니어</a>는 저희 회사의 주주이기도 합니다.</p>
-
-<p>see also:</p>
-
-<pre><code>- [http://nckstudio.com/2008/02/29/rbo-on-cnn/](http://nckstudio.com/2008/02/29/rbo-on-cnn/)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/23/wow-warden-as-spyware/">WOW Warden as Spyware</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-23T08:28:09+09:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.amazon.com/exec/obidos/ASIN/0132271915/ref=nosim/learreio-20"><img src="http://ecx.images-amazon.com/images/I/311RgaO6v4L.jpg" title="Exploiting Online Games: Cheating Massively Distributed Systems" ></a></p>
-
-<p><a href="http://www.amazon.com/exec/obidos/ASIN/0132271915/ref=nosim/learreio-20">Exploiting Online Games</a>에 와우의 보안 프로그램인 <a href="http://en.wikipedia.org/wiki/Warden_%28software%29">Warden</a>이 어떻게 동작하는지에 대한 간략한 설명이 나와 있다.</p>
-
-<pre><code>- 서버로부터 실시간으로 전송받는 듯하다. (스크립트일지도?)
-- 15초에 한번씩 사용자의 컴퓨터를 검색한다.
-- 와우 클라이언트의 주소 공간에 로딩된 모든 DLL 의 정보를 읽어들인다. (ToolHelp API)
-- 모든 윈도우 타이틀의 텍스트를 GetWindowTextA 로 읽어들인 다음, 해싱을 거쳐서 미리 등록된 금지 어플리케이션 목록과 비교한다.
-- 모든 프로세스의 코드 영역(0x004**** 이나 0x0041****)의 10-20바이트를 읽어서, 역시 해싱을 거쳐 미리 등록된 금지 어플리케이션 목록과 비교한다.
-</code></pre>
-
-<p><a href="http://www.rootkit.com/">이 책의 저자는</a>, 윈도우 타이틀에 SSN이나 카드 번호, URL, 이메일 등의 개인 정보가 블리자드로 빠져나갈 수 있고, 또한 내가 실행하고 있는 프로세스의 기밀 정보가 유출될 수 있기에, Warden이 안티해킹툴이라기 보다는 스파이웨어라고 주장하고 있다.</p>
-
-<p>한 명의 게이머의 입장에서는 저자의 주장에 수긍이 가지만, 이런 저런 해킹에 시달리는 게임 개발자의 관점에서 보면 이런 통계 기반의 해킹 체크도 한번 도입해보면 재미있지 않을까 하는 호기심도 솟아오른다. 우헷.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/22/boostasio-documentation/">Boost::asio Documentation</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-22T10:00:41+09:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://c10k.googlecode.com/svn/trunk/Doxyfile">doxygen 환경 파일</a>과 <a href="http://c10k.googlecode.com/svn/trunk/asio.chm">직접 컴파일한 CHM 파일</a>을 구글 코드에 올려뒀으니 관심있는 분들의 많은 애용 바랍니다.</p>
-
-<p>단, chm 파일이 80메가가 넘으므로, 환경 파일을 받고 OUTPUT_DIRECTORY라든지 STRIP_FROM_PATH 등을 적당히 고친 후 직접 컴파일하는게 나을 수도 있겠네요 :)</p>
-
-<p>제 홈페이지에서도 직접 받으실 수 있습니다.</p>
-
-<pre><code>- [boost asio doxygen configuration](http://reiot.cafe24.com/Doxyfile)
-- [boost asio compiled html(chm)](http://reiot.cafe24.com/asio.chm)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/19/getting-real/">Getting Real</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-19T08:27:41+09:00" pubdate data-updated="true">Feb 19<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://gettingreal.37signals.com/GR_kor.php">Getting Real</a>은 단지 웹개발에 대한 지침이기도 하지만, 쌓여 있는 버그와 뒤죽박죽한 요구 사항 속에서 고민하는 게임 개발자에게도 꽤 유익한 내용이다. 가끔씩 길을 잘못 들고 있지 않을까 하는 불안감이 들 때마다 읽어봐야겠다.</p>
-
-<blockquote><p>**&#8221;혁신은 &#8216;아니오&#8217; 에서 시작된다.&#8221;**</p><p>[혁신]은 1000가지 일에 대해서 &#8216;아니오&#8217;라고 말하므로써 잘못된 길을 가거나 불필요하게 너무 많은 일을 하지 않도록 하는 것에서 시작됩니다. 우리는 항상 새롭게 진입가능한 시장에 대해서 고민합니다. 하지만 그것은 과감히 &#8216;아니오&#8217;라고 말하므로써 실질적으로 중요한 일들에 대해서만 집중할 수 있을 때 가능합니다.<br/><cite>—Steve Jobs, CEO, [Apple](http://www.apple.com/) (from [The Seed of Apple&#8217;s Innovation](http://www.businessweek.com/bwdaily/dnflash/oct2004/nf20041012_4018_db083.htm))<br/></cite></p><p>**&#8221;천 개의 기능은 필요하지 않습니다.&#8221;**</p><p>스티브 잡스가 아이튠즈에 대해서 독립음반회사 사람들을 모아놓고 조그만 발표를 했습니다. 그 날 많은 사람들은 쉴 새없이 손을 들면서 어떤 기능이 제공되는 지, 혹은 어떤 기능을 추가할 계획이 있는 지 물었습니다. 마침내 쟙스가 말했습니다. &#8220;잠깐만요. 손을 잠시 내리고 제 말을 들어보시죠. 저는 여러분이 아이튠즈에 있으면 좋을 만한 아이디어를 수 천개 가지고 있다는 것을 잘압니다. 하지만 우리는 수 천개의 기능을 원하지 않습니다. 그렇게 하면 엉망이 될 겁니다. 혁신은 모든 것에 대해서 &#8216;예&#8217;라고 말하는 것이 아닙니다. 혁신은 정말 중요한 것을 제외한 나머지에 대해서는 &#8216;아니오&#8217;라고 말하는 것입니다.&#8221;</p><p><cite>—Derek Sivers, 대표 및 프로그래머, [CD Baby](http://www.cdbaby.com/)  and [HostBaby](http://www.hostbaby.com/)</cite><cite>(from [Say NO by default](http://www.oreillynet.com/onlamp/blog/2004/08/say_no_by_default.html))</cite></p></blockquote>
-
-
-<p>그러고 보면  헛똑똑이질을 하다가 매번 revert를 하다가 저런 글을 보고 뉘우치곤 하는 나보다, 이런 류의 글따위는 한번도 읽어보진 않아도 뭐가 중요한지 몸으로 깨닫고 있는 모군이 2g 정도 대견스럽긴 하다. ㅋㅋ</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/11/boost-serialization/">Boost::serialization</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-11T00:20:48+09:00" pubdate data-updated="true">Feb 11<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>boost::serialization 은, 템플릿 멤버 함수 하나 또는 free function 하나만 정의하면, 해당 클래스를 다양한 스트림으로 직렬화할 수 있게 해준다. 특히 list - vector - map - set 등의 다양한 STL 컨테이너들을 지원한다는 것이 장점이다.</p>
-
-<p>이때, 매크로 없이 &amp; 연산자 만으로 읽고 쓰기를 가능하게 했는데, 이건 템플릿 아카이브 파라미터가 알아서 잘 읽거나 쓰도록 책임을 전가했다는 게 상당히 아름답다.. 단, virtual 이 아니라서 하위 클래스는 모두 이걸 정의해줘야 한다. 그리고 아직 hash_map 은 잘 지원하지 않는 모양인데, 뭔가 복잡한 사정이 있는 듯하다.</p>
-
-<p>주의할 점이라면 아래 예제처럼 쓰려는 객체가 const 여야 한다는 점 정도?</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-<span class='line-number'>148</span>
-<span class='line-number'>149</span>
-<span class='line-number'>150</span>
-<span class='line-number'>151</span>
-<span class='line-number'>152</span>
-<span class='line-number'>153</span>
-<span class='line-number'>154</span>
-<span class='line-number'>155</span>
-<span class='line-number'>156</span>
-<span class='line-number'>157</span>
-<span class='line-number'>158</span>
-<span class='line-number'>159</span>
-<span class='line-number'>160</span>
-<span class='line-number'>161</span>
-<span class='line-number'>162</span>
-<span class='line-number'>163</span>
-<span class='line-number'>164</span>
-<span class='line-number'>165</span>
-<span class='line-number'>166</span>
-<span class='line-number'>167</span>
-<span class='line-number'>168</span>
-<span class='line-number'>169</span>
-<span class='line-number'>170</span>
-<span class='line-number'>171</span>
-<span class='line-number'>172</span>
-<span class='line-number'>173</span>
-<span class='line-number'>174</span>
-<span class='line-number'>175</span>
-<span class='line-number'>176</span>
-<span class='line-number'>177</span>
-<span class='line-number'>178</span>
-<span class='line-number'>179</span>
-<span class='line-number'>180</span>
-<span class='line-number'>181</span>
-<span class='line-number'>182</span>
-<span class='line-number'>183</span>
-<span class='line-number'>184</span>
-<span class='line-number'>185</span>
-<span class='line-number'>186</span>
-<span class='line-number'>187</span>
-<span class='line-number'>188</span>
-<span class='line-number'>189</span>
-<span class='line-number'>190</span>
-<span class='line-number'>191</span>
-<span class='line-number'>192</span>
-<span class='line-number'>193</span>
-<span class='line-number'>194</span>
-<span class='line-number'>195</span>
-<span class='line-number'>196</span>
-<span class='line-number'>197</span>
-<span class='line-number'>198</span>
-<span class='line-number'>199</span>
-<span class='line-number'>200</span>
-<span class='line-number'>201</span>
-<span class='line-number'>202</span>
-<span class='line-number'>203</span>
-<span class='line-number'>204</span>
-<span class='line-number'>205</span>
-<span class='line-number'>206</span>
-<span class='line-number'>207</span>
-<span class='line-number'>208</span>
-<span class='line-number'>209</span>
-<span class='line-number'>210</span>
-<span class='line-number'>211</span>
-<span class='line-number'>212</span>
-<span class='line-number'>213</span>
-<span class='line-number'>214</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="cp">#include &quot;stdafx.h&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">#include &lt;fstream&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">#include &lt;boost/archive/text_oarchive.hpp&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;boost/archive/text_iarchive.hpp&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">#include &lt;boost/archive/binary_oarchive.hpp&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;boost/archive/binary_iarchive.hpp&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">#include &lt;boost/serialization/list.hpp&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;boost/serialization/vector.hpp&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;boost/serialization/map.hpp&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;boost/serialization/hash_map.hpp&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">chat_message</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">friend</span> <span class="k">class</span> <span class="nc">boost</span><span class="o">::</span><span class="n">serialization</span><span class="o">::</span><span class="n">access</span><span class="p">;</span>
-</span><span class='line'><span class="k">public</span><span class="o">:</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">chat_message</span><span class="p">()</span> <span class="p">{}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">chat_message</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">id</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">body_length</span><span class="p">,</span> <span class="n">string</span> <span class="n">msg</span><span class="p">,</span> <span class="n">wstring</span> <span class="n">wmsg</span><span class="p">)</span>
-</span><span class='line'>      <span class="o">:</span> <span class="n">id_</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">,</span> <span class="n">body_length_</span><span class="p">(</span><span class="n">body_length</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">,</span> <span class="n">message</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">,</span> <span class="n">wmessage</span><span class="p">(</span><span class="n">wmsg</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">for</span> <span class="p">(</span> <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="p">;</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">string</span> <span class="n">val</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">str</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Hello %1%&quot;</span><span class="p">)</span><span class="o">%</span><span class="n">i</span><span class="p">);</span>
-</span><span class='line'>          <span class="n">messages</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
-</span><span class='line'>          <span class="n">array_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
-</span><span class='line'>          <span class="n">list_</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-</span><span class='line'>          <span class="n">vector_</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-</span><span class='line'>          <span class="n">map_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
-</span><span class='line'>          <span class="n">hash_map_</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">);</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Archive</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">serialize</span><span class="p">(</span><span class="n">Archive</span> <span class="o">&amp;</span> <span class="n">ar</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">version</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">ar</span> <span class="o">&amp;</span> <span class="n">id_</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">ar</span> <span class="o">&amp;</span> <span class="n">body_length_</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">ar</span> <span class="o">&amp;</span> <span class="n">message</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">ar</span> <span class="o">&amp;</span> <span class="n">wmessage</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">ar</span> <span class="o">&amp;</span> <span class="n">messages</span><span class="p">;</span>          <span class="c1">// pritimive array</span>
-</span><span class='line'>      <span class="n">ar</span> <span class="o">&amp;</span> <span class="n">array_</span><span class="p">.</span><span class="n">elems</span><span class="p">;</span>        <span class="c1">// boost::array</span>
-</span><span class='line'>      <span class="n">ar</span> <span class="o">&amp;</span> <span class="n">list_</span><span class="p">;</span>             <span class="c1">// std::list</span>
-</span><span class='line'>      <span class="n">ar</span> <span class="o">&amp;</span> <span class="n">vector_</span><span class="p">;</span>           <span class="c1">// std::vector</span>
-</span><span class='line'>      <span class="n">ar</span> <span class="o">&amp;</span> <span class="n">map_</span><span class="p">;</span>              <span class="c1">// std::map</span>
-</span><span class='line'>      <span class="c1">//ar &amp; hash_map_;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">check_equal</span><span class="p">(</span> <span class="k">const</span> <span class="n">chat_message</span> <span class="o">&amp;</span> <span class="n">r</span> <span class="p">)</span> <span class="k">const</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span><span class="n">r</span><span class="p">.</span><span class="n">id_</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">body_length_</span><span class="p">,</span><span class="n">r</span><span class="p">.</span><span class="n">body_length_</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">message</span><span class="p">,</span><span class="n">r</span><span class="p">.</span><span class="n">message</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">BOOST_CHECK</span><span class="p">(</span><span class="n">wmessage</span><span class="o">==</span><span class="n">r</span><span class="p">.</span><span class="n">wmessage</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="k">for</span> <span class="p">(</span> <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="p">;</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">messages</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">r</span><span class="p">.</span><span class="n">messages</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="k">for</span> <span class="p">(</span> <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">;</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">array_</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">r</span><span class="p">.</span><span class="n">array_</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">BOOST_REQUIRE_EQUAL</span><span class="p">(</span> <span class="n">list_</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">r</span><span class="p">.</span><span class="n">list_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>          <span class="n">list</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">list_</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-</span><span class='line'>          <span class="n">list</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">itr2</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">list_</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-</span><span class='line'>          <span class="k">for</span> <span class="p">(</span> <span class="p">;</span> <span class="n">itr</span> <span class="o">!=</span> <span class="n">list_</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="p">;</span> <span class="n">itr</span> <span class="o">++</span><span class="p">,</span> <span class="n">itr2</span><span class="o">++</span> <span class="p">)</span>
-</span><span class='line'>          <span class="p">{</span>
-</span><span class='line'>              <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="o">*</span><span class="n">itr</span><span class="p">,</span> <span class="o">*</span><span class="n">itr2</span> <span class="p">);</span>
-</span><span class='line'>          <span class="p">}</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">BOOST_REQUIRE_EQUAL</span><span class="p">(</span> <span class="n">vector_</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">r</span><span class="p">.</span><span class="n">vector_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>          <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">vector_</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-</span><span class='line'>          <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">itr2</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">vector_</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-</span><span class='line'>          <span class="k">for</span> <span class="p">(</span> <span class="p">;</span> <span class="n">itr</span> <span class="o">!=</span> <span class="n">vector_</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="p">;</span> <span class="n">itr</span> <span class="o">++</span><span class="p">,</span> <span class="n">itr2</span><span class="o">++</span> <span class="p">)</span>
-</span><span class='line'>          <span class="p">{</span>
-</span><span class='line'>              <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="o">*</span><span class="n">itr</span><span class="p">,</span> <span class="o">*</span><span class="n">itr2</span> <span class="p">);</span>
-</span><span class='line'>          <span class="p">}</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">BOOST_REQUIRE_EQUAL</span><span class="p">(</span> <span class="n">map_</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">r</span><span class="p">.</span><span class="n">map_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>          <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">map_</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-</span><span class='line'>          <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">itr2</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">map_</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-</span><span class='line'>          <span class="k">for</span> <span class="p">(</span> <span class="p">;</span> <span class="n">itr</span> <span class="o">!=</span> <span class="n">map_</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="p">;</span> <span class="n">itr</span> <span class="o">++</span><span class="p">,</span> <span class="n">itr2</span><span class="o">++</span> <span class="p">)</span>
-</span><span class='line'>          <span class="p">{</span>
-</span><span class='line'>              <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">itr</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">,</span> <span class="n">itr2</span><span class="o">-&gt;</span><span class="n">first</span> <span class="p">);</span>
-</span><span class='line'>              <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">itr</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">,</span> <span class="n">itr2</span><span class="o">-&gt;</span><span class="n">second</span> <span class="p">);</span>
-</span><span class='line'>          <span class="p">}</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">//{</span>
-</span><span class='line'>      <span class="c1">// BOOST_REQUIRE_EQUAL( hash_map_.size(), r.hash_map_.size() );</span>
-</span><span class='line'>      <span class="c1">// stdext::hash_map&lt;string,bool&gt;::const_iterator itr = hash_map_.begin();</span>
-</span><span class='line'>      <span class="c1">// stdext::hash_map&lt;string,bool&gt;::const_iterator itr2 = r.hash_map_.begin();</span>
-</span><span class='line'>      <span class="c1">// for ( ; itr != hash_map_.end() ; itr ++, itr2++ )</span>
-</span><span class='line'>      <span class="c1">// {</span>
-</span><span class='line'>      <span class="c1">//     BOOST_CHECK_EQUAL( itr-&gt;first, itr2-&gt;first );</span>
-</span><span class='line'>      <span class="c1">//     BOOST_CHECK_EQUAL( itr-&gt;second, itr2-&gt;second );</span>
-</span><span class='line'>      <span class="c1">// }</span>
-</span><span class='line'>      <span class="c1">//}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="k">private</span> <span class="o">:</span>
-</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">id_</span><span class="p">;</span>
-</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">body_length_</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">string</span> <span class="n">message</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">wstring</span> <span class="n">wmessage</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">string</span> <span class="n">messages</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
-</span><span class='line'>  <span class="n">boost</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="mi">10</span><span class="o">&gt;</span> <span class="n">array_</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">list</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">list_</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vector_</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">map_</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">stdext</span><span class="o">::</span><span class="n">hash_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">hash_map_</span><span class="p">;</span>
-</span><span class='line'><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// TODO</span>
-</span><span class='line'><span class="c1">// - archive from/to buffer</span>
-</span><span class='line'><span class="c1">// - user defined archive</span>
-</span><span class='line'><span class="c1">// - string, wstring load/save</span>
-</span><span class='line'><span class="c1">// - stl support (list,vector,map)</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span><span class="n">test_serialize</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">const</span> <span class="n">chat_message</span> <span class="n">msg1</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">,</span><span class="s">L&quot;Welcome!&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">chat_message</span> <span class="n">msg2</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">ofs</span><span class="p">(</span><span class="s">&quot;serialize.txt&quot;</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">text_oarchive</span> <span class="n">oa</span><span class="p">(</span><span class="n">ofs</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">oa</span> <span class="o">&lt;&lt;</span> <span class="n">msg1</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">ofs</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="n">ifs</span><span class="p">(</span><span class="s">&quot;serialize.txt&quot;</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">text_iarchive</span> <span class="n">ia</span><span class="p">(</span><span class="n">ifs</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">ia</span> <span class="o">&gt;&gt;</span> <span class="n">msg2</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">ifs</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">msg1</span><span class="p">.</span><span class="n">check_equal</span><span class="p">(</span><span class="n">msg2</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">chat_message</span> <span class="n">msg2</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">ofs</span><span class="p">(</span><span class="s">&quot;serialize.bin&quot;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">binary</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">binary_oarchive</span> <span class="n">oa</span><span class="p">(</span><span class="n">ofs</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">oa</span> <span class="o">&lt;&lt;</span> <span class="n">msg1</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">ofs</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="n">ifs</span><span class="p">(</span><span class="s">&quot;serialize.bin&quot;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">binary</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">binary_iarchive</span> <span class="n">ia</span><span class="p">(</span><span class="n">ifs</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">ia</span> <span class="o">&gt;&gt;</span> <span class="n">msg2</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">ifs</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">msg1</span><span class="p">.</span><span class="n">check_equal</span><span class="p">(</span><span class="n">msg2</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">chat_message</span> <span class="n">msg2</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">streambuf</span> <span class="n">buf</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">ostream</span> <span class="n">os</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">text_oarchive</span> <span class="n">oa</span><span class="p">(</span><span class="n">os</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">oa</span> <span class="o">&lt;&lt;</span> <span class="n">msg1</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">istream</span> <span class="n">is</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">text_iarchive</span> <span class="n">ia</span><span class="p">(</span><span class="n">is</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">ia</span> <span class="o">&gt;&gt;</span> <span class="n">msg2</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">msg1</span><span class="p">.</span><span class="n">check_equal</span><span class="p">(</span><span class="n">msg2</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">chat_message</span> <span class="n">msg2</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">streambuf</span> <span class="n">osf</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">binary_oarchive</span> <span class="n">oa</span><span class="p">(</span><span class="n">osf</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">oa</span> <span class="o">&lt;&lt;</span> <span class="n">msg1</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">binary_iarchive</span> <span class="n">ia</span><span class="p">(</span><span class="n">osf</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">ia</span> <span class="o">&gt;&gt;</span> <span class="n">msg2</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">msg1</span><span class="p">.</span><span class="n">check_equal</span><span class="p">(</span><span class="n">msg2</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// via istream/ostream</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">chat_message</span> <span class="n">msg2</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">streambuf</span> <span class="n">buf</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">ostream</span> <span class="n">os</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">binary_oarchive</span> <span class="n">oa</span><span class="p">(</span><span class="n">os</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">oa</span> <span class="o">&lt;&lt;</span> <span class="n">msg1</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">istream</span> <span class="n">is</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">binary_iarchive</span> <span class="n">ia</span><span class="p">(</span><span class="n">is</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">ia</span> <span class="o">&gt;&gt;</span> <span class="n">msg2</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">msg1</span><span class="p">.</span><span class="n">check_equal</span><span class="p">(</span><span class="n">msg2</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/10/boost-test-thread-safe/">Boost::test Thread Safe</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-10T08:15:59+09:00" pubdate data-updated="true">Feb 10<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>다른 표준 라이브러리와 마찬가지로, boost::test 역시 멀티쓰레드에 대해서 안전하지 않다. 물론 BOOST_CHECK 등의 테스트 매크로들은 내부적으로 싱글톤을 사용하기 때문에, 쓰레드 함수 내부에서 사용하더라도 실패할 경우 에러 메시지를 출력해주지만, 다른 쓰레드에서 동일한 순간에 역시 같은 매크로를 호출하게 되면 콜스택 깊은 곳에서 난감한 에러를 뱉어버린다.</p>
-
-<p>이걸 해결하려면 결국 mutex 로 테스트 매크로들을 wrap 한 또다른 매크로를 만들어서 써야 하는 수 밖에 없다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="cp">#define SAFE_BOOST_CHECK_EQUAL(m,x,y) { \</span>
-</span><span class='line'><span class="cp">boost::mutex::scoped_lock lock(m); \</span>
-</span><span class='line'><span class="cp">BOOST_CHECK_EQUAL(x,y); }</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">boost_check_always</span><span class="p">(</span> <span class="n">boost</span><span class="o">::</span><span class="n">mutex</span> <span class="o">*</span> <span class="n">m</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">boost</span><span class="o">::</span><span class="n">timer</span> <span class="n">timer_</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">while</span><span class="p">(</span><span class="n">timer_</span><span class="p">.</span><span class="n">elapsed</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">10.f</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">SAFE_BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="o">*</span><span class="n">m</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span> <span class="n">test_boost_check_always</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">boost</span><span class="o">::</span><span class="n">mutex</span> <span class="n">m</span><span class="p">;</span>
-</span><span class='line'><span class="n">boost</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="n">boost_check_always</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">));</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">boost</span><span class="o">::</span><span class="n">timer</span> <span class="n">timer_</span><span class="p">;</span>
-</span><span class='line'><span class="k">while</span><span class="p">(</span><span class="n">timer_</span><span class="p">.</span><span class="n">elapsed</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">10.f</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">SAFE_BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">t</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/10/boost_asio_iostream/">Boost::asio Iostream</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-10T03:25:32+09:00" pubdate data-updated="true">Feb 10<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>문자열 기반의 네트워크 입출력 프로그래밍을 해야 한다면, ASIO 의 iostream 을 사용하면 간단히 해결된다.</p>
-
-<p>boost::asio::io_service 같이 모호한 객체 선언도 필요없고, 연결 관리나 버퍼링 같은 개념도 적당히 무시할 수 있어서, 예외 처리만 잘 한다면 원격 로그라든지 XML RPC  클라이언트 같은 곳에 써먹을 수 있을 것 같다.</p>
-
-<p>만약 복잡한 문자열 조작이 필요하다면 boost::string_algo 정도면 충분하고, 정규식이 필요하면 boost::regexp 을 가져다 사용하면 될 듯하다.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2008/02/10/boost_asio_iostream/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/04/anticheatengine/">AntiCheatEngine</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-04T09:48:43+09:00" pubdate data-updated="true">Feb 4<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>원래는 Cheat Engine 으로도 freeze 를 걸 수 없는 안전한 변수를 만들기 위해서 만든 클래스다. 여기에 CRC라든지 XOR도 넣고, 또 값이 바뀔 때마다 위치도 바꾸고 할려고 했는데, 가만히 생각해보니 속도도 제법 느리고 막상 함수 내에 아래와 같이 로컬 캐시가 있다면 그걸 바꿔버리면 전혀 쓸모 없어져서 그냥 포기버렸다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="kt">float</span> <span class="n">speed</span> <span class="o">=</span> <span class="n">ac</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;speed&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="c1">// -- inject code here --</span>
-</span><span class='line'><span class="n">check_next_pos</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span><span class="n">speed</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="http://reiot.cafe24.com/2008/02/03/ai-game-programming-wisdom-3/">어제 주문한 책들</a>이 도착하면 다시 한번 도전해볼까 싶기도 하지만, assembly 쪽 지식이 전무해서&#8230;</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2008/02/04/anticheatengine/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/35/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/33/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/04/15/ethereal-tips/">Ethereal Tips</a> <small>2006-04-15</small></h1>
+	</div>
+	<div><p><strong>Local Packets</strong></p>
+<p>로컬 어플리케이션 간의 TCP/IP 패킷 전송은 캡처되지 않는다. 뭔가 내가 모르는게 있는걸까?</p>
+<p><strong>Conversation</strong></p>
+<p><a title="EtherealConversation.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.thumbnail.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.thumbnail.JPG" /></a>특정 어플리케이션에 대해서 패킷 캡처를 하고 나면, 캡처 하는 동안 발생했던 다른 쓸모없는 패킷들까지도 뒤섞여 있기 때문에, 이를 잘 필터링해야 한다. 물론 Display Filter 를 써서 수동으로 하나씩 필터링하는 방법도 있지만, Statistics - Conversation 메뉴를 통해서 그동안 전송된 패킷들을 프로토콜별로 분류해 놓은 표를 통해서 필터링하는 방법도 있다.</p>
+<p>이 표를 보면 프로토콜별/주소별 패킷 분류가 되어 있으며, 각 분류마다 전송 횟수가 표시되어 있으므로 원하는 프로토콜과 주소지를 잘 선택하면 끝.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/04/11/migrate-to-ace/">Migrate To ACE</a> <small>2006-04-11</small></h1>
+	</div>
+	<div><p><a href="http://reiot.cafe24.com/archives/404">예전에도 밝혔다시피</a> 요즘 legacy server core framework 를 <a href="http://reiot.cafe24.com/archives/413">ACE</a> 기반으로 마이그레이션하고 있다. 기존 코드의 경우 골치아픈 동기화와 데드락을 최대한 피하기 위해서 IOCP를 썼음에도 불구하고 polling 을 통한 순차 처리를 하도록 되어 있어서, 일단 이 형태를 그대로 ACE 기반으로 재구성 한 후 제대로 된 이벤트 드리븐을 구현해보려고 노력 중이다. 사실, 테스트 결과는 그다지 좋지는 않지만, 숨겨진 병목 부분을 해결하면 원래 코드의 80-90% 정도는 따라갈 수 있으리라고 예상중이다.</p>
+<p>그런데 작업 도중 오랜만에 동기화 관련 버그를 만났다. ACE_ASSERT( p != 0 ); 에서 에러가 났는데 디버거로 쫒아가면 우습게도 포인터가 정상이 아닌가... 처음엔 VS2005를 탓하면서 한동안 헤롱거리다가 가만히 생각해보니, ASSERT가 발생한 직후 다른 쓰레드가 재빨리 값을 바꾸어 버리는 것 외에는 이유가 없다는 것을 깨달았다. 알고 보니 ACE API 의 호출 순서를 헷갈려서 생긴 문제였다. :(</p>
+<p>이번 마이그레이션의 최종 목표는 ACE 기반으로 제대로 된 gather-scatter I/O를 구현하는 것이다. 프레임워크가 잘 만들어져 있어서 금방 할 수 있긴 한데, 가능한한 락과 복사를 하지 않고 구현하려고 하니 잘 안되는 듯했다. (lock 으로 보호되는 ACE_Message_Block 을 duplicate() 해서 각각의 출력 버퍼에 concat 하고 출력 스트림에다가 writev() 만 하면 되는데 말이다. 물론 메모리 풀링도 필요하다.) 과연 하나의 버퍼에 복사한 후 플러시하는 게 빠를지, 버퍼 복사 없이 리스트로 관리하다가 한꺼번에 플러시하는게 빠를지... 결과가 기대된다. (ref-count 를 위한 락 때문에 더욱 결과가 모호하다 ㅋㅋ)</p>
+<p>이거 외에도 써먹어야 할 ACE 고급 기능들이 부지기수인데...  스케줄은 늘어지고, 야근은 하기 싫고, 오블리비언도 해야 되고... 진퇴양난이다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/03/23/윈도우즈-무인설치/">윈도우즈 무인설치</a> <small>2006-03-23</small></h1>
+	</div>
+	<div><p>5 대 이상의 머신에 OS를 가장 빨리 (그리고 안전하게) 설치하는 방법에 대해서 정리한 문서이다.</p>
+<h3>개요</h3>
+<p>이번에 ETRI 에서 주관하는 온라인게임테스트베드에 당첨되어, 서버를 설치하러 분당 KT IDC 에 가야 한다. 그런데, 많은 회사들이 회선을 공유하는지라 완전히 OS 를 설치하고 패치를 적용하고 백신을 설치해야만 인터넷 연결을 허용한다고 해서, 철저하게 CD 를 준비해서 재빨리 설치하고 돌아와야 한다!!</p>
+<ul>
+<li>사용 OS : Windows Server 2003 Standard</li>
+<li>대상 머신 : HP DL580 (1 EA), HP DL360 (4 EA)</li>
+</ul>
+<h3>순서</h3>
+<ul>
+<li>http://v4.windowsupdate.microsoft.com/catalog/ko/default.asp 에서 해당 OS 의 최신 패치들을 다운받아서 CD 에 굽는다.</li>
+<li>http://support.microsoft.com/?kbid=296861 을 기반으로 다운받은 패치들을 한번만에 적용하기 위해, CD 의 루트에다가 다음과 같은 배치 파일을 만든다.</li>
+</ul>
+<p><code>&lt;code&gt;
+@echo off
+setlocal
+set PATHTOFIXES=Drive:\Update
+%PATHTOFIXES%\WindowsServer2003-KB######-Platform-LLL.exe /Z /U
+%PATHTOFIXES%\WindowsServer2003-KB######-Platform-LLL.exe /Z /U
+%PATHTOFIXES%\WindowsServer2003-KB######-Platform-LLL.exe /Z /U
+&lt;/code&gt;</code></p>
+<ul>
+<li>리부팅한 후, 이제 인터넷과 연결한다. (방화벽 및 백신은 꼭 설정할 것)</li>
+</ul>
+<p>see also:</p>
+<ul>
+<li>SeriousCode:AutomatingWindowsInstallation</li>
+<li>IpSec - IP 레벨의 접근 제어에 대해</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/03/23/doxygen/">Doxygen</a> <small>2006-03-23</small></h1>
+	</div>
+	<div><h3>설치</h3>
+<ul>
+<li><a href="http://doxygen.org Doxygen">공식 홈페이지</a>에서 최신 Doxygen 을 받아서 설치한다.</li>
+<li><a href="http://www.graphviz.org/">Graphiz 홈페이지</a>에서 dot 툴을 받아서 설치한다.</li>
+<li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/htmlhelp/html/hwMicrosoftHTMLHelpDownloads.asp">Microsoft HTML Helper</a>를 받아서 설치한다.</li>
+</ul>
+<h3>설정</h3>
+<ul>
+<li>Doxygen GUI frontend 를 실행한 후, 맨 처음에는 Wizard 모드로 기본 설정을 하고, 다시 Expert 모드로 상세하게 설정을 해주면 된다. 이때 매번마다 환경을 변경한 다음에는 Doxyfile 로 저장하는 것을 잊지 말도록.</li>
+<li><a href="http://serious-code.net/moin.cgi/DoxyGenSetup">SeriousCode:DoxygenSetup</a> 을 참고해서 배치파일을 잘 만들어두면 편하다.</li>
+</ul>
+<h3>DoxygenTips</h3>
+<ul>
+<li>상대경로를 애용할 것 : 범용성을 위해 INPUT 및 OUTPUT_DIRECTORY 는 상대 경로로 지정하고, DoxyWizard 의 Working Directory 를 절대 경로를 사용할 것. Doxygen 이 알아서 둘을 조합한다.</li>
+<li>CREATE_SUBDIR 을 설정하면, html 폴더에 너무 많은 파일들이 몰리는 현상을 막을 수 있다.</li>
+<li>FULL_PATH_NAMES 를 설정하고, STRIP_FROM_PATH 에 Working Directory 를 추가해주면, 여러 개의 하위 폴더에 나눠진 파일들의 경로를 출력할 수 있다</li>
+<li>HHC_LOCATION 은 일반적으로 <code>C:/Program Files/HTML Help Workshop/hhc.exe</code>를 지정하면 된다. (Visual Studio 를 설치하면 저기에 자동으로 설치가 되기 때문)</li>
+<li>DOT_IMAGE_FORMAT 은 png 로 설정하면 용량이 많이 줄어든다. 단 jpg + DOT_TRANSPARENT 의 조합은 용량이 무지막지하게 커지므로 주의할 것.</li>
+<li>DOT_PATH 는 일반적으로 <code>C:/Program Files/ATT/Graphviz/bin</code>을 지정할 것</li>
+</ul>
+<p>see also:</p>
+<ul>
+<li><a href="http://serious-code.net/moin.cgi/DoxyGen">SeriousCode:DoxyGen</a></li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/03/22/relational-database-guidelines-for-mmogs-요약/">Relational Database Guidelines For MMOGs 요약</a> <small>2006-03-22</small></h1>
+	</div>
+	<div><p>원문 보기 : <a href="http://www.gamasutra.com/resource_guide/20030916/lee_01.shtml">Relational Database Guidelines For MMOGs</a> from Gamasutra</p>
+<h2>Naming Convention</h2>
+<ul>
+<li>프로그램에서의 이름과 DB에서의 이름을 일치시켜라.</li>
+<li>user-defined type 을 사용해라. (단 타입이 변할 경우 낭패!)</li>
+<li>필요할 경우 축약어를 사용해도 좋다.</li>
+</ul>
+<h2>Tables</h2>
+<ul>
+<li>정수형 키를 사용할 경우, 가능한한 큰 타입의 키값을 사용할 것. 서비스 도중 타입을 바꾸는 것은 권장하지 않는다.</li>
+<li>smart key(키값 자체의 의미를 담고 있는 키)는 절대 사용하지 말 것. 변경, 확장 및 유지 보수에 애로 사항이 꽃핀다.</li>
+<li>복합 키의 경우, 각 키값의 정렬 순서는 일치하는 편이 좋다. (하나는 증가, 하나는 감소..이러면 곤란)</li>
+<li>여러 개의 데이터베이스에서 동기화 되어야 할 키가 필요하다면, 범위를 잘 나눠야 한다. 그래야 나중에 합칠 때 좋다.</li>
+</ul>
+<h2>Table Index</h2>
+<ul>
+<li>정말 필요한 경우에만 인덱스를 추가할 것.</li>
+<li>프로파일러에서 느리다고 판명된 경우, 인덱스 추가 전후의 속도를 체크해서 인덱스 추가 후에 확실히 빨라졌다면 인정.</li>
+</ul>
+<h2>Schema Structure</h2>
+<ul>
+<li>denormalization 은 흑마술이므로, 자신 없으면 도전하지 말 것. 정 하려면 아래와 같은 룰을 따를 것.</li>
+<li>static 데이터는 서버 시작시 한꺼번에 메모리에 올릴 것.</li>
+<li>게임 객체 데이터 로딩시 - 여러 개의 테이블을 조인해야 하더라도 - 하나의 쿼리로 모든 데이터를 읽어들일 것. (당연히 그래야 하는 게 아닌가?.?)</li>
+<li>캐릭터와 소유 아이템 등 복잡한 데이터를 로딩할 때, 정말 필요할 때까지 로딩을 연기할 것(-_-). 또한, 이런 로딩도 비동기적이어야 함. (비동기 체인 쿼리?)</li>
+<li>계층적인 데이터를 실시간으로 변경하지 않도록 하라. (가령 인벤토리 내에 인벤토리 내의 인벤토리 같은 설계는 피할 것)</li>
+<li>데이터베이스 안에 또다른 데이터베이스를 만들지 말 것. 가령 여러 정보를 담고 있는 바이너리 컬럼이라든지, 컬럼 2개를 이용해서 1개의 값을 나타내는 등 SQL 쿼리로 다양한 데이터를 뽑아낼 때 추가적인 lookup 테이블이 필요한 디자인은 대략 좋지 않다.</li>
+</ul>
+<h2>Stored Procedure</h2>
+<ul>
+<li>{{{SELECT * FROM ...}}} 보다는 실제 컬럼을 지정하는 편이 좋다.</li>
+<li>모든 라이브러리가 프로시저의 리턴값을 받도록 되어 있진 않으므로, {{{SELECT 1; RETURN}}} 과 같이 SELECT 를 이용하는 것을 권장한다.</li>
+</ul>
+<h2>Transaction</h2>
+<ul>
+<li>여러 개의 테이블을 수정하는 경우 필수적으로 사용할 것. (당연하징)</li>
+<li>MSSQL 은 nested transaction 을 지원하지만, 부분적인 캔슬은 지원하지 않으므로 주의할 것.</li>
+</ul>
+<h2>Joins</h2>
+<ul>
+<li>Perform joins on columns that are system assigned keys with good cardinality values</li>
+<li>Add an index that verifiably speeds access if a join column is not the primary key on a table.</li>
+<li>Keep the number of different tables in the join down to the minimum, particular if the query will return a large number of rows from one or more tables.</li>
+<li>Offload the query to server startup time when we can better afford slower than optimal performance.</li>
+</ul>
+<h2>Null Value</h2>
+<ul>
+<li>Any operations attempted against a NULL value will give NULL as the result. (even NULL  NULL) :(</li>
+</ul>
+<h2>Referential Integrity</h2>
+<ul>
+<li>RI is not optional</li>
+<li>아이템 복사 등을 막으려면 unique + FK 를 사용할 것.</li>
+<li>컬럼 제약조건을 애용할 것.</li>
+</ul></div>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/35/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/35">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2006/04/15/ethereal-tips/">Ethereal Tips</a>
+	</li>
+	
+	<li>
+		<a href="/2006/04/11/migrate-to-ace/">Migrate To ACE</a>
+	</li>
+	
+	<li>
+		<a href="/2006/03/23/윈도우즈-무인설치/">윈도우즈 무인설치</a>
+	</li>
+	
+	<li>
+		<a href="/2006/03/23/doxygen/">Doxygen</a>
+	</li>
+	
+	<li>
+		<a href="/2006/03/22/relational-database-guidelines-for-mmogs-요약/">Relational Database Guidelines For MMOGs 요약</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

@@ -1,1140 +1,646 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="MS, Google, Intel, IBM, Adobe, Dell, Sony, Sanyo&#8230; 놀라운 감원 쯔나미는 겨우 시작일 뿐이다. 성장 동력이 없거나 멈춘 국내 게임 회사들이, 직원 월급을 못주고 있다는 첩보가 속속 입수되고 있다.  정말 대충 예상해본 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/page/30">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/06/01/stl-tips/">STL Tips</a> <small>2006-06-01</small></h1>
+	</div>
+	<div><pre><code></code></pre>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
+<pre><code>***이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 http://reiot.springnote.com/pages/87168에서 보실 수 있습니다.***```
+</code></pre>
 
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
+<pre><code>## dll + STL
+
+dll 에서 hash_set 을 멤버로 가진 클래스를 만들려다가 nested class 인 _Hash 라든지 hash_compare 등등을 모두 dllexport 하라길래 포기하고 PIMPL 패턴으로 해결해야만 했다.
+
+    - [How To Exporting STL Components Inside &amp; Outside of a Class](http://support.microsoft.com/default.aspx?scid=kb;EN-US;168958)
+
+## boost::lambda
+
+아래의 mem_fun_if 류와 비슷한 역할을 하는 것이 바로 boost::lambda 라이브러리다. 일단 아래처럼 포인터 컨테이너를 순회하면서 NOT NULL 일 경우에 특정 멤버 함수를 호출하는 예제를 살펴보자.
+
+</code></pre>
+
+<p>for_each( l.begin(), l.end(),<br />
+if_then( _1 != constant((A*)NULL), bind( &amp;A::print, _1 ) ) );</p>
+<pre><code>lambda 라이브러리를 사용하면 위와 같이 간단한 코드로 표현이 가능하다. 대신 컴파일 속도는... ㅠㅠ
+## mem_fun_if
+
+일반적으로 포인터 컨테이너를 순회하면서 특정 조건을 만족할 경우 멤버 함수를 호출하는 패턴을 위한 자작 adapter function 이다. (물론 const 버전과 파라미터 1개를 받는 버전, 합쳐서 총 4개의 클래스와 4개의 함수를 만들어야 하지만... 시간상 생략)
+
+</code></pre>
+
+<dl>
+<dt>template<class _Pred, class _Result, class _Ty></dt>
+<dt>class mem_fun_if_t : public unary_function&lt;_Ty *, _Result&gt;</dt>
+<dt>{</dt>
+<dt>public:</dt>
+<dt>explicit mem_fun_if_t( _Pred pred, _Result (_Ty::*_Pm)())</dt>
+<dd>_pred(pred), _Pmemfun(_Pm), _count(0)<br />
+  {<br />
+  }</dd>
+</dl>
+<p>// 단점이라면 멤버함수의 리턴값은... 도무지 캐치불가능...<br />
+  bool operator()(_Ty <em>_Pleft) const<br />
+  {<br />
+  if ( _pred(_Pleft) )<br />
+  {<br />
+  ((_Pleft-&gt;</em>_Pmemfun)());<br />
+_count++;<br />
+  return true;<br />
+  }<br />
+  return false;<br />
+  }</p>
+<p>int count() const { return _count; }</p>
+<p>private:<br />
+_Pred _pred;  // predicate<br />
+_Result (_Ty::*_Pmemfun)(); // the member function pointer<br />
+mutable int _count;<br />
+};</p>
+<p>template<class _Pred, class _Result, class _Ty><br />
+inline<br />
+mem_fun_if_t&lt;_Pred,_Result, _Ty&gt;<br />
+mem_fun_if(_Pred pred,_Result (_Ty::*_Pm)())<br />
+{<br />
+  return (mem_fun_if_t&lt;_Pred,_Result, _Ty&gt;(pred,_Pm));<br />
+}</p>
+<pre><code>이를 이용한 샘플이다.
+
+</code></pre>
+
+<p>using namespace std;</p>
+<p>class A<br />
+{<br />
+public :<br />
+  explicit A( const string &amp; s ): str(s) {}<br />
+  void print() { cout &lt;&lt;str &lt;&lt;endl; }<br />
+string str;<br />
+};</p>
+<h1>define not_null(T) bind2nd( not_equal_to<T*>(), (T*)0)</h1>
+<p>int _tmain(int argc, _TCHAR* argv[])<br />
+{<br />
+list<A*> l;<br />
+l.push_back( new A("Hello") );<br />
+l.push_back( NULL );<br />
+l.push_back( new A("World") );<br />
+l.push_back( NULL );<br />
+l.push_back( new A("!") );</p>
+<p>for_each( l.begin(), l.end(), mem_fun_if( bind2nd( not_equal_to<A*>(), (A*)0 ), &amp;A::print ) );<br />
+for_each( l.begin(), l.end(), mem_fun_if( not_null(A), &amp;A::print ) );</p>
+<p>return 0;<br />
+}```</p>
+<h2>if_not_null</h2>
+<p>다음은 포인터 컨테이너에서 NOT NULL 인 갯수를 찾는 코드이다.</p>
+<pre><code>
+count_if( l.begin(), l.end(),
+bind2nd( not_equal_to&lt;A*&gt;(), (A*)0 ) );
+</code></pre>
+
+<h2>ptr_fun and not1, not2</h2>
+<p>ptr_fun 은 말 그대로 pointer to function 이다.</p>
+<pre><code>
+template&lt;class Arg, class Result&gt;
+pointer_to_unary_function&lt;Arg, Result&gt;
+ptr_fun(Result (_*pfunc)(Arg));
+
+template&lt;class Arg1, class Arg2, class Result&gt;
+pointer_to_binary_function&lt;Arg1, Arg2, Result&gt;
+ptr_fun(Result (_*pfunc)(Arg1, Arg2));
+
+not1 은 unary_function 의 negate 이며, not2 는 binary_function 의 negate 이다.
+
+template&lt;class UnaryPredicate&gt;
+unary_negate&lt;UnaryPredicate&gt; not1(
+const UnaryPredicate&amp; _Pred
+);
+
+template&lt;class Predicate&gt;
+class unary_negate
+: public unary_function&lt;
+typename Predicate::argument_type,
+bool&gt;
+{
+public:
+explicit unary_negate(
+const Predicate&amp; _Func
+);
+bool operator()(
+const typename Predicate::argument_type&amp; _Left ) const;
+};
+
+template&lt;class BinaryPredicate&gt;
+binary_negate&lt;BinaryPredicate&gt; not2(
+const BinaryPredicate&amp; _Func
+);
+
+template&lt;class Operation&gt;
+class binary_negate
+: public binary_function &lt;
+typename Operation::first_argument_type,
+typename Operation::second_argument_type,
+bool&gt;
+{
+public:
+explicit binary_negate(
+const Operation&amp; _Func
+);
+bool operator()(
+const typename Operation::first_argument_type&amp; _Left,
+const typename Operation::second_argument_type&amp; _Right
+) const;
+};
+</code></pre>
+
+<p>그럼 그동안 배운 것을 토대로 다음 MSDN 샘플을 살펴보자.</p>
+<p>not1( bind2nd( ptr_fun(strcmp), "pearly" ) )</p>
+<p>만약 1초만에 strcmp(X,"pearly")==0 임을 인지해 냈다면 당신은 STL의 고수... ㅠㅠ</p>
+<h2>mem_fun vs. mem_fun_ref</h2>
+<p>EffectiveSTL 에도 나오는 이야기이니, 책을 가지신 분은 43 아이템을 참고하라.</p>
+<p>나를 비롯한 대부분의 프로그래머들은 이런 코드를 사랑한다.</p>
+<p>for ( list<GameObject*>::iterator itr = gameObjects.begin() ; itr != gameObjects.end() ; itr ++ )<br />
+{<br />
+GameObject * pObject = *itr;<br />
+__ASSERT(pObject!=NULL); /// be a paranoid!!!<br />
+pObject-&gt;Update();<br />
+}</p>
+<p>너무나도 직관적인 코드이지만, 사실 mem_fun 을 사용하면 한 줄로 해결이 가능하다.</p>
+<p>for_each( gameObjects.begin(), gameObject.end(), mem_fun(&amp;GameObject::Update) );</p>
+<p>코드는 간단해졌지만 익숙하지 않은 관계로 팀원들이 싫어할 지도 모른다. 그러나, 타이핑하는 글자수도 적으면서 성능도 훨씬 더 좋다는데... 그 누가 안 쓸수 있으랴? (대신 디버깅할 때에는 멤버함수에다가 breakpoint 를 걸어야 하는 단점이 있을 수도 있다 <img alt=";)" src="http://boxcatstudio.files.wordpress.com/2009/07/icon_wink.gif" />  )</p>
+<p>포인터의 컨테이너일 경우에는 mem_fun 을, 객체의 컨테이너라면 mem_fun_ref 를 사용하면 된다. 만약 멤버함수에 파라미터를 넘겨야 한다면, 아래와 같이 bind 함수를 사용할 것.</p>
+<p>for_each( gameObjects.begin(), gameObject.end(), bind2nd( mem_fun(&amp;GameObject::SetHP),100) );</p>
+<h2>bind1st vs. bind2nd</h2>
+<p>우선 bind 함수를 알아보기에 앞서, unary_function 과 binary_function 에 대해서 알아보자. 이들은 단지 파라미터와 리턴타입에 대한 typedef 만을 담는 template structure 일 뿐이다. 즉 이들은 혼자서는 아무런 기능도 하지 않지만, 이를 상속받은 하위 클래스에서 타입 정보를 적절히 참조하기 좋도록 디자인된 베이스 클래스라는 뜻이다.</p>
+<p>template<class Arg, class Result><br />
+struct unary_function {<br />
+typedef Arg argument_type;<br />
+typedef Result result_type;<br />
+};</p>
+<p>template<class Arg1, class Arg2, class Result><br />
+struct binary_function {<br />
+typedef Arg1 first_argument_type;<br />
+typedef Arg2 second_argument_type;<br />
+typedef Result result_type;<br />
+};</p>
+<p>기본적으로 STL 알고리즘에서 사용되는 Predicate 등의 함수들은 unary_function 의 형태를 띄어야 한다. 쉽게 말하면, find(), for_each(), count() 의 마지막 인자가 해당 컨테이너 내부의 객체 하나만을 인자로 받는 함수 객체라는 뜻이다.</p>
+<p>가령 list<int> 에서 10보다 큰 객체를 찾으려면 대략 다음과 같은 predicate 을 작성해야 한다.</p>
+<p>class GreaterThan10<br />
+{<br />
+public :<br />
+bool operator() ( int i ) { return i&gt;= 10; }<br />
+};</p>
+<p>사실 이렇게 짜면 너무 코드가 범용적이지 못하므로, 대부분의 경우에는 이렇게 구현할 것이다.</p>
+<p>class GreaterThanN<br />
+{<br />
+public :<br />
+GreaterThenN( int N ) : m_N(N) {}<br />
+bool operator() ( int i ) { return i&gt;= m_N; }<br />
+private :<br />
+int m_N;<br />
+};</p>
+<p>이걸 STL 적인 생각으로 다시 구현한 것이 바로 bind 함수들이다. bindN(A,B) 은 binary_function A 의 N 번째 파라미터로 parameter B 을 바인딩해서, unary_function 을 만들어주는 놈이다. 얘네들을 잘 활용하면 단순 함수들은 간단히 한줄로 구현할 수 있게 된다.</p>
+<pre><code>- bind1st( BINARY_FUNC, PARAM ) : PARAM 을 BINARY_FUNC의 1st 파라미터로 바인딩한다.
+
+- ex&gt; bind1st( greater, 10 ) --&gt; 10 &gt; N
+
+- bind2nd( BINARY_FUNC, PARAM ) : PARAM 을 BINARY_FUNC의 2nd 파라미터로 바인딩한다.
+
+- bind2nd( greater, 10 ) --&gt; N &gt; 10
+</code></pre>
+<p>bind1st( greater, 10 ) 이 어떻게 10 &gt; N 이라는 함수로 바뀌는지 자세히 살펴본다면...</p>
+<pre><code>- greater는 binary_function 이다.
+</code></pre>
+<p>template<class Type><br />
+struct greater : public binary_function <Type, Type, bool><br />
+{<br />
+bool operator()(<br />
+const Type&amp; _Left,<br />
+const Type&amp; _Right<br />
+) const;<br />
+};</p>
+<pre><code>- bind1st(A,B) 는 binder1st 객체를 리턴한다.
+</code></pre>
+<p>template<class Operation, class Type><br />
+binder1st <Operation> bind1st(<br />
+const Operation&amp; _Func,<br />
+const Type&amp; _Left<br />
+);</p>
+<pre><code>- binder1st&lt;A&gt; 는 A의 두번째 파라미터를 파라미터로 받고, A의 리턴값을 리턴하는 함수 객체이다. 이때 이 클래스의 생성자의 인자 목록을 유심히 살펴보면, binary_function 하나와 이놈의 하나의 파라미터는 받고 있다. (나머지 하나는 당연히 container 에서 받게 된다.)
+</code></pre>
+<dl>
+<dt>template<class Operation></dt>
+<dt>class binder1st</dt>
+<dd>public unary_function &lt;<br />
+typename Operation::second_argument_type,<br />
+typename Operation::result_type&gt;<br />
+{<br />
+public:<br />
+typedef typename Operation::second_argument_type argument_type;<br />
+typedef typename Operation::result_type result_type;<br />
+binder1st(<br />
+const Operation &amp; _Func,<br />
+const typename Operation::first_argument_type&amp; _Left<br />
+);<br />
+result_type operator()(<br />
+const argument_type&amp; _Right<br />
+);<br />
+result_type operator()(<br />
+const argument_type&amp; _Right<br />
+) const;<br />
+protected:<br />
+Operation op;<br />
+typename Operation::first_argument_type value;<br />
+};</dd>
+</dl>
+<h2>SafeDeleter</h2>
+<p>템플릿 클래스 버전을 사용할 경우, 매번마다 타입을 지정해줘야 하지만, 템플릿 멤버함수 버전을 사용하면 타입 없이도 사용할 수 있다. 아직까지 이걸 몰랐다니.. ㅠㅠ 쑥갓군 땡큐~</p>
+<p>/// template class version<br />
+template <class T><br />
+class SafeDeleter<br />
+{<br />
+public :<br />
+void operator () ( T * &amp; ptr ) const<br />
+{<br />
+SAFE_DELETE(ptr);<br />
+}<br />
+};</p>
+<p>for_each( a.begin(), a.end(), SafeDeleter<A>() );</p>
+<p>/// template member function version<br />
+class SafeDeleter2<br />
+{<br />
+public :<br />
+template <class T><br />
+void operator () ( T * &amp; ptr ) const<br />
+{<br />
+SAFE_DELETE(ptr);<br />
+}<br />
+};</p>
+<p>for_each( a.begin(), a.end(), SafeDeleter2() );</p>
+<h2>Static Key vs. Dynamic Key</h2>
+<p>class Object<br />
+{<br />
+KeyType_t Key;<br />
+....;<br />
+};<br />
+map<KeyType_t,Obj*> orderedObjects;</p>
+<p>위와 같이 객체의 특정 필드의 값으로 정렬된 map이 있다고 하자. 일단 map에 객체를 넣고 난 다음에 Key 값을 변경하면 map 내부의 트리가 깨지므로 바꿔서는 곤란해진다. 그러나, 때로는 Key 값이 바뀌어야 할 필요가 있다. 언제나 실시간으로 바꿔주려면 map 에서 객체를 빼낸 다음 Key 값을 바꾸고 다시 넣어야 하는데, 항상 넣었다 뺐다 하기에는 성능적인 부분이 걱정되는데...</p>
+<p>이럴 경우에는 외부에서 필요할 때마다 새로운 키를 저장한 다음, 적당히 바꿀 타이밍이 되면 객체를 map 에서 빼낸 다음 키값을 업데이트해주면 된다. 특히 아래와 같이, 정적인 메인 키의 맵으로 구성된 객체의 매니저가 내부에 특정 순서로 정렬된 서브 키의 맵을 가진 경우, 위와 같은 패턴을 사용하면 꽤 편하다.</p>
+<p>class Object<br />
+{<br />
+StaticKeyType_t MainKey;<br />
+DynamicKeyType_t SubKey;<br />
+DynamicKeyType_t NewSubKey;<br />
+....;<br />
+};</p>
+<p>class ObjectManager : public map<StaticKeyType_t,Object*><br />
+{<br />
+map<DynamicKeyType_t,Object*> orderedObjects;<br />
+void ChangeSubKey( StaticKeyType_t mainKey, DynamicKeyType_t newSubKey );<br />
+void UpdateSubMap();<br />
+};</p>
+<p><strong>어쨌든, map 의 키값을 외부에서 바꿨다가는 큰 낭패를 볼 것이다.</strong></p>
+<p>see also:</p>
+<pre><code>- [Boost Multi-index Containers Library](http://boost.org/libs/multi_index/doc/index.html)
+</code></pre>
+<h2>multixxx::erase(key_type)</h2>
+<p>일반적인 erase()는 iterator/const_iterator 를 파라미터로 받아서 그 넘을 지우는 역할을 한다. 그런데, multimap/multiset 에서는 key_type 만 넘겨서 해당 값을 지우는 메쏘드를 제공한다. 대체로 이는 잘 동작하지만 predicate 가 명시된 multimap/multiset 에서는 생각대로 동작하지 않는다. 다음 예를 보자.</p>
+<p>class TeamInfo<br />
+{<br />
+public :<br />
+TeamInfo ( int point = 0 )  : TeamPoint(point) {}<br />
+int TeamPoint;<br />
+};</p>
+<p>class GreaterTeam<br />
+{<br />
+public :<br />
+bool operator () (const TeamInfo<em> l, const TeamInfo</em> r) const<br />
+{<br />
+return l-&gt;TeamPoint&gt; r-&gt;TeamPoint;<br />
+}<br />
+};</p>
+<p>void<br />
+test_multiset()<br />
+{<br />
+typedef multiset<TeamInfo*,GreaterTeam> TEAMS;</p>
+<p>TEAMS teams;</p>
+<p>TeamInfo t1(1);<br />
+TeamInfo t2(1);<br />
+TeamInfo t3(0);<br />
+TeamInfo t4(2);</p>
+<p>teams.insert( &amp;t1 );<br />
+teams.insert( &amp;t2 );<br />
+teams.insert( &amp;t3 );<br />
+teams.insert( &amp;t4 );</p>
+<p>// erase by key test <br />
+teams.erase( &amp;t4 ); assert( teams.size() == 3 );<br />
+teams.erase( &amp;t1 ); assert( teams.size() == 1 );  // t1 과 t2 를 지운다. 낭패~</p>
+<p>// erase with iterator test<br />
+teams.clear();<br />
+teams.insert( &amp;t1 );<br />
+teams.insert( &amp;t2 );<br />
+teams.insert( &amp;t3 );<br />
+teams.insert( &amp;t4 );</p>
+<p>pair<TEAMS::iterator,TEAMS::iterator> itrs = teams.equal_range(&amp;t1);<br />
+teams.erase( find( itrs.first, itrs.second, &amp;t1 ) );<br />
+assert( teams.size() == 3 );</p>
+<p>assert( <em>(teams.find(&amp;t1)) == &amp;t2 ); // t1 을 찾으면 t2 가 나온다는 놀라운 사실!<br />
+assert( </em>(teams.find(&amp;t2)) == &amp;t2 );<br />
+assert( <em>(teams.find(&amp;t3)) == &amp;t3 );<br />
+assert( </em>(teams.find(&amp;t4)) == &amp;t4 );<br />
+}</p>
+<p>여기서 배울 수 있는 교훈은</p>
+<pre><code>- 코드상으로는 equal_range(&amp;t1)이라는 것이 t1을 찾는 것처럼 보이지만, 실제로는 key_type과 무관하며 오직 predicate 를 이용해서 검색을 한다!
+- multi 시리즈에서는 find()나 erase()에 있어서 항상 동일한 값이 존재할 수 있다!
+- predicate 의 비교문에서 &gt;= 을 사용하면 다른 결과가 나온다!
+- predicate 관련 변수(m_TeamPoint)와 같이, 비교 로직에 영향을 주는 무언가를 외부에서 바꾸게 되면 multixxx 내부의 트리가 깨지게 된다. 너무나 당연한 사실이지만, Key 를 바꾸는게 아니라서 안전할 거 같아 보이는 것도 사실이다. 이를 방지하려면 일단 container 에서 해당 값을 erase한 다음 값을 수정하고 다시 insert 하는 것을 권장한다.
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a> <small>2006-06-01</small></h1>
+	</div>
+	<div><p>Windows 에서 제공하는 ThreadPooling API인 QueueUserWorkItem()에 대해서 알아보자.</p>
+<h2>QueueUserWorkItem()</h2>
+<p>Programming Application for Microsoft Windows 에 의하면 ThreadPooling 시 새로운 쓰레드가 추가되기 위한 factor 에는 아래와 같은 것이 있다.</p>
+<ul>
+<li>쓰레드가 추가된 지 몇 초가 지나면, 한번 고민해본다</li>
+<li>WT_EXECUTELONGFUNCTION 이 사용될 경우, 한번 고민해본다</li>
+<li>큐잉된 작업의 개수가 일정 threadhold 를 넘어설 경우, 한번 고민해본다.</li>
 </ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/01/28/change-the-battle-field/">Change the Battle Field</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-01-28T08:17:00+09:00" pubdate data-updated="true">Jan 28<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>MS, Google, Intel, IBM, Adobe, Dell, Sony, Sanyo&#8230; <a href="http://itviewpoint.com/98855">놀라운 감원 쯔나미</a>는 겨우 시작일 뿐이다.</p>
-
-<p>성장 동력이 없거나 멈춘 국내 게임 회사들이, 직원 월급을 못주고 있다는 첩보가 속속 입수되고 있다.  정말 <a href="http://reiot.cafe24.com/2008/11/16/prepare-the-battle/">대충 예상해본 것</a>들이 슬슬 현실로 다가 오고 있다는 이야기다. 그나마 반가운 소식은 <a href="http://qu2ik.tistory.com/297">게임이 불황에도 웃음지을 수 있는 몇 안되는 산업이라는 뉴스 </a>정도다.  </p>
-
-<p>혹자는 힘들 때일수록 몸집을 줄이고 직원 교육에 투자하라고 조언하지만, 내가 사장이라도 그건 쉽지 않은 일이다.  마구 사람을 잘라내고 있는 서구 기업들은 과연 바보라서 그러는 걸까. 그럼 우리는 이 추운 겨울을 어떻게 견디어내야 할까? 개인적으로도 <a href="http://blog.daum.net/tudler/15659618">선 거두절미 후 줄탁동시</a>를 시행해야 한다고 본다. 즉,</p>
-
-<pre><code>- 무엇보다도 가장 먼저 바보 C급 인재들을 내보낸다. 기회 비용을 고려해 봤을 때, 무작정 열심히 일하는 C급 인재야말로 회사의 최대 적이다. 덤으로 불만분자들도 함께 처분하면 더욱 좋다. (뜨끔!!)
-- A급 리더들은 쓰다듬어주기만 해도 알아서 잘 할테니, 웅크리고 있는 B급 인재들에게는 인센티브 강화 같은 당근과 **** 등의 채찍을 제공한다. 개인적으로 테라의 공개된 영상에 많은 감명을 받았는데, 외부의 공격(?)이 내부의 결속을 강화시킨 좋은 예가 아닐까 한다. 
-- 돈, 지식, 노하우, 그리고 열정적인 핵심 인재들 등 축적할 수 있는 모든 리소스들을 아껴서, 더욱 더 길어질 겨울에 대비한다. 아무리 생각해도, 이번 겨울은 10년짜리다. 
-- 부동산 난개발과 같은 불필요한 중복 개발을 자제하고, 제대로된 게임을 최대한 빨리 출시할 수 있는 프로세스를 다진다. 이걸 갖춘 회사만이 10년을 살아남을 게다. 결과적으로 개발을 투명하게 바라볼 수 있게 해주는, 애자일 프로세스의 전사적 도입도 좋은 방법이 되겠지만, 준비되지 않은 상태에서는 오히려 반감만 불러일으킬 확률이 99.999% 되겠다.
-- 무엇보다도 전장 플랫폼을 바꾼다. 살아남는 자가 강한 것처럼, 하고 싶어 하는 것보다는 잘하는 분야를 계속 파나가고, 그걸 다른 플랫폼으로 옮겨가는 전략은 어떨까. 돈먹는 하마인 MMO, 다 비슷비슷한 캐주얼, 횡스크롤 액션..  새로운 성장 동력 찾기가 쉽지 않은 건 알고 있는데, 너무 멀리서 찾다가 피같은 돈을 다 날려먹으면 곤란하다. 물론 와우를 능가하는 MMO를 만들어서 년간 1조씩 벌어들여도 되겠지만. 
-</code></pre>
-
-<p>뻔한 이야기를 시니컬하게 쓰면 다들 우러러 보는 게 요즘 트렌드이길래, 나도 덩달아서 비스무리하게 써 봤다. 그러나 요즘은 불유쾌한 예언을 하는 자가 잡혀 들어가는 세상인지라, 또 쓸데없이 오해 크리나 받지나 않을까 해서 고이 모셔뒀었는데, 오늘 또<a href="http://news.bbc.co.uk/2/hi/business/7851481.stm"> ING 7천, 필립스 6천, GM 2천 등 총 7만명짜리 GLOBAL JOB CUTS</a> 이 있었다길래 어째 으스스해서 공개해본다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/01/28/google-app-engine-overvie/">Google App Engine Overview</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-01-28T07:33:44+09:00" pubdate data-updated="true">Jan 28<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>google app engine 은 파이썬 2.5 기반의 웹 개발 프레임워크이다. 사실 수많은 웹 개발환경이 많고 많은데 유독 이놈이 눈에 띄는 건, 기본적으로 구글에서 제공하는 다양한 분산 기반의 서비스들을 손쉽게 사용할 수 있기 때문이다.</p>
-
-<p>아마도 구글 앱스를 사용중인 회사에서 인트라넷이나 백오피스 웹서비스를 만들어야 한다면 이놈을 쓰면 편해질 것 같다. 대충 훝어본 <a href="http://code.google.com/intl/ko-KR/appengine/docs/python/apis.html">Service API</a> 들을 요약해보겠다.</p>
-
-<h3>Datastore</h3>
-
-<p>구글 데이터 저장 인프라(?)에 정보를 저장하고 읽어오는 API.  객체 기반 쿼리와 SQL을 닮은 GQL 기반 쿼리를 제공한다. yaml 로 인덱스도 정의할 수 있고, FK와 트랜잭션도 지원한다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">class</span> <span class="nt">Person</span><span class="o">(</span><span class="nt">db</span><span class="nc">.Model</span><span class="o">):</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="nt">first_name</span> <span class="o">=</span> <span class="nt">db</span><span class="nc">.StringProperty</span><span class="o">()</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="nt">last_name</span> <span class="o">=</span> <span class="nt">db</span><span class="nc">.StringProperty</span><span class="o">()</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="nt">city</span> <span class="o">=</span> <span class="nt">db</span><span class="nc">.StringProperty</span><span class="o">()</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="nt">birth_year</span> <span class="o">=</span> <span class="nt">db</span><span class="nc">.IntegerProperty</span><span class="o">()</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="nt">height</span> <span class="o">=</span> <span class="nt">db</span><span class="nc">.IntegerProperty</span><span class="o">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">q</span> <span class="o">=</span> <span class="nt">Person</span><span class="nc">.all</span><span class="o">()</span>
-</span><span class='line'><span class="nt">q</span><span class="nc">.filter</span><span class="o">(</span><span class="s2">&quot;last_name =&quot;</span><span class="o">,</span> <span class="s2">&quot;Smith&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="nt">q</span><span class="nc">.filter</span><span class="o">(</span><span class="s2">&quot;height &lt;&quot;</span><span class="o">,</span> <span class="nt">72</span><span class="o">)</span>
-</span><span class='line'><span class="nt">q</span><span class="nc">.order</span><span class="o">(</span><span class="s2">&quot;-height&quot;</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="err">#</span> <span class="nt">The</span> <span class="nt">GqlQuery</span> <span class="nt">interface</span> <span class="nt">prepares</span> <span class="nt">a</span> <span class="nt">query</span> <span class="nt">using</span> <span class="nt">a</span> <span class="nt">GQL</span> <span class="nt">query</span> <span class="nt">string</span><span class="o">.</span>
-</span><span class='line'><span class="nt">q</span> <span class="o">=</span> <span class="nt">db</span><span class="nc">.GqlQuery</span><span class="o">(</span><span class="s2">&quot;SELECT * FROM Person &quot;</span> <span class="o">+</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="s2">&quot;WHERE last_name = :1 AND height &lt; :2 &quot;</span> <span class="o">+</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="s2">&quot;ORDER BY height DESC&quot;</span><span class="o">,</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="s2">&quot;Smith&quot;</span><span class="o">,</span> <span class="nt">72</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Memcache</h3>
-
-<p>매번마다 DB에서 읽어오면 성능이 떨어지니까, 어느 정도 변화가 적은 애들은 DB에서 읽어온 다음 Key-Value 기반의 메모리 캐시에다가 저장했다가 필요할 때마다 재빨리 읽어온다. 별거 아닌 것처럼 보이지만, 이게 분산 서버에서 모두 참조가 가능하다.. 어쨌거나 문자열키로 특정 객체를 꺼내오는 이런 패턴은 게임 서버에도 자주 써야 할 것 같다. (요즘은 변수 선언하는게 어찌나 귀찮은지..)</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">def</span> <span class="nt">get_data</span><span class="o">():</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="nt">data</span> <span class="o">=</span> <span class="nt">memcache</span><span class="nc">.get</span><span class="o">(</span><span class="s2">&quot;key&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="nt">if</span> <span class="nt">data</span> <span class="nt">is</span> <span class="nt">not</span> <span class="nt">None</span><span class="o">:</span>
-</span><span class='line'><span class="err">  </span> <span class="err">   </span> <span class="err"> </span><span class="nt">return</span> <span class="nt">data</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="nt">else</span><span class="o">:</span>
-</span><span class='line'><span class="err">  </span> <span class="err">   </span> <span class="err"> </span><span class="nt">data</span> <span class="o">=</span> <span class="nt">self</span><span class="nc">.query_for_data</span><span class="o">()</span>
-</span><span class='line'><span class="err">  </span> <span class="err">   </span> <span class="err"> </span><span class="nt">memcache</span><span class="nc">.add</span><span class="o">(</span><span class="s2">&quot;key&quot;</span><span class="o">,</span> <span class="nt">data</span><span class="o">,</span> <span class="nt">60</span><span class="o">)</span>
-</span><span class='line'><span class="err">  </span> <span class="err">   </span> <span class="err"> </span><span class="nt">return</span> <span class="nt">data</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>URL Fetch</h3>
-
-<p>다른 웹서버에다가 URL 기반 요청을 해서 결과를 읽어올 수 있다. 즉, 다른 웹서비스들과의 연동이 가능하다는 이야기. </p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">url</span> <span class="o">=</span> <span class="s2">&quot;http://www.google.com/&quot;</span>
-</span><span class='line'><span class="nt">result</span> <span class="o">=</span> <span class="nt">urlfetch</span><span class="nc">.fetch</span><span class="o">(</span><span class="nt">url</span><span class="o">)</span>
-</span><span class='line'><span class="nt">if</span> <span class="nt">result</span><span class="nc">.status_code</span> <span class="o">==</span> <span class="nt">200</span><span class="o">:</span>
-</span><span class='line'><span class="err">  </span> <span class="err"> </span><span class="nt">doSomethingWithResult</span><span class="o">(</span><span class="nt">result</span><span class="nc">.content</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Mail</h3>
-
-<p>손쉽게 메일을 보낼 수 있다. 파일 첨부도 가능하다고는 하나, 단순하니까 예제는 생략.</p>
-
-<h3>Images</h3>
-
-<p>업로드된 이미지의 크기 변경, 회전, 상하좌우 뒤집기, 자르기, 컨트라스트/색상 보정 등의 조작이 가능하다. 이것도 있어보이는 기능이지만 일단 생략.</p>
-
-<h3>Google Accounts </h3>
-
-<p>구글 계정과의 연동 지원. 별명, 이메일 주소 등을 얻어오는 기능이다.</p>
-
-<h3>기타 구글 Data API 연동</h3>
-
-<p>이게 가장 핵심적인 기능인데, 대충 아래와 같은 API 들을 연동할 수 있다. (그런데 이걸 갖고 뭘 어떻게 할 것인가가 사실은 제일 중요하겠지..)</p>
-
-<pre><code>- [Authentication](http://code.google.com/apis/gdata/auth.html#AuthSub)
-- [Google Base](http://code.google.com/apis/base/pythondevguide.html)
-- [Calendar](http://code.google.com/apis/calendar/developers_guide_python.html)
-- [Contacts](http://code.google.com/apis/contacts/developers_guide_python.html)
-- [Documents](http://code.google.com/apis/documents/developers_guide_python.html)
-- [Picasa Web Albums](http://code.google.com/apis/picasaweb/developers_guide_python.html)
-- [Spreadsheets](http://code.google.com/apis/spreadsheets/developers_guide_python.html)
-- [YouTube](http://code.google.com/apis/youtube/developers_guide_python.html)
-</code></pre>
-
-<p>레일즈 등 다른 웹 프레임워크에 비해서 좀 부족한 점이 많지만,  구글의 다양한 서비스들과의 연동과 분산에 강한 웹 서비스를 만들어야 한다면 좋은 선택이 될 것 같다. 사실 웹 시뮬레이션 게임을 만들때 좋을 것 같아서 살펴봤는데, 역시 GUI 표현이 걸림돌이 될 것 같다. <a href="http://code.google.com/intl/ko-KR/apis/chart/">차트 API</a> 정도라면 비지니스 관련 웹서비스는 어째 될 것 같은데, 게임은 좀&#8230;  </p>
-
-<p>API 목록을 보다 보니 특이한 서비스가 좀 많다. 다들 한번쯤 구경해보면 좋을지도?</p>
-
-<pre><code>- [Google Health API](http://code.google.com/intl/ko-KR/apis/health/)
-- [Google Radio Automation API](http://code.google.com/intl/ko-KR/apis/gra/)
-- [Google Visualization API](http://code.google.com/intl/ko-KR/apis/visualization/documentation/gallery.html)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/01/28/erlide/">Erlide</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-01-28T01:51:35+09:00" pubdate data-updated="true">Jan 28<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.eclipse.org/"> </a><a href="http://www.eclipse.org/"><img src="http://erlide.sourceforge.net/img/rea_eclipse_pos_logo_fc_sm.jpg" title="Eclipse logo" ></a></p>
-
-<p><a href="http://www.eclipse.org/">이클립스</a>의 얼랭 개발환경(perspective)인 <a href="http://erlide.sourceforge.net/">erlide</a>를 사용하면, 매번마다 c(module) 로 컴파일하는 번거로움에서 벗어날 수 있다. 그<strong>냥 Save 만 하면, 알아서 코드를 컴파일하고 경고나 오류를 보여주기 때문이다. </strong>일단 <a href="http://erlide.sourceforge.net/erlide.html">매뉴얼</a>에 써 있는 대로 설정하고 나면, 이클립스 IDE의 기능들을 간단히 쓸 수 있으므로, 얼랭 초보라면 반드시 eclipse 부터 설치하기를 권장한다.</p>
-
-<p>어차피 매뉴얼에 다 나오는 내용인데, 핵심 기능들만 간단하게만 소개하자면</p>
-
-<pre><code>- gen_server, gen_fsm 등 OTP 기본 템플릿 제공
-- F3 - 함수 정의/선언으로 바로가기
-- Ctrl + I - 자동 들여쓰기
-- Ctrl + Space - 자동 완성
-- Alt + O - 개요 보기
-- Ctrl + Up/Down - 콘솔창에서 히스토리 기능
-- 브레이크 포인트는 라인 맨 앞을 더블클릭
-- 디버깅 끝낼 때에는 perspective 를 다시 얼랭으로 전환할 것
-</code></pre>
-
-<p>특히 놀라운 것은, (사실 erl 콘솔에서도 볼 수 있지만) Process List View 에서 보면 무려 36개의 얼랭 프로세스들이 떠 있다는 점이다. 루아나 파이썬처럼 그냥 달랑 스크립트만 실행되는 게 아니라는 건 짐작하고 있었지만, 조금은 부하가 걱정될 정도로많이 떠 있긴 하다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/01/21/boost-tuple-based-serialization/">Boost Tuple Based Serialization</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-01-21T08:42:11+09:00" pubdate data-updated="true">Jan 21<span>st</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>boost serialization를 사용하려면 이모저모로 귀찮은 점이 많아서, 생각해본 것이 <a href="http://docs.python.org/library/struct.html?highlight=pack">파이썬의 struct 라이브러리</a>와 같은 느낌으로 프로토콜 포맷을 정의하고, 이걸 boost tuple 코드로 뽑아낸다는 아이디어이다.</p>
-
-<p>대강의 포맷은</p>
-
-<table border="1" cellspacing="0" cellpadding="1">
-<tbody></tbody>
-<thead>
-<tr>
-<th class="head">Format</th>
-<th class="head">C Type</th>
-<th class="head">Python</th>
-<th class="head">Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><tt class="docutils literal">x</tt></td>
-<td>pad byte</td>
-<td>no value</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">c</tt></td>
-<td><tt class="xref docutils literal">char</tt></td>
-<td>string of length 1</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">b</tt></td>
-<td><tt class="xref docutils literal">signed char</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">B</tt></td>
-<td><tt class="xref docutils literal">unsigned char</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">?</tt></td>
-<td><tt class="xref docutils literal">_Bool</tt></td>
-<td>bool</td>
-<td>(1)</td>
-</tr>
-<tr>
-<td><tt class="docutils literal">h</tt></td>
-<td><tt class="xref docutils literal">short</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">H</tt></td>
-<td><tt class="xref docutils literal">unsigned short</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">i</tt></td>
-<td><tt class="xref docutils literal">int</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">I</tt></td>
-<td><tt class="xref docutils literal">unsigned int</tt></td>
-<td>integer or long</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">l</tt></td>
-<td><tt class="xref docutils literal">long</tt></td>
-<td>integer</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">L</tt></td>
-<td><tt class="xref docutils literal">unsigned long</tt></td>
-<td>long</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">q</tt></td>
-<td><tt class="xref docutils literal">long long</tt></td>
-<td>long</td>
-<td>(2)</td>
-</tr>
-<tr>
-<td><tt class="docutils literal">Q</tt></td>
-<td><tt class="xref docutils literal">unsigned long
-long</tt></td>
-<td>long</td>
-<td>(2)</td>
-</tr>
-<tr>
-<td><tt class="docutils literal">f</tt></td>
-<td><tt class="xref docutils literal">float</tt></td>
-<td>float</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">d</tt></td>
-<td><tt class="xref docutils literal">double</tt></td>
-<td>float</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">s</tt></td>
-<td><tt class="xref docutils literal">char[]</tt></td>
-<td>string</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">p</tt></td>
-<td><tt class="xref docutils literal">char[]</tt></td>
-<td>string</td>
-<td> </td>
-</tr>
-<tr>
-<td><tt class="docutils literal">P</tt></td>
-<td><tt class="xref docutils literal">void *</tt></td>
-<td>long</td>
-<td> </td>
-</tr>
-</tbody></table>
-
-
-<p>가령 로그인 메시지를 &#8220;ppl&#8221; 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
-
-<p>typedef boost::tuple&lt;string,string,long> msgLogin;</p>
-
-<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
-
-<pre><code>- 64 bit integer
-- datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)
-- STL 지원 : list, vector, map, set
-- 비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.
-</code></pre>
-
-<p>단점이라면 내부 멤버 접근을 userid, passwd 같은 이름 기반이 아니라 get<1>, get<2> 처럼 해야 한다는 점인데, 이건 좀 심하게 귀찮긴 하겠다. 역시 이름 기반 접근이 그나마 컴파일러가 검증해주니 제일 좋은 방법인가.</p>
-
-<p>자. 만들어주세요.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/01/19/erlangotp-udp-server/">Erlang/OTP UDP Server</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-01-19T08:34:36+09:00" pubdate data-updated="true">Jan 19<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>얼랭으로 만든, 가장 단순한 UDP Echo 서버와 클라이언트는 이렇게 생겨먹었다. (워드프레스에서 들여쓰기가 자꾸 날아가는 버그가 있으므로, 귀찮아서 고치지는 않겠다.)</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">-</span><span class="n">module</span><span class="p">(</span><span class="n">udp_server</span><span class="p">).</span>
-</span><span class='line'><span class="o">-</span><span class="n">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">init</span><span class="p">(</span><span class="n">ServerPort</span><span class="p">)</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">Sock</span><span class="p">}</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">open</span><span class="p">(</span><span class="n">ServerPort</span><span class="p">,[</span><span class="n">binary</span><span class="p">,</span><span class="n">inet</span><span class="p">]),</span>
-</span><span class='line'><span class="n">loop</span><span class="p">().</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">loop</span><span class="p">()</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;server_loop~n&quot;</span><span class="p">),</span>
-</span><span class='line'><span class="n">receive</span>
-</span><span class='line'><span class="p">{</span><span class="n">udp</span><span class="p">,</span> <span class="n">Sock</span><span class="p">,</span> <span class="n">ClientIP</span><span class="p">,</span> <span class="n">ClientPort</span><span class="p">,</span> <span class="n">Packet</span> <span class="p">}</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p:~p ==&gt; ~p~n&quot;</span><span class="p">,[</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">]),</span>
-</span><span class='line'><span class="n">ok</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">send</span><span class="p">(</span><span class="n">Sock</span><span class="p">,</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">),</span>
-</span><span class='line'><span class="n">loop</span><span class="p">()</span>
-</span><span class='line'><span class="n">end</span><span class="p">.</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">-</span><span class="n">module</span><span class="p">(</span><span class="n">udp_client</span><span class="p">).</span>
-</span><span class='line'><span class="o">-</span><span class="n">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">init</span><span class="p">(</span><span class="n">ServerPort</span><span class="p">)</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">Sock</span><span class="p">}</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">open</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
-</span><span class='line'><span class="nl">gen_udp:</span><span class="n">send</span><span class="p">(</span><span class="n">Sock</span><span class="p">,</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span><span class="n">ServerPort</span><span class="p">,</span><span class="s">&quot;Hello World!&quot;</span><span class="p">),</span>
-</span><span class='line'><span class="n">loop</span><span class="p">().</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">loop</span><span class="p">()</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;waiting response...~n&quot;</span><span class="p">),</span>
-</span><span class='line'><span class="n">receive</span>
-</span><span class='line'><span class="p">{</span><span class="n">udp</span><span class="p">,</span> <span class="n">Peer</span><span class="p">,</span> <span class="n">PeerIP</span><span class="p">,</span> <span class="n">PeerPort</span><span class="p">,</span> <span class="n">Packet</span> <span class="p">}</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p:~p ==&gt; ~p~n&quot;</span><span class="p">,[</span><span class="n">PeerIP</span><span class="p">,</span><span class="n">PeerPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">])</span>
-</span><span class='line'><span class="n">after</span> <span class="mi">1000</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;timeout..~n&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="n">end</span><span class="p">.</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>여기에서 바로 OTP로 만들겠다고 뛰어들었다가 삽질을 한 후,  <a href="http://www.trapexit.org/Building_a_Non-blocking_TCP_server_using_OTP_principles">Building_a_Non-blocking_TCP_server_using_OTP_principles</a> 와 <a href="http://erlrtpproxy.googlecode.com/svn-history/r19/trunk/rtpproxy.erl">구글에서 검색한 gen_udp 예제</a>을 참고해서 겨우 성공한 게 다음의 코드이다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="o">-</span><span class="n">module</span><span class="p">(</span><span class="n">udp_otp_server</span><span class="p">).</span>
-</span><span class='line'><span class="o">-</span><span class="n">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">%</span> <span class="n">stand</span><span class="o">-</span><span class="n">alone</span> <span class="n">server</span> <span class="n">version</span>
-</span><span class='line'><span class="n">start</span><span class="p">()</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">gen_server:</span><span class="n">start</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">},</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[]).</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">%</span> <span class="n">supervision</span> <span class="n">tree</span> <span class="n">version</span>
-</span><span class='line'><span class="n">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">gen_server:</span><span class="n">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">},</span> <span class="o">?</span><span class="n">MODULE</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[]).</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">init</span><span class="p">([])</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="n">process_flag</span><span class="p">(</span><span class="n">trap_exit</span><span class="p">,</span><span class="kc">true</span><span class="p">),</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">Sock</span><span class="p">}</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">open</span><span class="p">(</span><span class="mi">1111</span><span class="p">,[</span><span class="n">binary</span><span class="p">,</span><span class="n">inet</span><span class="p">]),</span>
-</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;udp server started...~n&quot;</span><span class="p">),</span>
-</span><span class='line'><span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="mi">0</span><span class="p">}.</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">handle_call</span><span class="p">(</span><span class="n">Request</span><span class="p">,</span> <span class="n">From</span><span class="p">,</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p~n&quot;</span><span class="p">,[</span><span class="n">Request</span><span class="p">]),</span>
-</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span><span class="n">State</span><span class="p">}.</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">handle_cast</span><span class="p">(</span><span class="n">_Msg</span><span class="p">,</span><span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;handle_cast(~p)~n&quot;</span><span class="p">,</span><span class="n">_Msg</span><span class="p">),</span>
-</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="n">State</span><span class="p">}.</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">%%</span> <span class="n">udp</span> <span class="n">message</span> <span class="n">should</span> <span class="n">be</span> <span class="n">handled</span> <span class="n">here</span>
-</span><span class='line'><span class="n">handle_info</span><span class="p">({</span><span class="n">udp</span><span class="p">,</span><span class="n">Sock</span><span class="p">,</span> <span class="n">ClientIP</span><span class="p">,</span> <span class="n">ClientPort</span><span class="p">,</span> <span class="n">Packet</span><span class="p">},</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;~p:~p ==&gt; ~p~n&quot;</span><span class="p">,[</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">]),</span>
-</span><span class='line'><span class="n">ok</span> <span class="o">=</span> <span class="nl">gen_udp:</span><span class="n">send</span><span class="p">(</span><span class="n">Sock</span><span class="p">,</span><span class="n">ClientIP</span><span class="p">,</span><span class="n">ClientPort</span><span class="p">,</span><span class="n">Packet</span><span class="p">),</span>
-</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="n">State</span><span class="p">}</span>
-</span><span class='line'><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">handle_info</span><span class="p">(</span><span class="n">_Info</span><span class="p">,</span><span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;handle_info~n&quot;</span><span class="p">),</span>
-</span><span class='line'><span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="n">State</span><span class="p">}.</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">terminate</span><span class="p">(</span><span class="n">_Reason</span><span class="p">,</span><span class="n">N</span><span class="p">)</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nl">io:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;stopping...~n&quot;</span><span class="p">),</span>
-</span><span class='line'><span class="n">ok</span><span class="p">.</span>
-</span><span class='line'><span class="n">code_change</span><span class="p">(</span><span class="n">_OldVsn</span><span class="p">,</span><span class="n">N</span><span class="p">,</span> <span class="n">_Extra</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="n">N</span><span class="p">}.</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>핵심 요지는, UDP 메시지는 handle_call 이나 cast 가 아니라, handle_info에서 처리해야 한다는 점이다. 요즘 <strong>업.무.가. 바.빠.서.</strong> 얼랭을 3주 정도 못봤는데 또 서서히 기억이 소멸하기 시작했다. OTP에서는 함수의 리턴값 규칙을 정말 잘 맞춰야 하는 관계로, 다음 번부터는 gen_server 템플릿 하나 정도는 갖고 시작해야겠다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/01/12/teamcide/">Teamcide</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-01-12T09:04:43+09:00" pubdate data-updated="true">Jan 12<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div>
-
-[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;478&#8221; caption=&#8221;Micro management (from conveniencebits.com)&#8221;]<a href="http://conveniencebits.com/2008/07/25/micromanaging-is-positive/"><img src="http://conveniencebits.com/pics/micromanage.jpg" title="Micromanagement" ></a>[/caption]
-
-</div>
-
-
-<div>Teamcide는 최근에 구독을 시작한 [코딩 호러](http://www.codinghorror.com/)의 [마이크로매니지먼트 좀비](http://www.codinghorror.com/blog/archives/001205.html)라는 글에서 발견한 7가지 팀관리의 안티 패턴이다. 알고 보니 피플웨어에서 소개된 이야기라고 해서 책을 찾아보려고 했는데, 어딘가에 쳐박혀 있는지 책이 보이지 않아, [일본어 웹문서 번역](http://translate.google.com/translate?prev=&hl=ko&ie=UTF-8&u=http://yuuntim.fc2web.com/chapter20.html&sl=auto&tl=ko&history_state0=)을 통해서 짤막하게만 정리해본다.</div>
-
-
-<div>
-
-    - 자기 방어적인 관리(Defensive Management)
-    - 관료주의(Bureaucracy)
-    - 팀원들을 여기 저기로 흩어 놓아서, 이동 거리를 멀게 하기(Physical Separation)
-    - 한 명에게 여러 가지 작업을 시키기(Fragmentation of People&#8217;s Time)
-    - 납기일을 위해 품질을 희생하기(Quality Reduction of the Product)
-    - 무의미한, 또는 가짜 데드라인(Phony Deadlines)
-    - 파벌이 무서워서 프로젝트 종료 후 팀을 해체하기(Clique Control)
-
-</div>
-
-
-<p>거리 이야기는 이제 상식 수준이고, 마지막 파벌 이야기는 좀 비현실적이긴 한데, 가짜 데드라인 같은 이야기는 나도 종종 유혹을 느꼈기에, 이 시간을 빌어 씁쓸한 반성을 해본다.</p>
-
-<p>때로는 빠른 의사 결정과 그에 따른 무한한 책임을 지는 <a href="http://seoworld.net/tt/261">잡스 같은 카리스마적인 독재자</a>와 일해보고 싶기도 하다. 다만, 거의 무개념 폭군이라는 이미지가 강한 초기의 잡스보다는, 이제 필 쉴러 아저씨에게 키노트 진행을 양보(?)한 최근의 잡스가 더 나을 것 같다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/01/08/redmine/">Redmine</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-01-08T07:36:12+09:00" pubdate data-updated="true">Jan 8<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.redmine.org/screenshots/gantt.png"><img src="http://www.redmine.org/screenshots/gantt_tn.png"></a></p>
-
-<p><a href="http://bitnami.org/stack/mantis">bitnami mantis</a> 는 한글이 안되고, trac은 뭔가 플러그인 설치가 귀찮아서, 아<a href="http://www.redmine.org/wiki/redmine/Features">름다운 간트 차트</a>도 지원하는  <a href="http://bitnami.org/stack/redmine">bitnami redmine </a>을 써보기로 했다. (<a href="http://twiny.tistory.com/1676">twiny 님</a> 감사~)</p>
-
-<p>평소대로라면 최신 버전(0.8)을 위해 ruby 와 rails 부터 설치했겠지만, 이런 삽질은 꿈도 못 꿀 정도로 바빠서, 그냥 0.7 버전을 마음 편하게 깔아버렸다. 한글 문제(이슈, 파일 업로드)는 전혀 없었고, SMTP와 https svn 저장소 연결만 남은 상태인데, 각각 한번씩 해보고 연결이 안되길래 과감하게 포기했다. 참고로, <a href="http://www.redmine.org/wiki/redmine/ThemeBasecamp">베이스캠프 테마</a>를 설치하면 mantis 보다 100배 미려한 화면을 볼 수 있다. :)</p>
-
-<p>아쉬운 점이라면 위키 포맷이 익숙치 않은 textile 이라는 점과, 이미 <a href="http://www.gtdinbox.com/">GTDinbox </a>에 적응해버렸다는 정도. 그러고보니 GTD를 지원하는 이슈 관리 시스템은 없을까나~</p>
-
-<p>ps. 드디어 SQL 2005 스키마의 개별 객체들을 <a href="http://www.sqlservercentral.com/articles/Administering/2896/">각각 SQL 로 추출해주는 방법</a>을 찾았다. 소스 코드르 다운받아서 약간만 수정해주면 SQL  스키마의 버전 관리는 끝!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/01/03/fault-tolerant-system/">Fault Tolerant System</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-01-03T07:33:04+09:00" pubdate data-updated="true">Jan 3<span>rd</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>얼랭스터디에서 얼랭/OTP 의 무정지성(Fault Tolerance)에 대해서 소개하자,</p>
-
-<blockquote><p>&#8220;문제가 생긴 서버를 되살리는 것도 좋은데, 메모리상의 중요한 데이터들을 어떻게 다른 서버로 안전하게 전송할 수 있는가?&#8221;</p></blockquote>
-
-
-<p>라는 질문이 나왔다. 여기에 대해서 가장 먼저 떠오른 생각은</p>
-
-<blockquote><p>&#8220;클라이언트와의 연결은 어차피 날아가는 거고, 과연 그 서버 안에 있는 데이터까지 살릴 만한 가치가 있는 것일까?&#8221;</p></blockquote>
-
-
-<p>라는 것이었다. 일반적인 C++ 서버의 경우 오류로 인한 서버의 크래시가 발생했을 때 당연히 SEH 를 이용해서 그 순간을 캡처해낼 수는 있다. 그러나 문제는 그때의 메모리가 정말 DB에 저장하거나 다른 머신으로 보낼 만큼 신뢰성이 있는가? 하는 것이다. 치명적인 오류가 발생한지 시간이 좀 지나서, 이미 많은 데이터가 오염되었을 수도 있기 때문에, 보통은 그냥 데이터는 버리고 서버를 내려버리는 것이 정상이다.</p>
-
-<p>그러다보니 무정지성이라는 의미에 대해서 다시금 생각하게 되었다. 그래서, 위키피디아에서 <a href="http://en.wikipedia.org/wiki/Fault-tolerant_system">Fault Tolerant System</a>을 검색해보니 다음과 같이 나와 있었다.</p>
-
-<blockquote><p>- No single point of failure<br/>    - No single point of repair<br/>    - Fault isolation to the failing component<br/> - Fault containment to prevent propagation of the failure<br/>  - Availability of reversion modes</p></blockquote>
-
-
-<p>즉, 하나 죽었다고 전체 시스템이 마비된다든지, 복구하다가 바보가 된다든지, 실패한 모듈 때문에 나머지 시스템이 동작하지 않는 등의 현상이 없어야 된다는, Five Nine(99.999%) 수준의 가용성(Availability)에 대한 이야기이지 완벽하게 모든 것이 재가동되어야 한다는 이야기는 아니었다. DB에도 오류가 생기면 롤백을 하듯이, MMO의 서버 시스템 역시 어느 수준으로 롤백을 하더라도 나머지 사용자들이 모를 정도로만 감춰줘도 사장님한테 이쁨받기에 충분한 수준인 것이다.</p>
-
-<p>그런데, &#8221;<strong>진정한 변수</strong>&#8220;가 없는 얼랭에서는 - <em>정말 에러가 발생한 직후라는 확신이 든다면 </em>- 아래와 같은 코드를 이용해서, 오류를 다른 모듈로 확산시키지 않고도 로컬 코드 레벨에서 롤백이 가능하긴 하다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">loop</span><span class="p">(</span> <span class="nx">OldState</span> <span class="p">)</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="k">try</span> <span class="nx">handle_something</span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span><span class="nx">OldState</span><span class="p">)</span> <span class="nx">of</span>
-</span><span class='line'><span class="p">{</span> <span class="nx">ok</span><span class="p">,</span> <span class="nx">NewState</span> <span class="p">}</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nx">loop</span><span class="p">(</span><span class="nx">NewState</span><span class="p">)</span>
-</span><span class='line'><span class="k">catch</span>
-</span><span class='line'><span class="p">{</span> <span class="nx">error</span> <span class="p">}</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="nx">loop</span><span class="p">(</span><span class="nx">OldState</span><span class="p">)</span>
-</span><span class='line'><span class="nx">end</span>
-</span><span class='line'><span class="nx">end</span><span class="p">.</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>여기에 얼랭/OTP의 슈퍼비전 트리가 결합하면 책에서 주장하는 것처럼 Nine Nine(99.9999999%)의 가용성이 보장된다고 하니, 초반에 생각했던 언어적 분산 네트워킹의 지원 보다는 이쪽이 더 매력적인 기능이 아닐까 싶다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/12/28/networking-metaphore/">Networking Metaphor</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-12-28T08:39:55+09:00" pubdate data-updated="true">Dec 28<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[caption id=&#8221;&#8221; align=&#8221;aligncenter&#8221; width=&#8221;500&#8221; caption=&#8221;http://www.flickr.com/photos/jasoncross/1260110610/&#8221;]<a href="http://www.flickr.com/photos/jasoncross/1260110610/"><img src="http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg"></a>[/caption]</p>
-
-<p>네트워크 프로그래머가 클라이언트 서버간 통신(혹은 P2P 통신)을 바라보는 메타포에 대해서 갑자기 궁금해졌다.</p>
-
-<p>가장 흔한 개념은 바로 패킷이다. 만약 컨텐트 코드에서 Packet 이나 Command, Message 같은 객체와, Send 와 Receive 같은 함수가 노출되어 있다면, 그걸 만든 사람은 데이터 통신을 바이트의 전송이라는 개념으로 인지하는 것이 아닐까? 데이터를 던지고 받는다는 개념의 네트워킹은 아마도 귀찮은 하드코딩 노가다 작업일 확률이 높다. 흐흐.</p>
-
-<p>조금 높은 레벨(?)로 올라간다면 원격 함수 호출(RPC)이 있겠다. 무언가를 상대방에게 요청(request)하면, 상대방은 그걸 처리한 후 성공이나 실패 같은 결과(response)를 보내준다. 이런 메타포에서는 동기/비동기라든지, 타임아웃 같은 처리들이 따라오게 된다. 만약 네트워크로 무언가를 요청하는 행위가 함수 호출 인터페이스처럼 잘 래핑되어 있다면, 대략 1초간 으쓱해도 무방하겠다. :P</p>
-
-<p><img src="http://ou800doc.caldera.com/en/SDK_netapi/graphics/rpc.gif"></p>
-
-<p>추가적으로, 결과가 없는 요청은 특별히 이벤트(event) 혹은 통지(notification)라는 메타포라고 부를 수 있겠다. 사실 매번 렌더링을 해야 하는 게임 클라이언트나, 항상 빠른 응답 속도를 보장해야 하는 서버가 동기적 요청을 하는 일은 정말 드문 경우이다. 이런 이유로 비동기적인 통신이 대부분이기 때문에 적당히 현재 상황을 알려주고 잊어버리고 있다가, 혹시나 결과(보통은 에러)가 오면 음..그런가? 하고 처리하는 느낌으로 코드를 만들 때가 있다. 시간이 나면 Notify 같은 이름들이 있는지 한번 체크해보시라.</p>
-
-<p>위에 나온 것들은 대체로 즉각적인 처리를 필요로 하는 반면, 어떤 이벤트들은 시간축으로 늘어질 때가 있다. 무슨 말이냐 하면 이동, 공격, 물리 같이 float 단위의 정밀한 사건들은 공간 뿐만 아니라 시간과도 밀접한 관계가 있기 때문이다. 이런 상황을 아름답게 처리하려면, 받는 족족 무언가를 처리하기보다는, 데이터를 시간순으로 쌓아두고 예측, 보간을 통해 그럴듯하게 보여줄 필요가 있다. 이런 걸 보통 동기화(synchronization) 또는 복제(replication)이라고 부른다. 보통 이런 코드들은 네트워크를 넘어선 상위 로직 레벨에 존재하는 경우가 많은데, 어떤 네트워크 라이브러리들은 이런 수준도 알아서 잘 처리하기도 한다.</p>
-
-<p>[caption id=&#8221;&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;from http://www.problogger.net&#8221;]<a href="http://www.problogger.net"><img src="http://www.problogger.net/wp-content/uploads/2007/08/rss-buttons.gif"></a>[/caption]</p>
-
-<p>좀 억지스럽긴 하나, 이메일이나 RSS 등에서 주로 쓰이는 발행(publish)과 구독(subscribe)이라는 메타포는 어떨까?  채팅 채널 같이 지속적인 이벤트가 간간히 발생하는 논리적인 영역에 참가하면, 꾸준히 어떤 이벤트들이 날아오게 된다. 사람들이 바글바글 거리는 지역에 발생하는 수많은 이벤트들을 클라이언트에게 알려줄 때 즉각적인 브로드캐스팅 대신, 이런 개념을 사용한다면 필터링을 통해 트래픽 절감의 효과를 손쉽게 얻을 지도 모르겠다. 후후.</p>
-
-<p>이렇게 단순한 이야기를 현학적으로 어렵게 쓴 이유는, 사실 며칠 전 XML로 프로토콜을 정의하고 코드를 만드는 걸 한번 해볼까 하고, <a href="http://www.codalogic.com/lmx/xsd-overview.html">스키마 튜토리얼</a>을 살펴 보다가, 프로토콜은 XML이 아니라 XSD에 들어가는게 맞지 않냐는 생각이 들어서였다. 물론 XSD도 사실 XML이니까, 쓸데없는 고민 없이 그냥 해도 될 것 같기도 한데&#8230; 그러다보니 또 굳이 요즘 세상에 트래픽이 많은 게임이 아니라면 XML 프로토콜을 쓰고, 파싱 및 검증을 XSD로 하는 것도 괜찮지 않냐는 망상에서 허우적 거리고 있다.</p>
-
-<p><img src="http://upload.wikimedia.org/wikipedia/en/3/32/CheckEmail.png"></p>
-
-<p>또 한편으로는 클래스 다이어그램과 시퀀스 다이어그램으로 클라이언트/서버간 통신을 표현하고, 그걸 파싱해서 각종 RPC 함수들의 골격을 만들어내면 인생이 좀 수월해지지 않을까 하는 생각도 든다. 물론 프로토콜이 바뀔 때에 기존 코드가 날아가지 않도록 코드 제너레이터를 잘 짜야겠지.</p>
-
-<p>글 시작과 끝의 주제가 다른 걸로 봐서, 아무래도 요즘 스트레스를 많이 받나 보다. ㅋㅋ</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/12/21/memory-wall/">Memory Wall</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-12-21T18:56:57+09:00" pubdate data-updated="true">Dec 21<span>st</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p> </p>
-
-<p><img src="http://lh6.ggpht.com/_nOquiran9-s/Rur1hp0B7kI/AAAAAAAAALI/rjrpIObJtMo/IMG_1987.JPG"></p>
-
-<p>9.11 Memory Wall</p>
-
-<p>구글에서 memory wall 을 검색하면 위와 같은 사진들이 나온다. 아마도 기억과 회상을 위한 그림이나 사진, 메모들을 붙이는 벽을  memory wall 또는 remembrance wall 이라고 부르는 모양이다.</p>
-
-<p>훗날 128 코어의 시대가 도래하면 얼랭 게임 서버가 혹시 대세가 되지는 않을까 했는데, 벌써부터 <a href="http://minjang.egloos.com/2166350">멀티 코어에도 메모리 장벽이라는 한계가 있다는 이야기</a>가 솔솔 들린다. 이로 인해 <a href="http://devnote.net/86">8-16코어를 넘어서기가 힘들다고 해서 널티코어 효과(Nulticore Effect)</a>라고 부른다니.. <a href="http://xeraph.egloos.com/4781141">xeraph님이 GG하신 게</a> 정답이지도? :)</p>
-
-<p>보통 물리적/논리적으로 서버 프로세스가 늘어날수록 디버깅이 어려워지고, 관리 비용도 증가한다고 한다. 그래서 요즘은 분산을 고려해서 모듈끼리도 메시지 통신을 하도록 한 후, 개별 모듈들을 최대한으로 단순하게 구현하려고 노력중이다. 대신 메시지를 만드는게 여간 귀찮은 일이 아니라서, 언제 시간이 나면 후딱 XML 메시지 같은 걸 만들어볼까 싶기도 한데&#8230; 그럴 여유도 없을 뿐더러, 만들어도 같이 감동해줄 전우가 없다는 게 안타깝다. 크흑.</p>
-
-<blockquote><p> </p></blockquote>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/31/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/29/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
+<p>그러나, 상세한 파라미터는 알려져 있지 않아서.. 테스트를 해 보았다.</p>
+<pre><code>
+const int MAX_WORK = 1000;
+LONG WorkCounter = 0;
+int add_time = 1;
+int work_time = 10;
+int nloop = 1;
+bool bPreQueue = false;
+int pre_queue_time = 1000;
+bool bMiddleSleep = false;
+int middle_sleep_time = 1000;
+
+DWORD WINAPI MyWorkThreadProc(PVOID pParam)
+{
+    MyWork* pWork = (MyWork*)pParam;
+
+    Sleep(pWork-&gt;workTime);
+
+    pWork-&gt;threadID = ::GetCurrentThreadId();
+    pWork-&gt;output = pWork-&gt;input * 2;
+
+    InterlockedIncrement( &amp;WorkCounter );
+
+    return 0;
+}
+
+void
+thread_pool_test_fixture::test_really_pooling()
+{
+    for ( int k = 0 ; k  0 )
+            {
+                Sleep(pre_queue_time);
+            }
         }
 
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+        MyWork works[MAX_WORK];
+        for (int i=0; i 0 )
+            {
+                Sleep(add_time);
+            }
+
+            if ( i == 500 &amp;&amp; bMiddleSleep &amp;&amp; middle_sleep_time &gt; 0 )
+            {
+                Sleep( middle_sleep_time );
+            }
+        }
+
+        while ( WorkCounter  threads;
+        for (int i=0; i::iterator itr = threads.begin() ; itr != threads.end() ; itr ++ )
+        {
+            BOOST_MESSAGE( *itr  처리 시간 |
+| 10 | 10 | 1  | 큐잉되는 시간 == 처리 시간 |
+| 10 | 20 | 3  | 큐잉되는 시간
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a> <small>2006-05-28</small></h1>
+	</div>
+	<div><p>템플릿 프로그래밍을 하다 보면, 문자열이나 사용자 정의 클래스(UDT) 같은 특정 타입에 대한 특수화(specializaiton)를 할 경우가 있다. 그 중에서 가장 헷갈리는 부분이 바로 특정 클래스의 포인터를 템플릿 인자로 받아서 특수화해야 하는 경우인데, boost typetraits 중 하나인 boost::is_base_of를 사용하면 손쉽게 해결할 수 있다.</p>
+<pre><code>
+template
+void old_algorithm ( const T &amp; value )
+{
+  // do generic something
+}
+</code></pre>
+
+<p>위와 같은 함수 템플릿에 대해서 Base 클래스의 하위 클래스 포인터를 받았을 때를 위한 특수화를 해야 할 경우, 다음과 같은 패턴을 사용하라. 핵심은 is_base_of::type 이 true_type 또는 false_type 이라는 2 개의 서로 다른 타입을 리턴하며, 이 값을 이용해서 특수화를 한다는 것이다.</p>
+<pre><code>
+template
+void new_algorithm ( const T &amp; value )
+{
+  typedef typename boost::is_base_of::type is_derived_class;
+
+  // call impl
+  new_algorithm_impl(value,is_derived_class());
+}
+
+template
+void new_algorithm_impl ( const T &amp; value, const boost::true_type&amp; )
+{
+  // do specialized for Base class
+}
+
+template
+void new_algorithm_impl ( const T &amp; value, const boost::false_type&amp; )
+{
+  // do generic something
+}
+
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/05/25/boostany/">boost::any</a> <small>2006-05-25</small></h1>
+	</div>
+	<div><p>게임 개발을 하다 보면, 가끔 서로 다른 타입의 객체들을 하나의 컨테이너에서 다루어야 할 때가 있다. 만약 이 컨테이너로 하는 일이 간단하다면야 인터페이스 상속을 쓰면 되지만, 상속을 할 수 없을 정도로 타입이 다를 때도 있다. 이럴 때 사용하는 것이 바로 boost::any 클래스이다.</p>
+<p>boost::any는 이름 그대로 어떤(any) 것도 담을 수 있는 클래스로, void * 와 비슷한 역할을 한다. (더욱 자세한 설명은 <a href="http://boost.org/doc/html/any.html">boost 온라인 매뉴얼</a>을 참고)</p>
+<p>이번에 boost::any 의 코드를 참조해서 작업을 하다 보니 몇 가지 장단점들이 눈에 띄었다.</p>
+<ul>
+<li>미리 any 의 내부값의 타입을 파악하고 있어야 한다. 즉, type() 을 이용해서 if-else 방식으로 비교하는 수 밖에 없다.</li>
+<li>any_cast(value) 는 생각보다 타이핑하기가 귀찮다. 꺽쇠와 괄호를 다 타이핑한다고 생각해보라...</li>
+<li>디버깅시 any 내부의 placeholder 에 들어 있는 값을 찾기가 곤란하다.</li>
+</ul>
+<p>이번 주는 영식군이 한 달 동안 쇼핑하면서 작업한 <a href="http://reiot.cafe24.com/archives/395">객체 복제 프레임워크</a>를 이틀 동안 인수인계 받은 후, 복제의 최소 단위인 replication value 클래스를 boost::any 의 코드를 참조해서 고치고 있다. 미리 2000라인 정도의 테스트 코드를 만들어둔 덕택에 <del datetime="2006-05-25T14:14:00+00:00">코드 학습</del> 리팩토링이 겨우 4일 만에 거의 끝낼 수 있었다. 물론 영식군이 계속 지나가면서 어차피 기능이 똑같다면 왜 사서 삽질을 하냐고 갈구고 있지만 그냥 못들은 척하고 중이다. 흐흐.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/05/16/p2p-tips/">P2P Tips</a> <small>2006-05-16</small></h1>
+	</div>
+	<div><p>P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다)</p>
+<h1>분석 및 검토</h1>
+<h2>게임성 분석</h2>
+<p>만들고자 하는 게임의 다양한 속성들에 대한 분석이 최우선 단계이다. 다음 질문에 자신의 게임이 어떤 쪽인지를 잘 따져보기 바란다.</p>
+<pre><code>- 최대접속자는 얼마인가? (4-8, 16-32, 64-256, Massive)
+- 카운터 스트라이크처럼 사용자들에게 핑이 빠른 서버를 선택할 수 있도록 할 것인가?
+- NPC 또는 몹이 존재하는가? 만약 그렇다면 누가 그들을 움직이게 할 것인가?
+- 승패 또는 타격 판정, 이동에 대한 검증은 누가 할 것인가?
+- dedicated server 를 지원할 것인가? 또는 클라이언트 중에서 UDP 서버를 선택할 것인가?
+</code></pre>
+<h2>토폴로지의 선택</h2>
+<p>어떤 토폴로지를 선택하느냐에 따라서 최대 대역폭, 최대 접속자가 결정되므로, 위에서 조사한 결과에 따라서 적합한 토폴로지를 선택해야 한다. 아래의 문서를 참고하기 바란다.</p>
+<p>see also : <a href="http://reiot.cafe24.com/2006/02/18/%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%81%ac-%ec%95%a1%ec%85%98-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%b6%84%eb%a5%98/">네트워크 액션 게임의 분류</a></p>
+<h2>UDP 라이브러리의 선택</h2>
+<p>토폴로지를 선택했다면 이제 UDP 라이브러리를 선택할 단계이다.</p>
+<p>단지 위치 정보만을 보내는 게 아닌 이상, 순수 UDP 만으로 네트워크 게임을 개발하기란 쉽지 않다. 결국은 reliable UDP 를 지원하는 외부 라이브러리를 사용하거나 직접 구현하게 될텐데, 직접 구현하는 것은 시간이 많거나 자신이 천재가 아닌 이상 그다지 좋은 선택은 아니다. 반면 어떤 라이브러리를 선택해도 깊은 이해 없이는 잘 사용하기가 힘든 것이 사실이다.</p>
+<p>가능하면 Unreal, Source Engine 등 네트워크 모듈이 포함된 게임 엔진을 구매하는 것을 권장하며, 그럴 수 없다면 충분한 검토 기간 하에 RakNet, OpenTNL, udt, enet 중에서 하나를 선택하기 바란다.</p>
+<h1>디자인 및 구현, 테스트</h1>
+<h2>네트워크 모듈의 통합</h2>
+<p>많은 UDP 라이브러리들은 보다 빠른 반응성을 위해 자체적으로 쓰레드를 사용한다. 그러나 dedicated server 가 아닌 이상, 서버쪽은 무작정 쓰레드를 남발해서는 곤란하다. 하나의 서버가 여러 개의 게임을 동시 처리해야 할 경우가 많으므로, 이럴 때에는 소스를 수정해야 할 수 있다.</p>
+<pre><code>- polling vs. event-driven
+- single thread vs. multithread
+</code></pre>
+<p>이때 폴링 방식의 클라이언트는 로딩 혹은 렌더링으로 인해 네트워크 업데이트를 방해하는 일이 없도록 주의해야 한다.</p>
+<h2>NAT와 홀펀칭</h2>
+<dl> <dt>하드웨어의 구비</dt> <dd>하드웨어가 없는 상태에서의 NAT 프로그래밍은 장님 코끼리 다리 만지기와 같다.</dd> <dt>SNAT</dt> <dd>SNAT-SNAT 간에는 홀펀칭이 통하지 않는다는 사실만 기억하면 된다. 중국이 아닌 이상 SNAT를 만나기란 쉽지 않다. 정 귀찮다면 C/S구조로 가는 것도 나쁘지 않다. GPGStudy 포럼을 잘 검색하면 어떤 라우터가 SNAT인지를 찾을 수 있다.</dd> <dt>N+1</dt> <dd>어떤 NAT는 새로운 매핑을 위해 포트 번호를 점차 증가시키기도 한다. 그러나 라우터 제조 업체마다 다르므로 일반적으로는 알 수 없다고 봐야 한다.</dd> <dt>Timeout</dt> <dd>30-40초마다 패킷을 밖으로 쏘지 않을 경우 매핑을 삭제하는 공유기가 존재한다.</dd> <dt>패킷 릴레이</dt> <dd>직접적인 통신이 되지 않는 peer 에게 패킷을 보낼 수 있는 유일한 방법이다. 문제는 릴레이는 핑이 2배 느려지는 것이 보통이므로 데드 레커닝 및 보간 기능으로 잘 극복해야 한다. 릴레이가 끊기는 경우 실시간으로 다른 루트를 찾아주면 금상첨화.</dd> <dt>사설 네트워크</dt> <dd>같은 네트워크에 있는 사용자들 끼리는 굳이 public 주소로 접속할 필요는 없다. 상대방의 (public,private) 모두로 핑을 쏜 다음, 응답이 오면 그 중 빠른 넘을 실제 주소로 선택하라. 이때 둘 다 될 경우라면 대체로 private를 사용하는 편이 좋다. 물론 **본인 확인**은 필수. 방화벽 내부에 있는 사람들끼리 플레이할 경우 public 으로 통신하면 괴로워진다.</dd> <dt>다단계 NAT</dt> <dd>중국은 다단계 NAT로 악명이 높다. 최소한 2단계로 NAT를 배치한 후 각 노드마다 클라이언트를 두고 내부/외부와 통신이 잘 되는지를 확인할 것. 그렇게 열심히 테스트해도 안되는 환경이 분명 존재하므로, 처음부터 릴레이를 기본 기능으로 포함시킬 것.</dd> <dt>사용자 서버</dt> <dd>네트워크 비용을 줄이려면 특정 클라이언트가 서버 역할을 하도록 하라. 단 Drop-out시 게임을 중단하고 새 서버를 찾는 기능을 구현해야 한다. 물론 보안 문제는 책임질 수 없다;;</dd> </dl>
+
+<h2>대역폭 관리</h2>
+<dl> <dt>모뎀 지원</dt> <dd>해외에는 아직도 모뎀을 많이 사용하고 있다. 따라서 모뎀 유저가 방에 들어올 경우 최대 접속자를 줄이든가 대역폭에 맞게 데이터를 실시간 관리하는 기능이 필요하다.</dd> <dt>MTU</dt> <dd>게임에서의 최대 패킷 크기를 항상 알고 있을 것. 특히 리스트 방식으로 전송되는 데이터들(방 목록, 사람 목록, 게임 목록)을 유의할 것.</dd> <dt>순간 대역폭 체크</dt> <dd>어떤 공유기(D-Link)는 순간 대역폭을 초과할 경우 reset 되기도 한다.</dd> </dl>
+
+<h2>공유기, 방화벽, 포트 포워딩</h2>
+<dl> <dt>(D)DOS 공격</dt> <dd>어떤 공유기는 외부로부터 갑자기 연결이 많이 들어올 경우 DOS 혹은 DDOS 로 간주해서 연결을 차단하기도 한다.</dd> <dt>XP 방화벽</dt> <dd>Windows XP의 방화벽에 자동 등록하기는 필수. 단 사용자에게 허가를 받지 않고 몰래 방화벽을 끌 경우 해외에서는 고소당할 수 있다.</dd> <dt>백신 호환성 체크</dt> <dd>일부 백신들은 정상적인 어플리케이션도 바이러스나 웜으로 간주하기도 한다. 따라서 유명 백신들을 설치한 상태에서 툴과의 호환성을 체크한 후 문제가 있다면 매뉴얼을 홈페이지에 등록해야 한다.</dd> <dt>포트 포워딩</dt> <dd>portforward.com이나 [WOW](http://www.blizzard.com/support/wow/?id=aww01154p)처럼 공유기에서 포트포워딩을 하는 방법을 홈페이지에 기술할 것. 가능하면 클라이언트에 네트워크 진단 도구를 탑재하거나, 웹 기반 진단 페이지를 만들기를 권장한다.</dd> <dt>주의 깊은 포트의 선택</dt> <dd>해외의 일부 회선 업체는 자신들의 자체 서비스(VoIP)를 위해 특정 UDP 포트를 임의로 막기도 한다. 가능한한 다른 게임 및 어플리케이션과 충돌하지 않는 포트를 선택할 것.</dd> <dt>서버 방화벽</dt> <dd>네트워크 관리자에게 사용하는 포트에 대한 문서를 넘기고 수시로 업데이트 해줄 것. (특히 해외 서비스일 경우는 필수) 허용된 포트의 끝언저리에서 실수로 인한 문제가 종종 생기곤 한다.</dd> </dl>
+
+<h2>기타</h2>
+<pre><code>- 공유기의 타입 찾기 : STUN
+- Drop-In : 게임 도중 새로운 접속자가 들어올 때
+- 연결 끊김 감지 : 게임 도중 연결이 끊길 경우 얼마나 빨리 감지할 수 있을까?
+- 데이터 복제, 보안, 통계 수집
+</code></pre></div>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/31/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/31">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2006/06/01/stl-tips/">STL Tips</a>
+	</li>
+	
+	<li>
+		<a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a>
+	</li>
+	
+	<li>
+		<a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a>
+	</li>
+	
+	<li>
+		<a href="/2006/05/25/boostany/">boost::any</a>
+	</li>
+	
+	<li>
+		<a href="/2006/05/16/p2p-tips/">P2P Tips</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

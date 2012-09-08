@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2007/07/16/visual-cpp-express/">Visual C++ 2005 express 의 한계</a> <small>2007-07-16</small></h1>
+	</div>
+	<div><p>연휴동안 정말 할 일이 없어서 <a href="http://asio.sourceforge.net/">ASIO </a>코드를 살펴보고 있다. 몇 달전에 깔아둔 VC++ express 를 띄워서 예제 코드를 빌드하니 winsock2.h 가 없다는 에러가 뜨는게 아닌가? 찾아보니 <a href="http://msdn.microsoft.com/vstudio/express/visualc/usingpsdk/">Platform SDK를 설치한 후, 몇 가지 설정을 손봐줘야 한다</a>는 내용을 발견할수 있었다. 열심히 다운로드를 받다가, 문득 professional 이나 standard 보다이 놈이 못한게 무엇무엇이 있는지 궁금했다. 구글링해본 결과 다음과 같은 내용을 발견할 수 있었다.</p>
+<p><a href="http://msdn2.microsoft.com/ko-kr/vstudio/aa700921.aspx">Visual Studio 2005 Product Line Overview</a></p>
+<p>간단히 요약해보면,</p>
+<pre><code>- 생산성에 가장 지대한 영향을 미치는 제약 조건은, 바로 매크로라든지 Visual Assist 같은 외부 애드인들을 지원하지 않는다는 것이다.
+- 소스세이프와의 연동을 지원하지 않지만, svn 같은 다른 툴을 사용하고 있다면 그다지 심각하지는 않다.
+- 리모트 디버깅을 지원하지 않지만, 사실상 회사 내부 외에는 이 기능을 사용할 확률이 적으므로 충분히 극복할수 있다.
+- Data Access Designer 는 로컬에서만 지원한다든지, SQL 2005 통합 기능을 미지원하는 것도 아쉽다.
+</code></pre>
+<p>이 정도의 제약 조건이라면 사실상 제약이 거의 없다고 봐도 무방하다.  최악의 경우 express 만으로도 헝그리하게 개발할 수도 있을 정도이니 말이다. (<a href="http://msdn.microsoft.com/vstudio/express/support/faq/">FAQ</a> 4번에 의하면 상업적 용도로 사용해도 된다고 나온다) 가까이로는, 빌드 머신 같은 데 설치해두면 VC의 카피수를 줄이는데 많은 도움이 될 듯하다. 여력이 되면 전 사원들의 컴퓨터에 깔아두고 테스트하다가 크래시될 때 자동으로 뜨도록 해두는 것도 괜찮을것 같다.</p>
+<p>그나저나, Team System 에서 Code Profiling - Static Analysis - Code Coverage - DB refactoring - DB schema compare 같은 기능을 지원한다는 것은 이번에 처음 알았다. 흐음. 써볼만 하겠는걸? 이라고 생각하는 순간 Visual Studio 2008 이 조만간(?) 출시된다는 걸 보고 슬그머니 귀찮아졌다. :)</p></div>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

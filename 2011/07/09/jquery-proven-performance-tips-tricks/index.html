@@ -1,116 +1,73 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>jQuery Proven Performance Tips &amp; Tricks - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="jQuery Proven Performance Tips &amp; Tricks 간단 요약 최신 버전을 사용해라. (1.4 보다 1.6이 2배 가까이 빠르다)
-id 선택자가 class 선택자보다 5-10배 이상 빠르다.
-가상 선택자는 느리니까 최대한 쓰지 말 것. 검색 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2011/07/09/jquery-proven-performance-tips-tricks">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">jQuery Proven Performance Tips &amp; Tricks</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-09T10:46:11+09:00" pubdate data-updated="true">Jul 9<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p><a href="http://www.slideshare.net/AddyOsmani/jquery-proven-performance-tips-tricks">jQuery Proven Performance Tips &amp; Tricks</a> 간단 요약</p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a> <small>2011-07-09</small></h1>
+	</div>
+	<div><p><a href="http://www.slideshare.net/AddyOsmani/jquery-proven-performance-tips-tricks">jQuery Proven Performance Tips &amp; Tricks</a> 간단 요약</p>
 <ul>
 <li>최신 버전을 사용해라. (1.4 보다 1.6이 2배 가까이 빠르다)</li>
 <li>id 선택자가 class 선택자보다 5-10배 이상 빠르다.</li>
 <li>가상 선택자는 느리니까 최대한 쓰지 말 것. 검색 영역의 모든 요소를 다 뒤진다!!</li>
-<li>부모에서 자식을 찾는 방법은 $parent.find(&#8216;.child&#8217;) 가 제일 빠르다. 다른 것은 잊어라. (근데 왜 children() 이 더 안빠르지..)</li>
+<li>부모에서 자식을 찾는 방법은 $parent.find('.child') 가 제일 빠르다. 다른 것은 잊어라. (근데 왜 children() 이 더 안빠르지..)</li>
 <li>jQuery 객체는 꼭 필요할 때에만 만들 것.</li>
 <li>항상 캐싱할 것</li>
 <li>체인 방식을 애용할 것. 이미 필터링된 집합을 이용하므로 빠르다. 코드도 간단해진다.</li>
@@ -119,212 +76,27 @@ id 선택자가 class 선택자보다 5-10배 이상 빠르다.
 <li>$.each() 는 느리니까 그냥 for 를 쓸 수 있으면 써라.</li>
 <li>$.method 보다 로레벨 함수인 $.fn.method 가 빠르다.</li>
 </ul>
-
-
 <p>대체로 아는 이야기라는 점이 슬프다. 그걸 아는 놈이 짠 코드가 이 모양이라니.. ㅠㅠ</p>
-
-<p>그나저나 jsperf.com 같은 걸로 브라우저별로 검증해보지 않으면 다 공허한 이야기인 듯. 재미있는 건 IE 6/7 클래스 선택자의 속도가 다른 브라우저보다 1000-2000배 느리다는 점과, 크롬 13.x 의 성능이 갑자기 앞뒤버전보다 확 떨어졌다는 것. :)</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-09T10:46:11+09:00" pubdate data-updated="true">Jul 9<span>th</span>, 2011</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/programming/'>programming</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2011/07/09/jquery-proven-performance-tips-tricks/" data-via="reiot" data-counturl="http://reiot.com/2011/07/09/jquery-proven-performance-tips-tricks/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2011/06/18/jquery-mobile-tip/" title="Previous Post: jQuery Mobile Tip">&laquo; jQuery Mobile Tip</a>
-      
-      
-        <a class="basic-alignment right" href="/2011/09/21/wordpress-to-octopress/" title="next Post: Wordpress To Octopress">Wordpress To Octopress &raquo;</a>
-      
-    </p>
-  </footer>
+<p>그나저나 jsperf.com 같은 걸로 브라우저별로 검증해보지 않으면 다 공허한 이야기인 듯. 재미있는 건 IE 6/7 클래스 선택자의 속도가 다른 브라우저보다 1000-2000배 느리다는 점과, 크롬 13.x 의 성능이 갑자기 앞뒤버전보다 확 떨어졌다는 것. :)</p></div>
+	
+	<p>
+	
+		<a href="/tag/jquery/"><span class="label">jquery</span></a>
+	
+	</p>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2011/07/09/jquery-proven-performance-tips-tricks/';
-        var disqus_url = 'http://reiot.com/2011/07/09/jquery-proven-performance-tips-tricks/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

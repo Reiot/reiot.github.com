@@ -1,438 +1,76 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="Octopress는 정적 사이트 생성기인 Jekyll 을 이용해서 블로그를 손쉽게 구성하도록 해주는 루비 프레임워크다. 말 그대로 정적 HTML 파일들을 미리 만들어서 어딘가로 올려서 서비스하는 거라, GitHub에서 블로그를 서비스할 수 있음은 물론, Amason &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/09/21/wordpress-to-octopress/">Wordpress to Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-09-21T00:15:00+09:00" pubdate data-updated="true">Sep 21<span>st</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="left" src="http://octopress.org/images/logo.png" title="해커 전용 블로깅 프레임워크?" ></p>
-
-<p><a href="http://octopress.org">Octopress</a>는 정적 사이트 생성기인 <a href="http://jekyllrb.com/">Jekyll</a> 을 이용해서 블로그를 손쉽게 구성하도록 해주는 루비 프레임워크다. 말 그대로 정적 HTML 파일들을 미리 만들어서 어딘가로 올려서 서비스하는 거라, GitHub에서 블로그를 서비스할 수 있음은 물론, Amason S3나 구글 앱엔진에서도 블로그 서비스가 가능하다.</p>
-
-<p>큼직큼직한 글씨와 미려한 테마, 코드 문법 하일라이팅, blockquote, gist 코드 포함 등의 다양한 플러그인이 지원되며, 생성, 배포, 최신 소스 업데이트, 글쓰기 등의 작업들이 rake 콘솔 명령으로 간편하게 포장(?)되어 있다. DB를 쓰지 않기 때문에 코멘트는 Disqus 같은 외부 사이트를 이용하게 된다. 워낙 매뉴얼이 잘 되어 있어서 설치나 사용법은 그냥 따라해도 충분하다. 레이옷은 DropBox에 origin 레파지토리를 두고 사용중이다.</p>
-
-<p>중요한 건 기존 블로그를 얼마나 손쉽게 이전하느냐인데, 워드프레스.com에서 이사오는 데 거의 3일이 걸렸다. 워낙 블로그 이사를 많이 다녀서 메타 정보가 개판이었고 본문에 이런 저런 비표준 태그를 많이 써서 문제는 더욱 심각했다. 또 워드프레스에서 내보내기로 받아온 XML 자체에도 문제가 많았다. (내 경우에는 글들이 중간에 짤려서 태그가 제대로 완결이 안되었다든지, ^Z가 본문 중에 있어서 파싱이 안되기도 했다.) Jekyll에서 제공하는 스크립트는 마크다운 변환 기능이 빠져 있고, 유니코드 에러를 자주 뱉기 때문에 직접 파이썬으로 만들어야만 했다. (루비 책 몇 권 사놓고도 문법을 보니 머리가 아파서 포기했다.)</p>
-
-<p>어쨌든 그 삽질의 결과물을 아래와 같이 공개한다. 자유롭게 이용하되, 아래 스크립트의 사용시 책임은 사용자 본인에게 있다는 걸 미리 밝힌다. :P</p>
-
-<div><script src='https://gist.github.com/1239373.js?file='></script>
-<noscript><pre><code># -*- coding: utf-8 -*-
-#!/usr/bin/env python
-import sys
-import os
-import re
-import yaml
-import urllib
-import codecs
-from datetime import datetime
-from BeautifulSoup import BeautifulStoneSoup, Comment
-
-# save markdown to single LOGFILE
-DEBUG = False
-XML = &quot;wordpress.2011-09-19.xml&quot;
-EXPORT_ROOT = 'source/'
-MARKDOWN_FORMAT = '%04d-%02d-%02d-%s.markdown'
-LOGFILE = &quot;log.markdown&quot;
-EXCLUDE_METAS = [
-    u'_edit_last',
-    u'superawesome',
-    u'delicious',
-    u'_wp_page_template',
-]
-EXCLUDE_CATEGORIES = [
-    u'Uncategorized',
-]
-EXCLUDE_TAGS = []
-
-def to_markdown(txt):
-    matches = [
-        [r'&lt;/?strong&gt;', '**'],
-        [r'&lt;/?em&gt;', '*'],
-        [r'&lt;h1&gt;', '# '],
-        [r'&lt;h2&gt;', '## '],
-        [r'&lt;h3&gt;', '### '],
-        [r'&lt;h4&gt;', '#### '],
-        [r'&lt;h5&gt;', '##### '],
-        [r'&lt;h6&gt;', '###### '],
-        [r'&lt;/h\d&gt;', '\n'],
-        [r'&lt;/?p[^&gt;]*&gt;', '\n'], # &lt;p class=blahblah&gt;..&lt;/p&gt;
-        [r'&lt;/?span[^&gt;]*&gt;',''], # &lt;span class=blahblah&gt;..&lt;/span&gt;
-        [r'&lt;br\s*/?&gt;', '  '],
-        [r' {3,}', '  '],
-        [r'&lt;a.+?href=&quot;([^&quot;]+)&quot;[^&gt;]*&gt;([^&lt;]+)&lt;/a&gt;', r'[\2](\1)'],
-        [r'&lt;li&gt;', '- '],
-        [r'&lt;/li&gt;', ''],
-        [r'&lt;/?ul&gt;', ''],
-        [r'&lt;/?ol&gt;', ''],
-        [r'\n{3}', '\n\n'],
-        [r'&amp;amp;', '&amp;'],
-        [r'&amp;lt;', '&lt;'],
-        [r'&amp;gt;', '&gt;'],
-        [r'&amp;nbsp;', ' '],
-        [r'&amp;quot;', '&quot;'],
-        [r'&amp;#\d+;',''], # &amp;#NNNN; some html entities
-
-        # remove custom tags found in xml
-        [r'&lt;div class=&quot;blogger-post-footer&quot;&gt;.+&lt;/div&gt;',''],
-
-        # liquid tag conflict. but {{}} is manually fixed :P
-        [r'{%(.+?)%}', r'{{ &quot;{% \1 &quot;}} %}'],      
-
-        # octopress plugin
-        [r'&lt;img(.+?)src=&quot;([^&quot;]+)&quot;\s+alt=&quot;([^&quot;]+)&quot;[^&gt;]*/&gt;', r'{% img \2 \3 %}'],
-        [r'&lt;img(.+?)src=&quot;([^&quot;]+)&quot;[^&gt;]*/&gt;', r'{% img \2 %}'],
-        [r'\[sourcecode language=[&quot;\']([^&quot;\']+)[&quot;\']\]', r'{% codeblock lang:\1 %}'],
-        [r'\[/sourcecode\]', r'{% endcodeblock %}'],
-        [r'\[cpp\]', r'{% codeblock lang:cpp %}'],
-        [r'\[/cpp\]', r'{% endcodeblock %}'],
-        [r'\[python\]', r'{% codeblock lang:python %}'],
-        [r'\[/python\]', r'{% endcodeblock %}'],
-        [r'\[code\]', r'```\n'],
-        [r'\[/code\]', r'```'],
-        [r'&lt;pre&gt;&lt;code&gt;', r'```\n'],
-        [r'&lt;/code&gt;&lt;/pre&gt;', r'```'],
-        [r'&lt;pre&gt;', r'```\n'],
-        [r'&lt;/?pre&gt;', r'```'],
-        #[r'&lt;/?code&gt;', r'```'],
-        [r'&lt;blockquote&gt;', r'{% blockquote %}'],
-        [r'&lt;/blockquote&gt;', r'{% endblockquote %}'],
-    ]
-
-    for match in matches:
-        txt = re.sub(match[0], match[1], txt)
-
-    return txt
-    
-def slugify(title):
-    # this may break permlink.... please checkout removal of some chars.
-    title = title.strip().lower()
-    matches = [
-        [r&quot;[,.]&quot;, ''],
-        [r&quot; &quot;, '-'],
-    ]
-    for match in matches:
-        title = re.sub(match[0], match[1], title)
-    
-    return title
-
-def parse_item(item):
-    # pub_date = item.find(&quot;pubDate&quot;) # some old posts have missing year. ex&gt; Wed, 30 Nov -0001 00:00:00 +0000 
-    # creator = item.find(&quot;dc:creator&quot;) # always me
-    # guid = item.find(&quot;guid&quot;) # original imported URL. can be None. isPermaLink alwase false
-    # description = item.find(&quot;description&quot;) # i never use this :P
-    # excerpt = item.find(&quot;excerpt:encoded&quot;) # i never use this :P
-    # wp_post_id = item.find(&quot;wp:post_id&quot;) # integer
-    # wp_post_date_gmt = item.find(&quot;wp:post_date_gmt&quot;) # sometimes 0000-00-00 00:00:00
-    # wp_ping_status = item.find(&quot;wp:ping_status&quot;) # open, closed
-    # wp_post_parent = item.find(&quot;wp:post_parent&quot;) # wp:post_id
-    # wp_menu_order = item.find(&quot;wp:menu_order&quot;) # integer?
-    # wp_is_stiky = item.find(&quot;wp:is_sticky&quot;) # 0 or 1 ?
-    
-    def _(node):
-        if not node or not node.string:
-            return u''            
-        u = unicode(node.string)
-        if u.startswith(u'&lt;![CDATA['):
-            u = u[9:-3]
-        return u
-    
-    # ex&gt; post, page, attachment, custom_dns(for dns service)
-    wp_post_type = _(item.find(&quot;wp:post_type&quot;)) 
-    if wp_post_type not in (u'post', u'page'):
-        return
-    
-    # ex&gt; draft, auto-draft, private, publish, attachment, inherit(for attachment)
-    wp_status = _(item.find(&quot;wp:status&quot;)) 
-    if wp_status == u'attachment':
-        return
-
-    title = _(item.find(&quot;title&quot;))
-    title = title.replace(&quot;\\&quot;,&quot;&quot;) # backslash raise error on yaml string
-
-    wp_post_date = _(item.find(&quot;wp:post_date&quot;)) 
-    post_date = datetime.strptime(wp_post_date,&quot;%Y-%m-%d %H:%M:%S&quot;)
-
-    # slug can be null or quoted already (if cjk title)
-    slug = _(item.find(&quot;wp:post_name&quot;))
-    if not slug:
-        slug = slugify(title)
-    else:
-        slug = urllib.unquote(slug.encode('utf-8')).decode('utf-8')
-        
-    assert isinstance(slug, unicode), 'slug should be unicode'
-        
-    filename = u'%04d-%02d-%02d-%s.markdown'%(post_date.year, post_date.month, post_date.day, slug)
-
-    if DEBUG:
-        out = codecs.open( LOGFILE, &quot;a&quot;, &quot;utf-8&quot;)
-        out.write(u'\n_%ss/%s\n'% (wp_post_type, filename))
-    else:
-        path = os.path.join(u&quot;source&quot;, u&quot;_%ss&quot;% wp_post_type)
-        if not os.access( path, os.F_OK ):
-            os.mkdir( path )
-        try:
-            out = codecs.open( os.path.join(path, filename), &quot;w&quot;, &quot;utf-8&quot;)
-        except UnicodeDecodeError, e:
-            print 'UnicodeDecodeError:', str(e), 'in', post_date, _(item.find(&quot;title&quot;))
-            print 'slug', type(slug), 'filename', type(filename), 'path', type(path)
-            return
-
-    # starting yaml header
-    out.write(u'---\n')
-    
-    # post or page layout template
-    out.write(u'layout: %s\n'% wp_post_type)
-
-    # sometimes title contains html entities like &amp;amp; &amp;lt; &amp;gt; ...
-    out.write(u'title: &quot;%s&quot;\n'% title)
-
-    # NOTE bulk-imported posts have same datetime!
-    out.write(u'date: %s\n'% post_date)
-
-    # perm link? normally contains original link.
-    link = _(item.find(&quot;link&quot;))
-    out.write(u'link: %s\n'% link)
-
-    tags = []
-    for tag in item.findAll(&quot;category&quot;,{&quot;domain&quot;:&quot;tag&quot;}):
-        tags.append(_(tag))
-    tags = list(set([t for t in tags if t not in EXCLUDE_TAGS]))
-    if tags:
-        out.write(u'tags:\n')
-        for tag in tags:
-            out.write(u'- %s\n'% tag)
-
-    categories = []
-    for category in item.findAll(&quot;category&quot;,{&quot;domain&quot;:&quot;category&quot;}):
-        categories.append(_(category))
-    categories = list(set([c for c in categories if c not in EXCLUDE_CATEGORIES]))
-    if categories:
-        out.write(u'categories:\n')
-        for category in categories:
-            out.write(u'- %s\n'% category)
-
-    # some metas are useless...
-    metas = {}
-    for meta in item.findAll(&quot;wp:post_meta&quot;):
-        meta_key = _(meta.find(&quot;wp:meta_key&quot;))
-        meta_value = _(meta.find(&quot;wp:meta_value&quot;))
-        if meta_key not in EXCLUDE_METAS:
-            metas[meta_key] = meta_key
-    if metas:
-        out.write(u'meta:\n')
-        for k, v in metas:
-            out.write(u'  %s: %s\n'% (k, v))
-
-    #out.write(u'status: %s\n'% wp_status)
-
-    # octopress will skip unpublished posts.
-    out.write(u'published: %s\n'% ('true' if wp_status == u'publish' else 'false'))
-
-    # octopress will not show comment input??
-    # ex&gt; open, closed
-    wp_comment_status = _(item.find(&quot;wp:comment_status&quot;)) 
-    out.write(u'comments: %s\n'% ('true' if wp_comment_status == u'open' else 'false'))
-    
-    # end of yaml header
-    out.write(u'---\n')
-
-    content = _(item.find(&quot;content:encoded&quot;))
-    content = to_markdown(content.strip())
-    out.write(content)
-
-    out.close()    
-        
-if __name__ == '__main__':
-
-    if DEBUG:
-        if os.access(LOGFILE, os.F_OK ):
-            os.remove(LOGFILE)
-        
-    # if len(sys.argv) &gt; 1:
-    #     XML = sys.argv[1]
-        
-    print 'loading...'
-    soup = BeautifulStoneSoup(open(XML))
-    print 'parsing...'
-    for item in soup.findAll(&quot;item&quot;):
-        parse_item(item)
-    print 'done'
-        </code></pre></noscript></div>
-
-
-<p>참고로, 변환을 하다 보면 다양한 에러들을 만나게 된다. -_-+</p>
-
-<ul>
-<li>invalid byte sequence in UTF-8 : 이건 본문 중에 애매한 문자열이 있다는 건데, 강제로 유니코드로 변환했음에도 발생한다. 알아서 찾아서 고치는 수 밖에 없다. 단 octopress 소스를 아래와 같이 고쳐야 한다.</li>
-</ul>
-
-
-<figure class='code'><figcaption><span>octopress/plugins/post_filters.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">do_layout</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">layouts</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">pre_render</span> <span class="k">if</span> <span class="nb">respond_to?</span><span class="p">(</span><span class="ss">:pre_render</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">begin</span>
-</span><span class='line'>    <span class="n">old_do_layout</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">layouts</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">rescue</span> <span class="no">StandardError</span> <span class="o">=&gt;</span> <span class="n">e</span>
-</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;Post Filter Error: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span> <span class="o">+</span> <span class="nb">self</span><span class="o">.</span><span class="n">url</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Liquid Exception: 혹시 django 나 jquery template 코드가 있을 경우, 이게 Jekyll 의 템플릿 엔진인 <a href="http://liquidmarkup.org/">liquid</a>의 태그와 동일하기 때문에 에러가 발생한다. <a href="http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags">이런 문법</a>에 따라 수동으로 잘 제거하는 수 밖에 없다.</li>
-<li>핵심적으로 한글로 된 제목 때문에 가장 고생이 심했다. 아주 오래전에 쓴 글들은 제목은 한글, slug는 한글을 URL로 바꾼 %xx%yy와 같은 형식이었다. 이걸 다시 제대로된 유니코드로 역변환(unquote)해서 파일을 만들었는데 rake preview로 살펴보면 한글 URL 포스트에 접근이 안되는 것이었다. 몇 시간동안 삽질을 해본 결과 로컬 서버인 Webrick의 문제인지, GitHub에 올리니까 잘 되는 것이었다. 여기서의 교훈: slug는 영문을 애용할 것!!</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-09T10:46:11+09:00" pubdate data-updated="true">Jul 9<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.slideshare.net/AddyOsmani/jquery-proven-performance-tips-tricks">jQuery Proven Performance Tips &amp; Tricks</a> 간단 요약</p>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a> <small>2011-07-09</small></h1>
+	</div>
+	<div><p><a href="http://www.slideshare.net/AddyOsmani/jquery-proven-performance-tips-tricks">jQuery Proven Performance Tips &amp; Tricks</a> 간단 요약</p>
 <ul>
 <li>최신 버전을 사용해라. (1.4 보다 1.6이 2배 가까이 빠르다)</li>
 <li>id 선택자가 class 선택자보다 5-10배 이상 빠르다.</li>
 <li>가상 선택자는 느리니까 최대한 쓰지 말 것. 검색 영역의 모든 요소를 다 뒤진다!!</li>
-<li>부모에서 자식을 찾는 방법은 $parent.find(&#8216;.child&#8217;) 가 제일 빠르다. 다른 것은 잊어라. (근데 왜 children() 이 더 안빠르지..)</li>
+<li>부모에서 자식을 찾는 방법은 $parent.find('.child') 가 제일 빠르다. 다른 것은 잊어라. (근데 왜 children() 이 더 안빠르지..)</li>
 <li>jQuery 객체는 꼭 필요할 때에만 만들 것.</li>
 <li>항상 캐싱할 것</li>
 <li>체인 방식을 애용할 것. 이미 필터링된 집합을 이용하므로 빠르다. 코드도 간단해진다.</li>
@@ -441,892 +79,309 @@ if __name__ == '__main__':
 <li>$.each() 는 느리니까 그냥 for 를 쓸 수 있으면 써라.</li>
 <li>$.method 보다 로레벨 함수인 $.fn.method 가 빠르다.</li>
 </ul>
-
-
 <p>대체로 아는 이야기라는 점이 슬프다. 그걸 아는 놈이 짠 코드가 이 모양이라니.. ㅠㅠ</p>
-
-<p>그나저나 jsperf.com 같은 걸로 브라우저별로 검증해보지 않으면 다 공허한 이야기인 듯. 재미있는 건 IE 6/7 클래스 선택자의 속도가 다른 브라우저보다 1000-2000배 느리다는 점과, 크롬 13.x 의 성능이 갑자기 앞뒤버전보다 확 떨어졌다는 것. :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-18T23:18:35+09:00" pubdate data-updated="true">Jun 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jQuery Mobile(이후 jQM)으로 아이패드용 클리앙 뷰어를 만든 경험을 토대로 팁을 정리했습니다. 이후, 편의상 경어를 사용합니다.</p>
-
+<p>그나저나 jsperf.com 같은 걸로 브라우저별로 검증해보지 않으면 다 공허한 이야기인 듯. 재미있는 건 IE 6/7 클래스 선택자의 속도가 다른 브라우저보다 1000-2000배 느리다는 점과, 크롬 13.x 의 성능이 갑자기 앞뒤버전보다 확 떨어졌다는 것. :)</p></div>
+	
+	<p>
+	
+		<a href="/tag/jquery/"><span class="label">jquery</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a> <small>2011-06-18</small></h1>
+	</div>
+	<div><p>jQuery Mobile(이후 jQM)으로 아이패드용 클리앙 뷰어를 만든 경험을 토대로 팁을 정리했습니다. 이후, 편의상 경어를 사용합니다.</p>
 <h2>data-xxx</h2>
-
 <p>jQM의 위젯들은 다른 jQuery 위젯이나 플러그인들과는 달리 자바스크립트로 옵션을 지정하는 대신, HTML 의 data- 속성을 이용해서 모양새와 동작을 지정한다.</p>
-
-<p>가장 중요한 것은 data-role 속성인데, HTML 태그에 page, header, content, footer 에서부터 listview, navibar, button 등의 &#8220;역할&#8221;을 지정하면, jQM이 알아서 적당한 렌더링 해준다는 거다. 이를 통해서 자바스크립트 코드는 거의 손대지도 않고 순수 HTML 만으로 깔끔한 모바일 뷰를 만들어낼 수 있게 된다.</p>
-
-<p>예를 들어 버튼을 만들어야 된다고 하자. 단순한 anchor 에 data-role=&#8221;button&#8221; 속성을 넣는 것만으로 버튼을 만들 수 있다. 버튼 아이콘은 data-icon 으로 바꾸고, 페이지 전환 애니메이션이 필요할 경우 data-transition= slide | slideup | slidedown | pop | flip | fade 을 사용하면 되고, 또 data-direction=&#8221;reverse&#8221; 으로 애니메이션 방향을 반대로 바꿀 수 있다. 만약 페이지 전환이 아니라 다이얼로그를 띄워야 할 때 anchor.rel 속성처럼 data-rel=&#8221;dialog&#8221; 속성을 지정하면 된다.</p>
-
+<p>가장 중요한 것은 data-role 속성인데, HTML 태그에 page, header, content, footer 에서부터 listview, navibar, button 등의 "역할"을 지정하면, jQM이 알아서 적당한 렌더링 해준다는 거다. 이를 통해서 자바스크립트 코드는 거의 손대지도 않고 순수 HTML 만으로 깔끔한 모바일 뷰를 만들어낼 수 있게 된다.</p>
+<p>예를 들어 버튼을 만들어야 된다고 하자. 단순한 anchor 에 data-role="button" 속성을 넣는 것만으로 버튼을 만들 수 있다. 버튼 아이콘은 data-icon 으로 바꾸고, 페이지 전환 애니메이션이 필요할 경우 data-transition= slide | slideup | slidedown | pop | flip | fade 을 사용하면 되고, 또 data-direction="reverse" 으로 애니메이션 방향을 반대로 바꿀 수 있다. 만약 페이지 전환이 아니라 다이얼로그를 띄워야 할 때 anchor.rel 속성처럼 data-rel="dialog" 속성을 지정하면 된다.</p>
 <p>이 모든 것이 JS 코드 한줄 없이도 자동적으로 이루어지게 만든, jQM 개발팀에게 박수를 보낸다.</p>
-
 <h2>페이지와 캐싱</h2>
-
 <p>페이지는 보통 header - content - footer 로 나뉘는, jQM의 가장 핵심적인 구성 요소다. 그냥 모바일 화면의 하나의 뷰라고 생각하면 된다. HTML 파일 안에 여러 개의 페이지들이 존재할 수 있다. 보통은 각 페이지들 마다 #id 를 붙여두면 되긴 한데, AJAX 로 읽어오는 페이지들의 하위 요소(예를 들면 listview)에 #id를 붙여서 jQuery로 접근하는 것은 가급적 피해야 한다.</p>
-
 <p>왜냐하면 모바일 환경의 특성상 이미 방문했던 페이지에 대해서 다시 서버에 요청을 하지 않기 위해서, jQM은 이미 한번 방문했던 페이지들은 URL 을 해쉬한 키값으로 DOM 에 저장한 후 숨겨버린다. 그러므로, 동일한 #id 를 가진 페이지가 캐싱될 경우 자바스크립트에서 검색하는 게 불가능하므로, 현재 화면에 보이는 페이지를 기준으로 CSS 클래스로 찾는 것을 권한다.</p>
-
-<p>그냥 페이지 전환이 발생하면 항상 div.data-role=&#8221;page&#8221; 라는 게 무조건 추가된다고 생각하면 이해가 빠를 듯하다. 참고로 로컬 캐싱된 이런 페이지들에 대해 히스토리(Back-Forward) 이동을 적용하기 위해서 yourdomain.com/#/some/where 등의 로컬 주소로 변환된다는 점에 유의할 것.(트위터에서 쓰는 방식이랑 비슷한건데, 뭔가 이걸 가리키는 용어가 있었던 듯&#8230; 가물가물..)</p>
-
+<p>그냥 페이지 전환이 발생하면 항상 div.data-role="page" 라는 게 무조건 추가된다고 생각하면 이해가 빠를 듯하다. 참고로 로컬 캐싱된 이런 페이지들에 대해 히스토리(Back-Forward) 이동을 적용하기 위해서 yourdomain.com/#/some/where 등의 로컬 주소로 변환된다는 점에 유의할 것.(트위터에서 쓰는 방식이랑 비슷한건데, 뭔가 이걸 가리키는 용어가 있었던 듯... 가물가물..)</p>
 <h2>ul-li-thumb 문제</h2>
-
 <p>리스트 아이템(li) 바로 아래에 이미지 태그를 넣어두면, jQM은 자동적으로 트위터와 같은 2단 레이아웃으로 바꾼다. 내부적으로 이미지에 ul-li-icon 또는 ul-li-thumb 클래스를 붙이고 li 에다가도 ul-li-has-thumb 같은 클래스를 붙여서 크기와 너비, 마진을 설정해버린다.</p>
-
 <p>한편으로는 좋은 기능이지만, 원치않는 경우라고 해도 이미지 크기가 강제로 줄어들게 된다. 해결책은 리스트 바로 아래 자식 이미지를 다른 태그로 둘러싸서 jQuery 검색에 걸리지 않게 만들면 된다.</p>
-
 <p>see also: <a href="http://forum.jquery.com/topic/latest-release-list-thumbnail-issue">http://forum.jquery.com/topic/latest-release-list-thumbnail-issue</a></p>
-
 <h2>터치 이벤트 사용하기</h2>
-
 <p>데스크탑에서 개발하다가 아이패드에서 테스트해보니 유독 내가 만든 버튼만 클릭이 잘 안먹는 경우가 있어서 뭔가 했는데, 가만히 생각해보니 click 이벤트와 touch 이벤트는 별개라는 사실을 잠시 잊어서 생긴 문제였다. 항상 tap (tab 이 아니다) 이벤트를 click 과 함께 등록해야 된다 :)</p>
-
 <h2>fixed header &amp; footer</h2>
-
-<p>data-position=&#8221;fixed&#8221; 를 이용하면 헤더나 푸터를 스크롤에 관계없이 화면에 고정할 수 있다. 스크롤 할 때에는 사라져서 편한 거 같은데, 막상 아이패드에서는 이게 번쩍거리거나 프레임을 떨어뜨리는 문제가 있으므로 적당히 사용해야 할 거 같다. 나도 처음에는 긴 글이 있을 때 넣으면 좋겠거니 했는데, 워낙 깜빡임이 심해서 빼버렸다. 페이지 전환 애니메이션도 너무 과하면 곤란한 듯하다.</p>
-
+<p>data-position="fixed" 를 이용하면 헤더나 푸터를 스크롤에 관계없이 화면에 고정할 수 있다. 스크롤 할 때에는 사라져서 편한 거 같은데, 막상 아이패드에서는 이게 번쩍거리거나 프레임을 떨어뜨리는 문제가 있으므로 적당히 사용해야 할 거 같다. 나도 처음에는 긴 글이 있을 때 넣으면 좋겠거니 했는데, 워낙 깜빡임이 심해서 빼버렸다. 페이지 전환 애니메이션도 너무 과하면 곤란한 듯하다.</p>
 <h2>$.mobile.ajaxEnabled = false</h2>
-
 <p>기본적으로, 링크를 클릭하면 jqm은 이동하려는 페이지가 DOM에 없을 때에만, ajax()를 호출해서 페이지를 자동으로 만든다.  그런데 backbone 같은 MVC 라이브러리를 사용할 경우, 이런 흐름은 달라져야 된다. 사용자가 링크를 클릭하면 관련된 모델을 fetch 하고 컬렉션을 적당히 변경한 후, 페이지는 backbone 뷰가 자동으로 만들어주는 느낌이 가장 어울릴 것이다. 즉 ajaxEnabled 옵션을 끄고 관련된 이벤트들을 직접 바인딩해서 처리하면 된다.</p>
-
 <h2>소소한 팁들</h2>
-
 <ul>
 <li>버튼을 헤더의 오른 편으로 정렬하기 : 버튼의 class 속성에 ui-btn-right 를 추가하면 된다.</li>
-<li>data-backbtn=&#8221;false&#8221;: jQM 1.0a4.1 까지는 페이지 전환시 자동적으로 헤더에 Back 버튼이 추가되므로, 돌아가기 버튼이 필요없는 메인 페이지 등에서는 이 속성을 지정하면 된다.</li>
+<li>data-backbtn="false": jQM 1.0a4.1 까지는 페이지 전환시 자동적으로 헤더에 Back 버튼이 추가되므로, 돌아가기 버튼이 필요없는 메인 페이지 등에서는 이 속성을 지정하면 된다.</li>
 <li>원치않는 nested list : ul-li-thumb 와 마찬가지로 li 바로 아래에 ul 이나 ol 이 있으면 자동적으로 페이지가 만들어지므로, 다른 태그로 둘러싸면 된다.</li>
-<li>사용자가 추가한 버튼에 live(&#8220;click tap&#8221;) 을 지정하면 이벤트가 2개 발생되는 모양이다. 그냥 tap 만 넣어도 컴퓨터에서는 잘 동작한다.</li>
-<li>자바스크립트로 리스트 아이템을 추가한 후 listview(&#8220;refresh&#8221;)를 해도 그 안에 있는 inset listview 는 별도의 쿼리를 통해서 listview 위젯으로 만들어야 한다.</li>
-</ul>
-
-
-<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/Reiot/CpudD/embedded/js,resources,html,css,result/light/"></iframe>
-
-
-<p> </p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-18T22:22:39+09:00" pubdate data-updated="true">Jun 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png"></p>
-
+<li>사용자가 추가한 버튼에 live("click tap") 을 지정하면 이벤트가 2개 발생되는 모양이다. 그냥 tap 만 넣어도 컴퓨터에서는 잘 동작한다.</li>
+<li>자바스크립트로 리스트 아이템을 추가한 후 listview("refresh")를 해도 그 안에 있는 inset listview 는 별도의 쿼리를 통해서 listview 위젯으로 만들어야 한다. 샘플 코드는 여기 <a href="http://jsfiddle.net/Reiot/CpudD/">http://jsfiddle.net/Reiot/CpudD/</a></li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/jquerymobile/"><span class="label">jquerymobile</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a> <small>2011-06-18</small></h1>
+	</div>
+	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" src="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" /></p>
 <p>와이프가 아이패드에서 클리앙을 보시는게 너무 불편해 보여서, jQuery Mobile 공부 삼아 간단히 웹앱을 만들어봤습니다. 소스 코드는 GitHub 에 공개해두었습니다.</p>
-
 <ul>
 <li>주소: <a href="http://clienpad.appspot.com">http://clienpad.appspot.com </a></li>
 <li>소스코드: <a href="http://github.com/Reiot/clienpad">https://github.com/Reiot/clienpad</a></li>
 </ul>
-
-
 <p>Google App Engine 으로 프록시 서버를 만들었고, jQuery Mobile을 이용해서 모바일 브라우저에서 JSON 으로 받아서 보여주는 방식입니다. 가능하면 프록시 서버 없이 하고 싶었는데 iOS 에서 돌아가도록 할려다 보니 방법이 없더군요.</p>
-
 <p>구현에 관련해서 간단히 정리해보자면,</p>
-
 <ul>
 <li>template 의 최신 기능 때문에 django 1.2 를 이용했는데, 코드 레벨에서는 거의 webapp 만 사용했습니다;;;</li>
 <li>memcache 에 각 URL 을 파싱한 dict를 저장하는데, 60초 정도만 살아남도록 했습니다. 그래서 그런지 처음 접속하는 사람은 제법 느린 편입니다. 반응 속도가 4-5초 정도가 나오는 바람에 와이프가 많이 실망하네요. ㅠㅠ 다시 생각해보니 그냥 JSON 이나 렌더링된 문자열 자체를 저장하는게 나을 수 있겠네요.</li>
 <li><a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a> 으로 HTML DOM 파싱을 했습니다. 클리앙의 HTML 구조가 old-school 같아서 (ㅎㅎ) 시간이 좀 걸렸습니다;;;</li>
 </ul>
-
-
-<p>조만간 jQuery Mobile 팁에 관한 글을 좀 써보겠습니다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-15T00:17:53+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Property vs. Var</h2>
-
-<p>상수인 Property은 하위 Target 에게 보이지 않지만, 변수인 Var 는 보인다.</p>
-
-<h2>특정 확장자를 가진 파일만 삭제하기(recursive)</h2>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;delete&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;fileset</span> <span class="na">dir=</span><span class="s">&quot;${dir}/..&quot;</span> <span class="na">includes=</span><span class="s">&quot;## /*.js&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;/delete&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>특정 폴더 이하 모든 하위 폴더를 삭제하기(빈 폴더 포함)</h2>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;delete</span> <span class="na">includeemptydirs=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;fileset</span> <span class="na">dir=</span><span class="s">&quot;${dir}&quot;</span> <span class="na">includes=</span><span class="s">&quot;## /*&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;/delete&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>정규식을 이용해서 파일 이름 바꾸기</h2>
-
-<p>apply task 보다는 move task + regexpmapper 를 이용하면 간단하다. move 는 대상 폴더가 없으면 무조건 만들기 때문에 편하다!</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="c">&lt;!--</span>
-</span><span class='line'><span class="c">&lt;apply executable=&quot;mv&quot;&gt;</span>
-</span><span class='line'><span class="c">  &lt;fileset dir=&quot;${dir}&quot; includes=&quot;*.png&quot;/&gt;</span>
-</span><span class='line'><span class="c">  -v&quot;/&gt;</span>
-</span><span class='line'><span class="c">  &lt;srcfile/&gt;</span>
-</span><span class='line'><span class="c">  &lt;targetfile/&gt;</span>
-</span><span class='line'><span class="c">  &lt;regexpmapper from=&quot;^_\d\d\d\d_(.*)\.png$&quot; to=&quot;${dir}/\1.png&quot;/&gt;</span>
-</span><span class='line'><span class="c">&lt;/apply&gt;</span>
-</span><span class='line'><span class="c">--&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;move</span> <span class="na">todir=</span><span class="s">&quot;${dir}&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;fileset</span> <span class="na">dir=</span><span class="s">&quot;${dir}&quot;</span> <span class="na">includes=</span><span class="s">&quot;*.png&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;regexpmapper</span> <span class="na">from=</span><span class="s">&quot;_\d\d\d\d_(.*)\.png&quot;</span> <span class="na">to=</span><span class="s">&quot;\1.png&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;/move&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>경로에서 부모 폴더(dirname)와 파일명(basename)으로 분리하기</h2>
-
-<p>basename 의 suffix 를 지정하면 확장자 없는 순수 파일명만 저장할 수 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'>  <span class="nt">&lt;dirname</span> <span class="na">property=</span><span class="s">&quot;parentdir&quot;</span> <span class="na">file=</span><span class="s">&quot;${file}&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;basename</span> <span class="na">property=</span><span class="s">&quot;basename&quot;</span> <span class="na">file=</span><span class="s">&quot;${file}&quot;</span> <span class="na">suffix=</span><span class="s">&quot;.png&quot;</span><span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>파일명에 정규식을 적용해서 속성에 저장하기</h2>
-
-<p>propertyregex 를 이용하면 된다. 이때 디폴트값을 정해줄 수도 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;propertyregex</span> <span class="na">property=</span><span class="s">&quot;output&quot;</span>
-</span><span class='line'>  <span class="na">input=</span><span class="s">&quot;${file}&quot;</span>
-</span><span class='line'>  <span class="na">regexp=</span><span class="s">&quot;(.+?)_(.+)&quot;</span>
-</span><span class='line'>  <span class="na">select=</span><span class="s">&quot;\2&quot;</span>
-</span><span class='line'>  <span class="na">defaultValue=</span><span class="s">&quot;${default}&quot;</span><span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>하위 폴더 각각에 대해서 특정 타겟을 실행하기</h2>
-
-<p>foreach task 를 이용하면 된다. 이때 dirset 은 항상 부모 폴더 자신(./)을 포함하는데, excludes=./ 등으로 자신을 제거할 수 없으므로, 아래처럼 includes=*/##  으로 제외할 수 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;foreach</span> <span class="na">param=</span><span class="s">&quot;dir&quot;</span> <span class="na">target=</span><span class="s">&quot;xxx&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;path&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;dirset</span> <span class="na">dir=</span><span class="s">&quot;${parentdir}&quot;</span> <span class="na">includes=</span><span class="s">&quot;*/## &quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/path&gt;</span>
-</span><span class='line'><span class="nt">&lt;/foreach&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Exec vs. Apply</h2>
-
-<p>exec 는 커맨드라인 명령을 1회 실행하지만, apply 는 특정 집합에 대해서 for 루프처럼 실행이 가능하다.
-이때 arg value 는 -v 나 -f 같은 단일 파라미터이고, arg line 은 &#8211;output xxx 처럼 공백이 들어가는 긴 파라미터에 사용한다.
-또한 regexpmapper 를 이용해서 targetfile 에 대해 정규식을 적용할 수도 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;exec</span> <span class="na">executable=</span><span class="s">&quot;${file.python}&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;trim.py&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--verbose&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">line=</span><span class="s">&quot;--json ${trim.dir}/anchor.json&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;${trim.dir}&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;/exec&gt;</span>
-</span><span class='line'><span class="nt">&lt;apply</span> <span class="na">executable=</span><span class="s">&quot;${file.python}&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;fileset</span> <span class="na">dir=</span><span class="s">&quot;${flip.dir}&quot;</span> <span class="na">includes=</span><span class="s">&quot;*.png&quot;</span> <span class="na">excludes=</span><span class="s">&quot;*.r.png&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;flip.py&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--verbose&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;-o&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;targetfile/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;srcfile/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;regexpmapper</span> <span class="na">from=</span><span class="s">&quot;(.*)\.png$&quot;</span> <span class="na">to=</span><span class="s">&quot;${flip.dir}/${flip.default}.png&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;/apply&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>파일 출력</h2>
-
-<p>echo task를 이용하면 화면 출력 뿐만 아니라, 파일에 임의의 문자열을 append를 할 수 있다. 이걸 이용하면 concat task 를 쓰지 않고도 header 나 footer 를 간단하게 넣을 수 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;echo</span> <span class="na">file=</span><span class="s">&quot;${script}&quot;</span> <span class="na">append=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  sprites = sprites || {};
-</span><span class='line'>  sprites.data = sprites.data || {};
-</span><span class='line'><span class="nt">&lt;/echo&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>파일 이어붙일 때 필터링하기</h2>
-
-<p>filterchain 을 이용해서 특정 문자열을 포함한 라인을 제거하거나, tokenfilter + replaceregex 를 이용해서 문자열을 바꿀 수도 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;concat</span> <span class="na">destfile=</span><span class="s">&quot;${script}&quot;</span> <span class="na">append=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;path&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;filelist</span> <span class="na">dir=</span><span class="s">&quot;${dir}&quot;</span> <span class="na">files=</span><span class="s">&quot;${json}&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/path&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;filterchain&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;linecontains</span> <span class="na">negate=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>          <span class="nt">&lt;contains</span> <span class="na">value=</span><span class="s">&quot;trimmed&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;/linecontains&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;tokenfilter&gt;</span>
-</span><span class='line'>          <span class="c">&lt;!--</span>
-</span><span class='line'><span class="c">          &lt;replaceregex pattern=&quot;\{&quot;frames&quot;\:&quot; replace=&#39;sprites[&quot;${spritename}&quot;] =&#39; flags=&quot;g&quot;/&gt;</span>
-</span><span class='line'><span class="c">          --&gt;</span>
-</span><span class='line'>          <span class="c">&lt;!-- remove .&lt;span class=&quot;hiddenSpellError&quot; pre=&quot;remove &quot;&gt;png&lt;/span&gt; --&gt;</span>
-</span><span class='line'>          <span class="nt">&lt;replaceregex</span> <span class="na">pattern=</span><span class="s">&quot;\.png&quot;</span> <span class="na">replace=</span><span class="s">&#39;&#39;</span> <span class="na">flags=</span><span class="s">&quot;g&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;/tokenfilter&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/filterchain&gt;</span>
-</span><span class='line'><span class="nt">&lt;/concat&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>파일을 복사하면서 이름 바꾸기</h2>
-
-<p>copy task 와 globmapper 를 쓰면 파일을 복사하면서 단순하게 이름을 바꿀 수 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;copy</span> <span class="na">todir=</span><span class="s">&quot;${destdir}&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;fileset</span> <span class="na">dir=</span><span class="s">&quot;${srcdir}&quot;</span> <span class="na">includes=</span><span class="s">&quot;*.png&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;/copy&gt;</span>
-</span><span class='line'><span class="nt">&lt;copy</span> <span class="na">todir=</span><span class="s">&quot;${destdir}&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;filelist</span> <span class="na">dir=</span><span class="s">&quot;${srcdir}&quot;</span> <span class="na">files=</span><span class="s">&quot;${src}.js&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;mapper</span> <span class="na">type=</span><span class="s">&quot;glob&quot;</span> <span class="na">from=</span><span class="s">&quot;*.js&quot;</span> <span class="na">to=</span><span class="s">&quot;sprite.*.js&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;/copy&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>명령 실행시 입력 리다이렉트 적용하기</h2>
-
-<p>잘 알려지진 않았지만, 구글 앱엔진의 패스워드를 파일에 저장한 후, <strong>appcfg.py &#8211;passin &lt; file</strong> 을 이용하면 자동화가 가능하다. ant 에서는 exec 의 inputstring 으로 대체할 수 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;exec</span> <span class="na">executable=</span><span class="s">&quot;appcfg.py&quot;</span> <span class="na">inputstring=</span><span class="s">&quot;${bulkload.pass}&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;${bulkload.cmd}&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">line=</span><span class="s">&quot;--application=${bulkload.appid}&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--config_file=${bulkload.config}&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--email=${bulkload.email}&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--url=${bulkload.url}&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--kind=${bulkload.kind}&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--filename=${bulkload.csv}&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--no_cookies&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;--passin&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;arg</span> <span class="na">value=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/exec&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-14T14:01:53+09:00" pubdate data-updated="true">Apr 14<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>구글 앱엔진은 데이터스토어의 내용을 로컬 파일로 내려받거나 올리는 벌크로딩을 지원한다. 그런데 막상 기획 데이터와 실시간 연동하려면, 스프레드시트를 편집한 후 CSV로 &#8216;하나씩&#8217; 다운받아서 다시 콘솔창에서 appcfg.py 로 &#8216;한 종류씩&#8217; 올려야 하는, 상당히 피곤한 과정을 거쳐야 한다.</p>
-
+<p>조만간 jQuery Mobile 팁에 관한 글을 좀 써보겠습니다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/jquerymobile/"><span class="label">jquerymobile</span></a>
+	
+		<a href="/tag/clien/"><span class="label">clien</span></a>
+	
+		<a href="/tag/appengine/"><span class="label">appengine</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a> <small>2011-04-14</small></h1>
+	</div>
+	<div><p>구글 앱엔진은 데이터스토어의 내용을 로컬 파일로 내려받거나 올리는 벌크로딩을 지원한다. 그런데 막상 기획 데이터와 실시간 연동하려면, 스프레드시트를 편집한 후 CSV로 '하나씩' 다운받아서 다시 콘솔창에서 appcfg.py 로 '한 종류씩' 올려야 하는, 상당히 피곤한 과정을 거쳐야 한다.</p>
 <p>만약 구글 스프레드시트의 데이터를 바로 데이터스토어로 올리고 내릴 수 있다면 얼마나 편할까? 해서 스프레드시트 API 를 써서 직접 만들어봤는데, Model 당 import/export/create 코드를 각각 작성해야 하는 단점이 있었다. 그런데, 이미 bulkloader.yaml 를 만들어서 관리중이라면, 아래 커넥터를 써서 간단하게 구현할 수 있다.</p>
-
 <p><a href="http://code.google.com/p/bulkloader-gdata-connector/">http://code.google.com/p/bulkloader-gdata-connector/</a></p>
-
 <p>기본적인 사항들은 <a href="http://code.google.com/p/bulkloader-gdata-connector/wiki/GettingStarted">가이드 문서</a>를 읽어보면 되고, 아래 다음 사항들을 참고하면 된다.</p>
-
 <ul>
-<li>django 1.2 를 사용할 경우, 코드 맨 위에    use_library(&#8216;django&#8217;, &#8216;1.2&#8217;)를 추가할 것. 그렇지 않으면 무서운 0.96.4 is already in use 에러를 맛보리라.</li>
-<li>구글앱스 도메인을 사용할 경우 GenerateAuthSubURL(&#8230;, domain=&#8217;yourapps.com&#8217;) 을 추가할 것.</li>
+<li>django 1.2 를 사용할 경우, 코드 맨 위에     use_library('django', '1.2')를 추가할 것. 그렇지 않으면 무서운 0.96.4 is already in use 에러를 맛보리라.</li>
+<li>구글앱스 도메인을 사용할 경우 GenerateAuthSubURL(..., domain='yourapps.com') 을 추가할 것.</li>
 <li>컬럼 이름에는 공백, underscore(_), 대문자를 사용하면 안된다.</li>
 <li>내보내기는 제법 오랜 시간이 걸리지만, 불러오는 건 꽤 빠르다. 즉 최초에 한번 내보내고 그 다음부터는 금방 금방 불러올 수 있다는 뜻이다. :)</li>
 <li>단점이라면, 데이터를 불러오려면 콘솔 즉 프로그래머의 개입(==패스워드 입력)이 필요하다는 점이다. 웹 기반 UI 에서 Connector를 어찌어찌 잘 부를 수 있으면 좋겠는데, 워낙 코드가 복잡해서;;</li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/bulkload/"><span class="label">bulkload</span></a>
+	
+		<a href="/tag/appengine/"><span class="label">appengine</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2011/04/14/ant-cookbook/">Ant Cookbook</a> <small>2011-04-14</small></h1>
+	</div>
+	<div><h2>Property vs. Var</h2>
+<p>상수인 Property은 하위 Target 에게 보이지 않지만, 변수인 Var 는 보인다.</p>
+<h2>특정 확장자를 가진 파일만 삭제하기(recursive)</h2>
+<pre><code>&lt;delete&gt;
+    &lt;fileset dir=&quot;${dir}/..&quot; includes=&quot;**/*.js&quot;/&gt;
+&lt;/delete&gt;
+</code></pre>
+
+<h2>특정 폴더 이하 모든 하위 폴더를 삭제하기(빈 폴더 포함)</h2>
+<pre><code>&lt;delete includeemptydirs=&quot;yes&quot;&gt;
+    &lt;fileset dir=&quot;${dir}&quot; includes=&quot;**/*&quot;/&gt;
+&lt;/delete&gt;
+</code></pre>
+
+<h2>정규식을 이용해서 파일 이름 바꾸기</h2>
+<p>apply task 보다는 move task + regexpmapper 를 이용하면 간단하다. move 는 대상 폴더가 없으면 무조건 만들기 때문에 편하다!<strong> </strong></p>
+<pre><code>&lt;!--
+&lt;apply executable=&quot;mv&quot;&gt;
+    &lt;fileset dir=&quot;${dir}&quot; includes=&quot;*.png&quot;/&gt;
+    -v&quot;/&gt;
+    &lt;srcfile/&gt;
+    &lt;targetfile/&gt;
+    &lt;regexpmapper from=&quot;^_\d\d\d\d_(.*)\.png$&quot; to=&quot;${dir}/\1.png&quot;/&gt;
+&lt;/apply&gt;
+--&gt;
+
+&lt;move todir=&quot;${dir}&quot;&gt;
+    &lt;fileset dir=&quot;${dir}&quot; includes=&quot;*.png&quot;/&gt;
+    &lt;regexpmapper from=&quot;_\d\d\d\d_(.*)\.png&quot; to=&quot;\1.png&quot;/&gt;
+&lt;/move&gt;
+</code></pre>
+
+<h2>경로에서 부모 폴더(dirname)와 파일명(basename)으로 분리하기</h2>
+<p>basename 의 suffix 를 지정하면 확장자 없는 순수 파일명만 저장할 수 있다.</p>
+<pre><code>&lt;dirname property=&quot;parentdir&quot; file=&quot;${file}&quot;/&gt;
+&lt;basename property=&quot;basename&quot; file=&quot;${file}&quot; suffix=&quot;.png&quot;/&gt;
+</code></pre>
+
+<h2>파일명에 정규식을 적용해서 속성에 저장하기</h2>
+<p>propertyregex 를 이용하면 된다. 이때 디폴트값을 정해줄 수도 있다.</p>
+<pre><code>&lt;propertyregex property=&quot;output&quot;
+    input=&quot;${file}&quot;
+    regexp=&quot;(.+?)_(.+)&quot;
+    select=&quot;\2&quot;
+    defaultValue=&quot;${default}&quot;/&gt;
+</code></pre>
+
+<h2>하위 폴더 각각에 대해서 특정 타겟을 실행하기</h2>
+<p>foreach task 를 이용하면 된다. 이때 dirset 은 항상 부모 폴더 자신(./)을 포함하는데, excludes=./ 등으로 자신을 제거할 수 없으므로, 아래처럼 includes=<em>/</em>* 으로 제외할 수 있다.</p>
+<pre><code>&lt;foreach param=&quot;dir&quot; target=&quot;xxx&quot;&gt;
+    &lt;path&gt;
+        &lt;dirset dir=&quot;${parentdir}&quot; includes=&quot;*/**&quot;/&gt;
+    &lt;/path&gt;
+&lt;/foreach&gt;
+</code></pre>
+
+<h2>Exec vs. Apply</h2>
+<p>exec 는 커맨드라인 명령을 1회 실행하지만, apply 는 특정 집합에 대해서 for 루프처럼 실행이 가능하다.<br />
+이때 arg value 는 -v 나 -f 같은 단일 파라미터이고, arg line 은 --output xxx 처럼 공백이 들어가는 긴 파라미터에 사용한다.<br />
+또한 regexpmapper 를 이용해서 targetfile 에 대해 정규식을 적용할 수도 있다.</p>
+<pre><code>&lt;exec executable=&quot;${file.python}&quot;&gt;
+    &lt;arg value=&quot;trim.py&quot;/&gt;
+    &lt;arg value=&quot;--verbose&quot;/&gt;
+    json ${trim.dir}/anchor.json&quot;/&gt;
+    &lt;arg value=&quot;${trim.dir}&quot;/&gt;
+&lt;/exec&gt;
+&lt;apply executable=&quot;${file.python}&quot;&gt;
+    &lt;fileset dir=&quot;${flip.dir}&quot; includes=&quot;*.png&quot; excludes=&quot;*.r.png&quot;/&gt;
+    &lt;arg value=&quot;flip.py&quot;/&gt;
+    &lt;arg value=&quot;--verbose&quot;/&gt;
+    &lt;arg value=&quot;-o&quot;/&gt;
+    &lt;targetfile/&gt;
+    &lt;srcfile/&gt;
+    &lt;regexpmapper from=&quot;(.*)\.png$&quot; to=&quot;${flip.dir}/${flip.default}.png&quot;/&gt;
+&lt;/apply&gt;
+</code></pre>
+
+<h2>파일 출력</h2>
+<p>echo task를 이용하면 화면 출력 뿐만 아니라, 파일에 임의의 문자열을 append를 할 수 있다. 이걸 이용하면 concat task 를 쓰지 않고도 header 나 footer 를 간단하게 넣을 수 있다.</p>
+<pre><code>&lt;echo file=&quot;${script}&quot; append=&quot;yes&quot;&gt;
+    sprites = sprites || {};
+    sprites.data = sprites.data || {};
+&lt;/echo&gt;
+</code></pre>
+
+<h2>파일 이어붙일 때 필터링하기</h2>
+<p>filterchain 을 이용해서 특정 문자열을 포함한 라인을 제거하거나, tokenfilter + replaceregex 를 이용해서 문자열을 바꿀 수도 있다.</p>
+<pre><code>&lt;concat destfile=&quot;${script}&quot; append=&quot;yes&quot;&gt;
+    &lt;path&gt;
+        &lt;filelist dir=&quot;${dir}&quot; files=&quot;${json}&quot; /&gt;
+    &lt;/path&gt;
+    &lt;filterchain&gt;
+        &lt;linecontains negate=&quot;true&quot;&gt;
+            &lt;contains value=&quot;trimmed&quot;/&gt;
+        &lt;/linecontains&gt;
+        &lt;tokenfilter&gt;
+            &lt;!--
+            &lt;replaceregex pattern=&quot;\{&quot;frames&quot;\:&quot; replace='sprites[&quot;${spritename}&quot;] =' flags=&quot;g&quot;/&gt;
+            --&gt;
+            &lt;!-- remove .&lt;span class=&quot;hiddenSpellError&quot; pre=&quot;remove &quot;&gt;png&lt;/span&gt; --&gt;
+            &lt;replaceregex pattern=&quot;\.png&quot; replace='' flags=&quot;g&quot;/&gt;
+        &lt;/tokenfilter&gt;
+    &lt;/filterchain&gt;
+&lt;/concat&gt;
+</code></pre>
+
+<h2>파일을 복사하면서 이름 바꾸기</h2>
+<p>copy task 와 globmapper 를 쓰면 파일을 복사하면서 단순하게 이름을 바꿀 수 있다.</p>
+<pre><code>&lt;copy todir=&quot;${destdir}&quot;&gt;
+    &lt;fileset dir=&quot;${srcdir}&quot; includes=&quot;*.png&quot;/&gt;
+&lt;/copy&gt;
+&lt;copy todir=&quot;${destdir}&quot;&gt;
+    &lt;filelist dir=&quot;${srcdir}&quot; files=&quot;${src}.js&quot;/&gt;
+    &lt;mapper type=&quot;glob&quot; from=&quot;*.js&quot; to=&quot;sprite.*.js&quot;/&gt;
+&lt;/copy&gt;
+</code></pre>
+
+<h2>명령 실행시 입력 리다이렉트 적용하기</h2>
+<p>잘 알려지진 않았지만, 구글 앱엔진의 패스워드를 파일에 저장한 후, appcfg.py --passin &lt; file 을 이용하면 자동화가 가능하다. ant 에서는 exec 의 inputstring 으로 대체할 수 있다.</p>
+<pre><code>&lt;exec executable=&quot;appcfg.py&quot; inputstring=&quot;${bulkload.pass}&quot;&gt;
+  &lt;arg value=&quot;${bulkload.cmd}&quot;/&gt;
+  &lt;arg line=&quot;--application=${bulkload.appid}&quot;/&gt;
+  &lt;arg value=&quot;--config_file=${bulkload.config}&quot;/&gt;
+  &lt;arg value=&quot;--email=${bulkload.email}&quot;/&gt;
+  &lt;arg value=&quot;--url=${bulkload.url}&quot;/&gt;
+  &lt;arg value=&quot;--kind=${bulkload.kind}&quot;/&gt;
+  &lt;arg value=&quot;--filename=${bulkload.csv}&quot;/&gt;
+  &lt;arg value=&quot;--no_cookies&quot;/&gt;
+  passin&quot;/&gt;
+  &lt;arg value=&quot;.&quot;/&gt;
+  &lt;/exec&gt;
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/ant/"><span class="label">ant</span></a>
+	
+	</p>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/2/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a>
+	</li>
+	
+	<li>
+		<a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+	</li>
+	
+	<li>
+		<a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+	</li>
+	
+	<li>
+		<a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+	</li>
+	
+	<li>
+		<a href="/2011/04/14/ant-cookbook/">Ant Cookbook</a>
+	</li>
+	
 </ul>
+		</div>
+	</div>
 
-</div>
-  
-  
+</div> <!-- /container -->
 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/04/06/app-engine-python-with-django-1-2/">Using Django 1.2 With App Engine</a></h1>
-    
-    
-      <p class="meta">
-        
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-06T12:10:29+09:00" pubdate data-updated="true">Apr 6<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>구글 앱엔진에서 django 1.2 를 사용하려면, main.py 와 appengine_config.py  에 아래 코드를 넣어야 한다. 그런데, remote_api_shell.py 로 연결할 때에도 실행해야 하기 때문에, 가급적 별도의 파일에 넣어서 한번에 import 를 하는 걸 권장한다. (via <a href="http://stackoverflow.com/questions/4994913/app-engine-default-django-version-change">stackoverflow.com</a>)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">os</span>
-</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;DJANGO_SETTINGS_MODULE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;settings&#39;</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">google.appengine.dist</span> <span class="kn">import</span> <span class="n">use_library</span>
-</span><span class='line'><span class="n">use_library</span><span class="p">(</span><span class="s">&#39;django&#39;</span><span class="p">,</span> <span class="s">&#39;1.2&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
-</span><span class='line'><span class="n">_</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">TEMPLATE_DIRS</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>원래 _(&#8220;xxx&#8221;) 는 윈도우 계열에서 유니코드를 위한 매크로인데, 아마 위 코드랑 충돌이 있을지도 모르겠다. :P</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext</span> <span class="k">as</span> <span class="n">_</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/03/17/exportimport-generic-referenceproperty/">Export/Import Generic ReferenceProperty</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-17T13:02:42+09:00" pubdate data-updated="true">Mar 17<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>구글 앱엔진의 참조 속성인 db.ReferenceProperty(reference_class=None) 은 - 권장할만 하지는 않지만 - 아무 키 값이나 담을 수 있는 컬럼으로 사용할 수 있다. 문제는 이 값을 export/import 할 때 key_id_or_name_as_string + create_foreign_key 조합을 사용할 수 없다는 점이다. 이걸 해결하려면 내보낼 때에는 (kind, id or name) 2개의 컬럼으로 내보낸 다음, 가져올 때에는 이걸 합치면 된다.</p>
-
-<p>또다른 문제는 부모키가 없는 단순 객체일 경우에는 create_deep_key 를 쓸 수도 없다는 점이다. 따라서 이런 유틸리티 함수를 만들었다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">create_foreign_key_with</span><span class="p">(</span><span class="n">kind_col</span><span class="p">):</span>
-</span><span class='line'>  <span class="sd">&quot;&quot;&quot;</span>
-</span><span class='line'><span class="sd">  for ReferenceProperty(reference_class=None) =&gt; generic key with unknowning kind.</span>
-</span><span class='line'>
-</span><span class='line'><span class="sd">  - property: item_type</span>
-</span><span class='line'><span class="sd">  external_name: item_type_value</span>
-</span><span class='line'><span class="sd">  import_transform: transformutil.create_foreign_key_with(&#39;item_type_kind&#39;))</span>
-</span><span class='line'><span class="sd">  export:</span>
-</span><span class='line'><span class="sd">  - external_name: item_type_kind</span>
-</span><span class='line'><span class="sd">  export_transform: transform.key_kind</span>
-</span><span class='line'><span class="sd">  - external_name: item_type_value</span>
-</span><span class='line'><span class="sd">  export_transform: transform.key_id_or_name_as_string</span>
-</span><span class='line'>
-</span><span class='line'><span class="sd">  &quot;&quot;&quot;</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">create_foreign_key_with_lambda</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">bulkload_state</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">kind</span> <span class="o">=</span> <span class="n">bulkload_state</span><span class="o">.</span><span class="n">current_dictionary</span><span class="p">[</span><span class="n">kind_col</span><span class="p">]</span>
-</span><span class='line'>  <span class="k">if</span> <span class="ow">not</span> <span class="n">kind</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
-</span><span class='line'>  <span class="k">return</span> <span class="bp">None</span>
-</span><span class='line'>  <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;kind:</span><span class="si">%s</span><span class="s"> value:</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">datastore</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">from_path</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">create_foreign_key_with_lambda</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>물론 bulkloader.yaml 맨 위에 위 소스 파일을 import 해주는 것은 잊지 말아야 한다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/03/08/create-a-memory-collage-in-photoshop/">Create a Memory Collage in Photoshop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-08T04:30:44+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://stoodit.com/wp-content/uploads/final4-640x360.jpg"></p>
-
-<p><a href="http://stoodit.com/2011/03/create-a-memory-collage-in-photoshop/">Create a Memory Collage in Photoshop | StoodIt</a></p>
-
-<p>콜라쥬 만들 때의 그림자, 리얼한 그래디언트의 처리법&#8230;</p>
-
-<p><img src="http://d2f8dzk2mhcqts.cloudfront.net/0648_mp3/tutorial-mp3-player-137.jpg"></p>
-
-<p><a href="http://feedproxy.google.com/~r/psdtuts/~3/1OZKcddJBiY/">Create a Sleek and Clean MP3 Player Interface</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/03/02/javascript-inheritance-pattern/">JavaScript Inheritance Pattern</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-02T21:36:24+09:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>개요</h2>
-
-<p>crockford 횽의 글만 읽으면 대충 자바스크립트 상속에 대한 구현 방법은 이해할 수 있다. 귀찮으니까 설명은 생략한다. :)</p>
-
-<ul>
-<li><a href="http://javascript.crockford.com/inheritance.html">inheritance</a> : 맨 마지막 줄이 핵심이다 :P</li>
-<li><a href="http://javascript.crockford.com/prototypal.html">prototypal</a></li>
-<li><a href="http://www.crockford.com/javascript/private.html">private</a></li>
-</ul>
-
-
-<h2>Sample Codes</h2>
-
-<ul>
-<li><a href="http://code.google.com/intl/ko-KR/closure/library/docs/introduction.html">goog.inherits()</a></li>
-<li><a href="http://documentcloud.github.com/backbone/#Model-extend">backbone.js extend()</a></li>
-<li><a href="http://dean.edwards.name/weblog/2006/05/prototype-and-base/">Base.js</a></li>
-<li><a href="http://code.google.com/p/inheritance/">inheritance(prototype plugin)</a></li>
-<li><a href="http://code.google.com/p/jquery-inheritance/">jquery-inheritance/</a></li>
-<li><a href="http://javascriptmvc.com/docs.html#&amp;who=jQuery.Class">JavascriptMVC Class</a></li>
-<li><a href="http://jsclass.jcoglan.com/inheritance.html">JS.Class</a></li>
-<li><a href="http://ejohn.org/blog/simple-javascript-inheritance/">John Resig&#8217;s Simple JavaScript Inheritance</a></li>
-</ul>
-
-
-<p>여담이지만, 조만간 JSON 기반 프로토콜을 온라인 게임에서 사용하는 게 당연한 세상이 올지도 모르겠다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

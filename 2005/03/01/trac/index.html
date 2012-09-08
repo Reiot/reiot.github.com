@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2005/03/01/trac/">Trac</a> <small>2005-03-01</small></h1>
+	</div>
+	<div><p>TRAC = 위키 + 이슈 트래킹 + 버그 트래킹 + 이벤트 트래킹 + 소스 브라우징 &amp; diff + 리포팅....</p>
+<p>더군다나, 파이썬으로 구현되었고, SQLLite 를 쓰며, SubVersion 연동이라니... 이 정도라면, 새 회사에서 KMS 로 쓰려고 했던 모니위키와는 무조건 이별을 해야 할 듯 하다.. 만티스도 안녕... phpBB도 안녕...</p>
+<p>그렇잖아도, 동료 개발자들의 check-in 여부를 확인하려고 모인모인 위키에서 파이썬으로 VSS 히스토리 뷰어 매크로를 작성하다가 이상한 이유로 포기한 전적이 있었기에... 더욱 기대가 된다. :)</p>
+<p>위키에서 디자인, 구현, 테스트의 전 개발과정을 진행하고 싶은 사람에게 권장한다. 단 과도한 욕심은 금물... ;)</p>
+<h2>한글화</h2>
+<p>한글 페이지를 만들기 위한 문법은, [wiki:한글링크 한글링크]와 같이 사용한다. 이걸 가능하게 하려면...</p>
+<ul>
+<li><a href="http://cjkpython.i18n.org/">CJK-Python</a>을 설치할 것. (CJK-Python은 Python2.4부터는 포함되어 있지만, Trac은 Python2.3을 사용한다~)</li>
+<li>trac.ini 에서 default charset = euc-kr 을 사용할 것.</li>
+<li>Wiki.py 를 다음과 같이 수정할 것.</li>
+</ul>
+<pre><code>
+30 from util import escape, TracError, get_reporter_id, to_utf8
+
+191  def render(self):
+192  name = to_utf8(self.args.get('page', 'WikiStart'),'euc-kr')
+</code></pre>
+
+<ul>
+<li>한글 템플릿은 <a href="http://openlook.org/distfiles/trac-ktdms-041222.tar.gz">OpenLook</a>에서 다운받을 것.</li>
+</ul>
+<p>see also:<br />
+<em> [http://trac.edgewall.com/ TRAC Official Homepage]<br />
+</em> [http://openlook.org/blog/reviews/0412TracInAction Trac과 함께 한 2주]<br />
+<em> Trac:TracInstall - TRAC 설치 매뉴얼(영문)<br />
+</em> Trac:TracOnWindows - TRAC on 윈도우즈 설치 매뉴얼(영문)<br />
+* [http://synergy.kaist.ac.kr/~paraon/tt/index.php?pl=59 Trac 0.8 On WindowsXP] - 한글 관련 설치 팁</p></div>
+	
+	<p>
+	
+		<a href="/tag/trac/"><span class="label">trac</span></a>
+	
+	</p>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

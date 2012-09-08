@@ -1,317 +1,148 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>VB를 이용한 선분과 원의 충돌체크 - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="고등학교때까지만 해도 기하쪽은 상당히 자신있었는데 나이가 들어갈수록 3D 쪽에는 상당히 취약해서 가고 있다. 몇 달 전 관련 서적을 쭈욱 질러주고 조금 보다가 때려쳤었다. 그러다 이번에 유지 보수 중인 legacy code 에서 brute force 충돌 체크 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2005/11/23/vb%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%80%E1%85%AA-%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%AE%E1%86%BC%E1%84%83%E1%85%A9%E1%86%AF%E1%84%8E%E1%85%A6%E1%84%8F%E1%85%B3">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">VB를 이용한 선분과 원의 충돌체크</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-11-23T22:32:24+09:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/collide.JPG" title="collide" target="_top"><img src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_collide.JPG" title="collide" ></a></p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2005/11/23/vb를-이용한-선분과-원의-충돌체크/">VB를 이용한 선분과 원의 충돌체크</a> <small>2005-11-23</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/collide.JPG" title="collide" target="_top"><img alt="collide" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_collide.JPG" /></a></p>
 <p>고등학교때까지만 해도 기하쪽은 상당히 자신있었는데 나이가 들어갈수록 3D 쪽에는 상당히 취약해서 가고 있다. 몇 달 전 관련 서적을 쭈욱 질러주고 조금 보다가 때려쳤었다. 그러다 이번에 유지 보수 중인 legacy code 에서 brute force 충돌 체크 코드를 좀 더 깔끔하게 해보고자 선분과 원의 충돌 체크를 구현해보게 되었다. 역시나 이럴 때에는 MFC 보다는 .NET winform 이 제일 손쉽기에 재빨리 VB.NET 을 띄워 줬다.</p>
-
 <p>우선 Matrix 나 Vector 류의 함수는 .NET framework 에서 지원하지 않기 때문에 DirectX 쪽의 참조를 갖고 와야 한다. 그다음 리얼타임렌더링 625 페이지를 펼쳐서 그대로 코딩하면 된다.  실제로 타이핑은 금방 끝났는데 웬걸 제대로 동작하지 않아서 이 사람 저 사람 붙잡고 물어보다가 잠이 들고, 오늘 회사에 와서 차분히 책을 읽어보니 그 중 한 넘이 normalized vector 여야 한다는 걸 찾아냈다. 뿌듯.. -_-+</p>
-
 <p>책은 반직선과 구의 충돌이라서 선분 충돌을 구하려면 교차 좌표 중 가까운 넘을 찾아내서 그 길이가 원래 반직선 길이보다 짧아야 진짜 충돌이 된다. 사실 3D 를 쭉 하던 사람들이야 너무 쉬운 것일테지만 수학책을 한동안 놓고 살았던 본인에게는 꽤나 막중한 과제였다. 역시나 해내고 나니 성취감 보다는 허탈감이 든다. 흑.</p>
+<pre><code>
+Imports Microsoft.DirectX
 
-<p>Liquid error: ClassNotFound: no lexer for alias &#8216;vb&#8217; found</p>
-</div>
+Public Class Form1
+Inherits System.Windows.Forms.Form
 
+Dim bCollided As Boolean = False
 
-  <footer>
-    <p class="meta">
-      
-  
+Dim circleRect As Rectangle
+Dim PenWidth As Integer = 1
 
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+Dim o As Vector2 = New Vector2
+Dim o2 As Vector2 = New Vector2
+Dim c As Vector2 = New Vector2
+Dim r As Single = New Single
+Dim d As Vector2 = New Vector2
+Dim l As Vector2 = New Vector2
+Dim s As Single = New Single
 
-      
+Dim l2 As Single = New Single
+Dim m2 As Single = New Single
+Dim world As Matrix = New Matrix
+Dim t As Single = New Single
 
+Private Function CheckCollide() As Boolean
 
+r = circleRect.Width / 2
+c.X = circleRect.X + r
+c.Y = circleRect.Y + r
 
+Dim P As Vector2 = Vector2.Subtract(o2, o)
+d = Vector2.Normalize(P)
 
+l = Vector2.Subtract(c, o)  ' l = c - o
+s = Vector2.Dot(l, d)  ' s = l dot d
+l2 = Vector2.Dot(l, l)  ' l^2 = l dot l
+Dim r2 As Single = r * r
 
+If (s  r2) Then  ' if ( s  r^2 ) return reject
+Return False
+End If
 
+m2 = l2 - s * s  ' m^2 = l^2 - s^2
 
+If (m2 &gt; r2) Then  ' if ( m^2 &gt; r^2 ) return reject
+Return False
+End If
 
-  
+' 이제 선분이 교차하고 있다. 교차하는 두 점을 구한 후 가장 가까운 넘과의 거리가 선분의 길이보다 작아야 한다.
 
+Dim q As Single = Math.Sqrt(r2 - m2)
+If (l2 &gt; r2) Then
+t = s - q
+Else
+t = s + q
+End If
 
-<time datetime="2005-11-23T22:32:24+09:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2005</time>
-      
+Return P.Length &gt;= t
 
-<span class="categories">
-  
-    <a class='category' href='/categories/stories/'>stories</a>
-  
-</span>
+End Function
 
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2005/11/23/vb%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%80%E1%85%AA-%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%AE%E1%86%BC%E1%84%83%E1%85%A9%E1%86%AF%E1%84%8E%E1%85%A6%E1%84%8F%E1%85%B3/" data-via="reiot" data-counturl="http://reiot.com/2005/11/23/vb%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%80%E1%85%AA-%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%AE%E1%86%BC%E1%84%83%E1%85%A9%E1%86%AF%E1%84%8E%E1%85%A6%E1%84%8F%E1%85%B3/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2005/10/31/inet_ntoa-%E1%84%8B%E1%85%B4-%E1%84%8B%E1%85%B1%E1%84%92%E1%85%A5%E1%86%B7%E1%84%89%E1%85%A5%E1%86%BC/" title="Previous Post: inet_ntoa 의 위험성">&laquo; inet_ntoa 의 위험성</a>
-      
-      
-        <a class="basic-alignment right" href="/2005/12/07/%E1%84%82%E1%85%A1%E1%84%88%E1%85%B3%E1%86%AB-%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B5%E1%84%8B%E1%85%A5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B1%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8C%E1%85%A9%E1%87%82%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8/" title="next Post: 나쁜 아이디어를 위한 좋은 방법">나쁜 아이디어를 위한 좋은 방법 &raquo;</a>
-      
-    </p>
-  </footer>
+Private Sub setupCircle(ByVal e As Point)
+If e.X
+</code></pre></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2005/11/23/vb%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%80%E1%85%AA-%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%AE%E1%86%BC%E1%84%83%E1%85%A9%E1%86%AF%E1%84%8E%E1%85%A6%E1%84%8F%E1%85%B3/';
-        var disqus_url = 'http://reiot.com/2005/11/23/vb%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%AE%E1%86%AB%E1%84%80%E1%85%AA-%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%AE%E1%86%BC%E1%84%83%E1%85%A9%E1%86%AF%E1%84%8E%E1%85%A6%E1%84%8F%E1%85%B3/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

@@ -1,345 +1,104 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Doxygen - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="설치 공식 홈페이지에서 최신 Doxygen 을 받아서 설치한다.
-Graphiz 홈페이지에서 dot 툴을 받아서 설치한다.
-Microsoft HTML Helper를 받아서 설치한다. 설정 Doxygen GUI frontend 를 실행한 후, 맨 처음에는 Wizard &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2006/03/23/doxygen">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Doxygen</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-03-23T09:32:58+09:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><h2>설치</h2>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2006/03/23/doxygen/">Doxygen</a> <small>2006-03-23</small></h1>
+	</div>
+	<div><h3>설치</h3>
 <ul>
-<li><a href="http://doxygen.org%20Doxygen">공식 홈페이지</a>에서 최신 Doxygen 을 받아서 설치한다.</li>
+<li><a href="http://doxygen.org Doxygen">공식 홈페이지</a>에서 최신 Doxygen 을 받아서 설치한다.</li>
 <li><a href="http://www.graphviz.org/">Graphiz 홈페이지</a>에서 dot 툴을 받아서 설치한다.</li>
 <li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/htmlhelp/html/hwMicrosoftHTMLHelpDownloads.asp">Microsoft HTML Helper</a>를 받아서 설치한다.</li>
 </ul>
-
-
-<h2>설정</h2>
-
+<h3>설정</h3>
 <ul>
 <li>Doxygen GUI frontend 를 실행한 후, 맨 처음에는 Wizard 모드로 기본 설정을 하고, 다시 Expert 모드로 상세하게 설정을 해주면 된다. 이때 매번마다 환경을 변경한 다음에는 Doxyfile 로 저장하는 것을 잊지 말도록.</li>
 <li><a href="http://serious-code.net/moin.cgi/DoxyGenSetup">SeriousCode:DoxygenSetup</a> 을 참고해서 배치파일을 잘 만들어두면 편하다.</li>
 </ul>
-
-
-<h2>DoxygenTips</h2>
-
+<h3>DoxygenTips</h3>
 <ul>
 <li>상대경로를 애용할 것 : 범용성을 위해 INPUT 및 OUTPUT_DIRECTORY 는 상대 경로로 지정하고, DoxyWizard 의 Working Directory 를 절대 경로를 사용할 것. Doxygen 이 알아서 둘을 조합한다.</li>
 <li>CREATE_SUBDIR 을 설정하면, html 폴더에 너무 많은 파일들이 몰리는 현상을 막을 수 있다.</li>
 <li>FULL_PATH_NAMES 를 설정하고, STRIP_FROM_PATH 에 Working Directory 를 추가해주면, 여러 개의 하위 폴더에 나눠진 파일들의 경로를 출력할 수 있다</li>
-<li>HHC_LOCATION 은 일반적으로 C:/Program Files/HTML Help Workshop/hhc.exe를 지정하면 된다. (Visual Studio 를 설치하면 저기에 자동으로 설치가 되기 때문)</li>
+<li>HHC_LOCATION 은 일반적으로 <code>C:/Program Files/HTML Help Workshop/hhc.exe</code>를 지정하면 된다. (Visual Studio 를 설치하면 저기에 자동으로 설치가 되기 때문)</li>
 <li>DOT_IMAGE_FORMAT 은 png 로 설정하면 용량이 많이 줄어든다. 단 jpg + DOT_TRANSPARENT 의 조합은 용량이 무지막지하게 커지므로 주의할 것.</li>
 <li>DOT_PATH 는 일반적으로 <code>C:/Program Files/ATT/Graphviz/bin</code>을 지정할 것</li>
 </ul>
-
-
 <p>see also:</p>
-
 <ul>
 <li><a href="http://serious-code.net/moin.cgi/DoxyGen">SeriousCode:DoxyGen</a></li>
-</ul>
-
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-03-23T09:32:58+09:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2006</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/programming/'>programming</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/03/23/doxygen/" data-via="reiot" data-counturl="http://reiot.com/2006/03/23/doxygen/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2006/03/23/%E1%84%8B%E1%85%B1%E1%86%AB%E1%84%83%E1%85%A9%E1%84%8B%E1%85%AE%E1%84%8C%E1%85%B3-%E1%84%86%E1%85%AE%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5/" title="Previous Post: 윈도우즈 무인설치">&laquo; 윈도우즈 무인설치</a>
-      
-      
-        <a class="basic-alignment right" href="/2006/04/11/migrate-to-ace/" title="next Post: Migrate To ACE">Migrate To ACE &raquo;</a>
-      
-    </p>
-  </footer>
+</ul></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2006/03/23/doxygen/';
-        var disqus_url = 'http://reiot.com/2006/03/23/doxygen/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

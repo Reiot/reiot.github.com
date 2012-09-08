@@ -1,395 +1,163 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Visual Studio Tips - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content=".h .cpp 단축키 Visual Assist 를 사용하시는 분은, 도구-옵션-환경-키보드 에서 VAOpenOpposite를 Ctrl+Q등으로 단축키를 지정하면 파일 전환을 보다 쉽게 할 수 있다. Alt + F7 도구-옵션-환경-키보드에서 빌드.선택영역빌드를 Alt &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2004/11/26/visual-studio-tips">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Visual Studio Tips</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2004-11-26T23:40:23+09:00" pubdate data-updated="true">Nov 26<span>th</span>, 2004</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><h2>.h <-> .cpp 단축키</h2>
-
-<p>Visual Assist 를 사용하시는 분은, <strong>도구-옵션-환경-키보드</strong> 에서 VAOpenOpposite를 Ctrl+Q등으로 단축키를 지정하면 파일 전환을 보다 쉽게 할 수 있다.</p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/26/visual-studio-tips/">Visual Studio Tips</a> <small>2004-11-26</small></h1>
+	</div>
+	<div><h2>.h &lt;-&gt; .cpp 단축키</h2>
+<p>Visual Assist 를 사용하시는 분은, [도구]-[옵션]-[환경]-[키보드] 에서 VAOpenOpposite를 Ctrl+Q등으로 단축키를 지정하면 파일 전환을 보다 쉽게 할 수 있다.</p>
 <h2>Alt + F7</h2>
-
-<p><strong>도구-옵션-환경-키보드</strong>에서  빌드.선택영역빌드를 Alt+F7로 단축키 지정하면, 현재 프로젝트를 키보드만으로 빌드할 수 있다.</p>
-
+<p>[도구]-[옵션]-[환경]-[키보드]에서  빌드.선택영역빌드를 Alt+F7로 단축키 지정하면, 현재 프로젝트를 키보드만으로 빌드할 수 있다.</p>
 <h2>외부 도구</h2>
-
-<p>레이옷은 현재 솔루션의 각 프로젝트의 산출물(exe,pdb,xml 등)들을 서버에 배포하기 위해서 Python 으로 배포 스크립트를 제작했다. 문제는 이 넘을 실행하기 위해서 꼭 탐색기를 띄워서 찾아가서 실행하는게 너무 귀찮았다는 점. 그러나 <strong>도구-외부도구-외부명령</strong> 으로 새 명령을 등록할 수 있다. 아래와 같이 등록하면, 이제 파이썬 스크립트를 메뉴에서 실행할 수 있게 된다. 특히 출력창 사용을 선택하면 스크립트의 표준 출력을 Visual Studio 에서 살펴볼 수 있다.</p>
-
-<p><img src="http://boxcatstudio.files.wordpress.com/2009/07/external_tool.JPG"></p>
-
+<p>레이옷은 현재 솔루션의 각 프로젝트의 산출물(exe,pdb,xml 등)들을 서버에 배포하기 위해서 Python 으로 배포 스크립트를 제작했다. 문제는 이 넘을 실행하기 위해서 꼭 탐색기를 띄워서 찾아가서 실행하는게 너무 귀찮았다는 점. 그러나 [도구]-[외부도구]-[외부명령] 으로 새 명령을 등록할 수 있다. 아래와 같이 등록하면, 이제 파이썬 스크립트를 메뉴에서 실행할 수 있게 된다. 특히 출력창 사용을 선택하면 스크립트의 표준 출력을 Visual Studio 에서 살펴볼 수 있다.</p>
+<p><img alt="external_tool.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/external_tool.JPG" /><br />
+</p>
 <p>또한 이 명령을 도구모음에 등록하면 더욱 편하다. [도구]-[사용자지정]-[새로만들기]에서 도구바를 하나 만든 다음, [명령] 탭을 눌러 아까 등록한 넘을 [범주]-[도구]-[외부명령N]에서 찾아 드래그 앤 드랍으로 새 도구바로 옮겨 주면 끝. 그나저나, 아이콘을 새로 등록하고 싶지만 어떻게 하는지 모르겠다.</p>
-
 <h2>한글폴더/파일</h2>
-
 <p>가능하면 사용하지 말라. 레이옷은 빈태군의 권유를 듣고 한쪽귀로 흘리다가 다음과 같은 고생을 하게 되었다.</p>
-
-<ul>
-<li>xerces c++ 라이브러리 사용시, XML 파일의 절대 경로를 파싱할 때 한글 폴더가 포함될 경우 [Unicode] 로 경로 문자열을 넘겨야 한다.</li>
-<li>DevPartner 사용시 디버깅 정보가 찾아지지 않는다.</li>
-<li>이 외에도, 프로젝트 폴더명 중에 space 가 포함될 경우에도 항상 $(InputDir) 등의 매크로들을 &#8221; &#8221; 으로 둘러싸줘야 한다.</li>
-</ul>
-
-
+<pre><code>- xerces c++ 라이브러리 사용시, XML 파일의 절대 경로를 파싱할 때 한글 폴더가 포함될 경우 [Unicode] 로 경로 문자열을 넘겨야 한다.
+- DevPartner 사용시 디버깅 정보가 찾아지지 않는다.
+- 이 외에도, 프로젝트 폴더명 중에 space 가 포함될 경우에도 항상 $(InputDir) 등의 매크로들을 " " 으로 둘러싸줘야 한다.
+</code></pre>
 <h2>정규식</h2>
-
 <p>global replace 할 때, 정규식을 사용하면 매우 편리하다. 다음 예를 살펴보자</p>
+<p>string strValue = __NODE_TEXT(pStrNode);           // ----&gt; string strValue = pStrNode.ToString();<br />
+int iValue = __NODE_INT(pIntNode);                 // ----&gt; int iValue = pIntNode.ToInt(); </p>
+<p>MSXML 에서 xerces 로 XML 라이브러리를 교체할 때, 위와 같은 코드가 이곳 저곳에 수두룩 했다. 이를 고치기 위해 다음 정규식을 사용했다.<br />
+<table><br />
+<thead><br />
+<th>필드</th><br />
+<th>입력</th></p>
+<tr>
+<td>Find</td>
+<td>__NODE_TEXT({.+})</td>
+</tr>
 
-<p>string strValue = <strong>NODE_TEXT(pStrNode);           // &#8212;-> string strValue = pStrNode.ToString();
-int iValue = </strong>NODE_INT(pIntNode);                 // &#8212;-> int iValue = pIntNode.ToInt();</p>
+<tr>
+<td>Replace</td>
+<td>{{{\1.ToString()}}}</td>
+</tr>
 
-<p>MSXML 에서 xerces 로 XML 라이브러리를 교체할 때, 위와 같은 코드가 이곳 저곳에 수두룩 했다. 이를 고치기 위해 다음 정규식을 사용했다.</p>
+<p></thead></table></p>
+<pre><code>- () 의 경우 backslash escape 를 해줘야 한다
+- .+ 는 설명안해도 알 듯?? ㅋㅋ
+- 특정 패턴을 replace 에서 사용하려면 {패턴}으로 검색하고, (발견순서대로) \N 으로 사용하면 된다
+- replace 는 정규식이 아니니깐 막 써도 된다
+</code></pre>
+<p>일반 문자열 "xxx" 를 _T("xxx") 로 바꾸는 정규식<br />
+<table><br />
+<thead><br />
+<th>필드</th><br />
+<th>입력</th></p>
+<tr>
+<td>Find</td>
+<td>\"{:Al@}\" || 문자열 가운데 ' ' 또는 '_' 가 있을 경우 인식이 안된다.</td>
+</tr>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Find: __NODE_TEXT({.+})
-</span><span class='line'>Replace: \1.ToString()</span></code></pre></td></tr></table></div></figure>
+<tr>
+<td>Replace</td>
+<td>_T("\1")</td>
+</tr>
 
-
-<ul>
-<li>() 의 경우 backslash escape 를 해줘야 한다</li>
-<li>.+ 는 설명안해도 알 듯?? ㅋㅋ</li>
-<li>특정 패턴을 replace 에서 사용하려면 {패턴}으로 검색하고, (발견순서대로) \N 으로 사용하면 된다</li>
-<li>replace 는 정규식이 아니니깐 막 써도 된다</li>
-</ul>
-
-
-<p>일반 문자열 &#8220;xxx&#8221; 를 _T(&#8220;xxx&#8221;) 로 바꾸는 정규식</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Find: \"{:Al@}\" || 문자열 가운데 ' ' 또는 '_' 가 있을 경우 인식이 안된다.
-</span><span class='line'>Replace: _T("\1")</span></code></pre></td></tr></table></div></figure>
-
-
+<p></thead></table></p>
 <h2>빌드 이벤트</h2>
-
 <p>UnitTest나 EventLog 를 위한 Message DLL 등을 만들 때 사용되는 사용자 지정 빌드 단계에 대해서 알아보자. 우선, MSDN 에 나오는 Visual Studio 빌드 이벤트 및 사용자 지정 빌드 단계의 순서는 다음과 같다.</p>
-
-<ul>
-<li>&#8221;&#8217;빌드 전 이벤트&#8221;&#8217;</li>
-<li>개별 파일에 대한 사용자 지정 빌드 단계</li>
-<li>프록시 생성기</li>
-<li>MIDL</li>
-<li>리소스 컴파일러</li>
-<li>C/C++ 컴파일러</li>
-<li>&#8221;&#8217;링크 전 이벤트&#8221;&#8217;</li>
-<li>링커 또는 라이브러리 관리자(해당되는 경우)</li>
-<li>BSCMake</li>
-<li>프로젝트에 대한 사용자 지정 빌드 단계</li>
-<li>웹 배포 도구</li>
-<li>&#8221;&#8217;빌드 후 이벤트&#8221;&#8217;</li>
-</ul>
-
-
-<p>UnitTest를 자동으로 실행하게 하려면, &#8221;&#8217;프로젝트 사용자 지정 빌드 단계&#8221;&#8217; 또는 &#8221;&#8217;빌드 후 이벤트&#8221;&#8217;가 적절하다.</p>
-
+<pre><code>- '''빌드 전 이벤트'''
+- 개별 파일에 대한 사용자 지정 빌드 단계
+- 프록시 생성기
+- MIDL
+- 리소스 컴파일러
+- C/C++ 컴파일러
+- '''링크 전 이벤트'''
+- 링커 또는 라이브러리 관리자(해당되는 경우)
+- BSCMake
+- 프로젝트에 대한 사용자 지정 빌드 단계
+- 웹 배포 도구
+- '''빌드 후 이벤트'''
+</code></pre>
+<p>UnitTest를 자동으로 실행하게 하려면, '''프로젝트 사용자 지정 빌드 단계''' 또는 '''빌드 후 이벤트'''가 적절하다.</p>
 <h2>Command Line Build</h2>
-
 <p>특이하게도 한 순간에 한가지 프로젝트, 한가지 빌드 타겟만이 가능하다. 결국 여러 개의 프로젝트를 함께 빌드하려면 각각을 따로 명시해야 할 듯. /out 의 경우 이전 파일에 로그를 append 한다.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>devenv  /project  /build  /out</span></code></pre></td></tr></table></div></figure>
-
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2004-11-26T23:40:23+09:00" pubdate data-updated="true">Nov 26<span>th</span>, 2004</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/programming/'>programming</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2004/11/26/visual-studio-tips/" data-via="reiot" data-counturl="http://reiot.com/2004/11/26/visual-studio-tips/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2004/11/26/moniwiki-tips/" title="Previous Post: MoniWiki Tips">&laquo; MoniWiki Tips</a>
-      
-      
-        <a class="basic-alignment right" href="/2005/03/02/trac/" title="next Post: Trac">Trac &raquo;</a>
-      
-    </p>
-  </footer>
+<p>devenv  /project  /build  /out</p></div>
+	
+	<p>
+	
+		<a href="/tag/visual studio/"><span class="label">visual studio</span></a>
+	
+		<a href="/tag/tip/"><span class="label">tip</span></a>
+	
+	</p>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2004/11/26/visual-studio-tips/';
-        var disqus_url = 'http://reiot.com/2004/11/26/visual-studio-tips/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

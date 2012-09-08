@@ -1,365 +1,119 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>P2P Tips - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다) 분석 및 검토 게임성 분석 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2006/05/16/p2p-tips">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">P2P Tips</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-05-16T09:46:34+09:00" pubdate data-updated="true">May 16<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다)</p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2006/05/16/p2p-tips/">P2P Tips</a> <small>2006-05-16</small></h1>
+	</div>
+	<div><p>P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다)</p>
 <h1>분석 및 검토</h1>
-
 <h2>게임성 분석</h2>
-
 <p>만들고자 하는 게임의 다양한 속성들에 대한 분석이 최우선 단계이다. 다음 질문에 자신의 게임이 어떤 쪽인지를 잘 따져보기 바란다.</p>
-
 <pre><code>- 최대접속자는 얼마인가? (4-8, 16-32, 64-256, Massive)
 - 카운터 스트라이크처럼 사용자들에게 핑이 빠른 서버를 선택할 수 있도록 할 것인가?
 - NPC 또는 몹이 존재하는가? 만약 그렇다면 누가 그들을 움직이게 할 것인가?
 - 승패 또는 타격 판정, 이동에 대한 검증은 누가 할 것인가?
 - dedicated server 를 지원할 것인가? 또는 클라이언트 중에서 UDP 서버를 선택할 것인가?
 </code></pre>
-
 <h2>토폴로지의 선택</h2>
-
 <p>어떤 토폴로지를 선택하느냐에 따라서 최대 대역폭, 최대 접속자가 결정되므로, 위에서 조사한 결과에 따라서 적합한 토폴로지를 선택해야 한다. 아래의 문서를 참고하기 바란다.</p>
-
 <p>see also : <a href="http://reiot.cafe24.com/2006/02/18/%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%81%ac-%ec%95%a1%ec%85%98-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%b6%84%eb%a5%98/">네트워크 액션 게임의 분류</a></p>
-
 <h2>UDP 라이브러리의 선택</h2>
-
 <p>토폴로지를 선택했다면 이제 UDP 라이브러리를 선택할 단계이다.</p>
-
 <p>단지 위치 정보만을 보내는 게 아닌 이상, 순수 UDP 만으로 네트워크 게임을 개발하기란 쉽지 않다. 결국은 reliable UDP 를 지원하는 외부 라이브러리를 사용하거나 직접 구현하게 될텐데, 직접 구현하는 것은 시간이 많거나 자신이 천재가 아닌 이상 그다지 좋은 선택은 아니다. 반면 어떤 라이브러리를 선택해도 깊은 이해 없이는 잘 사용하기가 힘든 것이 사실이다.</p>
-
 <p>가능하면 Unreal, Source Engine 등 네트워크 모듈이 포함된 게임 엔진을 구매하는 것을 권장하며, 그럴 수 없다면 충분한 검토 기간 하에 RakNet, OpenTNL, udt, enet 중에서 하나를 선택하기 바란다.</p>
-
 <h1>디자인 및 구현, 테스트</h1>
-
 <h2>네트워크 모듈의 통합</h2>
-
 <p>많은 UDP 라이브러리들은 보다 빠른 반응성을 위해 자체적으로 쓰레드를 사용한다. 그러나 dedicated server 가 아닌 이상, 서버쪽은 무작정 쓰레드를 남발해서는 곤란하다. 하나의 서버가 여러 개의 게임을 동시 처리해야 할 경우가 많으므로, 이럴 때에는 소스를 수정해야 할 수 있다.</p>
-
 <pre><code>- polling vs. event-driven
 - single thread vs. multithread
 </code></pre>
-
 <p>이때 폴링 방식의 클라이언트는 로딩 혹은 렌더링으로 인해 네트워크 업데이트를 방해하는 일이 없도록 주의해야 한다.</p>
-
 <h2>NAT와 홀펀칭</h2>
-
 <dl> <dt>하드웨어의 구비</dt> <dd>하드웨어가 없는 상태에서의 NAT 프로그래밍은 장님 코끼리 다리 만지기와 같다.</dd> <dt>SNAT</dt> <dd>SNAT-SNAT 간에는 홀펀칭이 통하지 않는다는 사실만 기억하면 된다. 중국이 아닌 이상 SNAT를 만나기란 쉽지 않다. 정 귀찮다면 C/S구조로 가는 것도 나쁘지 않다. GPGStudy 포럼을 잘 검색하면 어떤 라우터가 SNAT인지를 찾을 수 있다.</dd> <dt>N+1</dt> <dd>어떤 NAT는 새로운 매핑을 위해 포트 번호를 점차 증가시키기도 한다. 그러나 라우터 제조 업체마다 다르므로 일반적으로는 알 수 없다고 봐야 한다.</dd> <dt>Timeout</dt> <dd>30-40초마다 패킷을 밖으로 쏘지 않을 경우 매핑을 삭제하는 공유기가 존재한다.</dd> <dt>패킷 릴레이</dt> <dd>직접적인 통신이 되지 않는 peer 에게 패킷을 보낼 수 있는 유일한 방법이다. 문제는 릴레이는 핑이 2배 느려지는 것이 보통이므로 데드 레커닝 및 보간 기능으로 잘 극복해야 한다. 릴레이가 끊기는 경우 실시간으로 다른 루트를 찾아주면 금상첨화.</dd> <dt>사설 네트워크</dt> <dd>같은 네트워크에 있는 사용자들 끼리는 굳이 public 주소로 접속할 필요는 없다. 상대방의 (public,private) 모두로 핑을 쏜 다음, 응답이 오면 그 중 빠른 넘을 실제 주소로 선택하라. 이때 둘 다 될 경우라면 대체로 private를 사용하는 편이 좋다. 물론 **본인 확인**은 필수. 방화벽 내부에 있는 사람들끼리 플레이할 경우 public 으로 통신하면 괴로워진다.</dd> <dt>다단계 NAT</dt> <dd>중국은 다단계 NAT로 악명이 높다. 최소한 2단계로 NAT를 배치한 후 각 노드마다 클라이언트를 두고 내부/외부와 통신이 잘 되는지를 확인할 것. 그렇게 열심히 테스트해도 안되는 환경이 분명 존재하므로, 처음부터 릴레이를 기본 기능으로 포함시킬 것.</dd> <dt>사용자 서버</dt> <dd>네트워크 비용을 줄이려면 특정 클라이언트가 서버 역할을 하도록 하라. 단 Drop-out시 게임을 중단하고 새 서버를 찾는 기능을 구현해야 한다. 물론 보안 문제는 책임질 수 없다;;</dd> </dl>
 
-
 <h2>대역폭 관리</h2>
-
 <dl> <dt>모뎀 지원</dt> <dd>해외에는 아직도 모뎀을 많이 사용하고 있다. 따라서 모뎀 유저가 방에 들어올 경우 최대 접속자를 줄이든가 대역폭에 맞게 데이터를 실시간 관리하는 기능이 필요하다.</dd> <dt>MTU</dt> <dd>게임에서의 최대 패킷 크기를 항상 알고 있을 것. 특히 리스트 방식으로 전송되는 데이터들(방 목록, 사람 목록, 게임 목록)을 유의할 것.</dd> <dt>순간 대역폭 체크</dt> <dd>어떤 공유기(D-Link)는 순간 대역폭을 초과할 경우 reset 되기도 한다.</dd> </dl>
 
-
 <h2>공유기, 방화벽, 포트 포워딩</h2>
-
 <dl> <dt>(D)DOS 공격</dt> <dd>어떤 공유기는 외부로부터 갑자기 연결이 많이 들어올 경우 DOS 혹은 DDOS 로 간주해서 연결을 차단하기도 한다.</dd> <dt>XP 방화벽</dt> <dd>Windows XP의 방화벽에 자동 등록하기는 필수. 단 사용자에게 허가를 받지 않고 몰래 방화벽을 끌 경우 해외에서는 고소당할 수 있다.</dd> <dt>백신 호환성 체크</dt> <dd>일부 백신들은 정상적인 어플리케이션도 바이러스나 웜으로 간주하기도 한다. 따라서 유명 백신들을 설치한 상태에서 툴과의 호환성을 체크한 후 문제가 있다면 매뉴얼을 홈페이지에 등록해야 한다.</dd> <dt>포트 포워딩</dt> <dd>portforward.com이나 [WOW](http://www.blizzard.com/support/wow/?id=aww01154p)처럼 공유기에서 포트포워딩을 하는 방법을 홈페이지에 기술할 것. 가능하면 클라이언트에 네트워크 진단 도구를 탑재하거나, 웹 기반 진단 페이지를 만들기를 권장한다.</dd> <dt>주의 깊은 포트의 선택</dt> <dd>해외의 일부 회선 업체는 자신들의 자체 서비스(VoIP)를 위해 특정 UDP 포트를 임의로 막기도 한다. 가능한한 다른 게임 및 어플리케이션과 충돌하지 않는 포트를 선택할 것.</dd> <dt>서버 방화벽</dt> <dd>네트워크 관리자에게 사용하는 포트에 대한 문서를 넘기고 수시로 업데이트 해줄 것. (특히 해외 서비스일 경우는 필수) 허용된 포트의 끝언저리에서 실수로 인한 문제가 종종 생기곤 한다.</dd> </dl>
 
-
 <h2>기타</h2>
-
 <pre><code>- 공유기의 타입 찾기 : STUN
 - Drop-In : 게임 도중 새로운 접속자가 들어올 때
 - 연결 끊김 감지 : 게임 도중 연결이 끊길 경우 얼마나 빨리 감지할 수 있을까?
 - 데이터 복제, 보안, 통계 수집
-</code></pre>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-05-16T09:46:34+09:00" pubdate data-updated="true">May 16<span>th</span>, 2006</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/05/16/p2p-tips/" data-via="reiot" data-counturl="http://reiot.com/2006/05/16/p2p-tips/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2006/05/16/iocp-tips/" title="Previous Post: IOCP Tips">&laquo; IOCP Tips</a>
-      
-      
-        <a class="basic-alignment right" href="/2006/05/26/boostany/" title="next Post: boost::any">boost::any &raquo;</a>
-      
-    </p>
-  </footer>
+</code></pre></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2006/05/16/p2p-tips/';
-        var disqus_url = 'http://reiot.com/2006/05/16/p2p-tips/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

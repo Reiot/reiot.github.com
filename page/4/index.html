@@ -1,758 +1,304 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="id is NSString or something else? 1
-2
-3
-4
-5
-6
-id var;
-if ([var isKindOfClass:[NSString class]]) { // yes this is NSString
-} else { // nope
-} 참고로, var &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/4">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/11/14/iskindofclass/">isKindOfClass</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-14T13:36:00+09:00" pubdate data-updated="true">Nov 14<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>id is NSString or something else?</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="kt">id</span> <span class="n">var</span><span class="p">;</span>
-</span><span class='line'><span class="k">if</span> <span class="p">([</span><span class="n">var</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">NSString</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// yes this is NSString</span>
-</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// nope</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>참고로, var 가 실제로 문자열일 때 [var class] == [NSString class] 는 실패한다 :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-11T11:38:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다.</p>
-
-<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/K2GEX/10/embedded/js,resources,html,css,result/light/"></iframe>
-
-
-<p>위 예제처럼, #test 는 하나의 DIV 로 묶여져 있어서 appendTo 하기 전에 위젯을 만들 수 있지만, #test2 처럼 여러 개의 엘리먼트들이 나눠져 있는 경우에는 .tmpl(data) 로 렌더링을 하면 [h1, p, div.progressbar] 의 배열이 튀어나오는데, 이 배열에다가 대고 find 를 해도 아무 일도 발생하지 않는다. (for 를 돌아도 마찬가지)</p>
-
-<p>일단은 그냥 마음편하게 하나로 묶는게 유일한 해답일 거 같은데, 그나저나 .tmplItem 은 도대체 어디에 쓰는 물건일까?</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/11/10/jquery-blink/">jQuery Blink</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-10T12:37:37+09:00" pubdate data-updated="true">Nov 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Don`t use window.setInterval() for infinite blinking.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">blink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span> <span class="nx">opacity</span><span class="p">){</span>
-</span><span class='line'>  <span class="k">return</span> <span class="k">this</span>
-</span><span class='line'>  <span class="p">.</span><span class="nx">fadeTo</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span> <span class="nx">opacity</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">.</span><span class="nx">fadeTo</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">blink</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span><span class="nx">opacity</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/11/09/setup-npm-socketio/">Setup Npm &amp; socket.io</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-09T18:59:27+09:00" pubdate data-updated="true">Nov 9<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>각종 다양한 node의 라이브러리를 사용하려면 패키지 매니저인 npm 부터 가장 먼저 설치해야 된다. 이때 패키지들을 /usr/local 대신 사용자 폴더(~/.node_libraries)에 저장하기 위해서 .npmrc 를 만들어야 한다. (via <a href="http://blog.outsider.ne.kr/539">http://blog.outsider.ne.kr/539</a>)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone https://github.com/isaacs/npm.git
-</span><span class='line'><span class="nv">$ </span>cat &gt;&gt; ~/.npmrc <span class="s">&lt;&lt; NPMRC</span>
-</span><span class='line'><span class="s">root = $HOME/.node_libraries</span>
-</span><span class='line'><span class="s">binroot = $HOME/bin</span>
-</span><span class='line'><span class="s">manroot = $HOME/share/man</span>
-</span><span class='line'><span class="s">NPMRC</span>
-</span><span class='line'><span class="nv">$ </span>make
-</span><span class='line'><span class="nv">$ </span>npm install expressÂ 
-</span><span class='line'><span class="nv">$ </span>npm install socket.io
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>참고로, 모든 npm 소스는 ~/.node_libraries/.npm 아래에 저장되어 있다.</p>
-
-<p>가장 간단한 express 서버는 다음과 같다. curl 로 로컬 서버에 접속해볼 수 있지만, 먼저 테스트를 위해서 아마존 EC2 콘솔에 접속해서 방화벽의 8080 포트를 열어둬야 한다.</p>
-
-<blockquote><p>var app = require(&#8216;express&#8217;).createServer();<br/>app.get(&#8216;/&#8217;, function(req, res){<br/>  res.send(&#8216;hello world&#8217;);<br/>});<br/>app.listen(8080);</p></blockquote>
-
-
-<p>가장 간단한 socket.io 서버와 클라이언트는 github 에 존재한다. (이상하게도 제대로된 매뉴얼을 찾기가 힘드니, 그냥 <a href="https://github.com/LearnBoost/Socket.IO-node/blob/0.6.1/example/server.js">샘플 코드</a>를 보기를 권한다) </p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone git://github.com/LearnBoost/Socket.IO-node.git socket.io
-</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>socket.io/example/
-</span><span class='line'><span class="nv">$ </span>sudo node server.js
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>서버와 클라이언트간의 통신은 순전히 JSON 으로 구현된다. 보내는 쪽에서</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>socket.send<span class="o">({</span> id:chat, <span class="nb">type</span>:whisper, target:reiot, message:Hello World! <span class="o">})</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>라고 보내고, 받는 쪽에서는</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>socket.on<span class="o">(</span><span class="s1">&#39;message&#39;</span>,function<span class="o">(</span>data<span class="o">){</span>
-</span><span class='line'>  <span class="k">if</span><span class="o">(</span><span class="s1">&#39;id&#39;</span> in data<span class="o">){</span>
-</span><span class='line'>      <span class="k">if</span><span class="o">(</span>data.id<span class="o">==</span><span class="s1">&#39;chat&#39;</span><span class="o">){</span>
-</span><span class='line'>          show_message<span class="o">(</span>data.message<span class="o">)</span>;
-</span><span class='line'>      <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">})</span>;
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>이런 식의 전통적인 소켓 프로그래밍이 이루어진다. 브로드캐스팅은 그냥 소켓에 대고</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>socket.broadcast<span class="o">({</span>something:special<span class="o">})</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>이라고 하면 끝. 첫 소감은 </p>
-
-<ul>
-<li>아 쉽다. 처음 소켓 프로그래밍을 배울 때의 느낌이야. 왜 지금까지 이런게 안되었을까..</li>
-<li>소스가 노출될테니 게임 서버에서 해야 하는 모든 것 - 스니핑, 스피드핵, 프로토콜 해킹, 암호화, 한방핵 - 등을 다 구현해야겠지. 클라이언트에게 많은 권한을 줘서는 안될 것 같아..</li>
-<li>이걸로 HTML5 캔버스에서 멀티플레이 가능한 로그라이크를 만들 수 있을까? ㅎㅎ</li>
-</ul>
-
-
-<p>정도 되겠다. 한마디로 꽤 재미있는 장난감이 될 것 같다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-07T18:58:57+09:00" pubdate data-updated="true">Nov 7<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>이번 11월부터 <a href="http://aws.amazon.com/free/">1년 무료인 마이크로 인스턴스</a>라는 게 있다길래 node.js 를 위해서 재빨리 가입을 했다. 왜 하필 node.js 인지 궁금하신 분은 <a href="http://www.synchrosinteractive.com/blog/9-nodejs/22-nodejs-has-a-bright-future">nodejs-has-a-bright-future</a> 를 읽어보시길. 싱가포르쪽이 좀 느린 듯해서 그냥 미쿡 버지니아에다가 만들었다.</p>
-
-<p>처음 가입할 때 전화를 준다고 해서 살짝 망설였는데 그냥 미리 녹음된 전화에 개인키를 입력해서 인증하는 방식이라길래 용감하게 시도했으나.. 아무리 등록하려고 해도 요청 폭주로 전화가 오지 않아서 이틀이나 기다려야 했다. (3회 실패하면 12시간 후에나 다시 요청이 가능한 시스템..) 알고보니 전화 번호를 잘못 써서.울먹.. 다들 외국 사이트 가입할 때 +82 국제 전화 번호 붙이지 않나요 ㅠㅠ </p>
-
-<p>어쨌든 초보답게 아마존에서 제공하는 기본 리눅스 AMI 64bit 를 설치하고 보니, git 는 커녕 gcc 도 설치 안된 깔끔한 배포판이었다. 10년만에 리눅스를 만져본 터라 어떤 패키지 시스템을 써야 하는지 헷갈렸는데, 요즘은 yum 이란게 인기가 있나보다. (마지막으로 써본 게 rpm 이었던가..)</p>
-
-<p>기억 소멸을 방지하기 위해 대충 순서를 정리해본다 :P</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo yum install git-core
-</span><span class='line'><span class="nv">$ </span>git cloneÂ https://github.com/ry/node.git
-</span><span class='line'><span class="nv">$ </span>sudo yum install gcc
-</span><span class='line'><span class="nv">$ </span>sudo yum install gcc-c++
-</span><span class='line'><span class="nv">$ </span>sudo yum install openssl-devel
-</span><span class='line'><span class="nv">$ </span>./configure
-</span><span class='line'><span class="nv">$ </span>makeÂ 
-</span><span class='line'><span class="nv">$ </span>sudo make install
-</span><span class='line'><span class="nv">$ </span>make <span class="nb">test</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>마이크로 인스턴스에서 빌드 시간은 17분 정도 걸린다. configure 할 때 select/eio/kqueue 를 찾는 걸 보니, 내부적으로 저런 걸 쓰는 모양이다. 내 경우에는  test-exec,  test-repl, test-http-curl-chunk-problem 3개의 테스트가 실패했다 :(</p>
-
-<p>ps. 오랜만에 느끼는 이 콘솔의 감촉. 아 섹시하다~~</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/11/03/custom-tag/">&lt;% Raw %&gt; Custom Tag</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-03T06:21:00+09:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jQuery 템플릿의 조건문/반복문들은  와 같이 선언하는데, 이게 Django의 템플릿 변수  선언과 동일해서 템플릿 문법 에러가 발생하게 된다. 이를 해결하려면 모든  에 대해서</p>
-
-<blockquote><p>{%  templatetag openvariable%}if ${var}==a{%  templatetag closevariable%} </p></blockquote>
-
-
-<p>과 같이 바꿔줘야 한다. <a href="http://stackoverflow.com/questions/4021896/jquery-template-tags-conflict-with-django-template">StackOverflow 에 물어보니</a> Django 1.3 에서 &lt;% raw %> 에 대한 제안이 들어가긴 했다고 하는데, 언제 나올지도 모르고 해서 구글에 검색해보니 다행스럽게도 누군가가 이미 구현해둔 걸 찾을 수 있었다.</p>
-
-<p><a href="http://www.holovaty.com/writing/django-two-phased-rendering/">http://www.holovaty.com/writing/django-two-phased-rendering/</a></p>
-
-<p>다만 GPL 이라는 점에 유의할 것 :P</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/19/disable-select-on-element/">Disable Select on Element</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-19T08:34:01+09:00" pubdate data-updated="true">Oct 19<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxersb.com/archives/243">자바스크립트로 마우스 드래그를 막는 방법</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/13/11-killer-css3-text-effects-to-replace-photoshop/">11 Killer CSS3 Text Effects to Replace Photoshop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-13T10:08:16+09:00" pubdate data-updated="true">Oct 13<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.addictivefonts.com/various/css3/css3-text-effects/">11 Killer CSS3 Text Effects to replace Photoshop</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/13/css-image-replacement-with-pseudo-elements-nir-nicolas-gallagher-blog-ephemera/">CSS Image Replacement With Pseudo-elements (NIR) – Nicolas Gallagher – Blog &amp; Ephemera</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-13T08:27:22+09:00" pubdate data-updated="true">Oct 13<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/">CSS image replacement with pseudo-elements (NIR) – Nicolas Gallagher – Blog &amp; Ephemera</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/13/html5-boilerplate-a-rock-solid-default-for-html5-awesome/">HTML5 Boilerplate - a Rock-solid Default for HTML5 Awesome.</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-13T08:25:38+09:00" pubdate data-updated="true">Oct 13<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://html5boilerplate.com/">HTML5 Boilerplate - A rock-solid default for HTML5 awesome.</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/5/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/3/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/10/12/advanced-photoshop-techniques-for-ui/">Advanced Photoshop Techniques for UI</a> <small>2010-10-12</small></h1>
+	</div>
+	<div><ul>
+<li>레이어의 그레디언트 효과에서 linear burn 블렌딩 옵션을 주면, 원본 색상과 그레디언트 색상이 자연스럽게 섞이도록 할 수 있다. (단일 색이면 그레디언트 색깔을 지정하지 않아도 되므로, 귀찮음이 줄어든다.)</li>
+<li>레이어의 스트로크 효과도 마찬가지로, color burn 블렌딩을 주면, 굳이 스트로크 컬러를 지정하지 않아도 된다. (그런데 막상 해보면 잘 안된다 OTL)</li>
+<li>레이어에 동일한 패턴 효과를 여러 개 주려면, 레이어를 복사한 후, fill=0 으로 만들고 그냥 이펙트를 추가하면 된다.</li>
+<li>shape 를 만들 때 shift 를 누르면 임의 각도가 아니라 지정된 각도로 회전시킬 수 있다. shift 는 거의 이런 의미인 듯.</li>
+<li>shape 를 하나 만든 상태에서, shift 를 누르고 다른 걸 만들면 합쳐지는데 이를 이용해서 커스텀 shape 를 등록할 수 있다. </li>
+<li>슬라이스는 하나의 psd 에서 여러 개의 이미지 파일들을 추출해내는 도구이다. New layer based slice 를 이용하면 Save for Web &amp; Devices 에서 개별 이미지를 저장할 수 있다. 다만, 이때 하나의 레이어가 하나의 이미지가 되면서 동시에 이미지를 슬라이스의 경계로 자르기 때문에, 레이어 슬라이스들이 잘못 겹쳐져서 잘리지 않게 잘 배치해야 한다. </li>
+<li>그리드의 가이드라인과 서브디비전을 10, 10 으로 동일하게 두면, 픽셀 단위로 위치 맞춤(snap)이 가능해진다. 그리드 on/off 는 ctrl +  </li>
+<li>레이어 컴포지션을 이용하면, 여러 개의 레이어 그룹으로 구성된 파일에서 어떤 것을 보이고 어떤 것을 보이지 않게 하는 프리셋들을 만들 수 있다. 여러 페이지나 구성요소들을 한 번에 하나씩 보여줄 때 편리함. PSD 에서 스프라이트를 추출할 때 이 기능을 사용하면 좋다.</li>
+<li>히스토리 옵션에서 저장할 때마다 새 스냅샷 만들기와 비선형적 히스토리 만들기를 켜면 굿.</li>
+<li>Advanced Blending option 에서 layer mask hide effects 는 마스크에서 효과를 없에준다. 응?</li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/photoshop/"><span class="label">photoshop</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a> <small>2010-09-26</small></h1>
+	</div>
+	<div><p><a href="http://note.marines.co.kr/135">아이폰/컴퓨터 색상 차이 해결법</a><br />
+<a href="http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/">http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/</a></p>
+<ol>
+<li>
+<p>Working RGB -&gt; Monitor</p>
+</li>
+<li>
+<p>Desaturate RGB -&gt; 20-25%</p>
+</li>
+<li>
+<p>Modify Gamma</p>
+</li>
+<li>
+<p>Assign Profile -&gt; Working RGB</p>
+</li>
+</ol></div>
+	
+	<p>
+	
+		<a href="/tag/photoshop/"><span class="label">photoshop</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a> <small>2010-09-24</small></h1>
+	</div>
+	<div><p><strong>스프레드시트 리스트 읽어오기</strong></p>
+<pre><code>client = gdata.spreadsheets.client.SpreadsheetsClient()
+
+feed = client.get_spreadsheets()
+</code></pre>
+
+<p>내부적으로 다음과 같은 URL 을 사용한다.</p>
+<p><code>http://spreadsheets.google.com/feeds/spreadsheets/private/full</code></p>
+<p><strong>특정 스프레드 시트의 워크 시트 리스트 읽어오기</strong></p>
+<pre><code>feed = client.get_worksheets(spreadsheet_key)
+</code></pre>
+
+<p>내부적으로 </p>
+<p><code>http://spreadsheets.google.com/feeds/worksheets/&lt;키&gt;/private/full</code></p>
+<p><strong>특정 워크 시트를 리스트 기반으로 읽어오기</strong></p>
+<p>이건 gdata.spreadsheets.client 에서 지원하지 않는다.</p>
+<pre><code>url = &quot;https://spreadsheets.google.com/feeds/list/%s/%s/private/full&quot; % (spreadsheet,worksheet) 
+feed = client.get_feed(url, desired_class = gdata.spreadsheets.data.ListsFeed)
+</code></pre>
+
+<p>이렇게 읽어온 feed.entry 에서 적당한 필드를 잘 읽어내야 한다. 내부적으로는 XML 이므로 다음과 같이 읽을 것. 잘 안읽히면 feed 를 그대로 출력해서 어떤 값이 있는지 보면 된다.</p>
+<ul>
+<li>entry.id.text</li>
+<li>entry.title.text</li>
+<li>entry.content.text: ListsFeed 로 읽어왔을 때 row 의 값들이 문자열로 들어가 있다.</li>
+<li>entry.get_elements(namespace=GSX_ELEMENT): 컬럼은 gsx: 태그로 들어가 있으므로, iterating 할 때에는 이걸 써야 한다.</li>
+<li>entry.get_value(column name): 이미 이름을 알고 있을때..</li>
+</ul>
+<p>핵심은,</p>
+<ul>
+<li>구글 스프레드 시트의 모든 문서, 워크시트, row, cell 들은 유니크한 URL 을 가진다. </li>
+<li>적당한 URL 로 요청하면 ATOM XML 등으로 리턴한다.</li>
+<li>gd_client.get_feed 에 URL 을 넘기고 desired_class 를 잘 지정하면, 적당한 파이썬 객체로 래핑된다.</li>
+<li>어떤 XML 이 리턴되는지만 잘 파악하면 끗.</li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/google spreadsheet api/"><span class="label">google spreadsheet api</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/08/16/createdeepkey/">create_deep_key</a> <small>2010-08-16</small></h1>
+	</div>
+	<div><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
+<pre><code>- 부모 키 : AAABBBCCCDDD
+- 자식 키 : AAABBBCCCDDDEEEFFF
+</code></pre>
+<p>따라서,  부모의 키값과 자식의 키 아이디 또는 이름을 별도의 컬럼으로 내보내고, 반대로 가져올 때에는 하나로 합쳐서 원래의 키값을 복구해야 한다.</p>
+<pre><code>property_map:
+  - property: __key__
+  external_name: Activity
+  import_transform:  transform.create_deep_key((‘Visit’, ‘Visit’), (‘VisitActivity’, ‘Activity’))
+  export:
+  - external_name: Visit
+  export_transform: transformhelper.extract_deep_key(1)
+  - external_name: Activity
+  export_transform: transformhelper.extract_deep_key(2)
+</code></pre>
+
+<p>이때 만약 키가 아니라 id/name 을 내보내고 싶다면,  transform.key_id_or_name_as_string_n(N) 을 사용할 것.</p></div>
+	
+	<p>
+	
+		<a href="/tag/bulkload/"><span class="label">bulkload</span></a>
+	
+		<a href="/tag/datastore/"><span class="label">datastore</span></a>
+	
+		<a href="/tag/appengine/"><span class="label">appengine</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/08/12/google-app-engine-tips/">Google App Engine Tips</a> <small>2010-08-12</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png"><img alt="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" src="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" /></a>구글 앱 엔진으로 개발하면서 학습한 내용을 정리합니다. 이론적으로 혹은 실제 서비스할 때 잘못되거나 틀린 부분이 있을 수 있음을 미리 알려 드립니다.</p>
+<p><strong>검증 및 마이그레이션의 책임은 '프로그래머'가 진다.</strong></p>
+<p>관계형 데이터베이스의 경우, 스키마 및 그 정합성을 검증할 책임이 데이터베이스 엔진에 있는 반면, 구글 데이터스토어는 분산 및 속도 향상을 위해, 스키마와 검증의 책임이 프로그램 쪽으로 넘어와 있다. 이게 무슨 뜻이냐 하면, 같은 모델(테이블)에 서로 다른 필드로 구성된 객체(Entity,열)가 들어갈 수 있다는 뜻이다. 따라서 데이터스토어는 임의의 데이터 집합을 쿼리해서 읽어왔을 때, 그 안에 어떤 데이터가 들어가 있을지 모르기 때문에, 마이그레이션 역시 프로그램이 책임지고 구현해야 한다. 새로 속성(Property,컬럼)을 추가하거나, 삭제하려면 해당 모델에 속한 모든 객체들을 찾아서 하나씩 변경해줘야 한다.</p>
+<p>예를 들어, 어떤 모델의 속성이 더이상 필요없어져서 삭제하려면, 무려 <a href="http://code.google.com/intl/ko-KR/appengine/articles/update_schema.html">소스 코드에서 모델의 부모 클래스를 바꿔서 저장한 후, 서버에 터미널을 열고 수동으로 해당 속성들을 지우고 다시 돌아와서 코드를 롤백하는 등의 수고로움</a>이 필요하다.</p>
+<p>이런 이유로, 가급적이면 앱엔진에서 서비스중에, 모델의 특정 속성 이름을 바꾸는 일은 피해야 한다.</p>
+<p><strong>트랜잭션으로 묶을 객체들은 '생성' 시점에 부모를 지정해야 한다.</strong></p>
+<p>관계형 데이터베이스에서는 서비스 이후에도 적당히 쿼리 최적화와 마이그레이션을 통해서 새로 트랜잭션을 추가할 수 있다. 그런데, 데이터스토어는 좀 다르다. 왜냐하면 일단 만들어진 객체의 키값은 절대 변경될 수 없는데, 트랜젹션으로 묶을 객체들은 생성 시점에 미리 같은 부모 객체를 지정해서, 같은 엔티티 그룹으로 만들어 줘야 하기 때문이다. 아마도 분산 트랜잭션을 피하기 위해서, 같은 그룹에 속한 객체들을 동일한(또는, 가급적 가까운?) 물리적인 노드에 두기 위함일테다.</p>
+<p>또한 동시에 여러 명이 같은 데이터를 변경하는 등의 충돌을 방지하려면, 주의깊게 부모 엔티티를 고르거나 아예 이런 일이 없도록 설계하는 것이 중요하다. 이런 제약으로 인해, 개발 시점에 어떤 트랜잭션이 필요할 것인지를 미리 예측하고, 코드 레벨에서 부모 객체를 미리 만들어둬야 한다. 구체적인 예를 들자면, 어떤 플레이어에 속한 모든 아이템, 도전과제, 퀘스트 같은 하위 객체들은 플레이어를 부모로 가지는 게 정신 건강에 좋다는 정도가 되겠다.</p>
+<p>이처럼 앱엔진 개발은 유지 보수의 책임이 데이터베이스가 아니라 프로그래머의 영역이 된다는 점을 항상 염두에 둬야 한다.</p>
+<p><strong>키 이름(key_name), 아이디(id)의 용도를 잘 구분해야 한다.</strong></p>
+<p>모든 객체는 시스템에서 유일한 키 값을 가진다는 점은 비교적 이해하기가 쉽다. 그런데, 키 이름(문자열)과 아이디(정수) 중 하나만을 가져야 한다는 점은 처음에 좀 헷갈렸다. 과연 어떤 객체에는 키 이름을 쓰고, 어디에는 아이디를 자동 생성해야 하는지가 할까? 처음엔, 해석을 잘못해서 키 이름이 시스템 전체에서 유일한 줄 알아서 많이 헤맸었는데, 알고보니 같은 모델(정확하게는 엔티티 그룹)안에서만 유일하면 된다는 것을 늦게서야 알게 되었다.</p>
+<p>결론부터 말하자면, 내가 맞게 쓰고 있는 건지는 모르지만, 개발 시점에 미리 생성해둬야 하는 정적인 객체들(아이템 정보, 맵 정보, 밸런싱 데이터 등 유일성을 개발 시점에 파악할 수 있는 객체들)에게는 유일한 키 이름을 할당해서, 향후 빠른 변경 및 접근을 할 수 있게 하고, 런타임에 생성하기 때문에 유일성을 미리 파악하기 힘든 다른 수많은 객체들(계정, 플레이어, 아이템 인스턴스, 도전 과제 인스턴스 등)은 자동으로 아이디를 할당받게 하는 게 좋다.</p>
+<p>그런데, 개발을 위해서 동일한 코드를 기반으로 서로 다른 app-id를 가진 구글 앱엔진 서버(Development - Test - Production)를 운영할 경우, 자동으로 만들어져서 아이디를 가진 객체들 - 특히나 ReferenceProperty 로 관계가 맺어진 넘들-을 다른 서버로 옮기는 것이 거의 불가능하다는 점에 유의해야 한다. 왜냐하면 객체의 키값에 이미 app-id 가 들어가 있기 때문에 CSV 등으로 백업해서 복원할 경우, 만약  기존에 동일한 id 를 가진 객체가 존재하면 그냥 덮어써버리기 때문이다. :(</p>
+<p><strong>쿼리(datastore_v3.RunQuery)와 읽기(datastore_v3.Get)의 차이를 이해해야 한다.</strong></p>
+<p>ReferenceProperty 를 이용하면, 1:N 의 관계를 표현할 수 있다. 아래의 코드처럼</p>
+<p>[code language="python"]<br />
+class Player(db.Model):<br />
+  pass<br />
+class Item(db.Model):<br />
+  player = db.ReferenceProperty(Player,collection_name="items")</p>
+<pre><code>
+과 같이 정의된 경우, player.items 라는 역참조가 자동적으로 만들어진다. 문제는 이게 코드를 읽을 때에는 왠지 캐싱이 될 것처럼 보이지만, 내부적으로 datastore_v3.RunQuery 라는 RPC가 호출되기 때문에 매번마다 다시 데이터스토어에서 읽어온다는 점이다. 무조건 [appstat](http://code.google.com/intl/ko-KR/appengine/docs/python/tools/appstats.html) 을 활성화시켜 두고, 조금이라도 반응 속도가 느린 요청이 있으면 항상 확인하는 버릇을 길러야 한다.
+
+반대로 이미 키값을 알고 있는 item 의 소유자 이름을 읽어오려면, item.player.name 처럼만 하면 된다. 그런데 내부적으로 datastore_v3.Get 요청은 특정 필드만 읽어오는 기능을 지원하지 않기 때문에, 항상 모든 속성들이 다 읽어지게 된다. 더욱 무서운 점은 그냥 item.player 나 item.player.key() 라고만 해도 Get 요청이 이루어진다는 거다. 만약 참조하는 객체의 하위 속성이 아니라 오직 키값만 알고 있으면 되는 경우에는 model_name.reference_prop.get_value_for_datastore(entity) 를 이용하면, 코드는 더러워지지만 불필요한 요청을 피할 수 있다.
+
+특히 루프 안에서 참조키의 하위 속성을 읽는 짓은 가급적 피하는 것을 권장한다.
+
+[code language=&quot;python&quot;]
+for item in Item.all().filter():
+  if item.player.hp == 0: # bad bad
+  pass
+</code></pre>
+
+<p>계속 추가할 예정입니다 :)</p></div>
+	
+	<p>
+	
+		<a href="/tag/datastore/"><span class="label">datastore</span></a>
+	
+		<a href="/tag/appengine/"><span class="label">appengine</span></a>
+	
+	</p>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/5/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/5">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2010/10/12/advanced-photoshop-techniques-for-ui/">Advanced Photoshop Techniques for UI</a>
+	</li>
+	
+	<li>
+		<a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a>
+	</li>
+	
+	<li>
+		<a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a>
+	</li>
+	
+	<li>
+		<a href="/2010/08/16/createdeepkey/">create_deep_key</a>
+	</li>
+	
+	<li>
+		<a href="/2010/08/12/google-app-engine-tips/">Google App Engine Tips</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

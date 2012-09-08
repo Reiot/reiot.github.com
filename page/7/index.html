@@ -1,662 +1,275 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="custom sub-domain for tumblr
-but not working..
-">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/7">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/10/custom-sub-domain-for-tumblr/">Custom Sub-domain for Tumblr</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-10T04:40:00+09:00" pubdate data-updated="true">Oct 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.etagwerker.com/2010/02/how-to-set-up-a-custom-subdomain-for-tumblr/">custom sub-domain for tumblr</a><br/>
-but not working..</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/07/do-not-stop-in-animation-complete-callback/">Do Not Stop() in Animation Complete Callback</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-07T06:01:39+09:00" pubdate data-updated="true">Oct 7<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In most case, is(:animated) return true in animate callback, so if you call stop(true,true) then you can see complete() callback is called serveral times.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/06/do-not-remove-thiselement-in-uiwidgetdestroy/">Do Not Remove this.element in ui.widget.destroy()</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-06T17:41:37+09:00" pubdate data-updated="true">Oct 6<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ui.widget.element.remove() will call own destroy() automatically.</p>
-
-<p>$.Widget.prototype = {</p>
-
-<pre><code>_createWidget: function( options, element ) {
-    // $.widget.bridge stores the plugin instance, but we do it anyway
-    // so that it's stored even before the _create function runs
-    $.data( element, this.widgetName, this );
-    this.element = $( element );
-    this.options = $.extend( true, {},
-        this.options,
-        $.metadata &amp;&amp; $.metadata.get( element )[ this.widgetName ],
-        options );
-
-    var self = this;
-    this.element.bind( "remove." + this.widgetName, function() {
-        self.destroy();
-    });
-
-    this._create();
-    this._init();
-},
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/06/disable-context-menu-right-click-with-jquery/">Disable Context Menu (Right Click) With jQuery</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-06T11:32:00+09:00" pubdate data-updated="true">Oct 6<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>$(document).bind(contextmenu,function(e) {      e.preventDefault();  });</p></blockquote>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/05/mouse-position/">Mouse Position</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-05T10:19:20+09:00" pubdate data-updated="true">Oct 5<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>from <a href="http://docs.jquery.com/Tutorials:Mouse_Position">http://docs.jquery.com/Tutorials:Mouse_Position</a></p>
-
-<p>$(&#8220;#special&#8221;).click(function(e){</p>
-
-<pre><code>var x = e.pageX - this.offsetLeft;
-var y = e.pageY - this.offsetTop;
-</code></pre>
-
-<p>  $(&#8216;#status2&#8217;).html(x +&#8217;, &#8216;+ y);
-  });</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/02/slick-interface-tips/">Slick Interface Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-02T17:06:40+09:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>검은 반투명 사각형</p>
-
-<ul>
-<li>inner shadow (normal blend, white, 1px): 레이어 내부에 위에서 내려오는 라이트 살짝 넣기</li>
-<li>outer glow (normal blend, black): 레이어 외부 전체에 살짝 퍼진 그림자</li>
-<li>stroke (black, 1px): 레이어 외곽선 1픽셀 검은선</li>
-</ul>
-
-
-<p>특정 레이어 윗쪽에 그라데이션 먹이기</p>
-
-<ul>
-<li>cmd + click 로 특정 레이어 전체 선택, alt + click 으로 아래 부분을 제거</li>
-<li>G 로 검은색 칠하기</li>
-<li>gradient overlay 로 윗쪽을 하얗게 만들기</li>
-</ul>
-
-
-<p>검은 바탕에 입체감 있는 폰트</p>
-
-<ul>
-<li>drop shadow (multiply, 1px, black): 아래 방향 그림자</li>
-<li>inner shadow (overlay, 1px, white): 윗쪽 방향 라이트</li>
-<li>gradient overlay (gray-white): 아래쪽으로 회색 그림자</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/01/import-class-from-zip-file/">Import Class From Zip File</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-01T10:23:09+09:00" pubdate data-updated="true">Oct 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div>current_dir = os.path.abspath(os.path.dirname(__file__))</div>
-
-
-<div>sys.path.insert(0, os.path.join(current_dir,..,..,django.zip))</div>
-
-
-<div></div>
-
-
-<div></div>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/10/01/get-latlng-of-map-canvas-corner/">Get LatLng of Map Canvas Corner</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-01T08:06:00+09:00" pubdate data-updated="true">Oct 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>with maps bounds, can composite TL, TR, BL, BR.</p>
-
-<blockquote><p>var bounds = self.getMap().getBounds();</p><p>var latLng = new google.maps.LatLng( bounds.getNorthEast().lat(), bounds.getSouthWest().lng() );                                    </p></blockquote>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/30/do-not-trust-mouseeventpixel/">Do Not Trust MouseEvent.pixel</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-30T14:32:28+09:00" pubdate data-updated="true">Sep 30<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>MouseEvent.pixel 이라는 값이 있는데 실제로 이 값이 DIV 의 상대 좌표랑 정확하게 일치하지 않는다. 그냥 latLng 값을 fromLatLngToDivPixel 로 변경해서 사용하면 된다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/29/stop-propatation-for-custom-overlay/">Stop Propatation for Custom Overlay</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-29T11:16:19+09:00" pubdate data-updated="true">Sep 29<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>구글맵의 커스텀 오버레이에 click 등의 이벤트 핸들러를 붙였을 때, 오버레이를 클릭하면 맵도 클릭이 된다. 이때 이벤트 객체를 받아서 전파를 막아야 한다.</p>
-
-<p>    if (event.stopPropagation) event.stopPropagation();   // DOM Level 2</p>
-
-<p>    else event.cancelBubble = true;                       // IE</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/8/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/6/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/05/17/fail-fast-fail-often/">Fail Fast, Fail Often</a> <small>2009-05-17</small></h1>
+	</div>
+	<div><p>최근 레이다에 자주 걸리던 <a href="http://sites.google.com/site/gdworkshop/materials/mda-framework">MDA 프레임워크</a>에 대한 <a href="http://epiphany.tistory.com/">게임 디자인 워크샵</a>이 사내에서 <strong>피자와 함께</strong> 열려서 쉬귀군과 함께 참가했다.</p>
+<p>첫날에는 <a href="http://sites.google.com/site/gdworkshop/materials/sissyfight-3000">Sissyfight 3000</a>을 <a href="http://kaistizen.net/EE/index.php/weblog/comments/game_design_workshop/">1분 내에 끝내라는 퍼블리셔의 요청 메일</a>을 받았다. 원작 게임이 재미없었던 우리 팀은, 두 세번 게임을 뒤집어 엎어 포커 버전으로 만들다가, 종료 5분 전 공격 카드는 버리고 색깔 카드와 방어 카드 만으로 2분짜리 클베 버전을 출시할 수 있었다. 뭔가 개발이 잘 풀리지 않아 잘나가는 옆테이블로 이직을 하고 싶었는데, 막상 출시를 하고 보니 사용자들이 제법 만족해서 좀 당황하기도 했다.</p>
+<p>둘째 날에는 타워 디펜스를 페이퍼 프로토타이핑으로 만들었다. 초반부터 <a href="http://www.thisisgame.com/board/view.php?id=26414&amp;category=103">에이전트005</a>가 투입되어서 자꾸 지금 방향이 틀렸고 자기 방식이 맞다고 주장해서 개발 기간을 제법 까먹었다. 클베를 하고 나서는 테스터들의 의견을 적극 반영하다 보니 원래 추구하는 미학과는 다른 방향으로 바뀌기도 했다. 워낙 타워 디펜스의 종류가 다양하다보니 협동이냐 경쟁이냐들 두고 초반부터 설전을 벌였는데, 실제로 테스터들로부터도 비슷한 문제를 지적받았다. 막판 30초를 남기고 뭔가 재미있어 보이는 버전이 나오긴 했는데 테스트도 못해봐서 결국 클베 버전을 출시할 수 밖에 없었다. 흑.</p>
+<p>어쨌든 뭔가 쓸만한 걸 하나 배웠답시고 무려 <strong>주말</strong>에 출근해서 MDA를 시험 적용해 보기로 했다. 현재 상태에서  재미있는 것과 없는 것들을 나열하고, 도저히 버릴 수 없는 제약 조건을 뺀 나머지 기능들은 모두 <a href="http://aker.tistory.com/231">feature creep</a>이라는 누명을 씌워서 버렸다. 다음에는 무엇을 핵심적인 재미요소로 구현할 건가를 이야기했는데, 의외로 내가 생각하는 재미를 단 한 명에게 공감시키기조차도 힘들었다. 그래서 내 의도와 비슷한 동영상을 구해서 보여준 후, Fail Fast 을 해보니 몇 시간만에 비교적 게임이라고 부를만한 상태로 바꾸는 데까지는 성공했다. (물론 난 옆에서 서핑만하고 쉬귀군이 열심히 코딩을 했지만..) 그래도 보여주기엔 남부끄러운 수준이고, 핵심적인 제약 사항은 완수하지도 못했기에 일단 퇴근했다. 결과적으로는 실패로 끝난 거구만. OTL</p>
+<p>TDD가 소프트웨어의 최종적인 진화의 방향을 점진적으로 설계해주는 것처럼, Fail Fast이 게임 디자인에 있어서 비슷한 역할을 하는 것 같다. 즉, 어느 정도 팀내에 공감이 이루어 졌다면, 한 두명이 안되는 이유를 1부터 10까지 나열하며 떠들 시간에 닥치고 일단 만들고 보자는 건데, 그러고 보니 쉬귀군의 신묘한 개똥 철학과 공통점이 많은 것 같다. (물론 일반적인 개발자는 따라해서는 안된다. 흐흐) 다만 이를 위해서는 빠른 변경이 가능한 게임 엔진 및 툴의 개발이 선행되거나 동시에 진행되어야 한다는 게 우리의 숙제일 것이다.</p>
+<p>덕분에 몸은 좀 피곤하지만, 미학 - 사용자들에게 주고자 하는 재미 - 에 대한 확고한 비전의 공유가 얼마나 중요한지를 깨달을 수 있었던 한 주였다. 프리 프러덕션 기간에 게임의 재미에 대해서 명확하게 확정을 짓지 않고 프러덕션 단계로 들어가면, 항상 나중에 참가한 멤버들이나 경영진, 테스터 또는 퍼블리셔로부터 <strong>너무 낙관적으로 개발을 해서</strong> 그런지 재미가 없다는 이야기를 듣고는, 자의반 타의반으로 feature creep의 유혹을 받게 된다는 경험적 법칙이랄까.  옛날 게임 기획할 때 누가 이런 걸 가르쳐줬으면 지금쯤 성공한 기획자가 되었을지도 모르겠다. ㅎㅎ</p>
+<p>짧은 시간에 게임 개발을 압축해서 경험할 수 있기에, 기획자나 프로그래머는 물론이거니와 중간 관리자들도 한번쯤 들어볼 만한 워크샵이다. 이런 좋은 경험을 혼자 낼름하지 않고 널리 전파하시느라 수고하신 <a href="http://betterways.tistory.com/">Kay</a> 님과 <a href="http://epiphany.tistory.com/">epiphany</a>님께 감사드린다. (후기 상품은 내꺼임!!)</p>
+<p>see also:</p>
+<pre><code>- [사후 검토: Sissy Fight 3000 - 제 2회 게임 디자인 워크샵](http://www.heartcomplex.net/blogs/516)
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/fail/"><span class="label">fail</span></a>
+	
+		<a href="/tag/test/"><span class="label">test</span></a>
+	
+		<a href="/tag/mda/"><span class="label">mda</span></a>
+	
+		<a href="/tag/gamedev/"><span class="label">gamedev</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/05/01/named-boost-tuple/">Named Boost Tuple</a> <small>2009-05-01</small></h1>
+	</div>
+	<div><p>프로토콜 객체로 std::pair 나 boost::tuple 을 채택할 때의 문제는 순서가 틀리더라도 타입만 변환이 된다면 컴파일 타임 에러가 나지 않는다는 점과, first/second 라든지 get() 이 한눈에 안들어온다는 점이다. 또 디버거에서도 내부 값을 찾아 보기가 힘들고 컴파일 시간도 길어지기 때문에, boost::preprocessor 나 boost::tuple 기반의 직렬화 기법이 편하고 관리하기도 좋지만, 그냥 구조체로 만들어서 적당히 memcpy로 보내는 걸 다들 애용하는 것이리라.</p>
+<pre><code>
+boost::tuple&lt;int,short,char&gt; t;
+int i = get&lt;0&gt;(t);
+int j = get&lt;1&gt;(t);
+int k = get&lt;2&gt;(t);
+</code></pre>
+
+<p>그런데, 이걸 코드 생성기에서 이렇게 만들면 어떨까?</p>
+<pre><code>
+class login : public boost::tuple&lt;wstring,string,int&gt;
+{
+public :
+    const wstring &amp; userid() const { return get&lt;0&gt;(); }
+    void userid( const wstring &amp; v) { get&lt;0&gt;() = v; }
+    const string &amp; passwd() const { return get&lt;1&gt;(); }
+    void passwd( const string &amp; v) { get&lt;1&gt;() = v; }
+    int key() const { return get&lt;2&gt;(); }
+    void key( int v ) { get&lt;2&gt;() = v; }
+};
+
+login msg;
+msg.userid(L&quot;reiot&quot;);
+msg.passwd(&quot;.com&quot;);
+msg.key(1975);
+
+wstring userid = msg.userid();
+string passwd = msg.passwd();
+int key = msg.key();
+</code></pre>
+
+<p>이 정도면 읽기도 쉽고 직렬화하기도 편한 객체처럼 보일 것 같은데... (여전히 디버거에서는 보기가 귀찮지만.. <a href="http://minjang.egloos.com/468834">autoexp.dat</a> 를 잘 고치면 해결할 수 있지 않을까나~)</p></div>
+	
+	<p>
+	
+		<a href="/tag/serialization/"><span class="label">serialization</span></a>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+		<a href="/tag/autoexp/"><span class="label">autoexp</span></a>
+	
+		<a href="/tag/tuple/"><span class="label">tuple</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/05/01/first-chance-exception-the-tag-is-invalid/">first chance exception : The tag is invalid</a> <small>2009-05-01</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/add_exception.jpg"><img alt="add_exception" src="http://boxcatstudio.files.wordpress.com/2009/07/add_exception.jpg" /></a></p>
+<p>요즘은 디버깅할 때 Ctrl+Alt+E를 눌러서 first chance exception이 발생할 때에도 브레이크포인트가 걸리게 하는 편이다. 뭔가 내가 모르는 문제가 저 안에서 벌어지고 있다는 게 못마땅하기 때문인데, 언젠가부터 64비트 OS에서 32비트 서버 어플리케이션에서 소켓 연결을 할 때, <strong>First chance exception 0x000006C5 : The tag is invalid</strong> 라는 예외가 던져져서 디버깅할 때 짜증이 솟구치는 나날들이 계속되었다. 더군다나 현재 채택한 DB 쿼리 방식이 필요할 때마다 재연결하는 connection pooling 이라서 디버거를 좀 오래 잡고만 있어도 계속 예외가 던져져서 집중이 자꾸 깨지곤 했었다.</p>
+<p><a href="http://mhaggag.wordpress.com/2006/11/04/gethostbyname-first-chance-exception-0x000006c5-the-tag-is-invalid/">조사해보니</a> 마이크로소프트도 포기한 예외였는데, 도무지 이걸 무시할 방법을 찾지 못하다가 (Win32 예외 목록에 없으니까!) 그저께 커스텀 예외도 추가할 수 있다는 것을 우연찮게 <del datetime="2009-04-30T15:10:21+00:00">겨우 이제서야</del> 알게 되었다.</p>
+<p>지금은... 마음이 편하다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/exception/"><span class="label">exception</span></a>
+	
+		<a href="/tag/visual studio/"><span class="label">visual studio</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a> <small>2009-04-23</small></h1>
+	</div>
+	<div><p><img alt="http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80).gif" src="http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80" />.gif)</p>
+<p>비주얼 스튜디오 2005에서 어떤 솔루션만 열면 인텔리센스가 멈추지 않는 현상을 만나서 검색해니, SP1 이후로 <a href="http://code.msdn.microsoft.com/KB943969">한글판 핫픽스 하나</a>와 <a href="http://code.msdn.microsoft.com/KB947315">영문판 핫픽스 하나</a>가 나와 있었다.</p>
+<p>둘 중에서 후자만 깔아도 된다고는 하는데, 영문판 핫픽스는 한글판에서는 설치가 안된다는 것이 문제였다. 다행히도 쉬귀군의 팀은 영문판을 쓰고 있었기에 강제로 원격 설치(-_-)를 해서 <a href="http://blog.naver.com/PostView.nhn?blogId=dexylitol&amp;logNo=20045702640">관련 dll 들을 받아서</a> 그냥 덮어씌워보니 그럭저럭 잘 돌아가는 것 같았다. 조금 걱정이라면 디버그-릴리즈 전환할 때마다 인텔리센스가 돌아간다는 점이랄까.</p>
+<p>정리하자면, 영문판 사용자에게 부탁해서 다음 dll 들을 덮어쓰면 된다!</p>
+<pre><code>- VC/packages/vcpkg.dll
+- VC/packages/VCProjectEngine.dll
+- VC/packages/VCProject.dll
+</code></pre>
+<p>참고로, VC/bin/amd64 또는 x86_amd64 아래에도 버전은 같지만 크기가 다른 VCProjectEngine.dll 파일이 있긴 한데 얘네들은 안덮어써도 돌긴 돌아갔다...</p>
+<p>ps. <a href="http://kaistizen.net/EE/index.php/weblog/comments/visual_studio_2005_hotfixes/">컴파일이 빨라진다는 핫픽스</a>도 있구나..</p></div>
+	
+	<p>
+	
+		<a href="/tag/visual studio/"><span class="label">visual studio</span></a>
+	
+		<a href="/tag/hotfix/"><span class="label">hotfix</span></a>
+	
+		<a href="/tag/intellisense/"><span class="label">intellisense</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/04/12/cloud-computing-for-online-game/">Cloud Computing For Online Game</a> <small>2009-04-12</small></h1>
+	</div>
+	<div><p><img alt="Cloud Computing?" src="http://farm2.static.flickr.com/1332/704056791_63f1e492d8.jpg" /></p>
+<p>때는 바야흐로 2003년, 게임 서버 개발은 조만간 그리드 컴퓨팅 기반으로 바뀔 거라고 믿고 아마존에서 관련 서적을 실컷 사 모았던 적이 있다. 막상 뚜껑을 열어 보니 대부분 웹서비스 기반이어서 뭔가 빠른 반응성과 연결된 세션간의 적절한 동기화가 필요한 게임 서버, 특히 MMORPG에는 맞지 않아 보였다. 결국 그 책들은 거의 읽혀지지도 않은 채 집에 방치되있고, 그리드를 주력으로 파겠다던 배짱좋은 예측 포스팅은 부끄러워서 내려 버렸다.</p>
+<p><img alt="http://bks0.books.google.com/books?id=8-0BofIhoU0C&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2fcOHmSfNIjZtVjM-Gm5LZAw9dVg" src="http://bks0.books.google.com/books?id=8-0BofIhoU0C&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2fcOHmSfNIjZtVjM-Gm5LZAw9dVg" /> <img alt="http://bks0.books.google.com/books?id=2e73K_jXdfcC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U35K6wElPYG2wUE8zEBQ-QU0AgPfA" src="http://bks0.books.google.com/books?id=2e73K_jXdfcC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U35K6wElPYG2wUE8zEBQ-QU0AgPfA" /> <img alt="http://bks0.books.google.com/books?id=b4LWXLRBRLsC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2FVscbkXMEdwtUQBeERDYIxVqmzg" src="http://bks0.books.google.com/books?id=b4LWXLRBRLsC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2FVscbkXMEdwtUQBeERDYIxVqmzg" /></p>
+<p>안보는 깨끗한 원서 팝니다 ㅠㅠ</p>
+<p>그리고나서 대략 4-5년 정도가 흘렀다. 지금은 많은 웹스타트업들이 클라우드 컴퓨팅을 적극 활용하고 있고, 어느새 나도 gmail 과 google docs 를 업무용으로 사용하고 있다. <a href="http://xguru.net/blog/488.html">마이크로소프트도 아마존과 구글의 뒤를 이어서 아쭈르(Azure)라는 걸 선보이고</a> 있고, (아마도 실버라이트랑 연계되지 않을까?) 최근에는 "사례로 읽는 클라우드 컴퓨팅"이라는 책도 사뒀는데, 버스에서 자느라 읽을 새가 없다. OTL</p>
+<p><img alt="사례로 읽는 클라우드 컴퓨팅" src="http://image.kangcom.com/l_pic/200902100008.jpg" /><br />
+사례로 읽는 클라우드 컴퓨팅. 제목 그대로니까 속으면 곤란하다.</p>
+<p>몇 주 전<a href="http://betterways.tistory.com/"> Kay 님</a>이 클라우드 컴퓨팅을 이용한 게임 서버 퍼블리싱 사업(예전에 블레이스 서버 호스팅 비스므리한)은 어떻겠냐고 물으셨다. (이거 밝혀도 문제 없겠죠? ㅋㅋ) 그때 클라우드들이 HTTP의 느린 응답성이나 동기화가 왜 어려운가..라든지, 구글 앱 엔진이 스케줄링 같은 걸 지원하지 않는 것에 대해 한참 이야기를 했었다. 최근에 이런 저런 이야기를 많이 줏어들으며 곰곰히 생각해보니, 어떻게든 분산을 희생해서 적당히 요청을 한 곳에 몰아주는 정책만 허용해준다면 어떻게 될 법도 해 보였다. 그래도 MMORPG 서버 호스팅은 아직까지는 힘들고, 웹 게임들, 보드 게임들이나 시뮬레이션 게임들의 서버라든지, XBOX Live 나 Steamworks 같은 인증+커뮤니티+배포+리더보드+매치메이킹 정도의 활용 가능성은 충분해 보인다. (그러고 보니 <a href="http://www.steampowered.com/steamworks/index.php">스팀도 자기들이 클라우드라고 주장</a>하고 있다)</p>
+<p><code>Store data in Steam Cloud for your users. The Steam Cloud API allows your game to write and retrieve files for each user. Use it for personalized settings like keyboard, mouse, and gamepad configurations, multiplayer sprays, or even saved games. Steam Cloud is a natural extension of the portability that Steam affords gamers. Shipped with Left 4 Dead, Steam Cloud is now a proven resource and is becoming an integral part of the Steam experience.</code></p>
+<p>앱스토어의 흥행으로 삼성이나 NHN 같은 국내 회사들이 비슷한 걸 만들고 있단다. 퍼블리셔들도 이제는 정신차리고 괜히 50-100억 주고 비싼 게임 들여왔다가 돈 날리지 말고, 잡쉐어링을 위해서라도 개인이나 중소 게임사들이 손쉽게 퍼블리싱할 수 있게 이런 쪽으로 분발해주길 바란다. 구글앱엔진, 엑박라이브, 스팀, 앱스토어의 장점을 하나로 합치는 웹 기반의 게임 플랫폼 SDK 라도 좀 뿌려주면 얼마나 좋을까. 기본적으로 무료 트래픽, 수익은 1:9, 컨텐트는 루아, P2P는 기본, 웹용 무료 3D엔진 제공, 게임 동영상이나 커뮤니티는 다음이나 네이버 블로그/까페 연동, 스샷은 flickr, 실시간 방송은 아프리카, 간편하고 손쉬운 in-game 결제 시스템과 자동화된 상점, 신뢰할만한 보안 모듈(nprotect 말고), 플래시도 지원, 이슈 관리 시스템 및 소스 버전 관리도 제공, ... 뭐 적다 보니 끝이 없구나. ㅋㅋ</p>
+<p>ps. 마지막 문단을 쓰고 나서 주위를 둘러보니 한숨만 나오는군하.</p></div>
+	
+	<p>
+	
+		<a href="/tag/google/"><span class="label">google</span></a>
+	
+		<a href="/tag/steam/"><span class="label">steam</span></a>
+	
+		<a href="/tag/cloud/"><span class="label">cloud</span></a>
+	
+		<a href="/tag/xbox/"><span class="label">xbox</span></a>
+	
+	</p>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/8/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/8">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2009/05/17/fail-fast-fail-often/">Fail Fast, Fail Often</a>
+	</li>
+	
+	<li>
+		<a href="/2009/05/01/named-boost-tuple/">Named Boost Tuple</a>
+	</li>
+	
+	<li>
+		<a href="/2009/05/01/first-chance-exception-the-tag-is-invalid/">first chance exception : The tag is invalid</a>
+	</li>
+	
+	<li>
+		<a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a>
+	</li>
+	
+	<li>
+		<a href="/2009/04/12/cloud-computing-for-online-game/">Cloud Computing For Online Game</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

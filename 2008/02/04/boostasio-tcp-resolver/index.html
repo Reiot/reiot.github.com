@@ -1,678 +1,269 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>boost::asio TCP resolver - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="한가로운 주말, 최신 BOOST 를 vc81로 빌드하고 ASIO를 만지작거려 봤다. 대충 훑어본 바, 이 정도면 지금 코드에서 충분히 ACE를 제거해도 될 수준의 기능인 듯하다. 어차피 둘 다 디버깅 들어가면 템플릿 사이에서 헤매이는 건 마찬가지니&#8230; 1
-2 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2008/02/04/boostasio-tcp-resolver">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Boost::asio TCP Resolver</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-04T09:36:21+09:00" pubdate data-updated="true">Feb 4<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>한가로운 주말, 최신 BOOST 를 vc81로 빌드하고 <a href="http://asio.sourceforge.net/">ASIO</a>를 만지작거려 봤다. 대충 훑어본 바, 이 정도면 지금 코드에서 충분히 ACE를 제거해도 될 수준의 기능인 듯하다. 어차피 둘 다 디버깅 들어가면 템플릿 사이에서 헤매이는 건 마찬가지니&#8230;</p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2008/02/04/boostasio-tcp-resolver/">boost::asio TCP resolver</a> <small>2008-02-04</small></h1>
+	</div>
+	<div><p>한가로운 주말, 최신 BOOST 를 vc81로 빌드하고 <a href="http://asio.sourceforge.net/">ASIO</a>를 만지작거려 봤다. 대충 훑어본 바, 이 정도면 지금 코드에서 충분히 ACE를 제거해도 될 수준의 기능인 듯하다. 어차피 둘 다 디버깅 들어가면 템플릿 사이에서 헤매이는 건 마찬가지니...</p>
 <!--more-->
 
+<pre><code>
+// TODO multiple ip address in localmachine (..localmachine)
+BOOST_AUTO_TEST_CASE( test_resolver )
+{
+ boost::asio::io_service io_service;
+ boost::system::error_code error;
+ tcp::resolver resolver(io_service);
+ tcp::resolver::iterator end_;
 
+ // localmachine
+ {
+  tcp::resolver::query query(boost::asio::ip::host_name(),&quot;&quot;);
+  tcp::resolver::iterator iterator = resolver.resolve(query);
+  tcp::endpoint _endpoint = *iterator;
+  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;192.168.10.101&quot; );
+ }
 
+ // host -&gt; ip
+ {
+  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;&quot;);
+  tcp::resolver::iterator iterator = resolver.resolve(query);
+  tcp::endpoint _endpoint = *iterator;
+  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
+ }
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-<span class='line-number'>148</span>
-<span class='line-number'>149</span>
-<span class='line-number'>150</span>
-<span class='line-number'>151</span>
-<span class='line-number'>152</span>
-<span class='line-number'>153</span>
-<span class='line-number'>154</span>
-<span class='line-number'>155</span>
-<span class='line-number'>156</span>
-<span class='line-number'>157</span>
-<span class='line-number'>158</span>
-<span class='line-number'>159</span>
-<span class='line-number'>160</span>
-<span class='line-number'>161</span>
-<span class='line-number'>162</span>
-<span class='line-number'>163</span>
-<span class='line-number'>164</span>
-<span class='line-number'>165</span>
-<span class='line-number'>166</span>
-<span class='line-number'>167</span>
-<span class='line-number'>168</span>
-<span class='line-number'>169</span>
-<span class='line-number'>170</span>
-<span class='line-number'>171</span>
-<span class='line-number'>172</span>
-<span class='line-number'>173</span>
-<span class='line-number'>174</span>
-<span class='line-number'>175</span>
-<span class='line-number'>176</span>
-<span class='line-number'>177</span>
-<span class='line-number'>178</span>
-<span class='line-number'>179</span>
-<span class='line-number'>180</span>
-<span class='line-number'>181</span>
-<span class='line-number'>182</span>
-<span class='line-number'>183</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="c1">// TODO multiple ip address in localmachine (..localmachine)</span>
-</span><span class='line'><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span> <span class="n">test_resolver</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="err"> </span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">io_service</span> <span class="n">io_service</span><span class="p">;</span>
-</span><span class='line'><span class="err"> </span><span class="n">boost</span><span class="o">::</span><span class="n">system</span><span class="o">::</span><span class="n">error_code</span> <span class="n">error</span><span class="p">;</span>
-</span><span class='line'><span class="err"> </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span> <span class="n">resolver</span><span class="p">(</span><span class="n">io_service</span><span class="p">);</span>
-</span><span class='line'><span class="err"> </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">iterator</span> <span class="n">end_</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// localmachine</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">ip</span><span class="o">::</span><span class="n">host_name</span><span class="p">(),</span><span class="s">&quot;&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">resolver</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">query</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">_endpoint</span> <span class="o">=</span> <span class="o">*</span><span class="n">iterator</span><span class="p">;</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">_endpoint</span><span class="p">.</span><span class="n">address</span><span class="p">().</span><span class="n">to_string</span><span class="p">(),</span> <span class="s">&quot;192.168.10.101&quot;</span> <span class="p">);</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// host -&gt; ip</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot.cafe24.com&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">resolver</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">query</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">_endpoint</span> <span class="o">=</span> <span class="o">*</span><span class="n">iterator</span><span class="p">;</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">_endpoint</span><span class="p">.</span><span class="n">address</span><span class="p">().</span><span class="n">to_string</span><span class="p">(),</span> <span class="s">&quot;123.214.172.49&quot;</span> <span class="p">);</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// localhost</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">resolver</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">query</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">_endpoint</span> <span class="o">=</span> <span class="o">*</span><span class="n">iterator</span><span class="p">;</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">_endpoint</span><span class="p">.</span><span class="n">address</span><span class="p">().</span><span class="n">to_string</span><span class="p">(),</span> <span class="s">&quot;127.0.0.1&quot;</span> <span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="k">if</span> <span class="p">(</span> <span class="o">++</span><span class="n">iterator</span> <span class="o">!=</span> <span class="n">end_</span> <span class="p">)</span>
-</span><span class='line'><span class="err">  </span><span class="p">{</span>
-</span><span class='line'><span class="err">   </span><span class="n">_endpoint</span> <span class="o">=</span> <span class="o">*</span><span class="n">iterator</span><span class="p">;</span>
-</span><span class='line'><span class="err">   </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">_endpoint</span><span class="p">.</span><span class="n">address</span><span class="p">().</span><span class="n">to_string</span><span class="p">(),</span> <span class="s">&quot;192.168.10.101&quot;</span> <span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="p">}</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// http</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot.cafe24.com&quot;</span><span class="p">,</span><span class="s">&quot;http&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">resolver</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">query</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">_endpoint</span> <span class="o">=</span> <span class="o">*</span><span class="n">iterator</span><span class="p">;</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">_endpoint</span><span class="p">.</span><span class="n">address</span><span class="p">().</span><span class="n">to_string</span><span class="p">(),</span> <span class="s">&quot;123.214.172.49&quot;</span> <span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">_endpoint</span><span class="p">.</span><span class="n">port</span><span class="p">(),</span> <span class="mi">80</span> <span class="p">);</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// ftp</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot.cafe24.com&quot;</span><span class="p">,</span><span class="s">&quot;ftp&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">resolver</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">query</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">_endpoint</span> <span class="o">=</span> <span class="o">*</span><span class="n">iterator</span><span class="p">;</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">_endpoint</span><span class="p">.</span><span class="n">address</span><span class="p">().</span><span class="n">to_string</span><span class="p">(),</span> <span class="s">&quot;123.214.172.49&quot;</span> <span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">_endpoint</span><span class="p">.</span><span class="n">port</span><span class="p">(),</span> <span class="mi">21</span> <span class="p">);</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// telnet</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot.cafe24.com&quot;</span><span class="p">,</span><span class="s">&quot;telnet&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">resolver</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">query</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">_endpoint</span> <span class="o">=</span> <span class="o">*</span><span class="n">iterator</span><span class="p">;</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">_endpoint</span><span class="p">.</span><span class="n">address</span><span class="p">().</span><span class="n">to_string</span><span class="p">(),</span> <span class="s">&quot;123.214.172.49&quot;</span> <span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">_endpoint</span><span class="p">.</span><span class="n">port</span><span class="p">(),</span> <span class="mi">23</span> <span class="p">);</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// unknown host</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot1.com&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">resolver</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">query</span><span class="p">,</span><span class="n">error</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">error</span><span class="p">.</span><span class="n">value</span><span class="p">(),</span> <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">error</span><span class="o">::</span><span class="n">host_not_found</span> <span class="p">);</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// unknown service</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot.cafe24.com&quot;</span><span class="p">,</span><span class="s">&quot;test&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">resolver</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">query</span><span class="p">,</span><span class="n">error</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">error</span><span class="p">.</span><span class="n">value</span><span class="p">(),</span> <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">error</span><span class="o">::</span><span class="n">service_not_found</span> <span class="p">);</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">print_address</span><span class="p">(</span><span class="k">const</span> <span class="n">boost</span><span class="o">::</span><span class="n">system</span><span class="o">::</span><span class="n">error_code</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">,</span> <span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="err"> </span><span class="n">tcp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">endpoint_</span> <span class="o">=</span> <span class="o">*</span><span class="n">itr</span><span class="p">;</span>
-</span><span class='line'><span class="err"> </span><span class="n">BOOST_MESSAGE</span><span class="p">(</span> <span class="n">endpoint_</span><span class="p">.</span><span class="n">address</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">AsyncResolveHandler</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="k">public</span> <span class="o">:</span>
-</span><span class='line'><span class="err"> </span><span class="n">AsyncResolveHandler</span><span class="p">(</span> <span class="kt">int</span> <span class="n">errorcode</span> <span class="p">)</span> <span class="o">:</span> <span class="n">address_</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">),</span> <span class="n">port_</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">errorcode_</span><span class="p">(</span><span class="n">errorcode</span><span class="p">)</span> <span class="p">{}</span>
-</span><span class='line'><span class="err"> </span><span class="n">AsyncResolveHandler</span><span class="p">(</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">addr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">)</span> <span class="o">:</span> <span class="n">address_</span><span class="p">(</span><span class="n">addr</span><span class="p">),</span> <span class="n">port_</span><span class="p">(</span><span class="n">port</span><span class="p">)</span> <span class="p">{}</span>
-</span><span class='line'><span class="err"> </span><span class="kt">void</span> <span class="k">operator</span><span class="p">()</span> <span class="p">(</span><span class="k">const</span> <span class="n">boost</span><span class="o">::</span><span class="n">system</span><span class="o">::</span><span class="n">error_code</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">,</span> <span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="p">)</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">e</span> <span class="p">)</span>
-</span><span class='line'><span class="err">  </span><span class="p">{</span>
-</span><span class='line'><span class="err">   </span><span class="n">tcp</span><span class="o">::</span><span class="n">endpoint</span> <span class="n">endpoint_</span> <span class="o">=</span> <span class="o">*</span><span class="n">itr</span><span class="p">;</span>
-</span><span class='line'><span class="err">   </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">endpoint_</span><span class="p">.</span><span class="n">address</span><span class="p">().</span><span class="n">to_string</span><span class="p">(),</span> <span class="n">address_</span> <span class="p">);</span>
-</span><span class='line'><span class="err">   </span><span class="k">if</span> <span class="p">(</span> <span class="n">port_</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">)</span>
-</span><span class='line'><span class="err">   </span><span class="p">{</span>
-</span><span class='line'><span class="err">    </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">endpoint_</span><span class="p">.</span><span class="n">port</span><span class="p">(),</span> <span class="n">port_</span> <span class="p">);</span>
-</span><span class='line'><span class="err">   </span><span class="p">}</span>
-</span><span class='line'><span class="err">  </span><span class="p">}</span>
-</span><span class='line'><span class="err">  </span><span class="k">else</span>
-</span><span class='line'><span class="err">  </span><span class="p">{</span>
-</span><span class='line'><span class="err">   </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">e</span><span class="p">.</span><span class="n">value</span><span class="p">(),</span> <span class="n">errorcode_</span> <span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="p">}</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'><span class="err"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">address_</span><span class="p">;</span>
-</span><span class='line'><span class="err"> </span><span class="kt">int</span> <span class="n">port_</span><span class="p">;</span>
-</span><span class='line'><span class="err"> </span><span class="kt">int</span> <span class="n">errorcode_</span><span class="p">;</span>
-</span><span class='line'><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span> <span class="n">test_async_resolver</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="err"> </span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">io_service</span> <span class="n">io_service</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span> <span class="n">resolver</span><span class="p">(</span><span class="n">io_service</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="n">boost</span><span class="o">::</span><span class="n">system</span><span class="o">::</span><span class="n">error_code</span> <span class="n">error</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// host -&gt; ip</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot.cafe24.com&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">resolver</span><span class="p">.</span><span class="n">async_resolve</span><span class="p">(</span><span class="n">query</span><span class="p">,</span><span class="n">AsyncResolveHandler</span><span class="p">(</span><span class="s">&quot;123.214.172.49&quot;</span><span class="p">));</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">io_service</span><span class="p">.</span><span class="n">run_one</span><span class="p">(</span><span class="n">error</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_MESSAGE</span><span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">,</span><span class="n">error</span><span class="p">.</span><span class="n">message</span><span class="p">());</span>
-</span><span class='line'><span class="err">  </span><span class="n">io_service</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// localhost -&gt; 127.0.0.1</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">resolver</span><span class="p">.</span><span class="n">async_resolve</span><span class="p">(</span><span class="n">query</span><span class="p">,</span><span class="n">AsyncResolveHandler</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">));</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">io_service</span><span class="p">.</span><span class="n">run_one</span><span class="p">(</span><span class="n">error</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_MESSAGE</span><span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">,</span><span class="n">error</span><span class="p">.</span><span class="n">message</span><span class="p">());</span>
-</span><span class='line'><span class="err">  </span><span class="n">io_service</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// http</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot.cafe24.com&quot;</span><span class="p">,</span><span class="s">&quot;http&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">resolver</span><span class="p">.</span><span class="n">async_resolve</span><span class="p">(</span><span class="n">query</span><span class="p">,</span><span class="n">AsyncResolveHandler</span><span class="p">(</span><span class="s">&quot;123.214.172.49&quot;</span><span class="p">,</span><span class="mi">80</span><span class="p">));</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">io_service</span><span class="p">.</span><span class="n">run_one</span><span class="p">(</span><span class="n">error</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_MESSAGE</span><span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">,</span><span class="n">error</span><span class="p">.</span><span class="n">message</span><span class="p">());</span>
-</span><span class='line'><span class="err">  </span><span class="n">io_service</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// ftp</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot.cafe24.com&quot;</span><span class="p">,</span><span class="s">&quot;ftp&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">resolver</span><span class="p">.</span><span class="n">async_resolve</span><span class="p">(</span><span class="n">query</span><span class="p">,</span><span class="n">AsyncResolveHandler</span><span class="p">(</span><span class="s">&quot;123.214.172.49&quot;</span><span class="p">,</span><span class="mi">21</span><span class="p">));</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">io_service</span><span class="p">.</span><span class="n">run_one</span><span class="p">(</span><span class="n">error</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_MESSAGE</span><span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">,</span><span class="n">error</span><span class="p">.</span><span class="n">message</span><span class="p">());</span>
-</span><span class='line'><span class="err">  </span><span class="n">io_service</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// telnet</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot.cafe24.com&quot;</span><span class="p">,</span><span class="s">&quot;telnet&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">resolver</span><span class="p">.</span><span class="n">async_resolve</span><span class="p">(</span><span class="n">query</span><span class="p">,</span><span class="n">AsyncResolveHandler</span><span class="p">(</span><span class="s">&quot;123.214.172.49&quot;</span><span class="p">,</span><span class="mi">23</span><span class="p">));</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">io_service</span><span class="p">.</span><span class="n">run_one</span><span class="p">(</span><span class="n">error</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_MESSAGE</span><span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">,</span><span class="n">error</span><span class="p">.</span><span class="n">message</span><span class="p">());</span>
-</span><span class='line'><span class="err">  </span><span class="n">io_service</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// unknown host</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot1.com&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">resolver</span><span class="p">.</span><span class="n">async_resolve</span><span class="p">(</span><span class="n">query</span><span class="p">,</span><span class="n">AsyncResolveHandler</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">error</span><span class="o">::</span><span class="n">host_not_found</span><span class="p">));</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">io_service</span><span class="p">.</span><span class="n">run_one</span><span class="p">(</span><span class="n">error</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_MESSAGE</span><span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">,</span><span class="n">error</span><span class="p">.</span><span class="n">message</span><span class="p">());</span>
-</span><span class='line'><span class="err">  </span><span class="n">io_service</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="err"> </span><span class="c1">// unknown service</span>
-</span><span class='line'><span class="err"> </span><span class="p">{</span>
-</span><span class='line'><span class="err">  </span><span class="n">tcp</span><span class="o">::</span><span class="n">resolver</span><span class="o">::</span><span class="n">query</span> <span class="n">query</span><span class="p">(</span><span class="s">&quot;reiot.cafe24.com&quot;</span><span class="p">,</span><span class="s">&quot;test&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">resolver</span><span class="p">.</span><span class="n">async_resolve</span><span class="p">(</span><span class="n">query</span><span class="p">,</span><span class="n">AsyncResolveHandler</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">error</span><span class="o">::</span><span class="n">service_not_found</span><span class="p">));</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">io_service</span><span class="p">.</span><span class="n">run_one</span><span class="p">(</span><span class="n">error</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'><span class="err">  </span><span class="n">BOOST_CHECK_MESSAGE</span><span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">,</span><span class="n">error</span><span class="p">.</span><span class="n">message</span><span class="p">());</span>
-</span><span class='line'><span class="err">  </span><span class="n">io_service</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
-</span><span class='line'><span class="err"> </span><span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+ // localhost
+ {
+  tcp::resolver::query query(&quot;localhost&quot;,&quot;&quot;);
+  tcp::resolver::iterator iterator = resolver.resolve(query);
+  tcp::endpoint _endpoint = *iterator;
+  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;127.0.0.1&quot; );
+  if ( ++iterator != end_ )
+  {
+   _endpoint = *iterator;
+   BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;192.168.10.101&quot; );
+  }
+ }
 
-</div>
+ // http
+ {
+  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;http&quot;);
+  tcp::resolver::iterator iterator = resolver.resolve(query);
+  tcp::endpoint _endpoint = *iterator;
+  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
+  BOOST_CHECK_EQUAL( _endpoint.port(), 80 );
+ }
 
+ // ftp
+ {
+  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;ftp&quot;);
+  tcp::resolver::iterator iterator = resolver.resolve(query);
+  tcp::endpoint _endpoint = *iterator;
+  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
+  BOOST_CHECK_EQUAL( _endpoint.port(), 21 );
+ }
 
-  <footer>
-    <p class="meta">
-      
-  
+ // telnet
+ {
+  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;telnet&quot;);
+  tcp::resolver::iterator iterator = resolver.resolve(query);
+  tcp::endpoint _endpoint = *iterator;
+  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
+  BOOST_CHECK_EQUAL( _endpoint.port(), 23 );
+ }
 
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+ // unknown host
+ {
+  tcp::resolver::query query(&quot;reiot1.com&quot;,&quot;&quot;);
+  resolver.resolve(query,error);
+  BOOST_CHECK_EQUAL( error.value(), boost::asio::error::host_not_found );
+ }
 
-      
+ // unknown service
+ {
+  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;test&quot;);
+  resolver.resolve(query,error);
+  BOOST_CHECK_EQUAL( error.value(), boost::asio::error::service_not_found );
+ }
+}
 
+void print_address(const boost::system::error_code&amp; e, tcp::resolver::iterator itr )
+{
+ tcp::endpoint endpoint_ = *itr;
+ BOOST_MESSAGE( endpoint_.address() );
+}
 
+class AsyncResolveHandler
+{
+public :
+ AsyncResolveHandler( int errorcode ) : address_(&quot;&quot;), port_(0), errorcode_(errorcode) {}
+ AsyncResolveHandler( std::string addr, int port = 0 ) : address_(addr), port_(port) {}
+ void operator() (const boost::system::error_code&amp; e, tcp::resolver::iterator itr )
+ {
+  if ( !e )
+  {
+   tcp::endpoint endpoint_ = *itr;
+   BOOST_CHECK_EQUAL( endpoint_.address().to_string(), address_ );
+   if ( port_ != 0 )
+   {
+    BOOST_CHECK_EQUAL( endpoint_.port(), port_ );
+   }
+  }
+  else
+  {
+   BOOST_CHECK_EQUAL( e.value(), errorcode_ );
+  }
+ }
+ std::string address_;
+ int port_;
+ int errorcode_;
+};
 
+BOOST_AUTO_TEST_CASE( test_async_resolver )
+{
+ boost::asio::io_service io_service;
 
+ tcp::resolver resolver(io_service);
 
+ boost::system::error_code error;
 
+ // host -&gt; ip
+ {
+  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;&quot;);
+  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;));
+  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
+  BOOST_CHECK_MESSAGE(!error,error.message());
+  io_service.reset();
+ }
 
+ // localhost -&gt; 127.0.0.1
+ {
+  tcp::resolver::query query(&quot;localhost&quot;,&quot;&quot;);
+  resolver.async_resolve(query,AsyncResolveHandler(&quot;127.0.0.1&quot;));
+  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
+  BOOST_CHECK_MESSAGE(!error,error.message());
+  io_service.reset();
+ }
 
-  
+ // http
+ {
+  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;http&quot;);
+  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;,80));
+  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
+  BOOST_CHECK_MESSAGE(!error,error.message());
+  io_service.reset();
 
+ }
 
-<time datetime="2008-02-04T09:36:21+09:00" pubdate data-updated="true">Feb 4<span>th</span>, 2008</time>
-      
+ // ftp
+ {
+  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;ftp&quot;);
+  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;,21));
+  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
+  BOOST_CHECK_MESSAGE(!error,error.message());
+  io_service.reset();
+ }
 
+ // telnet
+ {
+  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;telnet&quot;);
+  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;,23));
+  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
+  BOOST_CHECK_MESSAGE(!error,error.message());
+  io_service.reset();
+ }
 
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2008/02/04/boostasio-tcp-resolver/" data-via="reiot" data-counturl="http://reiot.com/2008/02/04/boostasio-tcp-resolver/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
+ // unknown host
+ {
+  tcp::resolver::query query(&quot;reiot1.com&quot;,&quot;&quot;);
+  resolver.async_resolve(query,AsyncResolveHandler(boost::asio::error::host_not_found));
+  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
+  BOOST_CHECK_MESSAGE(!error,error.message());
+  io_service.reset();
+ }
 
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2008/01/30/solid-compression/" title="Previous Post: Solid Compression">&laquo; Solid Compression</a>
-      
-      
-        <a class="basic-alignment right" href="/2008/02/04/anticheatengine/" title="next Post: AntiCheatEngine">AntiCheatEngine &raquo;</a>
-      
-    </p>
-  </footer>
+ // unknown service
+ {
+  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;test&quot;);
+  resolver.async_resolve(query,AsyncResolveHandler(boost::asio::error::service_not_found));
+  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
+  BOOST_CHECK_MESSAGE(!error,error.message());
+  io_service.reset();
+ }
+}
+
+</code></pre></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2008/02/04/boostasio-tcp-resolver/';
-        var disqus_url = 'http://reiot.com/2008/02/04/boostasio-tcp-resolver/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

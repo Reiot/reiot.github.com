@@ -1,913 +1,208 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="어제 갑자기 DB에 문제가 생겨서 여러 사람이 손댄 프로시저를 읽다가 도저히 적응이 안되어서 구글로 SQL Beautifier를 검색해 보았다. 그 중에서 무료이면서 가장 쓸만한 웹 기반의 SQL beautifier가 바로 Instant SQL Formatter &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/38">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/11/16/online-sql-beautifier/">Online SQL Beautifier</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-11-16T08:40:15+09:00" pubdate data-updated="true">Nov 16<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://www.wangz.net/gsqlparser/sqlpp/sqlpponline.gif" title="sqlpponline" ></p>
-
-<p>어제 갑자기 DB에 문제가 생겨서 여러 사람이 손댄 프로시저를 읽다가 도저히 적응이 안되어서 <a href="http://www.google.co.kr/search?q=SQL+beautifier">구글로 SQL Beautifier를 검색</a>해 보았다. 그 중에서 무료이면서 가장 쓸만한 웹 기반의 SQL beautifier가 바로 <a href="http://www.wangz.net/cgi-bin/pp/gsqlparser/sqlpp/sqlformat.tpl">Instant SQL Formatter</a> 이었다. 물론 Visual Studio 나 Query Analyzer에 연동하려면 클라이언트 버전도 있지만, 40 달러 정도 돈을 내야 한다.</p>
-
-<p>혹시나 이 보다 더 좋은 넘이 있다면 리플을 달아주시기 바란다. MS는 왜 이런 걸 기본으로 내장하지 않나 몰라.</p>
-
-<ul>
-<li>빈태님이 <a href="http://www.red-gate.com/products/SQL_Refactor/index.htm">SQL refactor</a>를 추천해주셨다. 감사..</li>
-<li>오늘 어떤 프로시저에서 또다른 프로시저를 호출하다가 @@transcount 가 0 -> 1 로 변하는 에러를 처음 발견했다. 아직 정확한 이유는 모르지만, 이런 에러 처음이야~</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/11/08/%E1%84%91%E1%85%AE%E1%84%8F%E1%85%A6%E1%86%BA-%E1%84%83%E1%85%A1%E1%84%82%E1%85%A7%E1%84%8B%E1%85%AA%E1%86%BB%E1%84%89%E1%85%B3%E1%86%B8%E1%84%82%E1%85%B5%E1%84%83%E1%85%A1/">푸켓 다녀왔습니다.</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-11-08T21:02:53+09:00" pubdate data-updated="true">Nov 8<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.flickr.com/photos/reiot/291900834/" title="Photo Sharing"><img src="http://static.flickr.com/116/291900834_99c491a692_o.jpg"></a></p>
-
-<p><a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900836"><img src="http://static.flickr.com/119/291900836_9fe458d788_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900838"><img src="http://static.flickr.com/99/291900838_5653c66acd_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900843"><img src="http://static.flickr.com/101/291900843_579c4ae1e2_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291955023"><img src="http://static.flickr.com/100/291955023_b887855ce2_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291955035"><img src="http://static.flickr.com/102/291955035_a4f5d4e072_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291956330"><img src="http://static.flickr.com/118/291956330_2d4babfa01_s.jpg"></a></p>
-
-<p>더 많은 사진은 <a href="http://www.flickr.com/photos/reiot/sets/72157594239187109/show/">레이옷의 플릭커</a>를 참고하셔요</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/10/24/%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A5%E1%86%AB-%E1%84%90%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5-%E1%84%8B%E1%85%B5%E1%86%BB%E1%84%8B%E1%85%A5%E1%86%BB%E1%84%8B%E1%85%B3%E1%84%86%E1%85%A7%E1%86%AB-%E1%84%8C%E1%85%A9%E1%87%82%E1%84%80%E1%85%A6%E1%86%BB%E1%84%83%E1%85%A1/">이런 툴이 있었으면 좋겠다</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-10-24T22:52:54+09:00" pubdate data-updated="true">Oct 24<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>ProjectDiff : Visual Studio 프로젝트 속성을 비교하거나 merge해주는 툴</li>
-<li>IntDir, OutDir, 포함/라이브러리 디렉토리 설정, 링킹 라이브러리 등의 프로젝트 속성을 매번마다 세팅하는 것은 너무나되 귀찮은 일이다.</li>
-<li>특정 프로젝트로부터 복사해오거나 비교한 후 그래픽적으로 merge 해주는 기능이 있으면 참 좋겠다.</li>
-<li>DatabaseDiff : 2개의 데이터베이스를 비교해서 그래픽적으로 차이점을 보여주는 툴</li>
-<li>덤으로 패치 스크립트를 만들어주면 금상첨화</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/10/20/%E1%84%8C%E1%85%A9%E1%84%80%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%8B%E1%85%A9%E1%84%85%E1%85%A2%E1%84%83%E1%85%AC%E1%86%AB-%E1%84%8C%E1%85%A2%E1%84%86%E1%85%B5%E1%84%8B%E1%85%B5%E1%86%BB%E1%84%82%E1%85%B3%E1%86%AB-it-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF%E1%84%8C%E1%85%A1%E1%84%83%E1%85%B3%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%90%E1%85%A9%E1%84%85%E1%85%A9%E1%86%AB/">조금은 오래된, 재미있는 IT 개발자들의 토론</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-10-20T22:39:08+09:00" pubdate data-updated="true">Oct 20<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.javaservice.net/~java/bbs/read.cgi?m=resource&amp;b=chat2&amp;c=r_p&amp;n=1097846224&amp;p=6&amp;s=t#1097846224">2004년 자바서비스넷의 어느 청년의 고민담</a>에 달린 수많은 리플들. IT 개발자라면 한번쯤 읽어봤으면 한다. 내 안에도 찌질이가 살고 있지만, 저렇게 살고 싶지는 않다. 그리고 중간에 일본사는넘이라는 분의 이야기는 꼭 읽어보기를.</p>
-
-<p>그러고보니 내가 스물 다섯일 때는 얼른 10억 벌고 서른살에 은퇴해서 캐나다에서 송어 낚시를 하는게 꿈이었는데&#8230; 벌써 서른 둘이 되어 버렸다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/10/19/steam-war-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%83%E1%85%A2%E1%84%8C%E1%85%A5%E1%86%AB-mmofps/">Steam War : 함대전 MMOFPS</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-10-19T09:48:08+09:00" pubdate data-updated="true">Oct 19<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.lazeska.com/" class="imagelink" title="라제스카"><img src="http://boxcatstudio.files.wordpress.com/2009/07/lz.jpg" title="라제스카" ></a>
-<a href="http://www.lazeska.com/">이 그림 한장 </a>덕분에 잊혀졌던 함대전 MMOFPS의 추억이 되살아났다. (역시나 수백번 글로 써봐도 그림 한장이 주는 감동은 따라갈 수 없다) 어쨌든, 한동안 비공개로 해놓고 혼자 끄적여 봤는데, 아무래도 몇 년 동안은 MMO 개발을 할 수 없을 것 같아서 이참에 공개해본다. 재미로 쓴 글이므로 현실감이 없더라도 웃으면 곤란. 핫핫.<a href="http://boxcatstudio.files.wordpress.com/2009/07/203.jpg">
-</a></p>
-
-<pre><code>- 드넓은 하늘에서 수백, 수천대의 비행선, 비공정들이 펼치는 치열한 대규모 공중전. (그렇다. 레이옷은 XBOX의 크림슨 스카이에서 많은 감명을 받았다. 물론 코난이나 나우시카, 라퓨타, 붉은돼지 같은 지브리표 비공정도 무척 좋아한다. 무엇보다도 멋진 것은 은하영웅전설의 멋진 전술과 전략들을 리얼타임으로 구현해 내는 것.)
-- 때는 1940년대, 증기기관이 전세계적 주동력이 되어버린 팩션(가상역사)의 세계. 신기술을 기반으로 나치 동맹군은 세계대전을 일으킨다. 플레이어는 연합군과 동맹군, 중립국연합 중의 하나의 세력을 선택해서 전쟁을 치른다.
-- 다른 플레이어들 또는 AI 편대를 이끌고 나치(혹은 연합군)를 무찔러라. 수 십 대의 모선에서 출발한 수 백 대의 프로펠러기가 날아다니며, 수 백개의 미사일, 수 천발의 총알 속에서 살아남아라. 거대한 비공정을 건조하고, 수 십대의 동료 모선들과 함께 전략을 구상하고 전술을 실행하라. 히틀러, 괴벨, 롬멜, 처칠 같은 영웅 NPC가 지휘하는 초거대비공정을 수백명의 동지들과 함께 공략하라. (레이드?)
-- 레벨이 올라가면 다수의 편대를 이끌거나, 보다 거대하고 화력이 강한 비행선을 조종할 수 있다. 대형 비공정은 여러 플레이어가 역할을 분담해서 움직여야 한다.
-- 모든 비행기들은 증기 기관 또는 열기구를 주 동력원으로 사용하며, 이동을 위해서는 프로펠러를 사용한다. 오직 작은 미사일만이 화약추진체를 사용할 수 있다.  기본적인 무기는 느린 대포와 빠른 기관총, 그리고 아주 초기적인 유도 성능을 가진 미사일 만을 사용할 수 있다. 초기적인 레이다를 사용할 수 있다.  상대를 무찌르면 무기, 부품 등의 아이템이 떨어진다. 현상금을 받아 돈을 벌어 비행기를 업그레이드하거나 새로 산다. 부품이나 완제품을 경매장에 사고 팔 수 있다.
-- 세계 지도를 띄우면 언제 어디에서 전투가 일어나는지를 확인할 수 있다. 여기에서 AI 대전 또는 플레이어 대전을 선택하고 전투에 임한다. 각 전투 지역에는 몇 명이 참가해서 몇 분동안 싸우고 있는지 확인할 수 있다. 100 명 이상이 참가할 수 있는 대규모 전투는, 일정 시간마다 리스폰된다. 세계 지도에는 초대형 모선의 위치가 그려진다. 대체로 전투는 이 주위에서 이루어진다.
-- 전투 지역을 선택하면 AI가 움직이는 대형 모선에서 전투가 시작된다. (대체로 전투는 비슷한 규모로 시작된다. 만약 규모가 다르면 AI에 의해서 조정된다.) 이 대형 모선은 맵의 정반대편에서 대기하고 있으며, 방어력과 공격력이 좋아서 혼자 힘으로는 파괴하기가 어렵다. 불리할 경우 모선 안으로 대피해서 후퇴할 수 있다.
-</code></pre>
-
-<p>누가 빨리 만들어주세요. 매달 이만오천원 이하면 결제해 드립니다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/09/20/otl-tips/">OTL Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-09-20T16:52:38+09:00" pubdate data-updated="true">Sep 20<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong><em>[공지사항] 이 글은 더이상 업데이트되지 않으며, 최신 버전은<a href="http://reiot.springnote.com/pages/87217"> http://reiot.springnote.com/pages/87217</a>에서 읽으실 수 있습니다. </em></strong></p>
-
-<p><a href="http://otl.sourceforge.net/">OTL</a>은 ODBC를 잘 래핑한 오픈소스 DB 쿼리 라이브러리이다. 헤더 파일 하나만 있으면, 굳이 ODBC 래퍼 클래스를 만들지 않아도 충분히 안심하고 쓸 수 있으며, MYSQL, MSSQL, ORACLE 모두에 사용될 수 있다. 꽤 여러 곳에서 사용되고 있고, 평판도 좋다고 알려져 있어서 써봤는데, 대략 반년동안 사용해본 경험으로는, 차라리 OLE DB 를 쓰거나, ODBC 래핑 라이브러리를 어딘가에서 갖다 쓰는 게 더 개발기간을 단축시킬 수 있다고 판단된다. OTL 만의 미묘한 버그스러움이 너무 많기에&#8230; &#8221;&#8217;비추천&#8221;&#8217;이었다. 그러나 최근에 legacy code를 손보면서 raw ODBC 코드를 만지다가 결국 포기하고 다시 OTL을 도입한 적도 있어서, 뭐라고 표현하기는 난감하지만 하나 확실한 건, ODBC를 직접 만지는 것보다는 백만배 정도 나으므로, 한번 써보기를 권한다.</p>
-
-<h3>data binding</h3>
-
-<p>OTL type 과 ODBC type 과의 대응표를 잘못 기억했다가는 마감 시간에 낭패를 보는 경우가 있다. 특히 헷갈리는 타입들을 적어본다.</p>
-
-<table>
-<thead>
-<th>ODBC</th>
-<th>OTL</th>
-<td>bit</td>
-<td>int</td>
-<td>tinyint</td>
-<td>int</td>
-
-<tr>
-<td>smallint</td>
-<td>short</td>
-</tr>
-<tr>
-<td>datetime/smalldatetime</td>
-<td>char[N] (only for explicit-binding select)</td>
-</tr>
-</thead></table>
-
-
-<p>implicit_select 에서는 datetime -> string 바인딩은 지원되지 않으므로, convert() 등으로 변환해서 string 으로 받아야 한다. 그런데, explicit binding select 에서는 웬지 지원이 된다. 이유는&#8230;.모른다&#8230; <img src="http://boxcatstudio.files.wordpress.com/2009/07/icon_sad.gif" title="(" ></p>
-
-<p>timestamp 타입을 받으려면 아무래도 otl_datetime 을 사용하는 편이 좋을 것 같다. 그리고, built-in type 으로 바인딩을 하는 것보다는, otl_value<T>를 쓰면 NULL 체크도 되니깐 추천.</p>
-
-<h3>output parameter + implicit_select</h3>
-
-<p>잘 되던 프로시저의 output 파라미터의 값이 이상해진다든지 꼬일 경우, 새로 추가된 로직에 select 가 들어가있는지를 확인할 것. (ODBC의 한계는 아닌 듯한데) OTL에서의 프로시저는 output 파라미터만을 가지든, implicit_select 만을 하든, 둘 중 하나만 해야 한다. 아래와 같이 둘 다 할 경우 바보가 된다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">procedure</span> <span class="n">test_proc</span>
-</span><span class='line'><span class="o">@</span><span class="n">param</span> <span class="nb">int</span> <span class="k">output</span>
-</span><span class='line'><span class="k">AS</span>
-</span><span class='line'><span class="p">....</span>
-</span><span class='line'><span class="k">SELECT</span> <span class="n">something</span> <span class="k">FROM</span> <span class="n">tbl</span>
-</span><span class='line'><span class="n">IF</span> <span class="o">@@</span><span class="n">error</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@@</span><span class="n">rowcount</span> <span class="o">&lt;&gt;</span> <span class="n">N</span>
-</span><span class='line'><span class="p">....</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>위와 같은 코드들은 assignment select 로 해결하면 된다.</p>
-
-<h3>otl_implicit_select</h3>
-
-<p>output parameter 가 아닌, 내부에서 select 를 하는 프로시저의 경우 이 옵션을 명시해줘야 한다. 주의할 점은, datetime 이나 smalldatetime 을 내부에서 select 하고, OTL 에서 스트링으로 받으면 incompatible datatype 예외가 던져진다. 이때에는 varchar(N)으로 cast/convert 하는 것을 권장한다.</p>
-
-<h3>SET NOCOUNT ON/OFF</h3>
-
-<p>OTL/ODBC 의 가장 극악한 버그(?) 중의 하나이다.</p>
-
-<p>OTL 은 @@rowcount 와 다른 output parameter 또는 select 결과를 구분할 수 없다고 한다. 그래서, SET NOCOUNT 를 설정해야만 프로시저에서 값을 제대로 읽어올 수 있다. (이 문제 때문에 얼마나 많은 시간을 날려버렸던가!! 만약 OTL 에서 프로시저를 제대로 실행할 수 없다면 90% 는 이 문제라고 보면 된다.)</p>
-
-<p>주의할 점은, 프로시저 내부에서 다른 프로시저를 호출할 때 하위 프로시저에서 SET NOCOUNT OFF 를 해 버리면 그 뒤의 결과값 역시 꼬여버리게 된다는 점이다. 따라서, &#8221;&#8217;OTL 에서 직접 호출하는 프로시저의 시작과 끝에만 SET NOCOUNT 를 설정하고, 다른 프로시저에서는 절대 사용하지 말 것을 권장한다.&#8221;&#8217;</p>
-
-<h3>Multiple ResultSet</h3>
-
-<p>OTL/ODBC 에서는 공식 지원하지 않는다. 실제로 해보면 첫번째 result set 은 잘 받지만 두번째 이후부터는 eof() 가 되어 버린다. 결국, 해킹을 하거나 포기하는 수 밖에 없는데&#8230; 그래도 강제 실행을 시도해보겠다면 대략 다음과 같이 해 보기를&#8230; (내부 구조가 복잡해서 결국 포기했지만&#8230;)</p>
-
-<p>otl_stream stmt(1,
-&#8220;{CALL get_multi_resultset(:p&lt;int,in>)}&#8221;,
-conn,
-otl_implicit_select);
-stmt &lt;&lt;(int)1;
-otl_cur &amp; s = (**stmt.ss).cursor_struct;
-SQLRETURN result = SQLMoreResults( s.cda );</p>
-
-<h3>Binding varchar</h3>
-
-<p>문자열 바인딩시 NULL 을 위한 공간을 2바이트씩 예비해두어야 한다. 예를 들면, otl_statement 로 바인딩시 VARCHAR(10) 컬럼의 값을 읽거나 쓰려면 :XXX&lt;char[12]> 를 사용해야 한다는 뜻이다.</p>
-
-<h3>Constant SQL Statements</h3>
-
-<p>dynamic binding 이 필요없을 경우 otl_cursor::direct_exec() 를 사용해야 한다. &#8221;&#8217;반대로 말하면 otl_stream 에 static sql 을 사용하지 말라!&#8221;&#8217; rpc 를 알고 싶다면 otl_cursor::direct_exec() 의 리턴값을 사용하면 된다.</p>
-
-<h3>otl_connect::auto_commit_on()</h3>
-
-<p>otl_cursor::direct_exec() 를 이용해서 insert/delete 를 호출할 경우, 암시적인 트랜잭션이 발생해서 관련된 테이블이나 row 에 IX 를 걸게 된다. 따라서 다른 커넥션(otl_connect)에서 관련 테이블에 쿼리를 하게 되면 블로킹되는 불상사가 발생할 수 있다. 또는 아예 처음부터 커넥션 자체에 auto_commit_on()를 설정해서, 매 쿼리 실행마다 자동적으로 commit 를 하도록 하면 좋다.</p>
-
-<p>otl_stmt::set_commit()도 비슷한 역할을 하는 게 아닐까 추측한다.  그런데, 이 옵션을 켰을 때 동일 커넥션에 대해서 여러번 쿼리를 하는 경우 이미 사용중이라는 에러 메시지가 나온다. 도대체&#8230;. ㅠㅠ</p>
-
-<h3>ODBC Connection Pooling 기능 추가하기</h3>
-
-<p>OTL을 ThreadPooling 과 함께 사용하기 위해서는 Connection Pooling 이 필수적이다. (그렇지 않으면 Thread Local Storage를 사용해야 하는데, 이는 권장하지 않는다고 빌게이츠가 말했다 ㅎㅎ)</p>
-
-<p>테스트삼아, 단순한 SELECT COUNT(*) FROM XXX를 ThreadPooling 을 이용해서 로컬랜에 설치된 MSSQL 서버에 N번 쿼리를 큐잉하고 GetTickCount()로 시간을 체크해보았다. 이때, 풀링을 사용할 경우 평균 쿼리 시간이 5ms 정도 낮게 나왔으며 최소 쿼리 시간이 0 인 횟수가 꽤 많이 나왔다. 풀링을 하지 않을 경우에는 99% 의 확률로 10ms 이상의 시간이 소모되었다.</p>
-
-<pre><code>- 주의사항 i. shared environment 생성 전, 즉 rlogin() 전에 풀링을 설정해야 한다!! i. env 즉 프로세스당 풀링 대신 시스템 전체에서 연결을 풀링하고 싶다면 SQL_CP_ONE_PER_DRIVER(?)를 사용하면 된다.
-</code></pre>
-
-<p>inline
-bool SQL_OK ( SQLRETURN nResult )
-{
-return nResult == SQL_SUCCESS || nResult == SQL_SUCCESS_WITH_INFO;
-}</p>
-
-<p>void EnableConnectionPooling()
-{
-// enable connection pooling per environment
-SQLRETURN ret = SQLSetEnvAttr(SQL_NULL_HANDLE,
-SQL_ATTR_CONNECTION_POOLING,
-(LPVOID)SQL_CP_ONE_PER_HENV,
-0);
-BOOST_REQUIRE( SQL_OK(ret) );
-}</p>
-
-<p>void DisableConnectionPooling()
-{
-SQLRETURN ret = SQLSetEnvAttr(SQL_NULL_HANDLE,
-SQL_ATTR_CONNECTION_POOLING,
-(LPVOID)SQL_CP_OFF,
-0);
-BOOST_REQUIRE( SQL_OK(ret) );
-}</p>
-
-<p>bool IsConnectionPooling()
-{
-DWORD value;
-SQLRETURN ret = SQLGetEnvAttr(SQL_NULL_HANDLE,
-SQL_ATTR_CONNECTION_POOLING,
-&amp;value,
-0,
-NULL);
-BOOST_REQUIRE( SQL_OK(ret) );</p>
-
-<p>if ( value == SQL_CP_ONE_PER_HENV || value == SQL_CP_ONE_PER_DRIVER )
-{
-return true;
-}
-else if ( value == SQL_CP_OFF )
-{
-return false;
-}
-else
-{
-BOOST_ERROR( &#8220;error&#8221; );
-}
-return false;
-}</p>
-
-<h3>precreated handle 사용하기</h3>
-
-<p>Connection Pooling 을 사용할 때, otl_connect::rlogin()을 쓰게 되면 매번마다 id/passwd 를 파싱하고 environment handle 을 생성하는 등 불필요한 부하가 있다. 따라서 미리 shared environment handle 을 하나 할당하고, hdbc handle 도 만들어서 객체를 생성하면 비교적 나을 것이다.</p>
-
-<h3>스트림 풀링</h3>
-
-<p>스트림의 풀이 otl_connect 객체 내부에 존재하므로, 이 객체를 항상적으로 유지해야만 풀링의 효과를 볼 수 있다.</p>
-
-<h3>테스트 결과</h3>
-
-<p>1000개의 단순쿼리(SELECT COUNT(*) FROM XXX)를 ThreadPooling을 이용해서 처리, 그 시간을 살펴보았다. 첫번째를 제외하고는 모든 상황에서</p>
-
-<pre><code>- NO_POOLING : 매 작업마다 재연결 시도
-- POOLING : 단지 ODBC Connection Pooling 옵션만 설정하고 위와 같음
-- ODBC_POOLING : 미리 env 1개를 생성하고 매 작업마다 hdbc handle 만 생성해서 쿼리하기
-- OTL_POOLING : 아예 otl_connect 객체를 자체 풀링시킴
-- OTL_POOLING_NO_STREAM_POOLING : 위와 같지만 ODBC 풀링과 스트림 풀링을 끈 상태
-</code></pre>
-
-<table>
-<thead>
-<th>Query Type</th>
-<th>minTick</th>
-<th>maxTick</th>
-<th>avgTick</th>
-<th>#threads</th>
-<td>NO_POOLING</td>
-<td>0</td>
-<td>47</td>
-<td>12</td>
-<td>4</td>
-<td>POOLING</td>
-<td>0</td>
-<td>47</td>
-<td>10</td>
-<td>4</td>
-
-<tr>
-<td>ODBC_POOLING</td>
-<td>0</td>
-<td>78</td>
-<td>3</td>
-<td>4</td>
-</tr>
-<tr>
-<td>OTL_POOLING_NO_STREAM_POOLING</td>
-<td>0</td>
-<td>78</td>
-<td>2</td>
-<td>4</td>
-</tr>
-<tr>
-<td>OTL_POOLING</td>
-<td>0</td>
-<td>32</td>
-<td>0</td>
-<td>2</td>
-</tr>
-</thead></table>
-
-
-<p>결론적으로 otl_connect 객체를 자체적으로 풀링하는 방법이 가장 빨랐다. 그러나, 스트림 풀링을 끄면 2위인 ODBC_POOLING과 비슷한 걸로 봐서 스트림 풀링의 비용이 꽤 높다는 것을 알 수 있다. (쿼리 자체를 좀더 복잡하게 해서 테스트해야 나을 거 같다.)</p>
-
-<p>see also:</p>
-
-<pre><code>- http://snaiper80.cafe24.com/wiki/wiki.cgi?OTL
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/09/09/activex/">ActiveX</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-09-09T21:34:46+09:00" pubdate data-updated="true">Sep 9<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong><em>[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87215">http://reiot.springnote.com/pages/87215</a> 에서 읽으실 수 있습니다.</em></strong></p>
-
-<p>어쩌다보니 ActiveX를 이용해서 브라우저에서 클라이언트를 실행하는 작업을 도와주게 되었다. 담당자나 나나 이 쪽으로는 거의 지식이 전무한 상태였는데, 삽질을 반복하면서 여러 가지 유용한 정보들을 알아내었다. 이미 귀국 날짜가 연기된 마당이므로 시간도 널널하고 해서 알아낸 점들을 정리해본다.</p>
-
-<p>혹시라도 이 분야에 처음 발을 들였다면 <a href="http://www.codeproject.com/com/CompleteActiveX.asp">A Complete ActiveX Web Control Tutorial</a>를 꼭 읽어보기 바란다. 물론 <a href="http://en.wikipedia.org/wiki/ActiveX">위키피디아</a>의 설명도 괜찮다.</p>
-
-<h2>설치 여부 알아내기</h2>
-
-<p><a href="http://game.paran.com/">파란닷컴</a>처럼 active-x 컨트롤이 설치되지 않은 컴퓨터에 대해서 설치 안내 페이지로 redirect 시키려면, onerror 이벤트를 이용하면 된다.</p>
-
-<p><a href="http://december.com/html/4/element/script.html">&lt;script</a> language=&#8221;javascript&#8221; for=&#8221;mycontrol&#8221; event=&#8221;onerror&#8221;>
-location.href = &#8216;/redirect/to/how-to-install.html&#8217;;
-</script></p>
-
-<p><a href="http://december.com/html/4/element/object.html">&lt;OBJECT</a> ID=&#8217;mycontrol&#8217; CLASSID=&#8217;&#8230;.&#8217; codebase=&#8230;.>
-<a href="http://december.com/html/4/element/span.html"><SPAN></a>Active-X control not installed. go to <a href="http://december.com/html/4/element/a.html">&lt;a</a> href=&#8221;/redirect/to/how-to-install.html&#8221;>HOW TO INSTALL Active-X</a> page</SPAN>
-</OBJECT></p>
-
-<p>이때 OBJECT 태그 사이의 코드들은 해당 객체가 로드되지 않을 경우 렌더링된다는 점을 잘 활용하면 좋을 것이다.</p>
-
-<h2>삭제하기</h2>
-
-<p>XP 의 경우 $WINDOWS/Downloaded Program Files/ 아래에서 삭제하면 된다. Windows 2003 의 경우는 어디인지 확인할 수 없었다.</p>
-
-<h2>컨트롤 활성화</h2>
-
-<p>올해부터 IE에서는 <a href="http://www.microsoft.com/korea/windows/ie/ie6/activex/activate/default.mspx">컨트롤이나 애플릿들이 기본적으로 비활성화 상태로 변경되</a>었다. 이를 수정하는 방법은 자바스크립트 코드를 이용해서 OBJECT 태그를 쓰면 된다. 보다 자세한 사항은 <a href="http://support.microsoft.com/kb/914257/ko">HOWTO</a> 문서를 참고할 것.</p>
-
-<p><a href="http://december.com/html/4/element/script.html"><script></a>
-document.write('<a href="http://december.com/html/4/element/object.html">&lt;object</a> classid="CLSID:..." type="application/x-oleobject" codebase="..." width="320" height="240"> </object>');
-</script></p>
-
-<h2>ActiveX Control Pad</h2>
-
-<p>마이크로소프트에서 제공하는 유틸리티인데 실제로 마소에서는 받아지질 않는다. 따라서 <a href="http://www.download.com/ActiveX-Control-Pad/3000-2406_4-861343.html?tag=pop">여기</a>서 받을 것.</p>
-
-<h2>브라우저로 이벤트 전달하기</h2>
-
-<p>만약 ActiveX 컨트롤에서 click 등의 마우스 이벤트 핸들러를 정의했다면 javascript 레벨에서 동일한 이벤트 핸들러를 정의할 수 없다. 이는 컨트롤이 이벤트를 먹어버리기 때문으로 보이는데, 이를 해결하려면 컨트롤에서 이벤트를 정의하고 브라우저로 보내준 다음 브라우저에서 핸들링을 하면 된다.</p>
-
-<p>Public Event CloseBrowser()
-Public Sub OnClick()
-&#8217; handle click event
-RaiseEvent CloseBrowser() &#8217; fire event
-End</p>
-
-<p><a href="http://december.com/html/4/element/script.html">&lt;script</a> language=&#8221;javascript&#8221; for=&#8221;mycontrol&#8221; event=&#8221;closebrowser&#8221;>
-self.close();
-</script></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/09/09/log4cxx/">Log4cxx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-09-09T15:03:17+09:00" pubdate data-updated="true">Sep 9<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://logging.apache.org/images/ls-logo.jpg"></p>
-
-<p>서버 프로그래머라면 빠르고 간편한 로그와 트레이스에 대해서 한번쯤은 고민해봤을 것이다. 파일 로그 또는 윈도우의 이벤트 로그를 보통 쓰고 있겠지만, 생각보다 편하지 않은게 사실이다. 그런 의미에서 이번 기회에 <a href="http://logging.apache.org/log4cxx/index.html">Log4j을 C++로 포팅한 Log4cxx</a>의 특징에 대해서 알아보는 시간을 가져봤다.</p>
-
-<p>다음 내용은 <a href="http://logging.apache.org/log4cxx/manual/Introduction.html">Log4cxx의 개요 문서</a>를 축약한 것이므로, 가능하면 본문을 읽어보기를 권장한다.</p>
-
-<pre><code>- 이름 기반으로 계층화(hierarchical)된 로그 지원 : 종류별 로그 객체를 만들어둘 필요가 없이, 필요할 때마다 이름을 키값으로 로그 객체에 접근하면 된다. 가령 system.net 은 system.net.packet 의 상위 계층이 된다.
-- 상속 지원 : 하위 계층에 속한 로그들은 상위 계층의 로그에게 종속된다. 윈도우의 이벤트 로그과 비슷하게 로그 레벨(DEBUG-INFO-WARN-ERROR-FATAL)을 지원하며, 이 역시 상속 기반으로 동작한다.
-- 복수의 Appender 지원 : 하나의 로그 객체에 콘솔, 파일, 이벤트로그, 소켓 등 여러 가지 종류의 출력 스트림(Appender)을 2개 이상 붙일 수 있다. 당연히 비동기적으로 동작한다.
-- XML 기반의 외부 환경 설정 파일 지원 : 각 로그 객체의 on/off 부터 레이아웃(==포맷팅)까지 모두 외부 환경 파일에서 설정 가능하다.
-- 고성능 : 굳이 #ifdef … #endif 로 지우지 않고 그냥 off 만 해둬도 함수 호출 하나 + 정수 연산 정도의 부하만 준다.
-</code></pre>
-
-<p>잘 찾아보면 <a href="http://www.codeproject.com/csharp/TraceTool.asp?df=100&amp;forumid=28124&amp;exp=0&amp;select=1261034&amp;fr=26">log4j/log4net 등의 출력을 GUI로 이쁘게 보여주는 유틸리티</a>도 없지 않으므로, 굳이 까만 콘솔 화면을 뚫어지게 쳐다보기 보다는 저런 툴을 활용해보는 건 어떨까 싶다. 물론 라이브 로그도 지원해줘야 하고, 손쉬운 필터링과 검색 기능이 들어가야 하겠지만…</p>
-
-<p>가장 좋은 건, 데몬을 띄워두면 패널에 아이콘화되어 있다가, 에러가 발생하면 깜빡거리며 툴팁이 뜨고, 이를 클릭하면 어플리케이션 이름-시간-내용 메시지를 보여주는 모니터링 어플리케이션을 만들어 두는 것이다. 마찬가지로 필터링 기능이 들어가야 하겠지만.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/09/08/%E1%84%85%E1%85%A1%E1%84%89%E1%85%B3%E1%84%87%E1%85%A6%E1%84%80%E1%85%A1%E1%84%89%E1%85%B3-%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%AB%E1%84%83%E1%85%B3%E1%84%8F%E1%85%A2%E1%84%82%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB/">라스베가스 &amp; 그랜드캐년 사진전</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-09-08T00:23:00+09:00" pubdate data-updated="true">Sep 8<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236625957"><img src="http://static.flickr.com/89/236625957_2d160f7cba_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236621761"><img src="http://static.flickr.com/82/236621761_b241158e4d_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236616922"><img src="http://static.flickr.com/97/236616922_616cba2587_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236614900"><img src="http://static.flickr.com/88/236614900_938f823497_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236612458"><img src="http://static.flickr.com/89/236612458_b410c994f0_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236610619"><img src="http://static.flickr.com/84/236610619_5ffc59b02c_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235675320"><img src="http://static.flickr.com/80/235675320_614fb8ff75_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235660261"><img src="http://static.flickr.com/81/235660261_0940dec4f4_s.jpg"></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235660260"><img src="http://static.flickr.com/88/235660260_b7d4c9a0b6_s.jpg"></a></p>
-
-<p>레이옷의 <a href="http://flickr.com/photos/78725883@N00/sets/72157594258890065/detail/">Flicker</a>에 가시면 좀더 최신의 사진들을 보실 수 있습니다. 자자. 저희 회사로 오십시요. 해외 출장 겸 영어 연수 겸 관광의 기회가 주어집니다. 매번 겨울-봄 워크샵은 스키장에서 보내고, 이번 가을 워크샵은 일본으로 갈 예정이라니까요~~</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/09/06/%E1%84%86%E1%85%B5%E1%84%80%E1%85%AE%E1%86%A8%E1%84%8B%E1%85%B5%E1%84%85%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%82%E1%85%A1%E1%84%85%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB/">미국이라는 나라는&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-09-06T22:20:08+09:00" pubdate data-updated="true">Sep 6<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://ec1.images-amazon.com/images/P/B000FEHG76.01._SS500_SCLZZZZZZZ_V53894984_.jpg" title="BlackBerry" ></p>
-
-<ul>
-<li><p>우리 보스는 <a href="http://www.dt.co.kr/contents.htm?article_no=2006030302013231728002">대규모 정전에도 무선 인터넷을 통해서 업무 메일을 받아 볼 수 있다</a>는 블랙 베리폰을 사용한다. 며칠 전 점심때 회사에서 약 20분 정도 떨어진 말레이시아 레스토랑에서 점심을 먹고, 돌아오는 길에 이 폰으로 현재 LA 의 각 도로 사정을 검색하고 어느 도로를 타고 돌아갈 것인지를 검색했다. 그러면서 한달에 겨우 10달러로 무선인터넷을 무제한으로 사용할 수 있다고 자랑하면서, 구글에 접속해서 검색도 하고, 현재 서비스중인 게임의 각 서버 별 MRTG 트래픽 그래프도 확인하는 걸 보여주기도 했다. 저녁 때에도 함께 식사를 마치고 돌아오는 길에는 부하 직원으로부터 메일이 온 것도 보여줬다. (이쯤 되면 짐작하겠지만, 우리 보스 역시 지름신의 가호를 받은 사람 중의 하나다. 오죽했으면 BMW 745의 다음 차로 무엇을 골라야 할지 걱정이라고까지 말할 정도겠는가..)</p></li>
-<li><p>본사의 마케팅 담당인 션(27세)은 최근 <a href="http://www.sonee.com/blog/?no=265">소니군이 무척이나 갖고 싶어하는 350Z</a>를 겨우 이만오천달러에 구입했다. 우리가 본사로 첫 출근하는 날, 그는 자신의 바탕 화면에 당당하게 새 차의 사진을 붙여 놓고, 우리 실장에게 자랑을 해대었다. 그리고는 며칠 후 생일 휴가를 받아서 한동안 얼굴도 보이지 않았다. -_-;;</p></li>
-<li><p>본사가 들어선 건물의 화장실은 항상 굳게 잠겨 있다. 잠을 설쳐 컨디션이 좋지 않은 날, 에어컨 바람을 계속 쐬다 보면 배가 아파지는 허약한 장을 소유한 레이옷에게는 참 죽을 맛이다. 물어보니 자꾸 화장실을 이상한 용도(-_-)로 사용하는 사람들이 있어서 그렇다나?</p></li>
-<li><p>본사도 그렇고 호텔도 그렇고 이 근처(다이아몬드 바)에는 아시아계 사람들이 꽤나 많다. 그래서, 일부를 제외하면 대체로 본토 발음이 아니라서 그럭 저럭 잘(?) 들리기는 한데, 뭔가 샤방샤방한 언니들 대신 거대하신 분들만 계셔서 좀 아쉽긴 하다. (참고로 밥먹으러 가거나 쇼핑을 가도 한국어가 통한다. -_-+)</p></li>
-<li><p>미국의 고속 도로도 때로는 막히곤 한다. 이번 주 월요일은 노동절이어서 다들 놀았는데, 덕분에 라스베가스에서 LA까지 오는데 8시간이나 걸렸다. 운전하느라 무리하신 최실장에게 묵념. 잇힝.</p></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/39/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/37/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a> <small>2006-02-02</small></h1>
+	</div>
+	<div><p>총 15개의 통계 테이블의 리팩토링이 드디어 오늘 끝났고, 내일 테스트만 무사히 통과하면 다음 작업으로 넘어갈 수 있을 것 같다. arithmetic overflow 로 인해 모든 numeric 관련 로직을 계산 컬럼으로 추출해내고 하나씩 검증하는데 이틀이나 날려 먹었던 것이다. 실제로 이백라인에 가까웠던 프로시저가 거의 30% 정도로 분량이 줄었고 각 쿼리문들 역시 간단한 DDL 로 바뀌게 되었는데, 솔직히 너무 허탈하다. :(  </p>
+<p>테스트가 성공리에 끝이 나면, 이제 남은 이슈는 본섭 패치를 얼마나 손쉽게 자동화할 것인가? 이다. 변경된 프로시저의 경우 drop - create 로 해결할 수 있지만, 계산 컬럼으로 바꾸는 것은 녹녹치 않았다. 문제는 한번도 관리되지 않았던 DEFAULT constraint 들 때문인데...</p>
+<pre><code>- ALTER TABLE ALTER COLUMN 으로 일반 컬럼을 계산 컬럼으로 바꿀 수 없다
+- 결국 DROP COLUMN + ADD COLUMN 으로 해결해야 한다
+- DROP COLUMN 을 하려면 의존 관계가 없어야 한다
+- 그런데 바꿔야할 모든 컬럼들이 DEFAULT 제약조건을 가지고 있었고, 얘네들의 이름이 모두 랜덤이다. -_-
+</code></pre>
+<p>일단 DBA 와 상의해봐야 되겠지만 어째 해결책은 없을 듯하다. 따라서 오늘의 결론은</p>
+<blockquote>
+<p>"모든 DEFAULT 제약 조건에 이름을 붙여라"</p>
+</blockquote></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/02/01/computed-column-divide-by-zero/">computed column & divide by zero</a> <small>2006-02-01</small></h1>
+	</div>
+	<div><blockquote>
+<p>A = ( C != 0 ? B/C : 0 )</p>
+</blockquote>
+<p>이러한 수식으로 구성된 계산 컬럼은 TSQL에서는 아래와 같이 표현할 수 있다.</p>
+<blockquote>
+<p>[A] AS ( case when [C] = 0 then 0 else [B]/[C] end )</p>
+</blockquote>
+<p>문제는 B 나 C 가 여러 컬럼으로 이루어지거나 또 다른 계산 컬럼일 경우이다. TSQL에서는 계산 컬럼이 다른 계산 컬럼을 내포할 수도 없고, 사용자 정의 함수를 포함할 수도 없기 때문에, 울며 겨자먹기로 중복 코드를 허용해야만 한다. 덕분에 오늘 현업에 들어온 이래, 가장 긴 계산 컬럼을 만들어볼 수 있었다.</p>
+<blockquote>
+<p>(case when ([AB] + [BB] + [HBP] + [SF] = 0) then 0.0 else (convert(numeric(9,3),([H] + [BB] + [HBP])) / ([AB] + [BB] + [HBP] + [SF])) end + case when ([AB] = 0) then 0.0 else (convert(numeric(9,3),([H] + [B2] * 2 + [B3] * 3 + [HR] * 4)) / [AB]) end)</p>
+</blockquote>
+<p>계산 컬럼의 내포가 되었다면 단순히 A+B 정도로 끝날 수도 있었고, 사용자 정의 함수만 지원했어도 SafeDiv(...,...)+SafeDiv(...,...) 정도로 줄일 수 있었는데.. 쩝.</p>
+<p>그런데 아래의 SET 옵션을 잘 이용하면 divide by zero를 우회함으로써 수식을 간단하게 표현할 수 있다. 어차피 계산 컬럼은 SELECT 에서만 사용되기 때문에 관련 SELECT 쿼리 앞뒤에 잘 지정하면 될 듯하지만, 이런 것도 된다는 것이며 추천하지는 않는다.</p>
+<blockquote>
+<p>SET ARITHIGNORE ON -- 에러 메시지 출력 안함</p>
+<p>SET ARITHABORT OFF -- 종료하는 대신 NULL 삽입</p>
+<p>[A] AS (ISNULL(A/B,0.0))</p>
+</blockquote>
+<p>상황에 따라서는 SET ANSI_WARNING OFF 도 함께 지정해줘야 하는 경우도 있으므로 유의하기 바란다. 관련 사항을 테스트해준 floyd, icebreak 님께 감사를~</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/12/28/os-재설치후-소스세이프가-바보가-될-때/">OS 재설치후 소스세이프가 바보가 될 때</a> <small>2005-12-28</small></h1>
+	</div>
+	<div><p>파일을 체크아웃 받은 상태에서 OS 를 새로 설치할 때, 컴퓨터 이름을 이전과 같이 해야 한다. 소스세이프는 체크아웃된 위치를 컴퓨터 이름과 working folder 를 조합해서 사용하기 때문에, 컴퓨터 이름이 다르다면 다른 곳에 체크아웃을 했다고만 나온다.</p>
+<p>*괜히 삼성카드 홈페이지에서 연말정산 서류 플러그인을 설치하다가 애꿎은 OS만 날려먹었다. 소송해버릴까.. *</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/12/22/boostsingleton_pool-사용법/">boost::singleton_pool 사용법</a> <small>2005-12-22</small></h1>
+	</div>
+	<div><pre><code>
+struct CharArray512 {};
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+    typedef boost::singleton_pool&lt;CharArray512,512&gt; TestPool;
+
+    void * pBuf = TestPool::malloc();
+    assert( pBuf &gt; 0 );
+    TestPool::free(pBuf);
+
+    return 0;
+}
+</code></pre>
+
+<p>singleton_pool 의 첫번째 템플릿 파라미터인 태그는, 동일한 크기의 버퍼에 대해서 각각 풀을 사용해야 할 때 구분자로 사용된다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/12/15/db-datafile-옮기기/">DB datafile 옮기기</a> <small>2005-12-15</small></h1>
+	</div>
+	<div><p>그동안 사용했던 SQL Server evaluation 이 6개월만에 기한 만료되어 다른 머신에 똑같은 넘을 설치하게 되었다. 복구 방법은 생각보다 간단했는데...</p>
+<ul>
+<li>.mdf 와 .ldf 파일을 data/ 아래로 복사한다.</li>
+<li>엔터프라이즈 관리자를 띄워서 데이터베이스를 클릭한 후 [모든 작업] - [데이터베이스 연결]에서 mdf 파일을 찾아 추가하면 된다.</li>
+</ul>
+<p>방화벽에 TCP, UDP 1433 포트를 열어 주는 것만 잊지 않으면 30분만에 새 서버를 띄울 수 있게 된다. :)</p></div>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/39/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/39">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a>
+	</li>
+	
+	<li>
+		<a href="/2006/02/01/computed-column-divide-by-zero/">computed column & divide by zero</a>
+	</li>
+	
+	<li>
+		<a href="/2005/12/28/os-재설치후-소스세이프가-바보가-될-때/">OS 재설치후 소스세이프가 바보가 될 때</a>
+	</li>
+	
+	<li>
+		<a href="/2005/12/22/boostsingleton_pool-사용법/">boost::singleton_pool 사용법</a>
+	</li>
+	
+	<li>
+		<a href="/2005/12/15/db-datafile-옮기기/">DB datafile 옮기기</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

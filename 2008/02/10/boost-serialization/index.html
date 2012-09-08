@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2008/02/10/boost-serialization/">boost::serialization</a> <small>2008-02-10</small></h1>
+	</div>
+	<div><p>boost::serialization 은, 템플릿 멤버 함수 하나 또는 free function 하나만 정의하면, 해당 클래스를 다양한 스트림으로 직렬화할 수 있게 해준다. 특히 list - vector - map - set 등의 다양한 STL 컨테이너들을 지원한다는 것이 장점이다.</p>
+<p>이때, 매크로 없이 &amp; 연산자 만으로 읽고 쓰기를 가능하게 했는데, 이건 템플릿 아카이브 파라미터가 알아서 잘 읽거나 쓰도록 책임을 전가했다는 게 상당히 아름답다.. 단, virtual 이 아니라서 하위 클래스는 모두 이걸 정의해줘야 한다. 그리고 아직 hash_map 은 잘 지원하지 않는 모양인데, 뭔가 복잡한 사정이 있는 듯하다.</p>
+<p>주의할 점이라면 아래 예제처럼 쓰려는 객체가 const 여야 한다는 점 정도?</p>
+<pre><code>
+#include &quot;stdafx.h&quot;
+
+#include &lt;fstream&gt;
+
+#include &lt;boost/archive/text_oarchive.hpp&gt;
+#include &lt;boost/archive/text_iarchive.hpp&gt;
+
+#include &lt;boost/archive/binary_oarchive.hpp&gt;
+#include &lt;boost/archive/binary_iarchive.hpp&gt;
+
+#include &lt;boost/serialization/list.hpp&gt;
+#include &lt;boost/serialization/vector.hpp&gt;
+#include &lt;boost/serialization/map.hpp&gt;
+#include &lt;boost/serialization/hash_map.hpp&gt;
+
+class chat_message
+{
+    friend class boost::serialization::access;
+public:
+
+    chat_message() {}
+
+    chat_message(unsigned short id, unsigned short body_length, string msg, wstring wmsg)
+        : id_(id)
+        , body_length_(body_length)
+        , message(msg)
+        , wmessage(wmsg)
+    {
+        for ( size_t i = 0 ; i &lt; 10 ; i ++ )
+        {
+            string val = boost::str(boost::format(&quot;Hello %1%&quot;)%i);
+            messages[i] = val;
+            array_[i] = val;
+            list_.push_back(i);
+            vector_.push_back(i);
+            map_[i] = val;
+            hash_map_[val] = (rand()%2==0 ? true : false);
+        }
+    }
+
+    template&lt;class Archive&gt;
+    void serialize(Archive &amp; ar, const unsigned int version)
+    {
+        ar &amp; id_;
+        ar &amp; body_length_;
+        ar &amp; message;
+        ar &amp; wmessage;
+        ar &amp; messages;          // pritimive array
+        ar &amp; array_.elems;      // boost::array
+        ar &amp; list_;             // std::list
+        ar &amp; vector_;           // std::vector
+        ar &amp; map_;              // std::map
+        //ar &amp; hash_map_;
+    }
+
+    void check_equal( const chat_message &amp; r ) const
+    {
+        BOOST_CHECK_EQUAL(id_,r.id_);
+        BOOST_CHECK_EQUAL(body_length_,r.body_length_);
+        BOOST_CHECK_EQUAL(message,r.message);
+        BOOST_CHECK(wmessage==r.wmessage);
+
+        for ( size_t i = 0 ; i &lt; 10 ; i ++ )
+        {
+            BOOST_CHECK_EQUAL(messages[i],r.messages[i]);
+        }
+
+        for ( size_t i = 0 ; i &lt; array_.size() ; i ++ )
+        {
+            BOOST_CHECK_EQUAL(array_[i],r.array_[i]);
+        }
+
+        {
+            BOOST_REQUIRE_EQUAL( list_.size(), r.list_.size() );
+            list&lt;float&gt;::const_iterator itr = list_.begin();
+            list&lt;float&gt;::const_iterator itr2 = r.list_.begin();
+            for ( ; itr != list_.end() ; itr ++, itr2++ )
+            {
+                BOOST_CHECK_EQUAL( *itr, *itr2 );
+            }
+        }
+
+        {
+            BOOST_REQUIRE_EQUAL( vector_.size(), r.vector_.size() );
+            vector&lt;int&gt;::const_iterator itr = vector_.begin();
+            vector&lt;int&gt;::const_iterator itr2 = r.vector_.begin();
+            for ( ; itr != vector_.end() ; itr ++, itr2++ )
+            {
+                BOOST_CHECK_EQUAL( *itr, *itr2 );
+            }
+        }
+
+        {
+            BOOST_REQUIRE_EQUAL( map_.size(), r.map_.size() );
+            map&lt;int,string&gt;::const_iterator itr = map_.begin();
+            map&lt;int,string&gt;::const_iterator itr2 = r.map_.begin();
+            for ( ; itr != map_.end() ; itr ++, itr2++ )
+            {
+                BOOST_CHECK_EQUAL( itr-&gt;first, itr2-&gt;first );
+                BOOST_CHECK_EQUAL( itr-&gt;second, itr2-&gt;second );
+            }
+        }
+
+        //{
+        //  BOOST_REQUIRE_EQUAL( hash_map_.size(), r.hash_map_.size() );
+        //  stdext::hash_map&lt;string,bool&gt;::const_iterator itr = hash_map_.begin();
+        //  stdext::hash_map&lt;string,bool&gt;::const_iterator itr2 = r.hash_map_.begin();
+        //  for ( ; itr != hash_map_.end() ; itr ++, itr2++ )
+        //  {
+        //      BOOST_CHECK_EQUAL( itr-&gt;first, itr2-&gt;first );
+        //      BOOST_CHECK_EQUAL( itr-&gt;second, itr2-&gt;second );
+        //  }
+        //}
+    }
+private :
+    unsigned short id_;
+    unsigned short body_length_;
+    string message;
+    wstring wmessage;
+    string messages[10];
+    boost::array&lt;string,10&gt; array_;
+    list&lt;float&gt; list_;
+    vector&lt;int&gt; vector_;
+    map&lt;int,string&gt; map_;
+    stdext::hash_map&lt;string,bool&gt; hash_map_;
+};
+
+// TODO
+// - archive from/to buffer
+// - user defined archive
+// - string, wstring load/save
+// - stl support (list,vector,map)
+
+BOOST_AUTO_TEST_CASE(test_serialize)
+{
+    const chat_message msg1(35, 59, &quot;Hello World!&quot;,L&quot;Welcome!&quot;);
+
+    {
+        chat_message msg2;
+
+        std::ofstream ofs(&quot;serialize.txt&quot;);
+        boost::archive::text_oarchive oa(ofs);
+        oa &lt;&lt; msg1;
+        ofs.close();
+
+        std::ifstream ifs(&quot;serialize.txt&quot;);
+        boost::archive::text_iarchive ia(ifs);
+        ia &gt;&gt; msg2;
+        ifs.close();
+
+        msg1.check_equal(msg2);
+    }
+
+    {
+        chat_message msg2;
+
+        std::ofstream ofs(&quot;serialize.bin&quot;, std::ios::binary);
+        boost::archive::binary_oarchive oa(ofs);
+        oa &lt;&lt; msg1;
+        ofs.close();
+
+        std::ifstream ifs(&quot;serialize.bin&quot;, std::ios::binary);
+        boost::archive::binary_iarchive ia(ifs);
+        ia &gt;&gt; msg2;
+        ifs.close();
+
+        msg1.check_equal(msg2);
+    }
+
+    {
+        chat_message msg2;
+
+        boost::asio::streambuf buf;
+        ostream os(&amp;buf);
+        boost::archive::text_oarchive oa(os);
+        oa &lt;&lt; msg1;
+
+        istream is(&amp;buf);
+        boost::archive::text_iarchive ia(is);
+        ia &gt;&gt; msg2;
+
+        msg1.check_equal(msg2);
+    }
+
+    {
+        chat_message msg2;
+
+        boost::asio::streambuf osf;
+        boost::archive::binary_oarchive oa(osf);
+        oa &lt;&lt; msg1;
+
+        boost::archive::binary_iarchive ia(osf);
+        ia &gt;&gt; msg2;
+
+        msg1.check_equal(msg2);
+    }
+
+    // via istream/ostream
+    {
+        chat_message msg2;
+
+        boost::asio::streambuf buf;
+        ostream os(&amp;buf);
+        boost::archive::binary_oarchive oa(os);
+        oa &lt;&lt; msg1;
+
+        istream is(&amp;buf);
+        boost::archive::binary_iarchive ia(is);
+        ia &gt;&gt; msg2;
+
+        msg1.check_equal(msg2);
+    }
+
+}
+</code></pre></div>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

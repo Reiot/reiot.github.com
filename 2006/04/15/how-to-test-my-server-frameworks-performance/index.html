@@ -1,117 +1,72 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>How to test my server framework&#8217;s performance? - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="갓 만들어진 서버 프레임워크의 성능을 제대로 테스트하기란 쉽지 않다. 대체로 (서비스 예정인) 표준 하드웨어 사양 하에서 가상 클라이언트를 1000-2000 개 정도 붙이고 적절한 트래픽을 주었을 때 반응 속도라든지 CPU 점유율, 메모리 사용량 등을 측정하는 것이 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2006/04/15/how-to-test-my-server-frameworks-performance">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">How to Test My Server Framework&#8217;s Performance?</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-15T09:16:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>갓 만들어진 서버 프레임워크의 성능을 제대로 테스트하기란 쉽지 않다. 대체로 (서비스 예정인) 표준 하드웨어 사양 하에서 가상 클라이언트를 1000-2000 개 정도 붙이고 적절한 트래픽을 주었을 때 반응 속도라든지 CPU 점유율, 메모리 사용량 등을 측정하는 것이 일반적인데, 문제는 서버 프레임워크에서 채택한 내부 구조에 따라서, 특히 동기화, 쓰레드 같은 민감한 요소들에 따라 결과가 천차만별이 된다는 것이다.</p>
-
-<p>예를 들면 이런 구조에서는 트래픽이 늘어날수록 CPU 사용량이 폭주할 수도 있고, 저런 구조에서는 접속자가 늘어날수록 반응속도가 느려질 수도 있다는 것인데, <a href="http://reiot.cafe24.com/archives/434">이번 마이그레이션</a>에서도 비슷한 현상을 경험했다. 사실 어제 아침까지만 해도 테스트 결과가 좋아서 안심하고 있었는데, 혹시나 해서 트래픽을 2배로 늘린 후 성능 모니터링을 해보니 CPU 점유율이 130%까지 급증하는게 아닌가&#8230; 반면 예전에 만들어둔 코드는 동일 조건에서도 CPU 점유율은 40%를 넘지 않았다. 흑흑.</p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2006/04/15/how-to-test-my-server-frameworks-performance/">How to test my server framework’s performance?</a> <small>2006-04-15</small></h1>
+	</div>
+	<div><p>갓 만들어진 서버 프레임워크의 성능을 제대로 테스트하기란 쉽지 않다. 대체로 (서비스 예정인) 표준 하드웨어 사양 하에서 가상 클라이언트를 1000-2000 개 정도 붙이고 적절한 트래픽을 주었을 때 반응 속도라든지 CPU 점유율, 메모리 사용량 등을 측정하는 것이 일반적인데, 문제는 서버 프레임워크에서 채택한 내부 구조에 따라서, 특히 동기화, 쓰레드 같은 민감한 요소들에 따라 결과가 천차만별이 된다는 것이다.</p>
+<p>예를 들면 이런 구조에서는 트래픽이 늘어날수록 CPU 사용량이 폭주할 수도 있고, 저런 구조에서는 접속자가 늘어날수록 반응속도가 느려질 수도 있다는 것인데, <a href="http://reiot.cafe24.com/archives/434">이번 마이그레이션</a>에서도 비슷한 현상을 경험했다. 사실 어제 아침까지만 해도 테스트 결과가 좋아서 안심하고 있었는데, 혹시나 해서 트래픽을 2배로 늘린 후 성능 모니터링을 해보니 CPU 점유율이 130%까지 급증하는게 아닌가... 반면 예전에 만들어둔 코드는 동일 조건에서도 CPU 점유율은 40%를 넘지 않았다. 흑흑.</p>
 <p>오늘 Visual Studio .NET 2005 에 내장된 프로파일러로 을사오적(?)들을 찾아내서 모두 제거하고,  최종적으로 6배 트래픽으로 테스트한 결과 debug에서는 120%, release에서는 150% 정도 빨라진 놈을 완성할 수 있었다. 아직 idle 체크를 위한 타이머 처리라든지, 메시지 핸들러 같은 구태의연한 작업이 남아있긴 하지만, 웬지 성공적으로 끝이 날 것 같다는 희망에 차 있는 상태다. :)</p>
-
 <p>아무튼 이번 삽질을 통해, 가상 클라이언트를 이용한 서버 프레임워크의 테스트 방법론에 대해서 좀 더 체계화를 해야 할 필요성을 느꼈다. 이번 주에 한 일이라고는 고작, 2개의 머신에서 파라미터를 적절히 바꿔가면서 서버와 클라이언트를 수동으로 실행하고, 성능 모니터링 도구를 이용해서 CPU 및 메모리 사용량을 눈으로 살펴보고, 최종적으로 클라이언트측에 남겨진 통계 로그 파일을 위키 페이지로 복사한 후, 성능의 변동을 살펴보는 단순 작업들을 반복해왔기 때문이다. 물론 밀린 일정 덕에 자동화에 투자할 시간은 더이상 없겠지만 대략 다음과 같은 테스트 프레임워크를 구성해 볼 기회가 있었으면 좋겠다.</p>
-
 <p><strong>준비물</strong></p>
-
 <pre><code>- 커맨드라인 명령으로 내부 구조를 실시간으로 변경할 수 있는 서버 프레임워크
 - 클라이언트 개수, 초당 트래픽 등을 손쉽게 제어할 수 있는 가상 클라이언트
 - CPU 점유율, 메모리 사용량 등의 통계 데이터를 XML 이나 CSV 형식으로 저장
@@ -121,22 +76,16 @@
 - 테스트 케이스의 리스트에 등록된 테스트를 위 도구를 이용해서 잘 실행해주는 통합 도구
 - 다른 머신의 특정 프로세스의 다양한 성능 카운터들을 실시간 그래프로 보여주는 도구
 </code></pre>
-
 <p><strong>테스트 도구 디자인</strong></p>
-
 <p>유닛 테스트의 개념과 형식을 빌어오면 좋을 듯하다.</p>
-
 <pre><code>- TestSuite : 트리 방식으로 실행할 테스트 슈트 및 케이스를 지정할 수 있어야 한다. NUnit 를 상상하면 가장 좋을 듯.
 - TestCase : 테스트하고자 하는 서버와 클라이언트 실행 파일을 선택하고 각각의 커맨드라인 옵션을 설정한다.
 - Setup, TearDown : 관련 파일을 특정 머신으로 복사하거나 덮어쓴다. 테스트가 끝이 나면 결과를 받아온다.
 - TestTools : 각 머신에서 살펴보고자 하는 성능 카운터를 선택하고, 예상하는 한계치를 설정한다.
 - TestRunner : 특정 머신에 복사된 파일을 지정된 파라미터로 실행한다. 만약을 위해서 adplus 도 붙여주는 센스!
 </code></pre>
-
 <p><strong>테스트 리포트</strong></p>
-
 <p>(내부 구조, 클라이언트 개수, 트래픽)에 따른 (반응 속도, CPU 점유율, 메모리 사용량)의 변화를 한눈에 알아볼 수 있어야 한다.</p>
-
 <pre><code>- 테스트 개요
 
 - 테스트 아이디
@@ -154,209 +103,20 @@
 - 각종 서버 성능 카운터
 - 서버의 반응 속도
 </code></pre>
-
-<p>웬지 마이크로소프트나 ant 같은 것들이 이런 기능을 제공할 법도 한데 말이다. 혹시나 비슷한 기능을 가진 도구를 아시는 분은 꼭 코멘트 부탁드린다.</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-15T09:16:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2006</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/programming/'>programming</a>, <a class='category' href='/categories/stories/'>stories</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/04/15/how-to-test-my-server-frameworks-performance/" data-via="reiot" data-counturl="http://reiot.com/2006/04/15/how-to-test-my-server-frameworks-performance/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2006/04/11/migrate-to-ace/" title="Previous Post: Migrate To ACE">&laquo; Migrate To ACE</a>
-      
-      
-        <a class="basic-alignment right" href="/2006/04/16/first-class-object/" title="next Post: First Class Object">First Class Object &raquo;</a>
-      
-    </p>
-  </footer>
+<p>웬지 마이크로소프트나 ant 같은 것들이 이런 기능을 제공할 법도 한데 말이다. 혹시나 비슷한 기능을 가진 도구를 아시는 분은 꼭 코멘트 부탁드린다.</p></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2006/04/15/how-to-test-my-server-frameworks-performance/';
-        var disqus_url = 'http://reiot.com/2006/04/15/how-to-test-my-server-frameworks-performance/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

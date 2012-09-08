@@ -1,388 +1,150 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>IOCP Tips - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 http://reiot.springnote.com/pages/87239 에서 읽으실 수 있습니다.  I/O completion port 를 개발할 때 주의해야 할 사항들. 1-Recv Rule 하나의 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2006/05/16/iocp-tips">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">IOCP Tips</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-05-16T09:15:40+09:00" pubdate data-updated="true">May 16<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p><strong><em>[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87239">http://reiot.springnote.com/pages/87239 </a>에서 읽으실 수 있습니다. </em></strong></p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2006/05/16/iocp-tips/">IOCP Tips</a> <small>2006-05-16</small></h1>
+	</div>
+	<div><p><strong><em>[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87239">http://reiot.springnote.com/pages/87239 </a>에서 읽으실 수 있습니다. </em></strong></p>
 <p>I/O completion port 를 개발할 때 주의해야 할 사항들.</p>
-
 <h2>1-Recv Rule</h2>
-
 <p>하나의 소켓에 대해서 특정 순간에 1개 이하의 입력만이 요청되어야 한다는 규칙을 <strong>1-recv 규칙</strong>이라고 부른다. 물론 버퍼를 여러 개 준비한 다음 미리 요청해두는 N-recv 방식도 그럴듯하지만, 요청한 순서대로 항상 완료되지는 않는다는 소문(?)에 그다지 많이 사용되고 있지는 않은 듯하다.</p>
-
 <p>그런데, 입력 재요청은 GQCS()를 호출하는 입출력 쓰레드에서 할 수도 있지만, 로직 처리 쓰레드에서 하는 경우도 많다. MMORPG가 아닌 경우에 한정해서 후자의 방식을 권장하는 편인데, 코드는 약간 복잡하지만 버퍼 복사 및 동기화 부담도 줄어들기 때문이다. 다음 두 예제를 살펴보자.</p>
-
 <h1>ex1</h1>
-
-<p>class ideal_session:
-def end_read(self,buf,len):
-&#8221;&#8221;&#8220;callback for input completion. called by i/o thread&#8221;&#8220;&#8221;
-while 1:
-msg = self.get_msg() # parse &amp; copy!!
-if msg:
-msgq.append((self,msg))
+<p>class ideal_session:<br />
+def end_read(self,buf,len):<br />
+"""callback for input completion. called by i/o thread"""<br />
+while 1:<br />
+msg = self.get_msg() # parse &amp; copy!!<br />
+if msg:<br />
+msgq.append((self,msg))<br />
 self.begin_read()</p>
-
-<p>def ideal_process_sessions():
-&#8221;&#8221;&#8220;logic process thread&#8221;&#8220;&#8221;
-while 1:
-session, msg = msgq.pop()
-if session and msg:
+<p>def ideal_process_sessions():<br />
+"""logic process thread"""<br />
+while 1:<br />
+session, msg = msgq.pop()<br />
+if session and msg:<br />
 msg_handler(session,msg)</p>
-
 <h1>ex2</h1>
-
-<p>class real_session:
-def end_read(self,buf,len):
-&#8221;&#8221;&#8220;callback for input completion. called by i/o thread&#8221;&#8220;&#8221;
+<p>class real_session:<br />
+def end_read(self,buf,len):<br />
+"""callback for input completion. called by i/o thread"""<br />
 sessions.append(self) # only notify</p>
-
-<p>def real_process_sessions():
-&#8221;&#8221;&#8220;logic process thread&#8221;&#8220;&#8221;
-while 1:
-session = sessions.pop()
-if session:
-while 1:
-msg = session.get_msg() # parse but no copy!
-if not msg: break
-msg_handler(session,msg)
+<p>def real_process_sessions():<br />
+"""logic process thread"""<br />
+while 1:<br />
+session = sessions.pop()<br />
+if session:<br />
+while 1:<br />
+msg = session.get_msg() # parse but no copy!<br />
+if not msg: break<br />
+msg_handler(session,msg)<br />
 session.begin_read()</p>
-
 <p>[예제1]에서는 입출력 쓰레드에서 메시지 파싱 - 큐잉 - 입력 재요청이 이루어지고 로직 처리 쓰레드는 메시지큐로 동작하는데, 전체적으로 코드는 단순하지만 <strong>메모리 복사 및 할당</strong>이 많아진다. 또한 입력 버퍼가 가득 찬 후의, 다음 입력 재요청을 과연 어디서 할 것인지도 애매하다. 반면, [예제2]에서는 대부분의 작업을 로직 처리 쓰레드에 위임시킴으로써 입출력 처리 쓰레드의 부하를 최소화하면서, 버퍼 복사 역시 극단적으로 줄일 수 있게 된다.</p>
-
 <p>단, [예제1]이 <strong>입력 완료 후 재요청</strong>이 더 빠르지만, 전체적인 입출력 처리를 감안한다면 그다지 빠르다고 보기는 힘들 것으로 추측한다.</p>
-
 <h2>1-Send Rule</h2>
-
 <p>입력과 달리 출력 관리 방법에 대해서는 많은 이견이 존재한다.</p>
-
 <p>N-send 는 보통 출력 버퍼 관리를 하기보다는 필요할 때마다 즉시 보내는 것을 의미하는데, 테스트해 본 결과 출력 완료시 <strong>bytes_transferred != bytes_written</strong> 인 경우를 거의 못봤다는 이야기도 종종 들린다. 그러나 만에 하나 예외 상황이 발생한다면 TCP 스트림이 꼬이게 되므로 1-send 로 구현하는 것을 보통 권장한다. <em>좀 더 자세한 설명은 <a href="http://www.gpgstudy.com/forum/viewtopic.php?t=2998">GPGStudy에서 sparrowhawk님이 쓰신 글</a>과 <a href="http://www.codeproject.com/internet/reusablesocketserver4.asp">이 글</a>을 참고하도록 할 것.</em></p>
-
 <p>고전적인 출력 버퍼 관리 방식에서는 큰 출력 버퍼를 마련해 두고, 보낼 데이터를 복사한 후 한꺼번에 flush 하게 된다. 여기에 버퍼 복사를 줄이기 위해 큰 버퍼 대신 버퍼의 리스트로 구현한 것을 바로 <strong>gather-send</strong> 라고 하는데, 대부분이 broadcast 인 게임 서버에서는 Lock과 참조카운팅, 메모리 풀링을 함께 사용해야 하기 때문에, unicast가 많은 미들웨어에 한정해서 사용해야 할 것이다. 가능하면 출력 버퍼의 관리 방식을 손쉽게 교체할 수 있는 프레임워크를 만들거나 사용하는 것을 추천한다.</p>
-
 <p>출력 완료 처리 및 재요청은 당연히 로직 처리 쓰레드의 몫이 된다. 1-Recv Rule과 같은 방식으로 하면 간단하므로 따로 예제는 준비하지 않았다.</p>
-
 <h2>NumberOfCurrentThresds</h2>
-
 <p>CreateIoCompletionPort() 의 마지막 파라미터인 NumberOfConcurrentThreads 에 대한 MSDN의 설명을 보자.</p>
+<pre><code>Maximum number of threads that the operating system allows to concurrently process I/O completion packets for the I/O completion port. If this parameter is zero, the system allows as many concurrently running threads as there are processors in the system.
 
-<blockquote><p>Maximum number of threads that the operating system allows to concurrently process I/O completion packets for the I/O completion port. If this parameter is zero, the system allows as many concurrently running threads as there are processors in the system.</p><p>Although any number of threads can call the GetQueuedCompletionStatus function to wait for an I/O completion port, each thread is associated with only one completion port at a time. That port is the port that was last checked by the thread.</p><p>When a packet is queued to a port, the system first checks how many threads associated with the port are running. If the number of threads running is less than the value of NumberOfConcurrentThreads, then one of the waiting threads is allowed to process the packet. When a running thread completes its processing, it calls GetQueuedCompletionStatus again, at which point the system can allow another waiting thread to process a packet.</p><p>The system also allows a waiting thread to process a packet if a running thread enters any wait state. When the thread in the wait state begins running again, there may be a brief period when the number of active threads exceeds the NumberOfConcurrentThreads value. However, the system quickly reduces the number by not allowing any new active threads until the number of active threads falls below the specified value.</p></blockquote>
+Although any number of threads can call the GetQueuedCompletionStatus function to wait for an I/O completion port, each thread is associated with only one completion port at a time. That port is the port that was last checked by the thread.
 
+When a packet is queued to a port, the system first checks how many threads associated with the port are running. If the number of threads running is less than the value of NumberOfConcurrentThreads, then one of the waiting threads is allowed to process the packet. When a running thread completes its processing, it calls GetQueuedCompletionStatus again, at which point the system can allow another waiting thread to process a packet.
 
-<p>즉 이 파라미터는 GQCS()에서 리턴되어 I/O completion 을 처리하는 쓰레드의 최대 동시 실행 개수를 의미한다. GQCS()를 호출하는 사용자 쓰레드의 개수에는 제한이 없지만, IOCP 자체에서 리턴시키는 개수를 이 파라미터로 제한하게 된다. 따라서 이 개수가 커지면 CPU 의 부하가 심해지므로 보통 0 을 넣어 자동화하거나 CPU 개수의 2배를 사용한다.</p>
+The system also allows a waiting thread to process a packet if a running thread enters any wait state. When the thread in the wait state begins running again, there may be a brief period when the number of active threads exceeds the NumberOfConcurrentThreads value. However, the system quickly reduces the number by not allowing any new active threads until the number of active threads falls below the specified value.```
+즉 이 파라미터는 GQCS()에서 리턴되어 I/O completion 을 처리하는 쓰레드의 최대 동시 실행 개수를 의미한다. GQCS()를 호출하는 사용자 쓰레드의 개수에는 제한이 없지만, IOCP 자체에서 리턴시키는 개수를 이 파라미터로 제한하게 된다. 따라서 이 개수가 커지면 CPU 의 부하가 심해지므로 보통 0 을 넣어 자동화하거나 CPU 개수의 2배를 사용한다.
+## 리소스 관리
 
-<h2>리소스 관리</h2>
-
-<p><em>Network Programming for Microsoft Windows 2000</em>에 나오는 리소스 관련 부분을 적당히 번역해봤다.</p>
-
-<blockquote><p>IOCP 를 사용한 Windows 서버를 개발할 때에는 locked pages 제한과 non-paged pool 제한에 유의해야 한다. 그 중 locked pages 제한이 non-paged pool 제한보다는 덜 위험하고 해결하기도 더 쉽다.</p><p>**Locked Pages Limit**</p><p>모 든 Overlapped I/O 에 있어서 WSABUF 의 메모리 공간은 locked 된다. 메모리가 lock 되면, 이넘들은 page out 되지 않는다. OS 레벨에서 locked page 의 최대 제한이 존재한다. 이 제한에 도달하면 이후의 Overlapped I/O 에서는 WSANOBUFS 에러가 리턴된다.</p><p>이때, 최대 연결의 개수가 중요한 서버에서는 0 bytes overlapped I/O 기법을 사용할 수 있다. 이 기법에서는, 버퍼를 제공하지 않으므로 locked 되는 메모리가 발생하지 않는다. (읽기 요청이 완료될 때 nonblocking receive 를 하는 방식이다.) 단, 클라이언트와 서버간의 통신 방식에 따라서 좋은 방법을 골라야 한다. 만약 클라이언트가 데이터를 열라 보낸다면, 잦은 Overlapped Input 호출이 있을테니..</p><p>*(WSABUF[0].buf 가 가리키는 메모리 공간에 lock 이 걸리는 것은 당연하다만, OVERLAPPED 구조체가 존재하는 메모리에도 마찬가지일까? 윗 글에 따르면 그건 아닌 듯한데.. 냠..)*</p><p>또 중요하게 고려해야 하는 것은, 시스템의 페이지 사이즈이다. lock 을 걸 때에는 페이지 단위로 걸게 되는데, x86 에서의 페이지 크기는 4K 의 배수이다. (조사해보니 x86 에서는 4K 였다) GetSystemInfo() 를 사용하면 페이지 크기를 알 수 있다.</p><p>**Non Paged Pool Limit**</p><p>non-paged pool 제한은 보다 위험하고, 복구하기도 어렵다. non-paged pool 은 항상 물리적 메모리에 존재하고, 절대 page out 되지 않는 메모리 영역이다. 커널과 각종 드라이버들이 이 영역에 속한다. 또한 각 소켓 역시 non-paged pool 에 소켓 상태를 저장하기 위한 약간의 메모리를 소비하게 된다. 특정 주소에 bind 될 경우, 주소 정보를 위한 추가적인 메모리가 더 필요하다. 소켓이 연결되면 remote address 관련된 메모리도 필요해진다. 모두 합하면, 연결된 소켓은 2k 정도, accept/AcceptEx 로 리턴된 소켓은 1.5k 정도의 non-paged pool 공간을 차지한다. (accepted 소켓은 단지 리모트 주소만 필요하기 때문에 약간 더 작다) 또한, 각 overlapped I/O 연산은 500 바이트 정도의 메모리 공간을 필요로 한다. *(500 바이트는 혹시 OVERLAPPED 구조체를 위한 공간이 아닐까?)*</p><p>일 반적으로 non-paged pool 은 물리적 메모리의 1/4 이며, W2k 에서는 256M, NT4 에서는 128M 의 최대 제한을 가진다. 256M 의 경우라면 5만 정도의 연결을 처리할 수 있지만, Accept/Send/Receive Overlapped I/O 의 개수가 제한된다는 점에 주의하라. accepted 소켓당 1.5k 이라고 하면, 소켓 자체로만 75M( 50000 x 1.5k )를 차지하며, 0 bytes receive 기법을 사용한다면 25M의 메모리를 차지한다.</p><p>만 약 시스템의 non-paged pool 이 한계에 도달하면, 운이 좋다면 WSANOBUFS 에러를 리턴하지만 그렇지 않으면 crash 될 것이다. 이를 복구하거나 예측(혹은 모니터링)한다는 것은 거의 불가능하기 때문에 개발자 스스로 최대 동시 접속수라든지, 최대 overlapped 연산의 숫자 등을 테스트해볼 필요가 있다. 만약 WSAENOBUFS 에러를 만난다면 연결을 닫는다든지 해서 줄이는 것이 좋을 것이다&#8230;</p></blockquote>
-
-
-<p>see also:</p>
-
-<pre><code>- http://pl.atyp.us/content/tech/servers.html
+*Network Programming for Microsoft Windows 2000*에 나오는 리소스 관련 부분을 적당히 번역해봤다.
 </code></pre>
-</div>
 
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-05-16T09:15:40+09:00" pubdate data-updated="true">May 16<span>th</span>, 2006</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/programming/'>programming</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/05/16/iocp-tips/" data-via="reiot" data-counturl="http://reiot.com/2006/05/16/iocp-tips/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2006/05/02/%E1%84%8B%E1%85%A9%E1%84%87%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5%E1%84%87%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AB-%E1%84%89%E1%85%B3%E1%84%90%E1%85%A9%E1%84%85%E1%85%B52/" title="Previous Post: 오블리비언 스토리#2">&laquo; 오블리비언 스토리#2</a>
-      
-      
-        <a class="basic-alignment right" href="/2006/05/16/p2p-tips/" title="next Post: P2P Tips">P2P Tips &raquo;</a>
-      
-    </p>
-  </footer>
+<p>IOCP 를 사용한 Windows 서버를 개발할 때에는 locked pages 제한과 non-paged pool 제한에 유의해야 한다. 그 중 locked pages 제한이 non-paged pool 제한보다는 덜 위험하고 해결하기도 더 쉽다.</p>
+<p><strong>Locked Pages Limit</strong></p>
+<p>모 든 Overlapped I/O 에 있어서 WSABUF 의 메모리 공간은 locked 된다. 메모리가 lock 되면, 이넘들은 page out 되지 않는다. OS 레벨에서 locked page 의 최대 제한이 존재한다. 이 제한에 도달하면 이후의 Overlapped I/O 에서는 WSANOBUFS 에러가 리턴된다.</p>
+<p>이때, 최대 연결의 개수가 중요한 서버에서는 0 bytes overlapped I/O 기법을 사용할 수 있다. 이 기법에서는, 버퍼를 제공하지 않으므로 locked 되는 메모리가 발생하지 않는다. (읽기 요청이 완료될 때 nonblocking receive 를 하는 방식이다.) 단, 클라이언트와 서버간의 통신 방식에 따라서 좋은 방법을 골라야 한다. 만약 클라이언트가 데이터를 열라 보낸다면, 잦은 Overlapped Input 호출이 있을테니..</p>
+<p><em>(WSABUF[0].buf 가 가리키는 메모리 공간에 lock 이 걸리는 것은 당연하다만, OVERLAPPED 구조체가 존재하는 메모리에도 마찬가지일까? 윗 글에 따르면 그건 아닌 듯한데.. 냠..)</em></p>
+<p>또 중요하게 고려해야 하는 것은, 시스템의 페이지 사이즈이다. lock 을 걸 때에는 페이지 단위로 걸게 되는데, x86 에서의 페이지 크기는 4K 의 배수이다. (조사해보니 x86 에서는 4K 였다) GetSystemInfo() 를 사용하면 페이지 크기를 알 수 있다.</p>
+<p><strong>Non Paged Pool Limit</strong></p>
+<p>non-paged pool 제한은 보다 위험하고, 복구하기도 어렵다. non-paged pool 은 항상 물리적 메모리에 존재하고, 절대 page out 되지 않는 메모리 영역이다. 커널과 각종 드라이버들이 이 영역에 속한다. 또한 각 소켓 역시 non-paged pool 에 소켓 상태를 저장하기 위한 약간의 메모리를 소비하게 된다. 특정 주소에 bind 될 경우, 주소 정보를 위한 추가적인 메모리가 더 필요하다. 소켓이 연결되면 remote address 관련된 메모리도 필요해진다. 모두 합하면, 연결된 소켓은 2k 정도, accept/AcceptEx 로 리턴된 소켓은 1.5k 정도의 non-paged pool 공간을 차지한다. (accepted 소켓은 단지 리모트 주소만 필요하기 때문에 약간 더 작다) 또한, 각 overlapped I/O 연산은 500 바이트 정도의 메모리 공간을 필요로 한다. <em>(500 바이트는 혹시 OVERLAPPED 구조체를 위한 공간이 아닐까?)</em></p>
+<p>일 반적으로 non-paged pool 은 물리적 메모리의 1/4 이며, W2k 에서는 256M, NT4 에서는 128M 의 최대 제한을 가진다. 256M 의 경우라면 5만 정도의 연결을 처리할 수 있지만, Accept/Send/Receive Overlapped I/O 의 개수가 제한된다는 점에 주의하라. accepted 소켓당 1.5k 이라고 하면, 소켓 자체로만 75M( 50000 x 1.5k )를 차지하며, 0 bytes receive 기법을 사용한다면 25M의 메모리를 차지한다.</p>
+<p>만 약 시스템의 non-paged pool 이 한계에 도달하면, 운이 좋다면 WSANOBUFS 에러를 리턴하지만 그렇지 않으면 crash 될 것이다. 이를 복구하거나 예측(혹은 모니터링)한다는 것은 거의 불가능하기 때문에 개발자 스스로 최대 동시 접속수라든지, 최대 overlapped 연산의 숫자 등을 테스트해볼 필요가 있다. 만약 WSAENOBUFS 에러를 만난다면 연결을 닫는다든지 해서 줄이는 것이 좋을 것이다...```<br />
+see also:</p>
+<pre><code>- http://pl.atyp.us/content/tech/servers.html
+</code></pre></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2006/05/16/iocp-tips/';
-        var disqus_url = 'http://reiot.com/2006/05/16/iocp-tips/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

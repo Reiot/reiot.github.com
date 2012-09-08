@@ -1,430 +1,143 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>DIV layering with z-index - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="구글맵처럼 (바닥 - 마커 - 오버레이) 등 여러 개의 레이어로 구성하고, 그 안에 위치한 각종 마커들끼리의 z-index 를 상황(?)에 따라서 코드 레벨에서 정렬해야 한다고 가정하자. 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-&lt;div id=&quot;map& &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2010/11/15/div-layering-with-z-index">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">DIV Layering With Z-index</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-15T09:05:00+09:00" pubdate data-updated="true">Nov 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>구글맵처럼 (바닥 - 마커 - 오버레이) 등 여러 개의 레이어로 구성하고, 그 안에 위치한 각종 마커들끼리의 z-index 를 상황(?)에 따라서 코드 레벨에서 정렬해야 한다고 가정하자.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;map&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;ground&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;first&quot;</span> <span class="na">class=</span><span class="s">&quot;marker&quot;</span><span class="nt">&gt;</span>1st<span class="nt">&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;second&quot;</span> <span class="na">class=</span><span class="s">&quot;marker&quot;</span><span class="nt">&gt;</span>2nd<span class="nt">&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;overlay&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;third&quot;</span> <span class="na">class=</span><span class="s">&quot;overlay&quot;</span><span class="nt">&gt;</span>3rd<span class="nt">&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;fourth&quot;</span> <span class="na">class=</span><span class="s">&quot;overlay&quot;</span><span class="nt">&gt;</span>4th<span class="nt">&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
-</span><span class='line'><span class="nt">&lt;/div&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a> <small>2010-11-15</small></h1>
+	</div>
+	<div><p>구글맵처럼 (바닥 - 마커 - 오버레이) 등 여러 개의 레이어로 구성하고, 그 안에 위치한 각종 마커들끼리의 z-index 를 상황(?)에 따라서 코드 레벨에서 정렬해야 한다고 가정하자.</p>
+<pre><code>&lt;div id=&quot;map&quot;&gt;
+  &lt;div id=&quot;ground&quot;&gt;
+  &lt;div id=&quot;first&quot; class=&quot;marker&quot;&gt;1st&lt;/div&gt;
+  &lt;div id=&quot;second&quot; class=&quot;marker&quot;&gt;2nd&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;overlay&quot;&gt;
+  &lt;div id=&quot;third&quot; class=&quot;overlay&quot;&gt;3rd&lt;/div&gt;
+  &lt;div id=&quot;fourth&quot; class=&quot;overlay&quot;&gt;4th&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 
 <p>보통 맵은 relative, 레이어들은 absolute 로 두게 된다. 이때 레이어들의 z-index 를 지정하지 않으면(또는 auto 로 설정하면), #first 마커의 z-index 를 9999 로 잡으면 상위 레이어 위로 올라오게 된다.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nf">#map</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">height</span><span class="o">:</span> <span class="m">500px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nc">.marker</span><span class="o">,</span> <span class="nc">.overlay</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#ground</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="m">#ededed</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">z-index</span><span class="o">:</span> <span class="m">1000</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#overlay</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">z-index</span><span class="o">:</span> <span class="m">1001</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#first</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="nb">yellow</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#second</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="nb">green</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#third</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">200px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#fourth</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">300px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
-</span><span class='line'> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>#map {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background-color: gray;
+}
+.marker, .overlay {
+  position: absolute;
+  text-align: center;
+}
+#ground {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #ededed;
+  z-index: 1000;
+}
+#overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1001;
+}
+#first {
+  width: 100px;height: 100px;
+  background-color: yellow;
+}
+#second {
+  width: 50px;height: 200px;
+  background-color: green;
+}
+#third {
+  width: 200px;height: 50px;
+  background-color: red;
+}
+#fourth {
+  width: 50px;height: 300px;
+  background-color: blue;
+ }
+</code></pre>
 
 <p>대신 그냥 <strong>각 레이어들의 z-index 를 각각 1000,1001 로 설정</strong>하기만 하면, 아무리 하위 레이어의 마커에 높은 z-index 를 줘도, 절대 상위 레이어를 침범하지는 않게 된다.</p>
-
-<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/Reiot/dPYcJ/embedded/result/light/"></iframe>
-
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-15T09:05:00+09:00" pubdate data-updated="true">Nov 15<span>th</span>, 2010</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/programming/'>programming</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2010/11/15/div-layering-with-z-index/" data-via="reiot" data-counturl="http://reiot.com/2010/11/15/div-layering-with-z-index/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2010/11/14/iskindofclass/" title="Previous Post: isKindOfClass">&laquo; isKindOfClass</a>
-      
-      
-        <a class="basic-alignment right" href="/2010/11/16/jqueryuitooltip/" title="next Post: jquery.ui.tooltip">jquery.ui.tooltip &raquo;</a>
-      
-    </p>
-  </footer>
+<p>관련 테스트 코드는 <a href="http://jsfiddle.net/Reiot/dPYcJ/embedded/result">jsfiddle</a>에서 볼 수 있다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/css/"><span class="label">css</span></a>
+	
+	</p>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2010/11/15/div-layering-with-z-index/';
-        var disqus_url = 'http://reiot.com/2010/11/15/div-layering-with-z-index/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

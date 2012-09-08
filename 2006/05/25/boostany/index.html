@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2006/05/25/boostany/">boost::any</a> <small>2006-05-25</small></h1>
+	</div>
+	<div><p>게임 개발을 하다 보면, 가끔 서로 다른 타입의 객체들을 하나의 컨테이너에서 다루어야 할 때가 있다. 만약 이 컨테이너로 하는 일이 간단하다면야 인터페이스 상속을 쓰면 되지만, 상속을 할 수 없을 정도로 타입이 다를 때도 있다. 이럴 때 사용하는 것이 바로 boost::any 클래스이다.</p>
+<p>boost::any는 이름 그대로 어떤(any) 것도 담을 수 있는 클래스로, void * 와 비슷한 역할을 한다. (더욱 자세한 설명은 <a href="http://boost.org/doc/html/any.html">boost 온라인 매뉴얼</a>을 참고)</p>
+<p>이번에 boost::any 의 코드를 참조해서 작업을 하다 보니 몇 가지 장단점들이 눈에 띄었다.</p>
+<ul>
+<li>미리 any 의 내부값의 타입을 파악하고 있어야 한다. 즉, type() 을 이용해서 if-else 방식으로 비교하는 수 밖에 없다.</li>
+<li>any_cast(value) 는 생각보다 타이핑하기가 귀찮다. 꺽쇠와 괄호를 다 타이핑한다고 생각해보라...</li>
+<li>디버깅시 any 내부의 placeholder 에 들어 있는 값을 찾기가 곤란하다.</li>
+</ul>
+<p>이번 주는 영식군이 한 달 동안 쇼핑하면서 작업한 <a href="http://reiot.cafe24.com/archives/395">객체 복제 프레임워크</a>를 이틀 동안 인수인계 받은 후, 복제의 최소 단위인 replication value 클래스를 boost::any 의 코드를 참조해서 고치고 있다. 미리 2000라인 정도의 테스트 코드를 만들어둔 덕택에 <del datetime="2006-05-25T14:14:00+00:00">코드 학습</del> 리팩토링이 겨우 4일 만에 거의 끝낼 수 있었다. 물론 영식군이 계속 지나가면서 어차피 기능이 똑같다면 왜 사서 삽질을 하냐고 갈구고 있지만 그냥 못들은 척하고 중이다. 흐흐.</p></div>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

@@ -1,877 +1,313 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="특정 모듈에 있는 속성, 함수, 변수들의 존재 유무를 알 수 있다.
-만약 속성이 함수라서 실행해야 한다면 callable() 을 이용할 것.
-getattr( module , name , default ) 를 사용하면 hasattr 로 체크하지 않아도 된다.
-현재 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/3">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/01/17/getattr-hasattr/">Getattr vs. Hasattr</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-17T11:44:48+09:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>특정 모듈에 있는 속성, 함수, 변수들의 존재 유무를 알 수 있다.</li>
-<li>만약 속성이 함수라서 실행해야 한다면 callable() 을 이용할 것.</li>
-<li>getattr( module , name , default ) 를 사용하면 hasattr 로 체크하지 않아도 된다.</li>
-<li>현재 모듈에 특정 함수의 존재 여부는 getattr(sys.modules[name], func) 로 검사하면 된다.</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/01/17/geoptproperty/">GeoPtProperty</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-17T11:40:28+09:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>2개의 float ( lat, lng ) 를 저장한다.</li>
-<li>값의 범위는 위도(lat) -90 ~ 90, 경도(lng) -180 ~ 180 까지.</li>
-<li>문자열로도 초기화할 수 있다. ex> entity.geo = 10.0,20.9</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/01/14/jquery-ui-widget-trigger/">jQuery UI Widget _trigger</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-14T11:13:37+09:00" pubdate data-updated="true">Jan 14<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>위젯의 options 에 들어 있는 함수를 실행한다. 따라서, 위젯 생성시에 등록해두거나, 나중에 등록해도 무방하다.</li>
-<li>위젯의 element 를 컨텍스트로 해서 jQuery.trigger() 로 실행한다.</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span> <span class="nx">event</span><span class="p">,</span> <span class="nx">data</span> <span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/01/12/haveappserver-vs-onproductionserver/">Have_app_server vs. On_production_server</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-12T17:39:09+09:00" pubdate data-updated="true">Jan 12<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>사실 하고 싶은 건, (app id, on production server) 조합으로 적합한 facebook setting 을 로딩하는 건데.. 웬지 잘 안되었던 것 같은 느낌 :)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">google.appengine.api</span> <span class="kn">import</span> <span class="n">apiproxy_stub_map</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">os</span>
-</span><span class='line'><span class="n">have_appserver</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">apiproxy_stub_map</span><span class="o">.</span><span class="n">apiproxy</span><span class="o">.</span><span class="n">GetStub</span><span class="p">(</span><span class="s">&#39;datastore_v3&#39;</span><span class="p">))</span>
-</span><span class='line'><span class="n">on_production_server</span> <span class="o">=</span> <span class="n">have_appserver</span> <span class="ow">and</span> \
-</span><span class='line'>  <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;SERVER_SOFTWARE&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;devel&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-12-14T10:02:00+09:00" pubdate data-updated="true">Dec 14<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jQuery UI widget 은 기본적으로 한번에 여러 개의 옵션을 설정할 수 있다.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;...&#39;</span><span class="p">).</span><span class="nx">somewidget</span><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">,{</span><span class="nx">aa</span><span class="o">:</span><span class="nx">bb</span><span class="p">,</span> <span class="nx">cc</span><span class="o">:</span><span class="nx">dd</span><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>하나의 옵션을 설정할 때의 추가적인 로직을 넣으려면  _setOption() 을 재정의하면 된다.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">_setOption</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="nx">value</span><span class="p">){</span>
-</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="nx">key</span><span class="o">==</span><span class="s1">&#39;some&#39;</span><span class="p">){...</span><span class="k">do</span> <span class="nx">something</span><span class="p">...}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>가끔은 여러 개의 옵션을 한번에 설정할 때, 그 중 몇몇 옵션이 바뀔 경우에 대한 추가적인 로직을 넣으려면  _setOptions 를 재정의하면 된다. jQuery UI Dialog 의 코드가 가장 좋은 예제일 것이다. 다만 1.8.6 부터 지원하니까 버전에 주의하길.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">_setOptions</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">resizableOptions</span> <span class="o">=</span> <span class="p">{},</span>
-</span><span class='line'>  <span class="nx">resize</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">options</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">self</span><span class="p">.</span><span class="nx">_setOption</span><span class="p">(</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">sizeRelatedOptions</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">resize</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">resizableRelatedOptions</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">resizableOptions</span><span class="p">[</span> <span class="nx">key</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span> <span class="nx">resize</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">_size</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">uiDialog</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span> <span class="s2">&quot;:data(resizable)&quot;</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">uiDialog</span><span class="p">.</span><span class="nx">resizable</span><span class="p">(</span> <span class="s2">&quot;option&quot;</span><span class="p">,</span> <span class="nx">resizableOptions</span> <span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/12/05/photoshop-blending-math/">포토샵 블렌딩 수식</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-12-05T06:31:48+09:00" pubdate data-updated="true">Dec 5<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li><a href="http://stackoverflow.com/questions/818230/photoshop-blending-mode-to-opengl-es-without-shaders">photoshop-blending-mode-to-opengl-es-without-shaders</a></li>
-<li><a href="http://www.nathanm.com/photoshop-blending-math/">photoshop-blending-math/</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/12/02/css-cursor-with-url/">CSS Cursor With URL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-12-02T09:59:02+09:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>CSS 커서 속성에 URL 을 사용할 수 있다.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">W</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;cursor&#39;</span><span class="p">,</span><span class="s1">&#39;url(/images/sprites/aidbomb.png) 30 30, crosshair&#39;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>이때 주의할 점은</p>
-
-<ul>
-<li>무조건 디폴트 커서를 지정해줘야 한다.</li>
-<li>IE 는 .cur .ani 만 지원한다. anchor 기능도 지원하지 않는다.</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/11/17/git-clean/">Git Clean</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-17T09:34:01+09:00" pubdate data-updated="true">Nov 17<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>가끔 git reset hard HEAD 로 정리를 해도, untracked 파일들은 남아있게 된다. 이런 파일들을 모조리 지우고 싶을 때 clean 명령을 사용할 것.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clean -f -d</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/11/16/jqueryuitooltip/">jquery.ui.tooltip</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-16T11:15:00+09:00" pubdate data-updated="true">Nov 16<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>개요</h2>
-
-<ul>
-<li>jquery ui 1.9 에서부터 지원된다. 1.8 에서 사용하려면 약간의 소스 수정이 필요하다.</li>
-<li>기본적으로 title 속성을 툴팁 텍스트로 사용한다. 동적으로 컨텐트를 만들려면 content 함수를 이용해서 DOM 을 리턴해야 한다.</li>
-<li>툴팁은 dialog 와 마찬가지로 body 에 추가된다. 자동으로 ui-tooltip-1 ui-tooltip-2 와 같이 id 가 붙는다.</li>
-<li>this.element 는 툴팁을 띄우는 원본 DOM 이고, 툴팁 컨텐트에 직접 접근하려면 this.tooltip 또는 this.widget() 을 이용해야 한다.</li>
-<li>beforeOpen 같은 걸 지원하면 좋을텐데.. 일단은 없다. 뜨지 않게 하려면 disable 시키는 수 밖에 없다.</li>
-<li>툴팁 내부 컨텐트에 jquery ui 위젯을 사용하려면 open 콜백에서 적용할 것.</li>
-</ul>
-
-
-<h2>툴팁 내부에 템플릿을 적용한 후 Progressbar 넣기</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">xxx</span><span class="p">.</span><span class="nx">tooltip</span><span class="p">({</span>
-</span><span class='line'>  <span class="nx">content</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#building-unit-tooltip-tmpl&#39;</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">.</span><span class="nx">tmpl</span><span class="p">(</span><span class="nx">unit</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">open</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">timeRatio</span> <span class="o">=</span> <span class="p">(</span><span class="nx">unit</span><span class="p">.</span><span class="nx">maxTime</span><span class="o">-</span><span class="nx">unit</span><span class="p">.</span><span class="nx">remainTime</span><span class="p">)</span> <span class="o">/</span> <span class="nx">unit</span><span class="p">.</span><span class="nx">maxTime</span> <span class="o">*</span> <span class="mi">100</span><span class="p">;</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">$tooltip</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;tooltip&#39;</span><span class="p">).</span><span class="nx">widget</span><span class="p">();</span>
-</span><span class='line'>      <span class="nx">$tooltip</span>
-</span><span class='line'>      <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;div.progressbar&#39;</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">.</span><span class="nx">progressbar</span><span class="p">({</span><span class="nx">value</span><span class="o">:</span><span class="nx">timeRatio</span><span class="p">})</span>
-</span><span class='line'>      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
-</span><span class='line'>      <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.ui-progressbar-value&#39;</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">.</span><span class="nx">animate</span><span class="p">({</span>
-</span><span class='line'>          <span class="nx">width</span><span class="o">:</span> <span class="s2">&quot;100%&quot;</span>
-</span><span class='line'>      <span class="p">},</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">duration</span><span class="o">:</span> <span class="nx">unit</span><span class="p">.</span><span class="nx">remainTime</span><span class="o">*</span><span class="mi">1000</span>
-</span><span class='line'>      <span class="p">});</span>
-</span><span class='line'>  <span class="p">}});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/11/15/div-layering-with-z-index/">DIV Layering With Z-index</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-15T09:05:00+09:00" pubdate data-updated="true">Nov 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>구글맵처럼 (바닥 - 마커 - 오버레이) 등 여러 개의 레이어로 구성하고, 그 안에 위치한 각종 마커들끼리의 z-index 를 상황(?)에 따라서 코드 레벨에서 정렬해야 한다고 가정하자.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;map&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;ground&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;first&quot;</span> <span class="na">class=</span><span class="s">&quot;marker&quot;</span><span class="nt">&gt;</span>1st<span class="nt">&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;second&quot;</span> <span class="na">class=</span><span class="s">&quot;marker&quot;</span><span class="nt">&gt;</span>2nd<span class="nt">&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;overlay&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;third&quot;</span> <span class="na">class=</span><span class="s">&quot;overlay&quot;</span><span class="nt">&gt;</span>3rd<span class="nt">&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;fourth&quot;</span> <span class="na">class=</span><span class="s">&quot;overlay&quot;</span><span class="nt">&gt;</span>4th<span class="nt">&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
-</span><span class='line'><span class="nt">&lt;/div&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>보통 맵은 relative, 레이어들은 absolute 로 두게 된다. 이때 레이어들의 z-index 를 지정하지 않으면(또는 auto 로 설정하면), #first 마커의 z-index 를 9999 로 잡으면 상위 레이어 위로 올라오게 된다.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nf">#map</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">height</span><span class="o">:</span> <span class="m">500px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nc">.marker</span><span class="o">,</span> <span class="nc">.overlay</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#ground</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="m">#ededed</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">z-index</span><span class="o">:</span> <span class="m">1000</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#overlay</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">z-index</span><span class="o">:</span> <span class="m">1001</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#first</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="nb">yellow</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#second</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="nb">green</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#third</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">200px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#fourth</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">300px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background-color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
-</span><span class='line'> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>대신 그냥 <strong>각 레이어들의 z-index 를 각각 1000,1001 로 설정</strong>하기만 하면, 아무리 하위 레이어의 마커에 높은 z-index 를 줘도, 절대 상위 레이어를 침범하지는 않게 된다.</p>
-
-<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/Reiot/dPYcJ/embedded/result/light/"></iframe>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/4/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/2/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a> <small>2010-11-11</small></h1>
+	</div>
+	<div><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
+<pre><code>&lt;script id=&quot;test&quot; type=&quot;script/x-jquery-tmpl&quot;&gt;
+  &lt;div&gt;
+  &lt;h1&gt;${name}&lt;/h1&gt;
+  &lt;p&gt;${description}&lt;/p&gt;
+  &lt;div class=&quot;progressbar&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/script&gt;
+&lt;script id=&quot;test2&quot; type=&quot;script/x-jquery-tmpl&quot;&gt;
+  &lt;h1&gt;${name}&lt;/h1&gt;
+  &lt;p&gt;${description}&lt;/p&gt;
+  &lt;div class=&quot;progressbar&quot;&gt;&lt;/div&gt;
+&lt;/script&gt;
+&lt;div id=&quot;here&quot;&gt;&lt;/div&gt;
+
+$(function() {
+  var data = {name: 'Hello', description: 'World', value:50};
+  var data2 = {name: 'JavaScript' ,description: 'Rules', value: 80};
+  var $tmpl = $('#test').tmpl(data);
+
+  $tmpl.find('.progressbar').progressbar({value:data.value});
+  $tmpl.appendTo('#here');
+
+  var tmpl2 = $('#test2').tmpl(data2);
+  tmpl2.find('.progressbar').progressbar({value:data2.value}); // not working
+  tmpl2.appendTo('#here');
+
+});
+</code></pre>
+
+<p>위 예제처럼, #test 는 하나의 DIV 로 묶여져 있어서 appendTo 하기 전에 위젯을 만들 수 있지만, #test2 처럼 여러 개의 엘리먼트들이 나눠져 있는 경우에는 .tmpl(data) 로 렌더링을 하면 [h1, p, div.progressbar] 의 배열이 튀어나오는데, 이 배열에다가 대고 find 를 해도 아무 일도 발생하지 않는다. (for 를 돌아도 마찬가지)</p>
+<p>일단은 그냥 마음편하게 하나로 묶는게 유일한 해답일 거 같은데, 그나저나 .tmplItem 은 도대체 어디에 쓰는 물건일까?</p></div>
+	
+	<p>
+	
+		<a href="/tag/jquery.tmpl/"><span class="label">jquery.tmpl</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/11/09/setup-npm-socketio/">Setup npm & socket.io</a> <small>2010-11-09</small></h1>
+	</div>
+	<div><p>EDIT: npm 은 이제 기본적으로 설치가 되므로 설치 방법은 생략한다.</p>
+<pre><code>npm install express 
+npm install socket.io
+</code></pre>
+
+<p>참고로, 모든 npm 소스는 ~/.node_libraries/.npm 아래에 저장되어 있다.</p>
+<p>가장 간단한 express 서버는 다음과 같다. curl 로 로컬 서버에 접속해볼 수 있지만, 먼저 테스트를 위해서 아마존 EC2 콘솔에 접속해서 방화벽의 8080 포트를 열어둬야 한다.</p>
+<pre><code>var app = require('express').createServer();
+app.get('/', function(req, res){
+  res.send('hello world');
+});
+app.listen(8080);
+</code></pre>
+
+<p>가장 간단한 socket.io 서버와 클라이언트는 github 에 존재한다. (이상하게도 제대로된 매뉴얼을 찾기가 힘드니, 그냥 <a href="https://github.com/LearnBoost/Socket.IO-node/blob/0.6.1/example/server.js">샘플 코드</a>를 보기를 권한다) </p>
+<pre><code>git clone git://github.com/LearnBoost/Socket.IO-node.git socket.io
+cd socket.io/example/
+sudo node server.js
+</code></pre>
+
+<p>서버와 클라이언트간의 통신은 순전히 JSON 으로 구현된다. 보내는 쪽에서</p>
+<pre><code>socket.send({ id:chat, type:whisper, target:reiot, message:Hello World! })
+</code></pre>
+
+<p>라고 보내고, 받는 쪽에서는</p>
+<pre><code>socket.on('message',function(data){
+  if('id' in data){
+  if(data.id=='chat'){
+  show_message(data.message);
+  }
+  }
+});
+</code></pre>
+
+<p>이런 식의 전통적인 소켓 프로그래밍이 이루어진다. 브로드캐스팅은 그냥 소켓에 대고</p>
+<pre><code>socket.broadcast({something:special})
+</code></pre>
+
+<p>이라고 하면 끝. </p>
+<p>첫 소감은 </p>
+<ul>
+<li>아 쉽다. 처음 소켓 프로그래밍을 배울 때의 느낌이야. 왜 지금까지 이런게 안되었을까..</li>
+<li>소스가 노출될테니 게임 서버에서 해야 하는 모든 것 - 스니핑, 스피드핵, 프로토콜 해킹, 암호화, 한방핵 - 등을 다 구현해야겠지. 클라이언트에게 많은 권한을 줘서는 안될 것 같아..</li>
+<li>이걸로 HTML5 캔버스에서 멀티플레이 가능한 로그라이크를 만들 수 있을까? ㅎㅎ</li>
+</ul>
+<p>정도 되겠다. 한마디로 꽤 재미있는 장난감이 될 것 같다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/node.js/"><span class="label">node.js</span></a>
+	
+		<a href="/tag/socket.io/"><span class="label">socket.io</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a> <small>2010-11-07</small></h1>
+	</div>
+	<div><p>이번 11월부터 <a href="http://aws.amazon.com/free/">1년 무료인 마이크로 인스턴스</a>라는 게 있다길래 node.js 를 위해서 재빨리 가입을 했다. 왜 하필 node.js 인지 궁금하신 분은 <a href="http://www.synchrosinteractive.com/blog/9-nodejs/22-nodejs-has-a-bright-future">nodejs-has-a-bright-future</a> 를 읽어보시길. 싱가포르쪽이 좀 느린 듯해서 그냥 미쿡 버지니아에다가 만들었다.</p>
+<p>처음 가입할 때 전화를 준다고 해서 살짝 망설였는데 그냥 미리 녹음된 전화에 개인키를 입력해서 인증하는 방식이라길래 용감하게 시도했으나.. 아무리 등록하려고 해도 요청 폭주로 전화가 오지 않아서 이틀이나 기다려야 했다. (3회 실패하면 12시간 후에나 다시 요청이 가능한 시스템..) 알고보니 전화 번호를 잘못 써서.울먹.. 다들 외국 사이트 가입할 때 +82 국제 전화 번호 붙이지 않나요 ㅠㅠ </p>
+<p>어쨌든 초보답게 아마존에서 제공하는 기본 리눅스 AMI 64bit 를 설치하고 보니, git 는 커녕 gcc 도 설치 안된 깔끔한 배포판이었다. 10년만에 리눅스를 만져본 터라 어떤 패키지 시스템을 써야 하는지 헷갈렸는데, 요즘은 yum 이란게 인기가 있나보다. (마지막으로 써본 게 rpm 이었던가..)</p>
+<p>기억 소멸을 방지하기 위해 대충 순서를 정리해본다 :P</p>
+<ul>
+<li>sudo yum install git-core</li>
+<li>git clone https://github.com/ry/node.git</li>
+<li>sudo yum install gcc</li>
+<li>sudo yum install gcc-c++</li>
+<li>sudo yum install openssl-devel</li>
+<li>./configure</li>
+<li>make </li>
+<li>sudo make install</li>
+<li>make test</li>
+</ul>
+<p>마이크로 인스턴스에서 빌드 시간은 17분 정도 걸린다. configure 할 때 select/eio/kqueue 를 찾는 걸 보니, 내부적으로 저런 걸 쓰는 모양이다. 내 경우에는  test-exec,  test-repl, test-http-curl-chunk-problem 3개의 테스트가 실패했다 :(</p>
+<p>ps. 오랜만에 느끼는 이 콘솔의 감촉. 아 섹시하다~~</p></div>
+	
+	<p>
+	
+		<a href="/tag/node.js/"><span class="label">node.js</span></a>
+	
+		<a href="/tag/amazon-ec2/"><span class="label">amazon-ec2</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/11/02/custom-tag/"><% raw %> custom tag</a> <small>2010-11-02</small></h1>
+	</div>
+	<div><p>jQuery 템플릿의 조건문/반복문들은 {{if}} {{each}}와 같이 선언하는데, 이게 Django의 템플릿 변수 {{var}} 선언과 동일해서 템플릿 문법 에러가 발생하게 된다. 이를 해결하려면 모든 {{ }} 에 대해서</p>
+<pre><code>{% templatetag openvariable %}if ${var}==a{% templatetag closevariable%} 
+</code></pre>
+
+<p>과 같이 바꿔줘야 한다. <a href="http://stackoverflow.com/questions/4021896/jquery-template-tags-conflict-with-django-template">StackOverflow 에 물어보니</a> Django 1.3 에서 &lt;% raw %&gt; 에 대한 제안이 들어가긴 했다고 하는데, 언제 나올지도 모르고 해서 구글에 검색해보니 다행스럽게도 누군가가 이미 구현해둔 걸 찾을 수 있었다.</p>
+<ul>
+<li><a href="http://www.holovaty.com/writing/django-two-phased-rendering/">http://www.holovaty.com/writing/django-two-phased-rendering/</a></li>
+</ul>
+<p>다만 GPL 이라는 점에 유의할 것 :P</p></div>
+	
+	<p>
+	
+		<a href="/tag/django/"><span class="label">django</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/10/12/photoshop-shortcuts/">Photoshop Shortcuts</a> <small>2010-10-12</small></h1>
+	</div>
+	<div><ul>
+<li>영역 선택시 shift 는 더하고, alt 는 빼고, shift+alt 는 교집합이 된다.</li>
+<li>굳이 move(v) 를 선택하지 않아도 ctrl 을 누르면 현재 레이어를 이동시킬 수 있다. </li>
+<li>ctrl 을 누르고 현재 레이어의 미리보기(썸네일) 아이콘을 누르면 레이어만을 선택할 수 있다. 이 상태에서 ctrl + shift 로 다른 레이어 미리보기를 선택하면 영역이 더해지고, ctrl + alt 를 누르면 빼지고, ctrl + shift + alt 를 누르면 교집합 영역이 골라진다.</li>
+<li>툴 단축키는 shift 를 누르면 비슷한 다른 툴들이 순차적으로 선택된다.</li>
+<li>ctrl + 오른쪽 클릭: 현재 마우스 위치의 레이어 목록이 보인다. 레이어 리스트 없이 특정 레이어를 고를때 편하다. 대신 레이어 이름을 잘 붙여둬야 한다.</li>
+<li>ctrl + G 는 선택된 레이어들을 그룹으로 묶어준다. ctrl + alt + G 는 클리핑 마스크를 만든다. </li>
+<li>클리핑 마스크를 만들면 브러시가 아래 하위 레이어의 영역에서만 칠해진다. 실제로 레이어의 그레디언트나 패턴 이펙트들은 클리핑 마스크로 구현되어 있다. (각각의 이펙트를 별도의 레이어로 분리해보면 알 수 있다) 썸네일을 상위 레이어로 ALT 드래그하면 클리핑을 할 수 있다. 썸네일을 폴더로 드래그하면 폴더에 속한 레이어들 전체에 마스크가 씌여진다. shift 를 누르고 썸네일을 클릭하면 해당 마스크를 disable 시킬 수 있다.</li>
+<li>레이어 목록에서 ctrl 드래그는 복사, alt 드래그는 위치 이동이다. (그냥 드래그해도 이동이긴 하다)</li>
+<li>글로벌 라이트는 모든 열린 문서를 끈 상태에서 설정해야 한다.</li>
+<li>브러쉬 크기 조절은 [] 로 할 수 있다. alt 를 누르면 잠시 스포이드(eyedropper) 모드로 색깔을 지정할 수 있다. </li>
+<li>ctrl + 1 또는 줌 버튼을 더블클릭하면 100% 크기로 볼 수 있다. 줌을 바꾸려면 ctrl + alt + wheel 을 누르면 된다.</li>
+<li>ctrl + [] 은 현재 레이어를 아래 위로 옮기는 반면, alt + [] 는 아래 위로 레이어를 선택한다. ctrl + shift + [] 는 가장 위 또는 가장 아래로 레이어를 보낸다. </li>
+<li>ctrl 을 누른 상태에서 새 레이어 버튼을 누르면 현재 레이어 아래에 새 레이어가 만들어진다. 그냥 ctrl + shift  + N 은 현재 레이어 위에 만든다.</li>
+<li>alt 를 누른 상태에서 레이어의 눈 아이콘을 누르면, 해당 레이어만 보여준다. ctrl + alt 를 누른 상태에서 다시 누르면 모두 다 보이게 된다.</li>
+<li>shift 를 누른 상태에서 +- 를 누르면, 블렌딩 모드를 순차적으로 바꿀 수 있다. move 툴을 선택한 상태에서 숫자키를 누르면 opacity 를 바꿀 수 있다. </li>
+<li>각종 숫자로 된 입력창에 포커스를 두고, ctrl 을 누르고 좌우로 드래그하면 마우스로도 바꿀 수 있다. ctrl + shift 를 누르면 10단위로 바뀐다. 그냥 휠만 움직이면 1씩 증감된다. 화살표 상하 키로도 휠과 동일한 효과를 줄 수 있다.</li>
+<li>폰트 크기를 바꾸려면 ctrl + shift + &lt;&gt;</li>
+<li>브러시 모드에서 1-0 숫자를 누르면 opacity 를 바꿔서 칠할 수 있다.</li>
+<li>ctrl + T 로 크기 변환할 때 shift 를 누르면 비율이 고정되고, alt + shift 는 중심이 고정되고, ctrl + shift 는 현재 점 외의 다른 점들이 고정된다.</li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/photoshop/"><span class="label">photoshop</span></a>
+	
+	</p>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/4/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/4">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a>
+	</li>
+	
+	<li>
+		<a href="/2010/11/09/setup-npm-socketio/">Setup npm & socket.io</a>
+	</li>
+	
+	<li>
+		<a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a>
+	</li>
+	
+	<li>
+		<a href="/2010/11/02/custom-tag/"><% raw %> custom tag</a>
+	</li>
+	
+	<li>
+		<a href="/2010/10/12/photoshop-shortcuts/">Photoshop Shortcuts</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

@@ -1,668 +1,861 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="기본적으로 google.maps.event.addListener() 는 맵에서 정의한 이벤트들만을 처리한다. 만약 커스텀 오버레이에 대해서 click 이나 mouse over 를 처리하려면, 해당 오버레이의 DOM 이벤트를 받아서 다시 구글 맵 이벤트를 트리거해야 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/8">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/29/custom-overlay-event-handling/">Custom Overlay Event Handling</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-29T10:38:42+09:00" pubdate data-updated="true">Sep 29<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>기본적으로 google.maps.event.addListener() 는 맵에서 정의한 이벤트들만을 처리한다. 만약 커스텀 오버레이에 대해서 click 이나 mouse over 를 처리하려면, 해당 오버레이의 DOM 이벤트를 받아서 다시 구글 맵 이벤트를 트리거해야 한다. (말이 어렵다)</p>
-
-<p>쉽게 말해, 커스텀 오버레이 생성자나 onAdd 에서 DOM 이벤트를 등록하고,</p>
-
-<p> google.maps.event.addDomListener(this.div_, click, function() { </p>
-
-<p> google.maps.event.trigger(me, click);</p>
-
-<p> });</p>
-
-<p>실제 오버레이 인스턴스에 대해서 </p>
-
-<p>google.maps.event.addListener(test_marker, click, function() {.});</p>
-
-<p>하면 된다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/27/missing-post-authorize-redirect-url/">Missing Post Authorize &amp; Redirect URL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-27T13:35:22+09:00" pubdate data-updated="true">Sep 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>post authorize &amp; redirect 가 사라졌다.</p>
-
-<p>oauth 가 들어가면서 서버가 직접 구분을 할 수 있을 것도 같다.</p>
-
-<p>코드에서 직접 구분을 해야 한다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/27/bulk-delete-entities-of-lost-model-in-code/">Bulk Delete Entities of Lost Model in Code</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-27T08:18:53+09:00" pubdate data-updated="true">Sep 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>class EnemyUnitGroup(db.Model): pass</p>
-
-<p>db.delete(EnemyUnitGroup.all(keys_only=True)[:500])</p></blockquote>
-
-<p>이미 클래스가 없어진 경우에는 위와 같이 임시로 선언한 다음, remote api 에서 삭제할 수 있다.</p>
-
-<p>한 순간에 최대 500개의 엔티티를 바꿀 수 있다.</p>
-
-<p>이런 류의 bulk delete 에는 map reduce 가 가장 적합하다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/26/%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%91%E1%85%A9%E1%86%AB%E1%84%8F%E1%85%A5%E1%86%B7%E1%84%91%E1%85%B2%E1%84%90%E1%85%A5-%E1%84%89%E1%85%A2%E1%86%A8%E1%84%89%E1%85%A1%E1%86%BC-%E1%84%8E%E1%85%A1%E1%84%8B%E1%85%B5-%E1%84%92%E1%85%A2%E1%84%80%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A5%E1%86%B8/">아이폰/컴퓨터 색상 차이 해결법</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-26T09:57:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://note.marines.co.kr/135">아이폰/컴퓨터 색상 차이 해결법</a><br/>
-<a href="http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/">http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/</a></p>
-
-<ol>
-<li><p>Working RGB -> Monitor</p></li>
-<li><p>Desaturate RGB -> 20-25%</p></li>
-<li><p>Modify Gamma</p></li>
-<li><p>Assign Profile -> Working RGB</p></li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/26/yslow-from-yahoo/">Yslow : 웹 속도 최적화 툴 From Yahoo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-26T09:44:57+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://developer.yahoo.com/yslow/">yslow : 웹 속도 최적화 툴 from yahoo</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/26/7/">월 7달러에 모든 그래픽 애셋 사용 가능~</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-26T09:44:17+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://wegraphics.net/">월 7달러에 모든 그래픽 애셋 사용 가능~</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/26/%E1%84%86%E1%85%AE%E1%84%85%E1%85%AD-%E1%84%8C%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%B5-%E1%84%90%E1%85%A6%E1%86%A8%E1%84%89%E1%85%B3%E1%84%8E%E1%85%A5/">무료 종이 텍스처</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-26T09:40:46+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.paperstreetdesigns.com/">무료 종이 텍스처</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/24/retrieve-checkbox-value/">Retrieve Checkbox Value</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-24T16:21:44+09:00" pubdate data-updated="true">Sep 24<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>$(#check).val() ==> always on</p>
-
-<p>$(#check).is(:checked) ==> true or false</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-24T11:25:30+09:00" pubdate data-updated="true">Sep 24<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>스프레드시트 리스트 읽어오기</strong></p>
-
-<blockquote><p>client = gdata.spreadsheets.client.SpreadsheetsClient()</p><p>feed = client.get_spreadsheets()</p></blockquote>
-
-
-<p>내부적으로 다음과 같은 URL 을 사용한다.</p>
-
-<blockquote><p>[http://spreadsheets.google.com/feeds/spreadsheets/private/full](http://spreadsheets.google.com/feeds/spreadsheets/private/full)</p></blockquote>
-
-
-<p><strong>특정 스프레드 시트의 워크 시트 리스트 읽어오기</strong></p>
-
-<blockquote><p> feed = client.get_worksheets(spreadsheet_key)</p></blockquote>
-
-
-<p>내부적으로 </p>
-
-<blockquote><p>[http://spreadsheets.google.com/feeds/worksheets/](http://spreadsheets.google.com/feeds/worksheets/)<키>/private/full</p></blockquote>
-
-
-<p>  <strong>특정 워크 시트를 리스트 기반으로 읽어오기</strong>  이건 gdata.spreadsheets.client 에서 지원하지 않는다.</p>
-
-<blockquote><p>url = https://spreadsheets.google.com/feeds/list/%s/%s/private/full  %  (spreadsheet,worksheet) feed = client.get_feed(url,  desired_class = gdata.spreadsheets.data.ListsFeed )</p></blockquote>
-
-
-<p>이렇게 읽어온 feed.entry 에서 적당한 필드를 잘 읽어내야 한다. 내부적으로는 XML 이므로 다음과 같이 읽을 것. 잘 안읽히면 feed 를 그대로 출력해서 어떤 값이 있는지 보면 된다.</p>
-
-<ul>
-<li>entry.id.text</li>
-<li>entry.title.text</li>
-<li>entry.content.text: ListsFeed 로 읽어왔을 때 row 의 값들이 문자열로 들어가 있다.</li>
-<li>entry.get_elements(namespace=GSX_ELEMENT): 컬럼은 gsx: 태그로 들어가 있으므로, iterating 할 때에는 이걸 써야 한다.</li>
-<li>entry.get_value(column name): 이미 이름을 알고 있을때..</li>
-</ul>
-
-
-<p>핵심은,</p>
-
-<ul>
-<li>구글 스프레드 시트의 모든 문서, 워크시트, row, cell 들은 유니크한 URL 을 가진다. </li>
-<li>적당한 URL 로 요청하면 ATOM XML 등으로 리턴한다.</li>
-<li>gd_client.get_feed 에 URL 을 넘기고 desired_class 를 잘 지정하면, 적당한 파이썬 객체로 래핑된다.</li>
-<li>어떤 XML 이 리턴되는지만 잘 파악하면 끗.</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/09/24/google-spreadsheet-api-with-apps-domain/">Google Spreadsheet API With Apps Domain</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-24T11:10:38+09:00" pubdate data-updated="true">Sep 24<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>3 legged oauth 예제에서 google apps 도메인에 연결하려면 인증 URL 을 바꿔야 한다.</p>
-
-<p>authorization_url = request_token.generate_authorization_url(google_apps_domain=DOMAIN HERE)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/9/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/7/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/04/07/xbox-360-new-ui/">XBOX 360 NEW UI</a> <small>2009-04-07</small></h1>
+	</div>
+	<div><p>[caption id="" align="aligncenter" width="640" caption="XBOX 360 NEW UI"]<a href="http://arstechnica.com/gaming/news/2009/02/mature-games-dominate-most-popular-xbox-360-downloads.ars"><img alt="http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg" src="http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg" /></a>[/caption]</p>
+<p>오늘 봄맞이 대청소를 맞아서, 반 년 가량 전기밥을 못먹은 엑박의 봉인을 풀었다. 작년 가을에 바뀐 대시 보드를 이제서야 보게 된 셈인데, 이게 상당히 마음에 들었다. 아바타 서비스야 Wii 보다는 한참 나은 수준이라서 그러려니 하겠는데, 아이튠즈의 커버플로우에서 발전한 네비게이션 인터페이스는 제법 "끌리게" 잘 만들었다. 무엇보다도 웬지 더 사고 싶다는 느낌 - 일명 소장 가치 - 를 불러일으키는 사용자 경험을 마켓플레이스를 돌아다니면서 계속 느꼈으니 말이다.</p>
+<p>다만 작년부터 게임불감증에 빠져서 엑박 타이틀을 제법 사놓고도 엔딩을 못본게 제법 되는지라, 실질적인 구매로는 이어지지 않았다. 만약에 스팀이나 앱스토어처럼 소액결제로 손쉽게 살 수 있는 사회적 분위기(?)가 갖춰졌다면 지갑을 열었을지도.</p>
+<p>끝으로, 제작년부터 쭈욱 주위 사람들에게 강조해오던 건데, 다량의 데이터를 표현해야 하는 인터페이스를 설계할 때 왜 다들 비트맵 기반의 픽셀 고정 스타일 - 이른바 디자이너 의존적인 통짜 인터페이스 - 을 고집하는지 모르겠다. 바야흐로 시대적 대세는 프로그래머 지향적인 벡터 기반 인터페이스이며 (아아 사실 개인적 취향이라는 점, 인정한다), 특히나 데이터를 많이 표현하게 될 경우에는 텍스트를 최대한 활용해야 하는 법이다. 윈도우 가장자리 디자인을 다듬는 시간에 멋진 배경 그림 하나 더 넣고, 더욱 미려한 폰트를 구매하고, 게임 컨텐트에 집중하는게 시간과 돈을 절약하면서도 사용자에게 더 큰 감동을 불러일으킬 수 있다고 믿는다.</p>
+<p>ps. 스케일폼 그동안 돈 많이 벌었겠다. 쳇.</p></div>
+	
+	<p>
+	
+		<a href="/tag/interface/"><span class="label">interface</span></a>
+	
+		<a href="/tag/xbox/"><span class="label">xbox</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/04/01/dungeon-crawl-stone-soup/">Dungeon Crawl Stone Soup</a> <small>2009-04-01</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/kobold.jpg"><img alt="kobold" src="http://boxcatstudio.files.wordpress.com/2009/07/kobold-300x215.jpg" /></a></p>
+<p>코볼드 떼거지를 앞에 둔 용맹스러운 트롤 버서커 Reiot 의 모습을 담은 스크린샷이다. 요즘 틈틈히 집에서 하고 있는 roguelike 게임인 <a href="http://crawl-ref.sourceforge.net/">Dungeon Crawl : Stone Soup </a>인데, 매크로나 자동 네비게이션, 넓은 맵 등 다양한 편의 기능을 자랑한다. 매번마다 오크 광산 아래에 있는 엘프들의 동네에서 별 해괴한 소환 악마들한테 죽고 있어서, 좀 서럽긴 하다. (사실은 레벨업 좀 하고 천천히 놀러 가야 하는 곳이라고 하지만, 이상한 무한 차원으로 소환당해서 악마들에게 밟히는 건 정말 처참하다. -_-)</p>
+<p>로그매니아들이라면 한번쯤 도전해볼만한 게임이니, 다들 다운받으시기 바란다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/roguelike/"><span class="label">roguelike</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/02/17/tasklist-taskkill/">Tasklist/Taskkill</a> <small>2009-02-17</small></h1>
+	</div>
+	<div><p>[caption id="" align="alignnone" width="500" caption="tasklist"]<a href="http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg"><img alt="tasklist" src="http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg" /></a>[/caption]</p>
+<p>터미널에서 프로세스 관리자가 뜨지 않을 경우, 다른 터미날에서 띄운 프로세스를 죽이기가 참 난감할 때가 있다. 다행스럽게도 유닉스의 ps/kill 조합을 윈도우에서도 지원한다.</p>
+<pre><code>- tasklist
+- tasklist /SVC : 서비스 프로세스 리스트
+- taskkill /PID &lt;pid&gt;: PID로 죽이기
+- taskkill /F /IM &lt;name&gt; : (강제로) 이름으로 죽이기
+</code></pre>
+<p>가장 하일라이트는, 원격 컴퓨터의 프로세스 죽이기인데, 정말로 잘 되는지 회사에서 테스트해봐야겠다. ;)<br />
+```<br />
+tasklist /S <server> /U <username> /P <password> /FI "IMAGENAME eq <em>Server</em>.exe"</p>
+<p>taskkill /S <server> /U <username> /P <password> /IM <process name>```</p></div>
+	
+	<p>
+	
+		<a href="/tag/process/"><span class="label">process</span></a>
+	
+		<a href="/tag/console/"><span class="label">console</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/02/17/boost-preprocessor/">boost::preprocessor</a> <small>2009-02-17</small></h1>
+	</div>
+	<div><p>boost::preprocessor 는 템플릿을 이용한 메타프로그래밍에 있어서, 템플릿 파라미터들의 반복 같은 "<strong>문자열 토큰들의 패턴 처리</strong>"를 매크로를 이용해서 손쉽게 처리해주는 라이브러리이다. 보다 상세한 용법은 <a href="http://www.boost.org/doc/libs/1_38_0/libs/preprocessor/doc/index.html">공식 홈페이지</a> 혹은  <a href="http://rein.upnl.org/wordpress/archives/486">레인님 블로그</a>와 <a href="http://ricanet.com/new/view.php?id=blog/080607">리카넷 블로그</a>를 참조하기 바란다.</p>
+<p>이걸 이용해서 <a href="http://reiot.cafe24.com/2009/01/20/boost-tuple-based-serialization/">몇 주전에 포스팅한 boost::tuple 의 직렬화 코드</a>를 만들어봤다. 원래 계획과는 좀 많이 바뀌긴 했는데, 구글로 검색해보니 <a href="http://uint32t.blogspot.com/2008/03/update-serializing-boosttuple-using.html">tuple 을 boost::serialization 으로 직렬화하는 예제</a>가 를 (상당 부분!) 참조했음을 밝힌다.</p>
+<p>남은 작업은 여기에 vector 와 list 를 자동으로 직렬화하는 건데, 어째 아무리 검색해봐도 is_vector 라든지 is_list 같은 넘이 없어서 일단은 포기. 결국 mpl 을 뒤져봐야 할지도 모르겠다. </p>
+<!--more-->
+
+<pre><code>
+#include &quot;stdafx.h&quot;
+
+#include &lt;boost/tuple/tuple.hpp&gt;
+
+#include &lt;string&gt;
+
+#include &lt;vector&gt;
+
+#include &lt;string&gt;
+#include &lt;gtest/gtest.h&gt;
+using namespace boost;
+using namespace std;
+#include &lt;boost/preprocessor/repetition.hpp&gt;
+typedef unsigned short strlen_t;
+template&lt; class V &gt;
+int to_binary( char* buf, const V &amp; v )
+{
+  size_t len = sizeof(v);
+  memcpy(buf,(const void*)&amp;v,len);
+  return len;
+}
+template&lt;class T&gt;
+int from_binary( const char * buf, T &amp; t )
+{
+  size_t len = sizeof(t);
+  memcpy((void*)&amp;t,buf,len);
+  return len;
+}
+template&lt;&gt;
+int to_binary( char* buf, const string &amp; s )
+{
+  strlen_t sz = (strlen_t)s.size();
+  memcpy(buf,&amp;sz,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  memcpy(buf+sizeof(sz),s.c_str(),sz);
+  }
+  return sizeof(sz)+sz;
+}
+template&lt;&gt;
+int from_binary( const char * buf, string &amp; str )
+{
+  strlen_t sz;
+  memcpy((void*)&amp;sz,buf,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  str.assign(buf+sizeof(sz),sz);
+  assert(str.size()==sz);
+  }
+  return sizeof(sz)+sz;
+}
+template&lt;&gt;
+int to_binary( char* buf, const wstring &amp; s )
+{
+  strlen_t sz = (strlen_t)s.size();
+  memcpy(buf,&amp;sz,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  memcpy(buf+sizeof(sz),s.c_str(),sz*sizeof(wchar_t));
+  }
+  return sizeof(sz)+sz*sizeof(wchar_t);
+}
+template&lt;&gt;
+int from_binary( const char * buf, wstring &amp; str )
+{
+  strlen_t sz;
+  memcpy((void*)&amp;sz,buf,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  str.assign((wchar_t*)(buf+sizeof(sz)),sz);
+  assert(str.size()==sz);
+  }
+  return sizeof(sz)+sz*sizeof(wchar_t);
+}
+#define TO_BINARY(z,which,unused) \
+  byte_written = to_binary( buf + offset, t.get&lt;which&gt;() );\
+  if ( byte_written &lt; 0 ) { return which; }\
+  offset += byte_written;
+#define TUPLE_TO_BINARY(z,nargs,unused) \
+  template&lt; BOOST_PP_ENUM_PARAMS(nargs,typename T) &gt; \
+  int tuple_to_binary( const boost::tuple&lt; BOOST_PP_ENUM_PARAMS(nargs,T) &gt; &amp; t, char * buf, size_t max_len ) \
+  { \
+  int offset = 0; \
+  int byte_written = 0; \
+  BOOST_PP_REPEAT_FROM_TO(0,nargs,TO_BINARY,~); \
+  return offset; \
+  }
+BOOST_PP_REPEAT_FROM_TO(1,6,TUPLE_TO_BINARY,~);
+#define FROM_BINARY(z,which,unused) \
+  byte_read = from_binary( buf + offset, t.get&lt;which&gt;() );\
+  if ( byte_read &lt; 0 ) { return which; }\
+  offset += byte_read;
+#define BINRY_TO_TUPLE(z,nargs,unused) \
+  template&lt; BOOST_PP_ENUM_PARAMS(nargs,typename T) &gt; \
+  int binary_to_tuple( boost::tuple&lt; BOOST_PP_ENUM_PARAMS(nargs,T) &gt; &amp; t, char * buf, size_t max_len ) \
+{ \
+  int offset = 0; \
+  int byte_read = 0; \
+  BOOST_PP_REPEAT_FROM_TO(0,nargs,FROM_BINARY,~); \
+  return offset; \
+}
+BOOST_PP_REPEAT_FROM_TO(1,6,BINRY_TO_TUPLE,~);
+//template&lt; class T0&gt;
+//int binary_to_tuple( boost::tuple&lt;t0&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0 &gt;
+//int tuple_to_binary( const boost::tuple&lt;t0&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//
+//template&lt; class T0, class T1&gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//
+//template&lt; class T0, class T1, class T2&gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//
+//template&lt; class T0, class T1, class T2, class T3&gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2,T3&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2, class T3, class T4 &gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2,T3,T4&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  //{
+//  //  size_t sz0 = sizeof( tuples::element&lt;0,TUPLE&gt;::type );
+//  //  assert( sz0 == sizeof(int) );
+//  //  size_t sz1 = sizeof( tuples::element&lt;1,TUPLE&gt;::type );
+//  //  assert( sz1 == sizeof(char) );
+//  //  size_t sz2 = sizeof( tuples::element&lt;2,TUPLE&gt;::type );
+//  //  assert( sz2 == sizeof(string) );
+//  //  size_t sz3 = sizeof( tuples::element&lt;3,TUPLE&gt;::type );
+//  //  assert( sz3 == sizeof(float) );
+//  //  size_t sz4 = sizeof( tuples::element&lt;4,TUPLE&gt;::type );
+//  //  assert( sz4 == sizeof(bool) );
+//  //}
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;4&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -4;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//template&lt; class T0&gt;
+//int binary_to_tuple( boost::tuple&lt;t0&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1&gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2&gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1,T2&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2, class T3&gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1,T2,T3&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2, class T3, class T4 &gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1,T2,T3,T4&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;4&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -4;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+#define TUPLE_TO_BINARY_TO_TUPLE(t,t1) \
+  char buf[1024];\
+  int len = tuple_to_binary(t,buf,1024);\
+  int len2 = binary_to_tuple(t1,buf,len);\
+  EXPECT_EQ( len2 , len )
+TEST(tuple_to_binary,test1)
+{
+  typedef tuple&lt;int&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+}
+TEST(tuple_to_binary,boolean)
+{
+  typedef tuple&lt;bool,bool&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = true;
+  t.get&lt;1&gt;() = false;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,wstring)
+{
+  typedef tuple&lt;string,wstring&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = &quot;Hello&quot;;
+  t.get&lt;1&gt;() = L&quot;World&quot;;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,test2_empty_string)
+{
+  typedef tuple&lt;wstring,wstring&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = L&quot;Hello&quot;;
+  t.get&lt;1&gt;() = L&quot;&quot;;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,test2)
+{
+  typedef tuple&lt;int,char&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,test3)
+{
+  typedef tuple&lt;int,char,string&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  t.get&lt;2&gt;() = &quot;Hello World&quot;;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
+}
+TEST(tuple_to_binary,test4)
+{
+  typedef tuple&lt;int,char,string,float&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  t.get&lt;2&gt;() = &quot;Hello World&quot;;
+  t.get&lt;3&gt;() = 12.34f;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
+  EXPECT_EQ( t.get&lt;3&gt;() , t1.get&lt;3&gt;() );
+}
+TEST(tuple_to_binary,test5)
+{
+  typedef tuple&lt;int,char,string,float,bool&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  t.get&lt;2&gt;() = &quot;Hello World&quot;;
+  t.get&lt;3&gt;() = 12.34f;
+  t.get&lt;4&gt;() = false;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
+  EXPECT_EQ( t.get&lt;3&gt;() , t1.get&lt;3&gt;() );
+  EXPECT_EQ( t.get&lt;4&gt;() , t1.get&lt;4&gt;() );
+}
+TEST(tuple_to_binary,struct)
+{
+  struct my_struct
+  {
+  int i;
+  char c;
+  float f;
+  bool b;
+  };
+
+  typedef tuple&lt;my_struct&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;().i = 1024;
+  t.get&lt;0&gt;().c = 'A';
+  t.get&lt;0&gt;().f = 12.34f;
+  t.get&lt;0&gt;().b = false;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;().i  , t1.get&lt;0&gt;().i  );
+  EXPECT_EQ( t.get&lt;0&gt;().c  , t1.get&lt;0&gt;().c  );
+  EXPECT_EQ( t.get&lt;0&gt;().f  , t1.get&lt;0&gt;().f  );
+  EXPECT_EQ( t.get&lt;0&gt;().b  , t1.get&lt;0&gt;().b  );
+}
+//TEST(tuple_to_binary,vector)
+//{
+//  struct my_struct
+//  {
+//  int i;
+//  char c;
+//  float f;
+//  bool b;
+//  };
+//
+//  typedef vector&lt;my_struct&gt; my_structs;
+//  typedef tuple&lt;my_structs&gt; my_tuple;
+//
+//  my_tuple t, t1;
+//
+//  for ( size_t i = 0 ; i &lt; 10 ; i ++ )
+//  {
+//  my_struct s;
+//  s.i = 1024;
+//  s.c = 'A';
+//  s.f = 12.34f;
+//  s.b = false;
+//
+//  t.get&lt;0&gt;().push_back(s);
+//  }
+//
+//  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+//
+//  const my_structs &amp; slist = t.get&lt;0&gt;();
+//  const my_structs &amp; slist1 = t1.get&lt;0&gt;();
+//
+//  EXPECT_EQ( slist1.size(), slist.size() );
+//  for ( size_t j = 0 ; j &lt; slist1.size() ; j ++ )
+//  {
+//  const my_struct &amp; s = slist[j];
+//  const my_struct &amp; s1 = slist1[j];
+//
+//  EXPECT_EQ( s1.i  , s.i  );
+//  EXPECT_EQ( s1.c  , s.c  );
+//  EXPECT_EQ( s1.f  , s.f  );
+//  EXPECT_EQ( s1.b  , s.b  );
+//  }
+//}
+int main(int argc, char **argv) {
+  cout &lt;&lt; &quot;Running main() from gtest_main.cc\n&quot;;
+  testing::InitGoogleTest(&amp;argc, argv);
+  return RUN_ALL_TESTS();
+}
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+		<a href="/tag/preprocessor/"><span class="label">preprocessor</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/02/08/earl-grey/">Earl Grey</a> <small>2009-02-08</small></h1>
+	</div>
+	<div><table style="width:auto;" border="0">
+<tbody>
+<tr>
+<td><a href="http://picasaweb.google.com/lh/photo/EY-Ym9sex9547IPeZxkRxA?feat=embedwebsite">![http://lh3.ggpht.com/_eFJUY9IzSSs/SY7efiJ2ZtI/AAAAAAAAAHA/_G7GJC2ySDY/s400/SANY0042.JPG](http://lh3.ggpht.com/_eFJUY9IzSSs/SY7efiJ2ZtI/AAAAAAAAAHA/_G7GJC2ySDY/s400/SANY0042.JPG)</a></td>
+</tr>
+</tbody></table>
+
+<p>얘가 최근 영입한 그레이(♂). 스코티쉬 폴드인데, 유명한 홍차 이름인 얼 그레이에서 이름을 따왔다. 똥꼬발랄하고 선배 냥이들이 많이 귀찮아한다.<br />
+<table style="width:auto;" border="0"><br />
+<tbody><br />
+<tr><br />
+<td><a href="http://picasaweb.google.com/lh/photo/HNhn36_UOIMobFZawSdIow?feat=embedwebsite"><img alt="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7fXRsrXZI/AAAAAAAAAIQ/HMBpkjqwPZI/s400/SANY0036.JPG" src="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7fXRsrXZI/AAAAAAAAAIQ/HMBpkjqwPZI/s400/SANY0036.JPG" /></a></td><br />
+</tr><br />
+</tbody></table><br />
+이놈이 밤마다 시끄럽게 하는 24시간 발정묘 보리(♂). 코리안 똥고양이의 후손으로,  쌀-보리의 그 보리다. 와이프가 맨날 이쁘다고 해서 요즘은 이뻐보이기도 하지만... 하긴 퇴근할 때 마중나오는 놈은 보리 밖에 없긴 하다. 당연히 쉬귀군의 룬보다는 한참 날씬하다. (푸훗)<br />
+<table style="width:auto;" border="0"><br />
+<tbody><br />
+<tr><br />
+<td><a href="http://picasaweb.google.com/lh/photo/TvwqxYaWG4rairUQ1OnVtg?feat=embedwebsite"><img alt="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7iED5QewI/AAAAAAAAALo/uOLDbCG_T8o/s400/SANY0096.JPG" src="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7iED5QewI/AAAAAAAAALo/uOLDbCG_T8o/s400/SANY0096.JPG" /></a></td><br />
+</tr><br />
+</tbody></table><br />
+러시안 블루 아삼(♂). 역시 홍차 이름에서 따왔다. 진정한 고양이답게 날렵하고 점프력도 좋고 잘 울지도 않지만, 성격이 좀 까칠하다. 나랑은 어째 잘 맞는지, 부르면 가슴 위로 올라와서 머리를 부비는 애교도 부린다.</p>
+<p>더 많은 사진들은 <a href="http://picasaweb.google.com/Reiot94/yiFktC#">여기</a>에 있으니 구경해보시기 바란다. 그나저나 내 평생 고양이를 3마리나 키우게 될 줄은 몰랐다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/cat/"><span class="label">cat</span></a>
+	
+	</p>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/9/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/9">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2009/04/07/xbox-360-new-ui/">XBOX 360 NEW UI</a>
+	</li>
+	
+	<li>
+		<a href="/2009/04/01/dungeon-crawl-stone-soup/">Dungeon Crawl Stone Soup</a>
+	</li>
+	
+	<li>
+		<a href="/2009/02/17/tasklist-taskkill/">Tasklist/Taskkill</a>
+	</li>
+	
+	<li>
+		<a href="/2009/02/17/boost-preprocessor/">boost::preprocessor</a>
+	</li>
+	
+	<li>
+		<a href="/2009/02/08/earl-grey/">Earl Grey</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

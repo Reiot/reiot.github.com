@@ -1,340 +1,105 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Setup Node.js on Amazon EC2 Linux - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="이번 11월부터 1년 무료인 마이크로 인스턴스라는 게 있다길래 node.js 를 위해서 재빨리 가입을 했다. 왜 하필 node.js 인지 궁금하신 분은 nodejs-has-a-bright-future 를 읽어보시길. 싱가포르쪽이 좀 느린 듯해서 그냥 미쿡 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2010/11/07/setup-nodejs-on-amazon-ec2-linux">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Setup Node.js on Amazon EC2 Linux</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-07T18:58:57+09:00" pubdate data-updated="true">Nov 7<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>이번 11월부터 <a href="http://aws.amazon.com/free/">1년 무료인 마이크로 인스턴스</a>라는 게 있다길래 node.js 를 위해서 재빨리 가입을 했다. 왜 하필 node.js 인지 궁금하신 분은 <a href="http://www.synchrosinteractive.com/blog/9-nodejs/22-nodejs-has-a-bright-future">nodejs-has-a-bright-future</a> 를 읽어보시길. 싱가포르쪽이 좀 느린 듯해서 그냥 미쿡 버지니아에다가 만들었다.</p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a> <small>2010-11-07</small></h1>
+	</div>
+	<div><p>이번 11월부터 <a href="http://aws.amazon.com/free/">1년 무료인 마이크로 인스턴스</a>라는 게 있다길래 node.js 를 위해서 재빨리 가입을 했다. 왜 하필 node.js 인지 궁금하신 분은 <a href="http://www.synchrosinteractive.com/blog/9-nodejs/22-nodejs-has-a-bright-future">nodejs-has-a-bright-future</a> 를 읽어보시길. 싱가포르쪽이 좀 느린 듯해서 그냥 미쿡 버지니아에다가 만들었다.</p>
 <p>처음 가입할 때 전화를 준다고 해서 살짝 망설였는데 그냥 미리 녹음된 전화에 개인키를 입력해서 인증하는 방식이라길래 용감하게 시도했으나.. 아무리 등록하려고 해도 요청 폭주로 전화가 오지 않아서 이틀이나 기다려야 했다. (3회 실패하면 12시간 후에나 다시 요청이 가능한 시스템..) 알고보니 전화 번호를 잘못 써서.울먹.. 다들 외국 사이트 가입할 때 +82 국제 전화 번호 붙이지 않나요 ㅠㅠ </p>
-
 <p>어쨌든 초보답게 아마존에서 제공하는 기본 리눅스 AMI 64bit 를 설치하고 보니, git 는 커녕 gcc 도 설치 안된 깔끔한 배포판이었다. 10년만에 리눅스를 만져본 터라 어떤 패키지 시스템을 써야 하는지 헷갈렸는데, 요즘은 yum 이란게 인기가 있나보다. (마지막으로 써본 게 rpm 이었던가..)</p>
-
 <p>기억 소멸을 방지하기 위해 대충 순서를 정리해본다 :P</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo yum install git-core
-</span><span class='line'><span class="nv">$ </span>git cloneÂ https://github.com/ry/node.git
-</span><span class='line'><span class="nv">$ </span>sudo yum install gcc
-</span><span class='line'><span class="nv">$ </span>sudo yum install gcc-c++
-</span><span class='line'><span class="nv">$ </span>sudo yum install openssl-devel
-</span><span class='line'><span class="nv">$ </span>./configure
-</span><span class='line'><span class="nv">$ </span>makeÂ 
-</span><span class='line'><span class="nv">$ </span>sudo make install
-</span><span class='line'><span class="nv">$ </span>make <span class="nb">test</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<ul>
+<li>sudo yum install git-core</li>
+<li>git clone https://github.com/ry/node.git</li>
+<li>sudo yum install gcc</li>
+<li>sudo yum install gcc-c++</li>
+<li>sudo yum install openssl-devel</li>
+<li>./configure</li>
+<li>make </li>
+<li>sudo make install</li>
+<li>make test</li>
+</ul>
 <p>마이크로 인스턴스에서 빌드 시간은 17분 정도 걸린다. configure 할 때 select/eio/kqueue 를 찾는 걸 보니, 내부적으로 저런 걸 쓰는 모양이다. 내 경우에는  test-exec,  test-repl, test-http-curl-chunk-problem 3개의 테스트가 실패했다 :(</p>
-
-<p>ps. 오랜만에 느끼는 이 콘솔의 감촉. 아 섹시하다~~</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-07T18:58:57+09:00" pubdate data-updated="true">Nov 7<span>th</span>, 2010</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/programming/'>programming</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2010/11/07/setup-nodejs-on-amazon-ec2-linux/" data-via="reiot" data-counturl="http://reiot.com/2010/11/07/setup-nodejs-on-amazon-ec2-linux/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2010/11/03/custom-tag/" title="Previous Post: &lt;% raw %&gt; custom tag">&laquo; &lt;% raw %&gt; custom tag</a>
-      
-      
-        <a class="basic-alignment right" href="/2010/11/09/setup-npm-socketio/" title="next Post: Setup npm &amp; socket.io">Setup npm &amp; socket.io &raquo;</a>
-      
-    </p>
-  </footer>
+<p>ps. 오랜만에 느끼는 이 콘솔의 감촉. 아 섹시하다~~</p></div>
+	
+	<p>
+	
+		<a href="/tag/node.js/"><span class="label">node.js</span></a>
+	
+		<a href="/tag/amazon-ec2/"><span class="label">amazon-ec2</span></a>
+	
+	</p>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2010/11/07/setup-nodejs-on-amazon-ec2-linux/';
-        var disqus_url = 'http://reiot.com/2010/11/07/setup-nodejs-on-amazon-ec2-linux/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

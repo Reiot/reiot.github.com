@@ -1,1565 +1,717 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>boost::preprocessor - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="boost::preprocessor 는 템플릿을 이용한 메타프로그래밍에 있어서, 템플릿 파라미터들의 반복 같은 &#8221;문자열 토큰들의 패턴 처리&#8220;를 매크로를 이용해서 손쉽게 처리해주는 라이브러리이다. 보다 상세한 용법은 공식 홈페이지 혹은  레인님 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2009/02/17/boost-preprocessor">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Boost::preprocessor</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-02-17T09:23:42+09:00" pubdate data-updated="true">Feb 17<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>boost::preprocessor 는 템플릿을 이용한 메타프로그래밍에 있어서, 템플릿 파라미터들의 반복 같은 &#8221;<strong>문자열 토큰들의 패턴 처리</strong>&#8220;를 매크로를 이용해서 손쉽게 처리해주는 라이브러리이다. 보다 상세한 용법은 <a href="http://www.boost.org/doc/libs/1_38_0/libs/preprocessor/doc/index.html">공식 홈페이지</a> 혹은  <a href="http://rein.upnl.org/wordpress/archives/486">레인님 블로그</a>와 <a href="http://ricanet.com/new/view.php?id=blog/080607">리카넷 블로그</a>를 참조하기 바란다.</p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2009/02/17/boost-preprocessor/">boost::preprocessor</a> <small>2009-02-17</small></h1>
+	</div>
+	<div><p>boost::preprocessor 는 템플릿을 이용한 메타프로그래밍에 있어서, 템플릿 파라미터들의 반복 같은 "<strong>문자열 토큰들의 패턴 처리</strong>"를 매크로를 이용해서 손쉽게 처리해주는 라이브러리이다. 보다 상세한 용법은 <a href="http://www.boost.org/doc/libs/1_38_0/libs/preprocessor/doc/index.html">공식 홈페이지</a> 혹은  <a href="http://rein.upnl.org/wordpress/archives/486">레인님 블로그</a>와 <a href="http://ricanet.com/new/view.php?id=blog/080607">리카넷 블로그</a>를 참조하기 바란다.</p>
 <p>이걸 이용해서 <a href="http://reiot.cafe24.com/2009/01/20/boost-tuple-based-serialization/">몇 주전에 포스팅한 boost::tuple 의 직렬화 코드</a>를 만들어봤다. 원래 계획과는 좀 많이 바뀌긴 했는데, 구글로 검색해보니 <a href="http://uint32t.blogspot.com/2008/03/update-serializing-boosttuple-using.html">tuple 을 boost::serialization 으로 직렬화하는 예제</a>가 를 (상당 부분!) 참조했음을 밝힌다.</p>
-
 <p>남은 작업은 여기에 vector 와 list 를 자동으로 직렬화하는 건데, 어째 아무리 검색해봐도 is_vector 라든지 is_list 같은 넘이 없어서 일단은 포기. 결국 mpl 을 뒤져봐야 할지도 모르겠다. </p>
-
 <!--more-->
 
+<pre><code>
+#include &quot;stdafx.h&quot;
 
+#include &lt;boost/tuple/tuple.hpp&gt;
 
+#include &lt;string&gt;
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-<span class='line-number'>148</span>
-<span class='line-number'>149</span>
-<span class='line-number'>150</span>
-<span class='line-number'>151</span>
-<span class='line-number'>152</span>
-<span class='line-number'>153</span>
-<span class='line-number'>154</span>
-<span class='line-number'>155</span>
-<span class='line-number'>156</span>
-<span class='line-number'>157</span>
-<span class='line-number'>158</span>
-<span class='line-number'>159</span>
-<span class='line-number'>160</span>
-<span class='line-number'>161</span>
-<span class='line-number'>162</span>
-<span class='line-number'>163</span>
-<span class='line-number'>164</span>
-<span class='line-number'>165</span>
-<span class='line-number'>166</span>
-<span class='line-number'>167</span>
-<span class='line-number'>168</span>
-<span class='line-number'>169</span>
-<span class='line-number'>170</span>
-<span class='line-number'>171</span>
-<span class='line-number'>172</span>
-<span class='line-number'>173</span>
-<span class='line-number'>174</span>
-<span class='line-number'>175</span>
-<span class='line-number'>176</span>
-<span class='line-number'>177</span>
-<span class='line-number'>178</span>
-<span class='line-number'>179</span>
-<span class='line-number'>180</span>
-<span class='line-number'>181</span>
-<span class='line-number'>182</span>
-<span class='line-number'>183</span>
-<span class='line-number'>184</span>
-<span class='line-number'>185</span>
-<span class='line-number'>186</span>
-<span class='line-number'>187</span>
-<span class='line-number'>188</span>
-<span class='line-number'>189</span>
-<span class='line-number'>190</span>
-<span class='line-number'>191</span>
-<span class='line-number'>192</span>
-<span class='line-number'>193</span>
-<span class='line-number'>194</span>
-<span class='line-number'>195</span>
-<span class='line-number'>196</span>
-<span class='line-number'>197</span>
-<span class='line-number'>198</span>
-<span class='line-number'>199</span>
-<span class='line-number'>200</span>
-<span class='line-number'>201</span>
-<span class='line-number'>202</span>
-<span class='line-number'>203</span>
-<span class='line-number'>204</span>
-<span class='line-number'>205</span>
-<span class='line-number'>206</span>
-<span class='line-number'>207</span>
-<span class='line-number'>208</span>
-<span class='line-number'>209</span>
-<span class='line-number'>210</span>
-<span class='line-number'>211</span>
-<span class='line-number'>212</span>
-<span class='line-number'>213</span>
-<span class='line-number'>214</span>
-<span class='line-number'>215</span>
-<span class='line-number'>216</span>
-<span class='line-number'>217</span>
-<span class='line-number'>218</span>
-<span class='line-number'>219</span>
-<span class='line-number'>220</span>
-<span class='line-number'>221</span>
-<span class='line-number'>222</span>
-<span class='line-number'>223</span>
-<span class='line-number'>224</span>
-<span class='line-number'>225</span>
-<span class='line-number'>226</span>
-<span class='line-number'>227</span>
-<span class='line-number'>228</span>
-<span class='line-number'>229</span>
-<span class='line-number'>230</span>
-<span class='line-number'>231</span>
-<span class='line-number'>232</span>
-<span class='line-number'>233</span>
-<span class='line-number'>234</span>
-<span class='line-number'>235</span>
-<span class='line-number'>236</span>
-<span class='line-number'>237</span>
-<span class='line-number'>238</span>
-<span class='line-number'>239</span>
-<span class='line-number'>240</span>
-<span class='line-number'>241</span>
-<span class='line-number'>242</span>
-<span class='line-number'>243</span>
-<span class='line-number'>244</span>
-<span class='line-number'>245</span>
-<span class='line-number'>246</span>
-<span class='line-number'>247</span>
-<span class='line-number'>248</span>
-<span class='line-number'>249</span>
-<span class='line-number'>250</span>
-<span class='line-number'>251</span>
-<span class='line-number'>252</span>
-<span class='line-number'>253</span>
-<span class='line-number'>254</span>
-<span class='line-number'>255</span>
-<span class='line-number'>256</span>
-<span class='line-number'>257</span>
-<span class='line-number'>258</span>
-<span class='line-number'>259</span>
-<span class='line-number'>260</span>
-<span class='line-number'>261</span>
-<span class='line-number'>262</span>
-<span class='line-number'>263</span>
-<span class='line-number'>264</span>
-<span class='line-number'>265</span>
-<span class='line-number'>266</span>
-<span class='line-number'>267</span>
-<span class='line-number'>268</span>
-<span class='line-number'>269</span>
-<span class='line-number'>270</span>
-<span class='line-number'>271</span>
-<span class='line-number'>272</span>
-<span class='line-number'>273</span>
-<span class='line-number'>274</span>
-<span class='line-number'>275</span>
-<span class='line-number'>276</span>
-<span class='line-number'>277</span>
-<span class='line-number'>278</span>
-<span class='line-number'>279</span>
-<span class='line-number'>280</span>
-<span class='line-number'>281</span>
-<span class='line-number'>282</span>
-<span class='line-number'>283</span>
-<span class='line-number'>284</span>
-<span class='line-number'>285</span>
-<span class='line-number'>286</span>
-<span class='line-number'>287</span>
-<span class='line-number'>288</span>
-<span class='line-number'>289</span>
-<span class='line-number'>290</span>
-<span class='line-number'>291</span>
-<span class='line-number'>292</span>
-<span class='line-number'>293</span>
-<span class='line-number'>294</span>
-<span class='line-number'>295</span>
-<span class='line-number'>296</span>
-<span class='line-number'>297</span>
-<span class='line-number'>298</span>
-<span class='line-number'>299</span>
-<span class='line-number'>300</span>
-<span class='line-number'>301</span>
-<span class='line-number'>302</span>
-<span class='line-number'>303</span>
-<span class='line-number'>304</span>
-<span class='line-number'>305</span>
-<span class='line-number'>306</span>
-<span class='line-number'>307</span>
-<span class='line-number'>308</span>
-<span class='line-number'>309</span>
-<span class='line-number'>310</span>
-<span class='line-number'>311</span>
-<span class='line-number'>312</span>
-<span class='line-number'>313</span>
-<span class='line-number'>314</span>
-<span class='line-number'>315</span>
-<span class='line-number'>316</span>
-<span class='line-number'>317</span>
-<span class='line-number'>318</span>
-<span class='line-number'>319</span>
-<span class='line-number'>320</span>
-<span class='line-number'>321</span>
-<span class='line-number'>322</span>
-<span class='line-number'>323</span>
-<span class='line-number'>324</span>
-<span class='line-number'>325</span>
-<span class='line-number'>326</span>
-<span class='line-number'>327</span>
-<span class='line-number'>328</span>
-<span class='line-number'>329</span>
-<span class='line-number'>330</span>
-<span class='line-number'>331</span>
-<span class='line-number'>332</span>
-<span class='line-number'>333</span>
-<span class='line-number'>334</span>
-<span class='line-number'>335</span>
-<span class='line-number'>336</span>
-<span class='line-number'>337</span>
-<span class='line-number'>338</span>
-<span class='line-number'>339</span>
-<span class='line-number'>340</span>
-<span class='line-number'>341</span>
-<span class='line-number'>342</span>
-<span class='line-number'>343</span>
-<span class='line-number'>344</span>
-<span class='line-number'>345</span>
-<span class='line-number'>346</span>
-<span class='line-number'>347</span>
-<span class='line-number'>348</span>
-<span class='line-number'>349</span>
-<span class='line-number'>350</span>
-<span class='line-number'>351</span>
-<span class='line-number'>352</span>
-<span class='line-number'>353</span>
-<span class='line-number'>354</span>
-<span class='line-number'>355</span>
-<span class='line-number'>356</span>
-<span class='line-number'>357</span>
-<span class='line-number'>358</span>
-<span class='line-number'>359</span>
-<span class='line-number'>360</span>
-<span class='line-number'>361</span>
-<span class='line-number'>362</span>
-<span class='line-number'>363</span>
-<span class='line-number'>364</span>
-<span class='line-number'>365</span>
-<span class='line-number'>366</span>
-<span class='line-number'>367</span>
-<span class='line-number'>368</span>
-<span class='line-number'>369</span>
-<span class='line-number'>370</span>
-<span class='line-number'>371</span>
-<span class='line-number'>372</span>
-<span class='line-number'>373</span>
-<span class='line-number'>374</span>
-<span class='line-number'>375</span>
-<span class='line-number'>376</span>
-<span class='line-number'>377</span>
-<span class='line-number'>378</span>
-<span class='line-number'>379</span>
-<span class='line-number'>380</span>
-<span class='line-number'>381</span>
-<span class='line-number'>382</span>
-<span class='line-number'>383</span>
-<span class='line-number'>384</span>
-<span class='line-number'>385</span>
-<span class='line-number'>386</span>
-<span class='line-number'>387</span>
-<span class='line-number'>388</span>
-<span class='line-number'>389</span>
-<span class='line-number'>390</span>
-<span class='line-number'>391</span>
-<span class='line-number'>392</span>
-<span class='line-number'>393</span>
-<span class='line-number'>394</span>
-<span class='line-number'>395</span>
-<span class='line-number'>396</span>
-<span class='line-number'>397</span>
-<span class='line-number'>398</span>
-<span class='line-number'>399</span>
-<span class='line-number'>400</span>
-<span class='line-number'>401</span>
-<span class='line-number'>402</span>
-<span class='line-number'>403</span>
-<span class='line-number'>404</span>
-<span class='line-number'>405</span>
-<span class='line-number'>406</span>
-<span class='line-number'>407</span>
-<span class='line-number'>408</span>
-<span class='line-number'>409</span>
-<span class='line-number'>410</span>
-<span class='line-number'>411</span>
-<span class='line-number'>412</span>
-<span class='line-number'>413</span>
-<span class='line-number'>414</span>
-<span class='line-number'>415</span>
-<span class='line-number'>416</span>
-<span class='line-number'>417</span>
-<span class='line-number'>418</span>
-<span class='line-number'>419</span>
-<span class='line-number'>420</span>
-<span class='line-number'>421</span>
-<span class='line-number'>422</span>
-<span class='line-number'>423</span>
-<span class='line-number'>424</span>
-<span class='line-number'>425</span>
-<span class='line-number'>426</span>
-<span class='line-number'>427</span>
-<span class='line-number'>428</span>
-<span class='line-number'>429</span>
-<span class='line-number'>430</span>
-<span class='line-number'>431</span>
-<span class='line-number'>432</span>
-<span class='line-number'>433</span>
-<span class='line-number'>434</span>
-<span class='line-number'>435</span>
-<span class='line-number'>436</span>
-<span class='line-number'>437</span>
-<span class='line-number'>438</span>
-<span class='line-number'>439</span>
-<span class='line-number'>440</span>
-<span class='line-number'>441</span>
-<span class='line-number'>442</span>
-<span class='line-number'>443</span>
-<span class='line-number'>444</span>
-<span class='line-number'>445</span>
-<span class='line-number'>446</span>
-<span class='line-number'>447</span>
-<span class='line-number'>448</span>
-<span class='line-number'>449</span>
-<span class='line-number'>450</span>
-<span class='line-number'>451</span>
-<span class='line-number'>452</span>
-<span class='line-number'>453</span>
-<span class='line-number'>454</span>
-<span class='line-number'>455</span>
-<span class='line-number'>456</span>
-<span class='line-number'>457</span>
-<span class='line-number'>458</span>
-<span class='line-number'>459</span>
-<span class='line-number'>460</span>
-<span class='line-number'>461</span>
-<span class='line-number'>462</span>
-<span class='line-number'>463</span>
-<span class='line-number'>464</span>
-<span class='line-number'>465</span>
-<span class='line-number'>466</span>
-<span class='line-number'>467</span>
-<span class='line-number'>468</span>
-<span class='line-number'>469</span>
-<span class='line-number'>470</span>
-<span class='line-number'>471</span>
-<span class='line-number'>472</span>
-<span class='line-number'>473</span>
-<span class='line-number'>474</span>
-<span class='line-number'>475</span>
-<span class='line-number'>476</span>
-<span class='line-number'>477</span>
-<span class='line-number'>478</span>
-<span class='line-number'>479</span>
-<span class='line-number'>480</span>
-<span class='line-number'>481</span>
-<span class='line-number'>482</span>
-<span class='line-number'>483</span>
-<span class='line-number'>484</span>
-<span class='line-number'>485</span>
-<span class='line-number'>486</span>
-<span class='line-number'>487</span>
-<span class='line-number'>488</span>
-<span class='line-number'>489</span>
-<span class='line-number'>490</span>
-<span class='line-number'>491</span>
-<span class='line-number'>492</span>
-<span class='line-number'>493</span>
-<span class='line-number'>494</span>
-<span class='line-number'>495</span>
-<span class='line-number'>496</span>
-<span class='line-number'>497</span>
-<span class='line-number'>498</span>
-<span class='line-number'>499</span>
-<span class='line-number'>500</span>
-<span class='line-number'>501</span>
-<span class='line-number'>502</span>
-<span class='line-number'>503</span>
-<span class='line-number'>504</span>
-<span class='line-number'>505</span>
-<span class='line-number'>506</span>
-<span class='line-number'>507</span>
-<span class='line-number'>508</span>
-<span class='line-number'>509</span>
-<span class='line-number'>510</span>
-<span class='line-number'>511</span>
-<span class='line-number'>512</span>
-<span class='line-number'>513</span>
-<span class='line-number'>514</span>
-<span class='line-number'>515</span>
-<span class='line-number'>516</span>
-<span class='line-number'>517</span>
-<span class='line-number'>518</span>
-<span class='line-number'>519</span>
-<span class='line-number'>520</span>
-<span class='line-number'>521</span>
-<span class='line-number'>522</span>
-<span class='line-number'>523</span>
-<span class='line-number'>524</span>
-<span class='line-number'>525</span>
-<span class='line-number'>526</span>
-<span class='line-number'>527</span>
-<span class='line-number'>528</span>
-<span class='line-number'>529</span>
-<span class='line-number'>530</span>
-<span class='line-number'>531</span>
-<span class='line-number'>532</span>
-<span class='line-number'>533</span>
-<span class='line-number'>534</span>
-<span class='line-number'>535</span>
-<span class='line-number'>536</span>
-<span class='line-number'>537</span>
-<span class='line-number'>538</span>
-<span class='line-number'>539</span>
-<span class='line-number'>540</span>
-<span class='line-number'>541</span>
-<span class='line-number'>542</span>
-<span class='line-number'>543</span>
-<span class='line-number'>544</span>
-<span class='line-number'>545</span>
-<span class='line-number'>546</span>
-<span class='line-number'>547</span>
-<span class='line-number'>548</span>
-<span class='line-number'>549</span>
-<span class='line-number'>550</span>
-<span class='line-number'>551</span>
-<span class='line-number'>552</span>
-<span class='line-number'>553</span>
-<span class='line-number'>554</span>
-<span class='line-number'>555</span>
-<span class='line-number'>556</span>
-<span class='line-number'>557</span>
-<span class='line-number'>558</span>
-<span class='line-number'>559</span>
-<span class='line-number'>560</span>
-<span class='line-number'>561</span>
-<span class='line-number'>562</span>
-<span class='line-number'>563</span>
-<span class='line-number'>564</span>
-<span class='line-number'>565</span>
-<span class='line-number'>566</span>
-<span class='line-number'>567</span>
-<span class='line-number'>568</span>
-<span class='line-number'>569</span>
-<span class='line-number'>570</span>
-<span class='line-number'>571</span>
-<span class='line-number'>572</span>
-<span class='line-number'>573</span>
-<span class='line-number'>574</span>
-<span class='line-number'>575</span>
-<span class='line-number'>576</span>
-<span class='line-number'>577</span>
-<span class='line-number'>578</span>
-<span class='line-number'>579</span>
-<span class='line-number'>580</span>
-<span class='line-number'>581</span>
-<span class='line-number'>582</span>
-<span class='line-number'>583</span>
-<span class='line-number'>584</span>
-<span class='line-number'>585</span>
-<span class='line-number'>586</span>
-<span class='line-number'>587</span>
-<span class='line-number'>588</span>
-<span class='line-number'>589</span>
-<span class='line-number'>590</span>
-<span class='line-number'>591</span>
-<span class='line-number'>592</span>
-<span class='line-number'>593</span>
-<span class='line-number'>594</span>
-<span class='line-number'>595</span>
-<span class='line-number'>596</span>
-<span class='line-number'>597</span>
-<span class='line-number'>598</span>
-<span class='line-number'>599</span>
-<span class='line-number'>600</span>
-<span class='line-number'>601</span>
-<span class='line-number'>602</span>
-<span class='line-number'>603</span>
-<span class='line-number'>604</span>
-<span class='line-number'>605</span>
-<span class='line-number'>606</span>
-<span class='line-number'>607</span>
-<span class='line-number'>608</span>
-<span class='line-number'>609</span>
-<span class='line-number'>610</span>
-<span class='line-number'>611</span>
-<span class='line-number'>612</span>
-<span class='line-number'>613</span>
-<span class='line-number'>614</span>
-<span class='line-number'>615</span>
-<span class='line-number'>616</span>
-<span class='line-number'>617</span>
-<span class='line-number'>618</span>
-<span class='line-number'>619</span>
-<span class='line-number'>620</span>
-<span class='line-number'>621</span>
-<span class='line-number'>622</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="cp">#include &quot;stdafx.h&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">#include &lt;boost/tuple/tuple.hpp&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">#include &lt;string&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">#include &lt;vector&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">#include &lt;string&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;gtest/gtest.h&gt;</span>
-</span><span class='line'><span class="k">using</span> <span class="k">namespace</span> <span class="n">boost</span><span class="p">;</span>
-</span><span class='line'><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-</span><span class='line'><span class="cp">#include &lt;boost/preprocessor/repetition.hpp&gt;</span>
-</span><span class='line'><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">strlen_t</span><span class="p">;</span>
-</span><span class='line'><span class="k">template</span><span class="o">&lt;</span> <span class="k">class</span> <span class="nc">V</span> <span class="o">&gt;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">to_binary</span><span class="p">(</span> <span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="k">const</span> <span class="n">V</span> <span class="o">&amp;</span> <span class="n">v</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">size_t</span> <span class="n">len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">memcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">v</span><span class="p">,</span><span class="n">len</span><span class="p">);</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">len</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">from_binary</span><span class="p">(</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">t</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">size_t</span> <span class="n">len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">memcpy</span><span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">t</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">len</span><span class="p">);</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">len</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">template</span><span class="o">&lt;&gt;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">to_binary</span><span class="p">(</span> <span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">strlen_t</span> <span class="n">sz</span> <span class="o">=</span> <span class="p">(</span><span class="n">strlen_t</span><span class="p">)</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-</span><span class='line'>  <span class="n">memcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="o">&amp;</span><span class="n">sz</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">));</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span> <span class="n">sz</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>  <span class="n">memcpy</span><span class="p">(</span><span class="n">buf</span><span class="o">+</span><span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">),</span><span class="n">s</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span><span class="n">sz</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span><span class="o">+</span><span class="n">sz</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">template</span><span class="o">&lt;&gt;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">from_binary</span><span class="p">(</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="n">string</span> <span class="o">&amp;</span> <span class="n">str</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">strlen_t</span> <span class="n">sz</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">memcpy</span><span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">sz</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">));</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span> <span class="n">sz</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>  <span class="n">str</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">buf</span><span class="o">+</span><span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">),</span><span class="n">sz</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">assert</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">==</span><span class="n">sz</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span><span class="o">+</span><span class="n">sz</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">template</span><span class="o">&lt;&gt;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">to_binary</span><span class="p">(</span> <span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="k">const</span> <span class="n">wstring</span> <span class="o">&amp;</span> <span class="n">s</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">strlen_t</span> <span class="n">sz</span> <span class="o">=</span> <span class="p">(</span><span class="n">strlen_t</span><span class="p">)</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-</span><span class='line'>  <span class="n">memcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="o">&amp;</span><span class="n">sz</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">));</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span> <span class="n">sz</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>  <span class="n">memcpy</span><span class="p">(</span><span class="n">buf</span><span class="o">+</span><span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">),</span><span class="n">s</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span><span class="n">sz</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">wchar_t</span><span class="p">));</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span><span class="o">+</span><span class="n">sz</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">wchar_t</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">template</span><span class="o">&lt;&gt;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">from_binary</span><span class="p">(</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="n">wstring</span> <span class="o">&amp;</span> <span class="n">str</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">strlen_t</span> <span class="n">sz</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">memcpy</span><span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">sz</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">));</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span> <span class="n">sz</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>  <span class="n">str</span><span class="p">.</span><span class="n">assign</span><span class="p">((</span><span class="kt">wchar_t</span><span class="o">*</span><span class="p">)(</span><span class="n">buf</span><span class="o">+</span><span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">)),</span><span class="n">sz</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">assert</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">==</span><span class="n">sz</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span><span class="o">+</span><span class="n">sz</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">wchar_t</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="cp">#define TO_BINARY(z,which,unused) \</span>
-</span><span class='line'><span class="cp">  byte_written = to_binary( buf + offset, t.get&lt;which&gt;() );\</span>
-</span><span class='line'><span class="cp">  if ( byte_written &lt; 0 ) { return which; }\</span>
-</span><span class='line'><span class="cp">  offset += byte_written;</span>
-</span><span class='line'><span class="cp">#define TUPLE_TO_BINARY(z,nargs,unused) \</span>
-</span><span class='line'><span class="cp">  template&lt; BOOST_PP_ENUM_PARAMS(nargs,typename T) &gt; \</span>
-</span><span class='line'><span class="cp">  int tuple_to_binary( const boost::tuple&lt; BOOST_PP_ENUM_PARAMS(nargs,T) &gt; &amp; t, char * buf, size_t max_len ) \</span>
-</span><span class='line'><span class="cp">  { \</span>
-</span><span class='line'><span class="cp">  int offset = 0; \</span>
-</span><span class='line'><span class="cp">  int byte_written = 0; \</span>
-</span><span class='line'><span class="cp">  BOOST_PP_REPEAT_FROM_TO(0,nargs,TO_BINARY,~); \</span>
-</span><span class='line'><span class="cp">  return offset; \</span>
-</span><span class='line'><span class="cp">  }</span>
-</span><span class='line'><span class="n">BOOST_PP_REPEAT_FROM_TO</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">TUPLE_TO_BINARY</span><span class="p">,</span><span class="o">~</span><span class="p">);</span>
-</span><span class='line'><span class="cp">#define FROM_BINARY(z,which,unused) \</span>
-</span><span class='line'><span class="cp">  byte_read = from_binary( buf + offset, t.get&lt;which&gt;() );\</span>
-</span><span class='line'><span class="cp">  if ( byte_read &lt; 0 ) { return which; }\</span>
-</span><span class='line'><span class="cp">  offset += byte_read;</span>
-</span><span class='line'><span class="cp">#define BINRY_TO_TUPLE(z,nargs,unused) \</span>
-</span><span class='line'><span class="cp">  template&lt; BOOST_PP_ENUM_PARAMS(nargs,typename T) &gt; \</span>
-</span><span class='line'><span class="cp">  int binary_to_tuple( boost::tuple&lt; BOOST_PP_ENUM_PARAMS(nargs,T) &gt; &amp; t, char * buf, size_t max_len ) \</span>
-</span><span class='line'><span class="cp">{ \</span>
-</span><span class='line'><span class="cp">  int offset = 0; \</span>
-</span><span class='line'><span class="cp">  int byte_read = 0; \</span>
-</span><span class='line'><span class="cp">  BOOST_PP_REPEAT_FROM_TO(0,nargs,FROM_BINARY,~); \</span>
-</span><span class='line'><span class="cp">  return offset; \</span>
-</span><span class='line'><span class="cp">}</span>
-</span><span class='line'><span class="n">BOOST_PP_REPEAT_FROM_TO</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">BINRY_TO_TUPLE</span><span class="p">,</span><span class="o">~</span><span class="p">);</span>
-</span><span class='line'><span class="cp">//template&lt; class T0&gt;</span>
-</span><span class='line'><span class="cp">//int binary_to_tuple( boost::tuple&lt;t0&gt; &amp; t, const char * buf, size_t len )</span>
-</span><span class='line'><span class="cp">//{</span>
-</span><span class='line'><span class="cp">//  int offset = 0;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return 0;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  return offset;</span>
-</span><span class='line'><span class="cp">//}</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//template&lt; class T0 &gt;</span>
-</span><span class='line'><span class="cp">//int tuple_to_binary( const boost::tuple&lt;t0&gt; &amp; t, char * buf, size_t max_len )</span>
-</span><span class='line'><span class="cp">//{</span>
-</span><span class='line'><span class="cp">//  int offset = 0;</span>
-</span><span class='line'><span class="cp">//  int byte_written = 0;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return 0;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  return offset;</span>
-</span><span class='line'><span class="cp">//}</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//template&lt; class T0, class T1&gt;</span>
-</span><span class='line'><span class="cp">//int tuple_to_binary( const boost::tuple&lt;t0,T1&gt; &amp; t, char * buf, size_t max_len )</span>
-</span><span class='line'><span class="cp">//{</span>
-</span><span class='line'><span class="cp">//  int offset = 0;</span>
-</span><span class='line'><span class="cp">//  int byte_written = 0;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return 0;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -1;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  return offset;</span>
-</span><span class='line'><span class="cp">//}</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//template&lt; class T0, class T1, class T2&gt;</span>
-</span><span class='line'><span class="cp">//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2&gt; &amp; t, char * buf, size_t max_len )</span>
-</span><span class='line'><span class="cp">//{</span>
-</span><span class='line'><span class="cp">//  int offset = 0;</span>
-</span><span class='line'><span class="cp">//  int byte_written = 0;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return 0;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -1;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -2;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  return offset;</span>
-</span><span class='line'><span class="cp">//}</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//template&lt; class T0, class T1, class T2, class T3&gt;</span>
-</span><span class='line'><span class="cp">//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2,T3&gt; &amp; t, char * buf, size_t max_len )</span>
-</span><span class='line'><span class="cp">//{</span>
-</span><span class='line'><span class="cp">//  int offset = 0;</span>
-</span><span class='line'><span class="cp">//  int byte_written = 0;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return 0;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -1;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -2;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;3&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -3;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  return offset;</span>
-</span><span class='line'><span class="cp">//}</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//template&lt; class T0, class T1, class T2, class T3, class T4 &gt;</span>
-</span><span class='line'><span class="cp">//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2,T3,T4&gt; &amp; t, char * buf, size_t max_len )</span>
-</span><span class='line'><span class="cp">//{</span>
-</span><span class='line'><span class="cp">//  int offset = 0;</span>
-</span><span class='line'><span class="cp">//  int byte_written = 0;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  //{</span>
-</span><span class='line'><span class="cp">//  //  size_t sz0 = sizeof( tuples::element&lt;0,TUPLE&gt;::type );</span>
-</span><span class='line'><span class="cp">//  //  assert( sz0 == sizeof(int) );</span>
-</span><span class='line'><span class="cp">//  //  size_t sz1 = sizeof( tuples::element&lt;1,TUPLE&gt;::type );</span>
-</span><span class='line'><span class="cp">//  //  assert( sz1 == sizeof(char) );</span>
-</span><span class='line'><span class="cp">//  //  size_t sz2 = sizeof( tuples::element&lt;2,TUPLE&gt;::type );</span>
-</span><span class='line'><span class="cp">//  //  assert( sz2 == sizeof(string) );</span>
-</span><span class='line'><span class="cp">//  //  size_t sz3 = sizeof( tuples::element&lt;3,TUPLE&gt;::type );</span>
-</span><span class='line'><span class="cp">//  //  assert( sz3 == sizeof(float) );</span>
-</span><span class='line'><span class="cp">//  //  size_t sz4 = sizeof( tuples::element&lt;4,TUPLE&gt;::type );</span>
-</span><span class='line'><span class="cp">//  //  assert( sz4 == sizeof(bool) );</span>
-</span><span class='line'><span class="cp">//  //}</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return 0;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -1;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -2;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;3&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -3;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_written = to_binary( buf + offset, t.get&lt;4&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_written &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -4;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_written;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  return offset;</span>
-</span><span class='line'><span class="cp">//}</span>
-</span><span class='line'><span class="cp">//template&lt; class T0&gt;</span>
-</span><span class='line'><span class="cp">//int binary_to_tuple( boost::tuple&lt;t0&gt; &amp; t, const char * buf, size_t len )</span>
-</span><span class='line'><span class="cp">//{</span>
-</span><span class='line'><span class="cp">//  int offset = 0;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return 0;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  return offset;</span>
-</span><span class='line'><span class="cp">//}</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//template&lt; class T0, class T1&gt;</span>
-</span><span class='line'><span class="cp">//int binary_to_tuple( boost::tuple&lt;t0,T1&gt; &amp; t, const char * buf, size_t len )</span>
-</span><span class='line'><span class="cp">//{</span>
-</span><span class='line'><span class="cp">//  int offset = 0;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return 0;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -1;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  return offset;</span>
-</span><span class='line'><span class="cp">//}</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//template&lt; class T0, class T1, class T2&gt;</span>
-</span><span class='line'><span class="cp">//int binary_to_tuple( boost::tuple&lt;t0,T1,T2&gt; &amp; t, const char * buf, size_t len )</span>
-</span><span class='line'><span class="cp">//{</span>
-</span><span class='line'><span class="cp">//  int offset = 0;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return 0;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -1;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -2;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  return offset;</span>
-</span><span class='line'><span class="cp">//}</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//template&lt; class T0, class T1, class T2, class T3&gt;</span>
-</span><span class='line'><span class="cp">//int binary_to_tuple( boost::tuple&lt;t0,T1,T2,T3&gt; &amp; t, const char * buf, size_t len )</span>
-</span><span class='line'><span class="cp">//{</span>
-</span><span class='line'><span class="cp">//  int offset = 0;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return 0;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -1;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -2;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_read = from_binary( buf + offset, t.get&lt;3&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -3;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  return offset;</span>
-</span><span class='line'><span class="cp">//}</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//template&lt; class T0, class T1, class T2, class T3, class T4 &gt;</span>
-</span><span class='line'><span class="cp">//int binary_to_tuple( boost::tuple&lt;t0,T1,T2,T3,T4&gt; &amp; t, const char * buf, size_t len )</span>
-</span><span class='line'><span class="cp">//{</span>
-</span><span class='line'><span class="cp">//  int offset = 0;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return 0;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -1;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -2;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_read = from_binary( buf + offset, t.get&lt;3&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -3;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  byte_read = from_binary( buf + offset, t.get&lt;4&gt;() );</span>
-</span><span class='line'><span class="cp">//  if ( byte_read &lt; 0 )</span>
-</span><span class='line'><span class="cp">//  {</span>
-</span><span class='line'><span class="cp">//  // error</span>
-</span><span class='line'><span class="cp">//  return -4;</span>
-</span><span class='line'><span class="cp">//  }</span>
-</span><span class='line'><span class="cp">//  offset += byte_read;</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'><span class="cp">//  return offset;</span>
-</span><span class='line'><span class="cp">//}</span>
-</span><span class='line'><span class="cp">#define TUPLE_TO_BINARY_TO_TUPLE(t,t1) \</span>
-</span><span class='line'><span class="cp">  char buf[1024];\</span>
-</span><span class='line'><span class="cp">  int len = tuple_to_binary(t,buf,1024);\</span>
-</span><span class='line'><span class="cp">  int len2 = binary_to_tuple(t1,buf,len);\</span>
-</span><span class='line'><span class="cp">  EXPECT_EQ( len2 , len )</span>
-</span><span class='line'><span class="n">TEST</span><span class="p">(</span><span class="n">tuple_to_binary</span><span class="p">,</span><span class="n">test1</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">typedef</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">my_tuple</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">my_tuple</span> <span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">TUPLE_TO_BINARY_TO_TUPLE</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t1</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="n">TEST</span><span class="p">(</span><span class="n">tuple_to_binary</span><span class="p">,</span><span class="n">boolean</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">typedef</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">my_tuple</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">my_tuple</span> <span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">TUPLE_TO_BINARY_TO_TUPLE</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t1</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="n">TEST</span><span class="p">(</span><span class="n">tuple_to_binary</span><span class="p">,</span><span class="n">wstring</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">typedef</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="n">wstring</span><span class="o">&gt;</span> <span class="n">my_tuple</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">my_tuple</span> <span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="s">&quot;Hello&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="s">L&quot;World&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">TUPLE_TO_BINARY_TO_TUPLE</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t1</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="n">TEST</span><span class="p">(</span><span class="n">tuple_to_binary</span><span class="p">,</span><span class="n">test2_empty_string</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">typedef</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="n">wstring</span><span class="p">,</span><span class="n">wstring</span><span class="o">&gt;</span> <span class="n">my_tuple</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">my_tuple</span> <span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="s">L&quot;Hello&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="s">L&quot;&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">TUPLE_TO_BINARY_TO_TUPLE</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t1</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="n">TEST</span><span class="p">(</span><span class="n">tuple_to_binary</span><span class="p">,</span><span class="n">test2</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">typedef</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">my_tuple</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">my_tuple</span> <span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="sc">&#39;A&#39;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">TUPLE_TO_BINARY_TO_TUPLE</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t1</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="n">TEST</span><span class="p">(</span><span class="n">tuple_to_binary</span><span class="p">,</span><span class="n">test3</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">typedef</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">char</span><span class="p">,</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">my_tuple</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">my_tuple</span> <span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="sc">&#39;A&#39;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="s">&quot;Hello World&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">TUPLE_TO_BINARY_TO_TUPLE</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t1</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="n">TEST</span><span class="p">(</span><span class="n">tuple_to_binary</span><span class="p">,</span><span class="n">test4</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">typedef</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">char</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">my_tuple</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">my_tuple</span> <span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="sc">&#39;A&#39;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="s">&quot;Hello World&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="mf">12.34f</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">TUPLE_TO_BINARY_TO_TUPLE</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t1</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="n">TEST</span><span class="p">(</span><span class="n">tuple_to_binary</span><span class="p">,</span><span class="n">test5</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">typedef</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">char</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="kt">float</span><span class="p">,</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">my_tuple</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">my_tuple</span> <span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="sc">&#39;A&#39;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="s">&quot;Hello World&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="mf">12.34f</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">TUPLE_TO_BINARY_TO_TUPLE</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t1</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="n">TEST</span><span class="p">(</span><span class="n">tuple_to_binary</span><span class="p">,</span><span class="k">struct</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">struct</span> <span class="n">my_struct</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-</span><span class='line'>  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
-</span><span class='line'>  <span class="kt">float</span> <span class="n">f</span><span class="p">;</span>
-</span><span class='line'>  <span class="kt">bool</span> <span class="n">b</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">typedef</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="n">my_struct</span><span class="o">&gt;</span> <span class="n">my_tuple</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">my_tuple</span> <span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">c</span> <span class="o">=</span> <span class="sc">&#39;A&#39;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">f</span> <span class="o">=</span> <span class="mf">12.34f</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">b</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">TUPLE_TO_BINARY_TO_TUPLE</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t1</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">i</span>  <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">i</span>  <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">c</span>  <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">c</span>  <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">f</span>  <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">f</span>  <span class="p">);</span>
-</span><span class='line'>  <span class="n">EXPECT_EQ</span><span class="p">(</span> <span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">b</span>  <span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">().</span><span class="n">b</span>  <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="c1">//TEST(tuple_to_binary,vector)</span>
-</span><span class='line'><span class="c1">//{</span>
-</span><span class='line'><span class="c1">//  struct my_struct</span>
-</span><span class='line'><span class="c1">//  {</span>
-</span><span class='line'><span class="c1">//  int i;</span>
-</span><span class='line'><span class="c1">//  char c;</span>
-</span><span class='line'><span class="c1">//  float f;</span>
-</span><span class='line'><span class="c1">//  bool b;</span>
-</span><span class='line'><span class="c1">//  };</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="c1">//  typedef vector&lt;my_struct&gt; my_structs;</span>
-</span><span class='line'><span class="c1">//  typedef tuple&lt;my_structs&gt; my_tuple;</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="c1">//  my_tuple t, t1;</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="c1">//  for ( size_t i = 0 ; i &lt; 10 ; i ++ )</span>
-</span><span class='line'><span class="c1">//  {</span>
-</span><span class='line'><span class="c1">//  my_struct s;</span>
-</span><span class='line'><span class="c1">//  s.i = 1024;</span>
-</span><span class='line'><span class="c1">//  s.c = &#39;A&#39;;</span>
-</span><span class='line'><span class="c1">//  s.f = 12.34f;</span>
-</span><span class='line'><span class="c1">//  s.b = false;</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="c1">//  t.get&lt;0&gt;().push_back(s);</span>
-</span><span class='line'><span class="c1">//  }</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="c1">//  TUPLE_TO_BINARY_TO_TUPLE(t,t1);</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="c1">//  const my_structs &amp; slist = t.get&lt;0&gt;();</span>
-</span><span class='line'><span class="c1">//  const my_structs &amp; slist1 = t1.get&lt;0&gt;();</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="c1">//  EXPECT_EQ( slist1.size(), slist.size() );</span>
-</span><span class='line'><span class="c1">//  for ( size_t j = 0 ; j &lt; slist1.size() ; j ++ )</span>
-</span><span class='line'><span class="c1">//  {</span>
-</span><span class='line'><span class="c1">//  const my_struct &amp; s = slist[j];</span>
-</span><span class='line'><span class="c1">//  const my_struct &amp; s1 = slist1[j];</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="c1">//  EXPECT_EQ( s1.i  , s.i  );</span>
-</span><span class='line'><span class="c1">//  EXPECT_EQ( s1.c  , s.c  );</span>
-</span><span class='line'><span class="c1">//  EXPECT_EQ( s1.f  , s.f  );</span>
-</span><span class='line'><span class="c1">//  EXPECT_EQ( s1.b  , s.b  );</span>
-</span><span class='line'><span class="c1">//  }</span>
-</span><span class='line'><span class="c1">//}</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Running main() from gtest_main.cc</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">testing</span><span class="o">::</span><span class="n">InitGoogleTest</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">RUN_ALL_TESTS</span><span class="p">();</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+#include &lt;vector&gt;
 
-</div>
+#include &lt;string&gt;
+#include &lt;gtest/gtest.h&gt;
+using namespace boost;
+using namespace std;
+#include &lt;boost/preprocessor/repetition.hpp&gt;
+typedef unsigned short strlen_t;
+template&lt; class V &gt;
+int to_binary( char* buf, const V &amp; v )
+{
+  size_t len = sizeof(v);
+  memcpy(buf,(const void*)&amp;v,len);
+  return len;
+}
+template&lt;class T&gt;
+int from_binary( const char * buf, T &amp; t )
+{
+  size_t len = sizeof(t);
+  memcpy((void*)&amp;t,buf,len);
+  return len;
+}
+template&lt;&gt;
+int to_binary( char* buf, const string &amp; s )
+{
+  strlen_t sz = (strlen_t)s.size();
+  memcpy(buf,&amp;sz,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  memcpy(buf+sizeof(sz),s.c_str(),sz);
+  }
+  return sizeof(sz)+sz;
+}
+template&lt;&gt;
+int from_binary( const char * buf, string &amp; str )
+{
+  strlen_t sz;
+  memcpy((void*)&amp;sz,buf,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  str.assign(buf+sizeof(sz),sz);
+  assert(str.size()==sz);
+  }
+  return sizeof(sz)+sz;
+}
+template&lt;&gt;
+int to_binary( char* buf, const wstring &amp; s )
+{
+  strlen_t sz = (strlen_t)s.size();
+  memcpy(buf,&amp;sz,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  memcpy(buf+sizeof(sz),s.c_str(),sz*sizeof(wchar_t));
+  }
+  return sizeof(sz)+sz*sizeof(wchar_t);
+}
+template&lt;&gt;
+int from_binary( const char * buf, wstring &amp; str )
+{
+  strlen_t sz;
+  memcpy((void*)&amp;sz,buf,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  str.assign((wchar_t*)(buf+sizeof(sz)),sz);
+  assert(str.size()==sz);
+  }
+  return sizeof(sz)+sz*sizeof(wchar_t);
+}
+#define TO_BINARY(z,which,unused) \
+  byte_written = to_binary( buf + offset, t.get&lt;which&gt;() );\
+  if ( byte_written &lt; 0 ) { return which; }\
+  offset += byte_written;
+#define TUPLE_TO_BINARY(z,nargs,unused) \
+  template&lt; BOOST_PP_ENUM_PARAMS(nargs,typename T) &gt; \
+  int tuple_to_binary( const boost::tuple&lt; BOOST_PP_ENUM_PARAMS(nargs,T) &gt; &amp; t, char * buf, size_t max_len ) \
+  { \
+  int offset = 0; \
+  int byte_written = 0; \
+  BOOST_PP_REPEAT_FROM_TO(0,nargs,TO_BINARY,~); \
+  return offset; \
+  }
+BOOST_PP_REPEAT_FROM_TO(1,6,TUPLE_TO_BINARY,~);
+#define FROM_BINARY(z,which,unused) \
+  byte_read = from_binary( buf + offset, t.get&lt;which&gt;() );\
+  if ( byte_read &lt; 0 ) { return which; }\
+  offset += byte_read;
+#define BINRY_TO_TUPLE(z,nargs,unused) \
+  template&lt; BOOST_PP_ENUM_PARAMS(nargs,typename T) &gt; \
+  int binary_to_tuple( boost::tuple&lt; BOOST_PP_ENUM_PARAMS(nargs,T) &gt; &amp; t, char * buf, size_t max_len ) \
+{ \
+  int offset = 0; \
+  int byte_read = 0; \
+  BOOST_PP_REPEAT_FROM_TO(0,nargs,FROM_BINARY,~); \
+  return offset; \
+}
+BOOST_PP_REPEAT_FROM_TO(1,6,BINRY_TO_TUPLE,~);
+//template&lt; class T0&gt;
+//int binary_to_tuple( boost::tuple&lt;t0&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0 &gt;
+//int tuple_to_binary( const boost::tuple&lt;t0&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//
+//template&lt; class T0, class T1&gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//
+//template&lt; class T0, class T1, class T2&gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//
+//template&lt; class T0, class T1, class T2, class T3&gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2,T3&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2, class T3, class T4 &gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2,T3,T4&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  //{
+//  //  size_t sz0 = sizeof( tuples::element&lt;0,TUPLE&gt;::type );
+//  //  assert( sz0 == sizeof(int) );
+//  //  size_t sz1 = sizeof( tuples::element&lt;1,TUPLE&gt;::type );
+//  //  assert( sz1 == sizeof(char) );
+//  //  size_t sz2 = sizeof( tuples::element&lt;2,TUPLE&gt;::type );
+//  //  assert( sz2 == sizeof(string) );
+//  //  size_t sz3 = sizeof( tuples::element&lt;3,TUPLE&gt;::type );
+//  //  assert( sz3 == sizeof(float) );
+//  //  size_t sz4 = sizeof( tuples::element&lt;4,TUPLE&gt;::type );
+//  //  assert( sz4 == sizeof(bool) );
+//  //}
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;4&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -4;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//template&lt; class T0&gt;
+//int binary_to_tuple( boost::tuple&lt;t0&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1&gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2&gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1,T2&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2, class T3&gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1,T2,T3&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2, class T3, class T4 &gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1,T2,T3,T4&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;4&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -4;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+#define TUPLE_TO_BINARY_TO_TUPLE(t,t1) \
+  char buf[1024];\
+  int len = tuple_to_binary(t,buf,1024);\
+  int len2 = binary_to_tuple(t1,buf,len);\
+  EXPECT_EQ( len2 , len )
+TEST(tuple_to_binary,test1)
+{
+  typedef tuple&lt;int&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+}
+TEST(tuple_to_binary,boolean)
+{
+  typedef tuple&lt;bool,bool&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = true;
+  t.get&lt;1&gt;() = false;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,wstring)
+{
+  typedef tuple&lt;string,wstring&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = &quot;Hello&quot;;
+  t.get&lt;1&gt;() = L&quot;World&quot;;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,test2_empty_string)
+{
+  typedef tuple&lt;wstring,wstring&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = L&quot;Hello&quot;;
+  t.get&lt;1&gt;() = L&quot;&quot;;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,test2)
+{
+  typedef tuple&lt;int,char&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,test3)
+{
+  typedef tuple&lt;int,char,string&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  t.get&lt;2&gt;() = &quot;Hello World&quot;;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
+}
+TEST(tuple_to_binary,test4)
+{
+  typedef tuple&lt;int,char,string,float&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  t.get&lt;2&gt;() = &quot;Hello World&quot;;
+  t.get&lt;3&gt;() = 12.34f;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
+  EXPECT_EQ( t.get&lt;3&gt;() , t1.get&lt;3&gt;() );
+}
+TEST(tuple_to_binary,test5)
+{
+  typedef tuple&lt;int,char,string,float,bool&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  t.get&lt;2&gt;() = &quot;Hello World&quot;;
+  t.get&lt;3&gt;() = 12.34f;
+  t.get&lt;4&gt;() = false;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
+  EXPECT_EQ( t.get&lt;3&gt;() , t1.get&lt;3&gt;() );
+  EXPECT_EQ( t.get&lt;4&gt;() , t1.get&lt;4&gt;() );
+}
+TEST(tuple_to_binary,struct)
+{
+  struct my_struct
+  {
+  int i;
+  char c;
+  float f;
+  bool b;
+  };
 
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-02-17T09:23:42+09:00" pubdate data-updated="true">Feb 17<span>th</span>, 2009</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/programming/'>programming</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2009/02/17/boost-preprocessor/" data-via="reiot" data-counturl="http://reiot.com/2009/02/17/boost-preprocessor/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2009/02/09/earl-grey/" title="Previous Post: Earl Grey">&laquo; Earl Grey</a>
-      
-      
-        <a class="basic-alignment right" href="/2009/02/17/tasklist-taskkill/" title="next Post: Tasklist/Taskkill">Tasklist/Taskkill &raquo;</a>
-      
-    </p>
-  </footer>
+  typedef tuple&lt;my_struct&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;().i = 1024;
+  t.get&lt;0&gt;().c = 'A';
+  t.get&lt;0&gt;().f = 12.34f;
+  t.get&lt;0&gt;().b = false;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;().i  , t1.get&lt;0&gt;().i  );
+  EXPECT_EQ( t.get&lt;0&gt;().c  , t1.get&lt;0&gt;().c  );
+  EXPECT_EQ( t.get&lt;0&gt;().f  , t1.get&lt;0&gt;().f  );
+  EXPECT_EQ( t.get&lt;0&gt;().b  , t1.get&lt;0&gt;().b  );
+}
+//TEST(tuple_to_binary,vector)
+//{
+//  struct my_struct
+//  {
+//  int i;
+//  char c;
+//  float f;
+//  bool b;
+//  };
+//
+//  typedef vector&lt;my_struct&gt; my_structs;
+//  typedef tuple&lt;my_structs&gt; my_tuple;
+//
+//  my_tuple t, t1;
+//
+//  for ( size_t i = 0 ; i &lt; 10 ; i ++ )
+//  {
+//  my_struct s;
+//  s.i = 1024;
+//  s.c = 'A';
+//  s.f = 12.34f;
+//  s.b = false;
+//
+//  t.get&lt;0&gt;().push_back(s);
+//  }
+//
+//  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+//
+//  const my_structs &amp; slist = t.get&lt;0&gt;();
+//  const my_structs &amp; slist1 = t1.get&lt;0&gt;();
+//
+//  EXPECT_EQ( slist1.size(), slist.size() );
+//  for ( size_t j = 0 ; j &lt; slist1.size() ; j ++ )
+//  {
+//  const my_struct &amp; s = slist[j];
+//  const my_struct &amp; s1 = slist1[j];
+//
+//  EXPECT_EQ( s1.i  , s.i  );
+//  EXPECT_EQ( s1.c  , s.c  );
+//  EXPECT_EQ( s1.f  , s.f  );
+//  EXPECT_EQ( s1.b  , s.b  );
+//  }
+//}
+int main(int argc, char **argv) {
+  cout &lt;&lt; &quot;Running main() from gtest_main.cc\n&quot;;
+  testing::InitGoogleTest(&amp;argc, argv);
+  return RUN_ALL_TESTS();
+}
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+		<a href="/tag/preprocessor/"><span class="label">preprocessor</span></a>
+	
+	</p>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2009/02/17/boost-preprocessor/';
-        var disqus_url = 'http://reiot.com/2009/02/17/boost-preprocessor/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

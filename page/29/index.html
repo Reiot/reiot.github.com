@@ -1,763 +1,589 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="최근 레이다에 자주 걸리던 MDA 프레임워크에 대한 게임 디자인 워크샵이 사내에서 피자와 함께 열려서 쉬귀군과 함께 참가했다. 첫날에는 Sissyfight 3000을 1분 내에 끝내라는 퍼블리셔의 요청 메일을 받았다. 원작 게임이 재미없었던 우리 팀은, 두 세번 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/29">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/05/18/fail-fast-fail-often/">Fail Fast, Fail Often</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-05-18T08:24:10+09:00" pubdate data-updated="true">May 18<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>최근 레이다에 자주 걸리던 <a href="http://sites.google.com/site/gdworkshop/materials/mda-framework">MDA 프레임워크</a>에 대한 <a href="http://epiphany.tistory.com/">게임 디자인 워크샵</a>이 사내에서 <strong>피자와 함께</strong> 열려서 쉬귀군과 함께 참가했다.</p>
-
-<p>첫날에는 <a href="http://sites.google.com/site/gdworkshop/materials/sissyfight-3000">Sissyfight 3000</a>을 <a href="http://kaistizen.net/EE/index.php/weblog/comments/game_design_workshop/">1분 내에 끝내라는 퍼블리셔의 요청 메일</a>을 받았다. 원작 게임이 재미없었던 우리 팀은, 두 세번 게임을 뒤집어 엎어 포커 버전으로 만들다가, 종료 5분 전 공격 카드는 버리고 색깔 카드와 방어 카드 만으로 2분짜리 클베 버전을 출시할 수 있었다. 뭔가 개발이 잘 풀리지 않아 잘나가는 옆테이블로 이직을 하고 싶었는데, 막상 출시를 하고 보니 사용자들이 제법 만족해서 좀 당황하기도 했다.</p>
-
-<p>둘째 날에는 타워 디펜스를 페이퍼 프로토타이핑으로 만들었다. 초반부터 <a href="http://www.thisisgame.com/board/view.php?id=26414&amp;category=103">에이전트005</a>가 투입되어서 자꾸 지금 방향이 틀렸고 자기 방식이 맞다고 주장해서 개발 기간을 제법 까먹었다. 클베를 하고 나서는 테스터들의 의견을 적극 반영하다 보니 원래 추구하는 미학과는 다른 방향으로 바뀌기도 했다. 워낙 타워 디펜스의 종류가 다양하다보니 협동이냐 경쟁이냐들 두고 초반부터 설전을 벌였는데, 실제로 테스터들로부터도 비슷한 문제를 지적받았다. 막판 30초를 남기고 뭔가 재미있어 보이는 버전이 나오긴 했는데 테스트도 못해봐서 결국 클베 버전을 출시할 수 밖에 없었다. 흑.</p>
-
-<p>어쨌든 뭔가 쓸만한 걸 하나 배웠답시고 무려 <strong>주말</strong>에 출근해서 MDA를 시험 적용해 보기로 했다. 현재 상태에서  재미있는 것과 없는 것들을 나열하고, 도저히 버릴 수 없는 제약 조건을 뺀 나머지 기능들은 모두 <a href="http://aker.tistory.com/231">feature creep</a>이라는 누명을 씌워서 버렸다. 다음에는 무엇을 핵심적인 재미요소로 구현할 건가를 이야기했는데, 의외로 내가 생각하는 재미를 단 한 명에게 공감시키기조차도 힘들었다. 그래서 내 의도와 비슷한 동영상을 구해서 보여준 후, Fail Fast 을 해보니 몇 시간만에 비교적 게임이라고 부를만한 상태로 바꾸는 데까지는 성공했다. (물론 난 옆에서 서핑만하고 쉬귀군이 열심히 코딩을 했지만..) 그래도 보여주기엔 남부끄러운 수준이고, 핵심적인 제약 사항은 완수하지도 못했기에 일단 퇴근했다. 결과적으로는 실패로 끝난 거구만. OTL</p>
-
-<p>TDD가 소프트웨어의 최종적인 진화의 방향을 점진적으로 설계해주는 것처럼, Fail Fast이 게임 디자인에 있어서 비슷한 역할을 하는 것 같다. 즉, 어느 정도 팀내에 공감이 이루어 졌다면, 한 두명이 안되는 이유를 1부터 10까지 나열하며 떠들 시간에 닥치고 일단 만들고 보자는 건데, 그러고 보니 쉬귀군의 신묘한 개똥 철학과 공통점이 많은 것 같다. (물론 일반적인 개발자는 따라해서는 안된다. 흐흐) 다만 이를 위해서는 빠른 변경이 가능한 게임 엔진 및 툴의 개발이 선행되거나 동시에 진행되어야 한다는 게 우리의 숙제일 것이다.</p>
-
-<p>덕분에 몸은 좀 피곤하지만, 미학 - 사용자들에게 주고자 하는 재미 - 에 대한 확고한 비전의 공유가 얼마나 중요한지를 깨달을 수 있었던 한 주였다. 프리 프러덕션 기간에 게임의 재미에 대해서 명확하게 확정을 짓지 않고 프러덕션 단계로 들어가면, 항상 나중에 참가한 멤버들이나 경영진, 테스터 또는 퍼블리셔로부터 <strong>너무 낙관적으로 개발을 해서</strong> 그런지 재미가 없다는 이야기를 듣고는, 자의반 타의반으로 feature creep의 유혹을 받게 된다는 경험적 법칙이랄까.  옛날 게임 기획할 때 누가 이런 걸 가르쳐줬으면 지금쯤 성공한 기획자가 되었을지도 모르겠다. ㅎㅎ</p>
-
-<p>짧은 시간에 게임 개발을 압축해서 경험할 수 있기에, 기획자나 프로그래머는 물론이거니와 중간 관리자들도 한번쯤 들어볼 만한 워크샵이다. 이런 좋은 경험을 혼자 낼름하지 않고 널리 전파하시느라 수고하신 <a href="http://betterways.tistory.com/">Kay</a> 님과 <a href="http://epiphany.tistory.com/">epiphany</a>님께 감사드린다. (후기 상품은 내꺼임!!)</p>
-
-<p>see also:</p>
-
-<pre><code>- [사후 검토: Sissy Fight 3000 - 제 2회 게임 디자인 워크샵](http://www.heartcomplex.net/blogs/516)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/05/01/named-boost-tuple/">Named Boost Tuple</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-05-01T10:39:07+09:00" pubdate data-updated="true">May 1<span>st</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>프로토콜 객체로 std::pair 나 boost::tuple 을 채택할 때의 문제는 순서가 틀리더라도 타입만 변환이 된다면 컴파일 타임 에러가 나지 않는다는 점과, first/second 라든지 get() 이 한눈에 안들어온다는 점이다. 또 디버거에서도 내부 값을 찾아 보기가 힘들고 컴파일 시간도 길어지기 때문에, boost::preprocessor 나 boost::tuple 기반의 직렬화 기법이 편하고 관리하기도 좋지만, 그냥 구조체로 만들어서 적당히 memcpy로 보내는 걸 다들 애용하는 것이리라.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="n">boost</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">short</span><span class="p">,</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">;</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>그런데, 이걸 코드 생성기에서 이렇게 만들면 어떨까?</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">class</span> <span class="nc">login</span> <span class="o">:</span> <span class="k">public</span> <span class="n">boost</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">wstring</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="k">public</span> <span class="o">:</span>
-</span><span class='line'>  <span class="k">const</span> <span class="n">wstring</span> <span class="o">&amp;</span> <span class="n">userid</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">();</span> <span class="p">}</span>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">userid</span><span class="p">(</span> <span class="k">const</span> <span class="n">wstring</span> <span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>  <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span> <span class="n">passwd</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span> <span class="p">}</span>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">passwd</span><span class="p">(</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">key</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">();</span> <span class="p">}</span>
-</span><span class='line'>  <span class="kt">void</span> <span class="n">key</span><span class="p">(</span> <span class="kt">int</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">login</span> <span class="n">msg</span><span class="p">;</span>
-</span><span class='line'><span class="n">msg</span><span class="p">.</span><span class="n">userid</span><span class="p">(</span><span class="s">L&quot;reiot&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="n">msg</span><span class="p">.</span><span class="n">passwd</span><span class="p">(</span><span class="s">&quot;.com&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="n">msg</span><span class="p">.</span><span class="n">key</span><span class="p">(</span><span class="mi">1975</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">wstring</span> <span class="n">userid</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">userid</span><span class="p">();</span>
-</span><span class='line'><span class="n">string</span> <span class="n">passwd</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">passwd</span><span class="p">();</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">key</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">key</span><span class="p">();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>이 정도면 읽기도 쉽고 직렬화하기도 편한 객체처럼 보일 것 같은데&#8230; (여전히 디버거에서는 보기가 귀찮지만.. <a href="http://minjang.egloos.com/468834">autoexp.dat</a> 를 잘 고치면 해결할 수 있지 않을까나~)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/05/01/first-chance-exception-the-tag-is-invalid/">First Chance Exception : The Tag Is Invalid</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-05-01T09:11:13+09:00" pubdate data-updated="true">May 1<span>st</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/add_exception.jpg"><img src="http://boxcatstudio.files.wordpress.com/2009/07/add_exception.jpg" title="add_exception" ></a></p>
-
-<p>요즘은 디버깅할 때 Ctrl+Alt+E를 눌러서 first chance exception이 발생할 때에도 브레이크포인트가 걸리게 하는 편이다. 뭔가 내가 모르는 문제가 저 안에서 벌어지고 있다는 게 못마땅하기 때문인데, 언젠가부터 64비트 OS에서 32비트 서버 어플리케이션에서 소켓 연결을 할 때, <strong>First chance exception 0x000006C5 : The tag is invalid</strong> 라는 예외가 던져져서 디버깅할 때 짜증이 솟구치는 나날들이 계속되었다. 더군다나 현재 채택한 DB 쿼리 방식이 필요할 때마다 재연결하는 connection pooling 이라서 디버거를 좀 오래 잡고만 있어도 계속 예외가 던져져서 집중이 자꾸 깨지곤 했었다.</p>
-
-<p><a href="http://mhaggag.wordpress.com/2006/11/04/gethostbyname-first-chance-exception-0x000006c5-the-tag-is-invalid/">조사해보니</a> 마이크로소프트도 포기한 예외였는데, 도무지 이걸 무시할 방법을 찾지 못하다가 (Win32 예외 목록에 없으니까!) 그저께 커스텀 예외도 추가할 수 있다는 것을 우연찮게 <del datetime="2009-04-30T15:10:21+00:00">겨우 이제서야</del> 알게 되었다.</p>
-
-<p>지금은&#8230; 마음이 편하다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-04-23T17:19:24+09:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80).gif"></p>
-
-<p>비주얼 스튜디오 2005에서 어떤 솔루션만 열면 인텔리센스가 멈추지 않는 현상을 만나서 검색해니, SP1 이후로 <a href="http://code.msdn.microsoft.com/KB943969">한글판 핫픽스 하나</a>와 <a href="http://code.msdn.microsoft.com/KB947315">영문판 핫픽스 하나</a>가 나와 있었다.</p>
-
-<p>둘 중에서 후자만 깔아도 된다고는 하는데, 영문판 핫픽스는 한글판에서는 설치가 안된다는 것이 문제였다. 다행히도 쉬귀군의 팀은 영문판을 쓰고 있었기에 강제로 원격 설치(-_-)를 해서 <a href="http://blog.naver.com/PostView.nhn?blogId=dexylitol&amp;logNo=20045702640">관련 dll 들을 받아서</a> 그냥 덮어씌워보니 그럭저럭 잘 돌아가는 것 같았다. 조금 걱정이라면 디버그-릴리즈 전환할 때마다 인텔리센스가 돌아간다는 점이랄까.</p>
-
-<p>정리하자면, 영문판 사용자에게 부탁해서 다음 dll 들을 덮어쓰면 된다!</p>
-
-<pre><code>- VC/packages/vcpkg.dll
-- VC/packages/VCProjectEngine.dll
-- VC/packages/VCProject.dll
-</code></pre>
-
-<p>참고로, VC/bin/amd64 또는 x86_amd64 아래에도 버전은 같지만 크기가 다른 VCProjectEngine.dll 파일이 있긴 한데 얘네들은 안덮어써도 돌긴 돌아갔다&#8230;</p>
-
-<p>ps. <a href="http://kaistizen.net/EE/index.php/weblog/comments/visual_studio_2005_hotfixes/">컴파일이 빨라진다는 핫픽스</a>도 있구나..</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/04/13/cloud-computing-for-online-game/">Cloud Computing for Online Game</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-04-13T08:37:54+09:00" pubdate data-updated="true">Apr 13<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://farm2.static.flickr.com/1332/704056791_63f1e492d8.jpg" title="Cloud Computing?" ></p>
-
-<p>때는 바야흐로 2003년, 게임 서버 개발은 조만간 그리드 컴퓨팅 기반으로 바뀔 거라고 믿고 아마존에서 관련 서적을 실컷 사 모았던 적이 있다. 막상 뚜껑을 열어 보니 대부분 웹서비스 기반이어서 뭔가 빠른 반응성과 연결된 세션간의 적절한 동기화가 필요한 게임 서버, 특히 MMORPG에는 맞지 않아 보였다. 결국 그 책들은 거의 읽혀지지도 않은 채 집에 방치되있고, 그리드를 주력으로 파겠다던 배짱좋은 예측 포스팅은 부끄러워서 내려 버렸다.</p>
-
-<p><img src="http://bks0.books.google.com/books?id=8-0BofIhoU0C&printsec=frontcover&img=1&zoom=1&sig=ACfU3U2fcOHmSfNIjZtVjM-Gm5LZAw9dVg"> <img src="http://bks0.books.google.com/books?id=2e73K_jXdfcC&printsec=frontcover&img=1&zoom=1&sig=ACfU3U35K6wElPYG2wUE8zEBQ-QU0AgPfA"> <img src="http://bks0.books.google.com/books?id=b4LWXLRBRLsC&printsec=frontcover&img=1&zoom=1&sig=ACfU3U2FVscbkXMEdwtUQBeERDYIxVqmzg"></p>
-
-<p>안보는 깨끗한 원서 팝니다 ㅠㅠ</p>
-
-<p>그리고나서 대략 4-5년 정도가 흘렀다. 지금은 많은 웹스타트업들이 클라우드 컴퓨팅을 적극 활용하고 있고, 어느새 나도 gmail 과 google docs 를 업무용으로 사용하고 있다. <a href="http://xguru.net/blog/488.html">마이크로소프트도 아마존과 구글의 뒤를 이어서 아쭈르(Azure)라는 걸 선보이고</a> 있고, (아마도 실버라이트랑 연계되지 않을까?) 최근에는 &#8220;사례로 읽는 클라우드 컴퓨팅&#8221;이라는 책도 사뒀는데, 버스에서 자느라 읽을 새가 없다. OTL</p>
-
-<p><img src="http://image.kangcom.com/l_pic/200902100008.jpg" title="사례로 읽는 클라우드 컴퓨팅" >
-사례로 읽는 클라우드 컴퓨팅. 제목 그대로니까 속으면 곤란하다.</p>
-
-<p>몇 주 전<a href="http://betterways.tistory.com/"> Kay 님</a>이 클라우드 컴퓨팅을 이용한 게임 서버 퍼블리싱 사업(예전에 블레이스 서버 호스팅 비스므리한)은 어떻겠냐고 물으셨다. (이거 밝혀도 문제 없겠죠? ㅋㅋ) 그때 클라우드들이 HTTP의 느린 응답성이나 동기화가 왜 어려운가..라든지, 구글 앱 엔진이 스케줄링 같은 걸 지원하지 않는 것에 대해 한참 이야기를 했었다. 최근에 이런 저런 이야기를 많이 줏어들으며 곰곰히 생각해보니, 어떻게든 분산을 희생해서 적당히 요청을 한 곳에 몰아주는 정책만 허용해준다면 어떻게 될 법도 해 보였다. 그래도 MMORPG 서버 호스팅은 아직까지는 힘들고, 웹 게임들, 보드 게임들이나 시뮬레이션 게임들의 서버라든지, XBOX Live 나 Steamworks 같은 인증+커뮤니티+배포+리더보드+매치메이킹 정도의 활용 가능성은 충분해 보인다. (그러고 보니 <a href="http://www.steampowered.com/steamworks/index.php">스팀도 자기들이 클라우드라고 주장</a>하고 있다)</p>
-
-<blockquote><p>Store data in Steam Cloud for your users. The Steam Cloud API allows your game to write and retrieve files for each user. Use it for personalized settings like keyboard, mouse, and gamepad configurations, multiplayer sprays, or even saved games. Steam Cloud is a natural extension of the portability that Steam affords gamers. Shipped with Left 4 Dead, Steam Cloud is now a proven resource and is becoming an integral part of the Steam experience.</p></blockquote>
-
-
-<p>앱스토어의 흥행으로 삼성이나 NHN 같은 국내 회사들이 비슷한 걸 만들고 있단다. 퍼블리셔들도 이제는 정신차리고 괜히 50-100억 주고 비싼 게임 들여왔다가 돈 날리지 말고, 잡쉐어링을 위해서라도 개인이나 중소 게임사들이 손쉽게 퍼블리싱할 수 있게 이런 쪽으로 분발해주길 바란다. 구글앱엔진, 엑박라이브, 스팀, 앱스토어의 장점을 하나로 합치는 웹 기반의 게임 플랫폼 SDK 라도 좀 뿌려주면 얼마나 좋을까. 기본적으로 무료 트래픽, 수익은 1:9, 컨텐트는 루아, P2P는 기본, 웹용 무료 3D엔진 제공, 게임 동영상이나 커뮤니티는 다음이나 네이버 블로그/까페 연동, 스샷은 flickr, 실시간 방송은 아프리카, 간편하고 손쉬운 in-game 결제 시스템과 자동화된 상점, 신뢰할만한 보안 모듈(nprotect 말고), 플래시도 지원, 이슈 관리 시스템 및 소스 버전 관리도 제공, &#8230; 뭐 적다 보니 끝이 없구나. ㅋㅋ</p>
-
-<p>ps. 마지막 문단을 쓰고 나서 주위를 둘러보니 한숨만 나오는군하.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/04/07/xbox-360-new-ui/">XBOX 360 NEW UI</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-04-07T09:28:50+09:00" pubdate data-updated="true">Apr 7<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[caption id=&#8221;&#8221; align=&#8221;aligncenter&#8221; width=&#8221;640&#8221; caption=&#8221;XBOX 360 NEW UI&#8221;]<a href="http://arstechnica.com/gaming/news/2009/02/mature-games-dominate-most-popular-xbox-360-downloads.ars"><img src="http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg"></a>[/caption]</p>
-
-<p>오늘 봄맞이 대청소를 맞아서, 반 년 가량 전기밥을 못먹은 엑박의 봉인을 풀었다. 작년 가을에 바뀐 대시 보드를 이제서야 보게 된 셈인데, 이게 상당히 마음에 들었다. 아바타 서비스야 Wii 보다는 한참 나은 수준이라서 그러려니 하겠는데, 아이튠즈의 커버플로우에서 발전한 네비게이션 인터페이스는 제법 &#8220;끌리게&#8221; 잘 만들었다. 무엇보다도 웬지 더 사고 싶다는 느낌 - 일명 소장 가치 - 를 불러일으키는 사용자 경험을 마켓플레이스를 돌아다니면서 계속 느꼈으니 말이다.</p>
-
-<p>다만 작년부터 게임불감증에 빠져서 엑박 타이틀을 제법 사놓고도 엔딩을 못본게 제법 되는지라, 실질적인 구매로는 이어지지 않았다. 만약에 스팀이나 앱스토어처럼 소액결제로 손쉽게 살 수 있는 사회적 분위기(?)가 갖춰졌다면 지갑을 열었을지도.</p>
-
-<p>끝으로, 제작년부터 쭈욱 주위 사람들에게 강조해오던 건데, 다량의 데이터를 표현해야 하는 인터페이스를 설계할 때 왜 다들 비트맵 기반의 픽셀 고정 스타일 - 이른바 디자이너 의존적인 통짜 인터페이스 - 을 고집하는지 모르겠다. 바야흐로 시대적 대세는 프로그래머 지향적인 벡터 기반 인터페이스이며 (아아 사실 개인적 취향이라는 점, 인정한다), 특히나 데이터를 많이 표현하게 될 경우에는 텍스트를 최대한 활용해야 하는 법이다. 윈도우 가장자리 디자인을 다듬는 시간에 멋진 배경 그림 하나 더 넣고, 더욱 미려한 폰트를 구매하고, 게임 컨텐트에 집중하는게 시간과 돈을 절약하면서도 사용자에게 더 큰 감동을 불러일으킬 수 있다고 믿는다.</p>
-
-<p>ps. 스케일폼 그동안 돈 많이 벌었겠다. 쳇.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/04/01/dungeon-crawl-stone-soup/">Dungeon Crawl Stone Soup</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-04-01T09:37:42+09:00" pubdate data-updated="true">Apr 1<span>st</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/kobold.jpg"><img src="http://boxcatstudio.files.wordpress.com/2009/07/kobold-300x215.jpg" title="kobold" ></a></p>
-
-<p>코볼드 떼거지를 앞에 둔 용맹스러운 트롤 버서커 Reiot 의 모습을 담은 스크린샷이다. 요즘 틈틈히 집에서 하고 있는 roguelike 게임인 <a href="http://crawl-ref.sourceforge.net/">Dungeon Crawl : Stone Soup </a>인데, 매크로나 자동 네비게이션, 넓은 맵 등 다양한 편의 기능을 자랑한다. 매번마다 오크 광산 아래에 있는 엘프들의 동네에서 별 해괴한 소환 악마들한테 죽고 있어서, 좀 서럽긴 하다. (사실은 레벨업 좀 하고 천천히 놀러 가야 하는 곳이라고 하지만, 이상한 무한 차원으로 소환당해서 악마들에게 밟히는 건 정말 처참하다. -_-)</p>
-
-<p>로그매니아들이라면 한번쯤 도전해볼만한 게임이니, 다들 다운받으시기 바란다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/02/17/tasklist-taskkill/">Tasklist/Taskkill</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-02-17T09:31:15+09:00" pubdate data-updated="true">Feb 17<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;500&#8221; caption=&#8221;tasklist&#8221;]<a href="http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg"><img src="http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg" title="tasklist" ></a>[/caption]</p>
-
-<p>터미널에서 프로세스 관리자가 뜨지 않을 경우, 다른 터미날에서 띄운 프로세스를 죽이기가 참 난감할 때가 있다. 다행스럽게도 유닉스의 ps/kill 조합을 윈도우에서도 지원한다.</p>
-
-<pre><code>- tasklist
-- tasklist /SVC : 서비스 프로세스 리스트
-- taskkill /PID &lt;pid&gt;: PID로 죽이기
-- taskkill /F /IM &lt;name&gt; : (강제로) 이름으로 죽이기
-</code></pre>
-
-<p>가장 하일라이트는, 원격 컴퓨터의 프로세스 죽이기인데, 정말로 잘 되는지 회사에서 테스트해봐야겠다. ;)</p>
-
-<blockquote><p>tasklist /S <server> /U <username> /P <password> /FI &#8220;IMAGENAME eq *Server*.exe&#8221;</p><p>taskkill /S <server> /U <username> /P <password> /IM <process name></p></blockquote>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/02/17/boost-preprocessor/">Boost::preprocessor</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-02-17T09:23:42+09:00" pubdate data-updated="true">Feb 17<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>boost::preprocessor 는 템플릿을 이용한 메타프로그래밍에 있어서, 템플릿 파라미터들의 반복 같은 &#8221;<strong>문자열 토큰들의 패턴 처리</strong>&#8220;를 매크로를 이용해서 손쉽게 처리해주는 라이브러리이다. 보다 상세한 용법은 <a href="http://www.boost.org/doc/libs/1_38_0/libs/preprocessor/doc/index.html">공식 홈페이지</a> 혹은  <a href="http://rein.upnl.org/wordpress/archives/486">레인님 블로그</a>와 <a href="http://ricanet.com/new/view.php?id=blog/080607">리카넷 블로그</a>를 참조하기 바란다.</p>
-
-<p>이걸 이용해서 <a href="http://reiot.cafe24.com/2009/01/20/boost-tuple-based-serialization/">몇 주전에 포스팅한 boost::tuple 의 직렬화 코드</a>를 만들어봤다. 원래 계획과는 좀 많이 바뀌긴 했는데, 구글로 검색해보니 <a href="http://uint32t.blogspot.com/2008/03/update-serializing-boosttuple-using.html">tuple 을 boost::serialization 으로 직렬화하는 예제</a>가 를 (상당 부분!) 참조했음을 밝힌다.</p>
-
-<p>남은 작업은 여기에 vector 와 list 를 자동으로 직렬화하는 건데, 어째 아무리 검색해봐도 is_vector 라든지 is_list 같은 넘이 없어서 일단은 포기. 결국 mpl 을 뒤져봐야 할지도 모르겠다. </p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2009/02/17/boost-preprocessor/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/02/09/earl-grey/">Earl Grey</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-02-09T08:17:41+09:00" pubdate data-updated="true">Feb 9<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><table style="width:auto;" border="0">
-<tbody>
-<tr>
-<td><a href="http://picasaweb.google.com/lh/photo/EY-Ym9sex9547IPeZxkRxA?feat=embedwebsite"><img src="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7efiJ2ZtI/AAAAAAAAAHA/_G7GJC2ySDY/s400/SANY0042.JPG"></a></td>
-</tr>
-</tbody></table>
-
-
-<p>얘가 최근 영입한 그레이(♂). 스코티쉬 폴드인데, 유명한 홍차 이름인 얼 그레이에서 이름을 따왔다. 똥꼬발랄하고 선배 냥이들이 많이 귀찮아한다.</p>
-
-<table style="width:auto;" border="0">
-<tbody>
-<tr>
-<td><a href="http://picasaweb.google.com/lh/photo/HNhn36_UOIMobFZawSdIow?feat=embedwebsite"><img src="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7fXRsrXZI/AAAAAAAAAIQ/HMBpkjqwPZI/s400/SANY0036.JPG"></a></td>
-</tr>
-</tbody></table>
-
-
-<p>이놈이 밤마다 시끄럽게 하는 24시간 발정묘 보리(♂). 코리안 똥고양이의 후손으로,  쌀-보리의 그 보리다. 와이프가 맨날 이쁘다고 해서 요즘은 이뻐보이기도 하지만&#8230; 하긴 퇴근할 때 마중나오는 놈은 보리 밖에 없긴 하다. 당연히 쉬귀군의 룬보다는 한참 날씬하다. (푸훗)</p>
-
-<table style="width:auto;" border="0">
-<tbody>
-<tr>
-<td><a href="http://picasaweb.google.com/lh/photo/TvwqxYaWG4rairUQ1OnVtg?feat=embedwebsite"><img src="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7iED5QewI/AAAAAAAAALo/uOLDbCG_T8o/s400/SANY0096.JPG"></a></td>
-</tr>
-</tbody></table>
-
-
-<p>러시안 블루 아삼(♂). 역시 홍차 이름에서 따왔다. 진정한 고양이답게 날렵하고 점프력도 좋고 잘 울지도 않지만, 성격이 좀 까칠하다. 나랑은 어째 잘 맞는지, 부르면 가슴 위로 올라와서 머리를 부비는 애교도 부린다.</p>
-
-<p>더 많은 사진들은 <a href="http://picasaweb.google.com/Reiot94/yiFktC#">여기</a>에 있으니 구경해보시기 바란다. 그나저나 내 평생 고양이를 3마리나 키우게 될 줄은 몰랐다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/30/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/28/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/06/23/vs2005-vs2003-함께-사용하기/">VS2005 & VS2003 함께 사용하기</a> <small>2006-06-23</small></h1>
+	</div>
+	<div><p>Visual Studio 2005를 설치한 다음 Visual Studio 2003을 설치하면, 우선 탐색기에서 솔루션과 프로젝트 파일에 대한 연결이 깨지며, 두번째로는 크래시 발생시 디버거 선택 창에서 VS2005 가 사라진다. 원래 VS2005에서는 이런 문제를 해결하기 위해서 Visual Studio Version Selector(%ProgramFiles%\Common Files\Microsoft Shared\MSEnv\VSLauncher.exe)를 제공하는데, 설치 순서가 바뀌는 바람에 이게 날아가는 바람에 생기는 문제들이다.</p>
+<h2>파일 연결 복구</h2>
+<p>파일 연결을 복구하는 것은 간단하다.</p>
+<ul>
+<li>솔루션이나 프로젝트 파일을 시프트+우클릭을 해서 연결 프로그램을 선택한 다음 Version Selector를 지정하면 된다.</li>
+<li><strong>도구 - 옵션 - 환경 - 일반</strong> 에서 파일 연결 복원 버튼을 누른다.</li>
+</ul>
+<h2>디버거 연결 복구</h2>
+<p>디버거 연결을 복구하는 방법은 여러 가지가 있다.</p>
+<ul>
+<li>레지스트리 수정 : regedit 로 AeDebug 키를 찾은 다음 Debug 하위키를 아래와 같이 변경하면 된다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug\Debug</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"C:\WINDOWS\system32\vsjitdebugger.exe" -p %ld -e %ld</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>도구 - 옵션 - 디버깅 - Just-In-Time</strong> 메뉴에서 적당히 선택한 후 저장한다.</li>
+<li><strong>도구 - 설정 가져오기 및 내보내기</strong>에서 모두 다시 설정을 선택해도 된다.</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a> <small>2006-06-19</small></h1>
+	</div>
+	<div><p>한국 대 프랑스전을 기다리면서 <a href="http://developer.valvesoftware.com/wiki/">하프라이프2 위키</a> 중에서 <a href="http://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking">Source Multiplayer Networking</a> 부분을 요약 정리해보았다.</p>
+<p><img alt="하프라이프2 서버와 클라이언트" src="http://developer.valvesoftware.com/w/images/e/ea/Networking1.gif" /></p>
+<p>퀘이크나 하프라이프2(이하 HL2) 같은 클라이언트-서버 기반의 FPS 게임에서, 클라이언트는 기본적으로 렌더링 더미(dummy)라고 봐야 한다. 왜냐하면 클라이언트가 키보드나 마우스 입력을 샘플링해서 서버로 보내면, 서버는 초당 30-40회의 시뮬레이션을 거친 후 그 결과(snapshot)를 주기적으로 브로드캐스트하며, 클라이언트는 스냅샷을 받아서 렌더링을 하는 방식으로 구현되기 때문이다. 대신 서버는 보안적인 이유 때문에 대부분의 이동, 공격, 인증, 보안 체크를 해야 한다. (참고로, HL2 서버는 초당 33회의 시뮬레이션을 거치고 20회의 스냅샷을 브로드캐스트하며, 클라이언트는 초당 20회의 입력샘플링을 한다.)</p>
+<p>문제는 사용자의 입력 결과가 도착해서 실제로 그려지기까지의 시간이 꽤 오래 걸린다는 점이다. 이 랙(lag)을 해결하기 위해서 입력 예측(Input Prediction)이 사용되는데, 이는 내 캐릭터만큼은 서버의 결과를 기다리지 않고 먼저 움직이게 한다는 것이다. 이를 위해서 이동에 관련된 시뮬레이션 로직을 서버와 클라이언트 모두에 탑재해야 하며, 클라이언트는 서버에 입력을 보내자마자 로컬 시뮬레이션을 거쳐 내 캐릭터를 이동시킨 후, 서버에서 도착한 결과가 너무 차이가 많이 날 경우에만 보정을 하게 된다.</p>
+<p><img alt="Lag Compensation" src="http://developer.valvesoftware.com/w/images/c/ca/Lag_compensation.jpg" /></p>
+<p>그런데 이것만으로 제대로된 FPS를 구현하기엔 조금 부족하다. 내가 보는 다른 사람의 위치는 언제나 과거이기 때문에, 명중 판정이 매우 곤란해지기 때문이다. (특히 퀘이크 시리즈의 레일건처럼 <a href="http://reiot.cafe24.com/archives/386">발사와 동시에 판정이 일어나야 하는 무기의 명중 판정</a>을 서버에서 해야 한다고 상상해보라.) HL2에서는 이를 <a href="http://reiot.cafe24.com/archives/303">랙 보상(Lag Compensation)</a> 기법으로 해결하는데, 서버에서 클라이언트의 위치 정보의 히스토리를 갖고 있다가 공격 패킷이 도착하면 발사 시간에서의 목표의 과거 위치를 찾아서 명중 체크를 한다는 것이다.</p>
+<p><img alt="Entity Interpolation" src="http://developer.valvesoftware.com/w/images/4/49/Interpolation.gif" /></p>
+<p>이 정도면 정상적인 네트워크에서의 기본적인 이동과 전투 까지는 해결할 수 있지만, 만약 패킷 손실을 고려하지 않으면 불안한 네트워크에서 캐릭터가 마구 점프하는 모습을 보게 될 것이다. 물론 적절한 데드 레커닝으로 해결할 수도 있겠지만, HL2 클라이언트에서는 서버가 보낸 스냅샷을 즉시 처리하는 대신 일정 시간(100ms)동안 버퍼링을 한 후, 내삽(interpolation)과 외삽(extrapolation)을 이용해서 패킷 손실에 우아하게 처리한다. 위 그림을 보면 짐작하겠지만, 최소한 2개의 패킷을 버퍼링함으로써 둘 중 하나가 손실되더라도 나머지 패킷으로 추정이 가능하다.</p>
+<p>결국 전통적인 FPS 게임에서의 서버는, 단순히 패킷을 브로드캐스팅하는 릴레이 서버가 아니라, 이동-공격-판정-충돌 등 대부분의 로직을 처리해해야 하기 때문에, 생각보다 꽤 무거워질 수 밖에 없다. 반면 클라이언트는 자기 캐릭터를 제외한 대부분의 입력을 네트워크로부터 받아들이는 구조로 작성되어야 한다. 만약 여러분이 다른 FPS게임과는 달리 플레이어들에게 dedicated server를 배포할 수 없는 상황이라면, 여러분은 대역폭을 무한히 절약해야 하는 꽤 힘든 싸움을 시작한 것이다. Welcome to the hell, guys.. :)</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/06/08/lua-tips/">Lua Tips</a> <small>2006-06-08</small></h1>
+	</div>
+	<div><p><strong><em>이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87244">http://reiot.springnote.com/pages/87244</a> 에서 읽으실 수 있습니다.</em></strong></p>
+<p>LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.</p>
+<h2>LuaPack</h2>
+<p>바이너리 데이터를 pack/unpack 하는 라이브러리. 일단 require 해주면 string.pack, string.unpack 의 2개 함수가 추가된다. 레이옷은 '''순수 루아 테스트 클라이언트'''를 만들기 위해서 LuaSocket 과 함께 사용했다. 단, 리눅스에서 사용하던 놈이라, 윈도우 환경에서 dll 로 사용하기 위해서는 약간의 수고가 필요하다.</p>
+<pre><code>- 기존 루아 프로젝트를 dll 기반으로 수정해줘야 한다. 또한, 같이 배포되는 pack.lua 은 동작하지 않으며, LuaSocket 의 compat-5.1.lua 에서 제공하는 LUA_CPATH 및 새 require() 를 이용해야 한다.
+- lpack.c 의 luaopen_pack() 앞에 __declspec(dllexport) 달아줄 것
+- dll 이름과 luaopen_xxx() 을 동일하게 해줄 것. pack.dll &amp; luaopen_pack() 또는 lpack.dll &amp; luaopen_lpack()을 권장함
+- 다음과 같은 배치 파일 및 테스트용 루아를 실행, 2개 함수가 function:xxxxx 이라고 나오면 성공~
+</code></pre>
+<h1>test_luapack.bat</h1>
+<p>set LUA_CPATH=?.dll<br />
+lua test_luapack.lua<br />
+pause</p>
+<p>-- test_luapack.lua<br />
+dofile('compat-5.1.lua')<br />
+require("lpack")<br />
+print(string.pack)<br />
+print(string.unpack)</p>
+<p>변환표<br />
+<table><br />
+<thead><br />
+<th>type string</th><br />
+<th>의미</th><br />
+<td>z</td><br />
+<td>zero-terminated string</td><br />
+<td>p</td><br />
+<td>string preceded by length byte</td></p>
+<tr>
+<td>P</td>
+<td>string preceded by length word</td>
+</tr>
+
+<tr>
+<td>a</td>
+<td>string preceded by length size_t</td>
+</tr>
+
+<tr>
+<td>A</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>f</td>
+<td>float</td>
+</tr>
+
+<tr>
+<td>d</td>
+<td>double</td>
+</tr>
+
+<tr>
+<td>n</td>
+<td>Lua number</td>
+</tr>
+
+<tr>
+<td>c</td>
+<td>char</td>
+</tr>
+
+<tr>
+<td>b</td>
+<td>byte = unsigned char</td>
+</tr>
+
+<tr>
+<td>h</td>
+<td>short</td>
+</tr>
+
+<tr>
+<td>H</td>
+<td>unsigned short</td>
+</tr>
+
+<tr>
+<td>i</td>
+<td>int</td>
+</tr>
+
+<tr>
+<td>I</td>
+<td>unsigned int</td>
+</tr>
+
+<tr>
+<td>l</td>
+<td>long</td>
+</tr>
+
+<tr>
+<td>L</td>
+<td>unsigned long</td>
+</tr>
+
+<tr>
+<td><</td>
+<td>little endian</td>
+</tr>
+
+<tr>
+<td>></td>
+<td>big endian|</td>
+</tr>
+
+<tr>
+<td>=</td>
+<td>native endian</td>
+</tr>
+
+<p></thead></table><br />
+see also:</p>
+<pre><code>- [Official LuaPack Homepage](http://www.tecgraf.puc-rio.br/%7Elhf/ftp/lua/)
+</code></pre>
+<h2>ipairs()</h2>
+<p>lua table 을 array 로 쓰는 경우, 정수 인덱스 기반의 iterating 을 할 때 사용한다. 정수 인덱스에 관련된 값이 nil 일 때까지 루프를 돌게 된다. 반면에 lua table 을 map 으로 사용할 경우, 즉 key 와 value 를 명시해서 사용할 경우에는 pairs() 를 사용해야 한다.</p>
+<blockquote>
+<p>t = { ["a"] = 1, ["b"] = 2, ["c"] = 3 }<br />
+for i,v in ipairs(t) do print(i,v) end</p>
+<p>tt = {[1]=1,[3]=3,[5]=5}<br />
+for i,v in ipairs(tt) do print(i,v) end<br />
+1  1<br />
+ttt = {[1]=1,[2]=3,[3]=3,[5]=5}<br />
+for i,v in ipairs(ttt) do print(i,v) end<br />
+1  1<br />
+2  3<br />
+3  3<br />
+tttt = {"a","b","c"}<br />
+for i,v in ipairs(tttt) do print(i,v) end<br />
+1  a<br />
+2  b<br />
+3  c</p>
+</blockquote>
+<h2>luabind : param 개수 제한</h2>
+<p>C++ 메써드를 바인딩할 때, 파라미터의 개수가 제한되어 있는 듯하다. 좀더 테스트가 필요할 듯.</p>
+<h2>luabind : C++에서 루아 테이블 객체 생성해서 functor 로 넘기는 법</h2>
+<p>C++에서 루아 함수를 호출할 때, 파라미터의 개수가 상황에 따라서 동적으로 바뀔 경우 루아 테이블에 넣어서 보내면 깔끔하다. 그런데, 어떻게 C++ 스코프에서 루아 테이블을 만들 수 있을까? 생각보다 꽤 간단했다.</p>
+<p>-- lua<br />
+function f(a) return a.x+a.y end</p>
+<p>// C++<br />
+luabind::object table = luabind::newtable(L);<br />
+table["x"] = 1;<br />
+table["y"] = 2;<br />
+functor<int> f(L,"f");<br />
+f(table);</p>
+<p>테이블 안에 테이블을 넣는 것도 가능하다.</p>
+<p>// C++<br />
+luabind::object table = luabind::newtable(L);<br />
+luabind::object subtable = luabind::newtable(L);<br />
+table["sub"] = subtable;<br />
+functor<int> f(L,"f");<br />
+f(table);</p>
+<h2>luabind : virtual member function</h2>
+<p>class Connection {<br />
+virtual int handle_input();<br />
+virtual int handle_output();<br />
+virtual int handle_msg();<br />
+};<br />
+class TestConnection : public Connection {<br />
+virtual int handle_msg();<br />
+};</p>
+<p>이와 같이, 하위 클래스에서는 몇 개의 virtual member function 만을 override 한 경우, 바인딩할 때에는 주의가 필요하다.</p>
+<p>// 컴파일 에러 발생<br />
+module(L)<br />
+[<br />
+class<TestConnection>("TestConnection")<br />
+.def("handle_input",&amp;TestConnection::handle_input)<br />
+.def("handle_output",&amp;TestConnection::handle_output)<br />
+.def("handle_msg",&amp;TestConnection::handle_msg)<br />
+];</p>
+<p>// 컴파일 성공<br />
+module(L)<br />
+[<br />
+class<Connection>("Connection")<br />
+.def("handle_input",&amp;Connection::handle_input)<br />
+.def("handle_output",&amp;Connection::handle_output)<br />
+.def("handle_msg",&amp;Connection::handle_msg)<br />
+,<br />
+class<TestConnection,Connection>("TestConnection")<br />
+.def("handle_msg",&amp;TestConnection::handle_msg)<br />
+];</p>
+<p>단 virtual 이 잘 동작하는지는 확인 요망...</p>
+<h2>luabind : functor</h2>
+<p>루아 함수를 C++ 에서 호출할 수 있게 해준다. 템플릿으로 구현되어 있어서 컴파일 속도가 장난 아니게 느리다.</p>
+<p>-- lua<br />
+function f(a,b) return a+b end</p>
+<p>// C++<br />
+functor<int> f(L,"f");<br />
+f(1,2);</p>
+<p>어떤 루아 함수를 사용하려 한다는 것은, 이미 루아 스택에 그 함수가 로딩되어 있어야 한다는 의미이다. 그런데, 만약 런타임에 함수를 정의하고 그 함수를 C++ 에서 사용하려면 어떻게 해야 할까? 이를 위해서는 functor 등록 함수를 luabind 를 이용해서 다시 루아에서 호출해줘야 한다. 즉</p>
+<p>-- lua<br />
+function f(a,b) return a+b end<br />
+register_f()</p>
+<p>// C++<br />
+void register_f()<br />
+{<br />
+functor<int> * pFunc = new functor<int>(L,"f");<br />
+}</p>
+<p>module(L)<br />
+[<br />
+.def("register_f",&amp;register_f)<br />
+];</p>
+<p>까다로운 점은 register_f() 에서의 루아스택을 어떻게 알아내느냐인데, [레이옷]은 SingletonPattern 으로 해결해버렸다. -_-;;</p>
+<p>끝으로 주의사항: functor 의 파라미터로 C++ 클래스를 사용하려면 필히 먼저 이 클래스를 luabind 로 등록해두어야 한다. (물론 루아에서 사용하는 메써드만 달랑 해주면 끝)</p>
+<h2>luabind : __tostring()</h2>
+<p>luabind 로 C++ 클래스 인스턴스를 생성, print(x) 를 해보고 싶다면, ostream operator &lt;&lt; 를 implement 하고, tostring(self)를 바인딩해주면 된다.</p>
+<p>class number {};</p>
+<p>std::ostream&amp; operator&lt;&lt;(ostream&amp;, number&amp;);</p>
+<p>module(L)<br />
+[<br />
+class_<number>("number")<br />
+.def(tostring(self))<br />
+];</p>
+<p>반면 루아 클래스 객체를 출력하려면 다음과 같이 함수를 정의해야 한다. '''이때 self 파라미터를 수동으로 넘긴다는 점에 유의할 것'''. (다른 함수에서 self 는 자동적으로 인스턴스 자신을 가리키지만, metatable 관련 함수들은 수동으로 넘겨야 하는 듯. 당연히 굳이 self 라는 이름일 필요는 없다)</p>
+<p>class 'XXX'<br />
+function XXX:__init()<br />
+self.v = 1<br />
+end<br />
+function XXX:__tostring(self)<br />
+return 'XXX('..self.v..')'<br />
+end</p>
+<h2>lua list</h2>
+<p>table 을 list 처럼 사용할 수 있다.</p>
+<p>-- create<br />
+list = nil<br />
+for line in io.lines() do<br />
+list = { next=list, value=line }<br />
+end</p>
+<p>-- iterate<br />
+l = list<br />
+while l do<br />
+print(l.value)<br />
+l = l.next<br />
+end</p>
+<p>see also:</p>
+<pre><code>- [http://www.lua.org 루아 공식 홈페이지]
+- [http://www.redwiki.net/wiki/wiki.php/Lua 레드픽셀님의 루아 페이지]
+- [http://lua-users.org/wiki/] - 루아 위키
+- [http://www.workspacewhiz.com/LuaPlus/index.html LuaPlus] - 가장 OO 스러운 루아 확장 라이브러리
+- [http://sourceforge.net/projects/lua-users/ lua-users.org at SF] - 윈도우용 루아 바이너리 및 매뉴얼 등등을 배포하는 곳.
+- [http://www.sjbrown.co.uk/lualite.html LuaLite] - Lua Syntax Highlight plugin for VS.NET. 단, 이것을 띄워 놓은 상태에서 검색을 하면 먹통이 되므로 조심할 것
+- [http://luaforge.net/ LuaForge]
+- [http://www.icynorth.com/forums/index.php LuaForum]
+- http://www.thomasandamy.com/projects/CPB/
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a> <small>2006-06-04</small></h1>
+	</div>
+	<div><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
+<p><em>그러나 가장 좋은 것은 뭐니뭐니해도 하드웨어 방화벽이다</em>. :)</p>
+<h2>보안 정책</h2>
+<p>보안 정책은 {IP 필터:필터 동작}의 매핑으로 이루어진다.</p>
+<ul>
+<li>IP 필터 - {src_ip,dest_ip,protocol,port,...} 으로 구성된다.</li>
+<li>필터 동작 - 위 IP 필터에 의해 걸러진 트래픽을 허용/보안요청/보안필요/거부할 것인지를 결정한다.</li>
+</ul>
+<p>기본적으로 3가지의 보안 정책이 존재한다. 단 OS 설치 초기에는 모든 정책이 꺼져 있다.</p>
+<ul>
+<li>서버(보안요청)</li>
+<li>클라이언트(응답만)</li>
+<li>보안 서버(보안필요)</li>
+</ul>
+<p>따라서, 우리는 새로운 커스텀 보안정책을 생성한 후 아래와 같이 필터와 동작들을 추가해야 한다.</p>
+<ul>
+<li>터미널 서비스 : 회사의 개발용 머신, IDC의 다른 컴퓨터들에서만 허용</li>
+<li>MSSQL : IDC의 다른 컴퓨터에서만 허용</li>
+<li>WWW : 방화벽 없슴</li>
+</ul>
+<h2>IP필터</h2>
+<h3>터미널 서비스</h3>
+<p>터미널 서비스는 TCP 3389 포트를 사용한다. 따라서, 기본적으로 터미널 서비스를 거부한 다음, 접근을 허용하고 싶은 컴퓨터의 IP만 지정해주면 간단하다. OS 방화벽을 함께 사용한 경우, TCP 3389 포트를 열어주는 것을 잊지 말자.</p>
+<p>반면, 특정 subnet에서만 터미널 서비스를 허용하려면 , 해당 subnet 이 시작하는 주소를 잘 지정해야 한다. 하긴 mask 만 잘 지정하면 적당한 대역의 IP를 넣으면 알아서 변환이 되니깐 별 관계는 없다만...</p>
+<table>
+<thead>
+<tr>
+<th>정책</th>
+<th>프로토콜</th>
+<th>원본주소</th>
+<th>원본포트</th>
+<th>대상주소</th>
+<th>대상포트</th>
+<th>필터동작</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>모든 터미널 서비스 거부</td>
+<td>TCP</td>
+<td>any</td>
+<td>any</td>
+<td>서버의 IP</td>
+<td>3389</td>
+<td>거부</td>
+</tr>
+<tr>
+<td>특정 컴퓨터의 터미널 서비스 허용</td>
+<td>TCP</td>
+<td>특정 컴퓨터 - IP 또는 DNS</td>
+<td>any</td>
+<td>서버의 IP</td>
+<td>3389</td>
+<td>허용</td>
+</tr>
+<tr>
+<td>특정 서브넷의 터미널 서비스 허용</td>
+<td>TCP</td>
+<td>특정 subnet- 시작 IP / subnet mask</td>
+<td>any</td>
+<td>서버의 IP</td>
+<td>3389</td>
+<td>허용</td>
+</tr>
+</tbody>
+</table>
+<h3>SqlServer 에 대한 외부 접근 제어</h3>
+<p>SqlServer 는 TCP 1433, UDP 1433 포트를 사용한다. OS 방화벽을 함께 사용한 경우, 각 포트들을 열어주는 것을 잊지 말자. TCP/UDP에 대한 거부 필터를 2개 만들어서 추가한 뒤, 접근을 허용하고 싶은 서버를 허용 필터로 추가하면 된다. (보안의 기본적인 컨셉은 모두 막은 뒤 하나씩 풀어주는 것..이라고 누가 말했던가..)</p>
+<table>
+<thead>
+<tr>
+<th>정책</th>
+<th>프로토콜</th>
+<th>원본주소</th>
+<th>원본포트</th>
+<th>대상주소</th>
+<th>대상포트</th>
+<th>필터동작</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SqlServer 외부 접근 거부</td>
+<td>TCP/UDP 각각</td>
+<td>any</td>
+<td>any</td>
+<td>서버의 IP</td>
+<td>1433</td>
+<td>거부</td>
+</tr>
+<tr>
+<td>SqlServer 특정 서버 허용</td>
+<td>TCP/UDP 각각</td>
+<td>특정 서버의 IP 또는 DNS</td>
+<td>any</td>
+<td>서버의 IP</td>
+<td>1433</td>
+<td>허용</td>
+</tr>
+</tbody>
+</table></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a> <small>2006-06-04</small></h1>
+	</div>
+	<div><h2>multiple result set + parameter binding</h2>
+<pre><code>- 캐릭터 정보 로딩과 같이, 하나의 프로시저에서 여러 테이블의 row 들을 select 하면서 파라미터도 바인딩해야 할 경우, static binding 으로는 구현할 수 없으며, CDynamicParameterAccessor::GetParam()를 이용해야 한다.
+- 파라미터의 경우, select 해온 모든 result set 을 소진한 후, 가장 마지막에 읽어와야 한다. 즉 DB_S_NORESULT == GetNextResult(...); 를 실행한 후에만 유효하다는 뜻이다. 만약, 그 전에 읽게 되면 garbage 가 리턴된다.
+- Bind()와 무관하므로, GetInterface()!=NULL 체크를 할 필요가 없다.
+</code></pre>
+<h2>CCommand::Prepare()</h2>
+<p>한번 생성후 재사용하는 구조가 필요하다.</p>
+<h2>GetNextResult(rowCount)</h2>
+<p>웬지 계속 -1 이 넘어오는 걸로 봐서 뭔가 문제가 있는 듯? property 설정이 필요한가?</p>
+<h2>DateTime to String</h2>
+<pre><code>- VarBstrFromDate 이걸 써야 될까나~
+- use
+</code></pre>
+<p>HRESULT DataConvert (<br />
+DBTYPE          wSrcType,<br />
+DBTYPE          wDstType,<br />
+DBLENGTH        cbSrcLength,<br />
+DBLENGTH <em>      pcbDstLength,<br />
+void </em>          pSrc,<br />
+void <em>          pDst,<br />
+DBLENGTH        cbDstMaxLength,<br />
+DBSTATUS        dbsSrcStatus,<br />
+DBSTATUS </em>      pdbsStatus,<br />
+BYTE            bPrecision,<br />
+BYTE            bScale,<br />
+DBDATACONVERT   dwFlags);</p>
+<h2>Connection Pooling</h2>
+<pre><code>- SqlServer Provider 를 기반으로, ThreadPooling 을 이용해 쿼리를 할 경우, DataSource 가 1개이고 Session 이 N 개를 생성했다면, 실제 DB에 대한 연결은 N 개가 된다.
+- 즉, Session 이 내부적으로 연결 풀링을 사용하게 되므로, DataSource 객체는 1개만 만들어도 된다.
+</code></pre>
+<h2>어떤 Accessor 를 사용할 것인가?</h2>
+<p>MSDN 의 비교표를 간략하게 요약하면 다음과 같다.</p>
+<pre><code>- CAccessor : 매크로를 이용한 컴파일 타임 바인딩이므로 성능 면에서 가장 우수하지만, 쉽게 말해서 하드코딩이므로 귀찮은 작업들이 많다. 컬럼 및 파라미터 바인딩 모두 지원.
+- CDynamicAccessor : 런타임 바인딩. 따라서 컬럼 정보를 읽어와야한다. 대신 파라미터 바인딩은 불가능. 뭔가 컴파일 타임에 정보를 알기 힘든 경우, 또는 multiple result set 을 리턴하는 프로시저에 사용하면 된다.
+- CDynamicParameterAccessor : CDynamicAccessor 에 파라미터 바인딩 기능이 추가되었다. 당연히 더욱 느려졌다.
+- CDynamicStringAccessor : CDynamicAccessor 와 유사하지만 컬럼값을 스트링으로 리턴한다.
+- CManualAccessor : AddBindEntry(), AddParameterEntry() 를 이용해서 수동으로 컬럼과 파라미터를 바인딩한다. 아마 CAccessor 에 이어 두번째로 빠른 듯.
+- CXMLAccessor : CDynamicStringAccessor 와 같지만, XML 스트링의 형태로 컬럼값을 리턴한다.
+</code></pre>
+<p>성능적인 순서로 정렬해 본다면 대충 다음과 같지 않을까? (이건 본인의 추측)</p>
+<pre><code>- CAccessor &lt; CManualAccessor &lt; CDynamicAccessor &lt; CDynamicStringAccessor &lt; CXMLAccessor &lt; CDynamicParameterAccessor
+</code></pre>
+<p>단, 파라미터 바인딩을 지원하는 넘은 아래의 3가지 뿐이다.</p>
+<pre><code>- CAccessor
+- CManualAccessor
+- CDynamicParameterAccessor
+</code></pre>
+<p>see also</p>
+<pre><code>- [Which accessor should I use?](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/vcfaqwhichaccessorshouldiuse.asp) from MSDN
+</code></pre></div>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/30/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/30">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2006/06/23/vs2005-vs2003-함께-사용하기/">VS2005 & VS2003 함께 사용하기</a>
+	</li>
+	
+	<li>
+		<a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a>
+	</li>
+	
+	<li>
+		<a href="/2006/06/08/lua-tips/">Lua Tips</a>
+	</li>
+	
+	<li>
+		<a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a>
+	</li>
+	
+	<li>
+		<a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

@@ -1,316 +1,89 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Punk Buster - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="Punk Buster 는 퀘이크, 둠, 콜 오브 듀티, 배틀 필드, 그리고 크라이시스등 유수 FPS 게임들이 채택한 안티 해킹 툴이다. 국산 게임으로는 워락이 유일한 듯하다. 국산 G모 프로그램과의 그렇게 현격한 차이가 있어 보이지 않지만, 몇 가지 독특한 기능들이 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2008/01/19/punk-buster">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Punk Buster</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-19T10:39:21+09:00" pubdate data-updated="true">Jan 19<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p><img src="http://www.evenbalance.com/art/pblogo.gif"></p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2008/01/19/punk-buster/">Punk Buster</a> <small>2008-01-19</small></h1>
+	</div>
+	<div><p><img alt="http://www.evenbalance.com/art/pblogo.gif" src="http://www.evenbalance.com/art/pblogo.gif" /></p>
 <p><a href="http://www.evenbalance.com">Punk Buster </a>는 <a href="http://www.evenbalance.com/index.php?page=support.php">퀘이크, 둠, 콜 오브 듀티, 배틀 필드, 그리고 크라이시스등 유수 FPS 게임들이 채택</a>한 안티 해킹 툴이다. 국산 게임으로는 워락이 유일한 듯하다.</p>
-
 <p>국산 G모 프로그램과의 그렇게 현격한 차이가 있어 보이지 않지만, <a href="http://www.evenbalance.com/index.php?page=info.php">몇 가지 독특한 기능들</a>이 들어 있는 것 같다.</p>
-
 <pre><code>- dedicated server 의 관리자는 [PBBAN](http://www.pbbans.com) 이라는 사이트로 찌질이 목록을 내보내거나 받아올 수 있는 것 같다.  XBOX Live 를 연상케하는 이런 시스템을, 국산 온라인 게임들이 채택하고 서로 공유한다면 꽤 유용할 법도 하다.
 - 사용자 클라이언트의 스크린샷을 캡처하거나, 키바인딩 정보를 서버로 전송시킬수 있다.  가만히 생각해보면 별거 아닌 기능이지만, 각종 불법적인 행위를 준비하고 있는 증거를 입수한다면 ban을 항의하는 사용자들에게 증거로 보여줄 수도 있을것 같다. 다만 이게 혹시나 프라이버시 침해로 이어지는건 아닌지 궁금해진다.
 - 욕설이나 험담 등으로 구성된 이름을 체크해주기도 한단다. 서버 프로그래머의 짐을 덜어주는 소소하지만 좋은 기능인 듯?
 </code></pre>
-
 <p>PB의 핵심적인 특장점을 꼽아보라면, 다른 것보다는 아무래도 유연한 결제 방식이 아닐까 한다. 그것은 바로 년단위 갱신이 아니라 월단위로 고정액을 지불할 수 있다는 점인데, 게임의 흥망성쇠가 불분명한 소규모 게임 업체들에게 적합한 방식이 아닐까 한다. 이런 아름다운 모습은 국산 보안 업체들이 꼭 본받았으면 한다. 단점이라면 아무래도 영어라는 것 정도? (이게 생각보다 큰 짐으로 다가오지만;;;)</p>
-
-<p>ps. <a href="http://www.google.co.kr/search?aq=f&amp;complete=1&amp;hl=ko&amp;newwindow=1&amp;client=firefox-a&amp;rls=org.mozilla%3Ako%3Aofficial&amp;hs=3lZ&amp;q=%EC%9B%8C%EB%A1%9D+%ED%95%B5&amp;btnG=%EA%B2%80%EC%83%89&amp;lr=">워록 핵</a>으로 검색해보고 대략 좌절했다.</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-19T10:39:21+09:00" pubdate data-updated="true">Jan 19<span>th</span>, 2008</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2008/01/19/punk-buster/" data-via="reiot" data-counturl="http://reiot.com/2008/01/19/punk-buster/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2008/01/19/cheat-engine/" title="Previous Post: Cheat Engine">&laquo; Cheat Engine</a>
-      
-      
-        <a class="basic-alignment right" href="/2008/01/22/get-precompiled-boost-library/" title="next Post: Get Precompiled Boost Library">Get Precompiled Boost Library &raquo;</a>
-      
-    </p>
-  </footer>
+<p>ps. <a href="http://www.google.co.kr/search?aq=f&amp;complete=1&amp;hl=ko&amp;newwindow=1&amp;client=firefox-a&amp;rls=org.mozilla%3Ako%3Aofficial&amp;hs=3lZ&amp;q=%EC%9B%8C%EB%A1%9D+%ED%95%B5&amp;btnG=%EA%B2%80%EC%83%89&amp;lr=">워록 핵</a>으로 검색해보고 대략 좌절했다.</p></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2008/01/19/punk-buster/';
-        var disqus_url = 'http://reiot.com/2008/01/19/punk-buster/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

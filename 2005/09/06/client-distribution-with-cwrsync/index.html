@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a> <small>2005-09-06</small></h1>
+	</div>
+	<div><h2>Overview</h2>
+<p>한동안 메신저 + zip 파일 기반의 배포 시스템을 고집하다가 더 이상 참을 수가 없어서 결국 <a href="http://www.itefix.no/cwrsync/">cwRsync </a>라는 툴을 테스트 해보게 되었다. Cygwin + rsync + openssh 를 NullSoft 인스톨러로 깔끔하게 패키징한 이 유틸리티는 약간의 삽질 만으로 간편하면서도 공짜 파일 배포 시스템을 구축할 수 있게 해준다. 당연히 호스트 접근 제어도 가능하고, SSH 를 통해서만 배포할 수도 있다.</p>
+<p>이전 프로젝트에서도 <a href="http://www.dillobits.com/insync.html">InSync </a>를 이용해서 팀 내부에 클라이언트를 배포했었다. 클라이언트 프로그래머가 최신 파일들을 특정 공유 폴더에다가 업데이트하면, 각자가 로컬에 설치된 프로그램을 실행해서 변경된 파일들을 받아오는 방식인데, 가끔 동시에 많은 사람이 업데이트를 받을 경우 문제가 있었고, 무엇보다도 shareware 여서 어둠과자를 사용해야만 했다.</p>
+<h2>Install</h2>
+<p>이번에 테스트한 것은 '안전하지 않은' no-ssh 배포 방식. 간단히 삽질한 내용을 정리해보면...</p>
+<ul>
+<li>우선 cwRsync 서버를 설치하고 rsyncd.conf 를 열어 모듈을 설정하라. 모듈은 rsync 로 파일을 받아갈 때의 대표 이름으로 CVS 의 그것과 같다. 일반적으로 서버측의 파일을 클라이언트에서 받아가므로 read only 는 true 로 설정할 것.</li>
+</ul>
+<p>[모듈명]<br />
+path = /cygdrive/드라이브/배포폴더<br />
+read only = true<br />
+transfer logging = yes</p>
+<ul>
+<li>prepare a directory for upload 명령을 실행해서 rsync 서버가 제대로 폴더를 읽고 쓸 수 있게 하라.</li>
+<li>서비스는 기본적으로 꺼져 있는 상태. 자동 실행으로 만든 다음 서비스를 시작하라. 또한 방화벽에서 TCP 873 포트를 열어주는 것을 잊지 말 것.</li>
+<li>클라이언트를 설치하고 배치 파일을 작성하라. 기본적으로 제공하는 cwrsync.cmd 파일을 복사한 다음 적절히 수정해주면 된다. 특정 rsync 서버의 모듈을 recursive 로 받아오려면 다음과 같이 하면 된다.</li>
+</ul>
+<p>rsync -avr 서버::모듈 /cygdrive/드라이브/다운받을폴더</p>
+<ul>
+<li>물론 로컬 파일을 업로드하려면 순서를 뒤집으면 된다. 이때 서버측에서 read only = false 여야만 가능하다.</li>
+</ul>
+<p>rsync -avr /cygdrive/드라이브/업로드할폴더 서버::모듈</p>
+<h2>Filter</h2>
+<p>rsync 는 강력한 파일 필터링 기능을 제공한다. 물론 커맨드라인으로 지정할 수도 있지만 수정을 쉽게 하려면 필터 파일을 만들어 두는 것을 권장.  자세한 도움말은 <a href="http://rsync.samba.org/ftp/rsync/rsync.html">rsync 도움말</a>을 참조할 것. 아래의 필터 파일 예제는 log/ upload/ 폴더 및 로그 파일, VSS 관련 파일들을 무시한다는 의미이다.</p>
+<ul>
+<li>log/</li>
+<li>upload/</li>
+<li>*.log</li>
+<li>*.scc</li>
+</ul>
+<p>필터 파일을 지정하려면 '--exclude-from=필터파일명' 을 지정해주면 된다.</p>
+<h2>마치며</h2>
+<p>사실 내부 테스트를 위해서도 패치 시스템을 구축하는 것이 가장 좋겠지만, 보유중인 패치 시스템의 인터페이스가 간편하지 않다면 오히려 낭패... 차라리 부담없이 GNU 툴들을 도입해 보는 것이 정신 건강상 더 나을 듯하다.</p>
+<p>그리고, 아무래도 안정적으로 파일을 배포하려면, <br />
+개발 머신 --(rsync)--&gt; 패치 서버 --(rsync)--&gt; 팀 배포<br />
+ 의 2단계를 거치는 것이 좋은데, 이를 위해서는 서버에 같은 폴더를 나타내는 upload 모듈과 download 모듈을 만들어 둬야 한다. 또한 실행 파일만을 배포할 경우를 위한 배치 파일도 따로 만드는 것을 권장한다. (아무래도 recursive 로 검색을 하면 시간이 좀 걸린다)</p></div>
+	
+	<p>
+	
+		<a href="/tag/ci/"><span class="label">ci</span></a>
+	
+		<a href="/tag/cwrsync/"><span class="label">cwrsync</span></a>
+	
+	</p>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

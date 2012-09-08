@@ -1,309 +1,84 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Migrate To ACE - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="예전에도 밝혔다시피 요즘 legacy server core framework 를 ACE 기반으로 마이그레이션하고 있다. 기존 코드의 경우 골치아픈 동기화와 데드락을 최대한 피하기 위해서 IOCP를 썼음에도 불구하고 polling 을 통한 순차 처리를 하도록 되어 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2006/04/11/migrate-to-ace">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Migrate to ACE</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-11T10:51:27+09:00" pubdate data-updated="true">Apr 11<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p><a href="http://reiot.cafe24.com/archives/404">예전에도 밝혔다시피</a> 요즘 legacy server core framework 를 <a href="http://reiot.cafe24.com/archives/413">ACE</a> 기반으로 마이그레이션하고 있다. 기존 코드의 경우 골치아픈 동기화와 데드락을 최대한 피하기 위해서 IOCP를 썼음에도 불구하고 polling 을 통한 순차 처리를 하도록 되어 있어서, 일단 이 형태를 그대로 ACE 기반으로 재구성 한 후 제대로 된 이벤트 드리븐을 구현해보려고 노력 중이다. 사실, 테스트 결과는 그다지 좋지는 않지만, 숨겨진 병목 부분을 해결하면 원래 코드의 80-90% 정도는 따라갈 수 있으리라고 예상중이다.</p>
-
-<p>그런데 작업 도중 오랜만에 동기화 관련 버그를 만났다. ACE_ASSERT( p != 0 ); 에서 에러가 났는데 디버거로 쫒아가면 우습게도 포인터가 정상이 아닌가&#8230; 처음엔 VS2005를 탓하면서 한동안 헤롱거리다가 가만히 생각해보니, ASSERT가 발생한 직후 다른 쓰레드가 재빨리 값을 바꾸어 버리는 것 외에는 이유가 없다는 것을 깨달았다. 알고 보니 ACE API 의 호출 순서를 헷갈려서 생긴 문제였다. :(</p>
-
-<p>이번 마이그레이션의 최종 목표는 ACE 기반으로 제대로 된 gather-scatter I/O를 구현하는 것이다. 프레임워크가 잘 만들어져 있어서 금방 할 수 있긴 한데, 가능한한 락과 복사를 하지 않고 구현하려고 하니 잘 안되는 듯했다. (lock 으로 보호되는 ACE_Message_Block 을 duplicate() 해서 각각의 출력 버퍼에 concat 하고 출력 스트림에다가 writev() 만 하면 되는데 말이다. 물론 메모리 풀링도 필요하다.) 과연 하나의 버퍼에 복사한 후 플러시하는 게 빠를지, 버퍼 복사 없이 리스트로 관리하다가 한꺼번에 플러시하는게 빠를지&#8230; 결과가 기대된다. (ref-count 를 위한 락 때문에 더욱 결과가 모호하다 ㅋㅋ)</p>
-
-<p>이거 외에도 써먹어야 할 ACE 고급 기능들이 부지기수인데&#8230;  스케줄은 늘어지고, 야근은 하기 싫고, 오블리비언도 해야 되고&#8230; 진퇴양난이다.</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-11T10:51:27+09:00" pubdate data-updated="true">Apr 11<span>th</span>, 2006</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/04/11/migrate-to-ace/" data-via="reiot" data-counturl="http://reiot.com/2006/04/11/migrate-to-ace/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2006/03/23/doxygen/" title="Previous Post: Doxygen">&laquo; Doxygen</a>
-      
-      
-        <a class="basic-alignment right" href="/2006/04/15/how-to-test-my-server-frameworks-performance/" title="next Post: How to test my server framework&#8217;s performance?">How to test my server framework&#8217;s performance? &raquo;</a>
-      
-    </p>
-  </footer>
+	<article>
+	<div class="page-header">
+		<h1><a href="/2006/04/11/migrate-to-ace/">Migrate To ACE</a> <small>2006-04-11</small></h1>
+	</div>
+	<div><p><a href="http://reiot.cafe24.com/archives/404">예전에도 밝혔다시피</a> 요즘 legacy server core framework 를 <a href="http://reiot.cafe24.com/archives/413">ACE</a> 기반으로 마이그레이션하고 있다. 기존 코드의 경우 골치아픈 동기화와 데드락을 최대한 피하기 위해서 IOCP를 썼음에도 불구하고 polling 을 통한 순차 처리를 하도록 되어 있어서, 일단 이 형태를 그대로 ACE 기반으로 재구성 한 후 제대로 된 이벤트 드리븐을 구현해보려고 노력 중이다. 사실, 테스트 결과는 그다지 좋지는 않지만, 숨겨진 병목 부분을 해결하면 원래 코드의 80-90% 정도는 따라갈 수 있으리라고 예상중이다.</p>
+<p>그런데 작업 도중 오랜만에 동기화 관련 버그를 만났다. ACE_ASSERT( p != 0 ); 에서 에러가 났는데 디버거로 쫒아가면 우습게도 포인터가 정상이 아닌가... 처음엔 VS2005를 탓하면서 한동안 헤롱거리다가 가만히 생각해보니, ASSERT가 발생한 직후 다른 쓰레드가 재빨리 값을 바꾸어 버리는 것 외에는 이유가 없다는 것을 깨달았다. 알고 보니 ACE API 의 호출 순서를 헷갈려서 생긴 문제였다. :(</p>
+<p>이번 마이그레이션의 최종 목표는 ACE 기반으로 제대로 된 gather-scatter I/O를 구현하는 것이다. 프레임워크가 잘 만들어져 있어서 금방 할 수 있긴 한데, 가능한한 락과 복사를 하지 않고 구현하려고 하니 잘 안되는 듯했다. (lock 으로 보호되는 ACE_Message_Block 을 duplicate() 해서 각각의 출력 버퍼에 concat 하고 출력 스트림에다가 writev() 만 하면 되는데 말이다. 물론 메모리 풀링도 필요하다.) 과연 하나의 버퍼에 복사한 후 플러시하는 게 빠를지, 버퍼 복사 없이 리스트로 관리하다가 한꺼번에 플러시하는게 빠를지... 결과가 기대된다. (ref-count 를 위한 락 때문에 더욱 결과가 모호하다 ㅋㅋ)</p>
+<p>이거 외에도 써먹어야 할 ACE 고급 기능들이 부지기수인데...  스케줄은 늘어지고, 야근은 하기 싫고, 오블리비언도 해야 되고... 진퇴양난이다.</p></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2006/04/11/migrate-to-ace/';
-        var disqus_url = 'http://reiot.com/2006/04/11/migrate-to-ace/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

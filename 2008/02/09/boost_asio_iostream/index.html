@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2008/02/09/boost_asio_iostream/">boost::asio iostream</a> <small>2008-02-09</small></h1>
+	</div>
+	<div><p>문자열 기반의 네트워크 입출력 프로그래밍을 해야 한다면, ASIO 의 iostream 을 사용하면 간단히 해결된다.</p>
+<p>boost::asio::io_service 같이 모호한 객체 선언도 필요없고, 연결 관리나 버퍼링 같은 개념도 적당히 무시할 수 있어서, 예외 처리만 잘 한다면 원격 로그라든지 XML RPC  클라이언트 같은 곳에 써먹을 수 있을 것 같다.</p>
+<p>만약 복잡한 문자열 조작이 필요하다면 boost::string_algo 정도면 충분하고, 정규식이 필요하면 boost::regexp 을 가져다 사용하면 될 듯하다.</p>
+<!--more-->
+
+<pre><code>
+// 문자열 기반의 네트워크 입출력 스트림
+BOOST_AUTO_TEST_CASE( test_iostream )
+{
+    string http_request =
+        &quot;GET / HTTP/1.0\r\n&quot;
+        &quot;Host: reiot.cafe24.com\r\n\r\n&quot;;
+    string expected_http_response[] = { &quot;HTTP/1.0 200 OK&quot;, &quot;HTTP/1.1 200 OK&quot; };
+
+    {
+
+        tcp::iostream io_(&quot;reiot.cafe24.com&quot;,&quot;http&quot;);
+
+        io_    &lt;&lt; http_request &lt;&lt; flush;    // or io_.flush();
+
+        vector&lt;string&gt; http_response;
+        while ( !io_.eof() )
+        {
+            string line;
+            getline(io_,line);
+            http_response.push_back(line);
+        }
+
+        BOOST_CHECK_EQUAL( boost::trim_copy(http_response[0]), expected_http_response[1] );
+
+        io_.close();
+    }
+
+    {
+        string host = &quot;www.google.co.kr&quot;;
+        tcp::iostream io_(host,&quot;http&quot;);
+
+        io_    &lt;&lt; &quot;GET / HTTP/&quot; &lt;&lt; 1 &lt;&lt; &quot;.&quot; &lt;&lt; 0 &lt;&lt; endl
+            &lt;&lt; &quot;Host: &quot; &lt;&lt; host &lt;&lt; endl &lt;&lt; endl
+            &lt;&lt; flush;    // or io_.flush();
+
+        vector&lt;string&gt; http_response;
+        while ( !io_.eof() )
+        {
+            string line;
+            getline(io_,line);
+            http_response.push_back(line);
+        }
+
+        BOOST_CHECK_EQUAL( boost::trim_copy(http_response[0]), expected_http_response[0] );
+    }
+
+    {
+        tcp::iostream io_(&quot;www.naver.com&quot;,&quot;http&quot;);
+
+        io_    &lt;&lt; &quot;GET / HTTP/1.0&quot; &lt;&lt; endl
+            &lt;&lt; &quot;Host: www.naver.com&quot; &lt;&lt; endl
+            &lt;&lt; endl
+            &lt;&lt; flush;    // or io_.flush();
+
+        stringstream response;
+        while ( !io_.eof() )
+        {
+            char ch = io_.get();
+            response &lt;&lt; ch;
+        }
+
+        string line;
+        getline(response,line);
+        BOOST_CHECK_EQUAL( boost::trim_copy(line), expected_http_response[1] );
+    }
+
+    {
+        tcp::iostream io_(&quot;clien.career.co.kr&quot;,&quot;http&quot;);
+
+        io_    &lt;&lt; &quot;GET / HTTP/1.0&quot; &lt;&lt; endl
+            &lt;&lt; &quot;Host: clien.career.co.kr&quot; &lt;&lt; endl
+            &lt;&lt; endl
+            &lt;&lt; flush;    // or io_.flush();
+
+        stringstream response;
+        while ( !io_.eof() )
+        {
+            char buf[128];
+            io_.read(buf,127);
+            size_t nread = io_.gcount();
+            if ( nread &gt; 0 )
+            {
+                buf[nread] = 0;
+                response &lt;&lt; buf;               
+            }
+        }
+
+        string line;
+        getline(response,line);
+        BOOST_CHECK_EQUAL( boost::trim_copy(line), expected_http_response[1] );
+    }
+}
+
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/ASIO/"><span class="label">ASIO</span></a>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+	</p>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

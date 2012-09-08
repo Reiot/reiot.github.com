@@ -1,347 +1,107 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>데이터 주도적인 게임 설계 - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="예전에 이런 일이 있었다 몬스터마다 Drop 하는 아이템의 종류 및 확률 테이블의 설정을 변경하느라고 프로그래머와 신경전을 벌이고 있었다. 내 불만의 주된 원인은, (사실은 게임내에서 얼마나 잘 떨어지는지 추적도 하지 않는 주제에) 기획서대로 아이템이 떨어지기 위한 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2004/11/24/data-driven-game-system">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">데이터 주도적인 게임 설계</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2004-11-24T22:47:12+09:00" pubdate data-updated="true">Nov 24<span>th</span>, 2004</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>예전에 이런 일이 있었다</p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/data-driven-game-system/">데이터 주도적인 게임 설계</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>예전에 이런 일이 있었다</p>
 <p>몬스터마다 Drop 하는 아이템의 종류 및 확률 테이블의 설정을 변경하느라고 프로그래머와 신경전을 벌이고 있었다. 내 불만의 주된 원인은, (사실은 게임내에서 얼마나 잘 떨어지는지 추적도 하지 않는 주제에) 기획서대로 아이템이 떨어지기 위한 게임의 구현이 정확하지 않다는 것이었다. 당시의 구현은 그럭저럭 확률이 기획서와 비슷하지만 정확하지는 않았고, 몬스터마다 다르게 설정하기도 힘들었다. (즉, D&amp;D의 보물 타입과 같이 구현되어 있었다)</p>
-
 <p>전직 프로그래머(-_-)이었고 그 프로그래머가 친한 학과 후배이다 보니, 생각해오던 구현을 강요하게 되었고, 그러다가 서로의 약점을 건드리는 바람에 폭발 직전에까지 갔다가, 어째어째 양보하여 전투가 끝이 났다.</p>
-
-<p>웃긴 건, 그 당시 나의 피해의식은 &#8220;왜 이렇게 밸런스 수정하기가 어려운거지?&#8221;라는 것이었다. 실제로 기획 작업을 해보면서 느낀 점이, 서비스중인 게임의 경우 미세한 조정이 항상 발생하게 되는데, 그때마다 프로그래머들의 눈치를 계속 봐야 한다는 게 정말 불만이었다.</p>
-
+<p>웃긴 건, 그 당시 나의 피해의식은 "왜 이렇게 밸런스 수정하기가 어려운거지?"라는 것이었다. 실제로 기획 작업을 해보면서 느낀 점이, 서비스중인 게임의 경우 미세한 조정이 항상 발생하게 되는데, 그때마다 프로그래머들의 눈치를 계속 봐야 한다는 게 정말 불만이었다.</p>
 <p>물론 코드 수정이라는 것이 오랜동안의 전체 빌드와 패치, 업로드, 재시작, 그리고 최종점검까지 걸리는 시간동안 프로그래머들이 느끼는 심적 부담감이 막중하다는 것은 사실이다. 더군다나 전투 공식이나 객체의 파라미터 같은 부분적 코드/데이터 수정이 아니라, 기존의 DB에 누적된 데이터를 보정해야 하는 밸런싱 패치의 경우, 스트레스는 정말 상상 못할 만큼 어마어마하다. (세상의 게임 기획자들이여.. 당신들은 이것만큼은 이해해줘야 합니다)</p>
-
 <p>그러나, 아무리 코드 내부에 각종 데이터들이 하드코딩으로 박혀 있을지라도, 꼭 필요한 것은 해야 하는 법. 결국 유저들 눈치 보고, 프로그래머 눈치 보고, 그래픽 디자이너 눈치를 보고, 불쌍한 운영팀 눈치를 보느라 기획자의 마음은 곪아 들어게 되고, 밸런싱 이야기만 나오면 쥐구멍으로 숨고 싶어지는 지경에까지 이르렀다.</p>
-
-<p>이제 다시 프로그래머로 전업한 [레이옷]은, 우리팀의 기획자들은 그런 슬픔에 젖지 않도록 애를 쓰고 있다. 가능한한 파라미터들은 XML 에 명시, 실시간으로도 리로딩할 수 있게 했고, 스크립트 시스템을 도입, 몇몇 로직들은 lua 스크립트로 빼내서 역시 손쉽게 수정할 수 있도록 했다. 하지만, 진정한 데이터 주도적인 설계가 되려면 아직도 한참 멀었다. 아직도 수정하기 위해서는 프로그래머에게 구두 요청을 해야 하기 때문에&#8230; (우리 기획자들도 여전히 스트레스를 받을지도 모른다. 물어보진 않았지만&#8230;)</p>
-
+<p>이제 다시 프로그래머로 전업한 [레이옷]은, 우리팀의 기획자들은 그런 슬픔에 젖지 않도록 애를 쓰고 있다. 가능한한 파라미터들은 XML 에 명시, 실시간으로도 리로딩할 수 있게 했고, 스크립트 시스템을 도입, 몇몇 로직들은 lua 스크립트로 빼내서 역시 손쉽게 수정할 수 있도록 했다. 하지만, 진정한 데이터 주도적인 설계가 되려면 아직도 한참 멀었다. 아직도 수정하기 위해서는 프로그래머에게 구두 요청을 해야 하기 때문에... (우리 기획자들도 여전히 스트레스를 받을지도 모른다. 물어보진 않았지만...)</p>
 <p>그리고는 깨달음을 얻었다</p>
-
 <h2>밸런싱툴을 제공할 것</h2>
-
 <p>가장 이상적인 케이스가 바로 WarCraft3 (그리고 NWN과 모로윈드)의 에디터.</p>
-
 <p>그러나, 아직 실력이 되지 않아서, 각종 룰과 객체들을 툴 레벨로 빼내는 것이 쉽지는 않다. 모드를 제작할 수 있을 정도의 툴을 만드는 그날까지 노력하는 수밖에. 아무튼, 프로그래머의 도움 없이 기획자들이 알아서 척척척 스스로 어린이~ 가 되도록 해주면 되겠지. 그동안의 밸런싱 히스토리까지도 로그로 남겨주면 금상첨화.</p>
-
 <h2>다양한 콘솔 명령어들을 제공</h2>
-
 <p>이 깨달음의 핵심은 실시간 Modification 이다.</p>
-
-<p>때와 장소를 가리지 않고, 테스트하고 싶은 기능들을 실시간으로 고칠 수 있도록 한다는 것이 주목적. MMORPG 의 경우 더더욱 필요한 기능이리라. 콘솔창을 띄우고 각 객체의 속성에 접근, 수정 후 테스트할 수 있도록 하는 것인데, 좀더 나아간다면 자동화된 밸런스 테스트까지도 실시간으로 이루어질 수 있으면&#8230; :)</p>
-
+<p>때와 장소를 가리지 않고, 테스트하고 싶은 기능들을 실시간으로 고칠 수 있도록 한다는 것이 주목적. MMORPG 의 경우 더더욱 필요한 기능이리라. 콘솔창을 띄우고 각 객체의 속성에 접근, 수정 후 테스트할 수 있도록 하는 것인데, 좀더 나아간다면 자동화된 밸런스 테스트까지도 실시간으로 이루어질 수 있으면... :)</p>
 <p>이를 위해서는 각종 접근 제어 및 암호화와 보안 관련 작업이 선행되어야 할 듯.</p>
-
 <h2>데이터 주도적인 게임 설계</h2>
-
 <p>온갖 게임 관련 서적에서 항상 주장하던 유명한 명제.</p>
-
-<p>그네들도 다들 피를 봤기 때문에 그런 말을 하는 것이리라. 손쉬운 수정, 손쉬운 테스트, 손쉬운 기능 추가&#8230; 더이상 말하지 않아도 다들 잘 이해할 것이다.</p>
-
+<p>그네들도 다들 피를 봤기 때문에 그런 말을 하는 것이리라. 손쉬운 수정, 손쉬운 테스트, 손쉬운 기능 추가... 더이상 말하지 않아도 다들 잘 이해할 것이다.</p>
 <p>주의할 것은, 기획팀에서 아예 손쉽게 수정할 수 있는 툴을 제공하라고 처음부터 전방위 압박 공격을 해야지 개발 후반부가 편해진다는 거다. 너무 이해하다가는 서로서로 피곤해지니, 기획팀과 프로그램팀이 힘을 합해 PM과 경영진에게 툴 개발 스케줄을 따내는 것도 좋은 방책일 듯. ㅋㅋㅋ</p>
-
 <h2>맺음말</h2>
-
-<p>구현 신경쓰지 말고, 밸런싱이나 잘해요! 라고 맞받아치던 후배의 한마디를 아직도 잊을 수가 없다. 이 놈의 원죄는 언제쯤 씻겨질 것인가&#8230;&#8221;</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2004-11-24T22:47:12+09:00" pubdate data-updated="true">Nov 24<span>th</span>, 2004</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/columns/'>columns</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2004/11/24/data-driven-game-system/" data-via="reiot" data-counturl="http://reiot.com/2004/11/24/data-driven-game-system/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-      
-        <a class="basic-alignment right" href="/2004/11/24/%E1%84%82%E1%85%A2%E1%84%86%E1%85%A1%E1%86%B7%E1%84%83%E1%85%A2%E1%84%85%E1%85%A9-%E1%84%8A%E1%85%B3%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%80%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8%E1%84%85%E1%85%A9%E1%86%AB/" title="next Post: 내맘대로 쓰는 게임 개발 방법론">내맘대로 쓰는 게임 개발 방법론 &raquo;</a>
-      
-    </p>
-  </footer>
+<p>구현 신경쓰지 말고, 밸런싱이나 잘해요! 라고 맞받아치던 후배의 한마디를 아직도 잊을 수가 없다. 이 놈의 원죄는 언제쯤 씻겨질 것인가...''</p></div>
+	
+	<p>
+	
+		<a href="/tag/agile/"><span class="label">agile</span></a>
+	
+	</p>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2004/11/24/data-driven-game-system/';
-        var disqus_url = 'http://reiot.com/2004/11/24/data-driven-game-system/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

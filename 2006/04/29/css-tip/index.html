@@ -1,413 +1,136 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>CSS Tip - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="id &amp; class class는 여러 곳에 쓸 수 있지만 id는 한 군데만 써야 하고, 특히 id는 anchor 의 타겟으로도 사용될 수 있다. 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-&lt;table&gt;
-&lt; &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2006/04/29/css-tip">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
+	<article>
+	<div class="page-header">
+		<h1><a href="/2006/04/29/css-tip/">CSS Tip</a> <small>2006-04-29</small></h1>
+	</div>
+	<div><p><strong>[공지사항] : 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/22538">http://reiot.springnote.com/pages/22538</a> 에서 보실 수 있습니다.</strong></p>
+<h1>id &amp; class</h1>
+<p>class는 여러 곳에 쓸 수 있지만 id는 한 군데만 써야 하고, 특히 id는 anchor 의 타겟으로도 사용될 수 있다.<br />
+<table><br />
+<thead><br />
+<th>selector</th><br />
+<th>scope</th><br />
+<th>example</th></p>
+<tr>
+<td>id selector</td>
+<td>instance level style (single)</td>
+<td>H1 #xxx {...}</td>
+</tr>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
+<tr>
+<td>class selector</td>
+<td>class level style (multiple)</td>
+<td>H1.xxx {...}</td>
+</tr>
 
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">CSS Tip</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-29T18:33:45+09:00" pubdate data-updated="true">Apr 29<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><h2>id &amp; class</h2>
-
-<p>class는 여러 곳에 쓸 수 있지만 id는 한 군데만 써야 하고, 특히 id는 anchor 의 타겟으로도 사용될 수 있다.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;table&gt;</span>
-</span><span class='line'><span class="nt">&lt;thead&gt;</span>
-</span><span class='line'><span class="nt">&lt;th&gt;</span>selector<span class="nt">&lt;/th&gt;</span>
-</span><span class='line'><span class="nt">&lt;th&gt;</span>scope<span class="nt">&lt;/th&gt;</span>
-</span><span class='line'><span class="nt">&lt;th&gt;</span>example<span class="nt">&lt;/th&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;tr&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>id selector<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>instance level style (single)<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>H1 #xxx {...}<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;/tr&gt;</span>
-</span><span class='line'><span class="nt">&lt;tr&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>class selector<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>class level style (multiple)<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>H1.xxx {...}<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;/tr&gt;</span>
-</span><span class='line'><span class="nt">&lt;/thead&gt;&lt;/table&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>&#8217;*&#8217; 문자는 생략 가능하기 때문에, 다음의 두 표현식은 동등하다.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">*</span><span class="nf">#xxx</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
-</span><span class='line'><span class="nf">#xxx</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>padding &amp; margin</h2>
-
-<p>padding 은 box 영역의 안쪽, margin 은 바깥쪽을 의미하는데, 본문 바깥쪽의 여백을 나타낸다는 것을 연상하면 쉬울 것이다. 각 방향별 속성을 지정할 수도 있고, 한꺼번에 지정할 수도 있다. 이때, 위에서부터 시계방향이라는 것만 외우면 편하다. <a href="http://www.w3.org/TR/REC-CSS2/box.html#mpb-examples">padding &amp; margin example</a>을 참고할 것.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">padding-top</span><span class="o">:</span> <span class="nt">1px</span><span class="o">;</span>
-</span><span class='line'><span class="nt">padding-bottom</span><span class="o">:</span> <span class="nt">2em</span><span class="o">;</span>
-</span><span class='line'><span class="nt">padding</span> <span class="o">:</span> <span class="s1">&#39;top&#39;</span> <span class="s1">&#39;right&#39;</span> <span class="s1">&#39;bottom&#39;</span> <span class="s1">&#39;left&#39;</span><span class="o">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>font size</h2>
-
+<p></thead></table><br />
+'*' 문자는 생략 가능하기 때문에, 다음의 두 표현식은 동등하다.</p>
+<p>*#xxx {...}</p>
+<h1 class="..">xxx</h1>
+<h1>padding &amp; margin</h1>
+<p>padding 은 box 영역의 안쪽, margin 은 바깥쪽을 의미하는데, 본문 바깥쪽의 여백을 나타낸다는 것을 연상하면 쉬울 것이다. 각 방향별 속성을 지정할 수도 있고, 한꺼번에 지정할 수도 있다. 이때, 위에서부터 시계방향이라는 것만 외우면 편하다.</p>
+<p>padding-top: 1px;<br />
+padding-bottom: 2em;<br />
+padding : 'top' 'right' 'bottom' 'left';</p>
+<p><a href="http://www.w3.org/TR/REC-CSS2/box.html#mpb-examples">padding &amp; margin example</a>을 참고할 것.</p>
+<h1>div &amp; span</h1>
+<p>div는 해당 블럭에 특정 id 또는 class 속성을 적용한다. 아래의 예제는 2개의 테이블 모두를 우측 정렬을 하기 위해서 DIV 태그를 사용했다.</p>
+<p><a href="http://december.com/html/4/element/div.html">&lt;div</a> align="right"&gt;<br />
+<a href="http://december.com/html/4/element/table.html"><table></a>...</table><br />
+<a href="http://december.com/html/4/element/table.html"><table></a>...</table><br />
+</div></p>
+<p>반면 span은 inline 으로 특정 id 또는 class 속성을 적용한다. 아래의 예제는 P 전체에 클래스 스타일을 적용해서 폰트 크기 및 종류를 지정한 다음, ' 에 대해서만 빨간색으로 표시하기 위해서 SPAN 태그를 사용했다.</p>
+<p><a href="http://december.com/html/4/element/p.html">&lt;p</a> class="oreiot"&gt;O<a href="http://december.com/html/4/element/span.html">&lt;span</a> class="red"&gt;'</span>REIOT</p></p>
+<h1>font size</h1>
 <p>픽셀 등의 단위를 사용하게 되면, 화면 해상도에 관계없이 크기가 고정되게 된다. 이렇게 할 경우, 브라우저의 문자 크기 확대-축소를 해도 바뀌지 않는다. 눈이 나쁜 사람들을 위해서도 픽셀 고정 보다는 아래의 크기를 사용하는 것을 권장한다. (순수 디자인의 관점에서는 맞지 않을지도?)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">xx-small</span> <span class="o">&lt;</span> <span class="nt">x-small</span> <span class="o">&lt;</span> <span class="nt">small</span> <span class="o">&lt;</span> <span class="nt">medium</span> <span class="o">&lt;</span> <span class="nt">large</span> <span class="o">&lt;</span> <span class="nt">x-large</span> <span class="o">&lt;</span> <span class="nt">xx-large</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<p>xx-small &lt;x-small &lt;small &lt;medium &lt;large &lt;x-large &lt;xx-large</p>
 <p>아니면, 상대 크기인 smaller - larger를 써서, 자신의 부모 객체의 폰트보다 크거나 작도록 지정할 수도 있다.</p>
-
-<h2>호환성 있는 페이지 만들기</h2>
-
-<p>우선, 해당 페이지를 순수하게 텍스트로 렌더링하는 페이지를 만든다. 이때, h1, h2, &#8230;, p, hr, ul, ol, li, b 등의 텍스트형 태그만을 사용하도록 한다. (당연히 font 류의 데코레이션형 태그는 사용하지 않도록 한다.)</p>
-
+<h1>호환성 있는 페이지 만들기</h1>
+<p>우선, 해당 페이지를 순수하게 텍스트로 렌더링하는 페이지를 만든다. 이때, h1, h2, ..., p, hr, ul, ol, li, b 등의 텍스트형 태그만을 사용하도록 한다. (당연히 font 류의 데코레이션형 태그는 사용하지 않도록 한다.)</p>
 <p>텍스트 페이지가 완성되면, 이제 각 element 에 적당한 클래스 스타일을 지정해서, 아름답게 꾸미도록 한다. 중복되는 스타일은 DIV 등을 이용해서 그룹으로 묶는다. (가령 li 태그들)</p>
-
 <p>끝으로 CSS validate 및 HTML validate 를 통해서 호환성을 검증한다. 브라우저 테스트는 기본.</p>
-
-<h2>float &amp; clear</h2>
-
+<h1>float &amp; clear</h1>
 <p>박스 또는 이미지가 다른 레이어와 충돌하지 않는 상태에서, 좌측 또는 우측으로 정렬될 수 있게 해준다. 가끔은, float 박스가 2개 이상의 레이어에 걸치지 않았으면 할 때가 있다. 이럴 경우, float 를 포함한 상위 레이어에다가 clear:both 속성을 지정해주면 걸치기를 막을 수 있다.</p>
-
 <p><a href="http://www.w3.org/TR/REC-CSS2/visuren.html">Visual Formatting Model</a>을 참고할 것.</p>
-
-<h2>Relative Percentage Positioning</h2>
-
-<p>Relative Positioning 에서 비율을 사용할 때, 항상 부모 블럭의 크기의 비율이라는 점에 유의할 것.즉 -50% 는 부모 크기의 50% 만큼 음의 방향으로 이동한다는 거다. 만약 나의 크기가 부모의 크기와 같다면 그것은 나의 절반만큼 이동한다는 의미가 된다. 다만, vertical 에 대해서는 잘 동작하지 않는 느낌.</p>
-
-<p>see also: <iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/Reiot/UUADc/embedded/js,resources,html,css,result/light/"></iframe></p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-29T18:33:45+09:00" pubdate data-updated="true">Apr 29<span>th</span>, 2006</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/04/29/css-tip/" data-via="reiot" data-counturl="http://reiot.com/2006/04/29/css-tip/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2006/04/29/raknet-tips/" title="Previous Post: RakNet Tips">&laquo; RakNet Tips</a>
-      
-      
-        <a class="basic-alignment right" href="/2006/05/02/%E1%84%8B%E1%85%A9%E1%84%87%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5%E1%84%87%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AB-%E1%84%89%E1%85%B3%E1%84%90%E1%85%A9%E1%84%85%E1%85%B52/" title="next Post: 오블리비언 스토리#2">오블리비언 스토리#2 &raquo;</a>
-      
-    </p>
-  </footer>
+<h1>기타 태그 설명</h1>
+<pre><code>- line-height : 줄 간격
+</code></pre>
+<p>see also:</p>
+<pre><code>- [CSS2 specification](http://www.w3.org/TR/REC-CSS2)
+- [XHTML specification](http://www.w3.org/TR/xhtml-basic)
+</code></pre></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2006/04/29/css-tip/';
-        var disqus_url = 'http://reiot.com/2006/04/29/css-tip/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

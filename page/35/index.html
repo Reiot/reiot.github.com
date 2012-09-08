@@ -1,812 +1,287 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="한가로운 주말, 최신 BOOST 를 vc81로 빌드하고 ASIO를 만지작거려 봤다. 대충 훑어본 바, 이 정도면 지금 코드에서 충분히 ACE를 제거해도 될 수준의 기능인 듯하다. 어차피 둘 다 디버깅 들어가면 템플릿 사이에서 헤매이는 건 마찬가지니&#8230; ">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/35">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/04/boostasio-tcp-resolver/">Boost::asio TCP Resolver</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-04T09:36:21+09:00" pubdate data-updated="true">Feb 4<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>한가로운 주말, 최신 BOOST 를 vc81로 빌드하고 <a href="http://asio.sourceforge.net/">ASIO</a>를 만지작거려 봤다. 대충 훑어본 바, 이 정도면 지금 코드에서 충분히 ACE를 제거해도 될 수준의 기능인 듯하다. 어차피 둘 다 디버깅 들어가면 템플릿 사이에서 헤매이는 건 마찬가지니&#8230;</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2008/02/04/boostasio-tcp-resolver/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/01/30/solid-compression/">Solid Compression</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-30T08:04:07+09:00" pubdate data-updated="true">Jan 30<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/learning_reiot.png" title="learning_reiot.png"><img src="http://boxcatstudio.files.wordpress.com/2009/07/learning_reiot.png" title="learning_reiot.png" ></a></p>
-
-<p><a href="http://sonee.com">소니</a>군의 가상 파일 시스템 작업을 배후조종 하면서 알아낸 팁.</p>
-
-<blockquote><p>여러 파일들을 하나의 스트림으로 압축해버리는 [Solid Compression](http://en.wikipedia.org/wiki/Solid_compression) 으로 압축한 파일에서는, 단 하나의 파일을 해제하는데에도 꽤 오랜 시간이 걸린다.</p></blockquote>
-
-
-<p>see also:</p>
-
-<pre><code>- 위 그림은 [O'Reilly 책 표지를 만들어주는 사이트](http://www.oreillymaker.com/)에서 생성해냈다.
-- [Photoscape](http://www.photoscape.org/ps/main/index.php) : 쉬귀 군이 추천해준, 사진 편집 기능이 탁월한 무료 그래픽 에디터
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/01/26/physfs/">Physfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-26T21:45:43+09:00" pubdate data-updated="true">Jan 26<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>지금까지는 압축 포맷 == 압축 알고리즘이라고 믿어 왔다. 무슨 말이냐 하면, zip 포맷은 zip 압축 알고리즘, rar 은 rar 압축 알고리즘을 쓰니까, 따라서 어떤 압축 알고리즘이라 할지라도 다중 파일, 다중 폴더, 암호화 같은 걸 다 지원한다고만 생각했다는 뜻이다.</p>
-
-<p>그런데, 이번에 소니군이 <a href="http://icculus.org/physfs/">physfs</a> 를 조사하는걸 옆에서 껄떡거리면서 깨달은 것은,</p>
-
-<pre><code>- 압축 알고리즘이란 stream -&gt; stream의 변환일 뿐이다.
-- 즉 파일명이나 폴더명 같은 정보들은 압축 포맷 레벨에서 관리한다.
-</code></pre>
-
-<p>physfs 를 처음 알아 봤을 때에는, 라이센스도 <a href="http://www.codeproject.com/KB/files/nfsLibrary.aspx">누구 </a>처럼 GPL도 아니고, 다양한 포맷도 지원하고, 여러 개의 압축 파일에서 asset들을 끄집어낼 수 있어서 패치할 때 유리할거 같아서 잠깐 검토를 해봤는데, 소니군이 소스 코드가 컴파일도 안될 정도로 부실하다길래 그냥 포기해버렸다. ㅋㅋ</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/01/26/msbuild-with-cruise-control-net-3/">MSBuild With Cruise Control .Net (3)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-26T21:25:12+09:00" pubdate data-updated="true">Jan 26<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.flickr.com/photos/reiot/2219214645/" title="Flickr에서 Reiot님의 ccnet3"><img src="http://farm3.static.flickr.com/2387/2219214645_3e955b9244_o.png" title="ccnet3" ></a></p>
-
-<p>게임 개발에 있어서 지속적인 통합은, 단순하게 보면 커밋-빌드-테스트-패치-인스톨러가 매번 실행되어야 할 것처럼 보이지만, 실제 업무 프로세스를 감안하면 꼭 그렇지만은 않다.</p>
-
-<blockquote><p>패치는 QA팀을 위한 것이다. 즉 실제로 버그가 수정되는 새로운 feature가 들어가든 무언가 테스트할 수 있는 요소가 완결되어야 한다는 의미다. 그러나 과연 개발팀의 커밋이 그러한 완결성을 보장해줄 것인가? 때로는 여러 번 임시적인 커밋을 거쳐야만 하나의 기능이 완료되는 경우가 많다. 원칙적으로는 이런 것은 피해야 하지만, 가끔은 어쩔 수 없이 밀어넣어야 할 때도 있다. 물론 테스트가 잘 갖추어져 있다면 패치와 인스톨러 단계로 들어가기 전에 막아주겠지만, 과연 게임 클라이언트를 위한 자동화된 테스트 슈트를 100% 갖춘 팀이 있을까&#8230;</p></blockquote>
-
-
-<p>이런 이유로 결국 패치와 인스톨러 생성을 다른 프로젝트로 분리해버렸다. 아직 인스톨러는 안 붙었고, 패치 쪽도 원래대로라면 asset들과 빌드된 .exe들을 복사해와서 따로 관리해야 하지만 일단 이번 주는 이 정도로 마무리지었다.</p>
-
-<h4>ccnet.config</h4>
-
-<pre><code>- [ccnetconfig](http://www.codeplex.com/ccnetconfig) 라는 GUI 툴을 이용하면 보다 손쉽게 config 파일을 설정할수 있다.
-- BuildPublisher : 패치 프로젝트에서 $(TargetDir)을 패치 폴더로 복사하기 위해 Tasks 섹션에도 넣어보고, PreBuild 에도 넣어봤지만, 둘 다 실행이 안되었다. 그냥 asset 은 svn으로, 실행 파일들은 배치 파일로 복사를 해야 할 듯. (아니면 커스텀 MSBuild 플러그인들을 쓰던가)
-- ScheduleTrigger : 매일밤 자정에 패치와 인스톨러를 빌드하고 싶어서 넣어봤음.
-- Rodemeyer.MsBuildToCCnet.dll 을 logger로 사용할 경우 링크 에러를 만나면 예외가 발생한다. 이 경우 [소스 코드를 다운 ](http://confluence.public.thoughtworks.org/display/CCNETCOMM/Improved+MSBuild+Integration)받은 후, [Steven Smith 의 패치를 적용](http://aspadvice.com/blogs/ssmith/archive/2007/07/22/Fixed_3A00_-CCNET-_2B00_-MSBUILD-Logger-Error.aspx)해서 빌드한 후 dll을 업데이트하면 해결된다.
-</code></pre>
-
-<h4>dashboard.config</h4>
-
-<pre><code>- viewConfigurationProjectPlugin 제거 : 대시보드에서 ccnet.config 파일을 못 읽게 하려면 제거할 것
-- serverLogServerPlugin, serverLogProjectPlugin : 역시나 보안적인 문제가 생길 수 있으니 제거할 것(물론 ccnet.exe 의 디버그 모드를 끄면 되지만)
-- xslReportBuildPlugin 제거 : C++ 프로젝트일 경우 거의 사용되지 않는 NUnit, FxCop, NCover, Simian, Fitness 들도 제거할 것
-- ViewStatisticsReport : 루트 엘리먼트가 없다고 나오는 이유는 ccnet.config 에 StatisticsPublisher가 설정되어 있지 않기 때문이다.
-</code></pre>
-
-<h4>see also:</h4>
-
-<pre><code>- [MS Build with Cruise Control .NET](http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/)
-- [MS Build with Cruise Control .NET (2)](http://reiot.cafe24.com/2007/10/26/msbuild-with-cruise-control-net-2/)
-- [WebDashboard &amp; CCTray](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)
-- [CCNET Google Group ](http://groups.google.co.il/group/ccnet-user)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/01/24/upgrade-mantis-111/">Upgrade Mantis 1.1.1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-24T07:47:50+09:00" pubdate data-updated="true">Jan 24<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&h=&cache=cache"><img src="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&h=&cache=cache" title="mantis roadmap" ></a></p>
-
-<p>회사에서 Mantis 1.0.8 을 몇 개월 동안 잘 쓰고 있다가, 최근 (Trac에서는 이미 지원하고 있는) <a href="http://www.mantisbt.org/wiki/doku.php/mantisbt:features:roadmap">Roadmap</a> 기능이 들어간 1.1 버전이 나왔다는 소식을 듣고, 역시나 업그레이드에 도전했다가 한글 문제 때문에 계속 포기해야만 했다. 그러던 오늘 오후, 이번에야말로 기필코 성공하리라고 마음먹고 4시간 넘게 삽질을 했지만 또다시 실패하고 &#8220;Fail to upgrade Mantis&#8221;라는 제목으로 글을 쓰다가 우연히도 성공해버렸다. 원래는 구차한 실패 과정을 낱낱히 써놨지만, 모두 생략하고 바로 결론으로 넘어가겠다.</p>
-
-<blockquote><p>OS : Windows Server 2003 R2</p><p>Web Server  : Xampp apache2</p><p>DB : Xampp mysql 5.0.45 community</p><p>Mantis 1.0.8 + korean_utf8 설정으로 한글 사용중</p><p>Encoding : latin1 + latin1_general_ci</p></blockquote>
-
-
-<p><a href="http://www.mantisbt.org/wiki/doku.php/mantisbt:upgrade_to_utf8">기본적인 팁</a>을 읽고 다양한 시도를 거쳐서 실패했는데 결과적으로 가장 핵심은 <a href="http://textsnippets.com/posts/show/84">이 문서</a>에 들어 있었다. 나의 경우 굳이 <a href="http://www.gnu.org/software/libiconv/">iconv</a>를 통하지 않고서도 한글 보존에 성공했다.</p>
-
-<blockquote><p>mysqldump -u username -p bugtracker &#8211;default-character-set=latin1 > dump.sql</p><p>SQL문의 모든 latin1 을 utf8 로 변경</p><p>mysql -u username -p &#8211;execute=&#8221;create database bugtracker2 default character set utf8;&#8221;</p><p>mysql -u username -p bugtracker2 &#8211;default-character-set=utf8 < dump.sql</p></blockquote>
-
-
-<p>업그레이드에 성공한 것도 무지 기쁘지만, <a href="http://kldp.org/node/32987">vim 에서 utf-8 포맷의 문서를 자동으로 읽어 들이고 변환할 수 있다</a>는 것을 알게 되어서 더욱 기쁘다. enc, tenc, fenc, fencs 옵션을 잊지 말자.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/01/22/get-precompiled-boost-library/">Get Precompiled Boost Library</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-22T08:07:03+09:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.boost-consulting.com/products/free" title="boost-consulting.PNG"><img src="http://boxcatstudio.files.wordpress.com/2009/07/boost-consulting.PNG" title="boost-consulting.PNG" ></a></p>
-
-<p>다들 아는 사실이겠지만, boost-consulting 에 가면<a href="http://www.boost-consulting.com/products/free"> Visual Studio 용으로 컴파일된 바이너리를 다운 받을 수 있는 인스톨러</a>를 제공한다. VS2005용으로 빌드된 라이브러리를 다 다운받을 경우 대략 1.8G 정도의 분량을 다운받아야 한다. 이 기회에 회사 프로젝트의 boost도 슬슬 업그레이드해야 겠다.</p>
-
-<p>참고 삼아서, 최신 Boost.Test 에서는 단 6줄 만으로 간단한 테스트 프로젝트를 만들 수 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="cp">#define BOOST_TEST_MAIN</span>
-</span><span class='line'><span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span>
-</span><span class='line'><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span> <span class="n">test1</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/01/19/punk-buster/">Punk Buster</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-19T10:39:21+09:00" pubdate data-updated="true">Jan 19<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://www.evenbalance.com/art/pblogo.gif"></p>
-
-<p><a href="http://www.evenbalance.com">Punk Buster </a>는 <a href="http://www.evenbalance.com/index.php?page=support.php">퀘이크, 둠, 콜 오브 듀티, 배틀 필드, 그리고 크라이시스등 유수 FPS 게임들이 채택</a>한 안티 해킹 툴이다. 국산 게임으로는 워락이 유일한 듯하다.</p>
-
-<p>국산 G모 프로그램과의 그렇게 현격한 차이가 있어 보이지 않지만, <a href="http://www.evenbalance.com/index.php?page=info.php">몇 가지 독특한 기능들</a>이 들어 있는 것 같다.</p>
-
-<pre><code>- dedicated server 의 관리자는 [PBBAN](http://www.pbbans.com) 이라는 사이트로 찌질이 목록을 내보내거나 받아올 수 있는 것 같다.  XBOX Live 를 연상케하는 이런 시스템을, 국산 온라인 게임들이 채택하고 서로 공유한다면 꽤 유용할 법도 하다.
-- 사용자 클라이언트의 스크린샷을 캡처하거나, 키바인딩 정보를 서버로 전송시킬수 있다.  가만히 생각해보면 별거 아닌 기능이지만, 각종 불법적인 행위를 준비하고 있는 증거를 입수한다면 ban을 항의하는 사용자들에게 증거로 보여줄 수도 있을것 같다. 다만 이게 혹시나 프라이버시 침해로 이어지는건 아닌지 궁금해진다.
-- 욕설이나 험담 등으로 구성된 이름을 체크해주기도 한단다. 서버 프로그래머의 짐을 덜어주는 소소하지만 좋은 기능인 듯?
-</code></pre>
-
-<p>PB의 핵심적인 특장점을 꼽아보라면, 다른 것보다는 아무래도 유연한 결제 방식이 아닐까 한다. 그것은 바로 년단위 갱신이 아니라 월단위로 고정액을 지불할 수 있다는 점인데, 게임의 흥망성쇠가 불분명한 소규모 게임 업체들에게 적합한 방식이 아닐까 한다. 이런 아름다운 모습은 국산 보안 업체들이 꼭 본받았으면 한다. 단점이라면 아무래도 영어라는 것 정도? (이게 생각보다 큰 짐으로 다가오지만;;;)</p>
-
-<p>ps. <a href="http://www.google.co.kr/search?aq=f&amp;complete=1&amp;hl=ko&amp;newwindow=1&amp;client=firefox-a&amp;rls=org.mozilla%3Ako%3Aofficial&amp;hs=3lZ&amp;q=%EC%9B%8C%EB%A1%9D+%ED%95%B5&amp;btnG=%EA%B2%80%EC%83%89&amp;lr=">워록 핵</a>으로 검색해보고 대략 좌절했다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/01/19/cheat-engine/">Cheat Engine</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-19T09:59:32+09:00" pubdate data-updated="true">Jan 19<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/cheatenginecokr.png" title="cheatenginecokr.png"><img src="http://boxcatstudio.files.wordpress.com/2009/07/cheatenginecokr.png" title="cheatenginecokr.png" ></a></p>
-
-<p><a href="http://www.cheatengine.co.kr/main/">이  씁쓸한 장면</a>은 메모리 해킹 툴로 널리 알려진 <a href="http://www.cheatengine.org/">Cheat Engine</a>에 관해 구글링하다가 발견한 순간의 기록이다. 게임 개발자들에게는 아득하고 슬픈 현실이지만, 여기에는 각종 국산 온라인 게임들을 해킹하는 법, 핵을 사고 판다는 사람들로 북적이고 있었다. 한때 나와 내 동료들이 만들었던 게임의 이름이 올라와 있기에 더더욱 기분이 묘해지는 찰나에, 보다 정확한 정보를 얻기 위해서 회원 가입을 신청하려다가 <a href="http://www.cheatengine.co.kr/member/register_agree.php">미묘한 문구로 가득찬 이용 약관</a>을 발견하고 그냥 포기해버렸다.</p>
-
-<p>역시 뚫고 뚤리는 해킹과 보안은 전문가에게 맡겨두고, 게임 자체에만 집중하는 편이 비용 대비 효율이 좋다는 것은 명백하다. 그러나, <a href="http://forum.cheatengine.org/viewtopic.php?p=1901549&amp;sid=00767664a2027dd57eca014a11e07fb9">비싸게 주고 산 보안 프로그램들을 bypassing 하려는 노력은 오늘도 계속되고 있다</a>는 점을 간과해서는 안될 것이다. 역시나 어셈블리를 공부해야 하나&#8230;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/01/15/svn-path-based-auth/">SVN Path Based Auth</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-15T08:56:45+09:00" pubdate data-updated="true">Jan 15<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>svn + apache, 즉 mod_authz_svn  으로 권한 관리를 할 경우, 디자이너나 기획자에게 특정 폴더의 접근 권한을 열어 줘야 할 경우가 종종 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">/</span>
-</span><span class='line'><span class="o">/</span><span class="nt">bin</span>
-</span><span class='line'><span class="o">/</span><span class="nt">src</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>이 경우 @designer 들이 소스 코드를 못보게 하면서 그래픽 리소스 폴더에 대해서는 읽고 쓰기를 가능하게 해야 한다면, group.conf 를 어떻게 작성해야 할까?</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">[/]</span>
-</span><span class='line'><span class="o">*</span> <span class="o">=</span> <span class="nt">rw</span>
-</span><span class='line'><span class="o">[/</span><span class="nt">src</span><span class="o">]</span>
-</span><span class='line'><span class="k">@designer</span> <span class="o">=</span>
-</span><span class='line'><span class="k">@programmer</span> <span class="o">=</span> <span class="nt">rw</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Browse Repository 를 하기 위해서는 최상위 경로에 읽기 권한이 있어야 한다는 점을 감안하면 이게 정답일 수 있지만, 소스 폴더가 여러 개일 경우라면 꽤 피곤한 일이 된다. 나도 처음에는 이렇게 밖에 안되는 줄 알고 포기하고 있었으나 오늘 진짜 답을 알게 되었다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">[/</span><span class="nt">bin</span><span class="o">]</span>
-</span><span class='line'><span class="k">@designer</span> <span class="o">=</span> <span class="nt">rw</span>
-</span><span class='line'><span class="o">[/]</span>
-</span><span class='line'><span class="k">@designer</span> <span class="o">=</span>
-</span><span class='line'><span class="k">@programmer</span> <span class="o">=</span> <span class="nt">rw</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>SVN의 인증 시스템은 <a href="http://svnbook.red-bean.com/en/1.4/svn.serverconfig.pathbasedauthz.html">선언한 순서대로 검색을 한다는 단순한 원칙</a>에 기반하기 때문에, 예외 사항이 있다면 가장 먼저 선언해버리면 최상위 경로에 대한 권한에 대해서 걱정하지 않아도 된다는 점이다. 다만 Browse Repository 를 통해서 root 에서부터 찾아가는 것이 막혀있기 때문에, 처음 체크아웃을 할 때 정확한 URL을 가르쳐줘야 한다.</p>
-
-<p>이외에도 다중 프로젝트를 관리할 때 동일한 사용자가 서로 다른 그룹에 속할 경우 미묘한 오류가 생길 수 있다. 아래와 같이 팀별로 자신의 프로젝트만 접근할 수 있도록 하고 싶다고 가정하자.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">[</span><span class="nt">groups</span><span class="o">]</span>
-</span><span class='line'><span class="k">@admin</span> <span class="o">=</span> <span class="nt">admin1</span>
-</span><span class='line'><span class="k">@dev1</span> <span class="o">=</span> <span class="nt">admin1</span><span class="o">,</span> <span class="nt">user1</span><span class="o">,</span> <span class="nt">user2</span><span class="o">,</span> <span class="o">...</span>
-</span><span class='line'><span class="k">@dev2</span> <span class="o">=</span> <span class="nt">admin1</span><span class="o">,</span> <span class="nt">user3</span><span class="o">,</span> <span class="nt">user4</span><span class="o">,</span> <span class="o">...</span>
-</span><span class='line'><span class="o">[/]</span>
-</span><span class='line'><span class="k">@admin</span> <span class="o">=</span> <span class="nt">rw</span>
-</span><span class='line'><span class="o">[</span><span class="nt">project1</span><span class="o">:/]</span>
-</span><span class='line'><span class="k">@dev1</span> <span class="o">=</span> <span class="nt">rw</span>
-</span><span class='line'><span class="k">@dev2</span> <span class="o">=</span>
-</span><span class='line'><span class="o">[</span><span class="nt">project2</span><span class="o">:/]</span>
-</span><span class='line'><span class="k">@dev1</span> <span class="o">=</span>
-</span><span class='line'><span class="k">@dev2</span> <span class="o">=</span> <span class="nt">rw</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>원래의 의도는 관리자는 모든 프로젝트에 접근할 수 있도록 하는 것이었는데, 실제로는 양쪽 모두 접근할수 없게 된다. 이 경우, 관리자를 팀에서 제외하면 사실 문제는 간단해진다 ;)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2007/11/12/kgc-2007-2nd-day/">KGC 2007 2nd Day</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-11-12T02:54:06+09:00" pubdate data-updated="true">Nov 12<span>th</span>, 2007</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>see also <a href="http://reiot.cafe24.com/2007/11/08/kgc-2007-1st-day/">KGC 2007 1st Day</a></p>
-
-<p>아침에 호적등본을 뗀답시고 꾸물럭거리다가 키노트를 놓쳐버렸다.</p>
-
-<p><font size="5">Building Gamer communities in the West</font></p>
-
-<p>서구 게이머 커뮤니티 관리기법을 설명하는 줄 알고 갔는데, 알고보니 Outspark라는 퍼블리셔의 홍보 세션이었다.  우리 나라에서 사장당할 뻔한 Piesta 라는 MMO를 성공적으로(?) 퍼블리싱해냈고, 또 다른 건수를 찾아서 들어왔다고 봐도 무방할 정도. (수잔 언니 실망입니다.) 그래도 한 두 마디 정도는 건질 수 있었다.</p>
-
-<ul>
-<li>서구 게이머들은 GM과의 교류 자체를 즐기며, 상당히 중요시한다.</li>
-<li>서구 게이머들은 게임을 하면서 서핑에서부터 DVD 감상에 이르기까지, 멀티태스킹이 생활화되어 있으므로 윈도우 모드에서의 안정성을 강화해야 한다.</li>
-<li>미국 네트워크 특성상, 배포할 때 용량은 500M 이하로 가볍게 하는 것이 좋다.</li>
-<li>GM들이 게임을 손쉽게 바꿔낼 수 있도록 지원해줘야 한다</li>
-</ul>
-
-
-<p><font size="5">게임 소프트웨어 성능 및 품질 관리</font></p>
-
-<p>오늘의 베스트 세션. 강사가 정말 달변이었다. Visual Studio 2008의 성능 측정 관련 기능들에 대한 소개와 함께 재미있는 이야기를 많이 들었다.</p>
-
-<ul>
-<li>Active Report 를 만든 회사에서 있었던 사실. 사내 모듈 재사용성을 높이기 위해서, 자신의 컴포넌트가 많이 사용될수록 스톡 옵션을 더 많이 부여하기로 하니, 웬걸 사람들이 다들 재사용될만한 컴포넌트만 찍어내고 있는게 아닌가. 고민을 하다가, 남의 컴포넌트를 많이 사용할수록 스톡 옵션을 부여하는 정책으로 바꾸었더니, 피드백이 강화되고 컴포넌트들이 더욱 빨리 안정화되었다고 한다.</li>
-<li>XP의 경우 출시전 버그 1개를 수정하는 비용이 500만원이었는데, 출시후에는 개당 1억 정도(기간으로 따지면 7-10일 정도)의 비용이 든다고 한다.</li>
-</ul>
-
-
-<p><font size="5">Xbox Live Arcade에 대해</font></p>
-
-<p>역시 어제의 세션과 중복된 내용이 많았다. 마이크로소프트 이러시면 곤란합니다.</p>
-
-<ul>
-<li>라이브 아케이드 게임의 경우 정품 전환율이 18-20% 정도.</li>
-<li>게임이 출시되면 보통 한 달 만에 35만번 정도의 다운로드가 발생한다.</li>
-<li>첫 두 달안에 35% 정도가 판매되기 때문에, 초기 판매량을 보면 총 수익을 산정해낼 수 잇다.</li>
-<li><font color="#ffffff">XNA로는 마켓플레이스에서 산 특정 프리미엄 아이템 구매 정보를 검색할 수 없다. 오직 XDK로만 가능하다.</font></li>
-</ul>
-
-
-<p><font size="5">Massive 를 통한 효과적인 게임 내 광고 사업</font></p>
-
-<p>오늘도 어김없이 질문을 하고 선물을 받았다. 360용 위닝일레븐10. 캬하하!</p>
-
-<ul>
-<li>이제 한국에 들어올 준비를 하는 걸로 봐서, 아직 한국내 공식 파트너는 없는 모양이다. 단지 XBOX 360 만으로는 수입이 아쉬웠던 모양이다.</li>
-<li>매시브 광고는, 화면의 55%를 10초동안 누적해서 보여주면 1임프레션을 얻는다. 관련 디버깅 UI가 인상적었는데, 우리도 시간 카운트 및 임프레션 카운트를 보여주는 비슷한 넘을 구현해봐야겠다.</li>
-<li>70k의 정적 메모리, 15k의 힙 메모리 사용량을 자랑(?)한다. 그럭저럭 가벼운 모양이다.</li>
-<li>3-5일 정도만에 통합이 가능하고, 5-8일 정도만에 광고 배치를 완료할 수 있다고 한다. 3회의 QA를 거쳐서 최종 릴리즈가 되는데 이때 각각 3-5일 정도의 기간이 소모된다.</li>
-<li>역시나 사용자가 매시브 서버의 포트를 방화벽으로 막아버리면 대책이 없다고 한다. 결국 이 몫은 개발사가 손해를 봐야 된다는 이야기인데, 무턱대고 광고 only 의 비지니스 모델을 채택했다가는 큰 피해를 입을 수도 있을 것 같다. 왜냐하면 광고를 막는 방법이라고 어딘가에 포스팅이 되면 다들 그걸 사용해버리기 때문.</li>
-<li>더블 퓨전에 비해 뭐가 낫냐고 물어보니, 아무래도 오랜 서비스를 통한 높은 안정성이라는 이야기를 들었다. 흠. 임프레션 대비 높은 개발사 수익..이면 더 좋겠는데.</li>
-</ul>
-
-
-<p> see also <a href="http://reiot.cafe24.com/2007/11/08/kgc-2007-1st-day/">KGC 2007 1st Day</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/36/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/34/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/03/22/mmp-database-mini-cookbook-요약/">MMP Database Mini-Cookbook 요약</a> <small>2006-03-22</small></h1>
+	</div>
+	<div><ul>
+<li>원문 보기 : <a href="http://www.gamasutra.com/resource_guide/20040920/lee_01.shtml">MMP Database Mini-Cookbook: A Half Dozen Recipes To Aid Development</a> from Gamasutra</li>
+</ul>
+<h2>Unique Identifiers for Painless Game World Transfer</h2>
+<ul>
+<li>계정을 다른 서버(월드)로 이전할 경우에 대비, 캐릭터에 유니크한 (정수) 아이디를 할당할 때, 월드 개수만큼 아이디를 증가시킨다. 이를 통해서 월드-유니크한 아이디를 할당할 수 있으며, 아이템 같은 종속 데이터의 이전도 용이하다.</li>
+<li>월드의 최대 개수는 고정(255)이다. 따라서, 늘어나서는 곤란!</li>
+</ul>
+<h2>Managing Localization Data</h2>
+<ul>
+<li>NPC 스크립트, 다이얼로그 등의 텍스트 등을 DB 에 저장해두면 편하다.</li>
+<li>이때, localization 을 고려해서 저장할 것. 수정은 자체 툴을 만들어라..</li>
+<li>DarkEden 에서도 이와 비슷하게 구현했다고 한다. (본인은 월드 추가전에 나와서.. 소문만 들었다.)</li>
+</ul>
+<h2>Character Inventory Management and Shared Banking</h2>
+<ul>
+<li>인벤토리-은행-퀘스트 간 아이템 이동, '''특히 캐릭터간 아이템 이동'''을 용이하게 하기 위해서 <code>PlayerID - CharacterID - InventoryType - ItemID</code> 방식으로 테이블을 설계할 것.</li>
+<li>DarkEden 에서도 바닥-마우스-인벤토리-창고 등의 인벤토리 타입을 사용했었다.</li>
+</ul>
+<h2>Mapping Class Inheritance to Database Tables</h2>
+<ul>
+<li>다양한 아이템을 DB에 저장할 때, 클래스 속성(per-class)과 인스턴스 속성(per-instance)으로 테이블을 분리한다.</li>
+<li>모든 아이템마다 필요한 공통 데이터를 공통 Item 테이블에 정의하고, 하위 아이템을 위한 데이터는 하위 아이템 테이블에 정의한다.</li>
+<li><code>ex: (ItemClass-ItemInstance)-(WeaponClass-WeaponInstance)</code></li>
+<li>DarkEden에서도 이와 비슷하게, 각 아이템 종류별 Info 테이블과 Object 테이블을 두고, 관리를 했었다. 단점이라면, 테이블이 많아지면서 관리가 귀찮아지는 점과, Save-Load 프로시저가 길어진다는 점이 있겠다.</li>
+</ul>
+<h2>Shared Game Configuration Parameters</h2>
+<ul>
+<li>월드별 서버 환경 설정을 데이터베이스에 유지하면, 굳이 config 파일을 고치지 않아도 되므로 편하다. (서버가 많아지면 서버별 환경 설정 하는 것도 꽤 힘든 일이 되니까...)</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/03/22/half-sync-half-async-pattern/">Half Sync Half Async Pattern</a> <small>2006-03-22</small></h1>
+	</div>
+	<div><p>IOCP의 경우 입출력 요청은 비동기적으로 이루어지지만 커널 내부에서 존재하는 큐를 통해 GQCS()를 호출하는 쓰레드들에게는 동기적으로 할당하게 된다. 이처럼 비동기 레이어와 동기 레이어, 그리고 이를 연결시켜주는 메시지큐로 구성되는 패턴을 Half Sync Half Async Pattern 이라고 부른다. 이 패턴은 다음과 같은 곳에 적용되었다.</p>
+<ul>
+<li>select() (UNIX/Linux) - 커널에서 입출력 처리는 비동기적으로 이루어지지만, 이들은 유저 프로세스에서 순차적으로 받아서 처리한다.</li>
+<li>IOCP &amp; ThreadPooling (Windows)</li>
+<li>ACE_Task (ACE)</li>
+</ul>
+<p>see also :</p>
+<ul>
+<li><a href="http://www.cs.wustl.edu/~schmidt/PDF/PLoP-95.pdf">http://www.cs.wustl.edu/~schmidt/PDF/PLoP-95.pdf</a></li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/03/22/active-object-pattern/">Active Object Pattern</a> <small>2006-03-22</small></h1>
+	</div>
+	<div><p>Active Object Pattern, 일명 능동 객체 패턴은 ACE_Task (ACE), ActiveObject (JAVA), LuaTask (LUA) 등에 적용된 패턴으로, 쓰레드간의 비동기적인 함수 호출을 '''객체지향적으로''' 구현한 패턴이다.</p>
+<p>로깅을 담당한 쓰레드에게 비동기적으로 로그를 남기는 함수를 구현한다고 가정해보자.</p>
+<pre><code>
+/// async log
+Logger::Log(&quot;Hello World!&quot;);
+
+void Logger::Log(LPCTSTR msg)
+{
+m_Queue.Add( new AsyncLog(msg,this) );
+}
+
+DWORD Logger::Run()
+{
+while(true)
+{
+AsyncWork * pWork = m_Queue.Get();
+pWork-&gt;Execute();
+SAFE_DELETE(pWork);
+}
+}
+
+class AsyncLog : public AsyncWork {
+public :
+AsyncLog( LPCTSTR msg, Logger * pLogger )
+: m_Message(msg), m_pLogger(pLogger)
+{
+}
+void Execute()
+{
+m_pLogger-&gt;SafeLog(m_Message);
+}
+};
+
+</code></pre>
+
+<p>요청하는 쪽은 로그 쓰레드에서 로그 메써드를 호출토록 하기 위해서 요청을 객체에 넣어서 큐에 삽입하게 되고, 로그 쓰레드는 큐에서 이 객체를 끄집어내어서 관련 메써드를 호출하게 된다. ACE에서는 비동기 함수 호출의 결과를 나타내는 Future 를 지원한다. 이걸 잘 쓰면, 해당 함수 호출이 잘 끝났는지, 결과는 무엇인지 polling 등을 통해서 알아낼 수 있다.</p>
+<p>see also :</p>
+<ul>
+<li><a href="http://www.cs.wustl.edu/~schmidt/PDF/Act-Obj.pdf">http://www.cs.wustl.edu/~schmidt/PDF/Act-Obj.pdf</a></li>
+<li><a href="http://c2.com/cgi/wiki?ActiveObject">Wiki:ActiveObject</a></li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/03/21/ace-tips/">ACE Tips</a> <small>2006-03-21</small></h1>
+	</div>
+	<div><p><strong>ACE_Message_Block</strong></p>
+<pre><code>- duplicate()는 recursive 로 동작한다. 따라서 메시지 블럭 리스트를 순회하면서 선택적으로 duplicate() 할 수는 없다.
+- release() 역시 recursive 로 동작한다.
+- release()는 new 로 생성한 객체에 대해서만 호출해야 한다. 권고에 따르면 가능한한 메시지 블럭은 힙에 생성해서 사용하는게 좋다고 한다.
+- 실제 쌓여 있는 데이터의 크기를 알려면 size() 대신 length() 를 써야 한다.
+- 생성자에 버퍼와 크기를 넘겨주더라도 이것이 내부적으로 복사되지는 않으며 단지 포인터만을 가지게 된다. 이때 wr_ptr() 을 수동으로 늘려줘야 한다.
+- copy()는 append()로 동작하지만 버퍼를 자동적으로 늘리지는 않는다.
+- copy(char*)의 경우 널문자도 함께 버퍼에 쓰게 된다. 따라서 copy(str.c_str(),str.size())로 하는 것이 안전하다.
+- reset() 은 rd_ptr 과 wr_ptr 을 초기화한다. 단 base 로 가기보다는 0 으로 초기화된다는데 주의.
+- data_block() 을 이용해서 내부 데이터 블럭을 교체할 경우 rd_ptr 과 wr_ptr 을 수동으로 설정해줘야 한다.
+- ACE_Message_Block(char*,int) 생성자는 겉보기에는 copy()가 발생하는 것 같지만 실제로는 단지 데이터 블럭이 포인터만을 갖게 되므로 복사가 발생하지 않는다. 가령 ACE_Message_Block("abcde",5) 의 경우 내부 데이터 블럭은 문자열 상수의 주소값을 가지게 된다. 또한 wr_ptr() 역시 수동으로 설정해줘야 하는 것으로 미루어 보건데, 아무래도 read only 용으로만 사용해야 할 것 같다.
+</code></pre>
+<p><strong>ACE_Asynch_Acceptor/Connector</strong></p>
+<pre><code>- ACE_Asynch_Acceptor 와 ACE_Asynch_Connector 의 make_handler 는 기본적으로 new 를 해서 리턴한다. 만약 활성화된 연결들을 관리하려면 이 함수를 오버라이드해야 한다.
+- 비동기 accept 를 여러 개 준비하려면 단지 ACE_Asynch_Acceptor::open()의 파라미터만을 많이 주면 된다. 굳이 핸들러 여러 개를 먼저 만들어놓을 필요는 없다. (내부적으로 여러 개의 ACE_HANDLE 을 많이 만든 다음 연결이 이루어진 직후에 핸들러를 만들어서 넘겨준다)
+</code></pre>
+<p><strong>ACE_Task</strong></p>
+<pre><code>- ACE_Task_Base + ACE_Message_Queue = ACE_Task
+- ACE_Activation_Queue 와 ACE_Method_Request 를 이용하면 [Active Object Pattern](http://reiot.cafe24.com/archives/414)(함수의 호출과 실행을 분리시키는 패턴)을 적용할 수 있다.
+- ACE_Activation_Queue::dequeue() 등 timeout 을 지정할 수 있는 wait 함수의 경우 대체로 [상대 시간이 아닌 절대 시간](http://groups.google.co.kr/group/comp.soft-sys.ace/browse_thread/thread/bbe91c5ae17bce4b/35bdddf72c32e413?q=absolute+time&amp;rnum=1#35bdddf72c32e413)을 사용한다. 따라서 ACE_OS::gettimeofday() 등으로 현재 시간을 어디에선가 얻어온 다음 시간을 계산해줘야 하는 귀차니즘이 있다.
+</code></pre>
+<p><strong>Reactor</strong></p>
+<pre><code>- ACE_Reactor_Notification_Strategy 는 Reactor::notify(handler,mask)를 호출해주는 strategy 패턴 클래스이다. ACE_Message_Queue 의 경우, 모든 enqueue 멤버 함수의 끝에 notify() 를 호출하는데 이를 통해서 reactor 로 하여금 특정 핸들러의 특정 콜백을 호출토록 할 수 있다.
+- ACE_WFMO_Reactor 의 경우 62개 핸들 제한이 존재하므로, 수백-수천개의 연결을 관리하려면 ACE_Select_Reactor 와 ACE_TP_Reactor 를 사용해야 한다. 단 윈도우에서 성능은 그다지 좋지 않으므로 proactor 로 만드는 편이 좋을 것이다.
+</code></pre>
+<p><strong>ACE_Acceptor/Connector</strong></p>
+<pre><code>- ACE_Event_Handler 와 함께 사용될 수 없다. 오직 ACE_Svc_Handler 와만 가능
+</code></pre>
+<p><strong>CDR</strong></p>
+<pre><code>- 모든 primitive type 의 경우 구조체처럼 바이트 정렬이 된다. { char, int } 와 { char, short, int } 모두 8 byte 를 차지한다. ACE_LACKS_CDR_ALIGNMENT 를 이용하면 정렬을 하지 않을 수 있다.
+- string 의 경우 [길이]+[바디]로 직렬화되는데 이때 길이를 위해서 unsigned long 를 사용한다. 내부적으로 스트링의 길이를 측정하기 위해 strlen 이 호출된다. (뜨아)
+- from_string() 과 to_string()의 경우 최대 길이를 넘겨 줘야 한다.
+- 배열이나 문자열을 위한 버퍼는 내부적으로 new 를 통해서 할당된다.
+- write_string() 의 경우 (바이트 크기+1)만큼 전송되는 반면, write_wstring() 은 그냥 전송된다. 즉 "hello" 는 (4+5+1)=10 바이트로 전송되지만 L"hello" 는 (4+5*2)=14 바이트로 전송된다.
+- 이미 존재하는 메시지 블럭을 ACE_InputCDR로 읽되 메시지 복사를 피하고 싶다면 ACE_InputCDR(data_block,flag,rd_pos,wr_pos) 생성자를 사용해야 한다. ACE_InputCDR(msg_block)의 경우 내부 메시지 블럭으로 복사가 일어난다는 점에 유의할 것.
+- 이미 존재하는 메시지 블럭에 ACE_OutputCDR로 쓰려면 ACE_OuptutCDR(mb) 를 사용하면 된다. 내부적으로 duplicate()가 호출된다.
+</code></pre>
+<p>ACE_Get_Opt/ACE_ARGV</p>
+<pre><code>- ACE_Get_Opt 는 UNIX 스타일의 command line parameter 의 파싱을 도와준다. 이때 옵션 문자열의 포맷이 중요한데, "h:kl:" 은 *-h param1 -k -l param2 *형식을 의미한다.
+- ACE_ARGV 는 어떤 문자열을 argc, argv 로 바꿔주며, 그 결과를 ACE_Get_Opt 에게 넘겨서 커맨드라인 파라미터를 파싱하는 것처럼 해결할 수 있다. 특히 환경파일에 저장된 옵션 스트링을 파싱할 때 사용하면 좋다.
+</code></pre>
+<p><strong>misc</strong></p>
+<pre><code>- #define ACE_NTRACE 0 를 켜면 해당 파일에서 참조하는 ACE 프레임워크에 대해 트레이스가 남는다. 만약 전역으로 켜고 싶다면 stdafx.h 에다 넣을 것.
+- ACE_TMAIN 을 쓸 수 없는 경우 ACE::init() 와 ACE::fini() 를 수동으로 불러줘야 한다.
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/03/15/dont-reinvent-the-ace/">Don’t reinvent the ACE</a> <small>2006-03-15</small></h1>
+	</div>
+	<div><p><img alt="http://www.cs.wustl.edu/~schmidt/gifs/ace-copy1.jpg" src="http://www.cs.wustl.edu/~schmidt/gifs/ace-copy1.jpg" /><a href="http://www.cs.wustl.edu/~schmidt/ACE.html">ACE</a>를 처음 소개받은 때는 윈도우용 서버를 처음 개발하던 2003년도였다. 그러나 그 방대한 프레임워크와 학습량에 질려 제대로 써보지도 못하고 결국 포기하고, 대신 Proactor 와 비동기 입출력 부분만 직접 구현, 일년 정도의 정제 과정 끝에 5분만에 새 서비스를 만들어서 띄울 수 있는 수준까지 서버 코어를 완성할 수 있었다. (물론 일부 몰지각한 버그들로 인해서 삽질도 많이 했었다.)</p>
+<p>이제 와서 돌이켜보면 그간의 과정들은 <a href="http://gatorlog.com/?p=68">바퀴를 재발명</a>하는 것과 비슷했다. 이미 ACE에 도입된 ACE_Task 같은 개념들을 열심히 재구현하고 있거나, win32 API를 래핑하고 있는 자신을 발견하는 경우가 한두번이 아니었다. 물론 ACE의 무게나 최적화에 대해서는 많은 이견이 있지만, 동접 수십만의 MMORPG를 만들지 않는 한 괜찮지 않을까 하는 검증되지 않은 희망을 품고 있다.</p>
+<p>그 외에도 이번에 만들 <strike>진정한</strike> 분산 서버를 위한 기능들이 이미 ACE에 존재하고 있다는 점도 매력적이다. 물론 다운 버그를 잡느라 프레임워크 속에서 허우적대며 디버깅하는 모습이 상상되긴 하지만, 한번 도전해보련다. 캬캬~</p>
+<p>ps. 그런데 벌써부터 vc8 + unit test + ACE 의 궁합(/clr:safe 옵션)이 잘 맞지 않고 있다. :(</p>
+<p>see also:</p>
+<pre><code>- [ACE 팁 모음](http://reiot.cafe24.com/archives/413)
+</code></pre></div>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/36/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/36">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2006/03/22/mmp-database-mini-cookbook-요약/">MMP Database Mini-Cookbook 요약</a>
+	</li>
+	
+	<li>
+		<a href="/2006/03/22/half-sync-half-async-pattern/">Half Sync Half Async Pattern</a>
+	</li>
+	
+	<li>
+		<a href="/2006/03/22/active-object-pattern/">Active Object Pattern</a>
+	</li>
+	
+	<li>
+		<a href="/2006/03/21/ace-tips/">ACE Tips</a>
+	</li>
+	
+	<li>
+		<a href="/2006/03/15/dont-reinvent-the-ace/">Don’t reinvent the ACE</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

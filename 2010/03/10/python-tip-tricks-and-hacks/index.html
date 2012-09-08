@@ -1,345 +1,146 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Python Tip, Tricks and Hacks - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="python tip, tricks and hacks from https://www.siafoo.net/article/52 부분 문자열 포함 테스트는 in 연산자를 사용할 것
-if &#8216;aaa&#8217; in &#8216;aaabbb&#8217;: 리스트를 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2010/03/10/python-tip-tricks-and-hacks">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
+	<article>
+	<div class="page-header">
+		<h1><a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a> <small>2010-03-10</small></h1>
+	</div>
+	<div><p>python tip, tricks and hacks from <a href="https://www.siafoo.net/article/52">https://www.siafoo.net/article/52</a></p>
+<p><strong>부분 문자열 포함 테스트는 in 연산자를 사용할 것</strong></p>
+<pre><code>if 'aaa' in 'aaabbb':
+</code></pre>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
+<p><strong>리스트를 , 로 합칠 경우 seperator . join ( list ) 형식을 사용할 것</strong></p>
+<pre><code>','.join(['aaa','bbb','ccc']
+</code></pre>
 
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
+<p><strong>람다 함수는 anonymous function 으로 이해하면 된다. C 의 a? b: c 대용으로는 사용할 수 없을 듯.</strong></p>
+<pre><code>map( lambda x : x*x, [1,2,3,4,5] ) # 리스트를 순회하면서 제곱을 한 걸 리턴한다.
+</code></pre>
 
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Python Tip, Tricks and Hacks</h1>
-    
-    
-      <p class="meta">
-        
+<p><strong>map 함수는 리스트 comprehension 으로 대체할 수 있다. 위의 예제는 아래처럼 고칠 수 있다.</strong></p>
+<pre><code>[ x*x for x in [1,2,3,4,5] ]
+</code></pre>
 
+<p><strong>filter 함수는 for .. in  if  으로 대체할 수 있다.</strong></p>
+<pre><code>filter( lambda x: x&lt;4, [1,2,3,4,5] )  == [ x for x in [1,2,3,4,5] if x &lt; 4 ]
+</code></pre>
 
+<p><strong>generator 는 [] 대신 () 로 감싸서 for 에 넘길 수 있다.</strong></p>
+<pre><code>for x in ( y*y for y in [1,2,3,4,5] if y*y &lt; 10 ):
+  print x
+</code></pre>
 
+<p><strong>nested for + if + single statement 는 한줄로 표현할 수 있다.</strong></p>
+<pre><code>for x in (0,1,2,3):
 
+  for y in (0,1,2,3):
 
+    if x &lt; y:
 
+      print (x,y,x*y)
+</code></pre>
 
+<blockquote>
+<p>print [(x,y,x*y) for x in (0,1,2,3) for y in (0,1,2,3) if x &lt; y] # 다만 리스트다.</p>
+</blockquote>
+<p><strong>reduce 를 이용하면 리스트를 순회하면서 각 값들을 특정 값에 누적 연산시킬 수 있다.</strong></p>
+<pre><code>result = 1
 
-  
+for i in [1,2,3,4,5]:
 
+  result *= i
+</code></pre>
 
-<time datetime="2010-03-10T16:08:00+09:00" pubdate data-updated="true">Mar 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
+<blockquote>
+<p>reduce( lambda a,b: a*b, [1,2,3,4,5] )</p>
+</blockquote>
+<p><strong>dictionary 생성시 { 'a': 1, 'b': 2 } 대신 dict( a=1, b=2 ) 로 만들 수 있다.</strong></p>
+<p><strong>C 의 a ? b : c 는 다음과 같이 할 수 있다.  </strong></p>
+<pre><code>b if a else c
+</code></pre>
 
+<p><strong>C 의 switch 문은 딕셔너리.get( key, default ) 로 대체할 수 있다.  </strong></p>
+<pre><code>if key == a: return 1  elif key == b: return 2  else return 3  ==&gt; dict( a=1, b=2 ).get( key, 3 )
+</code></pre>
 
-<div class="entry-content"><p>python tip, tricks and hacks from <a href="https://www.siafoo.net/article/52">https://www.siafoo.net/article/52</a>  <strong>부분 문자열 포함 테스트는 in 연산자를 사용할 것</strong><br/>
-if &#8216;aaa&#8217; in &#8216;aaabbb&#8217;:
-  <strong>리스트를 , 로 합칠 경우 seperator . join ( list ) 형식을 사용할 것</strong><br/>
-&#8217;,&#8217;.join([&#8216;aaa&#8217;,&#8217;bbb&#8217;,&#8217;ccc&#8217;]
-  <strong>람다 함수는 anonymous function 으로 이해하면 된다. C 의 a? b: c 대용으로는 사용할 수 없을 듯.</strong><br/>
-map( lambda x : x<em>x, [1,2,3,4,5] ) # 리스트를 순회하면서 제곱을 한 걸 리턴한다.
-  <strong>map 함수는 리스트 comprehension 으로 대체할 수 있다. 위의 예제는 아래처럼 고칠 수 있다.</strong><br/>
-[ x</em>x for x in [1,2,3,4,5] ]
-  <strong>filter 함수는 for .. in  if  으로 대체할 수 있다.</strong><br/>
-filter( lambda x: x&lt;4, [1,2,3,4,5] )  == [ x for x in [1,2,3,4,5] if x &lt; 4 ]
-  <strong>generator 는 [] 대신 () 로 감싸서 for 에 넘길 수 있다.</strong><br/>
-for x in ( y<em>y for y in [1,2,3,4,5] if y</em>y &lt; 10 ):</p>
-
-<p>  print x
-  <strong>nested for + if + single statement 는 한줄로 표현할 수 있다.</strong><br/>
-for x in (0,1,2,3):</p>
-
-<p>  for y in (0,1,2,3):</p>
-
-<p>    if x &lt; y:</p>
-
-<p>      print (x,y,x*y)</p>
-
-<p>==> print [(x,y,x*y) for x in (0,1,2,3) for y in (0,1,2,3) if x &lt; y] # 다만 리스트다.
-  <strong>reduce 를 이용하면 리스트를 순회하면서 각 값들을 특정 값에 누적 연산시킬 수 있다.</strong><br/>
-result = 1</p>
-
-<p>for i in [1,2,3,4,5]:</p>
-
-<p>  result *= i</p>
-
-<p>==> reduce( lambda a,b: a*b, [1,2,3,4,5] )  <strong>dictionary 생성시 { &#8216;a&#8217;: 1, &#8216;b&#8217;: 2 } 대신 dict( a=1, b=2 ) 로 만들 수 있다.  </strong>  <strong>C 의 a ? b : c 는 다음과 같이 할 수 있다.  </strong></p>
-
-<p>b if a else c  <strong>C 의 switch 문은 딕셔너리.get( key, default ) 로 대체할 수 있다.  </strong></p>
-
-<p>if key == a: return 1  elif key == b: return 2  else return 3  ==> dict( a=1, b=2 ).get( key, 3 )  <strong>@staticmethod 데코레이터는 클래스 스태틱 함수를 의미한다.</strong></p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-03-10T16:08:00+09:00" pubdate data-updated="true">Mar 10<span>th</span>, 2010</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/programming/'>programming</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2010/03/10/python-tip-tricks-and-hacks/" data-via="reiot" data-counturl="http://reiot.com/2010/03/10/python-tip-tricks-and-hacks/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2010/03/09/httpweb-graphicscommtarchiveitalia/" title="Previous Post: http://web-graphics.com/mtarchive/Italia...">&laquo; http://web-graphics.com/mtarchive/Italia...</a>
-      
-      
-        <a class="basic-alignment right" href="/2010/03/18/textmage-project-i/" title="next Post: textmage project 에서 애플+I 를 눌러서 불필요한 파일이 ...">textmage project 에서 애플+I 를 눌러서 불필요한 파일이 ... &raquo;</a>
-      
-    </p>
-  </footer>
+<p><strong>@staticmethod 데코레이터는 클래스 스태틱 함수를 의미한다.</strong></p></div>
+	
+	<p>
+	
+		<a href="/tag/python/"><span class="label">python</span></a>
+	
+	</p>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2010/03/10/python-tip-tricks-and-hacks/';
-        var disqus_url = 'http://reiot.com/2010/03/10/python-tip-tricks-and-hacks/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

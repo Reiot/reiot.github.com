@@ -1,341 +1,106 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>내맘대로 쓰는 게임 개발 방법론 - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="Extreme Game Development 레이옷이 처음 온라인 게임을 만들 때에는, 최신 기술을 얼마나 잘 사용할 것인가? 라든지, 오픈후 폭주할 사용자들의 접속과 그에 따른 불만들을 생각하면서 서버를 디자인할 때에나, 코딩을 할 때 아예 처음부터 이런 부분을 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2004/11/24/%E1%84%82%E1%85%A2%E1%84%86%E1%85%A1%E1%86%B7%E1%84%83%E1%85%A2%E1%84%85%E1%85%A9-%E1%84%8A%E1%85%B3%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%80%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8%E1%84%85%E1%85%A9%E1%86%AB">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">내맘대로 쓰는 게임 개발 방법론</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2004-11-24T22:49:51+09:00" pubdate data-updated="true">Nov 24<span>th</span>, 2004</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><h2>Extreme Game Development</h2>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/내맘대로-쓰는-게임-개발-방법론/">내맘대로 쓰는 게임 개발 방법론</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><h2>Extreme Game Development</h2>
 <p>레이옷이 처음 온라인 게임을 만들 때에는, 최신 기술을 얼마나 잘 사용할 것인가? 라든지, 오픈후 폭주할 사용자들의 접속과 그에 따른 불만들을 생각하면서 서버를 디자인할 때에나, 코딩을 할 때 아예 처음부터 이런 부분을 모두 고려해서 잘 짜보자..라는 환상에 빠져 있었다.</p>
-
-<p>그러나, 실제로 이렇게 하다 보면 작업 기간이 두배 세배로 늘어났으며, 그에 따라서 능률이라든지 효율이 많이 떨어졌던 적이 많았다. 이러다보니 개인 생활도 점차 피폐해져가고, 원래부터 얼마 없던 인간미도 스트레스로 인해 점점 희미해져가게 되고, 일은 일대로 진척되지 않고, 유저들은 불만을 느끼고&#8230; 재미없게 만든 게임 치고 히트를 칠 이유가 없지 않은가&#8230;</p>
-
+<p>그러나, 실제로 이렇게 하다 보면 작업 기간이 두배 세배로 늘어났으며, 그에 따라서 능률이라든지 효율이 많이 떨어졌던 적이 많았다. 이러다보니 개인 생활도 점차 피폐해져가고, 원래부터 얼마 없던 인간미도 스트레스로 인해 점점 희미해져가게 되고, 일은 일대로 진척되지 않고, 유저들은 불만을 느끼고... 재미없게 만든 게임 치고 히트를 칠 이유가 없지 않은가...</p>
 <p>요즘 들어 느끼는 것은, 서버의 안정성은 경력이 쌓여갈수록 점점 높아지며, 확장성은 프로그램을 짜면 짤수록 자연스럽게 얻어진다는 점이다. 속도는 실행해보고 느리면 프로파일링을 통해서 그 부분만 최적화해나가면 되는 법. 결국 우리가 여기서 얻을 수 있는 교훈은, <strong>필요한 기능은 필요할 때 구현하면 된다. 대신, 현시점에서 가장 간결한 코드를 유지하라! 미래의 요구사항을 걱정하지 말라!</strong> 라는 것일까? 이는 Extreme Programming의 가치와 매우 유사하다.</p>
-
 <p>즉, 불필요한 확장성과 최신 기술로 고민하는 시간을 부족한 게임성을 높이는데 주력하라는 말씀! 근데 말은 이렇게 해도 나 역시 언행일치가 잘 안될 때가 많다.</p>
-
 <h2>헤일로2 개발자들에게 배우는 상위 법칙</h2>
-
 <p>아직도 헤일로2 보너스 DVD 를 보지 않았다면, 꼭 동료들을 불러서 함께 봐라. 30% 정도의 과장과 연출을 무시하더라도 그들은 정말 강하다. 팀원 개개인이 게임 개발의 주체가 되어 더 나은 게임성을 만들어나가는 모습은 정말 감동적이다. 그들에게서 배울 수 있는 2가지 핵심 법칙은 다음과 같다.</p>
-
 <pre><code>- 30초 플레이의 법칙 : 30초의 게임 플레이가 즐거우면, 모든 것이 즐겁다. (이 플레이를 계속 유지시키면 되니까...)
 - 5분 플레이의 법칙 : 플레이어는 5분 동안 플레이해서 재미가 없으면 접는다. 즉, 5분 동안 플레이어를 잡아 둘 수 있다면 성공!!
 </code></pre>
-
 <h2>잦은 릴리즈</h2>
-
 <p>적정 기간의 마일스톤은 개발팀이 하나의 목표를 향해 흔들리지 않고 달릴 수 있게 해준다. 또한 투자자들에게 일이 잘 흘러간다는 것, 내 돈이 제대로 쓰이고 있다는 것을 알게 해준다.</p>
-
 <p>매 2-3개월마다 개발된 내용을 릴리즈하고 사내에서 시연하라. 시연은 잘못된 과거를 반성할 수 있게 해주며, 부족한 시간과 자금, 맨파워를 느낄 수 있게 해준다. 잘 되든 잘못되든 시연은 좋은 것이다. 아무리 적어도 일년에 4-6회의 내부 시연을 가져야 한다. 결과가 좋을 경우 개발팀에게 보너스를 지급하라. 나쁠 경우에는 왜 잘못되었는지에 대해서 보고서를 쓰게 하고, 보너스는 다음번 시연으로 연기하라.</p>
-
 <p>모든 작업은 2주를 단위로 개발자들에게 할당되어야 한다. 주5일이 확산되고 있는 시점에서, 1주는 너무 짧고 3주는 너무 길다.</p>
-
-<h2>퀄리티 > 일정</h2>
-
+<h2>퀄리티 &gt; 일정</h2>
 <p>퀄리티는 절대 양보될 수 없다. 버그 1개를 출시할 바에는 기능 2개를 제거하는 것이 옳다. 그러나 이미 윗사람들이나 마케터가 유저들에게 약속해버린 경우에는 어떻게 해야 할 것인가? (종종 개발팀을 압박하기 위해서 저질러지는 일들이다.) 이 기능이 빼고 출시할 바엔 차라리 포기하는 게 낫다. 그러나 이걸 포기하면 잠재적인 손해가 수천수백만원에 회사 이미지가 손상되므로 무조건 구현해라!라고 나오면 어떻게 하는 것이 옳은가?</p>
-
 <p>중요한건 그들은 책임지지 않는다는 것이다. 최종적으로 책임지는 자는 개발팀이며 결과적으로 회사는 더욱 막심한 손해를 입는다. 주가 관리를 위해 마그나카르타를 출시했다가 치명적인 손상을 입은 소프트맥스의 케이스를 보라. 끝까지 설득하라. 그래도 안된다면 그들로 하여금 퀄리티와 스케줄 둘 중 하나를 선택케 하라.</p>
-
-<p>실제로 불가능한 스케줄을 accept 하게 되면, 원죄를 짊어지고 시작하게 되는 것이다. 어떻게 열심히 야근하면 되지 않을까 하는 낙관적인 접근은 결국 팀을 와해시킨다. 전통적인 SE 에서 디자인 시간이 오래 걸리는 것은 이와 같은 스케줄 관리에서 소모되는 시간을 포함한 것이라고 보면 옳을 것이다. 일단 작업계획서에 서명을 하고 나면 모든 것은 끝이 난다. 그렇더라도 불가능을 확인하게 되면 즉시 상부에게 알려라. 그것이 피해를 최소화하는 것이다.</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2004-11-24T22:49:51+09:00" pubdate data-updated="true">Nov 24<span>th</span>, 2004</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/columns/'>columns</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2004/11/24/%E1%84%82%E1%85%A2%E1%84%86%E1%85%A1%E1%86%B7%E1%84%83%E1%85%A2%E1%84%85%E1%85%A9-%E1%84%8A%E1%85%B3%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%80%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8%E1%84%85%E1%85%A9%E1%86%AB/" data-via="reiot" data-counturl="http://reiot.com/2004/11/24/%E1%84%82%E1%85%A2%E1%84%86%E1%85%A1%E1%86%B7%E1%84%83%E1%85%A2%E1%84%85%E1%85%A9-%E1%84%8A%E1%85%B3%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%80%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8%E1%84%85%E1%85%A9%E1%86%AB/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2004/11/24/data-driven-game-system/" title="Previous Post: 데이터 주도적인 게임 설계">&laquo; 데이터 주도적인 게임 설계</a>
-      
-      
-        <a class="basic-alignment right" href="/2004/11/24/%E1%84%8B%E1%85%A5%E1%84%84%E1%85%A5%E1%87%82%E1%84%80%E1%85%A6-%E1%84%8B%E1%85%AE%E1%84%85%E1%85%B5-%E1%84%90%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%B4-xp%E1%84%80%E1%85%A1-%E1%84%89%E1%85%B5%E1%86%AF%E1%84%91%E1%85%A2%E1%84%92%E1%85%A2%E1%86%BB%E1%84%82%E1%85%B3%E1%86%AB%E1%84%80%E1%85%A1/" title="next Post: 어떻게 우리 팀의 XP가 실패했는가?">어떻게 우리 팀의 XP가 실패했는가? &raquo;</a>
-      
-    </p>
-  </footer>
+<p>실제로 불가능한 스케줄을 accept 하게 되면, 원죄를 짊어지고 시작하게 되는 것이다. 어떻게 열심히 야근하면 되지 않을까 하는 낙관적인 접근은 결국 팀을 와해시킨다. 전통적인 SE 에서 디자인 시간이 오래 걸리는 것은 이와 같은 스케줄 관리에서 소모되는 시간을 포함한 것이라고 보면 옳을 것이다. 일단 작업계획서에 서명을 하고 나면 모든 것은 끝이 난다. 그렇더라도 불가능을 확인하게 되면 즉시 상부에게 알려라. 그것이 피해를 최소화하는 것이다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/agile/"><span class="label">agile</span></a>
+	
+		<a href="/tag/gamedev/"><span class="label">gamedev</span></a>
+	
+	</p>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2004/11/24/%E1%84%82%E1%85%A2%E1%84%86%E1%85%A1%E1%86%B7%E1%84%83%E1%85%A2%E1%84%85%E1%85%A9-%E1%84%8A%E1%85%B3%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%80%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8%E1%84%85%E1%85%A9%E1%86%AB/';
-        var disqus_url = 'http://reiot.com/2004/11/24/%E1%84%82%E1%85%A2%E1%84%86%E1%85%A1%E1%86%B7%E1%84%83%E1%85%A2%E1%84%85%E1%85%A9-%E1%84%8A%E1%85%B3%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%80%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%B7-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8%E1%84%85%E1%85%A9%E1%86%AB/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

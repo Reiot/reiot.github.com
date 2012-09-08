@@ -1,586 +1,185 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="jquery draggable + overflow=auto 스크롤바를 마우스로 움직일 때 draggable 이 되어버리는 문제 발생. 이럴 때에는 handle: 을 이용해서 움직일 수 있는 영역을 만들어버리면 된다.
-">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/25">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/30/jquery-draggable-overflowauto/">Jquery Draggable + Overflow=auto 스크롤바를 마&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-30T03:58:00+09:00" pubdate data-updated="true">Jan 30<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jquery draggable + overflow=auto  스크롤바를 마우스로 움직일 때 draggable 이 되어버리는 문제 발생.  이럴 때에는 handle: 을 이용해서 움직일 수 있는 영역을 만들어버리면 된다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/29/db-json-jsonorg-json2/">DB 에 JSON 정보 저장하는 법. - json.org 에서 Json2&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-29T23:05:00+09:00" pubdate data-updated="true">Jan 29<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>DB 에 JSON 정보 저장하는 법.  - json.org 에서 json2.js 다운 받기  - 브라우저에서 ajax 로 보낼 때 JSON.stringify( js_obj ) 로 변환  - 서버로부터 받았을 때 JSON.parse( string ) 으로 변환</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/28/requestcontext-request-templa/">RequestContext - Request 변수 추가됨 - TEMPLA&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-28T15:18:00+09:00" pubdate data-updated="true">Jan 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>RequestContext  - request 변수 추가됨  - TEMPLATE_CONTEXT_PROCESSORS 에 등록된 프로세서들이 자동으로 변수를 추가함  - render_to_response 는 디폴트로 Context 를 사용함.  auth: user, messages, perms 를 추가  debug: debug, sql_queries 를 추가  i18n: LANGUAGES, LANGUAGE_CODE 를 추가  media: MEDIA_URL 을 추가  request: request 를 추가함</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/28/django-form-fields-propert/">Django Form - 디스플레이 및 검증용 Fields Propert&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-28T03:44:00+09:00" pubdate data-updated="true">Jan 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>django form  - DB => 모델 => 폼 => HTML 렌더링(form input..) => GET/POST 로 전송 => 폼 => 검증 => 모델 => DB  - 하나의 모델에 여러 개의 폼이 존재해도 무방  - 폼위자드: 하나의 모델을 여러 페이지의 폼으로 구성하고 마지막에 검증  - formset: 폼의 집합. 데이터 그리드를 상상할 것.  - Widget: 폼필드가 어떻게 HTML Input 태그로 렌더링될 것인가?  fields property  - required: not None  - label: 라벨  - initial: 폼이 비어 있을 때 초기값. 출력용이며 필드 초기값은 아니다. (설명문일지도)  - widget:  - help_text: 필드에 대한 설명  - error_messages: ValidationError 의 문자열이 출력됨. 필드 종류에 따라 에러문자열 키값이 다름.  ex> TextInput = { required: 비었을때, max_length: 문자열 길이 초과,  }  field types - 검증 기능이 추가된 위젯.  - BooleanField: 체크박스  - CharField: 텍스트  - ChoiceField: 콤보박스  - TypedChoiceField: 콤보박스. int/float/bool 값이 리턴됨.  - DateField: 날짜 위젯? 년일월 구분된건가?  - DemicalField: 텍스트. 숫자만 받아들임.  - EmailField: 텍스트. 이메일 포맷  - FileField: 파일.  - FilePathField: 폴더 경로 + 재귀 여부 + 패턴.  - FloatField: 텍스트.  - ImageField: 파일. PIL 설치되어야 함.  - IntegerField: 텍스트.  - IPAddressField: IP  - MultipleChoiceField: 콤보+멀티선택  - NullBooleanField: True or False or None  - RegexField: 텍스트  - TimeField  - URLField  - ComboField  - MultiValueField  - SplitDateTimeField  모델 인스턴스로 초기화하고 HTML 렌더링  form = MyForm( instance=obj )  모델 기본값으로 초기화한 후, GET/POST 로 받은 값을 덮어쓰기.  form = MyForm( request.GET, instance=obj )  obj = form.save( commit=False )  특정 필드 빼기  class Meta:  exclude = ()  지정 필드만 넣기: 리스트 순서대로 폼이 배치된다.  class Meta:  fields = ()  ModelForm 은 모델의 필드 타입에 의해서 폼 필드들이 결정된다. 만약 오버라이딩하려면 모든 폼필드 속성을 재지정해줘야 한다.  기본적으로 폼필드 타입을 정하면 아무 속성 없는 디폴트 위젯이 결정된다. 위젯 타입이나 클래스 속성 등을 커스터마이징하려면  forms.CharField(widget=forms.TextArea( attrs={class:special}))  특정 위젯에 필요한 CSS 나 자바스크립트를 include 하려면, 미디어 클래스를 이용한다.  class Media:  css = { all: ( pretty.css, ) }  js = ( animaiton.js, actions.js )</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/28/djangoformsmodelform-httpgitorio/">djangoforms.ModelForm 사용법 Http://gitorio&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-28T03:07:00+09:00" pubdate data-updated="true">Jan 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>djangoforms.ModelForm 사용법  <a href="http://gitorious.org/magpie/magpie/blobs/master/magpie/ajiaojr/magpie/forms.py">http://gitorious.org/magpie/magpie/blobs/master/magpie/ajiaojr/magpie/forms.py</a>  결론적으로 django form 과 똑같다?</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/28/formset-set-of-form-single-row/">Formset - Set of Form 폼 == 모델(single Row&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-28T02:38:00+09:00" pubdate data-updated="true">Jan 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>formset - set of form  폼 == 모델(single row)  폼셋 == 모델의 집합(multiple rows) == datagrid</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/settingpy/">장고 세션 정리 - setting.py 에서 설정한다. - 미들웨어다. &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-27T23:11:00+09:00" pubdate data-updated="true">Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>장고 세션 정리  - setting.py 에서 설정한다.  - 미들웨어다.  - 딕셔너리다.  - cookie, file, db, cache 등의 하부 엔진을 고를 수 있다.  - MIDDLEWARE_CLASSES 에 django.contrib.sessions.middleware.SessionMiddleware 추가  - INSTALLED_APPS 에 django.contrib.sessions 추가  SESSION_ENGINE  - django.contrib.sessions.backends.cache  - django.contrib.sessions.backends.cached_db: db 에 저장. persistent  - django.contrib.sessions.backends.file: file</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/db/">캐쉬 관리 전략: - 캐쉬된 값은 언제나 믿는다. (DB에서 바뀌었을지라&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-27T22:58:00+09:00" pubdate data-updated="true">Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>캐쉬 관리 전략:  - 캐쉬된 값은 언제나 믿는다. (DB에서 바뀌었을지라도) 캐쉬-DB간의 다소간의 오차는 허용할 수 밖에 없다.  - hp 등 타인에 의해서 변경될 수 있는 값은 delta 를 저장하고 최신 값을 다시 받아온다.  - 중요 변수(kill count, last kill)를 검증할 때에는 DB 업데이트 후 결과를 보고 판단하기. (또는 ROWCOUNT check)  - 변경된 DB의 최신 결과를 캐쉬로 적용하기</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/http-method-from-djangoviewsd/">Http Method 제한 데코레이터 From django.views.d&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-27T21:51:00+09:00" pubdate data-updated="true">Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>http method 제한 데코레이터  from django.views.decorators.http import require_http_methods, require_GET, require_POST  틀릴 경우, HTTP 405 — “method not allowed” 를 리턴함.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/27/getobjector404/">Get_object_or_404 가 앱엔진에서도 지원될까?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-27T21:39:00+09:00" pubdate data-updated="true">Jan 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>get_object_or_404 가 앱엔진에서도 지원될까?</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/26/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/24/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/11/15/online-sql-beautifier/">Online SQL beautifier</a> <small>2006-11-15</small></h1>
+	</div>
+	<div><p><img alt="sqlpponline" src="http://www.wangz.net/gsqlparser/sqlpp/sqlpponline.gif" /></p>
+<p>어제 갑자기 DB에 문제가 생겨서 여러 사람이 손댄 프로시저를 읽다가 도저히 적응이 안되어서 <a href="http://www.google.co.kr/search?q=SQL+beautifier">구글로 SQL Beautifier를 검색</a>해 보았다. 그 중에서 무료이면서 가장 쓸만한 웹 기반의 SQL beautifier가 바로 <a href="http://www.wangz.net/cgi-bin/pp/gsqlparser/sqlpp/sqlformat.tpl">Instant SQL Formatter</a> 이었다. 물론 Visual Studio 나 Query Analyzer에 연동하려면 클라이언트 버전도 있지만, 40 달러 정도 돈을 내야 한다.</p>
+<p>혹시나 이 보다 더 좋은 넘이 있다면 리플을 달아주시기 바란다. MS는 왜 이런 걸 기본으로 내장하지 않나 몰라.</p>
+<ul>
+<li>빈태님이 <a href="http://www.red-gate.com/products/SQL_Refactor/index.htm">SQL refactor</a>를 추천해주셨다. 감사..</li>
+<li>오늘 어떤 프로시저에서 또다른 프로시저를 호출하다가 @@transcount 가 0 -&gt; 1 로 변하는 에러를 처음 발견했다. 아직 정확한 이유는 모르지만, 이런 에러 처음이야~</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/11/08/푸켓-다녀왔습니다/">푸켓 다녀왔습니다.</a> <small>2006-11-08</small></h1>
+	</div>
+	<div><p><a href="http://www.flickr.com/photos/reiot/291900834/" title="Photo Sharing"><img alt="http://static.flickr.com/116/291900834_99c491a692_o.jpg" src="http://static.flickr.com/116/291900834_99c491a692_o.jpg" /></a></p>
+<p><a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900836"><img alt="http://static.flickr.com/119/291900836_9fe458d788_s.jpg" src="http://static.flickr.com/119/291900836_9fe458d788_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900838"><img alt="http://static.flickr.com/99/291900838_5653c66acd_s.jpg" src="http://static.flickr.com/99/291900838_5653c66acd_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900843"><img alt="http://static.flickr.com/101/291900843_579c4ae1e2_s.jpg" src="http://static.flickr.com/101/291900843_579c4ae1e2_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291955023"><img alt="http://static.flickr.com/100/291955023_b887855ce2_s.jpg" src="http://static.flickr.com/100/291955023_b887855ce2_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291955035"><img alt="http://static.flickr.com/102/291955035_a4f5d4e072_s.jpg" src="http://static.flickr.com/102/291955035_a4f5d4e072_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291956330"><img alt="http://static.flickr.com/118/291956330_2d4babfa01_s.jpg" src="http://static.flickr.com/118/291956330_2d4babfa01_s.jpg" /></a></p>
+<p>더 많은 사진은 <a href="http://www.flickr.com/photos/reiot/sets/72157594239187109/show/">레이옷의 플릭커</a>를 참고하셔요</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/10/24/이런-툴이-있었으면-좋겠다/">이런 툴이 있었으면 좋겠다</a> <small>2006-10-24</small></h1>
+	</div>
+	<div><ul>
+<li>ProjectDiff : Visual Studio 프로젝트 속성을 비교하거나 merge해주는 툴</li>
+<li>IntDir, OutDir, 포함/라이브러리 디렉토리 설정, 링킹 라이브러리 등의 프로젝트 속성을 매번마다 세팅하는 것은 너무나되 귀찮은 일이다.</li>
+<li>특정 프로젝트로부터 복사해오거나 비교한 후 그래픽적으로 merge 해주는 기능이 있으면 참 좋겠다.</li>
+<li>DatabaseDiff : 2개의 데이터베이스를 비교해서 그래픽적으로 차이점을 보여주는 툴</li>
+<li>덤으로 패치 스크립트를 만들어주면 금상첨화</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/10/20/조금은-오래된-재미있는-it-개발자들의-토론/">조금은 오래된, 재미있는 IT 개발자들의 토론</a> <small>2006-10-20</small></h1>
+	</div>
+	<div><p><a href="http://www.javaservice.net/~java/bbs/read.cgi?m=resource&amp;b=chat2&amp;c=r_p&amp;n=1097846224&amp;p=6&amp;s=t#1097846224">2004년 자바서비스넷의 어느 청년의 고민담</a>에 달린 수많은 리플들. IT 개발자라면 한번쯤 읽어봤으면 한다. 내 안에도 찌질이가 살고 있지만, 저렇게 살고 싶지는 않다. 그리고 중간에 일본사는넘이라는 분의 이야기는 꼭 읽어보기를.</p>
+<p>그러고보니 내가 스물 다섯일 때는 얼른 10억 벌고 서른살에 은퇴해서 캐나다에서 송어 낚시를 하는게 꿈이었는데... 벌써 서른 둘이 되어 버렸다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/10/19/steam-war-함대전-mmofps/">Steam War : 함대전 MMOFPS</a> <small>2006-10-19</small></h1>
+	</div>
+	<div><p><a href="http://www.lazeska.com/" class="imagelink" title="라제스카"><img alt="라제스카" src="http://boxcatstudio.files.wordpress.com/2009/07/lz.jpg" /></a><br />
+<a href="http://www.lazeska.com/">이 그림 한장 </a>덕분에 잊혀졌던 함대전 MMOFPS의 추억이 되살아났다. (역시나 수백번 글로 써봐도 그림 한장이 주는 감동은 따라갈 수 없다) 어쨌든, 한동안 비공개로 해놓고 혼자 끄적여 봤는데, 아무래도 몇 년 동안은 MMO 개발을 할 수 없을 것 같아서 이참에 공개해본다. 재미로 쓴 글이므로 현실감이 없더라도 웃으면 곤란. 핫핫.<a href="http://boxcatstudio.files.wordpress.com/2009/07/203.jpg"><br />
+</a></p>
+<pre><code>- 드넓은 하늘에서 수백, 수천대의 비행선, 비공정들이 펼치는 치열한 대규모 공중전. (그렇다. 레이옷은 XBOX의 크림슨 스카이에서 많은 감명을 받았다. 물론 코난이나 나우시카, 라퓨타, 붉은돼지 같은 지브리표 비공정도 무척 좋아한다. 무엇보다도 멋진 것은 은하영웅전설의 멋진 전술과 전략들을 리얼타임으로 구현해 내는 것.)
+- 때는 1940년대, 증기기관이 전세계적 주동력이 되어버린 팩션(가상역사)의 세계. 신기술을 기반으로 나치 동맹군은 세계대전을 일으킨다. 플레이어는 연합군과 동맹군, 중립국연합 중의 하나의 세력을 선택해서 전쟁을 치른다.
+- 다른 플레이어들 또는 AI 편대를 이끌고 나치(혹은 연합군)를 무찔러라. 수 십 대의 모선에서 출발한 수 백 대의 프로펠러기가 날아다니며, 수 백개의 미사일, 수 천발의 총알 속에서 살아남아라. 거대한 비공정을 건조하고, 수 십대의 동료 모선들과 함께 전략을 구상하고 전술을 실행하라. 히틀러, 괴벨, 롬멜, 처칠 같은 영웅 NPC가 지휘하는 초거대비공정을 수백명의 동지들과 함께 공략하라. (레이드?)
+- 레벨이 올라가면 다수의 편대를 이끌거나, 보다 거대하고 화력이 강한 비행선을 조종할 수 있다. 대형 비공정은 여러 플레이어가 역할을 분담해서 움직여야 한다.
+- 모든 비행기들은 증기 기관 또는 열기구를 주 동력원으로 사용하며, 이동을 위해서는 프로펠러를 사용한다. 오직 작은 미사일만이 화약추진체를 사용할 수 있다.  기본적인 무기는 느린 대포와 빠른 기관총, 그리고 아주 초기적인 유도 성능을 가진 미사일 만을 사용할 수 있다. 초기적인 레이다를 사용할 수 있다.  상대를 무찌르면 무기, 부품 등의 아이템이 떨어진다. 현상금을 받아 돈을 벌어 비행기를 업그레이드하거나 새로 산다. 부품이나 완제품을 경매장에 사고 팔 수 있다.
+- 세계 지도를 띄우면 언제 어디에서 전투가 일어나는지를 확인할 수 있다. 여기에서 AI 대전 또는 플레이어 대전을 선택하고 전투에 임한다. 각 전투 지역에는 몇 명이 참가해서 몇 분동안 싸우고 있는지 확인할 수 있다. 100 명 이상이 참가할 수 있는 대규모 전투는, 일정 시간마다 리스폰된다. 세계 지도에는 초대형 모선의 위치가 그려진다. 대체로 전투는 이 주위에서 이루어진다.
+- 전투 지역을 선택하면 AI가 움직이는 대형 모선에서 전투가 시작된다. (대체로 전투는 비슷한 규모로 시작된다. 만약 규모가 다르면 AI에 의해서 조정된다.) 이 대형 모선은 맵의 정반대편에서 대기하고 있으며, 방어력과 공격력이 좋아서 혼자 힘으로는 파괴하기가 어렵다. 불리할 경우 모선 안으로 대피해서 후퇴할 수 있다.
+</code></pre>
+<p>누가 빨리 만들어주세요. 매달 이만오천원 이하면 결제해 드립니다.</p></div>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/26/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/26">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2006/11/15/online-sql-beautifier/">Online SQL beautifier</a>
+	</li>
+	
+	<li>
+		<a href="/2006/11/08/푸켓-다녀왔습니다/">푸켓 다녀왔습니다.</a>
+	</li>
+	
+	<li>
+		<a href="/2006/10/24/이런-툴이-있었으면-좋겠다/">이런 툴이 있었으면 좋겠다</a>
+	</li>
+	
+	<li>
+		<a href="/2006/10/20/조금은-오래된-재미있는-it-개발자들의-토론/">조금은 오래된, 재미있는 IT 개발자들의 토론</a>
+	</li>
+	
+	<li>
+		<a href="/2006/10/19/steam-war-함대전-mmofps/">Steam War : 함대전 MMOFPS</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

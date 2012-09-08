@@ -1,691 +1,255 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="sc create 를 이용하면 손쉽게 서비스를 설치할 수 있다는 사실은 잘 알려져 있다. 문제는 서비스가 시작할 때 문제가 발생할 경우 복구 방법에 대한 설정이다. 이 경우 error 파라미터를 잘 조정하면 될 것 같지만 실제로는 sc failure 라는 다른 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/44">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/02/14/sc-failure/">Sc Failure&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-02-14T04:43:28+09:00" pubdate data-updated="true">Feb 14<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a title="scfailure.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG"><img src="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG"></a></p>
-
-<p>sc create 를 이용하면 손쉽게 서비스를 설치할 수 있다는 사실은 잘 알려져 있다. 문제는 서비스가 시작할 때 문제가 발생할 경우 복구 방법에 대한 설정이다. 이 경우 error 파라미터를 잘 조정하면 될 것 같지만 실제로는 <a href="http://www.microsoft.com/technet/prodtechnol/windowsserver2003/ko/library/ServerHelp/0a658e97-51d5-4109-b461-a474c799964e.mspx">sc failure</a> 라는 다른 명령어를 사용해야 한다. (자세한 용법은 내일 삽질 후에 올리도록 하겠다)</p>
-
-<blockquote><p>sc failure MyServiceName reset= 0 actions= &#8220;restart/5000/restart/5000/reboot/5000&#8221;</p></blockquote>
-
-<p>위 명령은 서비스의 시작 실패시 처음과 두번째에는 5초후 서비스 재시작, 세번째까지 실패하면 시스템 리붓을 하라는 이야기다. actions 의 단위는 밀리초라는 점에 유의할 것. reset 파라미터는 일단 서비스가 성공적으로 뜬 경우 몇 초 후에 실패 횟수를 초기화하느냐인데 그냥 0 으로 두는 편이 무난할 것 같다. actions 파라미터에 run 이 들어갈 경우 command 파라미터를 지정해줘야 하며, reboot 이 들어갈 경우 reboot 파라미터에다가 메시지를 넣어주면 훗날 디버깅이 용이할 것이다. (단 actions 을 사용할 경우 항상 reset 을 지정해야 하는 것처럼 필수 사항은 아니다.)</p>
-
-<p>참고로 이 명령은 오래된 MSDN 에서는 확인할 수 없다. 아무래도 최신 OS에서만 지원되는 것일지도?</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/02/13/console-vs-service/">Console vs. Service</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-02-13T18:48:45+09:00" pubdate data-updated="true">Feb 13<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>지금까지는 command line 파라미터로 콘솔로 실행할 것인지 아니면 서비스로 실행할 것인지를 결정했다. 그러지 말고 아예 ConsoleRunner 와 ServiceRunner 를 외부 실행 파일로 만들어버리고 나머지 코드는 dll 로 만들어버리는건 어떨까?</p>
-
-<pre><code>- 컨텐트 코드가 dll 이므로, TestRunner 에게 넘기기도 용이하다
-- ServiceRunner 를 아예 서비스로 만들 수 있다.
-- 서버 모듈을 자동으로 다운받아서 지정된 넘을 실행하는 수준의 서비스 관리가 가능해진다.
-</code></pre>
-
-<p>특히 3번처럼 호스트-서비스의 결집도가 너무 높은 상황(서비스를 다른 머신으로 옮기려면 해당 머신에 실행 파일을 복사하고 서비스를 설치하는 등의 과정을 거쳐야 한다는 점)을 해소할 수 있다는 점에서 왠지 괜찮을 것 같다는 생각을 해본다.</p>
-
-<p>시간이 나면 WYSIWYG 방식의 서버-서비스 배치툴을 만들어서 그 결과를 XML로 추출해내어 배포하면 알아서 적당한 서비스 모듈을 다운받아 실행하는 그런 멋쥔 환경을 구축해보고 싶다. (그렇다. 서비스 설치 및 설정이 너무 귀찮아서 망상에 젖은 것 뿐이다. 그보다는 빨리 서버간 패치 시스템을 구축해야 할텐데&#8230; rsync가 제일 나은 툴일까나..)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/02/11/pilot-movie/">파일럿 무비</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-02-11T05:48:52+09:00" pubdate data-updated="true">Feb 11<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>오늘 한 달동안 작업한 테크니컬 데모의 중간 버전을 프리젠테이션을 위한 동영상으로 만들어서 (한달동안 두명이서 한 것이라는 코멘트를 잊지 말라는 당부와 함께) 미국에 넘겼다. 화질, 코덱, 용량, 업로드 같은 사소한 문제 때문에 삽질을 조금 했지만 어쨌든 무사히 넘길 수 있었다. 디자이너가 없어서 이전 버전의 리소스를 거의 그대로 사용했고, 카메라 연출 같은 건 신경도 쓰지 못해서 좀 아쉽긴 하다.</p>
-
-<p>어쨌든 시간이 좀 남았길래 저녁 무렵 사원들을 모아놓고 완다와 거상 예약판의 부록으로 따라온 <a href="http://remains.x-y.net/tt/index.php?pl=83">이코와 완다의 파일럿 무비</a>를 함께 관람하는 시간을 가졌다. 게임을 모르는 사람도 있어서 파일럿 무비와 최종 게임 동영상도 함께 보면서 이야기를 나누었는데, 만족스럽진 않았지만 어쨌든 다음 갈 길에 대한 합의를 볼 수 있었다.</p>
-
-<p>대체로 기능 구현만을 근근히 마친 프로토타입을 개발하고 이를 실제로 시연하면서 경영진에게 게임의 특징을 하나씩 보여주는 게 보통인데, 파일럿 무비의 경우 처음부터 동영상으로 편집할 것을 감안해서 <strong>목표로 하는 게임성을 선택적으로 구현</strong>할 수 있기에 꽤 매력적인 것 같다. 그리고 보여주고 싶은 것만 보여줄 수 있으므로 게임의 비전에 대한 공유가 프로토타입 시연보다 더욱 효과적일 것이다. (참고로, 시연자가 잘못하면 보는 사람이 뭘 봐야 할지 모르게 될 수도 있다 -_-) 시연하면서 다운될 것도 걱정하지 않아도 되고, 갓 들어온 신참 교육용으로도 무지 좋으며, 나중에 게임이 대박이 나면 부록 DVD에 이 영상을 넣을 수도 있다!!</p>
-
-<p>앞으로 예상하는 개발 프로세스는 대충 이렇다. 일단 새 엔진을 이용한 테크니컬 데모를 통해서 기술적인 방향을 공유하고, 프로토 타입 대신 파일럿 무비를 제작해서 게임성을 공유한 다음, 실질적인 제작에 들어간다는 것이다. 그때까지는 어쩔 수 없이 하드 코딩을 해야겠지만, 개발 도중 의견 충돌 때문에 엎어버린다든지, 낙하산 때문에 배가 산으로 간다든지 하는 위험을 줄일 수 있을테니 어찌 선택하지 않을 수 있으랴&#8230;</p>
-
-<p>더 관심이 있는 사람은 <a href="http://kwanny.ntreev.net/tt/index.php?pl=133&amp;ct1=-1">서관희님의 관련글</a>을 참고하시길&#8230;</p>
-
-<p>ps. 동영상 편집의 세계는 멀고도 험하다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/02/11/%E1%84%8B%E1%85%A9%E1%84%82%E1%85%B3%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A5%E1%84%80%E1%85%B3/">오늘의 버그</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-02-11T04:58:51+09:00" pubdate data-updated="true">Feb 11<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>김학규님의 <a href="http://www.lameproof.com/zboard/zboard.php?id=bbs2&amp;no=381">스트레스 테스트 삽질기</a>에 비하면 아무 것도 아니지만, 오늘 미국 테스트 서버에서 특이한 버그를 만나게 되어서 한번 써본다.</p>
-
-<p>며칠 전부터 토너먼트 관련 UDP 버그가 발생한다는 보고를 받았다. 지정된 토너먼트 시각이 되면 자동적으로 방이 생성되고 사람들이 들어가는데, 유독 첫번째 방에서만 플레이가 되고 나머지 방에서는 100% UDP failed 가 생긴다는 것이었다. 도저히 소프트웨어 문제라고는 여겨지지 않아서 사내 테스트 환경에서는 테스트를 해봤지만 재현이 되지 않았다. 안되면 다 안되고 되면 다 되어야지 왜 딱 하나만 되는 것이며, 그것도 가장 첫번째 방만 되는 것인지 아무리 생각해도 믿어지지 않았지만 직접 눈으로 보게 되자 디버깅할 수 밖에 없었다. 30분정도 디버깅을 하다보니 아예 서버로부터 UDP 패킷이 오지 않는 걸 확인했고 그때 떠오른 게 바로 방화벽 설정이었다.</p>
-
-<p>알고보니 방화벽의 허용 범위의 맨 끝에 첫번째 방에서 사용하는 UDP 포트만이 운좋게 걸려 있었고 나머지는 out of bound 여서 생기는 문제였다. 미국은 거의 대부분 방화벽을 필수로 사용하고 있으며, 지난 번에도 역시 방화벽 때문에 한달 정도 고생을 한 적이 있어서 다행히 금방 문제를 찾을 수 있었다. 덕분에 미국 테스터들과 출장간 동료들이 좀 갈굼을 당했지만, 빨리 찾게 되었으니 그나마 다행이 아닐까 한다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/02/05/ogre-for-psp/">Ogre for PSP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-02-05T15:50:44+09:00" pubdate data-updated="true">Feb 5<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://www.ogre3d.org/images/M_images/ogrebtn.png"> PSP에서 3D 프로그래밍을 하는 법을 검색하다가 우연히 <a href="http://www.ogre3d.org/phpBB2/viewtopic.php?p=123549">Ogre3D 엔진이 PSP로 포팅된다는 이야기</a>를 Ogre 포럼에서 찾아냈다. PPC 포팅을 담당한 개발자가 하는 김에 PSP포팅도 맡겠다는 이야기인 듯한데&#8230; 2월 내에는 나오지 않을까 하는 희망을 품어본다. SDL 특히 pygame이 포팅된다는 소문도 들리는 시점에, Ogre3D까지 포팅이 되면 결국 PSP에서는 python으로도 3D 프로그래밍이 가능해진다는 소리가 되는 셈이다.</p>
-
-<p>그나저나 OGRE를 보고도 /오우거/ 대신 글자 그대로 장난삼아 읽던 /오그레/라는 발음이 연상되어 큰일이다;;</p>
-
-<p>ps. <a href="http://luaplayer.org">LuaPlayer</a>가 <a href="http://www.goop.org/psp/gl/">PSPGL</a> 기반으로 재작성되고 있는 중인데, <a href="http://forums.ps2dev.org/viewtopic.php?t=4591">3D보다는 2D쪽 기능에 한정</a>될 것 같다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-02-02T09:46:35+09:00" pubdate data-updated="true">Feb 2<span>nd</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>총 15개의 통계 테이블의 리팩토링이 드디어 오늘 끝났고, 내일 테스트만 무사히 통과하면 다음 작업으로 넘어갈 수 있을 것 같다. arithmetic overflow 로 인해 모든 numeric 관련 로직을 계산 컬럼으로 추출해내고 하나씩 검증하는데 이틀이나 날려 먹었던 것이다. 실제로 이백라인에 가까웠던 프로시저가 거의 30% 정도로 분량이 줄었고 각 쿼리문들 역시 간단한 DDL 로 바뀌게 되었는데, 솔직히 너무 허탈하다. :(  </p>
-
-<p>테스트가 성공리에 끝이 나면, 이제 남은 이슈는 본섭 패치를 얼마나 손쉽게 자동화할 것인가? 이다. 변경된 프로시저의 경우 drop - create 로 해결할 수 있지만, 계산 컬럼으로 바꾸는 것은 녹녹치 않았다. 문제는 한번도 관리되지 않았던 DEFAULT constraint 들 때문인데&#8230;</p>
-
-<pre><code>- ALTER TABLE ALTER COLUMN 으로 일반 컬럼을 계산 컬럼으로 바꿀 수 없다
-- 결국 DROP COLUMN + ADD COLUMN 으로 해결해야 한다
-- DROP COLUMN 을 하려면 의존 관계가 없어야 한다
-- 그런데 바꿔야할 모든 컬럼들이 DEFAULT 제약조건을 가지고 있었고, 얘네들의 이름이 모두 랜덤이다. -_-
-</code></pre>
-
-<p>일단 DBA 와 상의해봐야 되겠지만 어째 해결책은 없을 듯하다. 따라서 오늘의 결론은</p>
-
-<blockquote><p>&#8220;모든 DEFAULT 제약 조건에 이름을 붙여라&#8221;</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/02/01/computed-column-divide-by-zero/">Computed Column &amp; Divide by Zero</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-02-01T10:37:01+09:00" pubdate data-updated="true">Feb 1<span>st</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>A = ( C != 0 ? B/C : 0 )</p></blockquote>
-
-<p>이러한 수식으로 구성된 계산 컬럼은 TSQL에서는 아래와 같이 표현할 수 있다.</p>
-
-<blockquote><p>[A] AS ( case when [C] = 0 then 0 else [B]/[C] end )</p></blockquote>
-
-<p>문제는 B 나 C 가 여러 컬럼으로 이루어지거나 또 다른 계산 컬럼일 경우이다. TSQL에서는 계산 컬럼이 다른 계산 컬럼을 내포할 수도 없고, 사용자 정의 함수를 포함할 수도 없기 때문에, 울며 겨자먹기로 중복 코드를 허용해야만 한다. 덕분에 오늘 현업에 들어온 이래, 가장 긴 계산 컬럼을 만들어볼 수 있었다.</p>
-
-<blockquote><p>(case when ([AB] + [BB] + [HBP] + [SF] = 0) then 0.0 else (convert(numeric(9,3),([H] + [BB] + [HBP])) / ([AB] + [BB] + [HBP] + [SF])) end + case when ([AB] = 0) then 0.0 else (convert(numeric(9,3),([H] + [B2] * 2 + [B3] * 3 + [HR] * 4)) / [AB]) end)</p></blockquote>
-
-<p>계산 컬럼의 내포가 되었다면 단순히 A+B 정도로 끝날 수도 있었고, 사용자 정의 함수만 지원했어도 SafeDiv(&#8230;,&#8230;)+SafeDiv(&#8230;,&#8230;) 정도로 줄일 수 있었는데.. 쩝.</p>
-
-<p>그런데 아래의 SET 옵션을 잘 이용하면 divide by zero를 우회함으로써 수식을 간단하게 표현할 수 있다. 어차피 계산 컬럼은 SELECT 에서만 사용되기 때문에 관련 SELECT 쿼리 앞뒤에 잘 지정하면 될 듯하지만, 이런 것도 된다는 것이며 추천하지는 않는다.</p>
-
-<blockquote><p>SET ARITHIGNORE ON &#8211; 에러 메시지 출력 안함</p>
-
-<p>SET ARITHABORT OFF &#8211; 종료하는 대신 NULL 삽입</p>
-
-<p>[A] AS (ISNULL(A/B,0.0))</p></blockquote>
-
-<p>상황에 따라서는 SET ANSI_WARNING OFF 도 함께 지정해줘야 하는 경우도 있으므로 유의하기 바란다. 관련 사항을 테스트해준 floyd, icebreak 님께 감사를~</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/28/os-%E1%84%8C%E1%85%A2%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%E1%84%92%E1%85%AE-%E1%84%89%E1%85%A9%E1%84%89%E1%85%B3%E1%84%89%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%91%E1%85%B3%E1%84%80%E1%85%A1-%E1%84%87%E1%85%A1%E1%84%87%E1%85%A9%E1%84%80%E1%85%A1-%E1%84%83%E1%85%AC%E1%86%AF-%E1%84%84%E1%85%A2/">OS 재설치후 소스세이프가 바보가 될 때</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-12-28T19:04:26+09:00" pubdate data-updated="true">Dec 28<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>파일을 체크아웃 받은 상태에서 OS 를 새로 설치할 때, 컴퓨터 이름을 이전과 같이 해야 한다. 소스세이프는 체크아웃된 위치를 컴퓨터 이름과 working folder 를 조합해서 사용하기 때문에, 컴퓨터 이름이 다르다면 다른 곳에 체크아웃을 했다고만 나온다.</p>
-
-<p>*괜히 삼성카드 홈페이지에서 연말정산 서류 플러그인을 설치하다가 애꿎은 OS만 날려먹었다. 소송해버릴까.. *</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/23/boostsingleton_pool-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8/">Boost::singleton_pool 사용법</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-12-23T05:20:36+09:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">struct</span> <span class="n">CharArray512</span> <span class="p">{};</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">int</span> <span class="n">_tmain</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">typedef</span> <span class="n">boost</span><span class="o">::</span><span class="n">singleton_pool</span><span class="o">&lt;</span><span class="n">CharArray512</span><span class="p">,</span><span class="mi">512</span><span class="o">&gt;</span> <span class="n">TestPool</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="o">*</span> <span class="n">pBuf</span> <span class="o">=</span> <span class="n">TestPool</span><span class="o">::</span><span class="n">malloc</span><span class="p">();</span>
-</span><span class='line'>  <span class="n">assert</span><span class="p">(</span> <span class="n">pBuf</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">TestPool</span><span class="o">::</span><span class="n">free</span><span class="p">(</span><span class="n">pBuf</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>singleton_pool 의 첫번째 템플릿 파라미터인 태그는, 동일한 크기의 버퍼에 대해서 각각 풀을 사용해야 할 때 구분자로 사용된다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/12/15/db-datafile-%E1%84%8B%E1%85%A9%E1%86%B1%E1%84%80%E1%85%B5%E1%84%80%E1%85%B5/">DB Datafile 옮기기</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-12-15T19:39:17+09:00" pubdate data-updated="true">Dec 15<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>그동안 사용했던 SQL Server evaluation 이 6개월만에 기한 만료되어 다른 머신에 똑같은 넘을 설치하게 되었다. 복구 방법은 생각보다 간단했는데&#8230;</p>
-
-<ul>
-<li>.mdf 와 .ldf 파일을 data/ 아래로 복사한다.</li>
-<li>엔터프라이즈 관리자를 띄워서 데이터베이스를 클릭한 후 [모든 작업] - [데이터베이스 연결]에서 mdf 파일을 찾아 추가하면 된다.</li>
-</ul>
-
-
-<p>방화벽에 TCP, UDP 1433 포트를 열어 주는 것만 잊지 않으면 30분만에 새 서버를 띄울 수 있게 된다. :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/45/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/43/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/xml-tips/">XML tips</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><h2>Unicode XML in code</h2>
+<p>코드 안에 L" " 을 붙여서 정의한 XML 스트링은 당연히 UTF-16 이다. 만약 UTF-8 로 바꾸고 싶다면 컨버팅 함수를 통하는 수 밖에 없다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/xml/"><span class="label">xml</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/xml-rpc/">XML RPC</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>XML RPC는 HTTP 프로토콜 위에 XML 로 RPC(Remote Procedure Call. 원격지의 어플리케이션에 정의된 함수를 로컬인 것처럼 호출할 수 있게 해주는 기법)을 구현한 것이다. 특히 Python을 이용하면 정말 쉽게 XML RPC 를 사용할 수 있다. 레이옷은 MoinMoin 위키의 매크로에서 XML RPC 로 원격지의 시스템에 설치된 게임 서버 WindowsService를 제어하는 에이전트를 구현중이다</p>
+<p>see also:</p>
+<ul>
+<li><a href="http://sandbox.rulemaker.net/ngps/m2/">M2Crypto - Python + OpenSsl + SWIG</a></li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/xml/"><span class="label">xml</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/using-xerces-c/">Using Xerces C++</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>Xerces는 XML 파싱을 위한 C++/Java 공개 라이브러리다. 기존의 Microsoft XML SDK를 이용한 XML 파싱 라이브러리가 있음에도 불구하고, Xerces를 이용한 파서를 새로 만들게 된 것은 Microsoft XML SDK가 Visual C++에서만 컴파일이 정상적으로 되었기 때문이다. Borland C++ Builder를 이용해서 기존의 라이브러리를 컴파일하기 위해 몇가지 시도를 해보았지만, 정상적으로 되지가 않았다. 결국 포기하고 다른 방편으로 Xerces를 이용하게 되었다.</p>
+<p>파싱 클래스나 함수 등은 W3C에서 이미 규정한 것이기 때문에 Xerces나 Microsoft나 별반 다르지 않다. 차이점은 함수의 프로토타입이나, 내부적으로 사용하는 유틸리티 클래스들인데, 이는 쉽게 넘어갈 수 있는 문제였다. 게다가 나중에 유닉스 계열로 가도 이 라이브러리를 그대로 이용할 수 있으니 이 어찌 즐겁지 않으리요.</p>
+<h2>Install For Microsoft Visual C++</h2>
+<pre><code>- http://xml.apache.org 에서 Xerces 바이너리를 다운받는다. 소스를 다운받아도 상관없으나 컴파일하는 수고를 덜려면 바이너리를 받는 게 낫다.
+- 인스톨하고, Visual C++에서 PATH를 잡아준다.
+- 프로젝트 링크 탭에다가 xerces-c_2.lib 또는 xerces-c_2D.lib 라이브러리를 집어넣는다.
+- xerces-c_2.lib라면 xerces-c_2_2_0.dll을, xerces-c_2D.lib라면 xerces-c_2_2_0D.dll을 PATH로 잡혀있는 디렉토리 어디엔가 복사해둔다.
+- 컴파일하고 실행한다.
+</code></pre>
+<h2>주의해야할 점</h2>
+<p>Xerces를 사용해서 XML 문서를 다룰 때, 한글을 사용하기 위해서는</p>
+<pre><code>  &lt; ?xml version=&quot;1.0&quot; encoding=&quot;Windows-1252&quot;?&gt;```
+과 같은 헤더를 붙여줘야한다. 인터넷 익스플로러에서 보면 한글이 깨져서 보이지만, 실제로 프로그램에서 돌릴 때는 괜찮다.
+</code></pre>
+
+<p>&lt; ?xml version="1.0" encoding="euc-kr"?&gt;```<br />
+로 하는 경우에는 인터넷 익스플로러에서는 보면 괜찮지만, 프로그램 돌릴 때는 한글 문자가 깨지게 된다.</p>
+<p>see also:</p>
+<pre><code>- [http://xml.apache.org](http://xml.apache.org/)
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/xml/"><span class="label">xml</span></a>
+	
+		<a href="/tag/xerces/"><span class="label">xerces</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/sax-event-handling/">SAX 이벤트 처리하기</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>XML 프로세싱에는 두 가지 모델이 있다. DOM(Document Object Model)과 SAX(Simple API for XML)다.</p>
+<ul>
+<li>DOM은 XML 문서를 파싱해서 트리 형식의 객체를 만들어낸다. 클라이언트, 즉 DOM을 사용하는 프로그래머는 이 트리에 붙어서 문제를 해결해 나가야한다.</li>
+<li>SAX는 이벤트 기반이다. XML 문서를 처음부터 파싱해 나가면서, ''새로운 element가 나왔다'', ''element의 끝이 나왔다'' 등등의 이벤트가 발생될 때마다 사용자가 지정한 함수를 호출하는 형식으로 파싱이 이루어진다.</li>
+</ul>
+<p>현재 만들어져 있는 라이브러리는 SAX를 이용한 라이브러리다. 마이크로소프트에서 지원하는 XML SDK를 이용해서, element들의 집합으로 이루어진 트리를 구성하거나, 리스트를 생성할 수 있도록 만들어져 있다. 아직까지는 DTD 관련 처리는 되어있지 않다.</p>
+<h2>SAX 이벤트 처리</h2>
+<p>SAX를 이용한 애플리케이션을 만들때 처리해줘야하는 이벤트를 설명하자면 다음과 같다.</p>
+<ul>
+<li>startDocument : 문서의 처음을 읽을 때 호출된다.</li>
+<li>endDocument : 문서의 마지막을 읽을 때 호출된다.</li>
+<li>startPrefixMapping : 모르겠다.</li>
+<li>endPrefixMapping : 모르겠다.</li>
+<li>startElement : 엘리먼트의 시작점을 만났을 때 호출된다. 위의 예제에서는  이 부분이나  같은 엘리먼트를 만났을 때 호출된다.</li>
+<li>endElement : 엘리먼트의 끝점을 만났을 때 호출된다. startElement와 대칭되는 쌍으로서 항상 불리게 된다. 물론 문서에 문법 오류가 있을 때에는 안 불린다.</li>
+<li>characters : 엘리먼트의 시작과 끝 사이의 글자를 만났을 때 호출된다. 위의 예에서는 test 태그 사이의 hey를 만났을 때 호출된다.</li>
+<li>ignorableWhitespace : 모르겠다. 공백 문자를 만났을 때 호출되는 것 같은데 사용하지 않는다.</li>
+<li>processingInstruction : 모르겠다.</li>
+<li>skippedEntity : 역시 모르겠다.</li>
+</ul>
+<p>각각의 이벤트 핸들링 함수에는 인자로 노드의 이름과 길이 등이 따라오기 때문에 이를 이용해서 트리나 리스트를 만들어내는 것은 매우 쉽다. 다만 기본적인 처리가 2바이트 문자이고, 유니코드 로케일 문제 때문에 문자열 변환이 약간 귀찮다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/xml/"><span class="label">xml</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/data-driven-game-system/">데이터 주도적인 게임 설계</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>예전에 이런 일이 있었다</p>
+<p>몬스터마다 Drop 하는 아이템의 종류 및 확률 테이블의 설정을 변경하느라고 프로그래머와 신경전을 벌이고 있었다. 내 불만의 주된 원인은, (사실은 게임내에서 얼마나 잘 떨어지는지 추적도 하지 않는 주제에) 기획서대로 아이템이 떨어지기 위한 게임의 구현이 정확하지 않다는 것이었다. 당시의 구현은 그럭저럭 확률이 기획서와 비슷하지만 정확하지는 않았고, 몬스터마다 다르게 설정하기도 힘들었다. (즉, D&amp;D의 보물 타입과 같이 구현되어 있었다)</p>
+<p>전직 프로그래머(-_-)이었고 그 프로그래머가 친한 학과 후배이다 보니, 생각해오던 구현을 강요하게 되었고, 그러다가 서로의 약점을 건드리는 바람에 폭발 직전에까지 갔다가, 어째어째 양보하여 전투가 끝이 났다.</p>
+<p>웃긴 건, 그 당시 나의 피해의식은 "왜 이렇게 밸런스 수정하기가 어려운거지?"라는 것이었다. 실제로 기획 작업을 해보면서 느낀 점이, 서비스중인 게임의 경우 미세한 조정이 항상 발생하게 되는데, 그때마다 프로그래머들의 눈치를 계속 봐야 한다는 게 정말 불만이었다.</p>
+<p>물론 코드 수정이라는 것이 오랜동안의 전체 빌드와 패치, 업로드, 재시작, 그리고 최종점검까지 걸리는 시간동안 프로그래머들이 느끼는 심적 부담감이 막중하다는 것은 사실이다. 더군다나 전투 공식이나 객체의 파라미터 같은 부분적 코드/데이터 수정이 아니라, 기존의 DB에 누적된 데이터를 보정해야 하는 밸런싱 패치의 경우, 스트레스는 정말 상상 못할 만큼 어마어마하다. (세상의 게임 기획자들이여.. 당신들은 이것만큼은 이해해줘야 합니다)</p>
+<p>그러나, 아무리 코드 내부에 각종 데이터들이 하드코딩으로 박혀 있을지라도, 꼭 필요한 것은 해야 하는 법. 결국 유저들 눈치 보고, 프로그래머 눈치 보고, 그래픽 디자이너 눈치를 보고, 불쌍한 운영팀 눈치를 보느라 기획자의 마음은 곪아 들어게 되고, 밸런싱 이야기만 나오면 쥐구멍으로 숨고 싶어지는 지경에까지 이르렀다.</p>
+<p>이제 다시 프로그래머로 전업한 [레이옷]은, 우리팀의 기획자들은 그런 슬픔에 젖지 않도록 애를 쓰고 있다. 가능한한 파라미터들은 XML 에 명시, 실시간으로도 리로딩할 수 있게 했고, 스크립트 시스템을 도입, 몇몇 로직들은 lua 스크립트로 빼내서 역시 손쉽게 수정할 수 있도록 했다. 하지만, 진정한 데이터 주도적인 설계가 되려면 아직도 한참 멀었다. 아직도 수정하기 위해서는 프로그래머에게 구두 요청을 해야 하기 때문에... (우리 기획자들도 여전히 스트레스를 받을지도 모른다. 물어보진 않았지만...)</p>
+<p>그리고는 깨달음을 얻었다</p>
+<h2>밸런싱툴을 제공할 것</h2>
+<p>가장 이상적인 케이스가 바로 WarCraft3 (그리고 NWN과 모로윈드)의 에디터.</p>
+<p>그러나, 아직 실력이 되지 않아서, 각종 룰과 객체들을 툴 레벨로 빼내는 것이 쉽지는 않다. 모드를 제작할 수 있을 정도의 툴을 만드는 그날까지 노력하는 수밖에. 아무튼, 프로그래머의 도움 없이 기획자들이 알아서 척척척 스스로 어린이~ 가 되도록 해주면 되겠지. 그동안의 밸런싱 히스토리까지도 로그로 남겨주면 금상첨화.</p>
+<h2>다양한 콘솔 명령어들을 제공</h2>
+<p>이 깨달음의 핵심은 실시간 Modification 이다.</p>
+<p>때와 장소를 가리지 않고, 테스트하고 싶은 기능들을 실시간으로 고칠 수 있도록 한다는 것이 주목적. MMORPG 의 경우 더더욱 필요한 기능이리라. 콘솔창을 띄우고 각 객체의 속성에 접근, 수정 후 테스트할 수 있도록 하는 것인데, 좀더 나아간다면 자동화된 밸런스 테스트까지도 실시간으로 이루어질 수 있으면... :)</p>
+<p>이를 위해서는 각종 접근 제어 및 암호화와 보안 관련 작업이 선행되어야 할 듯.</p>
+<h2>데이터 주도적인 게임 설계</h2>
+<p>온갖 게임 관련 서적에서 항상 주장하던 유명한 명제.</p>
+<p>그네들도 다들 피를 봤기 때문에 그런 말을 하는 것이리라. 손쉬운 수정, 손쉬운 테스트, 손쉬운 기능 추가... 더이상 말하지 않아도 다들 잘 이해할 것이다.</p>
+<p>주의할 것은, 기획팀에서 아예 손쉽게 수정할 수 있는 툴을 제공하라고 처음부터 전방위 압박 공격을 해야지 개발 후반부가 편해진다는 거다. 너무 이해하다가는 서로서로 피곤해지니, 기획팀과 프로그램팀이 힘을 합해 PM과 경영진에게 툴 개발 스케줄을 따내는 것도 좋은 방책일 듯. ㅋㅋㅋ</p>
+<h2>맺음말</h2>
+<p>구현 신경쓰지 말고, 밸런싱이나 잘해요! 라고 맞받아치던 후배의 한마디를 아직도 잊을 수가 없다. 이 놈의 원죄는 언제쯤 씻겨질 것인가...''</p></div>
+	
+	<p>
+	
+		<a href="/tag/agile/"><span class="label">agile</span></a>
+	
+	</p>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/45/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/45">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/xml-tips/">XML tips</a>
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/xml-rpc/">XML RPC</a>
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/using-xerces-c/">Using Xerces C++</a>
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/sax-event-handling/">SAX 이벤트 처리하기</a>
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/data-driven-game-system/">데이터 주도적인 게임 설계</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

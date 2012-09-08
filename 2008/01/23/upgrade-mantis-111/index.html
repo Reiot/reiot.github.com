@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2008/01/23/upgrade-mantis-111/">Upgrade Mantis 1.1.1</a> <small>2008-01-23</small></h1>
+	</div>
+	<div><p><a href="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&h=&cache=cache"><img alt="mantis roadmap" src="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&amp;h=&amp;cache=cache" /></a></p>
+<p>회사에서 Mantis 1.0.8 을 몇 개월 동안 잘 쓰고 있다가, 최근 (Trac에서는 이미 지원하고 있는) <a href="http://www.mantisbt.org/wiki/doku.php/mantisbt:features:roadmap">Roadmap</a> 기능이 들어간 1.1 버전이 나왔다는 소식을 듣고, 역시나 업그레이드에 도전했다가 한글 문제 때문에 계속 포기해야만 했다. 그러던 오늘 오후, 이번에야말로 기필코 성공하리라고 마음먹고 4시간 넘게 삽질을 했지만 또다시 실패하고 "Fail to upgrade Mantis"라는 제목으로 글을 쓰다가 우연히도 성공해버렸다. 원래는 구차한 실패 과정을 낱낱히 써놨지만, 모두 생략하고 바로 결론으로 넘어가겠다.</p>
+<pre><code>OS : Windows Server 2003 R2
+
+Web Server  : Xampp apache2
+
+DB : Xampp mysql 5.0.45 community
+
+Mantis 1.0.8 + korean_utf8 설정으로 한글 사용중
+
+Encoding : latin1 + latin1_general_ci```
+[기본적인 팁](http://www.mantisbt.org/wiki/doku.php/mantisbt:upgrade_to_utf8)을 읽고 다양한 시도를 거쳐서 실패했는데 결과적으로 가장 핵심은 [이 문서](http://textsnippets.com/posts/show/84)에 들어 있었다. 나의 경우 굳이 [iconv](http://www.gnu.org/software/libiconv/)를 통하지 않고서도 한글 보존에 성공했다.
+</code></pre>
+
+<p>mysqldump -u username -p bugtracker --default-character-set=latin1 &gt; dump.sql</p>
+<p>SQL문의 모든 latin1 을 utf8 로 변경</p>
+<p>mysql -u username -p --execute="create database bugtracker2 default character set utf8;"</p>
+<p>mysql -u username -p bugtracker2 --default-character-set=utf8 &lt; dump.sql```<br />
+업그레이드에 성공한 것도 무지 기쁘지만, <a href="http://kldp.org/node/32987">vim 에서 utf-8 포맷의 문서를 자동으로 읽어 들이고 변환할 수 있다</a>는 것을 알게 되어서 더욱 기쁘다. enc, tenc, fenc, fencs 옵션을 잊지 말자.</p></div>
+	
+</article>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

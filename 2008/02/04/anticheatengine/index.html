@@ -1,808 +1,335 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>AntiCheatEngine - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="원래는 Cheat Engine 으로도 freeze 를 걸 수 없는 안전한 변수를 만들기 위해서 만든 클래스다. 여기에 CRC라든지 XOR도 넣고, 또 값이 바뀔 때마다 위치도 바꾸고 할려고 했는데, 가만히 생각해보니 속도도 제법 느리고 막상 함수 내에 아래와 같이 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2008/02/04/anticheatengine">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
+	<article>
+	<div class="page-header">
+		<h1><a href="/2008/02/04/anticheatengine/">AntiCheatEngine</a> <small>2008-02-04</small></h1>
+	</div>
+	<div><p>원래는 Cheat Engine 으로도 freeze 를 걸 수 없는 안전한 변수를 만들기 위해서 만든 클래스다. 여기에 CRC라든지 XOR도 넣고, 또 값이 바뀔 때마다 위치도 바꾸고 할려고 했는데, 가만히 생각해보니 속도도 제법 느리고 막상 함수 내에 아래와 같이 로컬 캐시가 있다면 그걸 바꿔버리면 전혀 쓸모 없어져서 그냥 포기버렸다.</p>
+<pre><code>
+float speed = ac.Get&lt;float&gt;(&quot;speed&quot;);
+// -- inject code here --
+check_next_pos(pos,speed);
+</code></pre>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">AntiCheatEngine</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-04T09:48:43+09:00" pubdate data-updated="true">Feb 4<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>원래는 Cheat Engine 으로도 freeze 를 걸 수 없는 안전한 변수를 만들기 위해서 만든 클래스다. 여기에 CRC라든지 XOR도 넣고, 또 값이 바뀔 때마다 위치도 바꾸고 할려고 했는데, 가만히 생각해보니 속도도 제법 느리고 막상 함수 내에 아래와 같이 로컬 캐시가 있다면 그걸 바꿔버리면 전혀 쓸모 없어져서 그냥 포기버렸다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="kt">float</span> <span class="n">speed</span> <span class="o">=</span> <span class="n">ac</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;speed&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="c1">// -- inject code here --</span>
-</span><span class='line'><span class="n">check_next_pos</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span><span class="n">speed</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="http://reiot.cafe24.com/2008/02/03/ai-game-programming-wisdom-3/">어제 주문한 책들</a>이 도착하면 다시 한번 도전해볼까 싶기도 하지만, assembly 쪽 지식이 전무해서&#8230;</p>
-
+<p><a href="http://reiot.cafe24.com/2008/02/03/ai-game-programming-wisdom-3/">어제 주문한 책들</a>이 도착하면 다시 한번 도전해볼까 싶기도 하지만, assembly 쪽 지식이 전무해서...</p>
 <!--more-->
 
+<pre><code>
+// AntiCheatEngine.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.
+//
 
+#include &quot;stdafx.h&quot;
+#include &lt;string&gt;
+#include &lt;set&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;hash_map&gt;
 
+#pragma warning(disable:4819)
+#define BOOST_TEST_MAIN
+#include &lt;boost/format.hpp&gt;
+#include &lt;boost/test/unit_test.hpp&gt;
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-<span class='line-number'>148</span>
-<span class='line-number'>149</span>
-<span class='line-number'>150</span>
-<span class='line-number'>151</span>
-<span class='line-number'>152</span>
-<span class='line-number'>153</span>
-<span class='line-number'>154</span>
-<span class='line-number'>155</span>
-<span class='line-number'>156</span>
-<span class='line-number'>157</span>
-<span class='line-number'>158</span>
-<span class='line-number'>159</span>
-<span class='line-number'>160</span>
-<span class='line-number'>161</span>
-<span class='line-number'>162</span>
-<span class='line-number'>163</span>
-<span class='line-number'>164</span>
-<span class='line-number'>165</span>
-<span class='line-number'>166</span>
-<span class='line-number'>167</span>
-<span class='line-number'>168</span>
-<span class='line-number'>169</span>
-<span class='line-number'>170</span>
-<span class='line-number'>171</span>
-<span class='line-number'>172</span>
-<span class='line-number'>173</span>
-<span class='line-number'>174</span>
-<span class='line-number'>175</span>
-<span class='line-number'>176</span>
-<span class='line-number'>177</span>
-<span class='line-number'>178</span>
-<span class='line-number'>179</span>
-<span class='line-number'>180</span>
-<span class='line-number'>181</span>
-<span class='line-number'>182</span>
-<span class='line-number'>183</span>
-<span class='line-number'>184</span>
-<span class='line-number'>185</span>
-<span class='line-number'>186</span>
-<span class='line-number'>187</span>
-<span class='line-number'>188</span>
-<span class='line-number'>189</span>
-<span class='line-number'>190</span>
-<span class='line-number'>191</span>
-<span class='line-number'>192</span>
-<span class='line-number'>193</span>
-<span class='line-number'>194</span>
-<span class='line-number'>195</span>
-<span class='line-number'>196</span>
-<span class='line-number'>197</span>
-<span class='line-number'>198</span>
-<span class='line-number'>199</span>
-<span class='line-number'>200</span>
-<span class='line-number'>201</span>
-<span class='line-number'>202</span>
-<span class='line-number'>203</span>
-<span class='line-number'>204</span>
-<span class='line-number'>205</span>
-<span class='line-number'>206</span>
-<span class='line-number'>207</span>
-<span class='line-number'>208</span>
-<span class='line-number'>209</span>
-<span class='line-number'>210</span>
-<span class='line-number'>211</span>
-<span class='line-number'>212</span>
-<span class='line-number'>213</span>
-<span class='line-number'>214</span>
-<span class='line-number'>215</span>
-<span class='line-number'>216</span>
-<span class='line-number'>217</span>
-<span class='line-number'>218</span>
-<span class='line-number'>219</span>
-<span class='line-number'>220</span>
-<span class='line-number'>221</span>
-<span class='line-number'>222</span>
-<span class='line-number'>223</span>
-<span class='line-number'>224</span>
-<span class='line-number'>225</span>
-<span class='line-number'>226</span>
-<span class='line-number'>227</span>
-<span class='line-number'>228</span>
-<span class='line-number'>229</span>
-<span class='line-number'>230</span>
-<span class='line-number'>231</span>
-<span class='line-number'>232</span>
-<span class='line-number'>233</span>
-<span class='line-number'>234</span>
-<span class='line-number'>235</span>
-<span class='line-number'>236</span>
-<span class='line-number'>237</span>
-<span class='line-number'>238</span>
-<span class='line-number'>239</span>
-<span class='line-number'>240</span>
-<span class='line-number'>241</span>
-<span class='line-number'>242</span>
-<span class='line-number'>243</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="cp">// AntiCheatEngine.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.</span>
-</span><span class='line'><span class="cp">//</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">#include &quot;stdafx.h&quot;</span>
-</span><span class='line'><span class="cp">#include &lt;string&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;set&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;vector&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;list&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;hash_map&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">#pragma warning(disable:4819)</span>
-</span><span class='line'><span class="cp">#define BOOST_TEST_MAIN</span>
-</span><span class='line'><span class="cp">#include &lt;boost/format.hpp&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">size_t</span> <span class="n">GenerateIndex</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="k">static</span> <span class="n">size_t</span> <span class="n">key</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="k">return</span> <span class="n">key</span><span class="o">++</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">AntiCheat</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">size_t</span><span class="o">&gt;</span> <span class="n">INDEX_LIST</span><span class="p">;</span>
-</span><span class='line'><span class="k">typedef</span> <span class="n">stdext</span><span class="o">::</span><span class="n">hash_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">INDEX_LIST</span> <span class="o">&gt;</span> <span class="n">KEY_MAP</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">public</span> <span class="o">:</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">AntiCheat</span><span class="p">(</span> <span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1024</span><span class="o">*</span><span class="mi">64</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">m_Buffer</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-</span><span class='line'><span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-</span><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">generate</span><span class="p">(</span><span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="n">GenerateIndex</span><span class="p">);</span>
-</span><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">random_shuffle</span><span class="p">(</span><span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">bool</span> <span class="n">IsValid</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">GetCRC</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">m_CRC</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// FIXME use ASSERT, dont check return value</span>
-</span><span class='line'><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-</span><span class='line'><span class="kt">bool</span> <span class="n">Set</span><span class="p">(</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span> <span class="n">name</span> <span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">valueIn</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">KEY_MAP</span><span class="o">::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">m_Keys</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span> <span class="n">itr</span> <span class="o">==</span> <span class="n">m_Keys</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">INDEX_LIST</span> <span class="n">idxList</span><span class="p">;</span>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span> <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">valueIn</span><span class="p">);</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span> <span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="p">)</span>
-</span><span class='line'><span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'><span class="n">size_t</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
-</span><span class='line'><span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
-</span><span class='line'><span class="n">idxList</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">itr</span> <span class="o">=</span> <span class="n">m_Keys</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">idxList</span><span class="p">)).</span><span class="n">first</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">INDEX_LIST</span> <span class="o">&amp;</span> <span class="n">indexList</span> <span class="o">=</span> <span class="n">itr</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span> <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">indexList</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">;</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">size_t</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">indexList</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span><span class='line'><span class="n">m_Buffer</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">valueIn</span><span class="p">)[</span><span class="n">i</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span><span class='line'><span class="kt">bool</span> <span class="n">Get</span><span class="p">(</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">valueOut</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">KEY_MAP</span><span class="o">::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">m_Keys</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span> <span class="n">itr</span> <span class="o">==</span> <span class="n">m_Keys</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">INDEX_LIST</span> <span class="o">&amp;</span> <span class="n">indexList</span> <span class="o">=</span> <span class="n">itr</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span> <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">indexList</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">;</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">size_t</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">indexList</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span><span class='line'><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">valueOut</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">m_Buffer</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">size_t</span> <span class="n">GetUnusedIndexCount</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">m_CRC</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">INDEX_LIST</span> <span class="n">m_UnusedIndex</span><span class="p">;</span>
-</span><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">m_Buffer</span><span class="p">;</span>
-</span><span class='line'><span class="n">KEY_MAP</span> <span class="n">m_Keys</span><span class="p">;</span>
-</span><span class='line'><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//////////////////////////////////////////////////////////////////////////</span>
-</span><span class='line'><span class="k">template</span><span class="o">&lt;&gt;</span>
-</span><span class='line'><span class="kt">bool</span> <span class="n">AntiCheat</span><span class="o">::</span><span class="n">Set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span> <span class="n">valueIn</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">KEY_MAP</span><span class="o">::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">m_Keys</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span> <span class="n">itr</span> <span class="o">==</span> <span class="n">m_Keys</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">INDEX_LIST</span> <span class="n">idxList</span><span class="p">;</span>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span> <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">valueIn</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span> <span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="p">)</span>
-</span><span class='line'><span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'><span class="n">size_t</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
-</span><span class='line'><span class="n">m_UnusedIndex</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
-</span><span class='line'><span class="n">idxList</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">itr</span> <span class="o">=</span> <span class="n">m_Keys</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">idxList</span><span class="p">)).</span><span class="n">first</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">INDEX_LIST</span> <span class="o">&amp;</span> <span class="n">indexList</span> <span class="o">=</span> <span class="n">itr</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span> <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">indexList</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">;</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">size_t</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">indexList</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span><span class='line'><span class="n">m_Buffer</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">valueIn</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">template</span><span class="o">&lt;&gt;</span>
-</span><span class='line'><span class="kt">bool</span> <span class="n">AntiCheat</span><span class="o">::</span><span class="n">Get</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="n">string</span> <span class="o">&amp;</span> <span class="n">valueOut</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">KEY_MAP</span><span class="o">::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">m_Keys</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span> <span class="n">itr</span> <span class="o">==</span> <span class="n">m_Keys</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">INDEX_LIST</span> <span class="o">&amp;</span> <span class="n">indexList</span> <span class="o">=</span> <span class="n">itr</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// FIXME 최초 크기 보다 작은 사이즈는 저장할 수 없다?</span>
-</span><span class='line'><span class="n">valueOut</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">indexList</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="mi">0</span><span class="p">);</span>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span> <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">indexList</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">;</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">size_t</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">indexList</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span><span class='line'><span class="n">valueOut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">m_Buffer</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span> <span class="n">test1</span> <span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">AntiCheat</span> <span class="n">ac</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">GetUnusedIndexCount</span><span class="p">(),</span> <span class="mi">100</span> <span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">IsValid</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">string</span> <span class="n">strIn</span> <span class="o">=</span> <span class="s">&quot;World&quot;</span><span class="p">,</span> <span class="n">strOut</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="n">ac</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">&quot;string&quot;</span><span class="p">,</span><span class="n">strIn</span><span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">IsValid</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;string&quot;</span><span class="p">,</span><span class="n">strOut</span><span class="p">)</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">strIn</span><span class="p">,</span> <span class="n">strOut</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">GetUnusedIndexCount</span><span class="p">(),</span> <span class="mi">100</span><span class="o">-</span><span class="n">strIn</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="kt">int</span> <span class="n">intIn</span><span class="p">,</span> <span class="n">intOut</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">intIn</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'><span class="n">ac</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">&quot;int&quot;</span><span class="p">,</span><span class="n">intIn</span><span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">IsValid</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;int&quot;</span><span class="p">,</span><span class="n">intOut</span><span class="p">)</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">intIn</span><span class="p">,</span> <span class="n">intIn</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">GetUnusedIndexCount</span><span class="p">(),</span> <span class="mi">100</span><span class="o">-</span><span class="n">strIn</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">intIn</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-</span><span class='line'><span class="n">ac</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">&quot;int&quot;</span><span class="p">,</span><span class="n">intIn</span><span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">IsValid</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;int&quot;</span><span class="p">,</span><span class="n">intOut</span><span class="p">)</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">intIn</span><span class="p">,</span> <span class="n">intIn</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">GetUnusedIndexCount</span><span class="p">(),</span> <span class="mi">100</span><span class="o">-</span><span class="n">strIn</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="kt">bool</span> <span class="n">boolIn</span><span class="p">,</span> <span class="n">boolOut</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">boolIn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'><span class="n">ac</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">&quot;bool&quot;</span><span class="p">,</span><span class="n">boolIn</span><span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">IsValid</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;bool&quot;</span><span class="p">,</span><span class="n">boolOut</span><span class="p">)</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">boolIn</span><span class="p">,</span> <span class="n">boolOut</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">GetUnusedIndexCount</span><span class="p">(),</span> <span class="mi">100</span><span class="o">-</span><span class="n">strIn</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">boolIn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'><span class="n">ac</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">&quot;bool&quot;</span><span class="p">,</span><span class="n">boolIn</span><span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">IsValid</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;bool&quot;</span><span class="p">,</span><span class="n">boolOut</span><span class="p">)</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">boolIn</span><span class="p">,</span> <span class="n">boolOut</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">GetUnusedIndexCount</span><span class="p">(),</span> <span class="mi">100</span><span class="o">-</span><span class="n">strIn</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">));</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="kt">float</span> <span class="n">floatIn</span><span class="p">,</span> <span class="n">floatOut</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">floatIn</span> <span class="o">=</span> <span class="mf">1.234f</span><span class="p">;</span>
-</span><span class='line'><span class="n">ac</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">&quot;float&quot;</span><span class="p">,</span><span class="n">floatIn</span><span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">IsValid</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;float&quot;</span><span class="p">,</span><span class="n">floatOut</span><span class="p">)</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">floatIn</span><span class="p">,</span> <span class="n">floatOut</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">GetUnusedIndexCount</span><span class="p">(),</span> <span class="mi">100</span><span class="o">-</span><span class="n">strIn</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">floatIn</span> <span class="o">=</span> <span class="o">-</span><span class="mf">56.78f</span><span class="p">;</span>
-</span><span class='line'><span class="n">ac</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">&quot;float&quot;</span><span class="p">,</span><span class="n">floatIn</span><span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">IsValid</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;float&quot;</span><span class="p">,</span><span class="n">floatOut</span><span class="p">)</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">floatIn</span><span class="p">,</span> <span class="n">floatOut</span> <span class="p">);</span>
-</span><span class='line'><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">ac</span><span class="p">.</span><span class="n">GetUnusedIndexCount</span><span class="p">(),</span> <span class="mi">100</span><span class="o">-</span><span class="n">strIn</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span><span class="o">-</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="cm">/*</span>
-</span><span class='line'>
-</span><span class='line'><span class="cm">값을 바꾸면 Key 및 CRC 가 바뀐다</span>
-</span><span class='line'><span class="cm">멤버 함수가 아닌 다른 경로로 값을 바꾸면 CRC 체크가 깨져야 한다.</span>
-</span><span class='line'><span class="cm">AntiCheat 는 하나의 큰 버퍼를 가진다. (ex: 32k)</span>
-</span><span class='line'><span class="cm">여기에 변수를 키값을 이용해서 저장하고 읽어낸다.</span>
-</span><span class='line'><span class="cm">이때 각 변수들은 바이트 단위로 흩어진다. 이때 흩어지는 인덱스는 저장하는 순간 랜덤하게, 중복되지 않게 결정된다.</span>
-</span><span class='line'><span class="cm">(이때문에 unused index set 이 필요함)</span>
-</span><span class='line'><span class="cm">또한 각 변수들은 Verifier 라는 range-checker 와 연동될 수 있다.</span>
-</span><span class='line'><span class="cm">키값 역시 다이나믹하게 결정된다. (가령 player.hp 의 경우 매크로에 의해서 __K(PlayerHP) -&gt; 세션키와의 XOR 등등 )</span>
-</span><span class='line'><span class="cm">Verify()를 호출하면 각 키에 대해서 Verify 한 다음,</span>
-</span><span class='line'><span class="cm">특정 영역 마다 0xEF 등 boundry checker 를 넣어두고, 바뀌었는지 체크한다.</span>
-</span><span class='line'>
-</span><span class='line'><span class="cm">문자열일 경우 (길이 2바이트,본문) 이렇게 저장해야 한다. 만약 길이가 달라질 경우 인덱스를 새로 얻어 오거나 반납해야 한다.</span>
-</span><span class='line'>
-</span><span class='line'><span class="cm">*/</span>
-</span></code></pre></td></tr></table></div></figure>
+using std::string;
 
-</div>
+size_t GenerateIndex()
+{
+static size_t key = 0;
+return key++;
+}
 
+class AntiCheat
+{
+typedef std::vector&lt;size_t&gt; INDEX_LIST;
+typedef stdext::hash_map&lt;string, INDEX_LIST &gt; KEY_MAP;
 
-  <footer>
-    <p class="meta">
-      
-  
+public :
 
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
+AntiCheat( size_t N = 1024*64 )
+{
+m_Buffer.assign(N,0);
+m_UnusedIndex.assign(N,0);
+std::generate(m_UnusedIndex.begin(),m_UnusedIndex.end(),GenerateIndex);
+std::random_shuffle(m_UnusedIndex.begin(),m_UnusedIndex.end());
+}
 
-      
+bool IsValid() const { return true; }
 
+unsigned int GetCRC() { return m_CRC; }
 
+// FIXME use ASSERT, dont check return value
+template&lt;class T&gt;
+bool Set( const string &amp; name , const T &amp; valueIn )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+INDEX_LIST idxList;
+for ( size_t i = 0 ; i &lt; sizeof(valueIn); i ++ )
+{
+if ( m_UnusedIndex.empty() )
+return false;
+size_t idx = m_UnusedIndex.back();
+m_UnusedIndex.pop_back();
+idxList.push_back(idx);
+}
 
+itr = m_Keys.insert(make_pair(name,idxList)).first;
+}
 
+INDEX_LIST &amp; indexList = itr-&gt;second;
 
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+m_Buffer[idx] = reinterpret_cast&lt;const char*&gt;(&amp;valueIn)[i];
+}
 
+return true;
+}
 
+template&lt;typename T&gt;
+bool Get( const string &amp; name, T &amp; valueOut )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+return false;
+}
 
-  
+INDEX_LIST &amp; indexList = itr-&gt;second;
 
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+reinterpret_cast&lt;char*&gt;(&amp;valueOut)[i] = m_Buffer[idx];
+}
+return true;
+}
 
-<time datetime="2008-02-04T09:48:43+09:00" pubdate data-updated="true">Feb 4<span>th</span>, 2008</time>
-      
+size_t GetUnusedIndexCount() const { return m_UnusedIndex.size(); }
 
+unsigned int m_CRC;
 
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2008/02/04/anticheatengine/" data-via="reiot" data-counturl="http://reiot.com/2008/02/04/anticheatengine/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
+INDEX_LIST m_UnusedIndex;
+std::vector&lt;unsigned char&gt; m_Buffer;
+KEY_MAP m_Keys;
+};
 
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2008/02/04/boostasio-tcp-resolver/" title="Previous Post: boost::asio TCP resolver">&laquo; boost::asio TCP resolver</a>
-      
-      
-        <a class="basic-alignment right" href="/2008/02/10/boost_asio_iostream/" title="next Post: boost::asio iostream">boost::asio iostream &raquo;</a>
-      
-    </p>
-  </footer>
+//////////////////////////////////////////////////////////////////////////
+template&lt;&gt;
+bool AntiCheat::Set&lt;string&gt;( const string &amp; name, const string &amp; valueIn )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+INDEX_LIST idxList;
+for ( size_t i = 0 ; i &lt; valueIn.size(); i ++ )
+{
+if ( m_UnusedIndex.empty() )
+return false;
+size_t idx = m_UnusedIndex.back();
+m_UnusedIndex.pop_back();
+idxList.push_back(idx);
+}
+
+itr = m_Keys.insert(make_pair(name,idxList)).first;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+m_Buffer[idx] = valueIn[i];
+}
+
+return true;
+}
+
+template&lt;&gt;
+bool AntiCheat::Get&lt;string&gt;( const string &amp; name, string &amp; valueOut )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+return false;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+// FIXME 최초 크기 보다 작은 사이즈는 저장할 수 없다?
+valueOut.assign(indexList.size(),0);
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+valueOut[i] = m_Buffer[idx];
+}
+return true;
+}
+
+BOOST_AUTO_TEST_CASE( test1 )
+{
+AntiCheat ac(100);
+
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100 );
+
+BOOST_CHECK( ac.IsValid() );
+
+string strIn = &quot;World&quot;, strOut;
+
+{
+ac.Set(&quot;string&quot;,strIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;string&gt;(&quot;string&quot;,strOut) );
+BOOST_CHECK_EQUAL( strIn, strOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size());
+}
+
+{
+int intIn, intOut;
+
+intIn = 1;
+ac.Set(&quot;int&quot;,intIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;int&gt;(&quot;int&quot;,intOut) );
+BOOST_CHECK_EQUAL( intIn, intIn );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int));
+
+intIn = -1;
+ac.Set(&quot;int&quot;,intIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;int&gt;(&quot;int&quot;,intOut) );
+BOOST_CHECK_EQUAL( intIn, intIn );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int));
+}
+
+{
+bool boolIn, boolOut;
+
+boolIn = true;
+ac.Set(&quot;bool&quot;,boolIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;bool&gt;(&quot;bool&quot;,boolOut) );
+BOOST_CHECK_EQUAL( boolIn, boolOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool));
+
+boolIn = true;
+ac.Set(&quot;bool&quot;,boolIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;bool&gt;(&quot;bool&quot;,boolOut) );
+BOOST_CHECK_EQUAL( boolIn, boolOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool));
+}
+
+{
+float floatIn, floatOut;
+
+floatIn = 1.234f;
+ac.Set(&quot;float&quot;,floatIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;float&gt;(&quot;float&quot;,floatOut) );
+BOOST_CHECK_EQUAL( floatIn, floatOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool)-sizeof(float));
+
+floatIn = -56.78f;
+ac.Set(&quot;float&quot;,floatIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;float&gt;(&quot;float&quot;,floatOut) );
+BOOST_CHECK_EQUAL( floatIn, floatOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool)-sizeof(float));
+}
+
+}
+
+/*
+
+값을 바꾸면 Key 및 CRC 가 바뀐다
+멤버 함수가 아닌 다른 경로로 값을 바꾸면 CRC 체크가 깨져야 한다.
+AntiCheat 는 하나의 큰 버퍼를 가진다. (ex: 32k)
+여기에 변수를 키값을 이용해서 저장하고 읽어낸다.
+이때 각 변수들은 바이트 단위로 흩어진다. 이때 흩어지는 인덱스는 저장하는 순간 랜덤하게, 중복되지 않게 결정된다.
+(이때문에 unused index set 이 필요함)
+또한 각 변수들은 Verifier 라는 range-checker 와 연동될 수 있다.
+키값 역시 다이나믹하게 결정된다. (가령 player.hp 의 경우 매크로에 의해서 __K(PlayerHP) -&gt; 세션키와의 XOR 등등 )
+Verify()를 호출하면 각 키에 대해서 Verify 한 다음,
+특정 영역 마다 0xEF 등 boundry checker 를 넣어두고, 바뀌었는지 체크한다.
+
+문자열일 경우 (길이 2바이트,본문) 이렇게 저장해야 한다. 만약 길이가 달라질 경우 인덱스를 새로 얻어 오거나 반납해야 한다.
+
+*/
+</code></pre></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2008/02/04/anticheatengine/';
-        var disqus_url = 'http://reiot.com/2008/02/04/anticheatengine/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

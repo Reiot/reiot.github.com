@@ -1,316 +1,118 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Modify Rendered jQuery Template Before Append - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의 엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 위 예제처럼, #test 는 하나의 DIV 로 묶여져 있어서 appendTo 하기 전에 위젯을 만들 수 있지만 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2010/11/11/modify-rendered-jquery-template-before-append">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
+	<article>
+	<div class="page-header">
+		<h1><a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a> <small>2010-11-11</small></h1>
+	</div>
+	<div><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
+<pre><code>&lt;script id=&quot;test&quot; type=&quot;script/x-jquery-tmpl&quot;&gt;
+  &lt;div&gt;
+  &lt;h1&gt;${name}&lt;/h1&gt;
+  &lt;p&gt;${description}&lt;/p&gt;
+  &lt;div class=&quot;progressbar&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/script&gt;
+&lt;script id=&quot;test2&quot; type=&quot;script/x-jquery-tmpl&quot;&gt;
+  &lt;h1&gt;${name}&lt;/h1&gt;
+  &lt;p&gt;${description}&lt;/p&gt;
+  &lt;div class=&quot;progressbar&quot;&gt;&lt;/div&gt;
+&lt;/script&gt;
+&lt;div id=&quot;here&quot;&gt;&lt;/div&gt;
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
+$(function() {
+  var data = {name: 'Hello', description: 'World', value:50};
+  var data2 = {name: 'JavaScript' ,description: 'Rules', value: 80};
+  var $tmpl = $('#test').tmpl(data);
 
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
+  $tmpl.find('.progressbar').progressbar({value:data.value});
+  $tmpl.appendTo('#here');
 
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Modify Rendered jQuery Template Before Append</h1>
-    
-    
-      <p class="meta">
-        
+  var tmpl2 = $('#test2').tmpl(data2);
+  tmpl2.find('.progressbar').progressbar({value:data2.value}); // not working
+  tmpl2.appendTo('#here');
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-11T11:38:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다.</p>
-
-<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/K2GEX/10/embedded/js,resources,html,css,result/light/"></iframe>
-
+});
+</code></pre>
 
 <p>위 예제처럼, #test 는 하나의 DIV 로 묶여져 있어서 appendTo 하기 전에 위젯을 만들 수 있지만, #test2 처럼 여러 개의 엘리먼트들이 나눠져 있는 경우에는 .tmpl(data) 로 렌더링을 하면 [h1, p, div.progressbar] 의 배열이 튀어나오는데, 이 배열에다가 대고 find 를 해도 아무 일도 발생하지 않는다. (for 를 돌아도 마찬가지)</p>
-
-<p>일단은 그냥 마음편하게 하나로 묶는게 유일한 해답일 거 같은데, 그나저나 .tmplItem 은 도대체 어디에 쓰는 물건일까?</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-11T11:38:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2010</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/programming/'>programming</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2010/11/11/modify-rendered-jquery-template-before-append/" data-via="reiot" data-counturl="http://reiot.com/2010/11/11/modify-rendered-jquery-template-before-append/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2010/11/10/jquery-blink/" title="Previous Post: jQuery Blink">&laquo; jQuery Blink</a>
-      
-      
-        <a class="basic-alignment right" href="/2010/11/14/iskindofclass/" title="next Post: isKindOfClass">isKindOfClass &raquo;</a>
-      
-    </p>
-  </footer>
+<p>일단은 그냥 마음편하게 하나로 묶는게 유일한 해답일 거 같은데, 그나저나 .tmplItem 은 도대체 어디에 쓰는 물건일까?</p></div>
+	
+	<p>
+	
+		<a href="/tag/jquery.tmpl/"><span class="label">jquery.tmpl</span></a>
+	
+	</p>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2010/11/11/modify-rendered-jquery-template-before-append/';
-        var disqus_url = 'http://reiot.com/2010/11/11/modify-rendered-jquery-template-before-append/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

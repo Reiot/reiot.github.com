@@ -1,1418 +1,222 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Social Reiot</title>
-  <meta name="author" content="Ray Yun">
-
-  
-  <meta name="description" content="[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 http://reiot.springnote.com/pages/87239 에서 읽으실 수 있습니다.  I/O completion port 를 개발할 때 주의해야 할 사항들. 1-Recv Rule 하나의 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://reiot.com/page/41">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/05/16/iocp-tips/">IOCP Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-05-16T09:15:40+09:00" pubdate data-updated="true">May 16<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong><em>[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87239">http://reiot.springnote.com/pages/87239 </a>에서 읽으실 수 있습니다. </em></strong></p>
-
-<p>I/O completion port 를 개발할 때 주의해야 할 사항들.</p>
-
-<h2>1-Recv Rule</h2>
-
-<p>하나의 소켓에 대해서 특정 순간에 1개 이하의 입력만이 요청되어야 한다는 규칙을 <strong>1-recv 규칙</strong>이라고 부른다. 물론 버퍼를 여러 개 준비한 다음 미리 요청해두는 N-recv 방식도 그럴듯하지만, 요청한 순서대로 항상 완료되지는 않는다는 소문(?)에 그다지 많이 사용되고 있지는 않은 듯하다.</p>
-
-<p>그런데, 입력 재요청은 GQCS()를 호출하는 입출력 쓰레드에서 할 수도 있지만, 로직 처리 쓰레드에서 하는 경우도 많다. MMORPG가 아닌 경우에 한정해서 후자의 방식을 권장하는 편인데, 코드는 약간 복잡하지만 버퍼 복사 및 동기화 부담도 줄어들기 때문이다. 다음 두 예제를 살펴보자.</p>
-
-<h1>ex1</h1>
-
-<p>class ideal_session:
-def end_read(self,buf,len):
-&#8221;&#8221;&#8220;callback for input completion. called by i/o thread&#8221;&#8220;&#8221;
-while 1:
-msg = self.get_msg() # parse &amp; copy!!
-if msg:
-msgq.append((self,msg))
-self.begin_read()</p>
-
-<p>def ideal_process_sessions():
-&#8221;&#8221;&#8220;logic process thread&#8221;&#8220;&#8221;
-while 1:
-session, msg = msgq.pop()
-if session and msg:
-msg_handler(session,msg)</p>
-
-<h1>ex2</h1>
-
-<p>class real_session:
-def end_read(self,buf,len):
-&#8221;&#8221;&#8220;callback for input completion. called by i/o thread&#8221;&#8220;&#8221;
-sessions.append(self) # only notify</p>
-
-<p>def real_process_sessions():
-&#8221;&#8221;&#8220;logic process thread&#8221;&#8220;&#8221;
-while 1:
-session = sessions.pop()
-if session:
-while 1:
-msg = session.get_msg() # parse but no copy!
-if not msg: break
-msg_handler(session,msg)
-session.begin_read()</p>
-
-<p>[예제1]에서는 입출력 쓰레드에서 메시지 파싱 - 큐잉 - 입력 재요청이 이루어지고 로직 처리 쓰레드는 메시지큐로 동작하는데, 전체적으로 코드는 단순하지만 <strong>메모리 복사 및 할당</strong>이 많아진다. 또한 입력 버퍼가 가득 찬 후의, 다음 입력 재요청을 과연 어디서 할 것인지도 애매하다. 반면, [예제2]에서는 대부분의 작업을 로직 처리 쓰레드에 위임시킴으로써 입출력 처리 쓰레드의 부하를 최소화하면서, 버퍼 복사 역시 극단적으로 줄일 수 있게 된다.</p>
-
-<p>단, [예제1]이 <strong>입력 완료 후 재요청</strong>이 더 빠르지만, 전체적인 입출력 처리를 감안한다면 그다지 빠르다고 보기는 힘들 것으로 추측한다.</p>
-
-<h2>1-Send Rule</h2>
-
-<p>입력과 달리 출력 관리 방법에 대해서는 많은 이견이 존재한다.</p>
-
-<p>N-send 는 보통 출력 버퍼 관리를 하기보다는 필요할 때마다 즉시 보내는 것을 의미하는데, 테스트해 본 결과 출력 완료시 <strong>bytes_transferred != bytes_written</strong> 인 경우를 거의 못봤다는 이야기도 종종 들린다. 그러나 만에 하나 예외 상황이 발생한다면 TCP 스트림이 꼬이게 되므로 1-send 로 구현하는 것을 보통 권장한다. <em>좀 더 자세한 설명은 <a href="http://www.gpgstudy.com/forum/viewtopic.php?t=2998">GPGStudy에서 sparrowhawk님이 쓰신 글</a>과 <a href="http://www.codeproject.com/internet/reusablesocketserver4.asp">이 글</a>을 참고하도록 할 것.</em></p>
-
-<p>고전적인 출력 버퍼 관리 방식에서는 큰 출력 버퍼를 마련해 두고, 보낼 데이터를 복사한 후 한꺼번에 flush 하게 된다. 여기에 버퍼 복사를 줄이기 위해 큰 버퍼 대신 버퍼의 리스트로 구현한 것을 바로 <strong>gather-send</strong> 라고 하는데, 대부분이 broadcast 인 게임 서버에서는 Lock과 참조카운팅, 메모리 풀링을 함께 사용해야 하기 때문에, unicast가 많은 미들웨어에 한정해서 사용해야 할 것이다. 가능하면 출력 버퍼의 관리 방식을 손쉽게 교체할 수 있는 프레임워크를 만들거나 사용하는 것을 추천한다.</p>
-
-<p>출력 완료 처리 및 재요청은 당연히 로직 처리 쓰레드의 몫이 된다. 1-Recv Rule과 같은 방식으로 하면 간단하므로 따로 예제는 준비하지 않았다.</p>
-
-<h2>NumberOfCurrentThresds</h2>
-
-<p>CreateIoCompletionPort() 의 마지막 파라미터인 NumberOfConcurrentThreads 에 대한 MSDN의 설명을 보자.</p>
-
-<blockquote><p>Maximum number of threads that the operating system allows to concurrently process I/O completion packets for the I/O completion port. If this parameter is zero, the system allows as many concurrently running threads as there are processors in the system.</p><p>Although any number of threads can call the GetQueuedCompletionStatus function to wait for an I/O completion port, each thread is associated with only one completion port at a time. That port is the port that was last checked by the thread.</p><p>When a packet is queued to a port, the system first checks how many threads associated with the port are running. If the number of threads running is less than the value of NumberOfConcurrentThreads, then one of the waiting threads is allowed to process the packet. When a running thread completes its processing, it calls GetQueuedCompletionStatus again, at which point the system can allow another waiting thread to process a packet.</p><p>The system also allows a waiting thread to process a packet if a running thread enters any wait state. When the thread in the wait state begins running again, there may be a brief period when the number of active threads exceeds the NumberOfConcurrentThreads value. However, the system quickly reduces the number by not allowing any new active threads until the number of active threads falls below the specified value.</p></blockquote>
-
-
-<p>즉 이 파라미터는 GQCS()에서 리턴되어 I/O completion 을 처리하는 쓰레드의 최대 동시 실행 개수를 의미한다. GQCS()를 호출하는 사용자 쓰레드의 개수에는 제한이 없지만, IOCP 자체에서 리턴시키는 개수를 이 파라미터로 제한하게 된다. 따라서 이 개수가 커지면 CPU 의 부하가 심해지므로 보통 0 을 넣어 자동화하거나 CPU 개수의 2배를 사용한다.</p>
-
-<h2>리소스 관리</h2>
-
-<p><em>Network Programming for Microsoft Windows 2000</em>에 나오는 리소스 관련 부분을 적당히 번역해봤다.</p>
-
-<blockquote><p>IOCP 를 사용한 Windows 서버를 개발할 때에는 locked pages 제한과 non-paged pool 제한에 유의해야 한다. 그 중 locked pages 제한이 non-paged pool 제한보다는 덜 위험하고 해결하기도 더 쉽다.</p><p>**Locked Pages Limit**</p><p>모 든 Overlapped I/O 에 있어서 WSABUF 의 메모리 공간은 locked 된다. 메모리가 lock 되면, 이넘들은 page out 되지 않는다. OS 레벨에서 locked page 의 최대 제한이 존재한다. 이 제한에 도달하면 이후의 Overlapped I/O 에서는 WSANOBUFS 에러가 리턴된다.</p><p>이때, 최대 연결의 개수가 중요한 서버에서는 0 bytes overlapped I/O 기법을 사용할 수 있다. 이 기법에서는, 버퍼를 제공하지 않으므로 locked 되는 메모리가 발생하지 않는다. (읽기 요청이 완료될 때 nonblocking receive 를 하는 방식이다.) 단, 클라이언트와 서버간의 통신 방식에 따라서 좋은 방법을 골라야 한다. 만약 클라이언트가 데이터를 열라 보낸다면, 잦은 Overlapped Input 호출이 있을테니..</p><p>*(WSABUF[0].buf 가 가리키는 메모리 공간에 lock 이 걸리는 것은 당연하다만, OVERLAPPED 구조체가 존재하는 메모리에도 마찬가지일까? 윗 글에 따르면 그건 아닌 듯한데.. 냠..)*</p><p>또 중요하게 고려해야 하는 것은, 시스템의 페이지 사이즈이다. lock 을 걸 때에는 페이지 단위로 걸게 되는데, x86 에서의 페이지 크기는 4K 의 배수이다. (조사해보니 x86 에서는 4K 였다) GetSystemInfo() 를 사용하면 페이지 크기를 알 수 있다.</p><p>**Non Paged Pool Limit**</p><p>non-paged pool 제한은 보다 위험하고, 복구하기도 어렵다. non-paged pool 은 항상 물리적 메모리에 존재하고, 절대 page out 되지 않는 메모리 영역이다. 커널과 각종 드라이버들이 이 영역에 속한다. 또한 각 소켓 역시 non-paged pool 에 소켓 상태를 저장하기 위한 약간의 메모리를 소비하게 된다. 특정 주소에 bind 될 경우, 주소 정보를 위한 추가적인 메모리가 더 필요하다. 소켓이 연결되면 remote address 관련된 메모리도 필요해진다. 모두 합하면, 연결된 소켓은 2k 정도, accept/AcceptEx 로 리턴된 소켓은 1.5k 정도의 non-paged pool 공간을 차지한다. (accepted 소켓은 단지 리모트 주소만 필요하기 때문에 약간 더 작다) 또한, 각 overlapped I/O 연산은 500 바이트 정도의 메모리 공간을 필요로 한다. *(500 바이트는 혹시 OVERLAPPED 구조체를 위한 공간이 아닐까?)*</p><p>일 반적으로 non-paged pool 은 물리적 메모리의 1/4 이며, W2k 에서는 256M, NT4 에서는 128M 의 최대 제한을 가진다. 256M 의 경우라면 5만 정도의 연결을 처리할 수 있지만, Accept/Send/Receive Overlapped I/O 의 개수가 제한된다는 점에 주의하라. accepted 소켓당 1.5k 이라고 하면, 소켓 자체로만 75M( 50000 x 1.5k )를 차지하며, 0 bytes receive 기법을 사용한다면 25M의 메모리를 차지한다.</p><p>만 약 시스템의 non-paged pool 이 한계에 도달하면, 운이 좋다면 WSANOBUFS 에러를 리턴하지만 그렇지 않으면 crash 될 것이다. 이를 복구하거나 예측(혹은 모니터링)한다는 것은 거의 불가능하기 때문에 개발자 스스로 최대 동시 접속수라든지, 최대 overlapped 연산의 숫자 등을 테스트해볼 필요가 있다. 만약 WSAENOBUFS 에러를 만난다면 연결을 닫는다든지 해서 줄이는 것이 좋을 것이다&#8230;</p></blockquote>
-
-
-<p>see also:</p>
-
-<pre><code>- http://pl.atyp.us/content/tech/servers.html
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/05/02/%E1%84%8B%E1%85%A9%E1%84%87%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5%E1%84%87%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AB-%E1%84%89%E1%85%B3%E1%84%90%E1%85%A9%E1%84%85%E1%85%B52/">오블리비언 스토리#2</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-05-02T10:05:20+09:00" pubdate data-updated="true">May 2<span>nd</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Official Guide 가 20일만에 드디어 도착했다. 랄라~</p>
-
-<h2>the Origin of Gray Prince</h2>
-
-<p>수도 임페리얼 시티의 투기장에 가면, 별명이 Gray Prince인 그랜드 챔피언 Agronak gro-Malog이라는 오크를 만날 수 있다. 그는 하녀였던 자신의 엄마가 군주와 사랑에 빠져서 자신을 낳았다가 군주의 마누라가 죽이려고 해서 할 수 없이 도망쳤다고 한다. 곧 열쇠를 하나 주며 혈통의 증거를 찾아와 달라고 하는데, 실제로 그 성에 가보면 오크 군주가 아니라 뱀파이어만 득실거리고 있다. 뱀파이어인 Lord Lovidicus를 죽이고 일기장을 가져다주면, 챔피언은 자신은 아무것도 아닌 괴물의 자식이며 그럴바엔 투기장에서 명예롭게 죽겠다며 실의에 빠진다.</p>
-
-<p>실제로 투기장에서 그와 싸우게 되면, 공격하는 대신 귓속말로 빨리 자신을 죽이라고 하는데&#8230; 무시무시하게 달려오는 속도에 비해서 너무나도 슬퍼보였던 오크의 눈빛이 잊혀지지 않는다. (대신 이 퀘스트를 하지 않고 챔피언과 겨루게 되면 아마 피터지는 싸움이 되었으리라.)</p>
-
-<p>오블리비언의 모든 NPC들의 목소리가 다 녹음된 것처럼, 매 경기마다 투기장에 울려퍼지는 아나운서(?)의 목소리도 계속 달라진다. 또한 챔피언과의 대결에서는 아나운서가 불러주는 호칭도 지정할 수도 있다. (이번에 키우는 캐릭터는 남자 레드가드 전사라서 the Crimson Sword를 선택했다. 으하하) 그리고, 투기장 위로 올라가면 실제로 NPC들이 싸우는 장면을 보면서 돈도 걸 수 있다.</p>
-
-<h2>산적(Bandit) 이야기</h2>
-
-<p><img src="http://boxcatstudio.files.wordpress.com/2009/07/bandits.gif" title="bandits.gif" >코럴성에 가면 얼굴은 잘생겼지만 지능이 약간 모자라는 청년이 쌍동이 형을 찾아달라는 퀘스트를 준다. 대륙 반대편의 도시에 있는 형을 찾아가서 소식을 알려주면, 형은 즉시 동생을 찾아서 대륙을 횡단하기 시작한다. 과연 또 어디까지 뛰어가나 싶어서 따라가봤는데, 갑자기 매복중인 산적에게 두들겨 맞아 쓰러지는게 아닌가&#8230; 이런 퀘스트 NPC들은 죽지 않는 대신 그냥 실신했다가 다시 일어나기를 반복하기에, 귀찮아서 산적을 잡아 주었다. 다시 벌떡 일어나서 동생을 찾아 뛰어가는 걸 보고&#8230; 인사를 하고 뒤돌아섰다. ㅋ</p>
-
-<p>그 후, 또다른 퀘스트를 하기 위해서 들판을 달려가고 있는데 멀리서 말을 탄 NPC하나가 달려 와서 인사를 하고 지나갔다. 웃긴 건 그 뒤로 또다른 산적 하나가 도끼를 들고 열심히 쫓아가는 장면. 결국 그 산적은 옆에 있던 길드 NPC에게 죽음을 당하게 되는데.. 앞에 NPC는 그것도 모르고 열심히 달려가고 있었다. 으하하.</p>
-
-<p>보통 산적들은 길가에서 매복해 있는데 커다란 돌 뒤에 숨어 있다가 뛰어나와서 돈 100골드를 내놓을래 죽을래? 라고 묻곤 한다. 제일 특이한 넘들은 다리에서 통행세를 받는 넘들인데, 꼭 다리 건너 귀퉁이에 숨어 있다가 뛰어나온다. 언젠가는 다리 옆 으슥한 곳에서 자세를 잡고 있길래 숨어서 활로 죽여 버린 적도 있다. 레벨이 올라갈수록 장비가 화려해지기 때문에, 길을 가면서도 가끔은 산적이 나오기를 기대하곤 한다. :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/29/css-tip/">CSS Tip</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-29T18:33:45+09:00" pubdate data-updated="true">Apr 29<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>id &amp; class</h2>
-
-<p>class는 여러 곳에 쓸 수 있지만 id는 한 군데만 써야 하고, 특히 id는 anchor 의 타겟으로도 사용될 수 있다.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;table&gt;</span>
-</span><span class='line'><span class="nt">&lt;thead&gt;</span>
-</span><span class='line'><span class="nt">&lt;th&gt;</span>selector<span class="nt">&lt;/th&gt;</span>
-</span><span class='line'><span class="nt">&lt;th&gt;</span>scope<span class="nt">&lt;/th&gt;</span>
-</span><span class='line'><span class="nt">&lt;th&gt;</span>example<span class="nt">&lt;/th&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;tr&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>id selector<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>instance level style (single)<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>H1 #xxx {...}<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;/tr&gt;</span>
-</span><span class='line'><span class="nt">&lt;tr&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>class selector<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>class level style (multiple)<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;td&gt;</span>H1.xxx {...}<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;/tr&gt;</span>
-</span><span class='line'><span class="nt">&lt;/thead&gt;&lt;/table&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>&#8217;*&#8217; 문자는 생략 가능하기 때문에, 다음의 두 표현식은 동등하다.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">*</span><span class="nf">#xxx</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
-</span><span class='line'><span class="nf">#xxx</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>padding &amp; margin</h2>
-
-<p>padding 은 box 영역의 안쪽, margin 은 바깥쪽을 의미하는데, 본문 바깥쪽의 여백을 나타낸다는 것을 연상하면 쉬울 것이다. 각 방향별 속성을 지정할 수도 있고, 한꺼번에 지정할 수도 있다. 이때, 위에서부터 시계방향이라는 것만 외우면 편하다. <a href="http://www.w3.org/TR/REC-CSS2/box.html#mpb-examples">padding &amp; margin example</a>을 참고할 것.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">padding-top</span><span class="o">:</span> <span class="nt">1px</span><span class="o">;</span>
-</span><span class='line'><span class="nt">padding-bottom</span><span class="o">:</span> <span class="nt">2em</span><span class="o">;</span>
-</span><span class='line'><span class="nt">padding</span> <span class="o">:</span> <span class="s1">&#39;top&#39;</span> <span class="s1">&#39;right&#39;</span> <span class="s1">&#39;bottom&#39;</span> <span class="s1">&#39;left&#39;</span><span class="o">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>font size</h2>
-
-<p>픽셀 등의 단위를 사용하게 되면, 화면 해상도에 관계없이 크기가 고정되게 된다. 이렇게 할 경우, 브라우저의 문자 크기 확대-축소를 해도 바뀌지 않는다. 눈이 나쁜 사람들을 위해서도 픽셀 고정 보다는 아래의 크기를 사용하는 것을 권장한다. (순수 디자인의 관점에서는 맞지 않을지도?)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">xx-small</span> <span class="o">&lt;</span> <span class="nt">x-small</span> <span class="o">&lt;</span> <span class="nt">small</span> <span class="o">&lt;</span> <span class="nt">medium</span> <span class="o">&lt;</span> <span class="nt">large</span> <span class="o">&lt;</span> <span class="nt">x-large</span> <span class="o">&lt;</span> <span class="nt">xx-large</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>아니면, 상대 크기인 smaller - larger를 써서, 자신의 부모 객체의 폰트보다 크거나 작도록 지정할 수도 있다.</p>
-
-<h2>호환성 있는 페이지 만들기</h2>
-
-<p>우선, 해당 페이지를 순수하게 텍스트로 렌더링하는 페이지를 만든다. 이때, h1, h2, &#8230;, p, hr, ul, ol, li, b 등의 텍스트형 태그만을 사용하도록 한다. (당연히 font 류의 데코레이션형 태그는 사용하지 않도록 한다.)</p>
-
-<p>텍스트 페이지가 완성되면, 이제 각 element 에 적당한 클래스 스타일을 지정해서, 아름답게 꾸미도록 한다. 중복되는 스타일은 DIV 등을 이용해서 그룹으로 묶는다. (가령 li 태그들)</p>
-
-<p>끝으로 CSS validate 및 HTML validate 를 통해서 호환성을 검증한다. 브라우저 테스트는 기본.</p>
-
-<h2>float &amp; clear</h2>
-
-<p>박스 또는 이미지가 다른 레이어와 충돌하지 않는 상태에서, 좌측 또는 우측으로 정렬될 수 있게 해준다. 가끔은, float 박스가 2개 이상의 레이어에 걸치지 않았으면 할 때가 있다. 이럴 경우, float 를 포함한 상위 레이어에다가 clear:both 속성을 지정해주면 걸치기를 막을 수 있다.</p>
-
-<p><a href="http://www.w3.org/TR/REC-CSS2/visuren.html">Visual Formatting Model</a>을 참고할 것.</p>
-
-<h2>Relative Percentage Positioning</h2>
-
-<p>Relative Positioning 에서 비율을 사용할 때, 항상 부모 블럭의 크기의 비율이라는 점에 유의할 것.즉 -50% 는 부모 크기의 50% 만큼 음의 방향으로 이동한다는 거다. 만약 나의 크기가 부모의 크기와 같다면 그것은 나의 절반만큼 이동한다는 의미가 된다. 다만, vertical 에 대해서는 잘 동작하지 않는 느낌.</p>
-
-<p>see also: <iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/Reiot/UUADc/embedded/js,resources,html,css,result/light/"></iframe></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/29/raknet-tips/">RakNet Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-29T00:01:10+09:00" pubdate data-updated="true">Apr 29<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>RakPeer::Disconnect(msec,orderingChannel)</h2>
-
-<p>서버에 접속 해제를 알리기 위해서는 RakPeer::Disconnet(msec>0) 를 사용해야 한다. Disconnect(0) 후에 바로 객체를 삭제하면 서버는 10-15초 후에나 연결 끊김을 감지할 수 있게 되며, 그 사이에 서버에 다시 접속할 경우 서버는 이미 연결되어 있는 것으로 간주해버린다. 단 내부적으로 blocking wait 를 하기 때문에 너무 큰 시간을 넘기면 곤란.</p>
-
-<h2>PacketLogger</h2>
-
-<p>RakNet에서 제공하는 플러그인 인터페이스를 이용한 패킷 로깅 클래스. peer.AttachPlugin(logger) 만 해주면 콜백에서 자동적으로 로그를 남겨준다. PacketFileLogger를 사용하면 CSV형식으로 로그를 남긴다. 엑셀을 잘 활용해서 트래픽 최적화라든지 그래프를 확인할 수 있다. 좀더 세밀한 로그를 원하면 상속을 받을 것.</p>
-
-<h2>Unconnected Ping</h2>
-
-<p>동일한 NAT아래에 있는 peer와 통신할 때에는 public보다는 private를 사용하는 것이 좋다. 이런 주소 선택 과정은 RakPeer::Connect()를 호출하기 전에 이루어져야 하는데, RakPeer::Ping(host,port,acceptOnly)을 이용해서 양쪽 주소 모두에게 Ping을 쏴서 확인할 수 있다. 기본적으로 ID_PING 을 보내고 ID_PONG을 받는데, 마지막 파라미터를 true로 할 경우 ID_PING_OPEN_CONNECTIONS을 보내며 상대방은 이미 연결되어 있을 경우에만 ID_PONG 으로 응답한다. FullyConnectedMesh처럼 플러그인 인터페이스를 이용해서 깔끔하게 구현할 수 있을 것 같은데, 플러그인에게 직접 뭔가를 보낼 수 있는지는 미확인.</p>
-
-<p>주의사항 : Unconnected Ping을 보낸 직후 Connect()를 하게 되면 3-way handshake 흐름이 꼬일 수 있다. 원인은 연결되기 전후의 프로토콜이 다르긴 하나 확률적으로 같게 될 수 있어서, 연결하는 동안 핑/퐁을 하다 보면 가끔 패킷을 잘못 처리하기 때문이다. 라크넷의 메인 개발자 Rak’kar는 가능하면 핑을 보낸 후 일정 시간 동안 기다린 다음 연결하는 것을 권장한다고 한다. 레이옷은 이 버그로 인해서 1개월 가량을 고생했다. -_-;;</p>
-
-<h2>ReliabilityLayer</h2>
-
-<p>패킷 전송 보장, 순서 보장을 구현하는 레이어</p>
-
-<dl><dt>Unreliable</dt><dd>Unreliable packets are sent by straight UDP. They may arrive out of order, or not at all. This is best for data that is unimportant, or data that you send very frequently so even if some packets are missed newer packets will compensate.</dd></dl>
-
-
-<pre><code>- Advantages - These packets don’t need to be acknowledged by the network, saving the size of a UDP header in acknowlegement (about 50 bytes or so). The savings can really add up.
-- Disadvantages - No packet ordering, packets may never arrive, these packets are the first to get dropped if the send buffer is full.
-</code></pre>
-
-<dl><dt>Unreliable sequenced</dt><dd>Unreliable sequenced packets are the same as unreliable packets, except that only the newest packet is ever accepted. Older packets are ignored.</dd></dl>
-
-
-<pre><code>- Advantages - Same low overhead as unreliable packets, and you don’t have to worry about older packets changing your data to old values.
-- Disadvantages - A LOT of packets will be dropped since they may never arrive because of UDP and may be dropped even when they do arrive. These packets are the first to get dropped if the send buffer is full. The last packet sent may never arrive, which can be a problem if you stop sending packets at some particular point.
-</code></pre>
-
-<p>Note that the transmission of one of the three reliable packets types is required for the detection of lost connections. If you never send reliable packets you need to implement lost connection detection manually.</p>
-
-<dl><dt>Reliable</dt><dd>Reliable packets are UDP packets monitored by a reliablilty layer to ensure they arrive at the destination.</dd></dl>
-
-
-<pre><code>- Advantages - You know the packet will get there. Eventually…
-- Disadvantages - Retransmissions and acknowlegements can add significant bandwidth requirements. Packets may arrive very late if the network is busy. No packet ordering.
-</code></pre>
-
-<dl><dt>Reliable ordered</dt><dd>Reliable ordered packets are UDP packets monitored by a reliability layer to ensure they arrive at the destination and are ordered at the destination.</dd></dl>
-
-
-<pre><code>- Advantages - The packet will get there and in the order it was sent. These are by far the easiest to program for because you don’t have to worry about strange behavior due to out of order or lost packets.
-- Disadvantages - Retransmissions and acknowlegements can add significant bandwidth requirements. Packets may arrive very late if the network is busy. One late packet can delay many packets that arrived sooner, resulting in significant lag spikes. However, this disadvantage can be mitigated by the clever use of ordering streams .
-</code></pre>
-
-<dl><dt>Reliable sequenced</dt><dd>Reliable ordered packets are UDP packets monitored by a reliability layer to ensure they arrive at the destination and are sequenced at the destination.</dd></dl>
-
-
-<pre><code>- Advantages - You get the reliability of UDP packets, the ordering of ordered packets, yet don’t have to wait for old packets. More packets will arrive with this method than with the unreliable sequenced method, and they will be distributed more evenly. The most important advantage however is that the latest packet sent will arrive, where with unreliable sequenced the latest packet sent may not arrive.
-- Disadvantages - Wasteful of bandwidth because it uses the overhead of reliable UDP packets to ensure late packets arrive that just get ignored anyway.
-</code></pre>
-
-<h3>전송 보장의 구현</h3>
-
-<p>전송 보장(packet reliability)은 말 그대로 어떤 패킷이 Peer 에 잘 도착했다는 것을 의미한다.</p>
-
-<pre><code>- 전송시 RELIABLE_XXX 플래그를 지정한다.
-- 보내는 쪽에서는 재전송큐에 패킷을 넣어둔다.
-- 받는 쪽에서는 RELIABLE 패킷이 도착하면 ACK(num)를 전송한다.
-- 보내는 쪽에서는 ACK(num)를 받으면 재전송큐에서 삭제한다.
-- ACK 손실에 대비, 모든 ACK들은 ACK큐에 저장된다.
-- 주기적으로 실행되는 ReliabilityLayer::Update()에서 그동안 쌓인 ACK큐와 재전송큐를 한꺼번에 모아서 Peer에게 전송한다. (물론 손실이 가정되는 넘에 대해서만)
-- 모든 user defined message 앞에 위와 같은 InternalPacket 이 1개 이상 붙어 나갈 수 있다.
-</code></pre>
-
-<p>결국, 모든 RELIABLE 메시지에 대해서 ACK 가 왔다갔다 하는 셈이다.</p>
-
-<h3>순서 보장의 구현</h3>
-
-<p>모든 데이터가 순서 보장이 필요하지 않으며, 오직 몇몇 종류의 패킷들만이 순서 보장이 필요하다. 따라서, 이런 류들을 위한 채널(ordering channel)을 구현해서 각각의 채널마다의 순서를 보장해줘야 한다.</p>
-
-<pre><code>- 각 채널마다 waitingForOrderedPacketReadIndex 가 존재한다.
-- 순서 보장 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패
-- 만약 orderingIndex == waitingForOrderedPacketReadIndex 이면, 대기 인덱스를 증가시키고, 대기 리스트(orderingList)에 들어있는 넘들을 처리해준다.
-- 그렇지 않으면 중간에 누락된 것이므로 대기 리스트에 넣어둔다.
-- orderingIndex 는 BYTE 로 구현된다. 255 로 해서 wrap 시키면 충분한 듯.
-- 그렇지만 아주 오래전의 패킷이 도착했다면 순서가 꼬일 수 있을 법 하다. 이런 것들은 상대편의 전송 시간을 이용해서 체크한다.
-</code></pre>
-
-<h3>패킷 시퀀스의 구현</h3>
-
-<p>순서 보장(packet ordering)과는 달리 패킷 시퀀스(packet sequence)는 최신의 패킷이 도착하면, 그 전에 도착한 동일한 패킷은 모두 무시하는 것을 의미한다. 가령, xyz 좌표가 10개가 쌓여 있다면 가장 최신의 좌표만을 보여주면 되므로 시퀀스 플래그를 사용하면 된다. 패킷 시퀀스 역시 ordering channel + ordering index 로 구현된다.</p>
-
-<pre><code>- 각 채널마다 waitingForSequencedPacketReadIndex 가 존재한다.
-- 시퀀스 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패
-- 만약 orderingIndex &gt;= waitingForSequencedPacketReadIndex 이면, 시퀀스  인덱스를 증가시킨다.
-- 그렇지 않으면 이미 최신 데이터가 먼저 와 있으므로, 무시해버린다.
-</code></pre>
-
-<h3>긴 메시지의 구현</h3>
-
-<p>MTU 크기를 넘어선 긴 데이터는, 여러 개의 작은 패킷에 나눠져서(split) 전송될 수 밖에 없다.</p>
-
-<p>더 많은 팁들은 레이옷의 <a href="http://del.icio.us/reiot/raknet">RakNet 링크모음</a>을 참고할 것.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/27/spread/">Spread</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-27T07:56:32+09:00" pubdate data-updated="true">Apr 27<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>개요</h1>
-
-<p><a href="http://www.spread.org">Spread</a>는 그룹 기반의 UDP 메시징 라이브러리로, unicast &amp; multicast 및 scattered send/receive를 지원한다. 단 PeerToPeer 모델이 아니라, 독립적인 어플리케이션인 Spread 데몬이 가운데에서 중계를 해주는, 일종의 메시지 버스의 역할을 한다. RakNet 과 마찬가지로 다양한 UDP 전송 방식을 지원한다.</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th> 전송방식 </th>
-<th> 설명 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>   Unreliable  </td>
-<td> least |</td>
-</tr>
-<tr>
-<td></td>
-<td>   Reliable    </td>
-<td> will get there, no ordering |</td>
-</tr>
-<tr>
-<td></td>
-<td>   Fifo        </td>
-<td> reliable and ordered fifo by source |</td>
-</tr>
-<tr>
-<td></td>
-<td>   Causal      </td>
-<td> reliable and all mesg from any source of this  level are causally ordered |</td>
-</tr>
-<tr>
-<td></td>
-<td>   Agreed      </td>
-<td> reliable and all mesg from any source of this level are totally ordered |</td>
-</tr>
-<tr>
-<td></td>
-<td>   Safe        </td>
-<td> Agreed ordering and mesg will not be delivered to application until the mesg has reached ALL receipients&#8217; daemons |</td>
-</tr>
-</tbody>
-</table>
-
-
-<h1>성능</h1>
-
-<p>문서에 의하면 1k 메시지 8000개를 1초에 전송 보장한다고 하며, 또한, <a href="http://www.cnds.jhu.edu/pub/papers/cnds-2004-1.pdf">The Spread Toolkit: Architecture and Performance</a>에 따르면 만개의 그룹에서 Safe 메시지를 보낼 때의 지연 시간이 6ms 라고 나온다. 실제로, 파이썬 바인딩을 이용한 클라이언트와 (아무런 부하를 주지 않은) localhost 데몬과의 테스트 결과 0.25ms 정도의 반응 시간을 보여줬다.</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th> 전송방식 </th>
-<th> 평균 ping 시간 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td> UNRELIABLE_MESS </td>
-<td> 0.248ms |</td>
-</tr>
-<tr>
-<td></td>
-<td>  RELIABLE_MESS </td>
-<td> 0.248ms |</td>
-</tr>
-<tr>
-<td></td>
-<td>  FIFO_MESS </td>
-<td> 0.247ms |</td>
-</tr>
-<tr>
-<td></td>
-<td>  CAUSAL_MESS </td>
-<td> 0.247ms |</td>
-</tr>
-<tr>
-<td></td>
-<td>  AGREED_MESS </td>
-<td> 0.247ms |</td>
-</tr>
-<tr>
-<td></td>
-<td>  SAFE_MESS </td>
-<td> 0.248ms |</td>
-</tr>
-</tbody>
-</table>
-
-
-<p>로컬랜에 연결된 2개의 머신에서 한쪽(Windows XP, P4 2G + 512M)에 데몬을 real time priority 로 띄우고 다른 쪽에 송수신 전용 쓰레드를 가진 테스트 클라이언트를 붙인 다음, 초당 8000개의 4byte 메시지를 보내는 경우 CPU 사용량 100% 에 RTT 0.8s 가 나왔다. 즉 1초 안에 전송은 보장하지만 반응 속도는 영 좋지 않았다. 그리고 로컬랜의 방화벽 바깥에 있는 머신(Windows 2003 + P4 2.8G + RAM 2G)에 데몬을 띄우고 방화벽 안쪽에서 테스트한 결과, 초당 4000개를 보내면 연결이 끊기며 초당 1000개를 보내면 0.8s 의 반응 속도를 보여줬다.</p>
-
-<h1>예상되는 용도</h1>
-
-<p>컨텐트 중계 서버
-: 채팅 채널, 파티 채팅, 길드 채팅을 중계해주는 서버. 굳이 채팅 서버를 두지 않아도 무방할 듯. 그 역할을 Spread Daemon 이 해주니까.</p>
-
-<p>게이트웨이 서버
-: M:N 관계에 있는 tier 에서의 중계 서버 역할. 가령 N개의 에이전트와 M개의 게임서버간의 연결을 TCP로 하게 되면 각 에이전트는 M개의 TCP연결을 하고 그것을 관리해야 한다. 이를 1개의 Spread 연결로 해결할 수 있다. (M개의 그룹에 대해 1개의 연결을 사용한다는 가정 하에서&#8230;) 마찬가지로 게임서버는 1개의 Spread 연결에 대해서만 처리하게 되므로 이벤트 드리븐이 간단하게 이루어진다. 가령 클라이언트가 에이전트에 로그인하고 이전 위치를 로딩하게 되면, 에이전트는 해당 서버 그룹에 join 하고, 클라이언트가 로그아웃하면 그룹에서 leave 하면 된다. (ref-counting을 사용하면 간단) 서버간 이동도 마찬가지로 처리할 수 있다. 단 이렇게 될 경우 데몬이 다운되면 게임 끝이다.</p>
-
-<p>브로드캐스트 서버
-: (현실성이 없는 이야기지만) 게임 서버의 각 브로드캐스트 영역(일명 Area)을 그룹으로 간주하고, 그 안에 들어있는 플레이어들에게 멀티캐스팅할 수 있겠다. 단 이런 모델은 잦은 그룹 join/leave 가 이루어지므로 Area 개수가 늘어날수록 부하가 심해질 듯. 1000개의 그룹일 경우 35ms 정도니까&#8230; 10000개면&#8230;</p>
-
-<p>데이터 복제 서버
-: 게임 서버의 경계 영역에서의 데이터 변화를, 이를 공유하는 다른 서버로 복제한다. 예를 들면, NPC 길찾기를 위한 동적 객체 정보를 게임 서버에서 NPC 에이전트로 복제하는 등.</p>
-
-<h1>참고사항</h1>
-
-<p>경험자의 말에 의하면, windows xp 와의 궁합이 잘 맞지 않다고 한다. 대신 windows 2000 에서는 잘 된다고 하는데, 커널의 네트워크 모듈과의 궁합 문제일 가능성이 있다고 한다. 즉 windows 2003 에서 테스트를 더 해봐야 한다는 의미.</p>
-
-<p>see also:</p>
-
-<ul>
-<li><a href="http://www.spread.org/docs/guide/users_guide.pdf">Spread User Guide</a></li>
-<li><a href="http://www.zope.org/Members/tim_one/spread/">Python Spread</a></li>
-<li><a href="http://www3.telus.net/taj_khattra/luaspread.html">Lua Spread</a></li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2006/04/27/spread/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/27/python-tips/">Python Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-27T07:38:41+09:00" pubdate data-updated="true">Apr 27<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>asyncore.dispatcher</h3>
-
-<ul>
-<li>원래부터 nonblocking 이다.</li>
-<li>set_socket 하는 시점에 map 에 등록된다.</li>
-</ul>
-
-
-<h3>StringIO.readline()</h3>
-
-<p>StringIO 는 file-like 객체이므로 readline() 을 지원한다. 그러나 write() 한 후 읽어들이면 None 을 리턴한다. 내부적으로 유지하는 offset 이 하나이기 때문인데, 만약 사용하려면 offset(0) 을 호출해서 포인터를 맨 앞으로 돌려줘야 한다. (너무 단순한가?)</p>
-
-<h3>zipfile</h3>
-
-<p>zip 포맷으로 특정 폴더를 압축하기 위해서는 다음과 같이 해야 한다. 이때 압축 포맷으로 ZIP_DEFLATED 를 사용해야 파일 크기가 작아진다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">zipdir</span><span class="p">(</span><span class="n">zfile</span><span class="p">,</span><span class="nb">dir</span><span class="p">,</span><span class="n">base</span><span class="o">=</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
-</span><span class='line'>  <span class="sd">&quot;&quot;&quot;zip directory recursively&quot;&quot;&quot;</span>
-</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">zip </span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="nb">dir</span><span class="p">,</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">global</span> <span class="n">log</span>
-</span><span class='line'>  <span class="n">log</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;zip </span><span class="si">%s</span><span class="s">...&#39;</span><span class="o">%</span><span class="nb">dir</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">nf</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">nf</span><span class="p">):</span>
-</span><span class='line'>      <span class="n">zipdir</span><span class="p">(</span><span class="n">zfile</span><span class="p">,</span><span class="n">nf</span><span class="p">,</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="nb">dir</span><span class="p">))</span>
-</span><span class='line'>  <span class="k">else</span><span class="p">:</span>
-</span><span class='line'>      <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
-</span><span class='line'>      <span class="n">zfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">nf</span><span class="p">,</span>   <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">base</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="nb">dir</span><span class="p">),</span> <span class="n">f</span><span class="p">),</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>dict(zip(seq1,seq2))</h3>
-
-<p>keys와 values를 dict로 매치시킬 때 dict()와 zip()을 사용할 수 있다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&#39;aaa&#39;</span><span class="p">,</span> <span class="s">&#39;bbb&#39;</span><span class="p">,</span> <span class="s">&#39;ccc&#39;</span> <span class="p">]</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">)</span>
-</span><span class='line'><span class="p">[(</span><span class="s">&#39;aaa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;bbb&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;ccc&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">))</span>
-</span><span class='line'><span class="p">{</span><span class="s">&#39;aaa&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;bbb&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;ccc&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>re.findall</h3>
-
-<p>스트링에서 특정 seperator 로 구분된 패턴으로 자를 때, string.split() 도 좋지만 re.findall() 을 강추</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">args</span> <span class="o">=</span> <span class="s">&#39;&quot;SELECT * FROM User&quot;,&quot;aaa,bbb,ccc,ddd&quot;&#39;</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">args</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;&quot;&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;SELECT * FROM User&#39;</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;aaa,bbb,ccc,ddd&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">]</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;&quot;(.+?)&quot;&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
-</span><span class='line'><span class="p">[</span><span class="s">&#39;SELECT * FROM User&#39;</span><span class="p">,</span> <span class="s">&#39;aaa,bbb,ccc,ddd&#39;</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>re 를 이용한 파일명 변경</h3>
-
-<p>특정 폴더 안에 여러가지 파일명들을 바꾸기 위해서는 re 모듈을 잘 사용해야 한다. 다음은 파일명에 &#8230; 을 없엘 때 쓰는 스크립트이다.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">re</span>
-</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">target_folder</span><span class="p">)</span>
-</span><span class='line'><span class="k">for</span> <span class="n">old_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">new_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;\[.+\]&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="n">old_name</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">old_name</span><span class="p">,</span><span class="n">new_name</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/27/funny-memory-values/">Funny Memory Values</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-27T07:31:49+09:00" pubdate data-updated="true">Apr 27<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>from <a href="http://www.samblackburn.com/wfc/technotes/WTN006.htm">WFC Technical Note 006 - Funny Memory Values</a></p>
-
-<p>윈도우 환경에서 디버깅을 하다 보면 0XCDCD 라든지 0XDDDD 같은 특이한 값들을 만날 수 있는데, 이게 그냥 가비지가 아니라 각각마다 특유의 의미를 가지고 있었다. 가령 0xDDDD는 이미 지워진 포인터라든지 0xFDFD는 힙에 할당한 값의 앞뒤에 위치하는 경계값이라든지 말이다.</p>
-
-<p>한글로 된 설명은 <a href="http://codian.net/wp/archives/352">요기</a>와 <a href="http://www.trozan.net/blog/tag/%B5%F0%B9%F6%B1%D7">요기</a>가 제일 잘 되어 있으니 참고하시길.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/27/sql-tips/">SQL Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-27T07:03:18+09:00" pubdate data-updated="true">Apr 27<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>MS-SQL SERVER + Transact SQL Tip</p>
-
-<h2>IP 문자열에서 a.b.c 추출하기</h2>
-
-<p>declare @ip varchar(20)
-SET @ip = &#8216;111.22.33.22&#8217;
-SELECT LEFT(@ip,len(@ip)-patindex(&#8216;%.%&#8217;,reverse(@ip)))</p>
-
-<h2>리포팅 서비스</h2>
-
-<p><a href="http://network.hanbitbook.co.kr/view.php?bi_id=1048">IIS + ASP + VisualStudio.NET 을 이용한 리포트 서비스 제작</a></p>
-
-<h2>FTP 파일 업로드</h2>
-
-<p>DTS 에서 제공하는 파일 전송 프로토콜 작업(FTPTask)의 경우, 다운로드만 가능하고 업로드는 지원하지 않는다. 가령, 로컬 백업한 <em>.bak, </em>.trn 파일을 리모트 서버로 옮기려면 업로드 스크립트를 SQL 이나 VB 또는 Python으로 직접 개발해야 한다.</p>
-
-<h2>복구 모델</h2>
-
-<p>당연히, 트랜잭션 로그를 남기려면 FULL 복구 모델로 데이터베이스를 설정해야 한다. 백업 정책을 세울 때 꼭 모델을 체크하기 바란다. (기본적으로 FULL 모델로 만들어지는 것 같지만, 필수적으로 체크할 것)</p>
-
-<h2>SQLServerAgent</h2>
-
-<p>유지 관리 계획 등 주기적인 작업을 실행하려면 기본적으로 꺼져있는 SqlServerAgent 를 켜야 한다.</p>
-
-<h2>테이블 스키마 복사</h2>
-
-<p>스크립트로 추출해서 다른 DB 에 설치할 경우 디폴트값이 지정되지 않는 경우가 있다. 이때 DEFAULT 등 제약조건 스크립팅에 꼭 체크를 해야 한다. 아니면 그냥 데이터 내보내기를 사용하길.</p>
-
-<h2>노트북에 SQL Server 설치하기</h2>
-
-<p>SQL Server 상위 버전들은 기본적으로 서버급 OS 에서만 설치된다. 그러나 노트북은 대체로 XP Professional or Home Edition 을 사용하는 법. 이를 지원하는 SQL Server 버전들을 살펴보자.</p>
-
-<table>
-<thead>
-<th></th>
-<th>XP Home</th>
-<th>XP Pro</th>
-<th>comment</th>
-
-<tr>
-<td>MSDE</td>
-<td>O</td>
-<td>O</td>
-<td> </td>
-</tr>
-<tr>
-<td>Evaluation Edition</td>
-<td>O</td>
-<td>O</td>
-<td>120 일 평가판</td>
-</tr>
-<tr>
-<td>Persional Edition</td>
-<td>X</td>
-<td>O</td>
-<td> </td>
-</tr>
-<tr>
-<td>Developer Edition</td>
-<td>X</td>
-<td>O</td>
-<td> </td>
-</tr>
-</thead></table>
-
-
-<p>결국 XP Home Edition 을 사용하는 경우에는 평가판 또는 MSDE 를 사용해야 한다. 이참에 MSDE 의 새 버전인 SQL Server Express 2005 를 사용해보는 것도&#8230; <img src="http://boxcatstudio.files.wordpress.com/2009/07/icon_sad.gif" title="(" ></p>
-
-<p>see also: * [http://www.microsoft.com/sql/evaluation/overview/default.asp SQL Server Overview] - 여기에 버전별 비교표가 들어있다 * [http://go.microsoft.com/?linkid=2534867 120일 평가판 다운로드]</p>
-
-<h2>NULL 비교</h2>
-
-<p>NULL 에 대한 비교는 is 로 하라!</p>
-
-<p>declare @a int
-SET @a = NULL</p>
-
-<p>IF @a = NULL
-print &#8216;@a=NULL&#8217;
-IF @a IS NULL
-print &#8216;@a is NULL&#8217;</p>
-
-<p>declare @b int
-SET @b = 1</p>
-
-<p>IF @b &lt;> NULL
-print &#8216;@b &lt;> NULL&#8217;
-IF @b IS NOT NULL
-print &#8216;@b is not NULL&#8217;</p>
-
-<p>&#8211; 실행 결과
-@a IS NULL
-@b IS NOT NULL</p>
-
-<h2>constraint 관리</h2>
-
-<p>디폴트 constraint 를 삭제하고 다시 추가하는 법&#8230;</p>
-
-<p>&#8211; 삭제
-ALTER TABLE [dbo].[테이블] DROP
-CONSTRAINT [DF<em>테이블</em>컬럼]</p>
-
-<p>&#8211; 추가
-ALTER TABLE [dbo].[테이블] WITH NOCHECK ADD
-CONSTRAINT [DF<em>테이블</em>컬럼] DEFAULT (디폴트값) FOR [관련컬럼]</p>
-
-<h2>CASE WHEN&#8230;</h2>
-
-<p>다음은 승률을 나타내는 컬럼을 계산해오는 방식이다.</p>
-
-<p>SELECT
-&#8230;.
-CASE
-WHEN (WinCount + LoseCount + DrawCount) = 0 THEN 0.00
-ELSE round((WinCount * 1.0) / (WinCount + LoseCount + DrawCount) , 2)
-END AS WinRate,
-&#8230;.</p>
-
-<h2>SELECT&#8230;INTO&#8230;</h2>
-
-<p>INSERT INTO&#8230;SELECT&#8230;가 존재하는 테이블에 데이터를 넣을 때 사용한다면, SELECT&#8230;INTO&#8230;는 새로운 테이블을 만들어 넣을 때 사용한다. 특히 통계 테이블에 데이터를 넣을 때, TRUNCATE TABLE xxx; INSERT INTO&#8230;SELECT를 하게 되면, 문제가 생길 수 있으므로 아예 DROP 한 다음 SELECT&#8230;INTO&#8230; 를 사용하도록 한다. (우리 DBA의 말씀~)</p>
-
-<p>SELECT.. INTO는 MS-SQL의 기능! . 일반적인 ANSI-SQL에서는 CREATE TABLE &#8230; SELECT 를 사용함.</p>
-
-<h2>대용량 데이터 빨리 넣기</h2>
-
-<pre><code>- 관련 데이터베이스의 로그 타입 변경 : EM에서 데이터베이스 등록정보를 선택, 복구 모델을 단순 또는 대량 로그로 임시 변경해준다.
-- ALTER TABLE ... 로 관련 테이블의 PK 제거하기. 그러나, FK 관계에 있을 경우에도 제거를 해야 하므로 EM 또는 VS 의 DB 다이어그램에서 삭제하는게 제일 간편하다. 단. 복구는 수동 -_-;
-- DROP INDEX ...로 관련 테이블의 인덱스 제거하기. 그러나, 다시 복구해야 하므로... 수작업 필수
-- BULK INSERT : DB 스트레스 테스트를 위해 백만건 이상의 데이터를 넣어야 할 때 사용하면 간편하다. 단 샘플 데이터 파일을 제공해줘야 한다.
-- INSERT INTO xxx () SELECT ...로 자기 자신 혹은 관련 테이블을 활용할 것. while + insert 1 보다 훨씬 빠르다. 테스트해본 결과 한줄씩 insert 할 경우 10만건에 40초, 그러나 위의 방법을 쓰면 2초로 해결 가능. 단, 용량이 너무 커질 경우 실행이 안되므로, 범위를 나눠야 할 듯. 300만건에서는 대충 됨.
-- PK/FK/Index/Trigger 복구하기. 800만건이 들어있는 테이블의 PK 를 복구하는데 Xeon Dual 0.8G 에서 무려 '''5분'''이나 걸렸다.
-</code></pre>
-
-<p>ALTER TABLE xxx ADD CONSTRAINT PK_xxx_yyy PRIMARY KEY(yyy)
-ALTER TABLE xxx ADD CONSTRAINT FK_xxx_yyy FORENGN KEY REFERENCES zzz(yyy) ON DELETE CASCADE
-CREATE [UNIQUE] INDEX IX_xxx_yyy ON xxx(yyy)</p>
-
-<h2>데드락 해결하기</h2>
-
-<p>sp_who2
-sp_lock pid
-KILL pid</p>
-
-<h2>like 와 인덱스</h2>
-
-<pre><code>- col like 'userid%'
-- col like '%userid%'
-- col like '%userid'
-</code></pre>
-
-<p>오직 1번만이 인덱스를 타게 된다. Index는 Binary Tree로 구성되어 있기 때문에 처음부터 찾아서 들어가는 것임. 당연히 첫자를 알 수 없다면 index를 경유하지 못함!!!</p>
-
-<h2>Update Trigger</h2>
-
-<p>특정 컬럼이 변경된 경우 로그 테이블에 row 를 추가해야할 경우 Update Trigger 를 사용하면 간편하다. 가령, 플레이어 레벨이 바뀌었을 때 레벨 테이블에 insert 를 해야 한다고 가정하면 트리거는 대략 다음과 같다.</p>
-
-<p>CREATE TRIGGER trigger_name ON src_tbl FOR UPDATE
-AS
-IF UPDATE(level)
-begin
-declare @old_level smallint, @new_level smallint
-SELECT @new_level = [Level] FROM inserted
-SELECT @old_level = [Level] FROM deleted
-IF @old_level &lt;> @new_level
-begin
-INSERT INTO log_tbl (&#8230;.) VALUES (&#8230;,@old_level,@new_level,&#8230;)
-end
-RETURN
-end</p>
-
-<h2>@@IDENTITY vs. SCOPE_IDENTITY()</h2>
-
-<p>전자의 경우, 현재 세션에서의 최종적인 IDENTITY 컬럼의 값을 리턴해준다. 단, 트리거에 의해서 다른 테이블에서 IDENTITY 가 바뀐 경우 그 값을 리턴해준다. 따라서, 최종적으로 직접 만진 테이블의 IDENTITY 값을 알아오려면 SCOPE_IDENTITY() 를 사용하는 것이 안전하다.</p>
-
-<h2>UPDLOCK</h2>
-
-<p>쿼리 분석기에서 좌측 쿼리를 먼저 실행한 후 우측 쿼리를 실행할 때, 첫번째 예제의 경우 그냥 실행이 되지만 두번째 예제는 block 된다. 오라클에는 select for update 라는 게 있다나&#8230;</p>
-
-<table>
-<tr>
-<td>nonblocked query</td>
-</tr>
-<tr>
-<td>begin trans</td>
-<td rowspan="2">select * from users</td>
-</tr>
-<tr>
-<td>select * from users with (updlock)</td>
-</tr>
-<tr>
-<td>blocked query</td>
-</tr>
-<tr>
-<td>begin trans</td>
-<td rowspan="2">select * from users with (updlock)</td>
-</tr>
-<tr>
-<td>select * from users with (updlock)</td>
-</tr>
-</table>
-
-
-<p>DB레벨에서 중복로그인을 처리할 경우, DB 컬럼에 LogOn flag 를 둬야 한다. LOGOFF - LOGON - GAME 이런 식의 상태 변화가 있다고 가정하면, 로그인시 LOGOFF -> LOGON 으로 바꿔주고 로그아웃시 LOGON -> LOGOFF 로 설정하게 될 것이다. 문제는 이걸 언제 어떻게 체크해서 바꾸느냐인데&#8230;</p>
-
-<p>&#8211; simplified login procedure
-declare @logon
-SELECT @logon=LogOn FROM users WHERE &#8230;
-IF ( @logon &lt;> LOGOFF )
-begin
-handle_error&#8230;
-end
-UPDATE users SET @logon = LOGON WHERE &#8230;</p>
-
-<p>이런 식으로 처리할 경우, abuser 에 의해서 동일 유저에 대한 로그온 프로시저가 DB에서 동시에 일어난다고 가정하면 중복로그인이 충분히 발생할 수 있게 된다. (아주 낮은 확률이지만&#8230;) 이를 손쉽게 막으려면 select with updlock를 사용하면 된다. (단, 이때 (Page,IU), (KEY,U), (Table,IX) 의 3가지의 락이 걸린다)</p>
-
-<p>웬지 불필요한 lock 을 피하기 위해서는, update 의 where 절에서 다시 한번 LogOn 필드를 체크(즉 select 해온 뒤 누가 바꿨는지 다시 확인) 해주면 될 거 같다.</p>
-
-<p>&#8211; simplified login procedure
-declare @logon
-SELECT @logon=LogOn FROM users WHERE &#8230;
-IF ( @logon &lt;> LOGOFF )
-begin
-handle_error&#8230;
-end
-UPDATE users SET @logon = LOGON WHERE &#8230; AND logon = LOGOFF
-IF ( @@rowcount &lt;> 1 )
-begin
-handle_error&#8230;
-end</p>
-
-<p>테스트 해 본 결과 양 쪽에서 select 한 후 한쪽에서 update 를 하면, 다른 쪽의 update 는 트랜잭션에 의해 block 되며 상대 트랜잭션이 끝나면 실패를 리턴하게 된다. (만약 where 절의 체크가 없다면 둘 다 로그인 성공으로 간주되므로 주의할 것)</p>
-
-<blockquote><p>이게 consistent non-blocking read을 지원하기 때문인데, 간혹 조금 이해하기 힘든 현상이 일어날 때도 있지. 하지만 Query 하나 들어갈때마다 table에 lock을 걸어버리는 방법은 너무 위험부담이 크기 때문에. consistent read에 대한 설명이 필요하다면 다음 기회에..</p></blockquote>
-
-
-<h2>sp_lock, sp_who2</h2>
-
-<pre><code>- sp_lock : 현재 시스템에 존재하는 lock 을 보여준다.
-- sp_who2 : 현재 시스템에서 실행되는 프로세스, 소유주, 접속지, 실행내용 등을 보여준다.
-</code></pre>
-
-<p>이 내용은 Enterprise Manager 의 관리에서 찾아볼 수 있다.</p>
-
-<h2>GOTO</h2>
-
-<p>어릴 적(?)부터 항상 GOTO 는 쓰지 말라는 이야기를 들어 왔지만, 프로시저에서 또 쓰게 될 줄은&#8230; 그러나, 트랜잭션이 존재할 경우 GOTO 를 쓰지 않으면 자꾸 if-else-if-else 로 indent 해들어가는 바람에 읽기가 힘들어져서&#8230;</p>
-
-<p>begin transaction
-&#8230;.
-&#8230;.
-IF ( error_found )
-begin
-rollback transaction
-SET @errorcode = -1
-goto Label
-end
-&#8230;.
-&#8230;.
-commit transaction
-&#8230;.
-&#8230;.
-Label:
-log something&#8230;
-&#8230;.
-&#8230;.</p>
-
-<h2>SET IDENTITY_INSERT</h2>
-
-<p>identity 컬럼의 경우 DELETE FROM tbl 하더라도 시드값은 계속 증가하게 되어 있다. 또한, 특정 값을 명시적으로 insert 할 수 없다. 이를 가능하게 하기 위해서는 아래와 같이 하면 된다.</p>
-
-<p>SET identity_insert tbl ON
-INSERT INTO tbl (identity_col,&#8230;) VALUES (N,&#8230;)
-SET identity_insert tbl off</p>
-
-<h2>@@ERROR / @@ROWCOUNT</h2>
-
-<p>프로시저 중간에 insert 나 update 할 경우 혹시 모를 실패에 대비해서 아래와 같이 체크해야 한다.</p>
-
-<p>INSERT &#8230;
-IF @@error &lt;> 0
-begin
-rollback transaction
-RETURN
-end</p>
-
-<p>update 의 경우 1개의 업데이트만 기대했는데, 2개가 업데이트된 경우 @@ERROR는 정상이 된다. 이때에는 @@ROWCOUNT 를 체크해야 한다.</p>
-
-<h2>시간 필드의 디폴트값</h2>
-
-<p>insert 시점의 시간을 저장하는 필드의 경우, 테이블 선언시</p>
-
-<p>CREATE TABLE xxx
-&#8230;
-yyy DATETIME DEFAULT GETDATE()
-&#8230;</p>
-
-<p>라고 해주면 insert 할때 굳이 명시할 필요가 없다.</p>
-
-<h2>현재 시간 + a</h2>
-
-<p>dateadd( datepart, N, getdate() )</p>
-
-<h2>스크립트 디버깅</h2>
-
-<p>exec sp_sdidebug &#8216;legacy_on&#8217;</p>
-
-<h2>시간 변환</h2>
-
-<p>convert(varchar(10),getdate(),121)</p>
-
-<h2>프로시저 실행시 파라미터</h2>
-
-<p>out 을 명시해주지 않으면 받아낼 수 없다</p>
-
-<p>execute proc @param1, @param2, @param3 out, @param4 out</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/26/codekeep/">CodeKeep</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-26T08:14:46+09:00" pubdate data-updated="true">Apr 26<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.JPG" title="codekeep.JPG"><img src="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.thumbnail.JPG" title="codekeep.JPG" ></a>
-<a href="http://msdn.microsoft.com/msdnmag/issues/05/12/VisualStudioAddins/default.aspx">Visual Studio Add-Ins Every Developer Should Download Now</a> 에서 비주얼 스튜디오를 위한 10 가지 필수 플러그인들을 만나볼 수 있다. 그 중에서 제일 마음에 드는 것은, 함수를 선택하면 파라미터를 읽어서 자동적으로 XML 코멘트를 만들어주는 <a href="http://www.roland-weigelt.de/ghostdoc">GhostDoc</a>과, 웹에서 코드 조각들을 검색해서 내 코드에 넣을 수 있는 <a href="http://www.codekeep.net/">CodeKeep</a>이라는 플러그인이다.</p>
-
-<p>단 GhostDoc은 아직 VS2005 영문판만 지원해서 CodeKeep만 구경해볼 수 있었는데, 아직은 기부된 코드의 양이 부족한 듯해서 아쉬웠다. del.icio.us처럼 많은 사람들이 사용해줘야 시너지 효과가 날텐데, 홈페이지만 <a href="http://goodhyun.com/archives/2006/04/_co_oe_aoea_a_2.php">웹2.0 디자인</a>을 닮으려고 해서는 안될 것이다. 이런 식으로 팀 내부적으로 코드조각을 공유할 수 있는 솔루션이 있었으면 좋으련만&#8230; (누가 위키 기반으로 만들어주시게~~)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-25T21:29:33+09:00" pubdate data-updated="true">Apr 25<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://udt.sf.net">UDT</a>는 Internet2 혹은 기가비트 이더넷과 같이 빠른 네트워크에서 수십~수백 기가 바이트의 대용량 데이터를 전송할 때 TCP가 매우 느리다는 점때문에 시작된 오픈소스 프로젝트이다. 버클리 소켓 API를 그대로 유지하고 있어서 접근성이 좋고, TCP의 슬라이딩 윈도우 같은 Congestion Control 을 사용자가 상황에 맞게 조정할 수 있다는 장점이 있다. 2.0 버전까지는 UDP 스트림만을 지원했는데 3.0부터는 UDP 다이어그램과 중첩입출력(Overlapped)도 지원하기 시작했다. 현재 3.0 beta 가 나와 있는 상태이다.</p>
-
-<p>이번에 reliable UDP 라이브러리 조사 도중 탐지망에 걸려 들어서 검토한 결과, 하나의 소켓에 대해서 내부적으로 입력과 출력 쓰레드를 1개씩 사용하는 것을 발견했다. 원래부터 데이터 전송을 목적으로 구현되어서 그런 듯한데, 이를 수정하지 않고는 게임 서버에서 사용하기는 힘들다는 판단을 내렸다. 시간이 난다면 IOCP를 연동할 수 있게 살짝 고쳐 보고 싶지만, 누구 말마따나 게임 회사는 연구소가 아닌 관계로&#8230; OTL</p>
-
-<p>결국 다시 RakNet으로 가야 된단 말인가&#8230;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/42/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/page/40/">Newer &rarr;</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
 
-</footer>
-  
+	
+<div class="container">
 
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+	<div class="row">
+		<div class="span9">
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/10/21/sourceanywhere-remote-vss-tools/">SourceAnyWhere - Remote VSS tools</a> <small>2005-10-21</small></h1>
+	</div>
+	<div><p>미국 출장가는 쉬귀군을 위해서 테스트를 해봐야겠다. 근데 이거 정품을 살바엔 cvs 나 subversion 을 쓰지..</p>
+<ul>
+<li><a href="http://www.dynamsoft.com/SAW_Overview.html">Official SourceAnyWhere Homepage</a></li>
+<li><a href="http://www.perl.or.kr/okbb/okbview.php?cmd=view&amp;lm=list&amp;site=Site&amp;forum=Perl&amp;lang=Corea&amp;p=4&amp;msg_id=2081&amp;sch=&amp;sn=&amp;ss=&amp;st=">Remote VSS tools 비교 분석</a></li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/10/18/mmo를-위한-커뮤니티-서비스-구현하기/">MMO를 위한 커뮤니티 서비스 구현하기</a> <small>2005-10-18</small></h1>
+	</div>
+	<div><p>MMO 를 위한 커뮤니티 서비스가 가장 잘 구현된 곳은 World Of Warcraft 이다. 물론 채팅과 귓말이야 별거 아닌 것처럼 느껴지지만, 친구 관리나 편지, 길드 채팅 같은  커뮤니티 서비스를 다중 서버에서도 투명하게 구현한다는 것은 생각보다 귀찮은 일이다. 오늘 어디에서 줏어 들기로 와우에서는 내부 채팅을 위해서 IRC 를 쓰고 있다고 하고(미확인 정보), 역시 게임을 개발하는 한 후배는 <a href="http://www.jabber.org/">jabber </a>를 고려중이라고 했다.</p>
+<p>올해 초 <a href="http://www.spread.org/">spread </a>를 기반으로 서버간 채팅을 구현하려고 했는데, 이미 이 놈을 기반으로 만들어본 후배의 불만을 접수하고 바로 계획을 폐기해야만 했다. 어차피 관련 기능을 새로 만들어야 한다면 이미 검증된 놈을 갖다 쓰는 최고니깐 말이다. (그나저나 와우에서는 DB의 계정과 irc 의 데이터간의 연동은 과연 어떻게 할 것인지가 궁금하다. 탈퇴하거나 삭제할 경우 irc 쪽의 데이터도 변경해줘야 할텐데...헐헐)</p>
+<p>언제 나도 저런 걸 만지면서 놀까 생각하니... 깜깜하다.. 이힝~</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/10/11/remove-windows-service/">Remove Windows Service</a> <small>2005-10-11</small></h1>
+	</div>
+	<div><p>"sc delete service name" 을 이용해서 서비스를 삭제할 때 만약 다른 어플리케이션이 참조를 하고 있으면 바로 삭제하지 않고 레지스트리에 <del datetime="2005-10-11T04:42:55+00:00">delete flag </del>가 추가된다. 이때 레지스트리 키값을 수동으로 삭제하더라도 "[SC] DeleteService FAILED 1072:" 라는 에러를 발생시키고 삭제가 되지 않는다.</p>
+<p>대체로 이런 경우에 관리 도구 - 서비스 관리자를 띄워둔 상태인데, 이 놈을 끈 상태에서 다시 삭제해보면 바로 사라진다. 요는, 서비스를 제거할 때에는 관리자를 끈 상태에서 하라는 것.</p></div>
+	
+	<p>
+	
+		<a href="/tag/service/"><span class="label">service</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/09/23/client-network-utility/">Client Network Utility</a> <small>2005-09-23</small></h1>
+	</div>
+	<div><p>Enterprise Manager 로 접속해야 할 DB 가 custom port 를 사용하거나 VPN, 공유기 등의 문제로 name 기반의 접근이 안될 경우,<br />
+이 툴에서 TCP/IP 기반의 alias 를 만들어 두면 EM에 등록해서 연결할 수 있다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/db/"><span class="label">db</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a> <small>2005-09-06</small></h1>
+	</div>
+	<div><h2>Overview</h2>
+<p>한동안 메신저 + zip 파일 기반의 배포 시스템을 고집하다가 더 이상 참을 수가 없어서 결국 <a href="http://www.itefix.no/cwrsync/">cwRsync </a>라는 툴을 테스트 해보게 되었다. Cygwin + rsync + openssh 를 NullSoft 인스톨러로 깔끔하게 패키징한 이 유틸리티는 약간의 삽질 만으로 간편하면서도 공짜 파일 배포 시스템을 구축할 수 있게 해준다. 당연히 호스트 접근 제어도 가능하고, SSH 를 통해서만 배포할 수도 있다.</p>
+<p>이전 프로젝트에서도 <a href="http://www.dillobits.com/insync.html">InSync </a>를 이용해서 팀 내부에 클라이언트를 배포했었다. 클라이언트 프로그래머가 최신 파일들을 특정 공유 폴더에다가 업데이트하면, 각자가 로컬에 설치된 프로그램을 실행해서 변경된 파일들을 받아오는 방식인데, 가끔 동시에 많은 사람이 업데이트를 받을 경우 문제가 있었고, 무엇보다도 shareware 여서 어둠과자를 사용해야만 했다.</p>
+<h2>Install</h2>
+<p>이번에 테스트한 것은 '안전하지 않은' no-ssh 배포 방식. 간단히 삽질한 내용을 정리해보면...</p>
+<ul>
+<li>우선 cwRsync 서버를 설치하고 rsyncd.conf 를 열어 모듈을 설정하라. 모듈은 rsync 로 파일을 받아갈 때의 대표 이름으로 CVS 의 그것과 같다. 일반적으로 서버측의 파일을 클라이언트에서 받아가므로 read only 는 true 로 설정할 것.</li>
+</ul>
+<p>[모듈명]<br />
+path = /cygdrive/드라이브/배포폴더<br />
+read only = true<br />
+transfer logging = yes</p>
+<ul>
+<li>prepare a directory for upload 명령을 실행해서 rsync 서버가 제대로 폴더를 읽고 쓸 수 있게 하라.</li>
+<li>서비스는 기본적으로 꺼져 있는 상태. 자동 실행으로 만든 다음 서비스를 시작하라. 또한 방화벽에서 TCP 873 포트를 열어주는 것을 잊지 말 것.</li>
+<li>클라이언트를 설치하고 배치 파일을 작성하라. 기본적으로 제공하는 cwrsync.cmd 파일을 복사한 다음 적절히 수정해주면 된다. 특정 rsync 서버의 모듈을 recursive 로 받아오려면 다음과 같이 하면 된다.</li>
+</ul>
+<p>rsync -avr 서버::모듈 /cygdrive/드라이브/다운받을폴더</p>
+<ul>
+<li>물론 로컬 파일을 업로드하려면 순서를 뒤집으면 된다. 이때 서버측에서 read only = false 여야만 가능하다.</li>
+</ul>
+<p>rsync -avr /cygdrive/드라이브/업로드할폴더 서버::모듈</p>
+<h2>Filter</h2>
+<p>rsync 는 강력한 파일 필터링 기능을 제공한다. 물론 커맨드라인으로 지정할 수도 있지만 수정을 쉽게 하려면 필터 파일을 만들어 두는 것을 권장.  자세한 도움말은 <a href="http://rsync.samba.org/ftp/rsync/rsync.html">rsync 도움말</a>을 참조할 것. 아래의 필터 파일 예제는 log/ upload/ 폴더 및 로그 파일, VSS 관련 파일들을 무시한다는 의미이다.</p>
+<ul>
+<li>log/</li>
+<li>upload/</li>
+<li>*.log</li>
+<li>*.scc</li>
+</ul>
+<p>필터 파일을 지정하려면 '--exclude-from=필터파일명' 을 지정해주면 된다.</p>
+<h2>마치며</h2>
+<p>사실 내부 테스트를 위해서도 패치 시스템을 구축하는 것이 가장 좋겠지만, 보유중인 패치 시스템의 인터페이스가 간편하지 않다면 오히려 낭패... 차라리 부담없이 GNU 툴들을 도입해 보는 것이 정신 건강상 더 나을 듯하다.</p>
+<p>그리고, 아무래도 안정적으로 파일을 배포하려면, <br />
+개발 머신 --(rsync)--&gt; 패치 서버 --(rsync)--&gt; 팀 배포<br />
+ 의 2단계를 거치는 것이 좋은데, 이를 위해서는 서버에 같은 폴더를 나타내는 upload 모듈과 download 모듈을 만들어 둬야 한다. 또한 실행 파일만을 배포할 경우를 위한 배치 파일도 따로 만드는 것을 권장한다. (아무래도 recursive 로 검색을 하면 시간이 좀 걸린다)</p></div>
+	
+	<p>
+	
+		<a href="/tag/ci/"><span class="label">ci</span></a>
+	
+		<a href="/tag/cwrsync/"><span class="label">cwrsync</span></a>
+	
+	</p>
+	
+</article>
+			
+			<ul class="pager">
+			
+			  	<li class="previous">
+			    	<a href="/page/42/">&larr; Older</a>
+			  	</li>
+		  	
+		  	
+				<li class="next">
+					<a href="/page/42">Newer &rarr;</a>
+				</li>
+		  	
+			</ul>
+		</div>
+		<div class="span3">
+			<ul class="nav nav-list well">
+	<li class="nav-header">
+		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2005/10/21/sourceanywhere-remote-vss-tools/">SourceAnyWhere - Remote VSS tools</a>
+	</li>
+	
+	<li>
+		<a href="/2005/10/18/mmo를-위한-커뮤니티-서비스-구현하기/">MMO를 위한 커뮤니티 서비스 구현하기</a>
+	</li>
+	
+	<li>
+		<a href="/2005/10/11/remove-windows-service/">Remove Windows Service</a>
+	</li>
+	
+	<li>
+		<a href="/2005/09/23/client-network-utility/">Client Network Utility</a>
+	</li>
+	
+	<li>
+		<a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a>
+	</li>
+	
+</ul>
+		</div>
+	</div>
+
+</div> <!-- /container -->
 
 
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>

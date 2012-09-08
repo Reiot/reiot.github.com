@@ -1,318 +1,91 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Log4cxx - Social Reiot</title>
-  <meta name="author" content="Ray Yun">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
 
-  
-  <meta name="description" content="서버 프로그래머라면 빠르고 간편한 로그와 트레이스에 대해서 한번쯤은 고민해봤을 것이다. 파일 로그 또는 윈도우의 이벤트 로그를 보통 쓰고 있겠지만, 생각보다 편하지 않은게 사실이다. 그런 의미에서 이번 기회에 Log4j을 C++로 포팅한 Log4cxx의 특징에 &hellip;">
-  
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  
-  <link rel="canonical" href="http://reiot.com/2006/09/09/log4cxx">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Social Reiot" type="application/atom+xml">
-  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
-<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  <body>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
+	
+<div class="container">
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Social Reiot</a></h1>
-  
-    <h2>Social Game Developer wandering in strange dungeon.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:reiot.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul role=main-navigation>
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Log4cxx</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-09-09T15:03:17+09:00" pubdate data-updated="true">Sep 9<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p><img src="http://logging.apache.org/images/ls-logo.jpg"></p>
-
+	<article>
+	<div class="page-header">
+		<h1><a href="/2006/09/09/log4cxx/">Log4cxx</a> <small>2006-09-09</small></h1>
+	</div>
+	<div><p><img alt="http://logging.apache.org/images/ls-logo.jpg" src="http://logging.apache.org/images/ls-logo.jpg" /></p>
 <p>서버 프로그래머라면 빠르고 간편한 로그와 트레이스에 대해서 한번쯤은 고민해봤을 것이다. 파일 로그 또는 윈도우의 이벤트 로그를 보통 쓰고 있겠지만, 생각보다 편하지 않은게 사실이다. 그런 의미에서 이번 기회에 <a href="http://logging.apache.org/log4cxx/index.html">Log4j을 C++로 포팅한 Log4cxx</a>의 특징에 대해서 알아보는 시간을 가져봤다.</p>
-
 <p>다음 내용은 <a href="http://logging.apache.org/log4cxx/manual/Introduction.html">Log4cxx의 개요 문서</a>를 축약한 것이므로, 가능하면 본문을 읽어보기를 권장한다.</p>
-
 <pre><code>- 이름 기반으로 계층화(hierarchical)된 로그 지원 : 종류별 로그 객체를 만들어둘 필요가 없이, 필요할 때마다 이름을 키값으로 로그 객체에 접근하면 된다. 가령 system.net 은 system.net.packet 의 상위 계층이 된다.
 - 상속 지원 : 하위 계층에 속한 로그들은 상위 계층의 로그에게 종속된다. 윈도우의 이벤트 로그과 비슷하게 로그 레벨(DEBUG-INFO-WARN-ERROR-FATAL)을 지원하며, 이 역시 상속 기반으로 동작한다.
 - 복수의 Appender 지원 : 하나의 로그 객체에 콘솔, 파일, 이벤트로그, 소켓 등 여러 가지 종류의 출력 스트림(Appender)을 2개 이상 붙일 수 있다. 당연히 비동기적으로 동작한다.
 - XML 기반의 외부 환경 설정 파일 지원 : 각 로그 객체의 on/off 부터 레이아웃(==포맷팅)까지 모두 외부 환경 파일에서 설정 가능하다.
 - 고성능 : 굳이 #ifdef … #endif 로 지우지 않고 그냥 off 만 해둬도 함수 호출 하나 + 정수 연산 정도의 부하만 준다.
 </code></pre>
-
 <p>잘 찾아보면 <a href="http://www.codeproject.com/csharp/TraceTool.asp?df=100&amp;forumid=28124&amp;exp=0&amp;select=1261034&amp;fr=26">log4j/log4net 등의 출력을 GUI로 이쁘게 보여주는 유틸리티</a>도 없지 않으므로, 굳이 까만 콘솔 화면을 뚫어지게 쳐다보기 보다는 저런 툴을 활용해보는 건 어떨까 싶다. 물론 라이브 로그도 지원해줘야 하고, 손쉬운 필터링과 검색 기능이 들어가야 하겠지만…</p>
-
-<p>가장 좋은 건, 데몬을 띄워두면 패널에 아이콘화되어 있다가, 에러가 발생하면 깜빡거리며 툴팁이 뜨고, 이를 클릭하면 어플리케이션 이름-시간-내용 메시지를 보여주는 모니터링 어플리케이션을 만들어 두는 것이다. 마찬가지로 필터링 기능이 들어가야 하겠지만.</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Ray Yun</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-09-09T15:03:17+09:00" pubdate data-updated="true">Sep 9<span>th</span>, 2006</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://reiot.com/2006/09/09/log4cxx/" data-via="reiot" data-counturl="http://reiot.com/2006/09/09/log4cxx/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2006/09/08/%E1%84%85%E1%85%A1%E1%84%89%E1%85%B3%E1%84%87%E1%85%A6%E1%84%80%E1%85%A1%E1%84%89%E1%85%B3-%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%AB%E1%84%83%E1%85%B3%E1%84%8F%E1%85%A2%E1%84%82%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB/" title="Previous Post: 라스베가스 &amp; 그랜드캐년 사진전">&laquo; 라스베가스 &amp; 그랜드캐년 사진전</a>
-      
-      
-        <a class="basic-alignment right" href="/2006/09/09/activex/" title="next Post: ActiveX">ActiveX &raquo;</a>
-      
-    </p>
-  </footer>
+<p>가장 좋은 건, 데몬을 띄워두면 패널에 아이콘화되어 있다가, 에러가 발생하면 깜빡거리며 툴팁이 뜨고, 이를 클릭하면 어플리케이션 이름-시간-내용 메시지를 보여주는 모니터링 어플리케이션을 만들어 두는 것이다. 마찬가지로 필터링 기능이 들어가야 하겠지만.</p></div>
+	
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips &amp; Tricks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/15/ant-cookbook/">Ant Cookbook</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/reiot">@reiot</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'reiot',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+</div> <!-- /container -->
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("reiot", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/reiot" class="twitter-follow-button" data-show-count="false">Follow @reiot</a>
-  
-</section>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
 
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Ray Yun -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'reiot';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://reiot.com/2006/09/09/log4cxx/';
-        var disqus_url = 'http://reiot.com/2006/09/09/log4cxx/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+  </body>
 </html>
