@@ -63,6 +63,44 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2004/11/24/code-review-tips/">Code Review Tips</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>당신의 프로그램이 다운된다면, 혹은 메모리 누수가 심하다면 다음과 같은 룰을 기반으로 코드를 리뷰하라. 이때, 코드 작성자가 아닌 다른 프로그래머를 항상 옆에 대동하면 버그를 찾을 확률은 200% 증가할 것이다. (사실 이건 내부 자료인데 몰래 공개하는 것이다. 헤헤)</p>
+<ul>
+<li>상속 관계의 베이스 클래스에 virtual destructor 를 선언했는가?</li>
+<li>배열 포인터를 delete[] 로 삭제하는가?</li>
+<li>delete:Wh*[]으로 정규식 검색을 하면 편하다.</li>
+<li>배열이 아닌 포인터를 delete[] 로 삭제하는가?</li>
+<li>memcpy(), memset(), memmove(), strcpy() 메모리 관련 함수들의 BoundCheck가 잘 되어 있는가?</li>
+<li>배열을 인덱싱할 때 파라미터의 BoundCheck 가 잘 되어 있는가?</li>
+<li>다른 peer 로 부터 넘어온 모든 정수형 파라미터에 대한 BoundCheck가 잘 되어 있는가? (특히 문자열 길이에 유의)</li>
+<li>STL string 을 사용한다면, %s 포맷팅할 때 c_str() 을 사용하는가?</li>
+<li>Singleton 이나 STL 컨테이너에 대해서 2개 이상의 쓰레드가 동시에 읽기/쓰기 모드로 접근하는 경우 lock 을 걸고 있는가?</li>
+<li>사용하지 않는 copy constructor, assignment operator 가 private 로 선언되어 있는가?</li>
+<li>포인터 멤버를 가진 객체를 복사할 때 assignment operator 를 재정의했는가?</li>
+<li>Warning Level 을 4 로 높인 다음 컴파일해봤는가?</li>
+<li>초기화하지 않고 사용하는 변수(또는 클래스 데이터 멤버)가 가장 위험하다.</li>
+<li>try ~ catch( ... )은 절대 사용하지 말라. SEH Exception 까지도 캐치해버린다.버그를 숨겨서 더 큰 버그를 만들 뿐이다.</li>
+<li>set_se_translator() 를 쓰지 마라. 쓰레드 로컬이라, 매 쓰레드마다 해줘야 한다. SetUnhandledExceptionFilter()는 프로세스 글로벌이다.</li>
+</ul>
+<p>see also:</p>
+<ul>
+<li><a href="http://imays.pe.kr:41414/moin/iwiki/moin.cgi/_bc_ad_b9_f6_20_c7_c1_b7_ce_b1_d7_b7_a5_20_c4_da_b5_f9_c0_c7_20_c1_d6_c0_c7_bb_e7_c7_d7">서버 프로그래밍시 주의사항</a> by imays님</li>
+<li><a href="http://www.myevan.net/phpBB/viewtopic.php?t=1484">서버 프로그래밍시 주의사항</a> by 빗자루님</li>
+<li><a href="http://www.macadamian.com/codereview.htm">Code Review Checklist</a></li>
+<li><a href="http://www.macadamian.com/column/completeBreakfast.html">Part of Your Complete Breakfast</a></li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/code review/"><span class="label">code review</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2004/11/24/about-mmorpg-balancing/">MMORPG 밸런싱은 너무 힘들어요</a> <small>2004-11-24</small></h1>
 	</div>
 	<div><p>부끄러운 이야기이지만 한때 MMORPG 기획물을 먹을 때, 공식 혹은 비공식적으로 밸런스를 더이상 하고 싶지 않다고 선언한 적이 있습니다. 꿈 많은 기획 초보에서 일년만에 타락한 실패한 기획자가 된 거죠. 알게 모르게 욕도 많이 먹었습니다. 대놓고 실력없다고 욕먹은 적도 있습니다. 그 암울했던 시절의 밸런싱 스토리를 한번 풀어내보겠습니다.</p>
@@ -137,6 +175,10 @@
 			<ul class="nav nav-list well">
 	<li class="nav-header">
 		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/code-review-tips/">Code Review Tips</a>
 	</li>
 	
 	<li>

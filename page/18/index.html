@@ -63,6 +63,163 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/03/16/boost-asio-udp-relay-server/">boost::asio udp relay server</a> <small>2008-03-16</small></h1>
+	</div>
+	<div><p>조만간 회사에서 쓸 일이 있을 것 같아서 만들어본 udp relay 서버. 하는 일이라고는 패킷을 잠시 저장해뒀다가 원래 주소로 쏘는 일인데, ASIO를 쓰면 얼마나 코드가 간단해질까 해서 만들어봤다. 이 코드는 서버에만 쓰고, 클라이언트에 붙일 넘은 IOCP까지는 필요없고 그냥 Win32 + winsock2 + 폴링 쓰레드로 만들어볼까 싶다.</p>
+<pre><code>
+class udp_relay_server
+{
+    struct relay_policy
+    {
+        udp::endpoint from_, to_;
+        DWORD delay_;
+    };
+
+    struct relay_message
+    {
+        boost::shared_ptr&lt;std::string&gt; message_;
+        udp::endpoint destination_;
+        DWORD expire_clock_;
+    };
+
+    enum
+    {
+        MIN_SLEEP_DELAY = 10
+    };
+
+public:
+
+    udp_relay_server(boost::asio::io_service&amp; io_service, short port)
+        : socket_(io_service, udp::endpoint(udp::v4(), port))
+        , timer_(io_service)
+    {
+        do_receive();
+        do_timer();
+    }
+
+    udp_relay_server(boost::asio::io_service&amp; io_service, const udp::endpoint &amp; endpoint_ )
+        : socket_(io_service, endpoint_)
+        , timer_(io_service)
+    {
+        do_receive();
+        do_timer();
+    }
+
+    void add_policy( const udp::endpoint &amp; from_, const udp::endpoint &amp; to_, DWORD delay = 0 )
+    {
+        relay_policy p;
+        p.from_ = from_;
+        p.to_ = to_;
+        p.delay_ = delay;
+        policies.push_back(p);
+    }
+
+    void add_policy( string from_addr, short from_port, string to_addr, short to_port, DWORD delay = 0 )
+    {
+        udp::endpoint from_( boost::asio::ip::address::from_string(from_addr), from_port );
+        udp::endpoint to_( boost::asio::ip::address::from_string(to_addr), to_port );
+        add_policy( from_, to_, delay );
+    }
+
+    void clear_policy() { policies.clear(); }
+
+private:
+
+    void do_timer()
+    {
+        timer_.expires_from_now(boost::posix_time::milliseconds(MIN_SLEEP_DELAY));
+        timer_.async_wait(boost::bind(&amp;udp_relay_server::handle_timer,this,boost::asio::placeholders::error));
+    }
+
+    void handle_timer( const boost::system::error_code &amp; ec )
+    {
+        if ( !queue_.empty() )
+        {
+            DWORD cur_clock = GetTickCount();
+            std::list&lt; relay_message &gt;::iterator itr = queue_.begin();
+            while ( itr != queue_.end() )
+            {
+                relay_message &amp; m = *itr;
+                if ( cur_clock &gt; m.expire_clock_ )
+                {
+                    socket_.async_send_to(boost::asio::buffer(*m.message_), m.destination_,
+                        boost::bind(&amp;udp_relay_server::handle_send, this, m.message_, boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred) );
+                    itr = queue_.erase(itr++);
+                }
+                else
+                {
+                    itr++;
+                }
+            }
+        }
+        do_timer();
+    }
+
+    void do_receive()
+    {
+        socket_.async_receive_from(
+            boost::asio::buffer(recv_buffer_), remote_endpoint_,
+            boost::bind(&amp;udp_relay_server::handle_receive, this,
+            boost::asio::placeholders::error,
+            boost::asio::placeholders::bytes_transferred));
+    }
+
+    void handle_receive(const boost::system::error_code&amp; error, std::size_t bytes_transferred)
+    {
+        if (!error)
+        {
+            bool bRelayed = false;
+            for(size_t i = 0 ; i &lt; policies.size() ; i ++ )
+            {
+                relay_policy &amp; p = policies[i];
+                if ( p.from_ == remote_endpoint_ )
+                {
+                    udp::endpoint relay_to(p.to_);
+                    boost::shared_ptr&lt;std::string&gt; message(new string(recv_buffer_.data(),bytes_transferred));
+                    if ( p.delay_ &gt; 0 )
+                    {
+                        relay_message m;
+                        m.message_ = message;
+                        m.destination_ = relay_to;
+                        m.expire_clock_ = GetTickCount() + p.delay_;
+                        queue_.push_back( m );
+                    }
+                    else
+                    {
+                        do_send( message, relay_to );
+                    }
+                    bRelayed = true;
+                    break;
+                }
+            }
+            do_receive();
+        }
+    }
+
+    void do_send( boost::shared_ptr&lt;std::string&gt; message, const udp::endpoint &amp; destination )
+    {
+        socket_.async_send_to(boost::asio::buffer(*message), destination,
+            boost::bind(&amp;udp_relay_server::handle_send, this,
+                message, boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred) );
+    }
+
+    void handle_send(boost::shared_ptr&lt;std::string&gt; message, const boost::system::error_code&amp; error, std::size_t bytes_transferred )
+    {
+    }
+
+    udp::socket socket_;
+    udp::endpoint remote_endpoint_;
+    boost::array&lt;char, 128&gt; recv_buffer_;
+    vector&lt;relay_policy&gt; policies;
+    boost::asio::deadline_timer timer_;
+    std::list&lt; relay_message &gt; queue_;
+};
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/03/01/rbo-on-cnn/">제가 참가했던 프로젝트가 CNN을 탔습니다</a> <small>2008-03-01</small></h1>
 	</div>
 	<div><p><a href="http://nckstudio.com/2008/02/29/rbo-on-cnn/"><img alt="http://nckstudio.com/wp-content/uploads/2008/02/ripken.jpg" src="http://nckstudio.com/wp-content/uploads/2008/02/ripken.jpg" /></a></p>
@@ -121,232 +278,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/02/10/boost-serialization/">boost::serialization</a> <small>2008-02-10</small></h1>
-	</div>
-	<div><p>boost::serialization 은, 템플릿 멤버 함수 하나 또는 free function 하나만 정의하면, 해당 클래스를 다양한 스트림으로 직렬화할 수 있게 해준다. 특히 list - vector - map - set 등의 다양한 STL 컨테이너들을 지원한다는 것이 장점이다.</p>
-<p>이때, 매크로 없이 &amp; 연산자 만으로 읽고 쓰기를 가능하게 했는데, 이건 템플릿 아카이브 파라미터가 알아서 잘 읽거나 쓰도록 책임을 전가했다는 게 상당히 아름답다.. 단, virtual 이 아니라서 하위 클래스는 모두 이걸 정의해줘야 한다. 그리고 아직 hash_map 은 잘 지원하지 않는 모양인데, 뭔가 복잡한 사정이 있는 듯하다.</p>
-<p>주의할 점이라면 아래 예제처럼 쓰려는 객체가 const 여야 한다는 점 정도?</p>
-<pre><code>
-#include &quot;stdafx.h&quot;
-
-#include &lt;fstream&gt;
-
-#include &lt;boost/archive/text_oarchive.hpp&gt;
-#include &lt;boost/archive/text_iarchive.hpp&gt;
-
-#include &lt;boost/archive/binary_oarchive.hpp&gt;
-#include &lt;boost/archive/binary_iarchive.hpp&gt;
-
-#include &lt;boost/serialization/list.hpp&gt;
-#include &lt;boost/serialization/vector.hpp&gt;
-#include &lt;boost/serialization/map.hpp&gt;
-#include &lt;boost/serialization/hash_map.hpp&gt;
-
-class chat_message
-{
-    friend class boost::serialization::access;
-public:
-
-    chat_message() {}
-
-    chat_message(unsigned short id, unsigned short body_length, string msg, wstring wmsg)
-        : id_(id)
-        , body_length_(body_length)
-        , message(msg)
-        , wmessage(wmsg)
-    {
-        for ( size_t i = 0 ; i &lt; 10 ; i ++ )
-        {
-            string val = boost::str(boost::format(&quot;Hello %1%&quot;)%i);
-            messages[i] = val;
-            array_[i] = val;
-            list_.push_back(i);
-            vector_.push_back(i);
-            map_[i] = val;
-            hash_map_[val] = (rand()%2==0 ? true : false);
-        }
-    }
-
-    template&lt;class Archive&gt;
-    void serialize(Archive &amp; ar, const unsigned int version)
-    {
-        ar &amp; id_;
-        ar &amp; body_length_;
-        ar &amp; message;
-        ar &amp; wmessage;
-        ar &amp; messages;          // pritimive array
-        ar &amp; array_.elems;      // boost::array
-        ar &amp; list_;             // std::list
-        ar &amp; vector_;           // std::vector
-        ar &amp; map_;              // std::map
-        //ar &amp; hash_map_;
-    }
-
-    void check_equal( const chat_message &amp; r ) const
-    {
-        BOOST_CHECK_EQUAL(id_,r.id_);
-        BOOST_CHECK_EQUAL(body_length_,r.body_length_);
-        BOOST_CHECK_EQUAL(message,r.message);
-        BOOST_CHECK(wmessage==r.wmessage);
-
-        for ( size_t i = 0 ; i &lt; 10 ; i ++ )
-        {
-            BOOST_CHECK_EQUAL(messages[i],r.messages[i]);
-        }
-
-        for ( size_t i = 0 ; i &lt; array_.size() ; i ++ )
-        {
-            BOOST_CHECK_EQUAL(array_[i],r.array_[i]);
-        }
-
-        {
-            BOOST_REQUIRE_EQUAL( list_.size(), r.list_.size() );
-            list&lt;float&gt;::const_iterator itr = list_.begin();
-            list&lt;float&gt;::const_iterator itr2 = r.list_.begin();
-            for ( ; itr != list_.end() ; itr ++, itr2++ )
-            {
-                BOOST_CHECK_EQUAL( *itr, *itr2 );
-            }
-        }
-
-        {
-            BOOST_REQUIRE_EQUAL( vector_.size(), r.vector_.size() );
-            vector&lt;int&gt;::const_iterator itr = vector_.begin();
-            vector&lt;int&gt;::const_iterator itr2 = r.vector_.begin();
-            for ( ; itr != vector_.end() ; itr ++, itr2++ )
-            {
-                BOOST_CHECK_EQUAL( *itr, *itr2 );
-            }
-        }
-
-        {
-            BOOST_REQUIRE_EQUAL( map_.size(), r.map_.size() );
-            map&lt;int,string&gt;::const_iterator itr = map_.begin();
-            map&lt;int,string&gt;::const_iterator itr2 = r.map_.begin();
-            for ( ; itr != map_.end() ; itr ++, itr2++ )
-            {
-                BOOST_CHECK_EQUAL( itr-&gt;first, itr2-&gt;first );
-                BOOST_CHECK_EQUAL( itr-&gt;second, itr2-&gt;second );
-            }
-        }
-
-        //{
-        //  BOOST_REQUIRE_EQUAL( hash_map_.size(), r.hash_map_.size() );
-        //  stdext::hash_map&lt;string,bool&gt;::const_iterator itr = hash_map_.begin();
-        //  stdext::hash_map&lt;string,bool&gt;::const_iterator itr2 = r.hash_map_.begin();
-        //  for ( ; itr != hash_map_.end() ; itr ++, itr2++ )
-        //  {
-        //      BOOST_CHECK_EQUAL( itr-&gt;first, itr2-&gt;first );
-        //      BOOST_CHECK_EQUAL( itr-&gt;second, itr2-&gt;second );
-        //  }
-        //}
-    }
-private :
-    unsigned short id_;
-    unsigned short body_length_;
-    string message;
-    wstring wmessage;
-    string messages[10];
-    boost::array&lt;string,10&gt; array_;
-    list&lt;float&gt; list_;
-    vector&lt;int&gt; vector_;
-    map&lt;int,string&gt; map_;
-    stdext::hash_map&lt;string,bool&gt; hash_map_;
-};
-
-// TODO
-// - archive from/to buffer
-// - user defined archive
-// - string, wstring load/save
-// - stl support (list,vector,map)
-
-BOOST_AUTO_TEST_CASE(test_serialize)
-{
-    const chat_message msg1(35, 59, &quot;Hello World!&quot;,L&quot;Welcome!&quot;);
-
-    {
-        chat_message msg2;
-
-        std::ofstream ofs(&quot;serialize.txt&quot;);
-        boost::archive::text_oarchive oa(ofs);
-        oa &lt;&lt; msg1;
-        ofs.close();
-
-        std::ifstream ifs(&quot;serialize.txt&quot;);
-        boost::archive::text_iarchive ia(ifs);
-        ia &gt;&gt; msg2;
-        ifs.close();
-
-        msg1.check_equal(msg2);
-    }
-
-    {
-        chat_message msg2;
-
-        std::ofstream ofs(&quot;serialize.bin&quot;, std::ios::binary);
-        boost::archive::binary_oarchive oa(ofs);
-        oa &lt;&lt; msg1;
-        ofs.close();
-
-        std::ifstream ifs(&quot;serialize.bin&quot;, std::ios::binary);
-        boost::archive::binary_iarchive ia(ifs);
-        ia &gt;&gt; msg2;
-        ifs.close();
-
-        msg1.check_equal(msg2);
-    }
-
-    {
-        chat_message msg2;
-
-        boost::asio::streambuf buf;
-        ostream os(&amp;buf);
-        boost::archive::text_oarchive oa(os);
-        oa &lt;&lt; msg1;
-
-        istream is(&amp;buf);
-        boost::archive::text_iarchive ia(is);
-        ia &gt;&gt; msg2;
-
-        msg1.check_equal(msg2);
-    }
-
-    {
-        chat_message msg2;
-
-        boost::asio::streambuf osf;
-        boost::archive::binary_oarchive oa(osf);
-        oa &lt;&lt; msg1;
-
-        boost::archive::binary_iarchive ia(osf);
-        ia &gt;&gt; msg2;
-
-        msg1.check_equal(msg2);
-    }
-
-    // via istream/ostream
-    {
-        chat_message msg2;
-
-        boost::asio::streambuf buf;
-        ostream os(&amp;buf);
-        boost::archive::binary_oarchive oa(os);
-        oa &lt;&lt; msg1;
-
-        istream is(&amp;buf);
-        boost::archive::binary_iarchive ia(is);
-        ia &gt;&gt; msg2;
-
-        msg1.check_equal(msg2);
-    }
-
-}
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -367,6 +298,10 @@ BOOST_AUTO_TEST_CASE(test_serialize)
 	</li>
 	
 	<li>
+		<a href="/2008/03/16/boost-asio-udp-relay-server/">boost::asio udp relay server</a>
+	</li>
+	
+	<li>
 		<a href="/2008/03/01/rbo-on-cnn/">제가 참가했던 프로젝트가 CNN을 탔습니다</a>
 	</li>
 	
@@ -380,10 +315,6 @@ BOOST_AUTO_TEST_CASE(test_serialize)
 	
 	<li>
 		<a href="/2008/02/18/getting-real/">Getting Real</a>
-	</li>
-	
-	<li>
-		<a href="/2008/02/10/boost-serialization/">boost::serialization</a>
 	</li>
 	
 </ul>

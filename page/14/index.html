@@ -63,6 +63,28 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/10/11/google-translate/">Google Translate</a> <small>2008-10-11</small></h1>
+	</div>
+	<div><p>갑자기 특정 폴더 트리안에 있는 모든 파일을 번역할 필요가 생겼다.</p>
+<p>회사에 정품 번역기가 있지만, 그냥 다중 파일 번역 기능도 자꾸 크래시가 되는 수준이라서, 결국 <a href="http://www.djangosnippets.org/snippets/1048/">파이썬으로 여기 저기서 코드를 긁어붙여</a> 돌려놓고 퇴근해버렸다. 구글 번역기는 POST가 아니라 GET 으로 문장을 받기 때문에, 200자 정도만 번역이 가능하다. (혹자는 500자 혹은 5000바이트라고도 하지만) 어쨌거나 단문 번역기인 셈이다. 고로 성능은 초당 1라인 정도이니 주말 내내 돌려도 될지 말지 의심스러운 상황이었다. (물론 멀티쓰레딩을 해볼까도 싶었으나 귀찮아서..)</p>
+<p>집에 와서 곰곰히 생각해보니 Visual Studio 에서 매크로를 써서 번역해버리면 되지 않을까 하는 생각이 문득 떠올랐다. 정규식 검색으로 번역할 문장을 찾아서 번역하는 걸 매크로에서 반복해버리면, 필요할 때마다 찾아볼 필요가 없으니 말이다.</p>
+<p>구글링해보니 운좋게도 <a href="http://www.codeplex.com/GAPIdotNET">GAPI.NET 이라는 구글 서비스의 .NET 래퍼(C#)</a>가 존재했다. 희미한 기억을 되살려 VB.NET과 연동도 겨우 성공. 본격적으로 매크로를 만드는 일만 남은 셈이었으나... 매크로에서 외부 dll 참조 기능이 지원되지 않는 모양이었다. ( 그냥 ...\Microsoft Visual Studio 9\Common7\IDE\PublicAssemblies 에 복사하면 된다)</p>
+<p>자. 삽질은 계속된다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/translate/"><span class="label">translate</span></a>
+	
+		<a href="/tag/.NET/"><span class="label">.NET</span></a>
+	
+		<a href="/tag/google/"><span class="label">google</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/08/17/apple-app-store/">Apple App Store</a> <small>2008-08-17</small></h1>
 	</div>
 	<div><p><img alt="http://filmmakerone.com/blog/wp-content/uploads/2008/03/stevejobspresentation_2.jpg" src="http://filmmakerone.com/blog/wp-content/uploads/2008/03/stevejobspresentation_2.jpg" /></p>
@@ -152,19 +174,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/08/05/iphone-game-2000day/">IPhone Game = 2000$/day</a> <small>2008-08-05</small></h1>
-	</div>
-	<div><p><a href="http://i-dreaming.com/2511585">드리밍님의 포스트</a>에 의하면</p>
-<p><img alt="http://cfs9.tistory.com/upload_control/download.blog?fhandle=YmxvZzU2NjVAZnM5LnRpc3RvcnkuY29tOi9hdHRhY2gvMC8xMjAwMDAwMDAwMDEuUE5H" src="http://cfs9.tistory.com/upload_control/download.blog?fhandle=YmxvZzU2NjVAZnM5LnRpc3RvcnkuY29tOi9hdHRhY2gvMC8xMjAwMDAwMDAwMDEuUE5H" /></p>
-<p>이런 게임이 <a href="http://www.macrumors.com/2008/08/01/iphone-app-store-numbers-reveal-large-revenue-opportunities/">하루에 2천달러나 돈을 벌어준다고</a> 한다. (매일 매일 저만큼 팔렸다는 이야기는 아니굽쇼)</p>
-<p>으흠. 직종 전환을 심각하게 고려해봐야겠다. XNA이고 뭐고 저렇게 바로 현금화할 수 있는 플랫폼이 있어야 뛰어들만하지.</p>
-<p>see also:<br />
-<a href="http://reiot.cafe24.com/2007/03/02/%ec%95%84%ec%9d%b4%ed%8f%b0-%ea%b2%8c%ec%9e%84-%eb%a7%9d%ec%83%81/">아이폰 게임 망상</a></p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -185,6 +194,10 @@
 	</li>
 	
 	<li>
+		<a href="/2008/10/11/google-translate/">Google Translate</a>
+	</li>
+	
+	<li>
 		<a href="/2008/08/17/apple-app-store/">Apple App Store</a>
 	</li>
 	
@@ -198,10 +211,6 @@
 	
 	<li>
 		<a href="/2008/08/07/the-abcs-of-xbox-360-dlc/">The ABCs of Xbox 360 DLC</a>
-	</li>
-	
-	<li>
-		<a href="/2008/08/05/iphone-game-2000day/">IPhone Game = 2000$/day</a>
 	</li>
 	
 </ul>

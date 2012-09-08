@@ -63,6 +63,28 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2010/04/29/a-12345-for-i/">리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...</a> <small>2010-04-29</small></h1>
+	</div>
+	<div><p>리스트를 역순으로 순회하는 방법</p>
+<pre><code>a = [1,2,3,4,5]
+for i in reversed(xrange(0,len(a)):
+    print a[i]
+</code></pre>
+
+<p>list.reverse() 는 inplace 로 뒤집지만 return None 이 되므로 for in list.reverse(): 는 동작하지 않는다.  range() 는 실제로 리스트 값을 리턴하지만, xrange 는 순회를 위한 이터레이터 객체를 리턴한다.  reversed 역시 값 대신 이터레이터 객체를 리턴한다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/python/"><span class="label">python</span></a>
+	
+		<a href="/tag/status/"><span class="label">status</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a> <small>2010-03-10</small></h1>
 	</div>
 	<div><p>python tip, tricks and hacks from <a href="https://www.siafoo.net/article/52">https://www.siafoo.net/article/52</a></p>
@@ -208,19 +230,6 @@ for i in [1,2,3,4,5]:
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/10/07/ray-the-limited-edition/">Ray the limited edition</a> <small>2009-10-07</small></h1>
-	</div>
-	<div><p>[caption id="attachment_2249" align="alignnone" width="300" caption="분노의 그레이"]<a href="http://boxcatstudio.files.wordpress.com/2009/10/sany0068_2.jpg"><img alt="분노의 그레이" src="http://boxcatstudio.files.wordpress.com/2009/10/sany0068_2.jpg?w=300" /></a>[/caption]</p>
-<p>I'm back again!</p>
-<p>최근 건강 문제도 있고 자체 검열도 많아져서 절필 비슷한 상태가 꽤 오래 지속되었다. 다행히 많은 분들의 관심과 배려로, 기본 스탯은 꽤 회복된 상태이지만, 요양 라이프는 더 지속될 전망이다. 여기 저기가 아프고 쑤셔서 다소 민감해진 데다가, 이제 하루만 출근만 해도 체력적으로 버거운 상태에 도달, 고민 끝에 조만간 1-2개월 정도 푹 쉴 계획이다. 최근 과로로 의식불명에 빠진 개발자가 지인의 친구 회사분이든지, 또 지병으로 젊은 나이에 운명을 달리하신 게임 개발자분의 이야기를 가까이서 접할 수 있어, 참 남의 일 같지가 않다. 이 자리를 빌어 고인의 명복을 빌어 본다.</p>
-<p>HP가 떨어진 삶이 계속되면서, 내가 한정된 에너지를 누구에게 또는 어디에 쏟아야 하는지 명백하게 알 수 있었다.</p>
-<p>어쨌거나 이제는 이런 네거티브한 상념에 발목잡히기엔 내 인생의 비트&amp;마이크로초가 아까우므로, 그냥 just:ignore 해버리고 오로지 health regeneration rate 를 높이는 데 주력할 계획이다. 김포 평야에서 자전거를 몰고 나가 금빛 벼물결 속에서 원기옥도 좀 모으고, 다양한 분야의 책도 많이 읽을 계획이고, 뜸했던 블로깅도 재개해서, 최근 3개월 동안 축적해둔 다양한 분야의 Draft들을 하나씩 공개해 보도록 하겠다.</p>
-<p>휴가 기간 동안 한정된 시간을 어떻게 잘 활용할 것인가?가 앞으로의 당면 과제 되겠다. 이른바 기간 한정판 레이옷인 셈이다. 클클.</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -241,6 +250,10 @@ for i in [1,2,3,4,5]:
 	</li>
 	
 	<li>
+		<a href="/2010/04/29/a-12345-for-i/">리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...</a>
+	</li>
+	
+	<li>
 		<a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a>
 	</li>
 	
@@ -254,10 +267,6 @@ for i in [1,2,3,4,5]:
 	
 	<li>
 		<a href="/2009/10/08/company-capitalism/">Company Capitalism</a>
-	</li>
-	
-	<li>
-		<a href="/2009/10/07/ray-the-limited-edition/">Ray the limited edition</a>
 	</li>
 	
 </ul>

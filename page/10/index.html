@@ -63,6 +63,32 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/01/27/erlide/">Erlide</a> <small>2009-01-27</small></h1>
+	</div>
+	<div><p><a href="http://www.eclipse.org/"> </a><a href="http://www.eclipse.org/"><img alt="Eclipse logo" src="http://erlide.sourceforge.net/img/rea_eclipse_pos_logo_fc_sm.jpg" /></a></p>
+<p><a href="http://www.eclipse.org/">이클립스</a>의 얼랭 개발환경(perspective)인 <a href="http://erlide.sourceforge.net/">erlide</a>를 사용하면, 매번마다 c(module) 로 컴파일하는 번거로움에서 벗어날 수 있다. 그<strong>냥 Save 만 하면, 알아서 코드를 컴파일하고 경고나 오류를 보여주기 때문이다. </strong>일단 <a href="http://erlide.sourceforge.net/erlide.html">매뉴얼</a>에 써 있는 대로 설정하고 나면, 이클립스 IDE의 기능들을 간단히 쓸 수 있으므로, 얼랭 초보라면 반드시 eclipse 부터 설치하기를 권장한다.</p>
+<p>어차피 매뉴얼에 다 나오는 내용인데, 핵심 기능들만 간단하게만 소개하자면</p>
+<pre><code>- gen_server, gen_fsm 등 OTP 기본 템플릿 제공
+- F3 - 함수 정의/선언으로 바로가기
+- Ctrl + I - 자동 들여쓰기
+- Ctrl + Space - 자동 완성
+- Alt + O - 개요 보기
+- Ctrl + Up/Down - 콘솔창에서 히스토리 기능
+- 브레이크 포인트는 라인 맨 앞을 더블클릭
+- 디버깅 끝낼 때에는 perspective 를 다시 얼랭으로 전환할 것
+</code></pre>
+<p>특히 놀라운 것은, (사실 erl 콘솔에서도 볼 수 있지만) Process List View 에서 보면 무려 36개의 얼랭 프로세스들이 떠 있다는 점이다. 루아나 파이썬처럼 그냥 달랑 스크립트만 실행되는 게 아니라는 건 짐작하고 있었지만, 조금은 부하가 걱정될 정도로많이 떠 있긴 하다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/erlang/"><span class="label">erlang</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2009/01/27/change-the-battle-field/">Change the Battle Field</a> <small>2009-01-27</small></h1>
 	</div>
 	<div><p>MS, Google, Intel, IBM, Adobe, Dell, Sony, Sanyo... <a href="http://itviewpoint.com/98855">놀라운 감원 쯔나미</a>는 겨우 시작일 뿐이다.</p>
@@ -357,24 +383,6 @@ code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/01/07/redmine/">Redmine</a> <small>2009-01-07</small></h1>
-	</div>
-	<div><p><a href="http://www.redmine.org/screenshots/gantt.png"><img alt="http://www.redmine.org/screenshots/gantt_tn.png" src="http://www.redmine.org/screenshots/gantt_tn.png" /></a></p>
-<p><a href="http://bitnami.org/stack/mantis">bitnami mantis</a> 는 한글이 안되고, trac은 뭔가 플러그인 설치가 귀찮아서, 아<a href="http://www.redmine.org/wiki/redmine/Features">름다운 간트 차트</a>도 지원하는  <a href="http://bitnami.org/stack/redmine">bitnami redmine </a>을 써보기로 했다. (<a href="http://twiny.tistory.com/1676">twiny 님</a> 감사~)</p>
-<p>평소대로라면 최신 버전(0.8)을 위해 ruby 와 rails 부터 설치했겠지만, 이런 삽질은 꿈도 못 꿀 정도로 바빠서, 그냥 0.7 버전을 마음 편하게 깔아버렸다. 한글 문제(이슈, 파일 업로드)는 전혀 없었고, SMTP와 https svn 저장소 연결만 남은 상태인데, 각각 한번씩 해보고 연결이 안되길래 과감하게 포기했다. 참고로, <a href="http://www.redmine.org/wiki/redmine/ThemeBasecamp">베이스캠프 테마</a>를 설치하면 mantis 보다 100배 미려한 화면을 볼 수 있다. :)</p>
-<p>아쉬운 점이라면 위키 포맷이 익숙치 않은 textile 이라는 점과, 이미 <a href="http://www.gtdinbox.com/">GTDinbox </a>에 적응해버렸다는 정도. 그러고보니 GTD를 지원하는 이슈 관리 시스템은 없을까나~</p>
-<p>ps. 드디어 SQL 2005 스키마의 개별 객체들을 <a href="http://www.sqlservercentral.com/articles/Administering/2896/">각각 SQL 로 추출해주는 방법</a>을 찾았다. 소스 코드르 다운받아서 약간만 수정해주면 SQL  스키마의 버전 관리는 끝!</p></div>
-	
-	<p>
-	
-		<a href="/tag/redmine/"><span class="label">redmine</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -395,6 +403,10 @@ code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
 	</li>
 	
 	<li>
+		<a href="/2009/01/27/erlide/">Erlide</a>
+	</li>
+	
+	<li>
 		<a href="/2009/01/27/change-the-battle-field/">Change the Battle Field</a>
 	</li>
 	
@@ -408,10 +420,6 @@ code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
 	
 	<li>
 		<a href="/2009/01/12/teamcide/">Teamcide</a>
-	</li>
-	
-	<li>
-		<a href="/2009/01/07/redmine/">Redmine</a>
 	</li>
 	
 </ul>

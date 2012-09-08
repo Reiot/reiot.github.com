@@ -63,6 +63,16 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/05/02/libjingle/">libjingle</a> <small>2008-05-02</small></h1>
+	</div>
+	<div><p>어제 출시된 <a href="https://partner.steamgames.com/documentation/api">SteamWorks 1.0 API</a> 을 살펴보다가 얘네들이 <a href="http://code.google.com/apis/talk/libjingle/index.html">libjingle </a>을 쓰고 있다는 사실을 발견했다.<br />
+<code>libjingle is a collection of open-source C++ code and sample applications  that enables you to build a peer-to-peer application. The code handles  creating a network connection (through NAT and firewall devices, relay  servers, and proxies), negotiating session details (codecs, formats,  etc.), and exchanging data. It also provides helper tasks such as parsing  XML, and handling network proxies.</code><br />
+시간이 꽤 흘러 또 기억이 가물가물해졌지만, 역시나 홀펀칭은 <a href="http://www.ietf.org/rfc/rfc3489.txt">STUN</a> 인가보다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/05/01/customize-wordpress-prologue-theme/">Customize Wordpress Prologue theme</a> <small>2008-05-01</small></h1>
 	</div>
 	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/prologue.png"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/prologue-269x300.png" src="http://boxcatstudio.files.wordpress.com/2009/07/prologue-269x300.png" /></a></p>
@@ -130,163 +140,6 @@ echo &quot;&lt;a href='&quot; . $links[0] . &quot;'&gt;&lt;img src='/blog/wp-con
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/03/16/boost-asio-udp-relay-server/">boost::asio udp relay server</a> <small>2008-03-16</small></h1>
-	</div>
-	<div><p>조만간 회사에서 쓸 일이 있을 것 같아서 만들어본 udp relay 서버. 하는 일이라고는 패킷을 잠시 저장해뒀다가 원래 주소로 쏘는 일인데, ASIO를 쓰면 얼마나 코드가 간단해질까 해서 만들어봤다. 이 코드는 서버에만 쓰고, 클라이언트에 붙일 넘은 IOCP까지는 필요없고 그냥 Win32 + winsock2 + 폴링 쓰레드로 만들어볼까 싶다.</p>
-<pre><code>
-class udp_relay_server
-{
-    struct relay_policy
-    {
-        udp::endpoint from_, to_;
-        DWORD delay_;
-    };
-
-    struct relay_message
-    {
-        boost::shared_ptr&lt;std::string&gt; message_;
-        udp::endpoint destination_;
-        DWORD expire_clock_;
-    };
-
-    enum
-    {
-        MIN_SLEEP_DELAY = 10
-    };
-
-public:
-
-    udp_relay_server(boost::asio::io_service&amp; io_service, short port)
-        : socket_(io_service, udp::endpoint(udp::v4(), port))
-        , timer_(io_service)
-    {
-        do_receive();
-        do_timer();
-    }
-
-    udp_relay_server(boost::asio::io_service&amp; io_service, const udp::endpoint &amp; endpoint_ )
-        : socket_(io_service, endpoint_)
-        , timer_(io_service)
-    {
-        do_receive();
-        do_timer();
-    }
-
-    void add_policy( const udp::endpoint &amp; from_, const udp::endpoint &amp; to_, DWORD delay = 0 )
-    {
-        relay_policy p;
-        p.from_ = from_;
-        p.to_ = to_;
-        p.delay_ = delay;
-        policies.push_back(p);
-    }
-
-    void add_policy( string from_addr, short from_port, string to_addr, short to_port, DWORD delay = 0 )
-    {
-        udp::endpoint from_( boost::asio::ip::address::from_string(from_addr), from_port );
-        udp::endpoint to_( boost::asio::ip::address::from_string(to_addr), to_port );
-        add_policy( from_, to_, delay );
-    }
-
-    void clear_policy() { policies.clear(); }
-
-private:
-
-    void do_timer()
-    {
-        timer_.expires_from_now(boost::posix_time::milliseconds(MIN_SLEEP_DELAY));
-        timer_.async_wait(boost::bind(&amp;udp_relay_server::handle_timer,this,boost::asio::placeholders::error));
-    }
-
-    void handle_timer( const boost::system::error_code &amp; ec )
-    {
-        if ( !queue_.empty() )
-        {
-            DWORD cur_clock = GetTickCount();
-            std::list&lt; relay_message &gt;::iterator itr = queue_.begin();
-            while ( itr != queue_.end() )
-            {
-                relay_message &amp; m = *itr;
-                if ( cur_clock &gt; m.expire_clock_ )
-                {
-                    socket_.async_send_to(boost::asio::buffer(*m.message_), m.destination_,
-                        boost::bind(&amp;udp_relay_server::handle_send, this, m.message_, boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred) );
-                    itr = queue_.erase(itr++);
-                }
-                else
-                {
-                    itr++;
-                }
-            }
-        }
-        do_timer();
-    }
-
-    void do_receive()
-    {
-        socket_.async_receive_from(
-            boost::asio::buffer(recv_buffer_), remote_endpoint_,
-            boost::bind(&amp;udp_relay_server::handle_receive, this,
-            boost::asio::placeholders::error,
-            boost::asio::placeholders::bytes_transferred));
-    }
-
-    void handle_receive(const boost::system::error_code&amp; error, std::size_t bytes_transferred)
-    {
-        if (!error)
-        {
-            bool bRelayed = false;
-            for(size_t i = 0 ; i &lt; policies.size() ; i ++ )
-            {
-                relay_policy &amp; p = policies[i];
-                if ( p.from_ == remote_endpoint_ )
-                {
-                    udp::endpoint relay_to(p.to_);
-                    boost::shared_ptr&lt;std::string&gt; message(new string(recv_buffer_.data(),bytes_transferred));
-                    if ( p.delay_ &gt; 0 )
-                    {
-                        relay_message m;
-                        m.message_ = message;
-                        m.destination_ = relay_to;
-                        m.expire_clock_ = GetTickCount() + p.delay_;
-                        queue_.push_back( m );
-                    }
-                    else
-                    {
-                        do_send( message, relay_to );
-                    }
-                    bRelayed = true;
-                    break;
-                }
-            }
-            do_receive();
-        }
-    }
-
-    void do_send( boost::shared_ptr&lt;std::string&gt; message, const udp::endpoint &amp; destination )
-    {
-        socket_.async_send_to(boost::asio::buffer(*message), destination,
-            boost::bind(&amp;udp_relay_server::handle_send, this,
-                message, boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred) );
-    }
-
-    void handle_send(boost::shared_ptr&lt;std::string&gt; message, const boost::system::error_code&amp; error, std::size_t bytes_transferred )
-    {
-    }
-
-    udp::socket socket_;
-    udp::endpoint remote_endpoint_;
-    boost::array&lt;char, 128&gt; recv_buffer_;
-    vector&lt;relay_policy&gt; policies;
-    boost::asio::deadline_timer timer_;
-    std::list&lt; relay_message &gt; queue_;
-};
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -307,6 +160,10 @@ private:
 	</li>
 	
 	<li>
+		<a href="/2008/05/02/libjingle/">libjingle</a>
+	</li>
+	
+	<li>
 		<a href="/2008/05/01/customize-wordpress-prologue-theme/">Customize Wordpress Prologue theme</a>
 	</li>
 	
@@ -320,10 +177,6 @@ private:
 	
 	<li>
 		<a href="/2008/03/21/svn-mkactivity-403-forbidden/">SVN MKACTIVITY 403 Forbidden</a>
-	</li>
-	
-	<li>
-		<a href="/2008/03/16/boost-asio-udp-relay-server/">boost::asio udp relay server</a>
 	</li>
 	
 </ul>

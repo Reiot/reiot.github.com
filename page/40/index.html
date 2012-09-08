@@ -63,6 +63,53 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2005/12/11/유니코드-팁/">유니코드 팁</a> <small>2005-12-11</small></h1>
+	</div>
+	<div><h2>Generic Text Mapping</h2>
+<p>프로그램을 유니코드에 대응하기 위해서는 모든 single byte char 관련 타입들을 generic macro 를 사용하도록 수정해야 한다.</p>
+<ul>
+<li>모든 스트링 리터럴에는 _T 또는 _TEXT 를 붙일 것. 그러나, 특별히 wide string 을 사용할 경우 L"abc" 처럼 L 을 붙일 것</li>
+<li>모든 문자 배열에 대해서는 TCHAR 를 사용할 것. 그러나, 특별히 wide char 를 사용할 경우 wchar_t 를 사용할 것.</li>
+<li>모든 스트링 포인터에 대해서 LPCTSTR 혹은 LPTSTR 을 붙일 것</li>
+<li>스트링 관련 C 함수들에 대한 T 시리즈들을 사용할 것.</li>
+</ul>
+<h2>XML 과 유니코드</h2>
+<p>유니코드로 인코딩된 XML 에 한글 엘리먼트 이름을 사용한 경우, 중문 혹은 영문 OS 에서 XPath 검색이 안되는 경우가 있다. 이는 프로그램 자체가 Non Unicode 이기 때문이며, 프로그램 자체를 유니코드로 만들면 문제가 없다.</p>
+<p>그러나, 그것이 힘들 경우, Windows XP 이상부터 설정 가능한 Non Unicode Program 의 디폴트 언어를 한글로 지정하면 된다. 단 98 과 같은 오래된 언어에서는 이것이 안되는데, 이를 위해서는 프로그램 코드 자체에 유니코드로 XPath 스트링을 지정하면 된다.</p>
+<blockquote>
+<p>pNode = pXMLDom-&gt;selectNodes( L"//캐릭터정보/*" );</p>
+</blockquote>
+<h2>STL 과 유니코드</h2>
+<p>STL은 OS independent 이어야 하므로 vc 전용 매크로인 <em>UNICODE 에 대응되는 어떤 정책도 가지고 있지 않다. 따라서, 개발자가 아래와 같이 자체적으로 typedef 를 해줘야 한다. 단 전자와 같이 새로운 typedef 를 하는 것보다는 이미 존재하는 타입을 사용한 #ifdef 방식이 더 좋다고 한다. (그러고보니 좋은 거 같다.. -</em>-)</p>
+<pre><code>
+// ok but not recommended
+typedef basic_string〈TCHAR,  char_traits〈TCHAR〉,  allocator〈TCHAR〉〉 tstring;
+
+// better, recommended
+#ifdef _UNICODE
+#define tstring wstring
+#else
+#define tstring string
+#endif
+</code></pre>
+
+<p>see also:</p>
+<ul>
+<li><a href="http://msdn.microsoft.com/msdnmag/issues/04/08/CQA/">http://msdn.microsoft.com/msdnmag/issues/04/08/CQA/</a></li>
+</ul>
+<h2>스트링 길이 문제</h2>
+<ul>
+<li>문자의 개수 : sizeof(szBuffer) / sizeof(TCHAR)</li>
+<li>문자열의 길이 : sizeof(szBuffer) * sizeof(TCHAR)</li>
+<li>적절한 매크로를 만들어 사용하면 고민에서 해방될까?</li>
+</ul>
+<h2>%s 와 %S</h2>
+<p>만약 UNICODE 어플리케이션일 경우 %s 는 유니코드 문자열이며 %S 는 ANSI 문자열 포맷팅시 사용된다. 물론 MBCS 일 경우라면 반대가 된다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2005/12/11/vbnet-팁/">VB.NET 팁</a> <small>2005-12-11</small></h1>
 	</div>
 	<div><p>레이옷이 추천하는, 온라인 게임 서버 및 운영을 위한 툴을 만드는데 가장 좋은 언어는 바로 VB.Net 이다. 당신이 클라이언트 프로그래머가 아닌 이상 온라인 게임에서 주로 사용되는 툴은, 대체로 시스템 관리, 제어, 모니터링, 분석, 로그에 관련된 툴이 분명하다. (때로는 스크립트 에디터 같은 툴이 필요할 때도 있지만) 진짜 간단한 것은 Python 을 사용한 콘솔 스크립트로 해결할 수 있지만, 프로그래머가 아닌 GM 이나 QA팀, 모니터링팀들이 계속 사용해야 하는 툴들은 이쁘고, 사용하기 쉽고, 자주 수정되어야 하는 특성을 지니는 것이 보통이다. 이럴때 VB.Net을 사용하면, 빠른 개발속도와 높은 생산성, 그리고 아름다운 GUI 를 쉽게 얻을 수 있다.</p>
@@ -408,17 +455,6 @@ conn.Close()</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/12/07/나쁜-아이디어를-위한-좋은-방법/">나쁜 아이디어를 위한 좋은 방법</a> <small>2005-12-07</small></h1>
-	</div>
-	<div><blockquote>
-<p>지금 하고 있는 이런 하찮은 일은 대충 빨리 끝낼 예정이다. 난 멋진 프로젝트를 언젠가 해야할 몸이기 때문이다.</p>
-</blockquote>
-<p>당연히 <a href="http://www.extra-project.com/bbs/view.php?id=keeping01&amp;page=1&amp;sn1=&amp;divpage=1&amp;sn=off&amp;ss=on&amp;sc=on&amp;select_arrange=headnum&amp;desc=asc&amp;no=82">웹 디자인에만 적용되는 이야기</a>는 아니며, 특히 legacy code 를 다루는 프로그래머들이 쉽게 빠지는 길이기도 하다. 사실 나를 포함한 우리 팀원들 대다수가 이런 마음가짐으로 일하고 있기에 더욱 가슴이 시리다. 물론 지금으로서는 빨리 끝내는 것만이 유일한 해결책이지만...</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -439,6 +475,10 @@ conn.Close()</p>
 	</li>
 	
 	<li>
+		<a href="/2005/12/11/유니코드-팁/">유니코드 팁</a>
+	</li>
+	
+	<li>
 		<a href="/2005/12/11/vbnet-팁/">VB.NET 팁</a>
 	</li>
 	
@@ -452,10 +492,6 @@ conn.Close()</p>
 	
 	<li>
 		<a href="/2005/12/11/adonet-이란/">ADO.NET 이란?</a>
-	</li>
-	
-	<li>
-		<a href="/2005/12/07/나쁜-아이디어를-위한-좋은-방법/">나쁜 아이디어를 위한 좋은 방법</a>
 	</li>
 	
 </ul>

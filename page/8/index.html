@@ -63,6 +63,57 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/05/01/named-boost-tuple/">Named Boost Tuple</a> <small>2009-05-01</small></h1>
+	</div>
+	<div><p>프로토콜 객체로 std::pair 나 boost::tuple 을 채택할 때의 문제는 순서가 틀리더라도 타입만 변환이 된다면 컴파일 타임 에러가 나지 않는다는 점과, first/second 라든지 get() 이 한눈에 안들어온다는 점이다. 또 디버거에서도 내부 값을 찾아 보기가 힘들고 컴파일 시간도 길어지기 때문에, boost::preprocessor 나 boost::tuple 기반의 직렬화 기법이 편하고 관리하기도 좋지만, 그냥 구조체로 만들어서 적당히 memcpy로 보내는 걸 다들 애용하는 것이리라.</p>
+<pre><code>
+boost::tuple&lt;int,short,char&gt; t;
+int i = get&lt;0&gt;(t);
+int j = get&lt;1&gt;(t);
+int k = get&lt;2&gt;(t);
+</code></pre>
+
+<p>그런데, 이걸 코드 생성기에서 이렇게 만들면 어떨까?</p>
+<pre><code>
+class login : public boost::tuple&lt;wstring,string,int&gt;
+{
+public :
+    const wstring &amp; userid() const { return get&lt;0&gt;(); }
+    void userid( const wstring &amp; v) { get&lt;0&gt;() = v; }
+    const string &amp; passwd() const { return get&lt;1&gt;(); }
+    void passwd( const string &amp; v) { get&lt;1&gt;() = v; }
+    int key() const { return get&lt;2&gt;(); }
+    void key( int v ) { get&lt;2&gt;() = v; }
+};
+
+login msg;
+msg.userid(L&quot;reiot&quot;);
+msg.passwd(&quot;.com&quot;);
+msg.key(1975);
+
+wstring userid = msg.userid();
+string passwd = msg.passwd();
+int key = msg.key();
+</code></pre>
+
+<p>이 정도면 읽기도 쉽고 직렬화하기도 편한 객체처럼 보일 것 같은데... (여전히 디버거에서는 보기가 귀찮지만.. <a href="http://minjang.egloos.com/468834">autoexp.dat</a> 를 잘 고치면 해결할 수 있지 않을까나~)</p></div>
+	
+	<p>
+	
+		<a href="/tag/serialization/"><span class="label">serialization</span></a>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+		<a href="/tag/autoexp/"><span class="label">autoexp</span></a>
+	
+		<a href="/tag/tuple/"><span class="label">tuple</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2009/05/01/first-chance-exception-the-tag-is-invalid/">first chance exception : The tag is invalid</a> <small>2009-05-01</small></h1>
 	</div>
 	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/add_exception.jpg"><img alt="add_exception" src="http://boxcatstudio.files.wordpress.com/2009/07/add_exception.jpg" /></a></p>
@@ -157,22 +208,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/04/01/dungeon-crawl-stone-soup/">Dungeon Crawl Stone Soup</a> <small>2009-04-01</small></h1>
-	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/kobold.jpg"><img alt="kobold" src="http://boxcatstudio.files.wordpress.com/2009/07/kobold-300x215.jpg" /></a></p>
-<p>코볼드 떼거지를 앞에 둔 용맹스러운 트롤 버서커 Reiot 의 모습을 담은 스크린샷이다. 요즘 틈틈히 집에서 하고 있는 roguelike 게임인 <a href="http://crawl-ref.sourceforge.net/">Dungeon Crawl : Stone Soup </a>인데, 매크로나 자동 네비게이션, 넓은 맵 등 다양한 편의 기능을 자랑한다. 매번마다 오크 광산 아래에 있는 엘프들의 동네에서 별 해괴한 소환 악마들한테 죽고 있어서, 좀 서럽긴 하다. (사실은 레벨업 좀 하고 천천히 놀러 가야 하는 곳이라고 하지만, 이상한 무한 차원으로 소환당해서 악마들에게 밟히는 건 정말 처참하다. -_-)</p>
-<p>로그매니아들이라면 한번쯤 도전해볼만한 게임이니, 다들 다운받으시기 바란다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/roguelike/"><span class="label">roguelike</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -193,6 +228,10 @@
 	</li>
 	
 	<li>
+		<a href="/2009/05/01/named-boost-tuple/">Named Boost Tuple</a>
+	</li>
+	
+	<li>
 		<a href="/2009/05/01/first-chance-exception-the-tag-is-invalid/">first chance exception : The tag is invalid</a>
 	</li>
 	
@@ -206,10 +245,6 @@
 	
 	<li>
 		<a href="/2009/04/07/xbox-360-new-ui/">XBOX 360 NEW UI</a>
-	</li>
-	
-	<li>
-		<a href="/2009/04/01/dungeon-crawl-stone-soup/">Dungeon Crawl Stone Soup</a>
 	</li>
 	
 </ul>

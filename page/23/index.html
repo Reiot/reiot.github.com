@@ -63,6 +63,22 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2007/09/16/syntax-highlighter-on-wordpress-com/">SyntaxHighlighter on Wordpress</a> <small>2007-09-16</small></h1>
+	</div>
+	<div><p>드디어 wordpress.com 에서 공식적으로 syntax highlighter 를 지원하는 모양이다.</p>
+<pre><code>
+otl_stream stmt(1,&quot;{CALL get_multi_resultset(:p&lt;int,in&gt;)}&quot;,conn,otl_implicit_select);
+stmt &lt;&lt; (int)1;
+otl_cur &amp;amp; s = (**stmt.ss).cursor_struct;
+SQLRETURN result = SQLMoreResults( s.cda );
+</code></pre>
+
+<p>지원하는 언어 및 사용법은 <a href="http://faq.wordpress.com/2007/09/03/how-do-i-post-source-code/">how-do-i-post-source-code</a>를 참조하기 바란다. 다만 아직 몇 가지 HTML entity 들의 변환에 문제가 있는 듯하다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2007/09/15/svn-notifier/">SVN Notifier</a> <small>2007-09-15</small></h1>
 	</div>
 	<div><p><a href="http://writely.tistory.com/">hey </a>님의 <a href="http://writely.tistory.com/18">SVN MSN Bot</a> 을 약간 수정해서 사용하던 중, 뜻밖의 복병을 만났다. 귀찮다는 이유로 팀원 중 두 명이나 봇을 MSN에서 차단해버리고 만 것이다. 내막을 물어보니</p>
@@ -128,25 +144,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2007/05/01/manifesto-for-agile-software-development/">Manifesto for Agile Software Development</a> <small>2007-05-01</small></h1>
-	</div>
-	<div><h2>Manifesto for Agile Software Development</h2>
-<p>We are uncovering better ways of developing<br />
-software by doing it and helping others do it.<br />
-Through this work we have come to value:</p>
-<p><strong>Individuals and interactions</strong> over processes and tools<br />
-<strong> Working software</strong> over comprehensive documentation<br />
-<strong> Customer collaboration</strong> over contract negotiation<br />
-<strong> Responding to change</strong> over following a plan</p>
-<p>That is, while there is value in the items on<br />
-the right, we value the items on the left more.</p>
-<p>birdkr님께서 <a href="http://mypage.sarang.net/tt/140">친절하게 번역</a>도 해주시고, <a href="http://mypage.sarang.net/tt/143">현업에서 실제로 어떻게 쓰고 있는지</a>도 잘  소개해 주셨다. 역시나 순수한 XP보다는 <a href="http://en.wikipedia.org/wiki/Scrum_(management)">SCRUM</a>이 게임에는 더 잘 어울린다고 생각했는데, 어쨌거나, 내가 이런 저런 이유로 시도하지 못하고 있는 걸 <a href="http://www.maiet.net/company/">이미 적용중인 팀</a>을 보면 정말 부럽고 자극이 된다. 핫핫.</p>
-<p>생각과 행동, 그 거대한 차이는 무엇일까?</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -167,6 +164,10 @@ the right, we value the items on the left more.</p>
 	</li>
 	
 	<li>
+		<a href="/2007/09/16/syntax-highlighter-on-wordpress-com/">SyntaxHighlighter on Wordpress</a>
+	</li>
+	
+	<li>
 		<a href="/2007/09/15/svn-notifier/">SVN Notifier</a>
 	</li>
 	
@@ -180,10 +181,6 @@ the right, we value the items on the left more.</p>
 	
 	<li>
 		<a href="/2007/05/07/_has_iterator_debugging/">_HAS_ITERATOR_DEBUGGING</a>
-	</li>
-	
-	<li>
-		<a href="/2007/05/01/manifesto-for-agile-software-development/">Manifesto for Agile Software Development</a>
 	</li>
 	
 </ul>

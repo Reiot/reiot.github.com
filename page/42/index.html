@@ -63,6 +63,16 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2005/10/18/mmo를-위한-커뮤니티-서비스-구현하기/">MMO를 위한 커뮤니티 서비스 구현하기</a> <small>2005-10-18</small></h1>
+	</div>
+	<div><p>MMO 를 위한 커뮤니티 서비스가 가장 잘 구현된 곳은 World Of Warcraft 이다. 물론 채팅과 귓말이야 별거 아닌 것처럼 느껴지지만, 친구 관리나 편지, 길드 채팅 같은  커뮤니티 서비스를 다중 서버에서도 투명하게 구현한다는 것은 생각보다 귀찮은 일이다. 오늘 어디에서 줏어 들기로 와우에서는 내부 채팅을 위해서 IRC 를 쓰고 있다고 하고(미확인 정보), 역시 게임을 개발하는 한 후배는 <a href="http://www.jabber.org/">jabber </a>를 고려중이라고 했다.</p>
+<p>올해 초 <a href="http://www.spread.org/">spread </a>를 기반으로 서버간 채팅을 구현하려고 했는데, 이미 이 놈을 기반으로 만들어본 후배의 불만을 접수하고 바로 계획을 폐기해야만 했다. 어차피 관련 기능을 새로 만들어야 한다면 이미 검증된 놈을 갖다 쓰는 최고니깐 말이다. (그나저나 와우에서는 DB의 계정과 irc 의 데이터간의 연동은 과연 어떻게 할 것인지가 궁금하다. 탈퇴하거나 삭제할 경우 irc 쪽의 데이터도 변경해줘야 할텐데...헐헐)</p>
+<p>언제 나도 저런 걸 만지면서 놀까 생각하니... 깜깜하다.. 이힝~</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2005/10/11/remove-windows-service/">Remove Windows Service</a> <small>2005-10-11</small></h1>
 	</div>
 	<div><p>"sc delete service name" 을 이용해서 서비스를 삭제할 때 만약 다른 어플리케이션이 참조를 하고 있으면 바로 삭제하지 않고 레지스트리에 <del datetime="2005-10-11T04:42:55+00:00">delete flag </del>가 추가된다. 이때 레지스트리 키값을 수동으로 삭제하더라도 "[SC] DeleteService FAILED 1072:" 라는 에러를 발생시키고 삭제가 되지 않는다.</p>
@@ -162,22 +172,6 @@ transfer logging = yes</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a> <small>2005-07-12</small></h1>
-	</div>
-	<div><p><img alt="mantis" src="http://manual.mantisbt.org/mantis_logo.gif" /></p>
-<p>오래전부터 맨티스에다가 중요도나 우선순위 상수를 추가해달라는 요청이 있었으나, 소스를 고쳐야 하기 때문에 방법이 없다고 모른 척 했었다가, 이번에 잠시 짬을 내어 추가를 해 보았다. 관련 자료를 아래에 정리했으니 심심할 때 한번 읽어보시길. :)</p>
-<p>see also : <a href="http://reiot.cafe24.com/wiki/MantisCustomize">MantisCustomize </a></p></div>
-	
-	<p>
-	
-		<a href="/tag/mantis/"><span class="label">mantis</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -198,6 +192,10 @@ transfer logging = yes</p>
 	</li>
 	
 	<li>
+		<a href="/2005/10/18/mmo를-위한-커뮤니티-서비스-구현하기/">MMO를 위한 커뮤니티 서비스 구현하기</a>
+	</li>
+	
+	<li>
 		<a href="/2005/10/11/remove-windows-service/">Remove Windows Service</a>
 	</li>
 	
@@ -211,10 +209,6 @@ transfer logging = yes</p>
 	
 	<li>
 		<a href="/2005/08/10/cpb-2/">CPB 맛보기</a>
-	</li>
-	
-	<li>
-		<a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a>
 	</li>
 	
 </ul>

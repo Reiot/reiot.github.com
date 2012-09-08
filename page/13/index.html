@@ -63,6 +63,47 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/10/27/blob-quiz/">Blob Quiz</a> <small>2008-10-27</small></h1>
+	</div>
+	<div><p><img alt="http://upload.wikimedia.org/wikipedia/en/d/df/The_Blob_poster.jpg" src="http://upload.wikimedia.org/wikipedia/en/d/df/The_Blob_poster.jpg" />요즘 고민하고 있는 문제인데, 보안상의 이유로 비유적으로 설명해보겠다. (실제로 이런 일을 하고 있는 건 아니다 -_-)</p>
+<p>이글아이처럼 우리 국정원에서도, 1분 정도의 음성 통화를 대충 100K 로 압축할 수 있는 압축 알고리즘을 기반으로 하는 휴대폰 통화 감청 시스템을 구축한다고 가정하자.  하루에 10 테라바이트 씩 쌓이긴 하지만, 당연히 각 통화 데이터 끼리의 연관성은 없고, 오직 2개의 송신/수신 전화번호의 키값으로 구분될 뿐이다.</p>
+<p>모든 데이터들은 프라이버시 보호보다는 HDD 부족으로 2주 정도만 지속되며, 오직 리만브라더즈 2명만 들을 수 있다. 물론 둘 다 바빠서 아무도 듣지 않을 수도 있지만, 그래도 무조건 남기긴 남겨야 하는 이 프로젝트를 당신이 맡게 되었다. (아싸 비유를 만들어내는 게 더 리얼하구나~)</p>
+<p>문제는, 연기금을 모두 주가 부양에 써버린 나머지 PC 조립 서버 몇 대만으로 최대한 싸게 구현해야 한다면, 어떤 솔루션을 선택해야 할까? (한줄로 요약하면, <strong>자잘한 BLOB 들이 산더미처</strong><strong>럼 만들어질 때의 안정적인 관리 및 검색</strong>의 문제인데 검색의 비중이 상당히 낮은 케이스라고 할 수 있다.)</p>
+<pre><code>- 파일 시스템 : 분산 컴퓨터들의 RAID로 보호되는 파일 시스템에 남기고, 검색은 그냥 폴더명으로.. 백업이 없어서 좀 무섭다.
+- 파일 시스템 + 복제 : 안전을 위해 남기는 넘과 읽는 넘을 분리. 안 읽는 넘도 복제해야 한다는게 좀 아깝지만.
+- 분산 데이터베이스 : blob insert 는 좀 힘들지만 어쨌든 검색은 쿼리다.
+- 분산 데이터베이스 + 복제 : 역시 불필요한 복제의 딜레마는 마찬가지.
+- 분산 파일 시스템 + 데이터베이스 : 검색은 파일 시스템, DB는 2차 백업으로... (이건 오버인가;;)
+- 기가비트 이더넷 + HTTP : 분산 컴퓨터들을 기가비트 이더넷으로 묶고, HTTP 서버가 공유 폴더로 인식, Rest 방식으로 다운로드
+- [in-memory 테이블이나 데이터베이스](http://en.wikipedia.org/wiki/In-memory_database): 어차피 용량의 한계로 안될 듯!
+</code></pre>
+<div>그러고보면 팝폴더 같은 파일 공유 서비스 회사에서, 어떻게 데이터를 관리하는지 궁금해지는구나.</div>
+
+<div></div>
+
+<div>-- 추가 --</div>
+
+<div></div>
+
+<div>배래군의 조언에 의하면</div>
+
+<div>
+
+    - [memory mapped file](http://en.wikipedia.org/wiki/Memory-mapped_file)을 사용하려면 거의 무한한 크기를 지원하는 64비트 버전을 사용할 것
+    - 사용자 증가로 인해 시스템을 확장할때 스트레스 받지 않는 방법을 사용할 것. 안그러면 lock-in 됨.
+
+</div>
+
+<div>분산 환경에서도 일관성있게 접근하려면 아무래도 중앙 집중화된 DB 인데, 용량의 제약이 있으니... 뭔가 하나의 URL로 분산된 컴퓨터들 어딘가에 저장된 리소스를 한번에 가져올 수 있는 솔루션이 뭐가 있지? </div>
+
+<div></div>
+
+<div>큰 flat 파일 안에 트랜잭션을 지원하는 small blob bulk insert & rarely select 가 빠른 무언가가 필요하다. 가상 파일 시스템중에서 찾아봐야 할까나~ 아니면 sqlite + virtual table + memory mapped file 라도 테스트해봐야 하나..</div></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/10/24/variadic-macros/">Variadic Macros</a> <small>2008-10-24</small></h1>
 	</div>
 	<div><p>GCC 3.0 과 Visual Studio 2005 에서부터 지원하는 <a href="http://en.wikipedia.org/wiki/Variadic_macro">가변인자 매크로</a>는 <strong>VA_ARGS</strong> 로 치환된다. 알고보니 이게 1999년도에 제정된 <a href="http://en.wikipedia.org/wiki/C99">C99 표준안중 하나</a>였다는데, <a href="http://www.swallowstudio.com/wiki/doku.php?id=technicalarticles:variadicmacros">GCC에서는 약간 다른 방식도 지원</a>했던 모양이다.</p>
@@ -168,28 +209,6 @@ void func(int n)<br />
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/10/11/google-translate/">Google Translate</a> <small>2008-10-11</small></h1>
-	</div>
-	<div><p>갑자기 특정 폴더 트리안에 있는 모든 파일을 번역할 필요가 생겼다.</p>
-<p>회사에 정품 번역기가 있지만, 그냥 다중 파일 번역 기능도 자꾸 크래시가 되는 수준이라서, 결국 <a href="http://www.djangosnippets.org/snippets/1048/">파이썬으로 여기 저기서 코드를 긁어붙여</a> 돌려놓고 퇴근해버렸다. 구글 번역기는 POST가 아니라 GET 으로 문장을 받기 때문에, 200자 정도만 번역이 가능하다. (혹자는 500자 혹은 5000바이트라고도 하지만) 어쨌거나 단문 번역기인 셈이다. 고로 성능은 초당 1라인 정도이니 주말 내내 돌려도 될지 말지 의심스러운 상황이었다. (물론 멀티쓰레딩을 해볼까도 싶었으나 귀찮아서..)</p>
-<p>집에 와서 곰곰히 생각해보니 Visual Studio 에서 매크로를 써서 번역해버리면 되지 않을까 하는 생각이 문득 떠올랐다. 정규식 검색으로 번역할 문장을 찾아서 번역하는 걸 매크로에서 반복해버리면, 필요할 때마다 찾아볼 필요가 없으니 말이다.</p>
-<p>구글링해보니 운좋게도 <a href="http://www.codeplex.com/GAPIdotNET">GAPI.NET 이라는 구글 서비스의 .NET 래퍼(C#)</a>가 존재했다. 희미한 기억을 되살려 VB.NET과 연동도 겨우 성공. 본격적으로 매크로를 만드는 일만 남은 셈이었으나... 매크로에서 외부 dll 참조 기능이 지원되지 않는 모양이었다. ( 그냥 ...\Microsoft Visual Studio 9\Common7\IDE\PublicAssemblies 에 복사하면 된다)</p>
-<p>자. 삽질은 계속된다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/translate/"><span class="label">translate</span></a>
-	
-		<a href="/tag/.NET/"><span class="label">.NET</span></a>
-	
-		<a href="/tag/google/"><span class="label">google</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -210,6 +229,10 @@ void func(int n)<br />
 	</li>
 	
 	<li>
+		<a href="/2008/10/27/blob-quiz/">Blob Quiz</a>
+	</li>
+	
+	<li>
 		<a href="/2008/10/24/variadic-macros/">Variadic Macros</a>
 	</li>
 	
@@ -223,10 +246,6 @@ void func(int n)<br />
 	
 	<li>
 		<a href="/2008/10/19/pareto-principle/">Pareto Principle</a>
-	</li>
-	
-	<li>
-		<a href="/2008/10/11/google-translate/">Google Translate</a>
 	</li>
 	
 </ul>

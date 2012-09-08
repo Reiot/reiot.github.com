@@ -63,6 +63,176 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2012/05/22/appscale/">AppScale</a> <small>2012-05-22</small></h1>
+	</div>
+	<div><h2>개요</h2>
+<p>via <a href="http://appscale.cs.ucsb.edu/">appscale home</a>, <a href="http://code.google.com/p/appscale/">source code</a></p>
+<ul>
+<li>구글 앱엔진의 오픈소스화한 클라우드 플랫폼. </li>
+<li>최신 버전은 1.6.1rc1</li>
+<li>앱엔진의 각종 모듈들을 오픈소스로 교체</li>
+</ul>
+<pre><code> big table =&gt; mysql, MongoDB, Cassandra, ...
+ memcache =&gt; memcached
+ task queue =&gt; RabbitMQ
+ backend =&gt; not supported
+ email =&gt; sendmail
+ cron =&gt; cron
+</code></pre>
+
+<ul>
+<li>이런 서비스를 하나씩 리얼 머신에 분산 설치하는 게 아니라, Ubuntu 가상 머신 이미지에 설치해둔 후 Amazon EC2 같은 가상 머신에 인스턴스들을 설치하고 롤을 지정함. </li>
+<li>python 2.5 만 지원. 2.7 은 로드맵에만 있음.</li>
+<li>머신에는 그 외에도 다음과 같은 서비스들이 떠 있음</li>
+</ul>
+<pre><code> - ruby
+ - erlang &amp; neptune =&gt; neptune 이라는 cloud config/delpoy language
+ - mongrel, mongodb
+ - ndbd
+ - nginix master &amp; slave =&gt; 로드밸런싱용 
+</code></pre>
+
+<ul>
+<li>appscale tools 라는 루비 스크립트로 관리함. 거의 아마존 EC2 tools 와 이름이 유사함. </li>
+</ul>
+<h2>구조</h2>
+<ul>
+<li>load balancer : http 분산</li>
+<li>application : python</li>
+<li>data management : DB. (cassandra, hbase, hypertable, mongodb, memcachedb, simpledb, mysql cluster, voldmort)</li>
+</ul>
+<h2>배포 모델</h2>
+<h3>virtualized cluster depolyment</h3>
+<p>관리자가 각 호스트에 이미지를 설치하고 부팅해서 각각 네트워킹이 되는지 체크하고 IP 를 기록해서 통신토록.</p>
+<ul>
+<li>인스턴스 하나당 1G 메모리, 2 virtual CPU 를 권장</li>
+<li>ssh &amp; root 접근 권한 필요</li>
+<li>그냥 셧다운하면 안됨. appscale 전체를 셧다운한 후에 개별 노드를 셧다운해야 함.</li>
+</ul>
+<h3>cloud infrastructure deployment</h3>
+<p>아마존 EC2 에 설치하거나 Eucalyptus(아마존EC2의 오픈소스 버전) 에 배포. AppScale 이 미리 설치된 AMI(Amazon Machine Image)로 설치. </p>
+<ul>
+<li>클라우드 관리자는 account credential 필요</li>
+<li>appscale 설치 전에 non-appscale image 가 배포되고 public/private ip 를 설치할 수 있는지 체크해야 함. </li>
+<li>이 테스트가 모두 끝나고 나서 전체 셧다운 후 배포.</li>
+</ul>
+<h2>배포</h2>
+<p>appscale tools 를 이용해서 자동화함. </p>
+<ul>
+<li>클라우드 관리 인터페이스 제공 </li>
+<li>각 인스턴스들의 ssh 키와 credential 들을 동기화함</li>
+<li>ips.yaml 에 각 노드 정보가 있음. </li>
+</ul>
+<p>:controller: --&gt; database master &amp; load balancer 가 설치됨<br />
+:servers: --&gt; application servers &amp; database slave 가 설치됨</p>
+<h2>AppScale Tools</h2>
+<p><a href="http://code.google.com/p/appscale/wiki/AppScale_Tools_Usage">사용법</a> 참조</p>
+<h3>appscale-run-instances</h3>
+<p>특정 폴더를 배포하면서 appscale 서비스를 시작함. <br />
+--file: 배포할 폴더 지정<br />
+--table: 데이터베이스 지정.</p>
+<p>맨 처음에는 controller 노드를 시작함. servers 노드들은 비동기로 시작. 클라우드 배포시 VM 부팅을 시작함. 이미지 크기 때문에 수십분 걸림. 그다음엔 DB를 시작함. </p>
+<h3>appscale-describe-instances</h3>
+<p>각 노드 상태를 보여줌. 메모리. CPU. HDD. 역할. DB. </p>
+<h3>appscale-upload-app, appscale-remove-app</h3>
+<p>특정 앱을 업로드하거나 삭제함. </p>
+<h3>appscale-terminate-instances</h3>
+<p>전체 클라우드를 셧다운함. </p>
+<h2>배포 구성 전략</h2>
+<ul>
+<li>load balancer: 라우팅. 모든 노드들의 상태 페이지 호스팅. 여러 개 실행 가능. </li>
+<li>app engine: 커스터마이즈된 gae sdk 가 실행됨</li>
+<li>database</li>
+<li>login: 딱 한놈만 appscale-run-instances/appscale-upload-app 역할을 담당</li>
+<li>zoo keeper : db transaction 을 위한 메타 데이터 호스팅</li>
+<li>shadow : </li>
+</ul>
+<h2>호환성 &amp; 차이점</h2>
+<ul>
+<li><a href="http://appscale.cs.ucsb.edu/appengine.html">python 의 경우 backend, oauth 를 제외하고는 다 호환된다고 함</a></li>
+<li>blobstore file size &lt; 100M: 우린 안쓰니까 괜찮음.</li>
+<li>query 를 위해서 인덱스를 만드는 대신 in memory filtering 을 한다. 즉 사이즈가 커지면 느려진다 ㅠㅠ 대용량 사용자일 때 개됨. </li>
+<li>task queue 는 실패시 재시작하지 않는다. </li>
+<li>관리자만 메일을 보낼 수 있다.</li>
+<li><a href="https://groups.google.com/forum/?fromgroups#!topic/Appscale_Community/j_P6nd5NVzs">DB 는 소프트웨어적으로 에뮬레이션한다고 보면 됨</a> (mysql mongodb …) 즉 앱엔진에 맞게 튜닝하는 건 힘들다고 봄. (memcached + mysql 조합이 가능한지?) </li>
+<li>최대 100개의 노드</li>
+<li>앱엔진 1.6.2 (python) 지원</li>
+<li><a href="https://groups.google.com/forum/?fromgroups#!searchin/appscale_community/Copying$20over$20app/appscale_community/816qI9SiDWo/SLYb1A3kBwYJ">인스턴스간 세션 공유 문제</a></li>
+<li>벌크로딩은 실패함</li>
+</ul>
+<h2>설치하기</h2>
+<p>가상 환경에서 guest OS로 돌아감. 가상 머신 이미지를 배포함. KVM, XEN. 근데 리눅스 Host 만 지원함. 보통 우분투를 씀. </p>
+<p>아마존에서는 이미지 업로드 없이 public AMI 를 써서 바로 띄울 수 있음. 단 버지니아에만 이미지가 존재함. </p>
+<p>see also <a href="http://code.google.com/p/appscale/wiki/Deploying_AppScale_1_3_Beta_via_EC2">deploying appscale via ec2</a></p>
+<h3>환경 변수 설정</h3>
+<p><a href="https://aws-portal.amazon.com/gp/aws/securityCredentials">AWS 키 &amp; 크레덴셜</a> 에서 X.509 키들을 다운받아서 pem 파일을 저장하고 환경 변수로 등록할 것.</p>
+<p>Access Keys 를 카피해서 배치 파일에 등록한다. </p>
+<p>see also <a href="http://code.google.com/p/appscale/wiki/AppScale_IaaS_Cloud_Deployment">appscale IaaS cloud deployment</a></p>
+<h3>euca tools 설치</h3>
+<p>아마존 접근을 위해서는 이 툴을 설치해야 된다. </p>
+<p><a href="http://www.eucalyptus.com/download/euca2ools/source">euca tools 다운로드</a></p>
+<ol>
+<li><a href="http://sourceforge.net/projects/pcre/files/pcre/8.30/pcre-8.30.tar.gz/download">pcre</a> 설치</li>
+<li>
+<p><a href="http://sourceforge.net/projects/swig/files/swig/swig-2.0.6/swig-2.0.6.tar.gz/download">swig</a> 설치</p>
+</li>
+<li>
+<p>euca tools src deps 에서 <br />
+3-1. boto-1.9b</p>
+</li>
+</ol>
+<p>python2.7 에서는 <a href="http://code.google.com/p/boto/issues/detail?id=408">다음 패치</a>를 해야 함. </p>
+<p>3-2. M2Crypto-0.20.2 </p>
+<h3>appscale tools 설치</h3>
+<p>debian/appscale_build_source.sh 열어서 help2man 관련 섹션 제거 후<br />
+<code>sudo bash debian/appscale_build_source.sh</code> 를 실행하면 /usr/local/appscale-tools 에 설치됨</p>
+<h3>아마존 서버 설치</h3>
+<p>버지니아에만 있는 appscale 1.6.1rc AMI (ami-e4a3048d) 을 이용해서 1 노드로 설치할 것. 이때 db 는 mysql</p>
+<blockquote>
+<p>appscale-run-instances --min 1 --max 1 --file /usr/local/appscale-tools/sample_apps/python/guestbook --machine ami-e4a3048d --table mysql --iaas --force -v</p>
+</blockquote>
+<p>인스턴스 타입은 지정하지 않으면 m1.large</p>
+<p>가끔 키가 이미 등록되어 있다고 하는데, 그럴 때에는 --keyname XXX 로 다른 걸 사용할 것. </p>
+<p>관련 키들은 ~/.appscale 폴더에 저장됨. pem 도 들어가 있음.</p>
+<p>ssh 하기</p>
+<blockquote>
+<p>ssh -i /Users/reiot/.appscale/warcloud.key root@ec2-23-22-2-204.compute-1.amazonaws.com</p>
+</blockquote>
+<h2>팁</h2>
+<h3>access key &amp; secret</h3>
+<p>대칭형 암호화. <br />
+모든 리퀘스트마다 public key id 를 보내고 더불어 secret key의 해시코드를 보내서 서버에서 검증하는 방식. 페북 캔버스앱과 동일한 구조다. </p>
+<h3>X.509 Certificates</h3>
+<p>공개키 암호화. cert.pem 으로 암호화하면 pk.pem 으로 복호화. </p>
+<ul>
+<li><abbr title="Privacy Enhancd Mail">PEM</abbr> encoded X.509 certificate: cert-xxxx.pem</li>
+<li><abbr title="Privacy Enhancd Mail">PEM</abbr> encoded RSA private key: pk-xxxx.pem</li>
+</ul>
+<h3>key pairs</h3>
+<p>EC2 인스턴스 접근시 권한. </p>
+<p>ssh 를 위해서 가상 서버 인스턴스에 키를 등록함.</p>
+<h3>ssh 하기</h3>
+<p>-v 옵션으로 상태를 볼 것. -i 로 cert-xxx.pem 파일을 이용. 로그인시 account@server 형식 사용.</p>
+<blockquote>
+<p>ssh -i ~/.ec2/cert.pem root@ec2-23-22-2-204.compute-1.amazonaws.com -v</p>
+</blockquote>
+<h3>ec2 commands</h3>
+<ul>
+<li><code>ec2-authorize default -p NN</code> : 특정 포트를 기본 오픈. (보통 ssh 22, 웹 80번 포트가 필요함)</li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/appscale/"><span class="label">appscale</span></a>
+	
+		<a href="/tag/appengine/"><span class="label">appengine</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2012/04/21/250k-node-connections/">Node.js로 25만 동접 만들기</a> <small>2012-04-21</small></h1>
 	</div>
 	<div><p>via <a href="http://blog.caustik.com/">caustik's blog</a></p>
@@ -257,47 +427,6 @@ self.fill(self.outputs.bb, 'bbbbb')
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a> <small>2011-06-18</small></h1>
-	</div>
-	<div><p>jQuery Mobile(이후 jQM)으로 아이패드용 클리앙 뷰어를 만든 경험을 토대로 팁을 정리했습니다. 이후, 편의상 경어를 사용합니다.</p>
-<h2>data-xxx</h2>
-<p>jQM의 위젯들은 다른 jQuery 위젯이나 플러그인들과는 달리 자바스크립트로 옵션을 지정하는 대신, HTML 의 data- 속성을 이용해서 모양새와 동작을 지정한다.</p>
-<p>가장 중요한 것은 data-role 속성인데, HTML 태그에 page, header, content, footer 에서부터 listview, navibar, button 등의 "역할"을 지정하면, jQM이 알아서 적당한 렌더링 해준다는 거다. 이를 통해서 자바스크립트 코드는 거의 손대지도 않고 순수 HTML 만으로 깔끔한 모바일 뷰를 만들어낼 수 있게 된다.</p>
-<p>예를 들어 버튼을 만들어야 된다고 하자. 단순한 anchor 에 data-role="button" 속성을 넣는 것만으로 버튼을 만들 수 있다. 버튼 아이콘은 data-icon 으로 바꾸고, 페이지 전환 애니메이션이 필요할 경우 data-transition= slide | slideup | slidedown | pop | flip | fade 을 사용하면 되고, 또 data-direction="reverse" 으로 애니메이션 방향을 반대로 바꿀 수 있다. 만약 페이지 전환이 아니라 다이얼로그를 띄워야 할 때 anchor.rel 속성처럼 data-rel="dialog" 속성을 지정하면 된다.</p>
-<p>이 모든 것이 JS 코드 한줄 없이도 자동적으로 이루어지게 만든, jQM 개발팀에게 박수를 보낸다.</p>
-<h2>페이지와 캐싱</h2>
-<p>페이지는 보통 header - content - footer 로 나뉘는, jQM의 가장 핵심적인 구성 요소다. 그냥 모바일 화면의 하나의 뷰라고 생각하면 된다. HTML 파일 안에 여러 개의 페이지들이 존재할 수 있다. 보통은 각 페이지들 마다 #id 를 붙여두면 되긴 한데, AJAX 로 읽어오는 페이지들의 하위 요소(예를 들면 listview)에 #id를 붙여서 jQuery로 접근하는 것은 가급적 피해야 한다.</p>
-<p>왜냐하면 모바일 환경의 특성상 이미 방문했던 페이지에 대해서 다시 서버에 요청을 하지 않기 위해서, jQM은 이미 한번 방문했던 페이지들은 URL 을 해쉬한 키값으로 DOM 에 저장한 후 숨겨버린다. 그러므로, 동일한 #id 를 가진 페이지가 캐싱될 경우 자바스크립트에서 검색하는 게 불가능하므로, 현재 화면에 보이는 페이지를 기준으로 CSS 클래스로 찾는 것을 권한다.</p>
-<p>그냥 페이지 전환이 발생하면 항상 div.data-role="page" 라는 게 무조건 추가된다고 생각하면 이해가 빠를 듯하다. 참고로 로컬 캐싱된 이런 페이지들에 대해 히스토리(Back-Forward) 이동을 적용하기 위해서 yourdomain.com/#/some/where 등의 로컬 주소로 변환된다는 점에 유의할 것.(트위터에서 쓰는 방식이랑 비슷한건데, 뭔가 이걸 가리키는 용어가 있었던 듯... 가물가물..)</p>
-<h2>ul-li-thumb 문제</h2>
-<p>리스트 아이템(li) 바로 아래에 이미지 태그를 넣어두면, jQM은 자동적으로 트위터와 같은 2단 레이아웃으로 바꾼다. 내부적으로 이미지에 ul-li-icon 또는 ul-li-thumb 클래스를 붙이고 li 에다가도 ul-li-has-thumb 같은 클래스를 붙여서 크기와 너비, 마진을 설정해버린다.</p>
-<p>한편으로는 좋은 기능이지만, 원치않는 경우라고 해도 이미지 크기가 강제로 줄어들게 된다. 해결책은 리스트 바로 아래 자식 이미지를 다른 태그로 둘러싸서 jQuery 검색에 걸리지 않게 만들면 된다.</p>
-<p>see also: <a href="http://forum.jquery.com/topic/latest-release-list-thumbnail-issue">http://forum.jquery.com/topic/latest-release-list-thumbnail-issue</a></p>
-<h2>터치 이벤트 사용하기</h2>
-<p>데스크탑에서 개발하다가 아이패드에서 테스트해보니 유독 내가 만든 버튼만 클릭이 잘 안먹는 경우가 있어서 뭔가 했는데, 가만히 생각해보니 click 이벤트와 touch 이벤트는 별개라는 사실을 잠시 잊어서 생긴 문제였다. 항상 tap (tab 이 아니다) 이벤트를 click 과 함께 등록해야 된다 :)</p>
-<h2>fixed header &amp; footer</h2>
-<p>data-position="fixed" 를 이용하면 헤더나 푸터를 스크롤에 관계없이 화면에 고정할 수 있다. 스크롤 할 때에는 사라져서 편한 거 같은데, 막상 아이패드에서는 이게 번쩍거리거나 프레임을 떨어뜨리는 문제가 있으므로 적당히 사용해야 할 거 같다. 나도 처음에는 긴 글이 있을 때 넣으면 좋겠거니 했는데, 워낙 깜빡임이 심해서 빼버렸다. 페이지 전환 애니메이션도 너무 과하면 곤란한 듯하다.</p>
-<h2>$.mobile.ajaxEnabled = false</h2>
-<p>기본적으로, 링크를 클릭하면 jqm은 이동하려는 페이지가 DOM에 없을 때에만, ajax()를 호출해서 페이지를 자동으로 만든다.  그런데 backbone 같은 MVC 라이브러리를 사용할 경우, 이런 흐름은 달라져야 된다. 사용자가 링크를 클릭하면 관련된 모델을 fetch 하고 컬렉션을 적당히 변경한 후, 페이지는 backbone 뷰가 자동으로 만들어주는 느낌이 가장 어울릴 것이다. 즉 ajaxEnabled 옵션을 끄고 관련된 이벤트들을 직접 바인딩해서 처리하면 된다.</p>
-<h2>소소한 팁들</h2>
-<ul>
-<li>버튼을 헤더의 오른 편으로 정렬하기 : 버튼의 class 속성에 ui-btn-right 를 추가하면 된다.</li>
-<li>data-backbtn="false": jQM 1.0a4.1 까지는 페이지 전환시 자동적으로 헤더에 Back 버튼이 추가되므로, 돌아가기 버튼이 필요없는 메인 페이지 등에서는 이 속성을 지정하면 된다.</li>
-<li>원치않는 nested list : ul-li-thumb 와 마찬가지로 li 바로 아래에 ul 이나 ol 이 있으면 자동적으로 페이지가 만들어지므로, 다른 태그로 둘러싸면 된다.</li>
-<li>사용자가 추가한 버튼에 live("click tap") 을 지정하면 이벤트가 2개 발생되는 모양이다. 그냥 tap 만 넣어도 컴퓨터에서는 잘 동작한다.</li>
-<li>자바스크립트로 리스트 아이템을 추가한 후 listview("refresh")를 해도 그 안에 있는 inset listview 는 별도의 쿼리를 통해서 listview 위젯으로 만들어야 한다. 샘플 코드는 여기 <a href="http://jsfiddle.net/Reiot/CpudD/">http://jsfiddle.net/Reiot/CpudD/</a></li>
-</ul></div>
-	
-	<p>
-	
-		<a href="/tag/jquerymobile/"><span class="label">jquerymobile</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -314,6 +443,10 @@ self.fill(self.outputs.bb, 'bbbbb')
 	</li>
 	
 	<li>
+		<a href="/2012/05/22/appscale/">AppScale</a>
+	</li>
+	
+	<li>
 		<a href="/2012/04/21/250k-node-connections/">Node.js로 25만 동접 만들기</a>
 	</li>
 	
@@ -327,10 +460,6 @@ self.fill(self.outputs.bb, 'bbbbb')
 	
 	<li>
 		<a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a>
-	</li>
-	
-	<li>
-		<a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,67 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2010/11/09/setup-npm-socketio/">Setup npm & socket.io</a> <small>2010-11-09</small></h1>
+	</div>
+	<div><p>EDIT: npm 은 이제 기본적으로 설치가 되므로 설치 방법은 생략한다.</p>
+<pre><code>npm install express 
+npm install socket.io
+</code></pre>
+
+<p>참고로, 모든 npm 소스는 ~/.node_libraries/.npm 아래에 저장되어 있다.</p>
+<p>가장 간단한 express 서버는 다음과 같다. curl 로 로컬 서버에 접속해볼 수 있지만, 먼저 테스트를 위해서 아마존 EC2 콘솔에 접속해서 방화벽의 8080 포트를 열어둬야 한다.</p>
+<pre><code>var app = require('express').createServer();
+app.get('/', function(req, res){
+  res.send('hello world');
+});
+app.listen(8080);
+</code></pre>
+
+<p>가장 간단한 socket.io 서버와 클라이언트는 github 에 존재한다. (이상하게도 제대로된 매뉴얼을 찾기가 힘드니, 그냥 <a href="https://github.com/LearnBoost/Socket.IO-node/blob/0.6.1/example/server.js">샘플 코드</a>를 보기를 권한다) </p>
+<pre><code>git clone git://github.com/LearnBoost/Socket.IO-node.git socket.io
+cd socket.io/example/
+sudo node server.js
+</code></pre>
+
+<p>서버와 클라이언트간의 통신은 순전히 JSON 으로 구현된다. 보내는 쪽에서</p>
+<pre><code>socket.send({ id:chat, type:whisper, target:reiot, message:Hello World! })
+</code></pre>
+
+<p>라고 보내고, 받는 쪽에서는</p>
+<pre><code>socket.on('message',function(data){
+  if('id' in data){
+  if(data.id=='chat'){
+  show_message(data.message);
+  }
+  }
+});
+</code></pre>
+
+<p>이런 식의 전통적인 소켓 프로그래밍이 이루어진다. 브로드캐스팅은 그냥 소켓에 대고</p>
+<pre><code>socket.broadcast({something:special})
+</code></pre>
+
+<p>이라고 하면 끝. </p>
+<p>첫 소감은 </p>
+<ul>
+<li>아 쉽다. 처음 소켓 프로그래밍을 배울 때의 느낌이야. 왜 지금까지 이런게 안되었을까..</li>
+<li>소스가 노출될테니 게임 서버에서 해야 하는 모든 것 - 스니핑, 스피드핵, 프로토콜 해킹, 암호화, 한방핵 - 등을 다 구현해야겠지. 클라이언트에게 많은 권한을 줘서는 안될 것 같아..</li>
+<li>이걸로 HTML5 캔버스에서 멀티플레이 가능한 로그라이크를 만들 수 있을까? ㅎㅎ</li>
+</ul>
+<p>정도 되겠다. 한마디로 꽤 재미있는 장난감이 될 것 같다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/node.js/"><span class="label">node.js</span></a>
+	
+		<a href="/tag/socket.io/"><span class="label">socket.io</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a> <small>2010-11-07</small></h1>
 	</div>
 	<div><p>이번 11월부터 <a href="http://aws.amazon.com/free/">1년 무료인 마이크로 인스턴스</a>라는 게 있다길래 node.js 를 위해서 재빨리 가입을 했다. 왜 하필 node.js 인지 궁금하신 분은 <a href="http://www.synchrosinteractive.com/blog/9-nodejs/22-nodejs-has-a-bright-future">nodejs-has-a-bright-future</a> 를 읽어보시길. 싱가포르쪽이 좀 느린 듯해서 그냥 미쿡 버지니아에다가 만들었다.</p>
@@ -174,35 +235,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a> <small>2010-09-26</small></h1>
-	</div>
-	<div><p><a href="http://note.marines.co.kr/135">아이폰/컴퓨터 색상 차이 해결법</a><br />
-<a href="http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/">http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/</a></p>
-<ol>
-<li>
-<p>Working RGB -&gt; Monitor</p>
-</li>
-<li>
-<p>Desaturate RGB -&gt; 20-25%</p>
-</li>
-<li>
-<p>Modify Gamma</p>
-</li>
-<li>
-<p>Assign Profile -&gt; Working RGB</p>
-</li>
-</ol></div>
-	
-	<p>
-	
-		<a href="/tag/photoshop/"><span class="label">photoshop</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -223,6 +255,10 @@
 	</li>
 	
 	<li>
+		<a href="/2010/11/09/setup-npm-socketio/">Setup npm & socket.io</a>
+	</li>
+	
+	<li>
 		<a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a>
 	</li>
 	
@@ -236,10 +272,6 @@
 	
 	<li>
 		<a href="/2010/10/12/advanced-photoshop-techniques-for-ui/">Advanced Photoshop Techniques for UI</a>
-	</li>
-	
-	<li>
-		<a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a>
 	</li>
 	
 </ul>

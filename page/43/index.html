@@ -63,6 +63,22 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a> <small>2005-07-12</small></h1>
+	</div>
+	<div><p><img alt="mantis" src="http://manual.mantisbt.org/mantis_logo.gif" /></p>
+<p>오래전부터 맨티스에다가 중요도나 우선순위 상수를 추가해달라는 요청이 있었으나, 소스를 고쳐야 하기 때문에 방법이 없다고 모른 척 했었다가, 이번에 잠시 짬을 내어 추가를 해 보았다. 관련 자료를 아래에 정리했으니 심심할 때 한번 읽어보시길. :)</p>
+<p>see also : <a href="http://reiot.cafe24.com/wiki/MantisCustomize">MantisCustomize </a></p></div>
+	
+	<p>
+	
+		<a href="/tag/mantis/"><span class="label">mantis</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2005/06/02/boosttest/">boost::test</a> <small>2005-06-02</small></h1>
 	</div>
 	<div><p>레이옷은 종전까지 <a href="http://sourceforge.net/projects/cppunit">CppUnit</a>를 애용해왔다. 그러나 이넘은 VC7 에서는 컴파일조차 되지 않았다.  그리하여, 새로운 UnitTest 툴을 찾다가 발견한 것이 바로 이 Boost Library 에 포함된 BoostTest 이다. 이하 설명은 모두 VC7 을 사용한다고 가정하고 설명하겠다.</p>
@@ -794,46 +810,6 @@ int iValue = __NODE_INT(pIntNode);                 // ----&gt; int iVal
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2004/11/26/python-service/">Python Service</a> <small>2004-11-26</small></h1>
-	</div>
-	<div><p>win32serviceutil.ServiceFramework를 상속받아서 SvcStop(), SvcDoRun() 을 override 하면 가장 기본적인 서비스를 구현할 수 있다. 아래의 예제는 Python Programming on Win32 에서 발췌한 것이다.</p>
-<h1>!python</h1>
-<p>import win32serviceutil, win32service, win32event<br />
-class MyService(win32serviceutil.ServiceFramework):<br />
-<em>svc_name</em> = "MyService"<br />
-<em>svc_display_name</em> = "My First Service"<br />
-  def <strong>init</strong>(self,args):<br />
-  win32serviceutil.ServiceFramework.<strong>init</strong>(self,args)<br />
-  self.event = win32event.CreateEvent(None,0,0,None)<br />
-  def SvcStop(self):<br />
-  self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)<br />
-  win32event.SetEvent(self.event)<br />
-  def SvcDoRun(self):<br />
-  win32event.WaitForSingleObject(self.event,win32event.INFINITE)</p>
-<p>if <strong>name</strong>=='<strong>main</strong>':<br />
-  win32serviceutil.HandleCommandLine(MyService)</p>
-<p>이렇듯 간단한 서비스를 실행하기 위해서는 우선 Win32 Python 모듈과 함께 배포되는 PythonService.exe를 레지스트리에 등록해야 한다. 다음과 같이 하라. (그런데, 아마도 win32 모듈을 설치하면 자동으로 이 넘이 등록되는 듯하다. 확인 요망)</p>
-<blockquote>
-<p>PythonService.exe /register</p>
-</blockquote>
-<p>이제 서비스를 실행해보자. win32serviceutil.HandleCommandLine()이 이미 모든 것을 구현해뒀기 때문에, 그냥 다음과 같이 하면 된다.</p>
-<blockquote>
-<p>python MyService.py install | start | stop | remove</p>
-</blockquote>
-<p>물론 net start | stop MyService 라고 해도 서비스를 시작/종료할 수 있다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/python/"><span class="label">python</span></a>
-	
-		<a href="/tag/service/"><span class="label">service</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -854,6 +830,10 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 	</li>
 	
 	<li>
+		<a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a>
+	</li>
+	
+	<li>
 		<a href="/2005/06/02/boosttest/">boost::test</a>
 	</li>
 	
@@ -867,10 +847,6 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 	
 	<li>
 		<a href="/2004/11/26/visual-studio-tips/">Visual Studio Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2004/11/26/python-service/">Python Service</a>
 	</li>
 	
 </ul>
