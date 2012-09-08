@@ -63,6 +63,650 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/02/17/boost-preprocessor/">boost::preprocessor</a> <small>2009-02-17</small></h1>
+	</div>
+	<div><p>boost::preprocessor 는 템플릿을 이용한 메타프로그래밍에 있어서, 템플릿 파라미터들의 반복 같은 "<strong>문자열 토큰들의 패턴 처리</strong>"를 매크로를 이용해서 손쉽게 처리해주는 라이브러리이다. 보다 상세한 용법은 <a href="http://www.boost.org/doc/libs/1_38_0/libs/preprocessor/doc/index.html">공식 홈페이지</a> 혹은  <a href="http://rein.upnl.org/wordpress/archives/486">레인님 블로그</a>와 <a href="http://ricanet.com/new/view.php?id=blog/080607">리카넷 블로그</a>를 참조하기 바란다.</p>
+<p>이걸 이용해서 <a href="http://reiot.cafe24.com/2009/01/20/boost-tuple-based-serialization/">몇 주전에 포스팅한 boost::tuple 의 직렬화 코드</a>를 만들어봤다. 원래 계획과는 좀 많이 바뀌긴 했는데, 구글로 검색해보니 <a href="http://uint32t.blogspot.com/2008/03/update-serializing-boosttuple-using.html">tuple 을 boost::serialization 으로 직렬화하는 예제</a>가 를 (상당 부분!) 참조했음을 밝힌다.</p>
+<p>남은 작업은 여기에 vector 와 list 를 자동으로 직렬화하는 건데, 어째 아무리 검색해봐도 is_vector 라든지 is_list 같은 넘이 없어서 일단은 포기. 결국 mpl 을 뒤져봐야 할지도 모르겠다. </p>
+<!--more-->
+
+<pre><code>
+#include &quot;stdafx.h&quot;
+
+#include &lt;boost/tuple/tuple.hpp&gt;
+
+#include &lt;string&gt;
+
+#include &lt;vector&gt;
+
+#include &lt;string&gt;
+#include &lt;gtest/gtest.h&gt;
+using namespace boost;
+using namespace std;
+#include &lt;boost/preprocessor/repetition.hpp&gt;
+typedef unsigned short strlen_t;
+template&lt; class V &gt;
+int to_binary( char* buf, const V &amp; v )
+{
+  size_t len = sizeof(v);
+  memcpy(buf,(const void*)&amp;v,len);
+  return len;
+}
+template&lt;class T&gt;
+int from_binary( const char * buf, T &amp; t )
+{
+  size_t len = sizeof(t);
+  memcpy((void*)&amp;t,buf,len);
+  return len;
+}
+template&lt;&gt;
+int to_binary( char* buf, const string &amp; s )
+{
+  strlen_t sz = (strlen_t)s.size();
+  memcpy(buf,&amp;sz,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  memcpy(buf+sizeof(sz),s.c_str(),sz);
+  }
+  return sizeof(sz)+sz;
+}
+template&lt;&gt;
+int from_binary( const char * buf, string &amp; str )
+{
+  strlen_t sz;
+  memcpy((void*)&amp;sz,buf,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  str.assign(buf+sizeof(sz),sz);
+  assert(str.size()==sz);
+  }
+  return sizeof(sz)+sz;
+}
+template&lt;&gt;
+int to_binary( char* buf, const wstring &amp; s )
+{
+  strlen_t sz = (strlen_t)s.size();
+  memcpy(buf,&amp;sz,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  memcpy(buf+sizeof(sz),s.c_str(),sz*sizeof(wchar_t));
+  }
+  return sizeof(sz)+sz*sizeof(wchar_t);
+}
+template&lt;&gt;
+int from_binary( const char * buf, wstring &amp; str )
+{
+  strlen_t sz;
+  memcpy((void*)&amp;sz,buf,sizeof(sz));
+  if ( sz &gt; 0 )
+  {
+  str.assign((wchar_t*)(buf+sizeof(sz)),sz);
+  assert(str.size()==sz);
+  }
+  return sizeof(sz)+sz*sizeof(wchar_t);
+}
+#define TO_BINARY(z,which,unused) \
+  byte_written = to_binary( buf + offset, t.get&lt;which&gt;() );\
+  if ( byte_written &lt; 0 ) { return which; }\
+  offset += byte_written;
+#define TUPLE_TO_BINARY(z,nargs,unused) \
+  template&lt; BOOST_PP_ENUM_PARAMS(nargs,typename T) &gt; \
+  int tuple_to_binary( const boost::tuple&lt; BOOST_PP_ENUM_PARAMS(nargs,T) &gt; &amp; t, char * buf, size_t max_len ) \
+  { \
+  int offset = 0; \
+  int byte_written = 0; \
+  BOOST_PP_REPEAT_FROM_TO(0,nargs,TO_BINARY,~); \
+  return offset; \
+  }
+BOOST_PP_REPEAT_FROM_TO(1,6,TUPLE_TO_BINARY,~);
+#define FROM_BINARY(z,which,unused) \
+  byte_read = from_binary( buf + offset, t.get&lt;which&gt;() );\
+  if ( byte_read &lt; 0 ) { return which; }\
+  offset += byte_read;
+#define BINRY_TO_TUPLE(z,nargs,unused) \
+  template&lt; BOOST_PP_ENUM_PARAMS(nargs,typename T) &gt; \
+  int binary_to_tuple( boost::tuple&lt; BOOST_PP_ENUM_PARAMS(nargs,T) &gt; &amp; t, char * buf, size_t max_len ) \
+{ \
+  int offset = 0; \
+  int byte_read = 0; \
+  BOOST_PP_REPEAT_FROM_TO(0,nargs,FROM_BINARY,~); \
+  return offset; \
+}
+BOOST_PP_REPEAT_FROM_TO(1,6,BINRY_TO_TUPLE,~);
+//template&lt; class T0&gt;
+//int binary_to_tuple( boost::tuple&lt;t0&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0 &gt;
+//int tuple_to_binary( const boost::tuple&lt;t0&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//
+//template&lt; class T0, class T1&gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//
+//template&lt; class T0, class T1, class T2&gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//
+//template&lt; class T0, class T1, class T2, class T3&gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2,T3&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2, class T3, class T4 &gt;
+//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2,T3,T4&gt; &amp; t, char * buf, size_t max_len )
+//{
+//  int offset = 0;
+//  int byte_written = 0;
+//
+//  //{
+//  //  size_t sz0 = sizeof( tuples::element&lt;0,TUPLE&gt;::type );
+//  //  assert( sz0 == sizeof(int) );
+//  //  size_t sz1 = sizeof( tuples::element&lt;1,TUPLE&gt;::type );
+//  //  assert( sz1 == sizeof(char) );
+//  //  size_t sz2 = sizeof( tuples::element&lt;2,TUPLE&gt;::type );
+//  //  assert( sz2 == sizeof(string) );
+//  //  size_t sz3 = sizeof( tuples::element&lt;3,TUPLE&gt;::type );
+//  //  assert( sz3 == sizeof(float) );
+//  //  size_t sz4 = sizeof( tuples::element&lt;4,TUPLE&gt;::type );
+//  //  assert( sz4 == sizeof(bool) );
+//  //}
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_written;
+//
+//  byte_written = to_binary( buf + offset, t.get&lt;4&gt;() );
+//  if ( byte_written &lt; 0 )
+//  {
+//  // error
+//  return -4;
+//  }
+//  offset += byte_written;
+//
+//  return offset;
+//}
+//template&lt; class T0&gt;
+//int binary_to_tuple( boost::tuple&lt;t0&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1&gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2&gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1,T2&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2, class T3&gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1,T2,T3&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+//
+//template&lt; class T0, class T1, class T2, class T3, class T4 &gt;
+//int binary_to_tuple( boost::tuple&lt;t0,T1,T2,T3,T4&gt; &amp; t, const char * buf, size_t len )
+//{
+//  int offset = 0;
+//
+//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return 0;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -1;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -2;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;3&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -3;
+//  }
+//  offset += byte_read;
+//
+//  byte_read = from_binary( buf + offset, t.get&lt;4&gt;() );
+//  if ( byte_read &lt; 0 )
+//  {
+//  // error
+//  return -4;
+//  }
+//  offset += byte_read;
+//
+//  return offset;
+//}
+#define TUPLE_TO_BINARY_TO_TUPLE(t,t1) \
+  char buf[1024];\
+  int len = tuple_to_binary(t,buf,1024);\
+  int len2 = binary_to_tuple(t1,buf,len);\
+  EXPECT_EQ( len2 , len )
+TEST(tuple_to_binary,test1)
+{
+  typedef tuple&lt;int&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+}
+TEST(tuple_to_binary,boolean)
+{
+  typedef tuple&lt;bool,bool&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = true;
+  t.get&lt;1&gt;() = false;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,wstring)
+{
+  typedef tuple&lt;string,wstring&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = &quot;Hello&quot;;
+  t.get&lt;1&gt;() = L&quot;World&quot;;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,test2_empty_string)
+{
+  typedef tuple&lt;wstring,wstring&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = L&quot;Hello&quot;;
+  t.get&lt;1&gt;() = L&quot;&quot;;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,test2)
+{
+  typedef tuple&lt;int,char&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+}
+TEST(tuple_to_binary,test3)
+{
+  typedef tuple&lt;int,char,string&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  t.get&lt;2&gt;() = &quot;Hello World&quot;;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
+}
+TEST(tuple_to_binary,test4)
+{
+  typedef tuple&lt;int,char,string,float&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  t.get&lt;2&gt;() = &quot;Hello World&quot;;
+  t.get&lt;3&gt;() = 12.34f;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
+  EXPECT_EQ( t.get&lt;3&gt;() , t1.get&lt;3&gt;() );
+}
+TEST(tuple_to_binary,test5)
+{
+  typedef tuple&lt;int,char,string,float,bool&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;() = 1024;
+  t.get&lt;1&gt;() = 'A';
+  t.get&lt;2&gt;() = &quot;Hello World&quot;;
+  t.get&lt;3&gt;() = 12.34f;
+  t.get&lt;4&gt;() = false;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
+  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
+  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
+  EXPECT_EQ( t.get&lt;3&gt;() , t1.get&lt;3&gt;() );
+  EXPECT_EQ( t.get&lt;4&gt;() , t1.get&lt;4&gt;() );
+}
+TEST(tuple_to_binary,struct)
+{
+  struct my_struct
+  {
+  int i;
+  char c;
+  float f;
+  bool b;
+  };
+
+  typedef tuple&lt;my_struct&gt; my_tuple;
+  my_tuple t, t1;
+  t.get&lt;0&gt;().i = 1024;
+  t.get&lt;0&gt;().c = 'A';
+  t.get&lt;0&gt;().f = 12.34f;
+  t.get&lt;0&gt;().b = false;
+  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+  EXPECT_EQ( t.get&lt;0&gt;().i  , t1.get&lt;0&gt;().i  );
+  EXPECT_EQ( t.get&lt;0&gt;().c  , t1.get&lt;0&gt;().c  );
+  EXPECT_EQ( t.get&lt;0&gt;().f  , t1.get&lt;0&gt;().f  );
+  EXPECT_EQ( t.get&lt;0&gt;().b  , t1.get&lt;0&gt;().b  );
+}
+//TEST(tuple_to_binary,vector)
+//{
+//  struct my_struct
+//  {
+//  int i;
+//  char c;
+//  float f;
+//  bool b;
+//  };
+//
+//  typedef vector&lt;my_struct&gt; my_structs;
+//  typedef tuple&lt;my_structs&gt; my_tuple;
+//
+//  my_tuple t, t1;
+//
+//  for ( size_t i = 0 ; i &lt; 10 ; i ++ )
+//  {
+//  my_struct s;
+//  s.i = 1024;
+//  s.c = 'A';
+//  s.f = 12.34f;
+//  s.b = false;
+//
+//  t.get&lt;0&gt;().push_back(s);
+//  }
+//
+//  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
+//
+//  const my_structs &amp; slist = t.get&lt;0&gt;();
+//  const my_structs &amp; slist1 = t1.get&lt;0&gt;();
+//
+//  EXPECT_EQ( slist1.size(), slist.size() );
+//  for ( size_t j = 0 ; j &lt; slist1.size() ; j ++ )
+//  {
+//  const my_struct &amp; s = slist[j];
+//  const my_struct &amp; s1 = slist1[j];
+//
+//  EXPECT_EQ( s1.i  , s.i  );
+//  EXPECT_EQ( s1.c  , s.c  );
+//  EXPECT_EQ( s1.f  , s.f  );
+//  EXPECT_EQ( s1.b  , s.b  );
+//  }
+//}
+int main(int argc, char **argv) {
+  cout &lt;&lt; &quot;Running main() from gtest_main.cc\n&quot;;
+  testing::InitGoogleTest(&amp;argc, argv);
+  return RUN_ALL_TESTS();
+}
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+		<a href="/tag/preprocessor/"><span class="label">preprocessor</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2009/02/08/earl-grey/">Earl Grey</a> <small>2009-02-08</small></h1>
 	</div>
 	<div><table style="width:auto;" border="0">
@@ -224,152 +868,6 @@ if result.status_code == 200:
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a> <small>2009-01-20</small></h1>
-	</div>
-	<div><p>boost serialization를 사용하려면 이모저모로 귀찮은 점이 많아서, 생각해본 것이 <a href="http://docs.python.org/library/struct.html?highlight=pack">파이썬의 struct 라이브러리</a>와 같은 느낌으로 프로토콜 포맷을 정의하고, 이걸 boost tuple 코드로 뽑아낸다는 아이디어이다.</p>
-<p>대강의 포맷은<br />
-<table border="1" cellspacing="0" cellpadding="1"><br />
-<tbody></tbody><br />
-<thead><br />
-<tr><br />
-<th class="head">Format</th><br />
-<th class="head">C Type</th><br />
-<th class="head">Python</th><br />
-<th class="head">Notes</th><br />
-</tr><br />
-</thead><br />
-<tbody><br />
-<tr><br />
-<td><tt class="docutils literal">x</tt></td><br />
-<td>pad byte</td><br />
-<td>no value</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">c</tt></td><br />
-<td><tt class="xref docutils literal">char</tt></td><br />
-<td>string of length 1</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">b</tt></td><br />
-<td><tt class="xref docutils literal">signed char</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">B</tt></td><br />
-<td><tt class="xref docutils literal">unsigned char</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">?</tt></td><br />
-<td><tt class="xref docutils literal">_Bool</tt></td><br />
-<td>bool</td><br />
-<td>(1)</td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">h</tt></td><br />
-<td><tt class="xref docutils literal">short</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">H</tt></td><br />
-<td><tt class="xref docutils literal">unsigned short</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">i</tt></td><br />
-<td><tt class="xref docutils literal">int</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">I</tt></td><br />
-<td><tt class="xref docutils literal">unsigned int</tt></td><br />
-<td>integer or long</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">l</tt></td><br />
-<td><tt class="xref docutils literal">long</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">L</tt></td><br />
-<td><tt class="xref docutils literal">unsigned long</tt></td><br />
-<td>long</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">q</tt></td><br />
-<td><tt class="xref docutils literal">long long</tt></td><br />
-<td>long</td><br />
-<td>(2)</td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">Q</tt></td><br />
-<td><tt class="xref docutils literal">unsigned long<br />
-long</tt></td><br />
-<td>long</td><br />
-<td>(2)</td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">f</tt></td><br />
-<td><tt class="xref docutils literal">float</tt></td><br />
-<td>float</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">d</tt></td><br />
-<td><tt class="xref docutils literal">double</tt></td><br />
-<td>float</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">s</tt></td><br />
-<td><tt class="xref docutils literal">char[]</tt></td><br />
-<td>string</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">p</tt></td><br />
-<td><tt class="xref docutils literal">char[]</tt></td><br />
-<td>string</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">P</tt></td><br />
-<td><tt class="xref docutils literal">void *</tt></td><br />
-<td>long</td><br />
-<td> </td><br />
-</tr><br />
-</tbody></table><br />
-가령 로그인 메시지를 "ppl" 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
-<p>typedef boost::tuple<string,string,long> msgLogin;</p>
-<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
-<pre><code>- 64 bit integer
-- datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)
-- STL 지원 : list, vector, map, set
-- 비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.
-</code></pre>
-<p>단점이라면 내부 멤버 접근을 userid, passwd 같은 이름 기반이 아니라 get&lt;1&gt;, get&lt;2&gt; 처럼 해야 한다는 점인데, 이건 좀 심하게 귀찮긴 하겠다. 역시 이름 기반 접근이 그나마 컴파일러가 검증해주니 제일 좋은 방법인가.</p>
-<p>자. 만들어주세요.</p></div>
-	
-	<p>
-	
-		<a href="/tag/boost/"><span class="label">boost</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -390,6 +888,10 @@ long</tt></td><br />
 	</li>
 	
 	<li>
+		<a href="/2009/02/17/boost-preprocessor/">boost::preprocessor</a>
+	</li>
+	
+	<li>
 		<a href="/2009/02/08/earl-grey/">Earl Grey</a>
 	</li>
 	
@@ -403,10 +905,6 @@ long</tt></td><br />
 	
 	<li>
 		<a href="/2009/01/27/change-the-battle-field/">Change the Battle Field</a>
-	</li>
-	
-	<li>
-		<a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a>
 	</li>
 	
 </ul>

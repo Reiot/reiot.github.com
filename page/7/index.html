@@ -63,6 +63,32 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/07/22/most-valuable-asset/">Most Valuable Asset</a> <small>2009-07-22</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a></p>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a><br />
+<div class="mceTemp mceIEcenter"><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a> <dl class="wp-caption  aligncenter"><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a> <dt class="wp-caption-dt"><a href="http://boxcatstudio.files.wordpress.com/2009/07/sany0089.jpg"><img alt="우유 먹는 그레이" src="http://boxcatstudio.files.wordpress.com/2009/07/sany0089.jpg?w=225" /></a></dt> <dd class="wp-caption-dd">우유 먹는 그레이</dd> </dl></div><br />
+건강을 잃으면 모든 것을 잃는다고 누가 그랬나. 그 말이 정답. 일단 체력 회복을 최고 우선 순위에 올려 두고 살고 있으니, 너무 걱정마시길.</p>
+<p>시간 여유가 좀 생기면서 나의 관심은 아이폰에서 트위터 및 SNS 웹게임들로 옮겨 가고 있다. 며칠 전부터는 다시 구글 app engine 을 뒤적거리면서 트위터 기반의 <a href="http://www.zynga.com/games/index.php?game=mafiawars">zynga</a> clone를 구상해보고 있는 중이다.  task queue 가 생겨났으니 이제 slow turn 게임들은 클라우드로 옮겨 가는 것이 가능해진 셈이다.</p>
+<p>웹 동네의 구조들을 보면 <a href="http://danga.com:80/memcached/">memcached</a> 같은 미들웨어들을 적극 활용하고 있다. 게임에서도 <a href="http://dev.naver.com/projects/coord">coord</a> 같은 것들은 마련해두면 서버간 통신이라든지 DB 장비 구매 비용을  꽤나 줄일 수 있을 것 같다. 이런거나 만들면서 놀면 재미있을텐데..</p>
+<p>2009년은 정말 다이나믹한 해로 기억될 것 같다. 개인적으로도, 사회 생활에서도, 국가적으로도 더 이상 슬픈 일은 없었으면 한다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/twitter/"><span class="label">twitter</span></a>
+	
+		<a href="/tag/memcached/"><span class="label">memcached</span></a>
+	
+		<a href="/tag/sns/"><span class="label">sns</span></a>
+	
+		<a href="/tag/coord/"><span class="label">coord</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2009/05/21/idogame/">Idogame</a> <small>2009-05-21</small></h1>
 	</div>
 	<div><p>[caption id="" align="aligncenter" width="404" caption="동접 1천명 == 3백만원"]<img alt="http://images.hangame.co.kr/hangame/idogame/img/promotion/img_benefit01.gif" src="http://images.hangame.co.kr/hangame/idogame/img/promotion/img_benefit01.gif" />[/caption]</p>
@@ -183,33 +209,6 @@ int key = msg.key();
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a> <small>2009-04-23</small></h1>
-	</div>
-	<div><p><img alt="http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80).gif" src="http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80" />.gif)</p>
-<p>비주얼 스튜디오 2005에서 어떤 솔루션만 열면 인텔리센스가 멈추지 않는 현상을 만나서 검색해니, SP1 이후로 <a href="http://code.msdn.microsoft.com/KB943969">한글판 핫픽스 하나</a>와 <a href="http://code.msdn.microsoft.com/KB947315">영문판 핫픽스 하나</a>가 나와 있었다.</p>
-<p>둘 중에서 후자만 깔아도 된다고는 하는데, 영문판 핫픽스는 한글판에서는 설치가 안된다는 것이 문제였다. 다행히도 쉬귀군의 팀은 영문판을 쓰고 있었기에 강제로 원격 설치(-_-)를 해서 <a href="http://blog.naver.com/PostView.nhn?blogId=dexylitol&amp;logNo=20045702640">관련 dll 들을 받아서</a> 그냥 덮어씌워보니 그럭저럭 잘 돌아가는 것 같았다. 조금 걱정이라면 디버그-릴리즈 전환할 때마다 인텔리센스가 돌아간다는 점이랄까.</p>
-<p>정리하자면, 영문판 사용자에게 부탁해서 다음 dll 들을 덮어쓰면 된다!</p>
-<pre><code>- VC/packages/vcpkg.dll
-- VC/packages/VCProjectEngine.dll
-- VC/packages/VCProject.dll
-</code></pre>
-<p>참고로, VC/bin/amd64 또는 x86_amd64 아래에도 버전은 같지만 크기가 다른 VCProjectEngine.dll 파일이 있긴 한데 얘네들은 안덮어써도 돌긴 돌아갔다...</p>
-<p>ps. <a href="http://kaistizen.net/EE/index.php/weblog/comments/visual_studio_2005_hotfixes/">컴파일이 빨라진다는 핫픽스</a>도 있구나..</p></div>
-	
-	<p>
-	
-		<a href="/tag/visual studio/"><span class="label">visual studio</span></a>
-	
-		<a href="/tag/hotfix/"><span class="label">hotfix</span></a>
-	
-		<a href="/tag/intellisense/"><span class="label">intellisense</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -230,6 +229,10 @@ int key = msg.key();
 	</li>
 	
 	<li>
+		<a href="/2009/07/22/most-valuable-asset/">Most Valuable Asset</a>
+	</li>
+	
+	<li>
 		<a href="/2009/05/21/idogame/">Idogame</a>
 	</li>
 	
@@ -243,10 +246,6 @@ int key = msg.key();
 	
 	<li>
 		<a href="/2009/05/01/first-chance-exception-the-tag-is-invalid/">first chance exception : The tag is invalid</a>
-	</li>
-	
-	<li>
-		<a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a>
 	</li>
 	
 </ul>

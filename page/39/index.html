@@ -63,6 +63,29 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2005/12/22/boostsingleton_pool-사용법/">boost::singleton_pool 사용법</a> <small>2005-12-22</small></h1>
+	</div>
+	<div><pre><code>
+struct CharArray512 {};
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+    typedef boost::singleton_pool&lt;CharArray512,512&gt; TestPool;
+
+    void * pBuf = TestPool::malloc();
+    assert( pBuf &gt; 0 );
+    TestPool::free(pBuf);
+
+    return 0;
+}
+</code></pre>
+
+<p>singleton_pool 의 첫번째 템플릿 파라미터인 태그는, 동일한 크기의 버퍼에 대해서 각각 풀을 사용해야 할 때 구분자로 사용된다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2005/12/15/db-datafile-옮기기/">DB datafile 옮기기</a> <small>2005-12-15</small></h1>
 	</div>
 	<div><p>그동안 사용했던 SQL Server evaluation 이 6개월만에 기한 만료되어 다른 머신에 똑같은 넘을 설치하게 되었다. 복구 방법은 생각보다 간단했는데...</p>
@@ -273,58 +296,6 @@ date.ToString("yyyy-MM-dd hh:mm:ss")</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a> <small>2005-12-11</small></h1>
-	</div>
-	<div><h2>키 바인딩</h2>
-<p>가능하면 Visual Studio 랑 비슷하게 맞추려면 다음과 같이 하라.</p>
-<table>
-<thead>
-<tr>
-<th>Category</th>
-<th>Command</th>
-<th>Key</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Window</td>
-<td>Next Editor</td>
-<td>Ctrl + Tab</td>
-</tr>
-<tr>
-<td>Text Editing</td>
-<td>Delete Line</td>
-<td>Ctrl + L</td>
-</tr>
-<tr>
-<td>PyDev - Editor</td>
-<td>Python Comment</td>
-<td>Ctrl + K, Ctrl + C</td>
-</tr>
-<tr>
-<td>PyDev - Editor</td>
-<td>Python Uncomment</td>
-<td>Ctrl + K, Ctrl + U</td>
-</tr>
-<tr>
-<td>Run/Debug</td>
-<td>Run Last Launched</td>
-<td>Ctrl + F5</td>
-</tr>
-<tr>
-<td>Run/Debug</td>
-<td>Debug Last Launched</td>
-<td>F5</td>
-</tr>
-</tbody>
-</table>
-<h2>SubVersion 연동하기</h2>
-<p>eclipse 용 subversion 플러그인인 subclipse 를 이용하면 손쉽게 버전 관리가 가능하다. <a href="http://openframework.or.kr/JSPWiki/Wiki.jsp?page=Subversion">다음 글</a>을 참고할 것.</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -345,6 +316,10 @@ date.ToString("yyyy-MM-dd hh:mm:ss")</p>
 	</li>
 	
 	<li>
+		<a href="/2005/12/22/boostsingleton_pool-사용법/">boost::singleton_pool 사용법</a>
+	</li>
+	
+	<li>
 		<a href="/2005/12/15/db-datafile-옮기기/">DB datafile 옮기기</a>
 	</li>
 	
@@ -358,10 +333,6 @@ date.ToString("yyyy-MM-dd hh:mm:ss")</p>
 	
 	<li>
 		<a href="/2005/12/11/vbnet-팁/">VB.NET 팁</a>
-	</li>
-	
-	<li>
-		<a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a>
 	</li>
 	
 </ul>

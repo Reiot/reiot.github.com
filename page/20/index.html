@@ -63,6 +63,35 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/01/26/msbuild-with-cruise-control-net-3/">MSBuild with Cruise Control .Net (3)</a> <small>2008-01-26</small></h1>
+	</div>
+	<div><p><a href="http://www.flickr.com/photos/reiot/2219214645/" title="Flickr에서 Reiot님의 ccnet3"><img alt="ccnet3" src="http://farm3.static.flickr.com/2387/2219214645_3e955b9244_o.png" /></a></p>
+<p>게임 개발에 있어서 지속적인 통합은, 단순하게 보면 커밋-빌드-테스트-패치-인스톨러가 매번 실행되어야 할 것처럼 보이지만, 실제 업무 프로세스를 감안하면 꼭 그렇지만은 않다.<br />
+<code>패치는 QA팀을 위한 것이다. 즉 실제로 버그가 수정되는 새로운 feature가 들어가든 무언가 테스트할 수 있는 요소가 완결되어야 한다는 의미다. 그러나 과연 개발팀의 커밋이 그러한 완결성을 보장해줄 것인가? 때로는 여러 번 임시적인 커밋을 거쳐야만 하나의 기능이 완료되는 경우가 많다. 원칙적으로는 이런 것은 피해야 하지만, 가끔은 어쩔 수 없이 밀어넣어야 할 때도 있다. 물론 테스트가 잘 갖추어져 있다면 패치와 인스톨러 단계로 들어가기 전에 막아주겠지만, 과연 게임 클라이언트를 위한 자동화된 테스트 슈트를 100% 갖춘 팀이 있을까...</code><br />
+이런 이유로 결국 패치와 인스톨러 생성을 다른 프로젝트로 분리해버렸다. 아직 인스톨러는 안 붙었고, 패치 쪽도 원래대로라면 asset들과 빌드된 .exe들을 복사해와서 따로 관리해야 하지만 일단 이번 주는 이 정도로 마무리지었다.</p>
+<h4>ccnet.config</h4>
+<pre><code>- [ccnetconfig](http://www.codeplex.com/ccnetconfig) 라는 GUI 툴을 이용하면 보다 손쉽게 config 파일을 설정할수 있다.
+- BuildPublisher : 패치 프로젝트에서 $(TargetDir)을 패치 폴더로 복사하기 위해 Tasks 섹션에도 넣어보고, PreBuild 에도 넣어봤지만, 둘 다 실행이 안되었다. 그냥 asset 은 svn으로, 실행 파일들은 배치 파일로 복사를 해야 할 듯. (아니면 커스텀 MSBuild 플러그인들을 쓰던가)
+- ScheduleTrigger : 매일밤 자정에 패치와 인스톨러를 빌드하고 싶어서 넣어봤음.
+- Rodemeyer.MsBuildToCCnet.dll 을 logger로 사용할 경우 링크 에러를 만나면 예외가 발생한다. 이 경우 [소스 코드를 다운 ](http://confluence.public.thoughtworks.org/display/CCNETCOMM/Improved+MSBuild+Integration)받은 후, [Steven Smith 의 패치를 적용](http://aspadvice.com/blogs/ssmith/archive/2007/07/22/Fixed_3A00_-CCNET-_2B00_-MSBUILD-Logger-Error.aspx)해서 빌드한 후 dll을 업데이트하면 해결된다.
+</code></pre>
+<h4>dashboard.config</h4>
+<pre><code>- viewConfigurationProjectPlugin 제거 : 대시보드에서 ccnet.config 파일을 못 읽게 하려면 제거할 것
+- serverLogServerPlugin, serverLogProjectPlugin : 역시나 보안적인 문제가 생길 수 있으니 제거할 것(물론 ccnet.exe 의 디버그 모드를 끄면 되지만)
+- xslReportBuildPlugin 제거 : C++ 프로젝트일 경우 거의 사용되지 않는 NUnit, FxCop, NCover, Simian, Fitness 들도 제거할 것
+- ViewStatisticsReport : 루트 엘리먼트가 없다고 나오는 이유는 ccnet.config 에 StatisticsPublisher가 설정되어 있지 않기 때문이다.
+</code></pre>
+<h4>see also:</h4>
+<pre><code>- [MS Build with Cruise Control .NET](http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/)
+- [MS Build with Cruise Control .NET (2)](http://reiot.cafe24.com/2007/10/26/msbuild-with-cruise-control-net-2/)
+- [WebDashboard &amp; CCTray](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)
+- [CCNET Google Group ](http://groups.google.co.il/group/ccnet-user)
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/01/23/upgrade-mantis-111/">Upgrade Mantis 1.1.1</a> <small>2008-01-23</small></h1>
 	</div>
 	<div><p><a href="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&h=&cache=cache"><img alt="mantis roadmap" src="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&amp;h=&amp;cache=cache" /></a></p>
@@ -131,56 +160,6 @@ BOOST_CHECK( 2 == 1 );
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/01/14/svn-path-based-auth/">SVN path based auth</a> <small>2008-01-14</small></h1>
-	</div>
-	<div><p>svn + apache, 즉 mod_authz_svn  으로 권한 관리를 할 경우, 디자이너나 기획자에게 특정 폴더의 접근 권한을 열어 줘야 할 경우가 종종 있다.</p>
-<pre><code>
-/
-/bin
-/src
-</code></pre>
-
-<p>이 경우 @designer 들이 소스 코드를 못보게 하면서 그래픽 리소스 폴더에 대해서는 읽고 쓰기를 가능하게 해야 한다면, group.conf 를 어떻게 작성해야 할까?</p>
-<pre><code>
-[/]
-* = rw
-[/src]
-@designer =
-@programmer = rw
-</code></pre>
-
-<p>Browse Repository 를 하기 위해서는 최상위 경로에 읽기 권한이 있어야 한다는 점을 감안하면 이게 정답일 수 있지만, 소스 폴더가 여러 개일 경우라면 꽤 피곤한 일이 된다. 나도 처음에는 이렇게 밖에 안되는 줄 알고 포기하고 있었으나 오늘 진짜 답을 알게 되었다.</p>
-<pre><code>
-[/bin]
-@designer = rw
-[/]
-@designer =
-@programmer = rw
-</code></pre>
-
-<p>SVN의 인증 시스템은 <a href="http://svnbook.red-bean.com/en/1.4/svn.serverconfig.pathbasedauthz.html">선언한 순서대로 검색을 한다는 단순한 원칙</a>에 기반하기 때문에, 예외 사항이 있다면 가장 먼저 선언해버리면 최상위 경로에 대한 권한에 대해서 걱정하지 않아도 된다는 점이다. 다만 Browse Repository 를 통해서 root 에서부터 찾아가는 것이 막혀있기 때문에, 처음 체크아웃을 할 때 정확한 URL을 가르쳐줘야 한다.</p>
-<p>이외에도 다중 프로젝트를 관리할 때 동일한 사용자가 서로 다른 그룹에 속할 경우 미묘한 오류가 생길 수 있다. 아래와 같이 팀별로 자신의 프로젝트만 접근할 수 있도록 하고 싶다고 가정하자.</p>
-<pre><code>
-[groups]
-@admin = admin1
-@dev1 = admin1, user1, user2, ...
-@dev2 = admin1, user3, user4, ...
-[/]
-@admin = rw
-[project1:/]
-@dev1 = rw
-@dev2 =
-[project2:/]
-@dev1 =
-@dev2 = rw
-</code></pre>
-
-<p>원래의 의도는 관리자는 모든 프로젝트에 접근할 수 있도록 하는 것이었는데, 실제로는 양쪽 모두 접근할수 없게 된다. 이 경우, 관리자를 팀에서 제외하면 사실 문제는 간단해진다 ;)</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -201,6 +180,10 @@ BOOST_CHECK( 2 == 1 );
 	</li>
 	
 	<li>
+		<a href="/2008/01/26/msbuild-with-cruise-control-net-3/">MSBuild with Cruise Control .Net (3)</a>
+	</li>
+	
+	<li>
 		<a href="/2008/01/23/upgrade-mantis-111/">Upgrade Mantis 1.1.1</a>
 	</li>
 	
@@ -214,10 +197,6 @@ BOOST_CHECK( 2 == 1 );
 	
 	<li>
 		<a href="/2008/01/19/cheat-engine/">Cheat Engine</a>
-	</li>
-	
-	<li>
-		<a href="/2008/01/14/svn-path-based-auth/">SVN path based auth</a>
 	</li>
 	
 </ul>

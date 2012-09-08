@@ -63,6 +63,68 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2012/04/21/250k-node-connections/">Node.js로 25만 동접 만들기</a> <small>2012-04-21</small></h1>
+	</div>
+	<div><p>via <a href="http://blog.caustik.com/">caustik's blog</a></p>
+<h2><a href="http://blog.caustik.com/2012/04/08/scaling-node-js-to-100k-concurrent-connections/">node.js 를 10만 동접으로 스케일링하기</a></h2>
+<ul>
+<li>10만 동접을 처리하는데 CPU 점유율 40%, (virtual) 메모리 1.4G 를 차지함. 이 정도면 rackspace 2G 클라우드 서버일 경우 시간당 0.1$ 로 가능함.</li>
+<li>각 연결은 5초에 한번 메시지를 보냄. 대략 초당 4만개의 JSON 패킷이 보내짐. 응답성도 좋음. </li>
+</ul>
+<p>이런 성능을 위한 설정은:</p>
+<ul>
+<li>Nagle 알고리즘을 사용안함: 빠른 응답성을 위해 커널 내부에 네트워크 버퍼링을 사용하지 않고 즉시 보내지도록 함. socket.setNoDelay().</li>
+<li>v8의 idle 가비지 컬렉션을 끄기 위해 --nouse-idle-notification 옵션 사용: JS 객체가 2백만개 정도 되면 몇 초마다 가비지 컬렉션 때문에 1초 가까이 랙이 걸림. 실제로 객체들을 순회하는 데만 이 정도의 시간이 소모됨. <br />
+[역주] 소스 코드를 보면 --expose_gc 옵션으로 실행해서 gc()를 실행할 수 있게 한 다음, /debug/gc 메시지를 보내서 가비지 컬렉션을 하게 되는데, 이걸 실행하는 순간 랙은 뭘 해도 피할 수 없음. ㅠㅠ </li>
+</ul>
+<h2><a href="http://blog.caustik.com/2012/04/10/node-js-w250k-concurrent-connections/">node.js 로 25만 동접 만들기</a></h2>
+<ol>
+<li>
+<p>가장 최근 태그된 v8 리비전의 성능이 그나마 낫다.</p>
+</li>
+<li>
+<p>25만 연결은 v8의 1.4기가 힙 메모리 제한 하에서의 최대치. 이 상황에서도 CPU 사용량이나 메모리 사용량이 낮은 걸 본다면, 충분히 더 나아질 수 있을 듯.</p>
+</li>
+<li>
+<p>여러 번 테스트해본 결과, SVN의 가장 최근에 태그된 리비전이 그나마 제일 안정적이었음</p>
+</li>
+<li>
+<p>클러스터 모듈의 워커들을 이용</p>
+</li>
+<li>
+<p>100개의 아마존 EC2 서버들로부터 초당 10만개의 JSON HTTP GET 요청을 보냄. </p>
+</li>
+<li>클러스터 모듈을 사용해서 일시적인 요청(?) 처리의 오버헤드를 줄임. (35만 연결 중 10만개 정도가 일시적이었다) [역주] 자식 프로세스로 어떻게 뭘 분산하는지는 현재 미확인 </li>
+<li>마스터는 이전과 동일. 워커는 CPU 당 하나씩 생성하고, 마스터와는 다른 포트를 사용해서 요청을 받아서 마스터로 포워딩함. 이렇게 한 이유는 오직 1.4기가 힙 제한 때문.</li>
+</ol>
+<h2><a href="http://blog.caustik.com/2012/04/11/escape-the-1-4gb-v8-heap-limit-in-node-js/">V8의 1.4GB 힙제한 벗어나기</a></h2>
+<ul>
+<li><code>ulimit -n 999999</code>: 소켓 오픈 개수 제한을 증가. 기본 1024.</li>
+<li><code>--nouse-idle-notification</code>: 가바지 컬렉터가 자동적으로 실행되는 걸 막음. 30초마다 4초짜리 랙이 걸리고 싶지 않으면 사용해야 함. --expose-gc 로 gc() 함수를 자바스크립트에서 직접 호출. </li>
+<li><code>--max-old-space-size=8192</code> : 메모리 제한 최대값을 임의로 설정. </li>
+<li>최신 v8 소스를 약간 고쳐서 빌드: 메모리 관련 설정이나 가비지 컬렉터 실행 부분을 수정. </li>
+</ul>
+<p>최근엔 1.4G 제한을 넘어서 2.2G 까지도 사용할 수 있었음. :)</p>
+<p>[역주] node.js 서버 실행시 넘기는 파라미터:</p>
+<blockquote>
+<p>node --trace-gc --expose-gc --nouse-idle-notification --max-new-space-size=2048 --max-old-space-size=8192 sprites.js</p>
+</blockquote>
+<h2>총평</h2>
+<ul>
+<li>게임 서버를 개발시 이슈가 되는, 응답성, 동접 처리 등의 문제를 node.js 개발자들도 만나기 시작함. 의외로 메모리 제한이 문제가 된다는 게 특이했음. node.js 개발진은 메모리 제약은 클러스터 모듈로 분산해서 해결하는 걸 추천하는 듯. </li>
+<li>가비지 컬렉팅 문제는 응답성이 중요한 액션 게임을 개발할 경우 심각할 수 있음. (4초나 랙이 걸린다니! 그것도 30초마다!) 그래도 소셜 게임 수준은 걱정하지 않아도 될 듯. </li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/python/"><span class="label">python</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a> <small>2011-09-21</small></h1>
 	</div>
 	<div><p><img alt="해커 전용 블로깅 프레임워크?" src="http://octopress.org/images/logo.png" /></p>
@@ -203,32 +265,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a> <small>2011-04-14</small></h1>
-	</div>
-	<div><p>구글 앱엔진은 데이터스토어의 내용을 로컬 파일로 내려받거나 올리는 벌크로딩을 지원한다. 그런데 막상 기획 데이터와 실시간 연동하려면, 스프레드시트를 편집한 후 CSV로 '하나씩' 다운받아서 다시 콘솔창에서 appcfg.py 로 '한 종류씩' 올려야 하는, 상당히 피곤한 과정을 거쳐야 한다.</p>
-<p>만약 구글 스프레드시트의 데이터를 바로 데이터스토어로 올리고 내릴 수 있다면 얼마나 편할까? 해서 스프레드시트 API 를 써서 직접 만들어봤는데, Model 당 import/export/create 코드를 각각 작성해야 하는 단점이 있었다. 그런데, 이미 bulkloader.yaml 를 만들어서 관리중이라면, 아래 커넥터를 써서 간단하게 구현할 수 있다.</p>
-<p><a href="http://code.google.com/p/bulkloader-gdata-connector/">http://code.google.com/p/bulkloader-gdata-connector/</a></p>
-<p>기본적인 사항들은 <a href="http://code.google.com/p/bulkloader-gdata-connector/wiki/GettingStarted">가이드 문서</a>를 읽어보면 되고, 아래 다음 사항들을 참고하면 된다.</p>
-<ul>
-<li>django 1.2 를 사용할 경우, 코드 맨 위에     use_library('django', '1.2')를 추가할 것. 그렇지 않으면 무서운 0.96.4 is already in use 에러를 맛보리라.</li>
-<li>구글앱스 도메인을 사용할 경우 GenerateAuthSubURL(..., domain='yourapps.com') 을 추가할 것.</li>
-<li>컬럼 이름에는 공백, underscore(_), 대문자를 사용하면 안된다.</li>
-<li>내보내기는 제법 오랜 시간이 걸리지만, 불러오는 건 꽤 빠르다. 즉 최초에 한번 내보내고 그 다음부터는 금방 금방 불러올 수 있다는 뜻이다. :)</li>
-<li>단점이라면, 데이터를 불러오려면 콘솔 즉 프로그래머의 개입(==패스워드 입력)이 필요하다는 점이다. 웹 기반 UI 에서 Connector를 어찌어찌 잘 부를 수 있으면 좋겠는데, 워낙 코드가 복잡해서;;</li>
-</ul></div>
-	
-	<p>
-	
-		<a href="/tag/bulkload/"><span class="label">bulkload</span></a>
-	
-		<a href="/tag/appengine/"><span class="label">appengine</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -245,6 +281,10 @@
 	</li>
 	
 	<li>
+		<a href="/2012/04/21/250k-node-connections/">Node.js로 25만 동접 만들기</a>
+	</li>
+	
+	<li>
 		<a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
 	</li>
 	
@@ -258,10 +298,6 @@
 	
 	<li>
 		<a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-	</li>
-	
-	<li>
-		<a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
 	</li>
 	
 </ul>

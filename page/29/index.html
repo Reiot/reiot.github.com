@@ -63,6 +63,32 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/07/05/operator-는-상속되지-않는다/">operator= 는 상속되지 않는다.</a> <small>2006-07-05</small></h1>
+	</div>
+	<div><pre><code>
+template
+class Hello
+{
+public :
+void operator=( const T &amp;amp;val ) { value = val; }
+T value;
+};
+
+class HelloStr : public Hello {};
+
+TEST(TemplateAndOperator)
+{
+Hello i;
+i = 100;
+Hello s;
+s = &quot;Hello&quot;; // error
+}
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/07/01/fps-게임의-복제-프레임워크-분석/">FPS 게임의 복제 프레임워크 분석</a> <small>2006-07-01</small></h1>
 	</div>
 	<div><p>다음 글을 읽기 전에 우선 <a href="http://reiot.cafe24.com/archives/571">전통적인 FPS게임의 네트워크 구현</a>부터 읽어보기를 권장한다. 참고한 원문은 <a href="http://developer.valvesoftware.com/wiki/Networking_Entities">하프2위키:Networking_Entities</a>이며, 단순 번역이 아니라 코드를 기반으로 정리한 내용임을 미리 밝힌다.</p>
@@ -442,114 +468,6 @@ end</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a> <small>2006-06-04</small></h1>
-	</div>
-	<div><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
-<p><em>그러나 가장 좋은 것은 뭐니뭐니해도 하드웨어 방화벽이다</em>. :)</p>
-<h2>보안 정책</h2>
-<p>보안 정책은 {IP 필터:필터 동작}의 매핑으로 이루어진다.</p>
-<ul>
-<li>IP 필터 - {src_ip,dest_ip,protocol,port,...} 으로 구성된다.</li>
-<li>필터 동작 - 위 IP 필터에 의해 걸러진 트래픽을 허용/보안요청/보안필요/거부할 것인지를 결정한다.</li>
-</ul>
-<p>기본적으로 3가지의 보안 정책이 존재한다. 단 OS 설치 초기에는 모든 정책이 꺼져 있다.</p>
-<ul>
-<li>서버(보안요청)</li>
-<li>클라이언트(응답만)</li>
-<li>보안 서버(보안필요)</li>
-</ul>
-<p>따라서, 우리는 새로운 커스텀 보안정책을 생성한 후 아래와 같이 필터와 동작들을 추가해야 한다.</p>
-<ul>
-<li>터미널 서비스 : 회사의 개발용 머신, IDC의 다른 컴퓨터들에서만 허용</li>
-<li>MSSQL : IDC의 다른 컴퓨터에서만 허용</li>
-<li>WWW : 방화벽 없슴</li>
-</ul>
-<h2>IP필터</h2>
-<h3>터미널 서비스</h3>
-<p>터미널 서비스는 TCP 3389 포트를 사용한다. 따라서, 기본적으로 터미널 서비스를 거부한 다음, 접근을 허용하고 싶은 컴퓨터의 IP만 지정해주면 간단하다. OS 방화벽을 함께 사용한 경우, TCP 3389 포트를 열어주는 것을 잊지 말자.</p>
-<p>반면, 특정 subnet에서만 터미널 서비스를 허용하려면 , 해당 subnet 이 시작하는 주소를 잘 지정해야 한다. 하긴 mask 만 잘 지정하면 적당한 대역의 IP를 넣으면 알아서 변환이 되니깐 별 관계는 없다만...</p>
-<table>
-<thead>
-<tr>
-<th>정책</th>
-<th>프로토콜</th>
-<th>원본주소</th>
-<th>원본포트</th>
-<th>대상주소</th>
-<th>대상포트</th>
-<th>필터동작</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>모든 터미널 서비스 거부</td>
-<td>TCP</td>
-<td>any</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>3389</td>
-<td>거부</td>
-</tr>
-<tr>
-<td>특정 컴퓨터의 터미널 서비스 허용</td>
-<td>TCP</td>
-<td>특정 컴퓨터 - IP 또는 DNS</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>3389</td>
-<td>허용</td>
-</tr>
-<tr>
-<td>특정 서브넷의 터미널 서비스 허용</td>
-<td>TCP</td>
-<td>특정 subnet- 시작 IP / subnet mask</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>3389</td>
-<td>허용</td>
-</tr>
-</tbody>
-</table>
-<h3>SqlServer 에 대한 외부 접근 제어</h3>
-<p>SqlServer 는 TCP 1433, UDP 1433 포트를 사용한다. OS 방화벽을 함께 사용한 경우, 각 포트들을 열어주는 것을 잊지 말자. TCP/UDP에 대한 거부 필터를 2개 만들어서 추가한 뒤, 접근을 허용하고 싶은 서버를 허용 필터로 추가하면 된다. (보안의 기본적인 컨셉은 모두 막은 뒤 하나씩 풀어주는 것..이라고 누가 말했던가..)</p>
-<table>
-<thead>
-<tr>
-<th>정책</th>
-<th>프로토콜</th>
-<th>원본주소</th>
-<th>원본포트</th>
-<th>대상주소</th>
-<th>대상포트</th>
-<th>필터동작</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SqlServer 외부 접근 거부</td>
-<td>TCP/UDP 각각</td>
-<td>any</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>1433</td>
-<td>거부</td>
-</tr>
-<tr>
-<td>SqlServer 특정 서버 허용</td>
-<td>TCP/UDP 각각</td>
-<td>특정 서버의 IP 또는 DNS</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>1433</td>
-<td>허용</td>
-</tr>
-</tbody>
-</table></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -570,6 +488,10 @@ end</p>
 	</li>
 	
 	<li>
+		<a href="/2006/07/05/operator-는-상속되지-않는다/">operator= 는 상속되지 않는다.</a>
+	</li>
+	
+	<li>
 		<a href="/2006/07/01/fps-게임의-복제-프레임워크-분석/">FPS 게임의 복제 프레임워크 분석</a>
 	</li>
 	
@@ -583,10 +505,6 @@ end</p>
 	
 	<li>
 		<a href="/2006/06/08/lua-tips/">Lua Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a>
 	</li>
 	
 </ul>

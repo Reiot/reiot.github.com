@@ -63,6 +63,17 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/08/26/la로-출장갑니다/">LA로 출장갑니다.</a> <small>2006-08-26</small></h1>
+	</div>
+	<div><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/225102939"><img class="tt-flickr" src="http://static.flickr.com/60/225102939_8390297a9b_s.jpg" width="75" height="75"></a> 2002-2003년도에 중국에서 5개월 정도 출장간 후, 몇 년만에 처음으로 바다를 건너게 되었다. 내일 저녁에 출국해서 본사가 위치한 LA 근처 Diamond Bar라는 곳에서 약 2주 정도 머무를 예정이다.</p>
+<p>이번 출장의 지상 최대의 목적은 바로 이번에 작업한 파일럿 무비를 보스에게 시연하는 것이다. 물론 시연 자체는 같이 가는 우리 실장이 하고, 나는 옆에서 고개만 끄덕거리면서 적당히 코멘트를 날리면 될 뿐이다. 그 외에 몇 가지 사항, 가령 3D 스캐닝을 미국에서 외주를 줬을 때 돈이 얼마가 들 것인지 조사하는 것과, 차세대 콘솔로의 이식 문제라든지 차차기 프로젝트의 동시 진행 여부 등에 대해서 보스의 의향을 알아 와야 하는 정도가 있겠다.</p>
+<p>미국으로의 첫 출장임에도 그다지 긴장하거나 기대가 되지 않는 이유는, 아무래도 중국에서의 경험 덕분일지도 모르겠다. 다만 유일하게 기대되는 것은 지평선을 또다시 볼 수 있다는 것 정도??</p>
+<p>아무튼, 잘 다녀오겠습니다~</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/08/03/osx-tips/">OSX Tips</a> <small>2006-08-03</small></h1>
 	</div>
 	<div><h2>초보들을 위한 팁</h2>
@@ -226,32 +237,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/07/05/operator-는-상속되지-않는다/">operator= 는 상속되지 않는다.</a> <small>2006-07-05</small></h1>
-	</div>
-	<div><pre><code>
-template
-class Hello
-{
-public :
-void operator=( const T &amp;amp;val ) { value = val; }
-T value;
-};
-
-class HelloStr : public Hello {};
-
-TEST(TemplateAndOperator)
-{
-Hello i;
-i = 100;
-Hello s;
-s = &quot;Hello&quot;; // error
-}
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -272,6 +257,10 @@ s = &quot;Hello&quot;; // error
 	</li>
 	
 	<li>
+		<a href="/2006/08/26/la로-출장갑니다/">LA로 출장갑니다.</a>
+	</li>
+	
+	<li>
 		<a href="/2006/08/03/osx-tips/">OSX Tips</a>
 	</li>
 	
@@ -285,10 +274,6 @@ s = &quot;Hello&quot;; // error
 	
 	<li>
 		<a href="/2006/07/05/pchpre-compiled-headers를-이용해-빌드-시간을-최소화하기/">PCH(pre-compiled headers)를 이용해 빌드 시간을 최소화하기</a>
-	</li>
-	
-	<li>
-		<a href="/2006/07/05/operator-는-상속되지-않는다/">operator= 는 상속되지 않는다.</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,40 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2004/11/24/sax-event-handling/">SAX 이벤트 처리하기</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>XML 프로세싱에는 두 가지 모델이 있다. DOM(Document Object Model)과 SAX(Simple API for XML)다.</p>
+<ul>
+<li>DOM은 XML 문서를 파싱해서 트리 형식의 객체를 만들어낸다. 클라이언트, 즉 DOM을 사용하는 프로그래머는 이 트리에 붙어서 문제를 해결해 나가야한다.</li>
+<li>SAX는 이벤트 기반이다. XML 문서를 처음부터 파싱해 나가면서, ''새로운 element가 나왔다'', ''element의 끝이 나왔다'' 등등의 이벤트가 발생될 때마다 사용자가 지정한 함수를 호출하는 형식으로 파싱이 이루어진다.</li>
+</ul>
+<p>현재 만들어져 있는 라이브러리는 SAX를 이용한 라이브러리다. 마이크로소프트에서 지원하는 XML SDK를 이용해서, element들의 집합으로 이루어진 트리를 구성하거나, 리스트를 생성할 수 있도록 만들어져 있다. 아직까지는 DTD 관련 처리는 되어있지 않다.</p>
+<h2>SAX 이벤트 처리</h2>
+<p>SAX를 이용한 애플리케이션을 만들때 처리해줘야하는 이벤트를 설명하자면 다음과 같다.</p>
+<ul>
+<li>startDocument : 문서의 처음을 읽을 때 호출된다.</li>
+<li>endDocument : 문서의 마지막을 읽을 때 호출된다.</li>
+<li>startPrefixMapping : 모르겠다.</li>
+<li>endPrefixMapping : 모르겠다.</li>
+<li>startElement : 엘리먼트의 시작점을 만났을 때 호출된다. 위의 예제에서는  이 부분이나  같은 엘리먼트를 만났을 때 호출된다.</li>
+<li>endElement : 엘리먼트의 끝점을 만났을 때 호출된다. startElement와 대칭되는 쌍으로서 항상 불리게 된다. 물론 문서에 문법 오류가 있을 때에는 안 불린다.</li>
+<li>characters : 엘리먼트의 시작과 끝 사이의 글자를 만났을 때 호출된다. 위의 예에서는 test 태그 사이의 hey를 만났을 때 호출된다.</li>
+<li>ignorableWhitespace : 모르겠다. 공백 문자를 만났을 때 호출되는 것 같은데 사용하지 않는다.</li>
+<li>processingInstruction : 모르겠다.</li>
+<li>skippedEntity : 역시 모르겠다.</li>
+</ul>
+<p>각각의 이벤트 핸들링 함수에는 인자로 노드의 이름과 길이 등이 따라오기 때문에 이를 이용해서 트리나 리스트를 만들어내는 것은 매우 쉽다. 다만 기본적인 처리가 2바이트 문자이고, 유니코드 로케일 문제 때문에 문자열 변환이 약간 귀찮다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/xml/"><span class="label">xml</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2004/11/24/data-driven-game-system/">데이터 주도적인 게임 설계</a> <small>2004-11-24</small></h1>
 	</div>
 	<div><p>예전에 이런 일이 있었다</p>
@@ -243,6 +277,10 @@ KGDA의 어딘가에서 본 글처럼, 아무래도 한국에는 이를 제대�
 			<ul class="nav nav-list well">
 	<li class="nav-header">
 		Recent Posts
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/sax-event-handling/">SAX 이벤트 처리하기</a>
 	</li>
 	
 	<li>

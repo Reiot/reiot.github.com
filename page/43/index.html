@@ -63,6 +63,33 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2005/03/21/tortoisesvn/">TortoiseSvn</a> <small>2005-03-21</small></h1>
+	</div>
+	<div><p>탐색기에서의 버전 관리라니... 아무래도 IDE 에 연동되는 것에 비해서는 좀 불편하지 않을까? 하는 것이 나의 첫 느낌이었다. 물론 Visual Studio .NET 에 연동되는 넘이 있긴 하지만, 아직까지 안정화되어 있지 않다는 소문 때문에, 결국 거북이SVN 으로 오게 되었다. 그런데 이틀 정도 써보니까 어째 예전에 비해서 심리적인 면에서 더 편해졌다는 느낌이 들었다.</p>
+<p>우선, '체크아웃하시겠습니까? 라는 창이 안떠서 좋았다.' 사실 이건 VSS 옵션을 끄면 되는 것이지만, 웬지 새로운 소스를 고치기 전 경건한 마음을 가지자는 의미에서 그냥 켜두곤 했는데, 실제로는 꽤나 심리적인 불편함과 강박 관념(너는 소스를 더럽히고 있다..)을 개발자에게 주고 있다는 생각이 들었다. 좀더 코드에 편하게 접근할 수 있게 되었다고나 할까? (만약 아직 VSS를 사용하고 있다면 이 옵션을 끄고 작업해 보기 바란다.)</p>
+<p>두번째는 IDE에서 작업하고 탐색기에서 커밋할 때의 심리적인 해방감이 들게 되었다는 점. 가장 비슷한 예라면 회사에서 양복을 입다가 집에서 평상복을 입을 때의 느낌이리라. 딱딱한 IDE에서 비교적 화려한 탐색기 + 바탕화면으로 전환되면서 내가 이제 커밋을 하게 된다는 마음 자세로 바뀌더라는, 실로 억지스러운 주장이다. :)</p>
+<p>세번째로는 로컬 워킹 카피에 있는 삭제된 파일들을 손쉽게 관리할 수 있게 되었다는 점이다. VSS를 쓸 경우 버전 관리되던 파일을 삭제하려면 로컬 카피도 지우고 저장소에서도 지워 줘야 한다. IDE에서 삭제하는 것까지 감안하면 세 군데에서 지워줘야 한다. 역시나 이것도 저장소에서 삭제시 로컬 파일도 삭제한다는 VSS 옵션이 있긴 하지만 좀 위험한 감이 있어서 실제로 쓰기는 곤란했었는데, SubVersion 에서는 아예 파일 관리를 탐색기에서 다 할 수 있어서 괜찮은 듯 했다.</p>
+<p>난감한 점이라면, 아무 생각없이 그냥 파일을 삭제하다가는 피를 본다는 점(물론 재빨리 업데이트해서 파일을 받아와야 한다.), 그리고  작업중인 .svn 폴더를 삭제하면 버전 관리 정보가 날아가서 다시 add 를 해야 한다는 점 등이다. 그리고 '''거북이CVS와 함께 사용할 경우 탐색기의 오른쪽클릭 메뉴가 너무 길어진다'''는 사소한 단점도 있다. :(</p>
+<p>사실 아직까지 태그, 브랜치, 머지를 해보지 않아서 이 부분에서 얼마나 더 매력적인 모습을 보여줄런지는 의문이다. 유니코드 비교시 문자열을 잘 표현해주는지도 미확인. 빨리 이 부분에 대해서도 테스트를 해봐야 겠다.</p>
+<h2>Ignore List</h2>
+<p>글로벌 ignore 리스트는 TortoiseSvn - 설정 메뉴에서 지정하며, 이 값은 레지스트리의 HKEY_LOCAL_MACHINE\Software\Tigris.org\Subversion\Config\Miscellany\global-ignores에 들어있다.</p>
+<p>반면 로컬 ignore 리스트는 해당 파일의 상위 폴더의 .svn/dir-props 에 들어있다. 이 값을 지우려면 그냥 탐색기에서 속성 메뉴에서 TortoiseSvn 메뉴에서 지우면 된다. TortoiseSvn 의 CHM 도움말에서 4.9. Get/Set Information About Files/Directories 항목을 참조하도록.</p>
+<p>see also:<br />
+<em> <a href="http://tortoisesvn.tigris.org">거북이SVN 공식 홈페이지</a><br />
+</em> SubVersion<br />
+<em> SeriousCode:Subversion<br />
+</em> <a href="http://wiki.kldp.org/wiki.php/DocbookSgml/Subversion-HOWTO">KLDP:SubVersion</a></p></div>
+	
+	<p>
+	
+		<a href="/tag/subversion/"><span class="label">subversion</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2005/03/01/trac/">Trac</a> <small>2005-03-01</small></h1>
 	</div>
 	<div><p>TRAC = 위키 + 이슈 트래킹 + 버그 트래킹 + 이벤트 트래킹 + 소스 브라우징 &amp; diff + 리포팅....</p>
@@ -295,54 +322,6 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2004/11/24/어떻게-우리-팀의-xp가-실패했는가/">어떻게 우리 팀의 XP가 실패했는가?</a> <small>2004-11-24</small></h1>
-	</div>
-	<div><p>붐붐차차 프로젝트는 처음부터 "XP를 한번 연습해본다"라는 기치를 내걸고 시작했다. 개발 초기 3-4개월동안은 별 문제없이 흘러갔지만, 7-8 개월이 지난 이후부터 지금까지, 테스트 코드는 더이상 유지보수되지 않고 있다. 과연 무엇이 문제였을까? 그리고 다음번 프로젝트에서도 XP 를 성공적으로 도입할 수 있을까?</p>
-<p><strong>잘못된 테스트 프로젝트 설정</strong></p>
-<pre><code>- 요약 : unittest 의 링킹 시간이 너무 길었다.
-- 해결책 : DLL(?)
-</code></pre>
-<p>unittest 라는 프로젝트에서 다른 모든 라이브러리를 테스팅하도록 프로젝트를 구성했다. 테스팅 코드가 적을 때에는 unittest 만 통과하면 OK 이었기 때문에 편리했지만, 점차 테스팅 코드가 많아지면서 링킹해야 할 라이브러리의 개수와 크기가 늘어나게 되었고, 결국 컴퓨터가 버벅거리며 링킹할 동안 인터넷 서핑하는 습관이 생겨버렸다. 작업 효율이 떨어진 것은 당연지사.</p>
-<p><strong>중복 코드의 미제거</strong></p>
-<pre><code>- 요약 : TestingCode 의 중복이 너무 심해서 컴파일 시간이 너무 길어졌고, 리팩토링을 할 때에는 죽어났다
-- 해결책 : 중복 코드가 제거되기 전까지는 테스트가 완료된 것이 아니다.
-</code></pre>
-<p>어느 날 소스를 조사해보니, (2만라인이 채 안되는) ProductionCode 보다 TestingCode 가 8배 정도 더 많다는 사실을 발견했다. 물론 이게 문제라는 것은 깨달았지만 아무도 이 부분을 고치지 않고 그냥 지나가버렸다. 시간이 나면 고치겠다는 프로그래머의 전형적인 회피술과 함께. 그리고, 언젠가부터 ''시스템 사양이 좀 떨어지는'' 한 개발자가 점점 UnitTest 를 회피하기 시작했으며, 그다음 체크아웃을 한 개발자가 깨진 UnitTest 를 복구해야 하는 일이 종종 발생하게 되었다. 덕분에 서로가 서로에게 짜증을 내게 되었는데... 그 개발자는 시스템 업그레이드 타령과 함께, 굳이 간단한 건 하지 않아도 무방하지 않느냐..라고 하고, UnitTest 를 복구해야 했던 개발자는 왜 자신이 그걸 대신 복구해야 되느냐고 화를 냈기 때문이다. (물론 이때가 팀웍이 흐트러지고 사기가 저하된 타이밍이기도 했다)</p>
-<p>그러다가 대규모 리팩토링이 필요해진 시점이 있었다. 그러나, 이미 테스트 코드들이 더이상 손쓸수 없이 거대해졌기 때문에, ProductionCode 를 수정을 하는 시간에 비해 TestingCode 를 리팩토링해나가는 시간이 훨씬 더 많이 들게 되었다. 리팩토링을 완료하고 나자, 다들 UnitTest 라면 손사래를 치며 도망가버렸다.</p>
-<p>웃긴 것은, Kent Beck 의 TestDrivenDevelopmentByExample 책에서는 '''중복 코드의 제거'''가 Iteration 의 필수 요소로 자리잡고 있었다. 왜 ExtremeProgrammingInstalled 번역서에서는, 이걸 더 강조해주지 않았을까? 쳇!</p>
-<p><strong>UnitTest 라이브러리의 기능 부족</strong></p>
-<pre><code>- 요약 : 특정 테스트를 선택하기 위해서는 항상 재컴파일이 필요했다. 결국, 테스트 시간을 더 길어졌고, 개발자들은 UnitTest 와 더 멀어졌다.
-- 해결책 : 선택적인 테스트가 편리한 라이브러리를 사용할 것
-</code></pre>
-<p>CppUnit 과 BoostTest 중, BoostTest 를 선택한 이유는 Visual Studio 7.1 과의 호환성 문제였다. (당시 CppUnit 의 경우 VC 7.1 과 호환되지 않았다) 그러나, 이넘은 내가 원하는 코드만을 테스트한다는 것을, 즉 GUI 방식의 테스트를 지원하지 않았기 때문에, 결국 매 테스트마다 코드를 수정해야 했다. 문제는 특정 테스트를 수동으로 추가/삭제하는 파일이 다른 헤더 파일을 모두 include 하는 main 이라서, 약간만 수정하더라도 컴파일 -&gt; 링킹을 다시 해야 했다는 데 있다.</p>
-<p><strong>PairProgramming 의 실패</strong></p>
-<pre><code>- 요약 : 관용의 부족으로 인한 불화(?)
-- 해결책 : 정신을 뜯어고쳐야지!
-</code></pre>
-<p>이 부분은 솔직히 [레이옷]에게 원인이 있다. [레이옷]의 후배이자 동료인 프로그래머와 Pair를 할 때마다 티격태격 했던 것 때문이다. 조금씩 서로의 코드에 대한 관용의 마인드를 키워나가기도 했고, 관계 개선 - 후배에서 동료로 생각을 고쳐먹기 - 을 해보려고 했지만, 잘 되지 않았다. 여전히 지금도 반말 90% 존대말 10% 에다가 틈만 나면 큰소리치고 강압적으로 밀어붙이기를 해대고 있다. ㅡㅡ;</p>
-<p><strong>귀차니즘</strong></p>
-<ul>
-<li>요약 : 4-5개월 이후부터 CRC 카드라든지 스토리, 일정 추정, 기립 회의 같은 걸 하지 않았다</li>
-<li>해결책 : XP 관리자의 마인드가 중요하다.</li>
-</ul>
-<p>이 부분 역시 XP 관리자였던 [레이옷]에게 원인이 있다. 처음에는 다들 열정적으로 해나갔지만, 프로젝트가 길어지면서 XP의 핵심 요소들을 하나 둘씩 빠져나가고 마지막까지 남았단 UnitTest 마저도 어쩌다보니 개발자들로부터 폐기처분 당해버렸다. 중간에 문제가 있을 때마다 추스리고 나가야 했지만, 그러질 못했다.</p>
-<p>see also:</p>
-<ul>
-<li><a href="http://xper.org/wiki/xp/_b7_b9_c0_cc_bf_ca">이 글에 대한 김창준씨의 분석</a></li>
-</ul></div>
-	
-	<p>
-	
-		<a href="/tag/agile/"><span class="label">agile</span></a>
-	
-		<a href="/tag/xp/"><span class="label">xp</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -363,6 +342,10 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 	</li>
 	
 	<li>
+		<a href="/2005/03/21/tortoisesvn/">TortoiseSvn</a>
+	</li>
+	
+	<li>
 		<a href="/2005/03/01/trac/">Trac</a>
 	</li>
 	
@@ -376,10 +359,6 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 	
 	<li>
 		<a href="/2004/11/26/moniwiki-tips/">MoniWiki Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2004/11/24/어떻게-우리-팀의-xp가-실패했는가/">어떻게 우리 팀의 XP가 실패했는가?</a>
 	</li>
 	
 </ul>

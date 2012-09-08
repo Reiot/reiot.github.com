@@ -63,6 +63,23 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/02/22/wow-warden-as-spyware/">WOW Warden as Spyware</a> <small>2008-02-22</small></h1>
+	</div>
+	<div><p><a href="http://www.amazon.com/exec/obidos/ASIN/0132271915/ref=nosim/learreio-20"><img alt="Exploiting Online Games: Cheating Massively Distributed Systems" src="http://ecx.images-amazon.com/images/I/311RgaO6v4L.jpg" /></a></p>
+<p><a href="http://www.amazon.com/exec/obidos/ASIN/0132271915/ref=nosim/learreio-20">Exploiting Online Games</a>에 와우의 보안 프로그램인 <a href="http://en.wikipedia.org/wiki/Warden_%28software%29">Warden</a>이 어떻게 동작하는지에 대한 간략한 설명이 나와 있다.</p>
+<pre><code>- 서버로부터 실시간으로 전송받는 듯하다. (스크립트일지도?)
+- 15초에 한번씩 사용자의 컴퓨터를 검색한다.
+- 와우 클라이언트의 주소 공간에 로딩된 모든 DLL 의 정보를 읽어들인다. (ToolHelp API)
+- 모든 윈도우 타이틀의 텍스트를 GetWindowTextA 로 읽어들인 다음, 해싱을 거쳐서 미리 등록된 금지 어플리케이션 목록과 비교한다.
+- 모든 프로세스의 코드 영역(0x004**** 이나 0x0041****)의 10-20바이트를 읽어서, 역시 해싱을 거쳐 미리 등록된 금지 어플리케이션 목록과 비교한다.
+</code></pre>
+<p><a href="http://www.rootkit.com/">이 책의 저자는</a>, 윈도우 타이틀에 SSN이나 카드 번호, URL, 이메일 등의 개인 정보가 블리자드로 빠져나갈 수 있고, 또한 내가 실행하고 있는 프로세스의 기밀 정보가 유출될 수 있기에, Warden이 안티해킹툴이라기 보다는 스파이웨어라고 주장하고 있다.</p>
+<p>한 명의 게이머의 입장에서는 저자의 주장에 수긍이 가지만, 이런 저런 해킹에 시달리는 게임 개발자의 관점에서 보면 이런 통계 기반의 해킹 체크도 한번 도입해보면 재미있지 않을까 하는 호기심도 솟아오른다. 우헷.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/02/22/boostasio-documentation/">boost::asio documentation</a> <small>2008-02-22</small></h1>
 	</div>
 	<div><p><a href="http://c10k.googlecode.com/svn/trunk/Doxyfile">doxygen 환경 파일</a>과 <a href="http://c10k.googlecode.com/svn/trunk/asio.chm">직접 컴파일한 CHM 파일</a>을 구글 코드에 올려뒀으니 관심있는 분들의 많은 애용 바랍니다.</p>
@@ -432,45 +449,6 @@ BOOST_AUTO_TEST_CASE( test_iostream )
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/02/09/boost-test-thread-safe/">boost::test thread safe</a> <small>2008-02-09</small></h1>
-	</div>
-	<div><p>다른 표준 라이브러리와 마찬가지로, boost::test 역시 멀티쓰레드에 대해서 안전하지 않다. 물론 BOOST_CHECK 등의 테스트 매크로들은 내부적으로 싱글톤을 사용하기 때문에, 쓰레드 함수 내부에서 사용하더라도 실패할 경우 에러 메시지를 출력해주지만, 다른 쓰레드에서 동일한 순간에 역시 같은 매크로를 호출하게 되면 콜스택 깊은 곳에서 난감한 에러를 뱉어버린다.</p>
-<p>이걸 해결하려면 결국 mutex 로 테스트 매크로들을 wrap 한 또다른 매크로를 만들어서 써야 하는 수 밖에 없다.</p>
-<pre><code>
-#define SAFE_BOOST_CHECK_EQUAL(m,x,y) { \
-boost::mutex::scoped_lock lock(m); \
-BOOST_CHECK_EQUAL(x,y); }
-
-void boost_check_always( boost::mutex * m )
-{
-boost::timer timer_;
-
-while(timer_.elapsed() &lt; 10.f )
-{
-SAFE_BOOST_CHECK_EQUAL(*m,1,1);
-}
-
-}
-
-BOOST_AUTO_TEST_CASE( test_boost_check_always )
-{
-boost::mutex m;
-boost::thread t(boost::bind(boost_check_always,&amp;m));
-
-boost::timer timer_;
-while(timer_.elapsed() &lt; 10.f )
-{
-SAFE_BOOST_CHECK_EQUAL(m,1,1);
-}
-
-t.join();
-}
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -491,6 +469,10 @@ t.join();
 	</li>
 	
 	<li>
+		<a href="/2008/02/22/wow-warden-as-spyware/">WOW Warden as Spyware</a>
+	</li>
+	
+	<li>
 		<a href="/2008/02/22/boostasio-documentation/">boost::asio documentation</a>
 	</li>
 	
@@ -504,10 +486,6 @@ t.join();
 	
 	<li>
 		<a href="/2008/02/09/boost_asio_iostream/">boost::asio iostream</a>
-	</li>
-	
-	<li>
-		<a href="/2008/02/09/boost-test-thread-safe/">boost::test thread safe</a>
 	</li>
 	
 </ul>
