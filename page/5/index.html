@@ -63,6 +63,54 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a> <small>2010-09-24</small></h1>
+	</div>
+	<div><p><strong>스프레드시트 리스트 읽어오기</strong></p>
+<pre><code>client = gdata.spreadsheets.client.SpreadsheetsClient()
+
+feed = client.get_spreadsheets()
+</code></pre>
+
+<p>내부적으로 다음과 같은 URL 을 사용한다.</p>
+<p><code>http://spreadsheets.google.com/feeds/spreadsheets/private/full</code></p>
+<p><strong>특정 스프레드 시트의 워크 시트 리스트 읽어오기</strong></p>
+<pre><code>feed = client.get_worksheets(spreadsheet_key)
+</code></pre>
+
+<p>내부적으로 </p>
+<p><code>http://spreadsheets.google.com/feeds/worksheets/&lt;키&gt;/private/full</code></p>
+<p><strong>특정 워크 시트를 리스트 기반으로 읽어오기</strong></p>
+<p>이건 gdata.spreadsheets.client 에서 지원하지 않는다.</p>
+<pre><code>url = &quot;https://spreadsheets.google.com/feeds/list/%s/%s/private/full&quot; % (spreadsheet,worksheet) 
+feed = client.get_feed(url, desired_class = gdata.spreadsheets.data.ListsFeed)
+</code></pre>
+
+<p>이렇게 읽어온 feed.entry 에서 적당한 필드를 잘 읽어내야 한다. 내부적으로는 XML 이므로 다음과 같이 읽을 것. 잘 안읽히면 feed 를 그대로 출력해서 어떤 값이 있는지 보면 된다.</p>
+<ul>
+<li>entry.id.text</li>
+<li>entry.title.text</li>
+<li>entry.content.text: ListsFeed 로 읽어왔을 때 row 의 값들이 문자열로 들어가 있다.</li>
+<li>entry.get_elements(namespace=GSX_ELEMENT): 컬럼은 gsx: 태그로 들어가 있으므로, iterating 할 때에는 이걸 써야 한다.</li>
+<li>entry.get_value(column name): 이미 이름을 알고 있을때..</li>
+</ul>
+<p>핵심은,</p>
+<ul>
+<li>구글 스프레드 시트의 모든 문서, 워크시트, row, cell 들은 유니크한 URL 을 가진다. </li>
+<li>적당한 URL 로 요청하면 ATOM XML 등으로 리턴한다.</li>
+<li>gd_client.get_feed 에 URL 을 넘기고 desired_class 를 잘 지정하면, 적당한 파이썬 객체로 래핑된다.</li>
+<li>어떤 XML 이 리턴되는지만 잘 파악하면 끗.</li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/google spreadsheet api/"><span class="label">google spreadsheet api</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2010/08/16/createdeepkey/">create_deep_key</a> <small>2010-08-16</small></h1>
 	</div>
 	<div><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
@@ -194,79 +242,6 @@ for i in reversed(xrange(0,len(a)):
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a> <small>2010-03-10</small></h1>
-	</div>
-	<div><p>python tip, tricks and hacks from <a href="https://www.siafoo.net/article/52">https://www.siafoo.net/article/52</a></p>
-<p><strong>부분 문자열 포함 테스트는 in 연산자를 사용할 것</strong></p>
-<pre><code>if 'aaa' in 'aaabbb':
-</code></pre>
-
-<p><strong>리스트를 , 로 합칠 경우 seperator . join ( list ) 형식을 사용할 것</strong></p>
-<pre><code>','.join(['aaa','bbb','ccc']
-</code></pre>
-
-<p><strong>람다 함수는 anonymous function 으로 이해하면 된다. C 의 a? b: c 대용으로는 사용할 수 없을 듯.</strong></p>
-<pre><code>map( lambda x : x*x, [1,2,3,4,5] ) # 리스트를 순회하면서 제곱을 한 걸 리턴한다.
-</code></pre>
-
-<p><strong>map 함수는 리스트 comprehension 으로 대체할 수 있다. 위의 예제는 아래처럼 고칠 수 있다.</strong></p>
-<pre><code>[ x*x for x in [1,2,3,4,5] ]
-</code></pre>
-
-<p><strong>filter 함수는 for .. in  if  으로 대체할 수 있다.</strong></p>
-<pre><code>filter( lambda x: x&lt;4, [1,2,3,4,5] )  == [ x for x in [1,2,3,4,5] if x &lt; 4 ]
-</code></pre>
-
-<p><strong>generator 는 [] 대신 () 로 감싸서 for 에 넘길 수 있다.</strong></p>
-<pre><code>for x in ( y*y for y in [1,2,3,4,5] if y*y &lt; 10 ):
-  print x
-</code></pre>
-
-<p><strong>nested for + if + single statement 는 한줄로 표현할 수 있다.</strong></p>
-<pre><code>for x in (0,1,2,3):
-
-  for y in (0,1,2,3):
-
-    if x &lt; y:
-
-      print (x,y,x*y)
-</code></pre>
-
-<blockquote>
-<p>print [(x,y,x*y) for x in (0,1,2,3) for y in (0,1,2,3) if x &lt; y] # 다만 리스트다.</p>
-</blockquote>
-<p><strong>reduce 를 이용하면 리스트를 순회하면서 각 값들을 특정 값에 누적 연산시킬 수 있다.</strong></p>
-<pre><code>result = 1
-
-for i in [1,2,3,4,5]:
-
-  result *= i
-</code></pre>
-
-<blockquote>
-<p>reduce( lambda a,b: a*b, [1,2,3,4,5] )</p>
-</blockquote>
-<p><strong>dictionary 생성시 { 'a': 1, 'b': 2 } 대신 dict( a=1, b=2 ) 로 만들 수 있다.</strong></p>
-<p><strong>C 의 a ? b : c 는 다음과 같이 할 수 있다.  </strong></p>
-<pre><code>b if a else c
-</code></pre>
-
-<p><strong>C 의 switch 문은 딕셔너리.get( key, default ) 로 대체할 수 있다.  </strong></p>
-<pre><code>if key == a: return 1  elif key == b: return 2  else return 3  ==&gt; dict( a=1, b=2 ).get( key, 3 )
-</code></pre>
-
-<p><strong>@staticmethod 데코레이터는 클래스 스태틱 함수를 의미한다.</strong></p></div>
-	
-	<p>
-	
-		<a href="/tag/python/"><span class="label">python</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -287,6 +262,10 @@ for i in [1,2,3,4,5]:
 	</li>
 	
 	<li>
+		<a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a>
+	</li>
+	
+	<li>
 		<a href="/2010/08/16/createdeepkey/">create_deep_key</a>
 	</li>
 	
@@ -300,10 +279,6 @@ for i in [1,2,3,4,5]:
 	
 	<li>
 		<a href="/2010/04/29/a-12345-for-i/">리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...</a>
-	</li>
-	
-	<li>
-		<a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,44 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/09/09/activex/">ActiveX</a> <small>2006-09-09</small></h1>
+	</div>
+	<div><p><strong><em>[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87215">http://reiot.springnote.com/pages/87215</a> 에서 읽으실 수 있습니다.</em></strong></p>
+<p>어쩌다보니 ActiveX를 이용해서 브라우저에서 클라이언트를 실행하는 작업을 도와주게 되었다. 담당자나 나나 이 쪽으로는 거의 지식이 전무한 상태였는데, 삽질을 반복하면서 여러 가지 유용한 정보들을 알아내었다. 이미 귀국 날짜가 연기된 마당이므로 시간도 널널하고 해서 알아낸 점들을 정리해본다.</p>
+<p>혹시라도 이 분야에 처음 발을 들였다면 <a href="http://www.codeproject.com/com/CompleteActiveX.asp">A Complete ActiveX Web Control Tutorial</a>를 꼭 읽어보기 바란다. 물론 <a href="http://en.wikipedia.org/wiki/ActiveX">위키피디아</a>의 설명도 괜찮다.</p>
+<h2>설치 여부 알아내기</h2>
+<p><a href="http://game.paran.com/">파란닷컴</a>처럼 active-x 컨트롤이 설치되지 않은 컴퓨터에 대해서 설치 안내 페이지로 redirect 시키려면, onerror 이벤트를 이용하면 된다.</p>
+<p><a href="http://december.com/html/4/element/script.html">&lt;script</a> language="javascript" for="mycontrol" event="onerror"&gt;<br />
+location.href = '/redirect/to/how-to-install.html';<br />
+</script></p>
+<p><a href="http://december.com/html/4/element/object.html">&lt;OBJECT</a> ID='mycontrol' CLASSID='....' codebase=....&gt;<br />
+<a href="http://december.com/html/4/element/span.html"><SPAN></a>Active-X control not installed. go to <a href="http://december.com/html/4/element/a.html">&lt;a</a> href="/redirect/to/how-to-install.html"&gt;HOW TO INSTALL Active-X</a> page</SPAN><br />
+</OBJECT></p>
+<p>이때 OBJECT 태그 사이의 코드들은 해당 객체가 로드되지 않을 경우 렌더링된다는 점을 잘 활용하면 좋을 것이다.</p>
+<h2>삭제하기</h2>
+<p>XP 의 경우 $WINDOWS/Downloaded Program Files/ 아래에서 삭제하면 된다. Windows 2003 의 경우는 어디인지 확인할 수 없었다.</p>
+<h2>컨트롤 활성화</h2>
+<p>올해부터 IE에서는 <a href="http://www.microsoft.com/korea/windows/ie/ie6/activex/activate/default.mspx">컨트롤이나 애플릿들이 기본적으로 비활성화 상태로 변경되</a>었다. 이를 수정하는 방법은 자바스크립트 코드를 이용해서 OBJECT 태그를 쓰면 된다. 보다 자세한 사항은 <a href="http://support.microsoft.com/kb/914257/ko">HOWTO</a> 문서를 참고할 것.</p>
+<p><a href="http://december.com/html/4/element/script.html"><script></a><br />
+document.write('<a href="http://december.com/html/4/element/object.html">&lt;object</a> classid="CLSID:..." type="application/x-oleobject" codebase="..." width="320" height="240"&gt; </object>');<br />
+</script></p>
+<h2>ActiveX Control Pad</h2>
+<p>마이크로소프트에서 제공하는 유틸리티인데 실제로 마소에서는 받아지질 않는다. 따라서 <a href="http://www.download.com/ActiveX-Control-Pad/3000-2406_4-861343.html?tag=pop">여기</a>서 받을 것.</p>
+<h2>브라우저로 이벤트 전달하기</h2>
+<p>만약 ActiveX 컨트롤에서 click 등의 마우스 이벤트 핸들러를 정의했다면 javascript 레벨에서 동일한 이벤트 핸들러를 정의할 수 없다. 이는 컨트롤이 이벤트를 먹어버리기 때문으로 보이는데, 이를 해결하려면 컨트롤에서 이벤트를 정의하고 브라우저로 보내준 다음 브라우저에서 핸들링을 하면 된다.</p>
+<p>Public Event CloseBrowser()<br />
+Public Sub OnClick()<br />
+' handle click event<br />
+RaiseEvent CloseBrowser() ' fire event<br />
+End</p>
+<p><a href="http://december.com/html/4/element/script.html">&lt;script</a> language="javascript" for="mycontrol" event="closebrowser"&gt;<br />
+self.close();<br />
+</script></p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/09/07/라스베가스-그랜드캐년-사진전/">라스베가스 & 그랜드캐년 사진전</a> <small>2006-09-07</small></h1>
 	</div>
 	<div><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236625957"><img alt="http://static.flickr.com/89/236625957_2d160f7cba_s.jpg" src="http://static.flickr.com/89/236625957_2d160f7cba_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236621761"><img alt="http://static.flickr.com/82/236621761_b241158e4d_s.jpg" src="http://static.flickr.com/82/236621761_b241158e4d_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236616922"><img alt="http://static.flickr.com/97/236616922_616cba2587_s.jpg" src="http://static.flickr.com/97/236616922_616cba2587_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236614900"><img alt="http://static.flickr.com/88/236614900_938f823497_s.jpg" src="http://static.flickr.com/88/236614900_938f823497_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236612458"><img alt="http://static.flickr.com/89/236612458_b410c994f0_s.jpg" src="http://static.flickr.com/89/236612458_b410c994f0_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236610619"><img alt="http://static.flickr.com/84/236610619_5ffc59b02c_s.jpg" src="http://static.flickr.com/84/236610619_5ffc59b02c_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235675320"><img alt="http://static.flickr.com/80/235675320_614fb8ff75_s.jpg" src="http://static.flickr.com/80/235675320_614fb8ff75_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235660261"><img alt="http://static.flickr.com/81/235660261_0940dec4f4_s.jpg" src="http://static.flickr.com/81/235660261_0940dec4f4_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235660260"><img alt="http://static.flickr.com/88/235660260_b7d4c9a0b6_s.jpg" src="http://static.flickr.com/88/235660260_b7d4c9a0b6_s.jpg" /></a></p>
@@ -125,20 +163,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/08/29/아메리칸-스케일/">아메리칸 스케일</a> <small>2006-08-29</small></h1>
-	</div>
-	<div><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/228179028"><img alt="http://static.flickr.com/75/228179028_c06dbabfbf_s.jpg" src="http://static.flickr.com/75/228179028_c06dbabfbf_s.jpg" /></a></p>
-<p>LA에 도착하자 마자 느낀 점은 눈에 보이는 모든 것이 커다랗다는 점이다. 넓은 도로 폭, 큰 자동차, 큰 건물과 창고들 그리고 거대한 사람들(-_-). 이것이 바로 어메리칸 스타일인가? 하고 신기해하던 촌놈 레이옷은 점심으로 나온 몬스터 감자를 보고 또 한번 놀랬다. 비록 시차 적응 때문에 컨디션이 영 아니었지만 토핑만 겨우 먹을 수 있을 정도로 크기와 양이 대단했다.</p>
-<p>오늘 하루는 영단어의 홍수 속에서 헤엄만 치다가 끝났다. 가만히 사람들이 말하는 것을 들어보면, 표준 영어와 비표준 영어의 차이가 확 느껴질 덩도로, 영어라는 언어의 스펙트럼이 넓다는 것이 새삼 느껴졌다. (물론 우리나라의 사투리도 장난 아니지만) 다행인 것은 몇몇 착한 친구들이 계속 이야기를 걸어 줘서 그럭저럭 대화를 이어갈 수 있었다는 사실. 단어의 조합으로 질문의 의도를 파악하고 적당히 대답해주는 걸 반복하다 보니, 조금은 자신감이 생기는 것 같았다. 역시 외국어를 배울 때 가장 중요한 것은 의사 소통 실패를 두려워하지 않는 자신감인 것 같다.</p>
-<p>역시나, 여기도 사람이 사는 곳에 불과한 것 같다. (단지 크기만 클 뿐)</p>
-<ul>
-<li>심심하신 분은 <a href="http://www.flickr.com/photos/78725883@N00/sets/72157594254444505/show/">출장 첫째날 사진</a>도 보셔요.</li>
-</ul></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -159,6 +183,10 @@
 	</li>
 	
 	<li>
+		<a href="/2006/09/09/activex/">ActiveX</a>
+	</li>
+	
+	<li>
 		<a href="/2006/09/07/라스베가스-그랜드캐년-사진전/">라스베가스 & 그랜드캐년 사진전</a>
 	</li>
 	
@@ -172,10 +200,6 @@
 	
 	<li>
 		<a href="/2006/09/01/xp팀의-작업실/">XP팀의 작업실</a>
-	</li>
-	
-	<li>
-		<a href="/2006/08/29/아메리칸-스케일/">아메리칸 스케일</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,121 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/02/09/boost_asio_iostream/">boost::asio iostream</a> <small>2008-02-09</small></h1>
+	</div>
+	<div><p>문자열 기반의 네트워크 입출력 프로그래밍을 해야 한다면, ASIO 의 iostream 을 사용하면 간단히 해결된다.</p>
+<p>boost::asio::io_service 같이 모호한 객체 선언도 필요없고, 연결 관리나 버퍼링 같은 개념도 적당히 무시할 수 있어서, 예외 처리만 잘 한다면 원격 로그라든지 XML RPC  클라이언트 같은 곳에 써먹을 수 있을 것 같다.</p>
+<p>만약 복잡한 문자열 조작이 필요하다면 boost::string_algo 정도면 충분하고, 정규식이 필요하면 boost::regexp 을 가져다 사용하면 될 듯하다.</p>
+<!--more-->
+
+<pre><code>
+// 문자열 기반의 네트워크 입출력 스트림
+BOOST_AUTO_TEST_CASE( test_iostream )
+{
+    string http_request =
+        &quot;GET / HTTP/1.0\r\n&quot;
+        &quot;Host: reiot.cafe24.com\r\n\r\n&quot;;
+    string expected_http_response[] = { &quot;HTTP/1.0 200 OK&quot;, &quot;HTTP/1.1 200 OK&quot; };
+
+    {
+
+        tcp::iostream io_(&quot;reiot.cafe24.com&quot;,&quot;http&quot;);
+
+        io_    &lt;&lt; http_request &lt;&lt; flush;    // or io_.flush();
+
+        vector&lt;string&gt; http_response;
+        while ( !io_.eof() )
+        {
+            string line;
+            getline(io_,line);
+            http_response.push_back(line);
+        }
+
+        BOOST_CHECK_EQUAL( boost::trim_copy(http_response[0]), expected_http_response[1] );
+
+        io_.close();
+    }
+
+    {
+        string host = &quot;www.google.co.kr&quot;;
+        tcp::iostream io_(host,&quot;http&quot;);
+
+        io_    &lt;&lt; &quot;GET / HTTP/&quot; &lt;&lt; 1 &lt;&lt; &quot;.&quot; &lt;&lt; 0 &lt;&lt; endl
+            &lt;&lt; &quot;Host: &quot; &lt;&lt; host &lt;&lt; endl &lt;&lt; endl
+            &lt;&lt; flush;    // or io_.flush();
+
+        vector&lt;string&gt; http_response;
+        while ( !io_.eof() )
+        {
+            string line;
+            getline(io_,line);
+            http_response.push_back(line);
+        }
+
+        BOOST_CHECK_EQUAL( boost::trim_copy(http_response[0]), expected_http_response[0] );
+    }
+
+    {
+        tcp::iostream io_(&quot;www.naver.com&quot;,&quot;http&quot;);
+
+        io_    &lt;&lt; &quot;GET / HTTP/1.0&quot; &lt;&lt; endl
+            &lt;&lt; &quot;Host: www.naver.com&quot; &lt;&lt; endl
+            &lt;&lt; endl
+            &lt;&lt; flush;    // or io_.flush();
+
+        stringstream response;
+        while ( !io_.eof() )
+        {
+            char ch = io_.get();
+            response &lt;&lt; ch;
+        }
+
+        string line;
+        getline(response,line);
+        BOOST_CHECK_EQUAL( boost::trim_copy(line), expected_http_response[1] );
+    }
+
+    {
+        tcp::iostream io_(&quot;clien.career.co.kr&quot;,&quot;http&quot;);
+
+        io_    &lt;&lt; &quot;GET / HTTP/1.0&quot; &lt;&lt; endl
+            &lt;&lt; &quot;Host: clien.career.co.kr&quot; &lt;&lt; endl
+            &lt;&lt; endl
+            &lt;&lt; flush;    // or io_.flush();
+
+        stringstream response;
+        while ( !io_.eof() )
+        {
+            char buf[128];
+            io_.read(buf,127);
+            size_t nread = io_.gcount();
+            if ( nread &gt; 0 )
+            {
+                buf[nread] = 0;
+                response &lt;&lt; buf;               
+            }
+        }
+
+        string line;
+        getline(response,line);
+        BOOST_CHECK_EQUAL( boost::trim_copy(line), expected_http_response[1] );
+    }
+}
+
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/ASIO/"><span class="label">ASIO</span></a>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/02/09/boost-test-thread-safe/">boost::test thread safe</a> <small>2008-02-09</small></h1>
 	</div>
 	<div><p>다른 표준 라이브러리와 마찬가지로, boost::test 역시 멀티쓰레드에 대해서 안전하지 않다. 물론 BOOST_CHECK 등의 테스트 매크로들은 내부적으로 싱글톤을 사용하기 때문에, 쓰레드 함수 내부에서 사용하더라도 실패할 경우 에러 메시지를 출력해주지만, 다른 쓰레드에서 동일한 순간에 역시 같은 매크로를 호출하게 되면 콜스택 깊은 곳에서 난감한 에러를 뱉어버린다.</p>
@@ -572,19 +687,6 @@ see also:</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/01/26/physfs/">physfs</a> <small>2008-01-26</small></h1>
-	</div>
-	<div><p>지금까지는 압축 포맷 == 압축 알고리즘이라고 믿어 왔다. 무슨 말이냐 하면, zip 포맷은 zip 압축 알고리즘, rar 은 rar 압축 알고리즘을 쓰니까, 따라서 어떤 압축 알고리즘이라 할지라도 다중 파일, 다중 폴더, 암호화 같은 걸 다 지원한다고만 생각했다는 뜻이다.</p>
-<p>그런데, 이번에 소니군이 <a href="http://icculus.org/physfs/">physfs</a> 를 조사하는걸 옆에서 껄떡거리면서 깨달은 것은,</p>
-<pre><code>- 압축 알고리즘이란 stream -&gt; stream의 변환일 뿐이다.
-- 즉 파일명이나 폴더명 같은 정보들은 압축 포맷 레벨에서 관리한다.
-</code></pre>
-<p>physfs 를 처음 알아 봤을 때에는, 라이센스도 <a href="http://www.codeproject.com/KB/files/nfsLibrary.aspx">누구 </a>처럼 GPL도 아니고, 다양한 포맷도 지원하고, 여러 개의 압축 파일에서 asset들을 끄집어낼 수 있어서 패치할 때 유리할거 같아서 잠깐 검토를 해봤는데, 소니군이 소스 코드가 컴파일도 안될 정도로 부실하다길래 그냥 포기해버렸다. ㅋㅋ</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -605,6 +707,10 @@ see also:</p>
 	</li>
 	
 	<li>
+		<a href="/2008/02/09/boost_asio_iostream/">boost::asio iostream</a>
+	</li>
+	
+	<li>
 		<a href="/2008/02/09/boost-test-thread-safe/">boost::test thread safe</a>
 	</li>
 	
@@ -618,10 +724,6 @@ see also:</p>
 	
 	<li>
 		<a href="/2008/01/29/solid-compression/">Solid Compression</a>
-	</li>
-	
-	<li>
-		<a href="/2008/01/26/physfs/">physfs</a>
 	</li>
 	
 </ul>

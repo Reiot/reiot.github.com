@@ -63,6 +63,54 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/03/22/active-object-pattern/">Active Object Pattern</a> <small>2006-03-22</small></h1>
+	</div>
+	<div><p>Active Object Pattern, 일명 능동 객체 패턴은 ACE_Task (ACE), ActiveObject (JAVA), LuaTask (LUA) 등에 적용된 패턴으로, 쓰레드간의 비동기적인 함수 호출을 '''객체지향적으로''' 구현한 패턴이다.</p>
+<p>로깅을 담당한 쓰레드에게 비동기적으로 로그를 남기는 함수를 구현한다고 가정해보자.</p>
+<pre><code>
+/// async log
+Logger::Log(&quot;Hello World!&quot;);
+
+void Logger::Log(LPCTSTR msg)
+{
+m_Queue.Add( new AsyncLog(msg,this) );
+}
+
+DWORD Logger::Run()
+{
+while(true)
+{
+AsyncWork * pWork = m_Queue.Get();
+pWork-&gt;Execute();
+SAFE_DELETE(pWork);
+}
+}
+
+class AsyncLog : public AsyncWork {
+public :
+AsyncLog( LPCTSTR msg, Logger * pLogger )
+: m_Message(msg), m_pLogger(pLogger)
+{
+}
+void Execute()
+{
+m_pLogger-&gt;SafeLog(m_Message);
+}
+};
+
+</code></pre>
+
+<p>요청하는 쪽은 로그 쓰레드에서 로그 메써드를 호출토록 하기 위해서 요청을 객체에 넣어서 큐에 삽입하게 되고, 로그 쓰레드는 큐에서 이 객체를 끄집어내어서 관련 메써드를 호출하게 된다. ACE에서는 비동기 함수 호출의 결과를 나타내는 Future 를 지원한다. 이걸 잘 쓰면, 해당 함수 호출이 잘 끝났는지, 결과는 무엇인지 polling 등을 통해서 알아낼 수 있다.</p>
+<p>see also :</p>
+<ul>
+<li><a href="http://www.cs.wustl.edu/~schmidt/PDF/Act-Obj.pdf">http://www.cs.wustl.edu/~schmidt/PDF/Act-Obj.pdf</a></li>
+<li><a href="http://c2.com/cgi/wiki?ActiveObject">Wiki:ActiveObject</a></li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/03/21/ace-tips/">ACE Tips</a> <small>2006-03-21</small></h1>
 	</div>
 	<div><p><strong>ACE_Message_Block</strong></p>
@@ -158,27 +206,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/02/18/네트워크-액션-게임의-분류/">네트워크 액션 게임의 분류</a> <small>2006-02-18</small></h1>
-	</div>
-	<div><p>네트워크 액션 게임들을 peer 간 연결, 동기화 처리, 서버 유무 등으로 구분지어보면 대략 다음과 같다.</p>
-<pre><code>- **asynchronous P2P** : 모든 peer 들이 1:1로 연결되며, 적당히 정보를 주고 받으며 최신의 정보들만을 적용하는 방식이다. 디아블로1 등 액션 게임에서 주로 사용되며, 속도는 빠르지만 보안성이 떨어진다. 접속자 숫자가 비교적 많은 편. 패킷 손실에도 비교적 안전하다.
-
-- **synchronous P2P** : 모든 peer 들이 1:1로 연결되는 것은 맞지만 액션 정보를 전송한 후 일정 시간 후에 모든 peer 에서 동시에 실행하는 방식. RTS등 동기화가 치명적인 게임에서 사용되며, 최대 접속자가 10여명 안팎으로 제한된다. 무손실 UDP 를 주로 사용한다.
-
-- **client/server** : 각 peer 들은 서버와 직접 연결되어, 모든 판정은 dedicated 서버상에서 이루어지는 방식. 서버는 주기적으로 스냅샷 정보를 모든 클라이언트에게 브로드캐스트한다. 퀘이크나 하프라이프, 언리얼 같은 FPS 게임에서 주로 사용하는 방식. 비동기 처리와 패킷 손실이라는 점은 asynchronous P2P와 유사하다. P2P가 아니므로 홀펀칭이라든지 NAT 때문에 골치 썩는 일이 없어서 좋다.
-
-- **hosted client/server** : 디아블로2의 배틀넷이나 MMOFPS와 같이 client/server 모델에서 사용자가 서버를 운영하는 대신 회사에서 직접 관리하는 방식이다. 서버 운영 및 트래픽 때문에 돈이 무지 많이 들기 때문에 웬만한 회사에서는 엄두도 못낸다. 그리고 서버 다운이 되면 온갖 원성을 다 사게 되므로 보통 약관을 애매모하게 쓰는 편이다. 유일한 장점은 보안성이 가장 높다는 점.
-- **N-P2P** : 앞으로 우리가 구현할, 1-4의 장점만을 취하고 단점은 버린, 즉 보안성도 좋고 빠른 액션도 가능하면서도 동기화도 잘맞는 가운데 30명 이상(1)의 연결도 지원, 그리고 보이스 채팅(2)과 대규모 spectator 모드도 지원하면서 트래픽도 낮은 방식.
-</code></pre>
-<ul>
-<li>20명 이상의 플레이어를 지원하려면 P2P로는 힘들지 않을까? 연결 노드가 도대체 몇 개야..</li>
-<li>그나저나 보이스 채팅은 한때는 vaporware 에 가까웠는데, 요즘은 꽤 많은 게임에서 지원하고 있다.</li>
-</ul></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -199,6 +226,10 @@
 	</li>
 	
 	<li>
+		<a href="/2006/03/22/active-object-pattern/">Active Object Pattern</a>
+	</li>
+	
+	<li>
 		<a href="/2006/03/21/ace-tips/">ACE Tips</a>
 	</li>
 	
@@ -212,10 +243,6 @@
 	
 	<li>
 		<a href="/2006/02/24/mmosg-massive-multiplayer-online-sports-game/">MMOSG - Massive Multiplayer Online Sports Game</a>
-	</li>
-	
-	<li>
-		<a href="/2006/02/18/네트워크-액션-게임의-분류/">네트워크 액션 게임의 분류</a>
 	</li>
 	
 </ul>

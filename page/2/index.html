@@ -63,6 +63,37 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a> <small>2011-06-18</small></h1>
+	</div>
+	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" src="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" /></p>
+<p>와이프가 아이패드에서 클리앙을 보시는게 너무 불편해 보여서, jQuery Mobile 공부 삼아 간단히 웹앱을 만들어봤습니다. 소스 코드는 GitHub 에 공개해두었습니다.</p>
+<ul>
+<li>주소: <a href="http://clienpad.appspot.com">http://clienpad.appspot.com </a></li>
+<li>소스코드: <a href="http://github.com/Reiot/clienpad">https://github.com/Reiot/clienpad</a></li>
+</ul>
+<p>Google App Engine 으로 프록시 서버를 만들었고, jQuery Mobile을 이용해서 모바일 브라우저에서 JSON 으로 받아서 보여주는 방식입니다. 가능하면 프록시 서버 없이 하고 싶었는데 iOS 에서 돌아가도록 할려다 보니 방법이 없더군요.</p>
+<p>구현에 관련해서 간단히 정리해보자면,</p>
+<ul>
+<li>template 의 최신 기능 때문에 django 1.2 를 이용했는데, 코드 레벨에서는 거의 webapp 만 사용했습니다;;;</li>
+<li>memcache 에 각 URL 을 파싱한 dict를 저장하는데, 60초 정도만 살아남도록 했습니다. 그래서 그런지 처음 접속하는 사람은 제법 느린 편입니다. 반응 속도가 4-5초 정도가 나오는 바람에 와이프가 많이 실망하네요. ㅠㅠ 다시 생각해보니 그냥 JSON 이나 렌더링된 문자열 자체를 저장하는게 나을 수 있겠네요.</li>
+<li><a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a> 으로 HTML DOM 파싱을 했습니다. 클리앙의 HTML 구조가 old-school 같아서 (ㅎㅎ) 시간이 좀 걸렸습니다;;;</li>
+</ul>
+<p>조만간 jQuery Mobile 팁에 관한 글을 좀 써보겠습니다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/jquerymobile/"><span class="label">jquerymobile</span></a>
+	
+		<a href="/tag/clien/"><span class="label">clien</span></a>
+	
+		<a href="/tag/appengine/"><span class="label">appengine</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a> <small>2011-04-14</small></h1>
 	</div>
 	<div><p>구글 앱엔진은 데이터스토어의 내용을 로컬 파일로 내려받거나 올리는 벌크로딩을 지원한다. 그런데 막상 기획 데이터와 실시간 연동하려면, 스프레드시트를 편집한 후 CSV로 '하나씩' 다운받아서 다시 콘솔창에서 appcfg.py 로 '한 종류씩' 올려야 하는, 상당히 피곤한 과정을 거쳐야 한다.</p>
@@ -329,54 +360,6 @@ on_production_server = have_appserver and \
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a> <small>2010-12-14</small></h1>
-	</div>
-	<div><p>jQuery UI widget 은 기본적으로 한번에 여러 개의 옵션을 설정할 수 있다.</p>
-<pre><code>$('...').somewidget('option',{aa:bb, cc:dd});
-</code></pre>
-
-<p>하나의 옵션을 설정할 때의 추가적인 로직을 넣으려면  _setOption() 을 재정의하면 된다.</p>
-<pre><code>_setOption: function(key,value){
-  if(key=='some'){...do something...}
-}
-</code></pre>
-
-<p>가끔은 여러 개의 옵션을 한번에 설정할 때, 그 중 몇몇 옵션이 바뀔 경우에 대한 추가적인 로직을 넣으려면  _setOptions 를 재정의하면 된다. jQuery UI Dialog 의 코드가 가장 좋은 예제일 것이다. 다만 1.8.6 부터 지원하니까 버전에 주의하길.</p>
-<pre><code>_setOptions: function( options ) {
-  var self = this,
-  resizableOptions = {},
-  resize = false;
-
-  $.each( options, function( key, value ) {
-  self._setOption( key, value );
-
-  if ( key in sizeRelatedOptions ) {
-  resize = true;
-  }
-  if ( key in resizableRelatedOptions ) {
-  resizableOptions[ key ] = value;
-  }
-  });
-
-  if ( resize ) {
-  this._size();
-  }
-  if ( this.uiDialog.is( &quot;:data(resizable)&quot; ) ) {
-  this.uiDialog.resizable( &quot;option&quot;, resizableOptions );
-  }
-},
-</code></pre></div>
-	
-	<p>
-	
-		<a href="/tag/jQueryUI/"><span class="label">jQueryUI</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -397,6 +380,10 @@ on_production_server = have_appserver and \
 	</li>
 	
 	<li>
+		<a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+	</li>
+	
+	<li>
 		<a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
 	</li>
 	
@@ -410,10 +397,6 @@ on_production_server = have_appserver and \
 	
 	<li>
 		<a href="/2011/01/12/haveappserver-vs-onproductionserver/">have_app_server vs. on_production_server</a>
-	</li>
-	
-	<li>
-		<a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a>
 	</li>
 	
 </ul>

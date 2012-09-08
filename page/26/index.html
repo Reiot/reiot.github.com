@@ -63,6 +63,20 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/10/24/이런-툴이-있었으면-좋겠다/">이런 툴이 있었으면 좋겠다</a> <small>2006-10-24</small></h1>
+	</div>
+	<div><ul>
+<li>ProjectDiff : Visual Studio 프로젝트 속성을 비교하거나 merge해주는 툴</li>
+<li>IntDir, OutDir, 포함/라이브러리 디렉토리 설정, 링킹 라이브러리 등의 프로젝트 속성을 매번마다 세팅하는 것은 너무나되 귀찮은 일이다.</li>
+<li>특정 프로젝트로부터 복사해오거나 비교한 후 그래픽적으로 merge 해주는 기능이 있으면 참 좋겠다.</li>
+<li>DatabaseDiff : 2개의 데이터베이스를 비교해서 그래픽적으로 차이점을 보여주는 툴</li>
+<li>덤으로 패치 스크립트를 만들어주면 금상첨화</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/10/20/조금은-오래된-재미있는-it-개발자들의-토론/">조금은 오래된, 재미있는 IT 개발자들의 토론</a> <small>2006-10-20</small></h1>
 	</div>
 	<div><p><a href="http://www.javaservice.net/~java/bbs/read.cgi?m=resource&amp;b=chat2&amp;c=r_p&amp;n=1097846224&amp;p=6&amp;s=t#1097846224">2004년 자바서비스넷의 어느 청년의 고민담</a>에 달린 수많은 리플들. IT 개발자라면 한번쯤 읽어봤으면 한다. 내 안에도 찌질이가 살고 있지만, 저렇게 살고 싶지는 않다. 그리고 중간에 일본사는넘이라는 분의 이야기는 꼭 읽어보기를.</p>
@@ -281,44 +295,6 @@ return false;<br />
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/09/09/activex/">ActiveX</a> <small>2006-09-09</small></h1>
-	</div>
-	<div><p><strong><em>[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87215">http://reiot.springnote.com/pages/87215</a> 에서 읽으실 수 있습니다.</em></strong></p>
-<p>어쩌다보니 ActiveX를 이용해서 브라우저에서 클라이언트를 실행하는 작업을 도와주게 되었다. 담당자나 나나 이 쪽으로는 거의 지식이 전무한 상태였는데, 삽질을 반복하면서 여러 가지 유용한 정보들을 알아내었다. 이미 귀국 날짜가 연기된 마당이므로 시간도 널널하고 해서 알아낸 점들을 정리해본다.</p>
-<p>혹시라도 이 분야에 처음 발을 들였다면 <a href="http://www.codeproject.com/com/CompleteActiveX.asp">A Complete ActiveX Web Control Tutorial</a>를 꼭 읽어보기 바란다. 물론 <a href="http://en.wikipedia.org/wiki/ActiveX">위키피디아</a>의 설명도 괜찮다.</p>
-<h2>설치 여부 알아내기</h2>
-<p><a href="http://game.paran.com/">파란닷컴</a>처럼 active-x 컨트롤이 설치되지 않은 컴퓨터에 대해서 설치 안내 페이지로 redirect 시키려면, onerror 이벤트를 이용하면 된다.</p>
-<p><a href="http://december.com/html/4/element/script.html">&lt;script</a> language="javascript" for="mycontrol" event="onerror"&gt;<br />
-location.href = '/redirect/to/how-to-install.html';<br />
-</script></p>
-<p><a href="http://december.com/html/4/element/object.html">&lt;OBJECT</a> ID='mycontrol' CLASSID='....' codebase=....&gt;<br />
-<a href="http://december.com/html/4/element/span.html"><SPAN></a>Active-X control not installed. go to <a href="http://december.com/html/4/element/a.html">&lt;a</a> href="/redirect/to/how-to-install.html"&gt;HOW TO INSTALL Active-X</a> page</SPAN><br />
-</OBJECT></p>
-<p>이때 OBJECT 태그 사이의 코드들은 해당 객체가 로드되지 않을 경우 렌더링된다는 점을 잘 활용하면 좋을 것이다.</p>
-<h2>삭제하기</h2>
-<p>XP 의 경우 $WINDOWS/Downloaded Program Files/ 아래에서 삭제하면 된다. Windows 2003 의 경우는 어디인지 확인할 수 없었다.</p>
-<h2>컨트롤 활성화</h2>
-<p>올해부터 IE에서는 <a href="http://www.microsoft.com/korea/windows/ie/ie6/activex/activate/default.mspx">컨트롤이나 애플릿들이 기본적으로 비활성화 상태로 변경되</a>었다. 이를 수정하는 방법은 자바스크립트 코드를 이용해서 OBJECT 태그를 쓰면 된다. 보다 자세한 사항은 <a href="http://support.microsoft.com/kb/914257/ko">HOWTO</a> 문서를 참고할 것.</p>
-<p><a href="http://december.com/html/4/element/script.html"><script></a><br />
-document.write('<a href="http://december.com/html/4/element/object.html">&lt;object</a> classid="CLSID:..." type="application/x-oleobject" codebase="..." width="320" height="240"&gt; </object>');<br />
-</script></p>
-<h2>ActiveX Control Pad</h2>
-<p>마이크로소프트에서 제공하는 유틸리티인데 실제로 마소에서는 받아지질 않는다. 따라서 <a href="http://www.download.com/ActiveX-Control-Pad/3000-2406_4-861343.html?tag=pop">여기</a>서 받을 것.</p>
-<h2>브라우저로 이벤트 전달하기</h2>
-<p>만약 ActiveX 컨트롤에서 click 등의 마우스 이벤트 핸들러를 정의했다면 javascript 레벨에서 동일한 이벤트 핸들러를 정의할 수 없다. 이는 컨트롤이 이벤트를 먹어버리기 때문으로 보이는데, 이를 해결하려면 컨트롤에서 이벤트를 정의하고 브라우저로 보내준 다음 브라우저에서 핸들링을 하면 된다.</p>
-<p>Public Event CloseBrowser()<br />
-Public Sub OnClick()<br />
-' handle click event<br />
-RaiseEvent CloseBrowser() ' fire event<br />
-End</p>
-<p><a href="http://december.com/html/4/element/script.html">&lt;script</a> language="javascript" for="mycontrol" event="closebrowser"&gt;<br />
-self.close();<br />
-</script></p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -339,6 +315,10 @@ self.close();<br />
 	</li>
 	
 	<li>
+		<a href="/2006/10/24/이런-툴이-있었으면-좋겠다/">이런 툴이 있었으면 좋겠다</a>
+	</li>
+	
+	<li>
 		<a href="/2006/10/20/조금은-오래된-재미있는-it-개발자들의-토론/">조금은 오래된, 재미있는 IT 개발자들의 토론</a>
 	</li>
 	
@@ -352,10 +332,6 @@ self.close();<br />
 	
 	<li>
 		<a href="/2006/09/09/log4cxx/">Log4cxx</a>
-	</li>
-	
-	<li>
-		<a href="/2006/09/09/activex/">ActiveX</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,74 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/07/04/google-test/">Google Test</a> <small>2008-07-04</small></h1>
+	</div>
+	<div><p>구글에서 나온 <a href="http://code.google.com/p/googletest/">C++ Unit Test Framework.</a></p>
+<p>대체적으로 다른 프레임워크와 유사한데 몇몇 특징적인 기능들이 눈에 띄어서 요약해본다.</p>
+<p>Custom Failure Message : 테스트 실패시 에러 메시지를 보다 친절하게 쓸 수 있다. 아래 예제처럼 i 값을 출력할 수 있다는 점이 멋지다.</p>
+<pre><code>
+for (int i = 0; i &lt; x.size(); ++i) {
+EXPECT_EQ(x[i], y[i]) &lt;&lt; &quot;Vectors x and y differ at index &quot; &lt;&lt; i;
+}
+</code></pre>
+
+<p>Predicate Assertions : 테스트 코드에서 함수를 호출했다가 실패하면, 파라미터로 뭘 넘겼는지를 출력해준다.</p>
+<pre><code>
+bool MutuallyPrime(int m, int n) { ... }
+const int a = 3;
+const int b = 4;
+const int c = 10;
+EXPECT_PRED2(MutuallyPrime, b, c);
+.....
+MutuallyPrime(b, c) is false,
+where
+b is 4
+c is 10
+</code></pre>
+
+<p>Scoped Assert : 다른 함수에 테스트 코드가 들어있고, 이걸 여러 테스트에서 사용할 경우 도대체 어느 테스트에서 실패했는지를 알려주는 기능이다.</p>
+<pre><code>
+10: void Sub1(int n) {
+11: EXPECT_EQ(1, Bar(n));
+12: EXPECT_EQ(2, Bar(n + 1));
+13: }
+14:
+15: TEST(FooTest, Bar) {
+16: {
+17: SCOPED_TRACE(&quot;A&quot;); // This trace point will be included in
+18: // every failure in this scope.
+19: Sub1(1);
+20: }
+21: // Now it won't.
+22: Sub1(9);
+23: }
+...
+path/to/foo_test.cc:11: Failure
+Value of: Bar(n)
+Expected: 1
+Actual: 2
+Trace:
+path/to/foo_test.cc:17: A
+path/to/foo_test.cc:12: Failure
+Value of: Bar(n + 1)
+Expected: 2
+Actual: 3
+</code></pre>
+
+<p>--gtest_break_on_failure : 테스트를 디버거로 실행할 경우, 주요 에러 발생시 바로 해당 라인에서 브레이크가 걸리게해주는 커맨드라인 명령. 이 기능이면 테스트 실행 -&gt; 실패 발견 -&gt; 해당 라인에 브레이크 걸기 -&gt; 디버거 붙여서 재시작 이라는 귀찮은 작업에서 해방된다.</p>
+<p>--gtest_filter : 특정 테스트만 실행하고 싶을 때, 기존 코드를 건드리지 않고 커맨드라인에서 필터링을 할 수 있다. 이거야말로 대박 기능인 듯!</p>
+<p>--gtest_filter=FooTest.<em> : FooTest 하위 테스트를 모두 실행<br />
+--gtest_filter=</em>Null<em>:</em>Constructor<em> : 이름에 "Null" 또는 "Constructor"를 포함한 모든 테스트를 실행<br />
+--gtest_filter=-</em>DeathTest.<em> : DeathTest 가 아닌 모든 테스트를 실행<br />
+--gtest_filter=FooTest.</em>-FooTest.Bar : FooTest 중에서 FooTest.Bar를 제외한 나머지 테스트를 실행<br />
+--gtest_repeat : 테스트를 N번 실행할 수 있다. --gtest_filter 와 함께 쓰면 특정 테스트만 반복해서 수행할 수 있다.</p>
+<p>DISABLED_ : 임시로 테스트를 실행하지 않으려면 코멘트로 막는 대신 이름 앞에다가 DISABLED_ 를 붙이면 된다.</p>
+<p>대충 기능만 훑어봤는데도 이 넘들이 진짜 테스트에서 귀찮은 게 무엇인지를 잘 알고 만들었다는 느낌이 든다. 멋진 놈들이란 말이야</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/07/01/google-trends/">Google Trends</a> <small>2008-07-01</small></h1>
 	</div>
 	<div><p><img alt="http://www.google.com/intl//trends/logo_sm.gif" src="http://www.google.com/intl//trends/logo_sm.gif" /></p>
@@ -382,44 +450,6 @@ from <a href="http://developer.valvesoftware.com/wiki/Successful_Mod_Team_Tips">
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/05/01/customize-wordpress-prologue-theme/">Customize Wordpress Prologue theme</a> <small>2008-05-01</small></h1>
-	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/prologue.png"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/prologue-269x300.png" src="http://boxcatstudio.files.wordpress.com/2009/07/prologue-269x300.png" /></a></p>
-<p>이런 저런 스트레스가 머리끝까지 다다른 어느날, 불현듯 팀 내에 저레벨(?) 커뮤니케이션의 필요성이 느껴져서, 얼마전부터 <a href="http://wordpress.com/blog/2008/01/28/introducing-prologue/">prologue </a>테마를 한글화해서 뒷담화 온라인이라는 이름으로 절찬리에 운영중이다. 며칠 쓰다보니 외부 링크를 보다 손쉽게 추가할 수 있게 해달라는 요청이 들어와서, Custom Field 를 저장하고 보여주는 기능을 구현해봤다.</p>
-<p>가장 먼저 post-form.php 에 link 라는 이름의 input text 필드를 추가했다.</p>
-<pre><code>
-&lt;input type=&quot;text&quot; name=&quot;link&quot; id=&quot;link&quot; autocomplete=&quot;off&quot; /&gt;
-
-</code></pre>
-
-<p>이걸 link 라는 이름의 custom field 로 저장하기 위해서 function.php 에 다음과 같은 함수와 콜백을 추가했다.</p>
-<pre><code>
-function add_link_custom_field($post_id) {
-if( $_POST['link'] ) {
-add_post_meta($post_id, 'link', $_POST['link'], true) or update_post_meta($post_id, 'link', $_POST['link']);
-}
-}
-add_action('publish_post', add_link_custom_field );
-</code></pre>
-
-<p>이제 글을 작성할 때마다 link 폼으로 넘어온 값이 custom field 에 저장이 될 것이다. 다음은 이걸 화면에 아이콘으로 보여주는 코드를 살펴보자.</p>
-<pre><code>
-&lt;?php
-$links = get_post_custom_values('link');
-if(count($links)&gt;0)
-{
-echo &quot;&lt;a href='&quot; . $links[0] . &quot;'&gt;&lt;img src='/blog/wp-content/uploads/link.jpg' /&gt;&lt;/a&gt;&quot;;
-}
-?&gt;
-
-</code></pre>
-
-<p>가끔은 정형화된 인트라넷에서는 쏟아낼 수 없는, 너무 소소하고 쓸데없는 잡담들을 펼쳐줄 공간이 회사원에게는 필요할지도 모르겠다. 물론 그걸 악용하고 소모적으로 사용하는 경우는 없어야겠지만. 결국은 쓰는 사람이 그 선을 잘 지켜줘야 할 게다. 그런 의미에서 확실히 자신의 얼굴을 보여준다는 건 참 괜찮은 아이디어인 듯하다.</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -440,6 +470,10 @@ echo &quot;&lt;a href='&quot; . $links[0] . &quot;'&gt;&lt;img src='/blog/wp-con
 	</li>
 	
 	<li>
+		<a href="/2008/07/04/google-test/">Google Test</a>
+	</li>
+	
+	<li>
 		<a href="/2008/07/01/google-trends/">Google Trends</a>
 	</li>
 	
@@ -453,10 +487,6 @@ echo &quot;&lt;a href='&quot; . $links[0] . &quot;'&gt;&lt;img src='/blog/wp-con
 	
 	<li>
 		<a href="/2008/05/02/libjingle/">libjingle</a>
-	</li>
-	
-	<li>
-		<a href="/2008/05/01/customize-wordpress-prologue-theme/">Customize Wordpress Prologue theme</a>
 	</li>
 	
 </ul>

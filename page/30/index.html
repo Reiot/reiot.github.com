@@ -63,6 +63,260 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/06/08/lua-tips/">Lua Tips</a> <small>2006-06-08</small></h1>
+	</div>
+	<div><p><strong><em>이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87244">http://reiot.springnote.com/pages/87244</a> 에서 읽으실 수 있습니다.</em></strong></p>
+<p>LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.</p>
+<h2>LuaPack</h2>
+<p>바이너리 데이터를 pack/unpack 하는 라이브러리. 일단 require 해주면 string.pack, string.unpack 의 2개 함수가 추가된다. 레이옷은 '''순수 루아 테스트 클라이언트'''를 만들기 위해서 LuaSocket 과 함께 사용했다. 단, 리눅스에서 사용하던 놈이라, 윈도우 환경에서 dll 로 사용하기 위해서는 약간의 수고가 필요하다.</p>
+<pre><code>- 기존 루아 프로젝트를 dll 기반으로 수정해줘야 한다. 또한, 같이 배포되는 pack.lua 은 동작하지 않으며, LuaSocket 의 compat-5.1.lua 에서 제공하는 LUA_CPATH 및 새 require() 를 이용해야 한다.
+- lpack.c 의 luaopen_pack() 앞에 __declspec(dllexport) 달아줄 것
+- dll 이름과 luaopen_xxx() 을 동일하게 해줄 것. pack.dll &amp; luaopen_pack() 또는 lpack.dll &amp; luaopen_lpack()을 권장함
+- 다음과 같은 배치 파일 및 테스트용 루아를 실행, 2개 함수가 function:xxxxx 이라고 나오면 성공~
+</code></pre>
+<h1>test_luapack.bat</h1>
+<p>set LUA_CPATH=?.dll<br />
+lua test_luapack.lua<br />
+pause</p>
+<p>-- test_luapack.lua<br />
+dofile('compat-5.1.lua')<br />
+require("lpack")<br />
+print(string.pack)<br />
+print(string.unpack)</p>
+<p>변환표<br />
+<table><br />
+<thead><br />
+<th>type string</th><br />
+<th>의미</th><br />
+<td>z</td><br />
+<td>zero-terminated string</td><br />
+<td>p</td><br />
+<td>string preceded by length byte</td></p>
+<tr>
+<td>P</td>
+<td>string preceded by length word</td>
+</tr>
+
+<tr>
+<td>a</td>
+<td>string preceded by length size_t</td>
+</tr>
+
+<tr>
+<td>A</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>f</td>
+<td>float</td>
+</tr>
+
+<tr>
+<td>d</td>
+<td>double</td>
+</tr>
+
+<tr>
+<td>n</td>
+<td>Lua number</td>
+</tr>
+
+<tr>
+<td>c</td>
+<td>char</td>
+</tr>
+
+<tr>
+<td>b</td>
+<td>byte = unsigned char</td>
+</tr>
+
+<tr>
+<td>h</td>
+<td>short</td>
+</tr>
+
+<tr>
+<td>H</td>
+<td>unsigned short</td>
+</tr>
+
+<tr>
+<td>i</td>
+<td>int</td>
+</tr>
+
+<tr>
+<td>I</td>
+<td>unsigned int</td>
+</tr>
+
+<tr>
+<td>l</td>
+<td>long</td>
+</tr>
+
+<tr>
+<td>L</td>
+<td>unsigned long</td>
+</tr>
+
+<tr>
+<td><</td>
+<td>little endian</td>
+</tr>
+
+<tr>
+<td>></td>
+<td>big endian|</td>
+</tr>
+
+<tr>
+<td>=</td>
+<td>native endian</td>
+</tr>
+
+<p></thead></table><br />
+see also:</p>
+<pre><code>- [Official LuaPack Homepage](http://www.tecgraf.puc-rio.br/%7Elhf/ftp/lua/)
+</code></pre>
+<h2>ipairs()</h2>
+<p>lua table 을 array 로 쓰는 경우, 정수 인덱스 기반의 iterating 을 할 때 사용한다. 정수 인덱스에 관련된 값이 nil 일 때까지 루프를 돌게 된다. 반면에 lua table 을 map 으로 사용할 경우, 즉 key 와 value 를 명시해서 사용할 경우에는 pairs() 를 사용해야 한다.</p>
+<blockquote>
+<p>t = { ["a"] = 1, ["b"] = 2, ["c"] = 3 }<br />
+for i,v in ipairs(t) do print(i,v) end</p>
+<p>tt = {[1]=1,[3]=3,[5]=5}<br />
+for i,v in ipairs(tt) do print(i,v) end<br />
+1  1<br />
+ttt = {[1]=1,[2]=3,[3]=3,[5]=5}<br />
+for i,v in ipairs(ttt) do print(i,v) end<br />
+1  1<br />
+2  3<br />
+3  3<br />
+tttt = {"a","b","c"}<br />
+for i,v in ipairs(tttt) do print(i,v) end<br />
+1  a<br />
+2  b<br />
+3  c</p>
+</blockquote>
+<h2>luabind : param 개수 제한</h2>
+<p>C++ 메써드를 바인딩할 때, 파라미터의 개수가 제한되어 있는 듯하다. 좀더 테스트가 필요할 듯.</p>
+<h2>luabind : C++에서 루아 테이블 객체 생성해서 functor 로 넘기는 법</h2>
+<p>C++에서 루아 함수를 호출할 때, 파라미터의 개수가 상황에 따라서 동적으로 바뀔 경우 루아 테이블에 넣어서 보내면 깔끔하다. 그런데, 어떻게 C++ 스코프에서 루아 테이블을 만들 수 있을까? 생각보다 꽤 간단했다.</p>
+<p>-- lua<br />
+function f(a) return a.x+a.y end</p>
+<p>// C++<br />
+luabind::object table = luabind::newtable(L);<br />
+table["x"] = 1;<br />
+table["y"] = 2;<br />
+functor<int> f(L,"f");<br />
+f(table);</p>
+<p>테이블 안에 테이블을 넣는 것도 가능하다.</p>
+<p>// C++<br />
+luabind::object table = luabind::newtable(L);<br />
+luabind::object subtable = luabind::newtable(L);<br />
+table["sub"] = subtable;<br />
+functor<int> f(L,"f");<br />
+f(table);</p>
+<h2>luabind : virtual member function</h2>
+<p>class Connection {<br />
+virtual int handle_input();<br />
+virtual int handle_output();<br />
+virtual int handle_msg();<br />
+};<br />
+class TestConnection : public Connection {<br />
+virtual int handle_msg();<br />
+};</p>
+<p>이와 같이, 하위 클래스에서는 몇 개의 virtual member function 만을 override 한 경우, 바인딩할 때에는 주의가 필요하다.</p>
+<p>// 컴파일 에러 발생<br />
+module(L)<br />
+[<br />
+class<TestConnection>("TestConnection")<br />
+.def("handle_input",&amp;TestConnection::handle_input)<br />
+.def("handle_output",&amp;TestConnection::handle_output)<br />
+.def("handle_msg",&amp;TestConnection::handle_msg)<br />
+];</p>
+<p>// 컴파일 성공<br />
+module(L)<br />
+[<br />
+class<Connection>("Connection")<br />
+.def("handle_input",&amp;Connection::handle_input)<br />
+.def("handle_output",&amp;Connection::handle_output)<br />
+.def("handle_msg",&amp;Connection::handle_msg)<br />
+,<br />
+class<TestConnection,Connection>("TestConnection")<br />
+.def("handle_msg",&amp;TestConnection::handle_msg)<br />
+];</p>
+<p>단 virtual 이 잘 동작하는지는 확인 요망...</p>
+<h2>luabind : functor</h2>
+<p>루아 함수를 C++ 에서 호출할 수 있게 해준다. 템플릿으로 구현되어 있어서 컴파일 속도가 장난 아니게 느리다.</p>
+<p>-- lua<br />
+function f(a,b) return a+b end</p>
+<p>// C++<br />
+functor<int> f(L,"f");<br />
+f(1,2);</p>
+<p>어떤 루아 함수를 사용하려 한다는 것은, 이미 루아 스택에 그 함수가 로딩되어 있어야 한다는 의미이다. 그런데, 만약 런타임에 함수를 정의하고 그 함수를 C++ 에서 사용하려면 어떻게 해야 할까? 이를 위해서는 functor 등록 함수를 luabind 를 이용해서 다시 루아에서 호출해줘야 한다. 즉</p>
+<p>-- lua<br />
+function f(a,b) return a+b end<br />
+register_f()</p>
+<p>// C++<br />
+void register_f()<br />
+{<br />
+functor<int> * pFunc = new functor<int>(L,"f");<br />
+}</p>
+<p>module(L)<br />
+[<br />
+.def("register_f",&amp;register_f)<br />
+];</p>
+<p>까다로운 점은 register_f() 에서의 루아스택을 어떻게 알아내느냐인데, [레이옷]은 SingletonPattern 으로 해결해버렸다. -_-;;</p>
+<p>끝으로 주의사항: functor 의 파라미터로 C++ 클래스를 사용하려면 필히 먼저 이 클래스를 luabind 로 등록해두어야 한다. (물론 루아에서 사용하는 메써드만 달랑 해주면 끝)</p>
+<h2>luabind : __tostring()</h2>
+<p>luabind 로 C++ 클래스 인스턴스를 생성, print(x) 를 해보고 싶다면, ostream operator &lt;&lt; 를 implement 하고, tostring(self)를 바인딩해주면 된다.</p>
+<p>class number {};</p>
+<p>std::ostream&amp; operator&lt;&lt;(ostream&amp;, number&amp;);</p>
+<p>module(L)<br />
+[<br />
+class_<number>("number")<br />
+.def(tostring(self))<br />
+];</p>
+<p>반면 루아 클래스 객체를 출력하려면 다음과 같이 함수를 정의해야 한다. '''이때 self 파라미터를 수동으로 넘긴다는 점에 유의할 것'''. (다른 함수에서 self 는 자동적으로 인스턴스 자신을 가리키지만, metatable 관련 함수들은 수동으로 넘겨야 하는 듯. 당연히 굳이 self 라는 이름일 필요는 없다)</p>
+<p>class 'XXX'<br />
+function XXX:__init()<br />
+self.v = 1<br />
+end<br />
+function XXX:__tostring(self)<br />
+return 'XXX('..self.v..')'<br />
+end</p>
+<h2>lua list</h2>
+<p>table 을 list 처럼 사용할 수 있다.</p>
+<p>-- create<br />
+list = nil<br />
+for line in io.lines() do<br />
+list = { next=list, value=line }<br />
+end</p>
+<p>-- iterate<br />
+l = list<br />
+while l do<br />
+print(l.value)<br />
+l = l.next<br />
+end</p>
+<p>see also:</p>
+<pre><code>- [http://www.lua.org 루아 공식 홈페이지]
+- [http://www.redwiki.net/wiki/wiki.php/Lua 레드픽셀님의 루아 페이지]
+- [http://lua-users.org/wiki/] - 루아 위키
+- [http://www.workspacewhiz.com/LuaPlus/index.html LuaPlus] - 가장 OO 스러운 루아 확장 라이브러리
+- [http://sourceforge.net/projects/lua-users/ lua-users.org at SF] - 윈도우용 루아 바이너리 및 매뉴얼 등등을 배포하는 곳.
+- [http://www.sjbrown.co.uk/lualite.html LuaLite] - Lua Syntax Highlight plugin for VS.NET. 단, 이것을 띄워 놓은 상태에서 검색을 하면 먹통이 되므로 조심할 것
+- [http://luaforge.net/ LuaForge]
+- [http://www.icynorth.com/forums/index.php LuaForum]
+- http://www.thomasandamy.com/projects/CPB/
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a> <small>2006-06-04</small></h1>
 	</div>
 	<div><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
@@ -651,46 +905,6 @@ thread_pool_test_fixture::test_really_pooling()
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a> <small>2006-05-28</small></h1>
-	</div>
-	<div><p>템플릿 프로그래밍을 하다 보면, 문자열이나 사용자 정의 클래스(UDT) 같은 특정 타입에 대한 특수화(specializaiton)를 할 경우가 있다. 그 중에서 가장 헷갈리는 부분이 바로 특정 클래스의 포인터를 템플릿 인자로 받아서 특수화해야 하는 경우인데, boost typetraits 중 하나인 boost::is_base_of를 사용하면 손쉽게 해결할 수 있다.</p>
-<pre><code>
-template
-void old_algorithm ( const T &amp; value )
-{
-  // do generic something
-}
-</code></pre>
-
-<p>위와 같은 함수 템플릿에 대해서 Base 클래스의 하위 클래스 포인터를 받았을 때를 위한 특수화를 해야 할 경우, 다음과 같은 패턴을 사용하라. 핵심은 is_base_of::type 이 true_type 또는 false_type 이라는 2 개의 서로 다른 타입을 리턴하며, 이 값을 이용해서 특수화를 한다는 것이다.</p>
-<pre><code>
-template
-void new_algorithm ( const T &amp; value )
-{
-  typedef typename boost::is_base_of::type is_derived_class;
-
-  // call impl
-  new_algorithm_impl(value,is_derived_class());
-}
-
-template
-void new_algorithm_impl ( const T &amp; value, const boost::true_type&amp; )
-{
-  // do specialized for Base class
-}
-
-template
-void new_algorithm_impl ( const T &amp; value, const boost::false_type&amp; )
-{
-  // do generic something
-}
-
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -711,6 +925,10 @@ void new_algorithm_impl ( const T &amp; value, const boost::false_type&amp; )
 	</li>
 	
 	<li>
+		<a href="/2006/06/08/lua-tips/">Lua Tips</a>
+	</li>
+	
+	<li>
 		<a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a>
 	</li>
 	
@@ -724,10 +942,6 @@ void new_algorithm_impl ( const T &amp; value, const boost::false_type&amp; )
 	
 	<li>
 		<a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a>
-	</li>
-	
-	<li>
-		<a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,54 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a> <small>2010-12-14</small></h1>
+	</div>
+	<div><p>jQuery UI widget 은 기본적으로 한번에 여러 개의 옵션을 설정할 수 있다.</p>
+<pre><code>$('...').somewidget('option',{aa:bb, cc:dd});
+</code></pre>
+
+<p>하나의 옵션을 설정할 때의 추가적인 로직을 넣으려면  _setOption() 을 재정의하면 된다.</p>
+<pre><code>_setOption: function(key,value){
+  if(key=='some'){...do something...}
+}
+</code></pre>
+
+<p>가끔은 여러 개의 옵션을 한번에 설정할 때, 그 중 몇몇 옵션이 바뀔 경우에 대한 추가적인 로직을 넣으려면  _setOptions 를 재정의하면 된다. jQuery UI Dialog 의 코드가 가장 좋은 예제일 것이다. 다만 1.8.6 부터 지원하니까 버전에 주의하길.</p>
+<pre><code>_setOptions: function( options ) {
+  var self = this,
+  resizableOptions = {},
+  resize = false;
+
+  $.each( options, function( key, value ) {
+  self._setOption( key, value );
+
+  if ( key in sizeRelatedOptions ) {
+  resize = true;
+  }
+  if ( key in resizableRelatedOptions ) {
+  resizableOptions[ key ] = value;
+  }
+  });
+
+  if ( resize ) {
+  this._size();
+  }
+  if ( this.uiDialog.is( &quot;:data(resizable)&quot; ) ) {
+  this.uiDialog.resizable( &quot;option&quot;, resizableOptions );
+  }
+},
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/jQueryUI/"><span class="label">jQueryUI</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2010/11/16/jqueryuitooltip/">jquery.ui.tooltip</a> <small>2010-11-16</small></h1>
 	</div>
 	<div><h2>개요</h2>
@@ -282,38 +330,6 @@ sudo node server.js
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a> <small>2010-11-07</small></h1>
-	</div>
-	<div><p>이번 11월부터 <a href="http://aws.amazon.com/free/">1년 무료인 마이크로 인스턴스</a>라는 게 있다길래 node.js 를 위해서 재빨리 가입을 했다. 왜 하필 node.js 인지 궁금하신 분은 <a href="http://www.synchrosinteractive.com/blog/9-nodejs/22-nodejs-has-a-bright-future">nodejs-has-a-bright-future</a> 를 읽어보시길. 싱가포르쪽이 좀 느린 듯해서 그냥 미쿡 버지니아에다가 만들었다.</p>
-<p>처음 가입할 때 전화를 준다고 해서 살짝 망설였는데 그냥 미리 녹음된 전화에 개인키를 입력해서 인증하는 방식이라길래 용감하게 시도했으나.. 아무리 등록하려고 해도 요청 폭주로 전화가 오지 않아서 이틀이나 기다려야 했다. (3회 실패하면 12시간 후에나 다시 요청이 가능한 시스템..) 알고보니 전화 번호를 잘못 써서.울먹.. 다들 외국 사이트 가입할 때 +82 국제 전화 번호 붙이지 않나요 ㅠㅠ </p>
-<p>어쨌든 초보답게 아마존에서 제공하는 기본 리눅스 AMI 64bit 를 설치하고 보니, git 는 커녕 gcc 도 설치 안된 깔끔한 배포판이었다. 10년만에 리눅스를 만져본 터라 어떤 패키지 시스템을 써야 하는지 헷갈렸는데, 요즘은 yum 이란게 인기가 있나보다. (마지막으로 써본 게 rpm 이었던가..)</p>
-<p>기억 소멸을 방지하기 위해 대충 순서를 정리해본다 :P</p>
-<ul>
-<li>sudo yum install git-core</li>
-<li>git clone https://github.com/ry/node.git</li>
-<li>sudo yum install gcc</li>
-<li>sudo yum install gcc-c++</li>
-<li>sudo yum install openssl-devel</li>
-<li>./configure</li>
-<li>make </li>
-<li>sudo make install</li>
-<li>make test</li>
-</ul>
-<p>마이크로 인스턴스에서 빌드 시간은 17분 정도 걸린다. configure 할 때 select/eio/kqueue 를 찾는 걸 보니, 내부적으로 저런 걸 쓰는 모양이다. 내 경우에는  test-exec,  test-repl, test-http-curl-chunk-problem 3개의 테스트가 실패했다 :(</p>
-<p>ps. 오랜만에 느끼는 이 콘솔의 감촉. 아 섹시하다~~</p></div>
-	
-	<p>
-	
-		<a href="/tag/node.js/"><span class="label">node.js</span></a>
-	
-		<a href="/tag/amazon-ec2/"><span class="label">amazon-ec2</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -334,6 +350,10 @@ sudo node server.js
 	</li>
 	
 	<li>
+		<a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a>
+	</li>
+	
+	<li>
 		<a href="/2010/11/16/jqueryuitooltip/">jquery.ui.tooltip</a>
 	</li>
 	
@@ -347,10 +367,6 @@ sudo node server.js
 	
 	<li>
 		<a href="/2010/11/09/setup-npm-socketio/">Setup npm & socket.io</a>
-	</li>
-	
-	<li>
-		<a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a>
 	</li>
 	
 </ul>

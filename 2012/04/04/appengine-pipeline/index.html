@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2012/04/04/appengine-pipeline/">AppEngine pipeline</a> <small>2012-04-04</small></h1>
+	</div>
+	<div><h3>개요</h3>
+<p>Datastore 에 task 순서를 저장하고 순차적으로 하나씩 실행한다. <br />
+task 1 의 리턴값이 task2 의 출력값이 된다.<br />
+내부적으로 task queue 를 사용한다.</p>
+<ul>
+<li>run() 의 리턴값 또는 마지막 yield 값이 self.outputs.default.value 가 된다.</li>
+<li>여러 개의 값을 리턴할 수도 있다.</li>
+<li>값에 이름이 필요할 경우 output_names 와 fill() 함수를 이용할 것.</li>
+</ul>
+<pre><code>output = [ slot, ... ] 
+</code></pre>
+
+<h3>2개를 순차 실행</h3>
+<p>task2 에서 task1 을 yield 로 호출할 것.</p>
+<pre><code>class Task1(pipeline.Pipeline):
+  def run(self, input):
+    return input*2
+
+class Task2(pipeline.Pipeline):
+  def run(self, input):
+    result = yield Task1(input)
+    return input+1
+</code></pre>
+
+<p>이때 x 는 Future 객체다. x 의 값을 읽어오려면 또다른 yield 로만 가능하다. </p>
+<h3>common 모듈</h3>
+<p>각종 다양한 파이프라인 기능을 지원한다.</p>
+<h3>callback(), get_callback_task(), get_callback_url()</h3>
+<p>어떤 태스크들은 사람이 중간에 개입해서 이메일의 링크를 클릭하거나, delay 처럼 일정 시간 후에 태스크큐를 통해서 비동기적으로 수행될 필요가 있다. </p>
+<p>이때 콜백 함수가 호출된다. </p>
+<h3>finalize()</h3>
+<p>아직 결과값이 저장되지는 않은 상태다. </p>
+<h3>output_names &amp; fill()</h3>
+<p>하나의 값이 아니라 여러 개의 값을 이름 기반으로 넘겨야 할 때</p>
+<pre><code>output_names = ['aa', 'bb']
+…
+self.fill(self.outputs.aa, 11)
+self.fill(self.outputs.bb, 'bbbbb')
+</code></pre>
+
+<p>와 같은 방식으로 저장한다.</p>
+<h3>with pipeline.After()</h3>
+<p>futures 를 파라미터로 받아서 해당 태스크가 모두 끝난 경우 with 아래 문을 실행한다.</p>
+<h3>common.Append()</h3>
+<p>여러 개의 태스크를 실행한 후 하나의 리스트로 리턴한다.</p>
+<h3>raise pipeline.Retry, Abort</h3>
+<p>예외는 위와 같이 넘길 것</p>
+<h3>yield common.Log.info()</h3>
+<p>비동기 로그 남기기</p></div>
+	
+	<p>
+	
+		<a href="/tag/appengine/"><span class="label">appengine</span></a>
+	
+		<a href="/tag/pipeline/"><span class="label">pipeline</span></a>
+	
+	</p>
+	
+</article>
+
+    
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'reiot'; // required: replace example with your forum shortname
+        //var disqus_developer = 1;
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>
