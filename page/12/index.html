@@ -63,6 +63,105 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/01/02/fault-tolerant-system/">Fault Tolerant System</a> <small>2009-01-02</small></h1>
+	</div>
+	<div><p>얼랭스터디에서 얼랭/OTP 의 무정지성(Fault Tolerance)에 대해서 소개하자,</p>
+<pre><code>&quot;문제가 생긴 서버를 되살리는 것도 좋은데, 메모리상의 중요한 데이터들을 어떻게 다른 서버로 안전하게 전송할 수 있는가?&quot;```
+라는 질문이 나왔다. 여기에 대해서 가장 먼저 떠오른 생각은
+</code></pre>
+
+<p>"클라이언트와의 연결은 어차피 날아가는 거고, 과연 그 서버 안에 있는 데이터까지 살릴 만한 가치가 있는 것일까?"```<br />
+라는 것이었다. 일반적인 C++ 서버의 경우 오류로 인한 서버의 크래시가 발생했을 때 당연히 SEH 를 이용해서 그 순간을 캡처해낼 수는 있다. 그러나 문제는 그때의 메모리가 정말 DB에 저장하거나 다른 머신으로 보낼 만큼 신뢰성이 있는가? 하는 것이다. 치명적인 오류가 발생한지 시간이 좀 지나서, 이미 많은 데이터가 오염되었을 수도 있기 때문에, 보통은 그냥 데이터는 버리고 서버를 내려버리는 것이 정상이다.</p>
+<p>그러다보니 무정지성이라는 의미에 대해서 다시금 생각하게 되었다. 그래서, 위키피디아에서 <a href="http://en.wikipedia.org/wiki/Fault-tolerant_system">Fault Tolerant System</a>을 검색해보니 다음과 같이 나와 있었다.</p>
+<pre><code>
+    - No single point of failure
+    - No single point of repair
+    - Fault isolation to the failing component
+    - Fault containment to prevent propagation of the failure
+    - Availability of reversion modes
+
+</code></pre>
+
+<p>즉, 하나 죽었다고 전체 시스템이 마비된다든지, 복구하다가 바보가 된다든지, 실패한 모듈 때문에 나머지 시스템이 동작하지 않는 등의 현상이 없어야 된다는, Five Nine(99.999%) 수준의 가용성(Availability)에 대한 이야기이지 완벽하게 모든 것이 재가동되어야 한다는 이야기는 아니었다. DB에도 오류가 생기면 롤백을 하듯이, MMO의 서버 시스템 역시 어느 수준으로 롤백을 하더라도 나머지 사용자들이 모를 정도로만 감춰줘도 사장님한테 이쁨받기에 충분한 수준인 것이다.</p>
+<p>그런데, "<strong>진정한 변수</strong>"가 없는 얼랭에서는 - <em>정말 에러가 발생한 직후라는 확신이 든다면 </em>- 아래와 같은 코드를 이용해서, 오류를 다른 모듈로 확산시키지 않고도 로컬 코드 레벨에서 롤백이 가능하긴 하다.</p>
+<pre><code>
+loop( OldState ) -&gt;
+try handle_something(msg,OldState) of
+{ ok, NewState } -&gt;
+loop(NewState)
+catch
+{ error } -&gt;
+loop(OldState)
+end
+end.
+</code></pre>
+
+<p>여기에 얼랭/OTP의 슈퍼비전 트리가 결합하면 책에서 주장하는 것처럼 Nine Nine(99.9999999%)의 가용성이 보장된다고 하니, 초반에 생각했던 언어적 분산 네트워킹의 지원 보다는 이쪽이 더 매력적인 기능이 아닐까 싶다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/erlang/"><span class="label">erlang</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/12/27/networking-metaphore/">Networking Metaphor</a> <small>2008-12-27</small></h1>
+	</div>
+	<div><p>[caption id="" align="aligncenter" width="500" caption="http://www.flickr.com/photos/jasoncross/1260110610/"]<a href="http://www.flickr.com/photos/jasoncross/1260110610/"><img alt="http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg" src="http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg" /></a>[/caption]</p>
+<p>네트워크 프로그래머가 클라이언트 서버간 통신(혹은 P2P 통신)을 바라보는 메타포에 대해서 갑자기 궁금해졌다.</p>
+<p>가장 흔한 개념은 바로 패킷이다. 만약 컨텐트 코드에서 Packet 이나 Command, Message 같은 객체와, Send 와 Receive 같은 함수가 노출되어 있다면, 그걸 만든 사람은 데이터 통신을 바이트의 전송이라는 개념으로 인지하는 것이 아닐까? 데이터를 던지고 받는다는 개념의 네트워킹은 아마도 귀찮은 하드코딩 노가다 작업일 확률이 높다. 흐흐.</p>
+<p>조금 높은 레벨(?)로 올라간다면 원격 함수 호출(RPC)이 있겠다. 무언가를 상대방에게 요청(request)하면, 상대방은 그걸 처리한 후 성공이나 실패 같은 결과(response)를 보내준다. 이런 메타포에서는 동기/비동기라든지, 타임아웃 같은 처리들이 따라오게 된다. 만약 네트워크로 무언가를 요청하는 행위가 함수 호출 인터페이스처럼 잘 래핑되어 있다면, 대략 1초간 으쓱해도 무방하겠다. :P</p>
+<p><img alt="http://ou800doc.caldera.com/en/SDK_netapi/graphics/rpc.gif" src="http://ou800doc.caldera.com/en/SDK_netapi/graphics/rpc.gif" /></p>
+<p>추가적으로, 결과가 없는 요청은 특별히 이벤트(event) 혹은 통지(notification)라는 메타포라고 부를 수 있겠다. 사실 매번 렌더링을 해야 하는 게임 클라이언트나, 항상 빠른 응답 속도를 보장해야 하는 서버가 동기적 요청을 하는 일은 정말 드문 경우이다. 이런 이유로 비동기적인 통신이 대부분이기 때문에 적당히 현재 상황을 알려주고 잊어버리고 있다가, 혹시나 결과(보통은 에러)가 오면 음..그런가? 하고 처리하는 느낌으로 코드를 만들 때가 있다. 시간이 나면 Notify 같은 이름들이 있는지 한번 체크해보시라.</p>
+<p>위에 나온 것들은 대체로 즉각적인 처리를 필요로 하는 반면, 어떤 이벤트들은 시간축으로 늘어질 때가 있다. 무슨 말이냐 하면 이동, 공격, 물리 같이 float 단위의 정밀한 사건들은 공간 뿐만 아니라 시간과도 밀접한 관계가 있기 때문이다. 이런 상황을 아름답게 처리하려면, 받는 족족 무언가를 처리하기보다는, 데이터를 시간순으로 쌓아두고 예측, 보간을 통해 그럴듯하게 보여줄 필요가 있다. 이런 걸 보통 동기화(synchronization) 또는 복제(replication)이라고 부른다. 보통 이런 코드들은 네트워크를 넘어선 상위 로직 레벨에 존재하는 경우가 많은데, 어떤 네트워크 라이브러리들은 이런 수준도 알아서 잘 처리하기도 한다.</p>
+<p>[caption id="" align="aligncenter" width="300" caption="from http://www.problogger.net"]<a href="http://www.problogger.net"><img alt="http://www.problogger.net/wp-content/uploads/2007/08/rss-buttons.gif" src="http://www.problogger.net/wp-content/uploads/2007/08/rss-buttons.gif" /></a>[/caption]</p>
+<p>좀 억지스럽긴 하나, 이메일이나 RSS 등에서 주로 쓰이는 발행(publish)과 구독(subscribe)이라는 메타포는 어떨까?  채팅 채널 같이 지속적인 이벤트가 간간히 발생하는 논리적인 영역에 참가하면, 꾸준히 어떤 이벤트들이 날아오게 된다. 사람들이 바글바글 거리는 지역에 발생하는 수많은 이벤트들을 클라이언트에게 알려줄 때 즉각적인 브로드캐스팅 대신, 이런 개념을 사용한다면 필터링을 통해 트래픽 절감의 효과를 손쉽게 얻을 지도 모르겠다. 후후.</p>
+<p>이렇게 단순한 이야기를 현학적으로 어렵게 쓴 이유는, 사실 며칠 전 XML로 프로토콜을 정의하고 코드를 만드는 걸 한번 해볼까 하고, <a href="http://www.codalogic.com/lmx/xsd-overview.html">스키마 튜토리얼</a>을 살펴 보다가, 프로토콜은 XML이 아니라 XSD에 들어가는게 맞지 않냐는 생각이 들어서였다. 물론 XSD도 사실 XML이니까, 쓸데없는 고민 없이 그냥 해도 될 것 같기도 한데... 그러다보니 또 굳이 요즘 세상에 트래픽이 많은 게임이 아니라면 XML 프로토콜을 쓰고, 파싱 및 검증을 XSD로 하는 것도 괜찮지 않냐는 망상에서 허우적 거리고 있다.</p>
+<p><img alt="http://upload.wikimedia.org/wikipedia/en/3/32/CheckEmail.png" src="http://upload.wikimedia.org/wikipedia/en/3/32/CheckEmail.png" /></p>
+<p>또 한편으로는 클래스 다이어그램과 시퀀스 다이어그램으로 클라이언트/서버간 통신을 표현하고, 그걸 파싱해서 각종 RPC 함수들의 골격을 만들어내면 인생이 좀 수월해지지 않을까 하는 생각도 든다. 물론 프로토콜이 바뀔 때에 기존 코드가 날아가지 않도록 코드 제너레이터를 잘 짜야겠지.</p>
+<p>글 시작과 끝의 주제가 다른 걸로 봐서, 아무래도 요즘 스트레스를 많이 받나 보다. ㅋㅋ</p></div>
+	
+	<p>
+	
+		<a href="/tag/xml/"><span class="label">xml</span></a>
+	
+		<a href="/tag/protocol/"><span class="label">protocol</span></a>
+	
+		<a href="/tag/schema/"><span class="label">schema</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/12/21/memory-wall/">Memory Wall</a> <small>2008-12-21</small></h1>
+	</div>
+	<div><p><img alt="http://lh6.ggpht.com/_nOquiran9-s/Rur1hp0B7kI/AAAAAAAAALI/rjrpIObJtMo/IMG_1987.JPG" src="http://lh6.ggpht.com/_nOquiran9-s/Rur1hp0B7kI/AAAAAAAAALI/rjrpIObJtMo/IMG_1987.JPG" /></p>
+<p>9.11 Memory Wall</p>
+<p>구글에서 memory wall 을 검색하면 위와 같은 사진들이 나온다. 아마도 기억과 회상을 위한 그림이나 사진, 메모들을 붙이는 벽을  memory wall 또는 remembrance wall 이라고 부르는 모양이다.</p>
+<p>훗날 128 코어의 시대가 도래하면 얼랭 게임 서버가 혹시 대세가 되지는 않을까 했는데, 벌써부터 <a href="http://minjang.egloos.com/2166350">멀티 코어에도 메모리 장벽이라는 한계가 있다는 이야기</a>가 솔솔 들린다. 이로 인해 <a href="http://devnote.net/86">8-16코어를 넘어서기가 힘들다고 해서 널티코어 효과(Nulticore Effect)</a>라고 부른다니.. <a href="http://xeraph.egloos.com/4781141">xeraph님이 GG하신 게</a> 정답이지도? :)</p>
+<p>보통 물리적/논리적으로 서버 프로세스가 늘어날수록 디버깅이 어려워지고, 관리 비용도 증가한다고 한다. 그래서 요즘은 분산을 고려해서 모듈끼리도 메시지 통신을 하도록 한 후, 개별 모듈들을 최대한으로 단순하게 구현하려고 노력중이다. 대신 메시지를 만드는게 여간 귀찮은 일이 아니라서, 언제 시간이 나면 후딱 XML 메시지 같은 걸 만들어볼까 싶기도 한데... 그럴 여유도 없을 뿐더러, 만들어도 같이 감동해줄 전우가 없다는 게 안타깝다. 크흑.</p>
+<pre><code>
+ 
+
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/multicore/"><span class="label">multicore</span></a>
+	
+		<a href="/tag/erlang/"><span class="label">erlang</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/12/08/smart-people/">Smart People</a> <small>2008-12-08</small></h1>
 	</div>
 	<div><p><img alt="http://pds9.egloos.com/logo/200804/01/93/f0025793.jpg" src="http://pds9.egloos.com/logo/200804/01/93/f0025793.jpg" /></p>
@@ -102,78 +201,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/11/15/three-rules-for-database-work/">Three Rules for Database Work</a> <small>2008-11-15</small></h1>
-	</div>
-	<div><p><a href="http://www.openmaru.com/273"><img alt="http://www.openmaru.com/attach/1/1046597520.jpg" src="http://www.openmaru.com/attach/1/1046597520.jpg" /></a><br />
-<em><a href="http://www.openmaru.com/273">하루에 10만을 채우는 게임</a>은 이런 게 이벤트가 되는구나.</em></p>
-<p>오늘자 코드 프로젝트에 올라온 <a href="http://www.codeproject.com/KB/architecture/DBTool.aspx">DBTool</a>의 근간이 된, <a href="http://odetocode.com/Blogs/scott/archive/2008/01/30/11702.aspx">데이터베이스를 갖고 놀 때의 세가지 룰</a>은 생각보다 간단했다.</p>
-<h3>Never use a shared database server for development work.</h3>
-<p>예전에는 (rails 스타일의) development-test-production 의 3단계 구분법을 사용했다. DBA와 서버 프로그래머는 dev DB에서 열심히 뒤집어 엎어도, test DB에 연결된 다른 프로그래머들이나 테스터들은 안정적으로 사용할 수 있고, 실제 서비스는 production 데이터베이스를 쓰게 된다는 거다.</p>
-<h3>Always Have a Single, Authoritative Source For Your Schema</h3>
-<p>DB 에 짧지만 단순한 나의 지론은, 레파지토리 어딘가에 무조건 전체 스키마+초기데이터를 담은 SQL 파일을 두고 버전 관리를 해야 한다는 거다. 소스 코드, 애셋들은 과거의 특정 시점의 스냅샷을 꺼내올 수 있는데, 유독 데이터베이스가 열외일 수는 없다고 본다.</p>
-<p>또한 어차피 데이터베이스 패치를 해야 할 테니, create, alter로 가득찬 DB 패치 스크립트도 버전 관리해야 한다. test -&gt; production 를 업그레이드할 때 모두 지우고 새로 만드는 만행을 할 수 없을테니, 아예 dev -&gt; test 에서부터 미리 스크립트를 만들어서 테스트하면 정신 건강에 좋지 않겠냔 말이다. 처음에 언급한 DBTool 이 이런 걸 자동화해주는 모양이다.</p>
-<h3>Always Version Your Database</h3>
-<p>보통은 Config 테이블에다가 문자열로 데이터베이스 스키마 최종 변경일을 넣어두는 걸로 해결하고 있다. 그런데 아직 뭔가 변경이 잘 되었는지를 체크할 만한 테스트를 만들 능력은 안된다. 대체로 alter 든 drop 이든 서버가 뜰 때까지는 잘 모를것 같아서.. :)</p>
-<p>이 외에도 무시무시하게 긴 <a href="http://www.ssw.com.au/ssw/Standards/Rules/RulesToBetterSQLServerDatabases.aspx">Better SQL Server Databases</a> 라는 규칙도 있는데 이건 좀 귀찮구나....</p>
-<p>추가:</p>
-<pre><code>- 다른 글을 찾아 보니, 프로시저나 테이블 각각을 서로 다른 파일에 저장해서 관리하라는 말도 있다. 은근히 그럴듯한데?
-</code></pre></div>
-	
-	<p>
-	
-		<a href="/tag/database/"><span class="label">database</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/11/14/kgc2008-2/">KGC2008(2)</a> <small>2008-11-14</small></h1>
-	</div>
-	<div><p><img alt="http://sirini.net/blog/data/diablo_3_3.jpg" src="http://sirini.net/blog/data/diablo_3_3.jpg" /></p>
-<p>컨셉 아트에서부터 모델링, 매핑에 이르는 모든 영역을 소화해낸다는 특급 제너럴리스트들로 구성된 디아블로3 배경팀의 아티스트는 <strong>"아트는 결국 게임을 위해서 존재한다"</strong>고 말씀하셨다.</p>
-<p>파이프라인의 2단계에서부터, 텍스처도 없는 애셋을 게임에 올려서 테스트해볼 수 있어야 한다는 이야기를 그분도 좀 새겨 들으셨으면 싶다. 디테일이 지나쳐서 플레이어들에게 시각적 혼란을 주면 안되기 때문에 사진 텍스처 대신 손으로 그린다는 이야기도.</p>
-<p>바닥 양탄자 색깔을 암묵적인 진행 방향으로 삼는다든지, 모든 디자이너들이 실시간으로 애셋들을 공유하되 거기에서 자신만의 커스터마이징을 거쳐서 항상 다르게 보이는 배경을 만든다든지, 3D 환경에서 랜덤맵 기반의 배경 그래픽을 만든다는 이야기들은 역시 블리자드 스케일! 이라는 인상을 받았다.</p>
-<p>그나저나 먼저 다함께 스타일 가이드를 만들고, 컬러 스터디를 하고, 디자인 템플릿이 나오면 페인트오버 덧칠해서 돌려본다고 하니, 실컷 작업한 후 디렉터가 drop시키면 울면서 재작업한다던 이야기가 떠올라서 씁쓸했다. (어제 배씨 아저씨는 민주적으로는 타협과 협상의 결과가 나온다고던데, 이 아저씨는 직위 고하에 관계없이 브레인스토밍해서 최대한 아이디어를 살려 나간다고 하니, 이게 바로 국민성의 차이인가..)</p>
-<p><a href="http://www.moven.com/en/home_moven.php">Moven</a> 이 고작 5천만원이라는 사실에 처음 경악했고 <em>(우리는 모캡 받은 후 그 결과를 넘겨 받는데 두 달이나 걸렸는데도  천오백만원이었는데..)</em>, 우리가 UBO에서 구현했던 게 Motion Library Based Character Simulation 에 근접한 기술이었다는데 순간 뿌듯했으며(물론 우린 더 파지 않아서 단순 Parameterized Blending 수준이었지만), 이걸 더 발전시킨 게 스포어에서 사용된 기법이었다는 것도 놀라웠다. </p>
-<p>컴포넌트 기반 방법론은 강연자가 멋지다는 이야기만 하고 구체적인 적용 방안이나 장단점에 대해서는 코드조차 보여주지 않아서 아쉽다는 이야기가 있었다. (망갈로라서 그런가!!) 컴포넌트간 메시지 기반 통신은 모듈간 의존도는 확실히 줄어들고, 유닛테스트하기도 편하고, 멀티코어 대응도 쉬울 것 같은데, 클라이언트야 그렇다 치더라도 서버에서는 어떻게 잘 쓸 수 있을지가 좀 애매했다. 실제로 이런 구현을 쓰고 있는 모군에게 물어보면 역시나 디버그하기가 괴롭다는데... 흐흠. GPG 5권이나 다시 읽어봐야지.</p>
-<p>jacking75님의 강연은 내가 대구 출신이라서 그런지 구수했다. C# - C++ 연동 때문에 고생을 많이 하신 것 같은데, 역시 XML로 프로토콜을 디자인하고 각 언어별로 코드 제너레이터를 만드는게 최종 진화의 모습이 아닐까 추측해본다. 조만간 나도 비슷한 툴들을 많이 만들어야 할 것 같은데, C# 보다는 VB.NET을 주로 써봐서 뭘 해야 할지 고민이다. 이런 툴의 문제점이라면 편집은 간편하지만 유출 및 보안 문제가 걸릴텐데, 요즘의 대세는 접근 제어가 가능하고 업데이트 걱정을 안해도 되는 웹 기반이 아닐까 싶다. 근데 사내에 .NET 툴들이 많고 자동 업데이트도 잘 되는 걸로 봐서는 또 괜찮을 것도 같고... (시간만 있으면 rails로 해보고도 싶은데.. 아니면 누가 실버라이트로 만들어주든가. 흐흐)</p>
-<p>마지막 시간은 이미 알던 이야기라서. 32코어의 시대가 도래하면 얼랭이 세상을 지배할지도 모른다..라고만 정리해보련다. 그 때가 되면 다시 플레이어, 몬스터들 마다 얼랭 프로세스를 할당해서 갖고 놀게 될지도 모르겠다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/kgc/"><span class="label">kgc</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/11/13/kgc2008/">KGC2008</a> <small>2008-11-13</small></h1>
-	</div>
-	<div><p><img alt="http://www.avatron.com/img/air_sharing_103.jpg" src="http://www.avatron.com/img/air_sharing_103.jpg" /></p>
-<p><em>터치의 must-have 아이템. KGC pdf 넣느라 사버렸다. 쿨럭.</em></p>
-<p>간만에 부르조아 모드로 집에서 택시를 타고 "일산 킨텍스요~" 라고 하고 가면서 우리나라 교육 제도에 대해서 열심히 떠들었는데, 이 아저씨 할증료를 3천원이나 더 뺏어가네? 한방에 무려 17000원이 날아가버렸다. 역시 택시 기사를 믿어서는 안되는 거다. 일찍 도착하니 할 일도 없고 해서 터치에 무선랜으로 구글 리더를 읽고, 워드프레스 어플로 블로깅도 해보니 어느덧 된장남처럼 느껴졌다. </p>
-<p>배재현 상무의 키노트 중에서의 백미는, 게임은 민주적으로 만들어서는 안된다는 이야기. 무능력자들에게 불필요하게 선의를 보였다가는 언젠가 어떻게든 뒷통수를 맞는다는 개인적 경험과 겹쳐져서 들렸다. 또 "전생에 어디에선가 본 듯한 게임"이라는 접근도 꽤 괜찮았다.</p>
-<p>다들 NC에는 학벌이 강하니 정치가 심하니 욕하는데, 의외로 배상무의 학벌은 지방대였다. (만세!) "역시 서울 올라올 때 바로 큰 물에 갔었어야 했어"라고 하니, <a href="http://suigui.com/wordpress/2008/11/13/kgc-첫째날/">쉬귀군은 "우리가 98년도에 제대로 게임을 만들었으면 지금 저 위치에 서있었을 거다."</a> 라고 하는데 한편으로는 수긍이 가더라는.. (그러고보니 리니지 처음 나왔을 때 Wand of wish 보고 네트핵 따라 했다고 욕했었는데, 지금 생각하니 그냥 네트핵 오덕의 옹알이였을 뿐이었구나)</p>
-<p>IK 에 관해서 강연하신 분은 상당히 논리정연하게 설명을 잘 해주셨다. 예전에 크라이엔진 데모때 보던 IK 장면들을 똑같이 구현하신 걸 보니 꽤 열심히 하신 모양이었다. 모션 리타겟팅도 예상 보다 퀄리티가 좋았다. 역시 애니메이션 전문 프로그래머가 있었어야 했다는 아쉬움이 들면서 동시에, 내추럴 모션이 조금만 먼저 출시되었더라도 우리가 그렇게 고생을 안했을 텐데.. 라는 원망도 들었다. 제대로 업데이트도 안하고 매년 돈만 받아 먹던 빌어먹을 이모션FX를 생각하니 울화통이 터진다. 그래 실력 없어서 빨리 출시 못한 놈들이 죄지.</p>
-<p>박일씨의 강연은 예상대로 달변이었다. 7대 낭비는 저기 멀리 도요타 동네에서 온 개념인가 본데, 생각보다 게임 개발에 많이 침투해 있던 그들의 실체를 제대로 느껴본 좋은 시간이었다. 또한, 쉬귀 군이 항상 못마땅해하던 유닛테스트를 재평가하는 시간이 되지 않았을까 생각한다. </p>
-<p>셋째 시간은 그다지 땡기는게 없어서 걸스타를 보러 내려갔다가, 넥슨 부스에서 대략 좌절을 하고 돌아섰다. 역시 넥슨은 남들보다 한 세대를 앞서가는 회사이구나 싶었다. 뭐 설명이 필요없는 마비노기 영웅전과, 허스키인지 뭔지 하는 개썰매 게임도 뭐랄까 감성을 자극하는 면이 남달랐다. 물론 드래곤 네스트는 퍼블리싱이니까 별개로 치고 싶지만, 직접 만들든 돈주고 사든, 결과적으로 돈만 많이 벌면 되지 그게 뭔 상관이겠느냐는 의견에 100표.</p>
-<p>NHN의 C9도 괜찮았지만 넥슨에 비하면 만 1년의 최적화를 더 해야 할 것 같다는 생각. 그 외에도 괜찮은 게임들이 많이 있었지만, 지면 관계상 생략한다. 이거 맨날 남의 게임 보고 감탄만 하다가 업종을 변경하는게 아닌가 싶어서, 울면서 그냥 집으로 왔다.</p>
-<p>돌아오니 나를 반기는 건, 헌재 SBS들의 종부세 위헌/헌법불합치 판정. 만수야 잘 모르는 헌재 간다고 고생 많았다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/kgc/"><span class="label">kgc</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -194,23 +221,23 @@
 	</li>
 	
 	<li>
+		<a href="/2009/01/02/fault-tolerant-system/">Fault Tolerant System</a>
+	</li>
+	
+	<li>
+		<a href="/2008/12/27/networking-metaphore/">Networking Metaphor</a>
+	</li>
+	
+	<li>
+		<a href="/2008/12/21/memory-wall/">Memory Wall</a>
+	</li>
+	
+	<li>
 		<a href="/2008/12/08/smart-people/">Smart People</a>
 	</li>
 	
 	<li>
 		<a href="/2008/11/16/prepare-the-battle/">Prepare the battle</a>
-	</li>
-	
-	<li>
-		<a href="/2008/11/15/three-rules-for-database-work/">Three Rules for Database Work</a>
-	</li>
-	
-	<li>
-		<a href="/2008/11/14/kgc2008-2/">KGC2008(2)</a>
-	</li>
-	
-	<li>
-		<a href="/2008/11/13/kgc2008/">KGC2008</a>
 	</li>
 	
 </ul>

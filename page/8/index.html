@@ -63,6 +63,153 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/07/27/back-to-wordpress-com/">Back to Wordpress.com</a> <small>2009-07-27</small></h1>
+	</div>
+	<div><p>[caption id="attachment_2242" align="alignnone" width="300" caption="배고픈 길냥이 오형제"]<a href="http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg"><img alt="배고픈 길냥이 오형제" src="http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg?w=300" /></a>[/caption]</p>
+<p>호스팅 만료 한 달을 앞두고, 다시 wordpress.com 으로 전격 이사를 왔다.</p>
+<p>국내의 정치적 핍박을 참지 못하고 사이버 망명길에 오르기엔, 여긴 그저 조회수 낮은 힘없는 일개 프로그래머의 해우소일 뿐이지만, 그래도 최근 MB족들의 하는 꼬라지를 보면 언제 호스팅이 날아가고 데이터가 악의 손아귀에 들어갈 지 모를 터다.</p>
+<p>어쨌거나 설치형 워드프레스(이하 WP)에서 호스팅형으로 돌아갈 때 가장 걸리는 것은 바로 첨부 파일이다. 비록 WP가 XML 기반의 Export/Import 를 지원하긴 하지만 첨부 파일까지 자동으로 옮겨주지는 않기 때문이다. 그래서 처음 생각한 건 각종 이미지들을 구글의 피카사웹으로 올린 후, 그 URL을 찾아서 XML파일을 교체한다는 아이디어였다.</p>
+<p>일단 첨부파일들을 모두 다운받아서 피카사 업로더를 이용해서 올린 후, <a href="http://code.google.com/intl/ko/apis/picasaweb/developers_guide_python.html">구글 피카사웹 API 샘플</a>을 이용하니 손쉽게 URL을 알아낼 수 있었다. 주의할 점이라면 한글로된 앨범 이름을 위해서 유니코드를 써야 한다는 것 정도가 샘플과의 유일한 차이였다.</p>
+<pre><code>
+def get_picasa_urls(email,password,wp_album):
+
+    gd_client = gdata.photos.service.PhotosService()
+    gd_client.email = email
+    gd_client.password = password
+    gd_client.source = 'wordpress_attachment_exporter'
+    gd_client.ProgrammaticLogin()
+
+    print 'picasa web connected'
+
+    dic = {}
+
+    albums = gd_client.GetUserFeed(user='default')
+
+    print len(albums.entry), 'albums found'
+
+    for album in albums.entry:
+
+        if album.title.text != wp_album:
+            print 'skipping album', unicode(album.title.text,'utf-8')
+            break
+
+        print unicode(album.title.text), 'album found'
+
+        #print 'title: %s, number of photos: %s, id: %s' % (album.title.text,album.numphotos.text, album.gphoto_id.text)
+        photos = gd_client.GetFeed('/data/feed/api/user/default/albumid/%s?kind=photo' % (album.gphoto_id.text))
+        for photo in photos.entry:
+            #print '  Photo:', photo.title.text, ' id:', photo.gphoto_id.text, ' url:', photo.content.src
+            dic[unicode(photo.title.text,'utf-8')] = unicode(photo.content.src,'utf-8')
+
+    print len(dic), 'images in picasa'
+
+    return dic
+</code></pre>
+
+<p>그다음 한 일은 내보내기한 XML 파일의 기존 URL을 위에서 찾아낸 새 URL로 교체하는 것인데, 정규식을 활용해보기로 했다. 문제는 이렇게 했는데도 실제로 미리보기가 안된다는 것이었는데, 아마도 flickr나 피카사 모두 직접 링크를 지원하지 않는 모양이었다. 그래서 어쩔 수 없이 모든 첨부파일을 손으로 하나씩 WP.com 으로 업로드한 후 그 URL을 적용하기로 했다.</p>
+<p>아래는 최종 버전.</p>
+<pre><code>
+import re
+import codecs
+
+# configuration
+wp_export_xml = '/Volumes/data/Downloads/wordpress.2009-07-25.xml'
+attachment_ext = 'jpg|JPG|gif|GIF|png|PNG|bmp|BMP|doc|docx'
+attachment_url_pattern = 'http://reiot[^&quot;\'&lt;&gt;]+?\.(%s)'%attachment_ext
+attachment_filename_pattern = re.compile('[^/=]+?\.(%s)'%attachment_ext)
+wpcom_prefix = 'http://boxcatstudio.files.wordpress.com/2009/07/'
+
+attachments = {}
+
+# faster than open().read().encode('utf-8')
+lines = codecs.open(wp_export_xml,&quot;r&quot;,&quot;utf-8&quot;).read()
+itr = re.compile(attachment_url_pattern).finditer(lines)
+for m in itr:
+    orig_url = m.group()
+    new_url = wpcom_prefix + attachment_filename_pattern.search(orig_url).group()
+    attachments[orig_url] = new_url
+
+print len(attachments), 'attachments found'
+
+i = 1
+
+for orig_url in attachments.keys():
+    new_url = attachments[orig_url]
+    print '[%d/%d] %s =&gt; %s'%(i,len(attachments),orig_url,new_url)
+    lines = lines.replace(orig_url,new_url)
+    i = i + 1
+
+out_xml = codecs.open(wp_export_xml+&quot;.converted.xml&quot;,&quot;w&quot;,&quot;utf-8&quot;)
+out_xml.write(lines)
+out_xml.close()
+
+</code></pre>
+
+<p>정규식은 항상 볼 때마다 새로운 느낌이 들어서, 꽤 시간이 많이 걸렸다. 또 큰 파일에서 유니코드로 빠르게 읽으려면 codecs 모듈이 좋댄다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/wordpress/"><span class="label">wordpress</span></a>
+	
+		<a href="/tag/export/"><span class="label">export</span></a>
+	
+		<a href="/tag/picasa/"><span class="label">picasa</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/07/22/most-valuable-asset/">Most Valuable Asset</a> <small>2009-07-22</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a></p>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a><br />
+<div class="mceTemp mceIEcenter"><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a> <dl class="wp-caption  aligncenter"><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a> <dt class="wp-caption-dt"><a href="http://boxcatstudio.files.wordpress.com/2009/07/sany0089.jpg"><img alt="우유 먹는 그레이" src="http://boxcatstudio.files.wordpress.com/2009/07/sany0089.jpg?w=225" /></a></dt> <dd class="wp-caption-dd">우유 먹는 그레이</dd> </dl></div><br />
+건강을 잃으면 모든 것을 잃는다고 누가 그랬나. 그 말이 정답. 일단 체력 회복을 최고 우선 순위에 올려 두고 살고 있으니, 너무 걱정마시길.</p>
+<p>시간 여유가 좀 생기면서 나의 관심은 아이폰에서 트위터 및 SNS 웹게임들로 옮겨 가고 있다. 며칠 전부터는 다시 구글 app engine 을 뒤적거리면서 트위터 기반의 <a href="http://www.zynga.com/games/index.php?game=mafiawars">zynga</a> clone를 구상해보고 있는 중이다.  task queue 가 생겨났으니 이제 slow turn 게임들은 클라우드로 옮겨 가는 것이 가능해진 셈이다.</p>
+<p>웹 동네의 구조들을 보면 <a href="http://danga.com:80/memcached/">memcached</a> 같은 미들웨어들을 적극 활용하고 있다. 게임에서도 <a href="http://dev.naver.com/projects/coord">coord</a> 같은 것들은 마련해두면 서버간 통신이라든지 DB 장비 구매 비용을  꽤나 줄일 수 있을 것 같다. 이런거나 만들면서 놀면 재미있을텐데..</p>
+<p>2009년은 정말 다이나믹한 해로 기억될 것 같다. 개인적으로도, 사회 생활에서도, 국가적으로도 더 이상 슬픈 일은 없었으면 한다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/twitter/"><span class="label">twitter</span></a>
+	
+		<a href="/tag/memcached/"><span class="label">memcached</span></a>
+	
+		<a href="/tag/sns/"><span class="label">sns</span></a>
+	
+		<a href="/tag/coord/"><span class="label">coord</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/05/21/idogame/">Idogame</a> <small>2009-05-21</small></h1>
+	</div>
+	<div><p>[caption id="" align="aligncenter" width="404" caption="동접 1천명 == 3백만원"]<img alt="http://images.hangame.co.kr/hangame/idogame/img/promotion/img_benefit01.gif" src="http://images.hangame.co.kr/hangame/idogame/img/promotion/img_benefit01.gif" />[/caption]</p>
+<p>매출 1조짜리 기업 NHN에서 출시한 <a href="http://idogame.hangame.com/">아이두 게임</a>과 게임 오븐에 대한 짧은 생각:</p>
+<pre><code>- 하루 최고 동접 1000명을 찍으면 한달에 300만원을 지급한다? 한게임 유입자수 풀을 키우려는 전략이겠지만, 너무 짜다. 돈은 현재의 2배 정도로 늘리되, in game ad를 무조건 탑재하도록 하면 윈윈이 되지 않을까.
+- 정말 이걸로 돈을 벌려면, 접속 시간을 최대한 늘이는 게임 또는 특정 시간의 접속 비율을 높이는 방향으로 게임을 디자인해야 할 것이다. (자꾸만 동접 늘리는 트릭만 구상하는 레이옷..)
+- 게임오븐 IDE은 &lt;del datetime="2009-07-26T20:47:43+00:00"&gt;.NET이 아니라&lt;/del&gt; Native C++으로 만들어졌고, 루아(luabind)로 서버 및 클라이언트를 개발한다. 놀라운 점은 IDE 자체적으로 스크립트 디버깅이 가능한데, 브레이크 포인트라든지 콜스택, watch를 모두 지원한다는 것. ([dev.naver.com/opensource](http://dev.naver.com/opensource/)에다가 이것만 따로 무료로 공개해주면 좋으련만!!!)
+- 네트워킹 역시 루아로 이루어지는데, key-value로 된 메시지를 보내거나 SyncObject라고 해서 자동적으로 테이블을 상대편으로 복제할 수 있다. 얘들도 __newindex 로 루아 테이블 내부 값의 생성, 삭제 및 변동을 추적했을까나~
+- 사실 게임 오븐으로 만든 서버를 어떻게 호스팅하는가? 가 가장 궁금하다. 그냥 서버 exe 를 적당한 서버로 배포해서 실행하지는 않을테니, 여기에 설마 클라우드 개념이 들어갔을까? 흐흠..
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/lua/"><span class="label">lua</span></a>
+	
+		<a href="/tag/idogame/"><span class="label">idogame</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2009/05/17/fail-fast-fail-often/">Fail Fast, Fail Often</a> <small>2009-05-17</small></h1>
 	</div>
 	<div><p>최근 레이다에 자주 걸리던 <a href="http://sites.google.com/site/gdworkshop/materials/mda-framework">MDA 프레임워크</a>에 대한 <a href="http://epiphany.tistory.com/">게임 디자인 워크샵</a>이 사내에서 <strong>피자와 함께</strong> 열려서 쉬귀군과 함께 참가했다.</p>
@@ -141,82 +288,6 @@ int key = msg.key();
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/05/01/first-chance-exception-the-tag-is-invalid/">first chance exception : The tag is invalid</a> <small>2009-05-01</small></h1>
-	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/add_exception.jpg"><img alt="add_exception" src="http://boxcatstudio.files.wordpress.com/2009/07/add_exception.jpg" /></a></p>
-<p>요즘은 디버깅할 때 Ctrl+Alt+E를 눌러서 first chance exception이 발생할 때에도 브레이크포인트가 걸리게 하는 편이다. 뭔가 내가 모르는 문제가 저 안에서 벌어지고 있다는 게 못마땅하기 때문인데, 언젠가부터 64비트 OS에서 32비트 서버 어플리케이션에서 소켓 연결을 할 때, <strong>First chance exception 0x000006C5 : The tag is invalid</strong> 라는 예외가 던져져서 디버깅할 때 짜증이 솟구치는 나날들이 계속되었다. 더군다나 현재 채택한 DB 쿼리 방식이 필요할 때마다 재연결하는 connection pooling 이라서 디버거를 좀 오래 잡고만 있어도 계속 예외가 던져져서 집중이 자꾸 깨지곤 했었다.</p>
-<p><a href="http://mhaggag.wordpress.com/2006/11/04/gethostbyname-first-chance-exception-0x000006c5-the-tag-is-invalid/">조사해보니</a> 마이크로소프트도 포기한 예외였는데, 도무지 이걸 무시할 방법을 찾지 못하다가 (Win32 예외 목록에 없으니까!) 그저께 커스텀 예외도 추가할 수 있다는 것을 우연찮게 <del datetime="2009-04-30T15:10:21+00:00">겨우 이제서야</del> 알게 되었다.</p>
-<p>지금은... 마음이 편하다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/exception/"><span class="label">exception</span></a>
-	
-		<a href="/tag/visual studio/"><span class="label">visual studio</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a> <small>2009-04-23</small></h1>
-	</div>
-	<div><p><img alt="http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80).gif" src="http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80" />.gif)</p>
-<p>비주얼 스튜디오 2005에서 어떤 솔루션만 열면 인텔리센스가 멈추지 않는 현상을 만나서 검색해니, SP1 이후로 <a href="http://code.msdn.microsoft.com/KB943969">한글판 핫픽스 하나</a>와 <a href="http://code.msdn.microsoft.com/KB947315">영문판 핫픽스 하나</a>가 나와 있었다.</p>
-<p>둘 중에서 후자만 깔아도 된다고는 하는데, 영문판 핫픽스는 한글판에서는 설치가 안된다는 것이 문제였다. 다행히도 쉬귀군의 팀은 영문판을 쓰고 있었기에 강제로 원격 설치(-_-)를 해서 <a href="http://blog.naver.com/PostView.nhn?blogId=dexylitol&amp;logNo=20045702640">관련 dll 들을 받아서</a> 그냥 덮어씌워보니 그럭저럭 잘 돌아가는 것 같았다. 조금 걱정이라면 디버그-릴리즈 전환할 때마다 인텔리센스가 돌아간다는 점이랄까.</p>
-<p>정리하자면, 영문판 사용자에게 부탁해서 다음 dll 들을 덮어쓰면 된다!</p>
-<pre><code>- VC/packages/vcpkg.dll
-- VC/packages/VCProjectEngine.dll
-- VC/packages/VCProject.dll
-</code></pre>
-<p>참고로, VC/bin/amd64 또는 x86_amd64 아래에도 버전은 같지만 크기가 다른 VCProjectEngine.dll 파일이 있긴 한데 얘네들은 안덮어써도 돌긴 돌아갔다...</p>
-<p>ps. <a href="http://kaistizen.net/EE/index.php/weblog/comments/visual_studio_2005_hotfixes/">컴파일이 빨라진다는 핫픽스</a>도 있구나..</p></div>
-	
-	<p>
-	
-		<a href="/tag/visual studio/"><span class="label">visual studio</span></a>
-	
-		<a href="/tag/hotfix/"><span class="label">hotfix</span></a>
-	
-		<a href="/tag/intellisense/"><span class="label">intellisense</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/04/12/cloud-computing-for-online-game/">Cloud Computing For Online Game</a> <small>2009-04-12</small></h1>
-	</div>
-	<div><p><img alt="Cloud Computing?" src="http://farm2.static.flickr.com/1332/704056791_63f1e492d8.jpg" /></p>
-<p>때는 바야흐로 2003년, 게임 서버 개발은 조만간 그리드 컴퓨팅 기반으로 바뀔 거라고 믿고 아마존에서 관련 서적을 실컷 사 모았던 적이 있다. 막상 뚜껑을 열어 보니 대부분 웹서비스 기반이어서 뭔가 빠른 반응성과 연결된 세션간의 적절한 동기화가 필요한 게임 서버, 특히 MMORPG에는 맞지 않아 보였다. 결국 그 책들은 거의 읽혀지지도 않은 채 집에 방치되있고, 그리드를 주력으로 파겠다던 배짱좋은 예측 포스팅은 부끄러워서 내려 버렸다.</p>
-<p><img alt="http://bks0.books.google.com/books?id=8-0BofIhoU0C&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2fcOHmSfNIjZtVjM-Gm5LZAw9dVg" src="http://bks0.books.google.com/books?id=8-0BofIhoU0C&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2fcOHmSfNIjZtVjM-Gm5LZAw9dVg" /> <img alt="http://bks0.books.google.com/books?id=2e73K_jXdfcC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U35K6wElPYG2wUE8zEBQ-QU0AgPfA" src="http://bks0.books.google.com/books?id=2e73K_jXdfcC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U35K6wElPYG2wUE8zEBQ-QU0AgPfA" /> <img alt="http://bks0.books.google.com/books?id=b4LWXLRBRLsC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2FVscbkXMEdwtUQBeERDYIxVqmzg" src="http://bks0.books.google.com/books?id=b4LWXLRBRLsC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2FVscbkXMEdwtUQBeERDYIxVqmzg" /></p>
-<p>안보는 깨끗한 원서 팝니다 ㅠㅠ</p>
-<p>그리고나서 대략 4-5년 정도가 흘렀다. 지금은 많은 웹스타트업들이 클라우드 컴퓨팅을 적극 활용하고 있고, 어느새 나도 gmail 과 google docs 를 업무용으로 사용하고 있다. <a href="http://xguru.net/blog/488.html">마이크로소프트도 아마존과 구글의 뒤를 이어서 아쭈르(Azure)라는 걸 선보이고</a> 있고, (아마도 실버라이트랑 연계되지 않을까?) 최근에는 "사례로 읽는 클라우드 컴퓨팅"이라는 책도 사뒀는데, 버스에서 자느라 읽을 새가 없다. OTL</p>
-<p><img alt="사례로 읽는 클라우드 컴퓨팅" src="http://image.kangcom.com/l_pic/200902100008.jpg" /><br />
-사례로 읽는 클라우드 컴퓨팅. 제목 그대로니까 속으면 곤란하다.</p>
-<p>몇 주 전<a href="http://betterways.tistory.com/"> Kay 님</a>이 클라우드 컴퓨팅을 이용한 게임 서버 퍼블리싱 사업(예전에 블레이스 서버 호스팅 비스므리한)은 어떻겠냐고 물으셨다. (이거 밝혀도 문제 없겠죠? ㅋㅋ) 그때 클라우드들이 HTTP의 느린 응답성이나 동기화가 왜 어려운가..라든지, 구글 앱 엔진이 스케줄링 같은 걸 지원하지 않는 것에 대해 한참 이야기를 했었다. 최근에 이런 저런 이야기를 많이 줏어들으며 곰곰히 생각해보니, 어떻게든 분산을 희생해서 적당히 요청을 한 곳에 몰아주는 정책만 허용해준다면 어떻게 될 법도 해 보였다. 그래도 MMORPG 서버 호스팅은 아직까지는 힘들고, 웹 게임들, 보드 게임들이나 시뮬레이션 게임들의 서버라든지, XBOX Live 나 Steamworks 같은 인증+커뮤니티+배포+리더보드+매치메이킹 정도의 활용 가능성은 충분해 보인다. (그러고 보니 <a href="http://www.steampowered.com/steamworks/index.php">스팀도 자기들이 클라우드라고 주장</a>하고 있다)</p>
-<p><code>Store data in Steam Cloud for your users. The Steam Cloud API allows your game to write and retrieve files for each user. Use it for personalized settings like keyboard, mouse, and gamepad configurations, multiplayer sprays, or even saved games. Steam Cloud is a natural extension of the portability that Steam affords gamers. Shipped with Left 4 Dead, Steam Cloud is now a proven resource and is becoming an integral part of the Steam experience.</code></p>
-<p>앱스토어의 흥행으로 삼성이나 NHN 같은 국내 회사들이 비슷한 걸 만들고 있단다. 퍼블리셔들도 이제는 정신차리고 괜히 50-100억 주고 비싼 게임 들여왔다가 돈 날리지 말고, 잡쉐어링을 위해서라도 개인이나 중소 게임사들이 손쉽게 퍼블리싱할 수 있게 이런 쪽으로 분발해주길 바란다. 구글앱엔진, 엑박라이브, 스팀, 앱스토어의 장점을 하나로 합치는 웹 기반의 게임 플랫폼 SDK 라도 좀 뿌려주면 얼마나 좋을까. 기본적으로 무료 트래픽, 수익은 1:9, 컨텐트는 루아, P2P는 기본, 웹용 무료 3D엔진 제공, 게임 동영상이나 커뮤니티는 다음이나 네이버 블로그/까페 연동, 스샷은 flickr, 실시간 방송은 아프리카, 간편하고 손쉬운 in-game 결제 시스템과 자동화된 상점, 신뢰할만한 보안 모듈(nprotect 말고), 플래시도 지원, 이슈 관리 시스템 및 소스 버전 관리도 제공, ... 뭐 적다 보니 끝이 없구나. ㅋㅋ</p>
-<p>ps. 마지막 문단을 쓰고 나서 주위를 둘러보니 한숨만 나오는군하.</p></div>
-	
-	<p>
-	
-		<a href="/tag/google/"><span class="label">google</span></a>
-	
-		<a href="/tag/steam/"><span class="label">steam</span></a>
-	
-		<a href="/tag/cloud/"><span class="label">cloud</span></a>
-	
-		<a href="/tag/xbox/"><span class="label">xbox</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -237,23 +308,23 @@ int key = msg.key();
 	</li>
 	
 	<li>
+		<a href="/2009/07/27/back-to-wordpress-com/">Back to Wordpress.com</a>
+	</li>
+	
+	<li>
+		<a href="/2009/07/22/most-valuable-asset/">Most Valuable Asset</a>
+	</li>
+	
+	<li>
+		<a href="/2009/05/21/idogame/">Idogame</a>
+	</li>
+	
+	<li>
 		<a href="/2009/05/17/fail-fast-fail-often/">Fail Fast, Fail Often</a>
 	</li>
 	
 	<li>
 		<a href="/2009/05/01/named-boost-tuple/">Named Boost Tuple</a>
-	</li>
-	
-	<li>
-		<a href="/2009/05/01/first-chance-exception-the-tag-is-invalid/">first chance exception : The tag is invalid</a>
-	</li>
-	
-	<li>
-		<a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a>
-	</li>
-	
-	<li>
-		<a href="/2009/04/12/cloud-computing-for-online-game/">Cloud Computing For Online Game</a>
 	</li>
 	
 </ul>

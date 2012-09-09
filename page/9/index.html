@@ -63,6 +63,82 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/05/01/first-chance-exception-the-tag-is-invalid/">first chance exception : The tag is invalid</a> <small>2009-05-01</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/add_exception.jpg"><img alt="add_exception" src="http://boxcatstudio.files.wordpress.com/2009/07/add_exception.jpg" /></a></p>
+<p>요즘은 디버깅할 때 Ctrl+Alt+E를 눌러서 first chance exception이 발생할 때에도 브레이크포인트가 걸리게 하는 편이다. 뭔가 내가 모르는 문제가 저 안에서 벌어지고 있다는 게 못마땅하기 때문인데, 언젠가부터 64비트 OS에서 32비트 서버 어플리케이션에서 소켓 연결을 할 때, <strong>First chance exception 0x000006C5 : The tag is invalid</strong> 라는 예외가 던져져서 디버깅할 때 짜증이 솟구치는 나날들이 계속되었다. 더군다나 현재 채택한 DB 쿼리 방식이 필요할 때마다 재연결하는 connection pooling 이라서 디버거를 좀 오래 잡고만 있어도 계속 예외가 던져져서 집중이 자꾸 깨지곤 했었다.</p>
+<p><a href="http://mhaggag.wordpress.com/2006/11/04/gethostbyname-first-chance-exception-0x000006c5-the-tag-is-invalid/">조사해보니</a> 마이크로소프트도 포기한 예외였는데, 도무지 이걸 무시할 방법을 찾지 못하다가 (Win32 예외 목록에 없으니까!) 그저께 커스텀 예외도 추가할 수 있다는 것을 우연찮게 <del datetime="2009-04-30T15:10:21+00:00">겨우 이제서야</del> 알게 되었다.</p>
+<p>지금은... 마음이 편하다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/exception/"><span class="label">exception</span></a>
+	
+		<a href="/tag/visual studio/"><span class="label">visual studio</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a> <small>2009-04-23</small></h1>
+	</div>
+	<div><p><img alt="http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80).gif" src="http://msdn.microsoft.com/en-us/library/ms379615.vcintellisense01l(en-US,VS.80" />.gif)</p>
+<p>비주얼 스튜디오 2005에서 어떤 솔루션만 열면 인텔리센스가 멈추지 않는 현상을 만나서 검색해니, SP1 이후로 <a href="http://code.msdn.microsoft.com/KB943969">한글판 핫픽스 하나</a>와 <a href="http://code.msdn.microsoft.com/KB947315">영문판 핫픽스 하나</a>가 나와 있었다.</p>
+<p>둘 중에서 후자만 깔아도 된다고는 하는데, 영문판 핫픽스는 한글판에서는 설치가 안된다는 것이 문제였다. 다행히도 쉬귀군의 팀은 영문판을 쓰고 있었기에 강제로 원격 설치(-_-)를 해서 <a href="http://blog.naver.com/PostView.nhn?blogId=dexylitol&amp;logNo=20045702640">관련 dll 들을 받아서</a> 그냥 덮어씌워보니 그럭저럭 잘 돌아가는 것 같았다. 조금 걱정이라면 디버그-릴리즈 전환할 때마다 인텔리센스가 돌아간다는 점이랄까.</p>
+<p>정리하자면, 영문판 사용자에게 부탁해서 다음 dll 들을 덮어쓰면 된다!</p>
+<pre><code>- VC/packages/vcpkg.dll
+- VC/packages/VCProjectEngine.dll
+- VC/packages/VCProject.dll
+</code></pre>
+<p>참고로, VC/bin/amd64 또는 x86_amd64 아래에도 버전은 같지만 크기가 다른 VCProjectEngine.dll 파일이 있긴 한데 얘네들은 안덮어써도 돌긴 돌아갔다...</p>
+<p>ps. <a href="http://kaistizen.net/EE/index.php/weblog/comments/visual_studio_2005_hotfixes/">컴파일이 빨라진다는 핫픽스</a>도 있구나..</p></div>
+	
+	<p>
+	
+		<a href="/tag/visual studio/"><span class="label">visual studio</span></a>
+	
+		<a href="/tag/hotfix/"><span class="label">hotfix</span></a>
+	
+		<a href="/tag/intellisense/"><span class="label">intellisense</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/04/12/cloud-computing-for-online-game/">Cloud Computing For Online Game</a> <small>2009-04-12</small></h1>
+	</div>
+	<div><p><img alt="Cloud Computing?" src="http://farm2.static.flickr.com/1332/704056791_63f1e492d8.jpg" /></p>
+<p>때는 바야흐로 2003년, 게임 서버 개발은 조만간 그리드 컴퓨팅 기반으로 바뀔 거라고 믿고 아마존에서 관련 서적을 실컷 사 모았던 적이 있다. 막상 뚜껑을 열어 보니 대부분 웹서비스 기반이어서 뭔가 빠른 반응성과 연결된 세션간의 적절한 동기화가 필요한 게임 서버, 특히 MMORPG에는 맞지 않아 보였다. 결국 그 책들은 거의 읽혀지지도 않은 채 집에 방치되있고, 그리드를 주력으로 파겠다던 배짱좋은 예측 포스팅은 부끄러워서 내려 버렸다.</p>
+<p><img alt="http://bks0.books.google.com/books?id=8-0BofIhoU0C&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2fcOHmSfNIjZtVjM-Gm5LZAw9dVg" src="http://bks0.books.google.com/books?id=8-0BofIhoU0C&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2fcOHmSfNIjZtVjM-Gm5LZAw9dVg" /> <img alt="http://bks0.books.google.com/books?id=2e73K_jXdfcC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U35K6wElPYG2wUE8zEBQ-QU0AgPfA" src="http://bks0.books.google.com/books?id=2e73K_jXdfcC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U35K6wElPYG2wUE8zEBQ-QU0AgPfA" /> <img alt="http://bks0.books.google.com/books?id=b4LWXLRBRLsC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2FVscbkXMEdwtUQBeERDYIxVqmzg" src="http://bks0.books.google.com/books?id=b4LWXLRBRLsC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;sig=ACfU3U2FVscbkXMEdwtUQBeERDYIxVqmzg" /></p>
+<p>안보는 깨끗한 원서 팝니다 ㅠㅠ</p>
+<p>그리고나서 대략 4-5년 정도가 흘렀다. 지금은 많은 웹스타트업들이 클라우드 컴퓨팅을 적극 활용하고 있고, 어느새 나도 gmail 과 google docs 를 업무용으로 사용하고 있다. <a href="http://xguru.net/blog/488.html">마이크로소프트도 아마존과 구글의 뒤를 이어서 아쭈르(Azure)라는 걸 선보이고</a> 있고, (아마도 실버라이트랑 연계되지 않을까?) 최근에는 "사례로 읽는 클라우드 컴퓨팅"이라는 책도 사뒀는데, 버스에서 자느라 읽을 새가 없다. OTL</p>
+<p><img alt="사례로 읽는 클라우드 컴퓨팅" src="http://image.kangcom.com/l_pic/200902100008.jpg" /><br />
+사례로 읽는 클라우드 컴퓨팅. 제목 그대로니까 속으면 곤란하다.</p>
+<p>몇 주 전<a href="http://betterways.tistory.com/"> Kay 님</a>이 클라우드 컴퓨팅을 이용한 게임 서버 퍼블리싱 사업(예전에 블레이스 서버 호스팅 비스므리한)은 어떻겠냐고 물으셨다. (이거 밝혀도 문제 없겠죠? ㅋㅋ) 그때 클라우드들이 HTTP의 느린 응답성이나 동기화가 왜 어려운가..라든지, 구글 앱 엔진이 스케줄링 같은 걸 지원하지 않는 것에 대해 한참 이야기를 했었다. 최근에 이런 저런 이야기를 많이 줏어들으며 곰곰히 생각해보니, 어떻게든 분산을 희생해서 적당히 요청을 한 곳에 몰아주는 정책만 허용해준다면 어떻게 될 법도 해 보였다. 그래도 MMORPG 서버 호스팅은 아직까지는 힘들고, 웹 게임들, 보드 게임들이나 시뮬레이션 게임들의 서버라든지, XBOX Live 나 Steamworks 같은 인증+커뮤니티+배포+리더보드+매치메이킹 정도의 활용 가능성은 충분해 보인다. (그러고 보니 <a href="http://www.steampowered.com/steamworks/index.php">스팀도 자기들이 클라우드라고 주장</a>하고 있다)</p>
+<p><code>Store data in Steam Cloud for your users. The Steam Cloud API allows your game to write and retrieve files for each user. Use it for personalized settings like keyboard, mouse, and gamepad configurations, multiplayer sprays, or even saved games. Steam Cloud is a natural extension of the portability that Steam affords gamers. Shipped with Left 4 Dead, Steam Cloud is now a proven resource and is becoming an integral part of the Steam experience.</code></p>
+<p>앱스토어의 흥행으로 삼성이나 NHN 같은 국내 회사들이 비슷한 걸 만들고 있단다. 퍼블리셔들도 이제는 정신차리고 괜히 50-100억 주고 비싼 게임 들여왔다가 돈 날리지 말고, 잡쉐어링을 위해서라도 개인이나 중소 게임사들이 손쉽게 퍼블리싱할 수 있게 이런 쪽으로 분발해주길 바란다. 구글앱엔진, 엑박라이브, 스팀, 앱스토어의 장점을 하나로 합치는 웹 기반의 게임 플랫폼 SDK 라도 좀 뿌려주면 얼마나 좋을까. 기본적으로 무료 트래픽, 수익은 1:9, 컨텐트는 루아, P2P는 기본, 웹용 무료 3D엔진 제공, 게임 동영상이나 커뮤니티는 다음이나 네이버 블로그/까페 연동, 스샷은 flickr, 실시간 방송은 아프리카, 간편하고 손쉬운 in-game 결제 시스템과 자동화된 상점, 신뢰할만한 보안 모듈(nprotect 말고), 플래시도 지원, 이슈 관리 시스템 및 소스 버전 관리도 제공, ... 뭐 적다 보니 끝이 없구나. ㅋㅋ</p>
+<p>ps. 마지막 문단을 쓰고 나서 주위를 둘러보니 한숨만 나오는군하.</p></div>
+	
+	<p>
+	
+		<a href="/tag/google/"><span class="label">google</span></a>
+	
+		<a href="/tag/steam/"><span class="label">steam</span></a>
+	
+		<a href="/tag/cloud/"><span class="label">cloud</span></a>
+	
+		<a href="/tag/xbox/"><span class="label">xbox</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2009/04/07/xbox-360-new-ui/">XBOX 360 NEW UI</a> <small>2009-04-07</small></h1>
 	</div>
 	<div><p>[caption id="" align="aligncenter" width="640" caption="XBOX 360 NEW UI"]<a href="http://arstechnica.com/gaming/news/2009/02/mature-games-dominate-most-popular-xbox-360-downloads.ars"><img alt="http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg" src="http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg" /></a>[/caption]</p>
@@ -97,712 +173,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/02/17/tasklist-taskkill/">Tasklist/Taskkill</a> <small>2009-02-17</small></h1>
-	</div>
-	<div><p>[caption id="" align="alignnone" width="500" caption="tasklist"]<a href="http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg"><img alt="tasklist" src="http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg" /></a>[/caption]</p>
-<p>터미널에서 프로세스 관리자가 뜨지 않을 경우, 다른 터미날에서 띄운 프로세스를 죽이기가 참 난감할 때가 있다. 다행스럽게도 유닉스의 ps/kill 조합을 윈도우에서도 지원한다.</p>
-<pre><code>- tasklist
-- tasklist /SVC : 서비스 프로세스 리스트
-- taskkill /PID &lt;pid&gt;: PID로 죽이기
-- taskkill /F /IM &lt;name&gt; : (강제로) 이름으로 죽이기
-</code></pre>
-<p>가장 하일라이트는, 원격 컴퓨터의 프로세스 죽이기인데, 정말로 잘 되는지 회사에서 테스트해봐야겠다. ;)<br />
-```<br />
-tasklist /S <server> /U <username> /P <password> /FI "IMAGENAME eq <em>Server</em>.exe"</p>
-<p>taskkill /S <server> /U <username> /P <password> /IM <process name>```</p></div>
-	
-	<p>
-	
-		<a href="/tag/process/"><span class="label">process</span></a>
-	
-		<a href="/tag/console/"><span class="label">console</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/02/17/boost-preprocessor/">boost::preprocessor</a> <small>2009-02-17</small></h1>
-	</div>
-	<div><p>boost::preprocessor 는 템플릿을 이용한 메타프로그래밍에 있어서, 템플릿 파라미터들의 반복 같은 "<strong>문자열 토큰들의 패턴 처리</strong>"를 매크로를 이용해서 손쉽게 처리해주는 라이브러리이다. 보다 상세한 용법은 <a href="http://www.boost.org/doc/libs/1_38_0/libs/preprocessor/doc/index.html">공식 홈페이지</a> 혹은  <a href="http://rein.upnl.org/wordpress/archives/486">레인님 블로그</a>와 <a href="http://ricanet.com/new/view.php?id=blog/080607">리카넷 블로그</a>를 참조하기 바란다.</p>
-<p>이걸 이용해서 <a href="http://reiot.cafe24.com/2009/01/20/boost-tuple-based-serialization/">몇 주전에 포스팅한 boost::tuple 의 직렬화 코드</a>를 만들어봤다. 원래 계획과는 좀 많이 바뀌긴 했는데, 구글로 검색해보니 <a href="http://uint32t.blogspot.com/2008/03/update-serializing-boosttuple-using.html">tuple 을 boost::serialization 으로 직렬화하는 예제</a>가 를 (상당 부분!) 참조했음을 밝힌다.</p>
-<p>남은 작업은 여기에 vector 와 list 를 자동으로 직렬화하는 건데, 어째 아무리 검색해봐도 is_vector 라든지 is_list 같은 넘이 없어서 일단은 포기. 결국 mpl 을 뒤져봐야 할지도 모르겠다. </p>
-<!--more-->
-
-<pre><code>
-#include &quot;stdafx.h&quot;
-
-#include &lt;boost/tuple/tuple.hpp&gt;
-
-#include &lt;string&gt;
-
-#include &lt;vector&gt;
-
-#include &lt;string&gt;
-#include &lt;gtest/gtest.h&gt;
-using namespace boost;
-using namespace std;
-#include &lt;boost/preprocessor/repetition.hpp&gt;
-typedef unsigned short strlen_t;
-template&lt; class V &gt;
-int to_binary( char* buf, const V &amp; v )
-{
-  size_t len = sizeof(v);
-  memcpy(buf,(const void*)&amp;v,len);
-  return len;
-}
-template&lt;class T&gt;
-int from_binary( const char * buf, T &amp; t )
-{
-  size_t len = sizeof(t);
-  memcpy((void*)&amp;t,buf,len);
-  return len;
-}
-template&lt;&gt;
-int to_binary( char* buf, const string &amp; s )
-{
-  strlen_t sz = (strlen_t)s.size();
-  memcpy(buf,&amp;sz,sizeof(sz));
-  if ( sz &gt; 0 )
-  {
-  memcpy(buf+sizeof(sz),s.c_str(),sz);
-  }
-  return sizeof(sz)+sz;
-}
-template&lt;&gt;
-int from_binary( const char * buf, string &amp; str )
-{
-  strlen_t sz;
-  memcpy((void*)&amp;sz,buf,sizeof(sz));
-  if ( sz &gt; 0 )
-  {
-  str.assign(buf+sizeof(sz),sz);
-  assert(str.size()==sz);
-  }
-  return sizeof(sz)+sz;
-}
-template&lt;&gt;
-int to_binary( char* buf, const wstring &amp; s )
-{
-  strlen_t sz = (strlen_t)s.size();
-  memcpy(buf,&amp;sz,sizeof(sz));
-  if ( sz &gt; 0 )
-  {
-  memcpy(buf+sizeof(sz),s.c_str(),sz*sizeof(wchar_t));
-  }
-  return sizeof(sz)+sz*sizeof(wchar_t);
-}
-template&lt;&gt;
-int from_binary( const char * buf, wstring &amp; str )
-{
-  strlen_t sz;
-  memcpy((void*)&amp;sz,buf,sizeof(sz));
-  if ( sz &gt; 0 )
-  {
-  str.assign((wchar_t*)(buf+sizeof(sz)),sz);
-  assert(str.size()==sz);
-  }
-  return sizeof(sz)+sz*sizeof(wchar_t);
-}
-#define TO_BINARY(z,which,unused) \
-  byte_written = to_binary( buf + offset, t.get&lt;which&gt;() );\
-  if ( byte_written &lt; 0 ) { return which; }\
-  offset += byte_written;
-#define TUPLE_TO_BINARY(z,nargs,unused) \
-  template&lt; BOOST_PP_ENUM_PARAMS(nargs,typename T) &gt; \
-  int tuple_to_binary( const boost::tuple&lt; BOOST_PP_ENUM_PARAMS(nargs,T) &gt; &amp; t, char * buf, size_t max_len ) \
-  { \
-  int offset = 0; \
-  int byte_written = 0; \
-  BOOST_PP_REPEAT_FROM_TO(0,nargs,TO_BINARY,~); \
-  return offset; \
-  }
-BOOST_PP_REPEAT_FROM_TO(1,6,TUPLE_TO_BINARY,~);
-#define FROM_BINARY(z,which,unused) \
-  byte_read = from_binary( buf + offset, t.get&lt;which&gt;() );\
-  if ( byte_read &lt; 0 ) { return which; }\
-  offset += byte_read;
-#define BINRY_TO_TUPLE(z,nargs,unused) \
-  template&lt; BOOST_PP_ENUM_PARAMS(nargs,typename T) &gt; \
-  int binary_to_tuple( boost::tuple&lt; BOOST_PP_ENUM_PARAMS(nargs,T) &gt; &amp; t, char * buf, size_t max_len ) \
-{ \
-  int offset = 0; \
-  int byte_read = 0; \
-  BOOST_PP_REPEAT_FROM_TO(0,nargs,FROM_BINARY,~); \
-  return offset; \
-}
-BOOST_PP_REPEAT_FROM_TO(1,6,BINRY_TO_TUPLE,~);
-//template&lt; class T0&gt;
-//int binary_to_tuple( boost::tuple&lt;t0&gt; &amp; t, const char * buf, size_t len )
-//{
-//  int offset = 0;
-//
-//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return 0;
-//  }
-//  offset += byte_read;
-//
-//  return offset;
-//}
-//
-//template&lt; class T0 &gt;
-//int tuple_to_binary( const boost::tuple&lt;t0&gt; &amp; t, char * buf, size_t max_len )
-//{
-//  int offset = 0;
-//  int byte_written = 0;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return 0;
-//  }
-//  offset += byte_written;
-//
-//  return offset;
-//}
-//
-//
-//template&lt; class T0, class T1&gt;
-//int tuple_to_binary( const boost::tuple&lt;t0,T1&gt; &amp; t, char * buf, size_t max_len )
-//{
-//  int offset = 0;
-//  int byte_written = 0;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return 0;
-//  }
-//  offset += byte_written;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return -1;
-//  }
-//  offset += byte_written;
-//
-//  return offset;
-//}
-//
-//
-//template&lt; class T0, class T1, class T2&gt;
-//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2&gt; &amp; t, char * buf, size_t max_len )
-//{
-//  int offset = 0;
-//  int byte_written = 0;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return 0;
-//  }
-//  offset += byte_written;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return -1;
-//  }
-//  offset += byte_written;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return -2;
-//  }
-//  offset += byte_written;
-//
-//  return offset;
-//}
-//
-//
-//template&lt; class T0, class T1, class T2, class T3&gt;
-//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2,T3&gt; &amp; t, char * buf, size_t max_len )
-//{
-//  int offset = 0;
-//  int byte_written = 0;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return 0;
-//  }
-//  offset += byte_written;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return -1;
-//  }
-//  offset += byte_written;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return -2;
-//  }
-//  offset += byte_written;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;3&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return -3;
-//  }
-//  offset += byte_written;
-//
-//  return offset;
-//}
-//
-//template&lt; class T0, class T1, class T2, class T3, class T4 &gt;
-//int tuple_to_binary( const boost::tuple&lt;t0,T1,T2,T3,T4&gt; &amp; t, char * buf, size_t max_len )
-//{
-//  int offset = 0;
-//  int byte_written = 0;
-//
-//  //{
-//  //  size_t sz0 = sizeof( tuples::element&lt;0,TUPLE&gt;::type );
-//  //  assert( sz0 == sizeof(int) );
-//  //  size_t sz1 = sizeof( tuples::element&lt;1,TUPLE&gt;::type );
-//  //  assert( sz1 == sizeof(char) );
-//  //  size_t sz2 = sizeof( tuples::element&lt;2,TUPLE&gt;::type );
-//  //  assert( sz2 == sizeof(string) );
-//  //  size_t sz3 = sizeof( tuples::element&lt;3,TUPLE&gt;::type );
-//  //  assert( sz3 == sizeof(float) );
-//  //  size_t sz4 = sizeof( tuples::element&lt;4,TUPLE&gt;::type );
-//  //  assert( sz4 == sizeof(bool) );
-//  //}
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;0&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return 0;
-//  }
-//  offset += byte_written;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;1&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return -1;
-//  }
-//  offset += byte_written;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;2&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return -2;
-//  }
-//  offset += byte_written;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;3&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return -3;
-//  }
-//  offset += byte_written;
-//
-//  byte_written = to_binary( buf + offset, t.get&lt;4&gt;() );
-//  if ( byte_written &lt; 0 )
-//  {
-//  // error
-//  return -4;
-//  }
-//  offset += byte_written;
-//
-//  return offset;
-//}
-//template&lt; class T0&gt;
-//int binary_to_tuple( boost::tuple&lt;t0&gt; &amp; t, const char * buf, size_t len )
-//{
-//  int offset = 0;
-//
-//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return 0;
-//  }
-//  offset += byte_read;
-//
-//  return offset;
-//}
-//
-//template&lt; class T0, class T1&gt;
-//int binary_to_tuple( boost::tuple&lt;t0,T1&gt; &amp; t, const char * buf, size_t len )
-//{
-//  int offset = 0;
-//
-//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return 0;
-//  }
-//  offset += byte_read;
-//
-//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return -1;
-//  }
-//  offset += byte_read;
-//
-//  return offset;
-//}
-//
-//template&lt; class T0, class T1, class T2&gt;
-//int binary_to_tuple( boost::tuple&lt;t0,T1,T2&gt; &amp; t, const char * buf, size_t len )
-//{
-//  int offset = 0;
-//
-//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return 0;
-//  }
-//  offset += byte_read;
-//
-//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return -1;
-//  }
-//  offset += byte_read;
-//
-//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return -2;
-//  }
-//  offset += byte_read;
-//
-//  return offset;
-//}
-//
-//template&lt; class T0, class T1, class T2, class T3&gt;
-//int binary_to_tuple( boost::tuple&lt;t0,T1,T2,T3&gt; &amp; t, const char * buf, size_t len )
-//{
-//  int offset = 0;
-//
-//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return 0;
-//  }
-//  offset += byte_read;
-//
-//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return -1;
-//  }
-//  offset += byte_read;
-//
-//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return -2;
-//  }
-//  offset += byte_read;
-//
-//  byte_read = from_binary( buf + offset, t.get&lt;3&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return -3;
-//  }
-//  offset += byte_read;
-//
-//  return offset;
-//}
-//
-//template&lt; class T0, class T1, class T2, class T3, class T4 &gt;
-//int binary_to_tuple( boost::tuple&lt;t0,T1,T2,T3,T4&gt; &amp; t, const char * buf, size_t len )
-//{
-//  int offset = 0;
-//
-//  int byte_read = from_binary( buf + offset, t.get&lt;0&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return 0;
-//  }
-//  offset += byte_read;
-//
-//  byte_read = from_binary( buf + offset, t.get&lt;1&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return -1;
-//  }
-//  offset += byte_read;
-//
-//  byte_read = from_binary( buf + offset, t.get&lt;2&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return -2;
-//  }
-//  offset += byte_read;
-//
-//  byte_read = from_binary( buf + offset, t.get&lt;3&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return -3;
-//  }
-//  offset += byte_read;
-//
-//  byte_read = from_binary( buf + offset, t.get&lt;4&gt;() );
-//  if ( byte_read &lt; 0 )
-//  {
-//  // error
-//  return -4;
-//  }
-//  offset += byte_read;
-//
-//  return offset;
-//}
-#define TUPLE_TO_BINARY_TO_TUPLE(t,t1) \
-  char buf[1024];\
-  int len = tuple_to_binary(t,buf,1024);\
-  int len2 = binary_to_tuple(t1,buf,len);\
-  EXPECT_EQ( len2 , len )
-TEST(tuple_to_binary,test1)
-{
-  typedef tuple&lt;int&gt; my_tuple;
-  my_tuple t, t1;
-  t.get&lt;0&gt;() = 1024;
-  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
-  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
-}
-TEST(tuple_to_binary,boolean)
-{
-  typedef tuple&lt;bool,bool&gt; my_tuple;
-  my_tuple t, t1;
-  t.get&lt;0&gt;() = true;
-  t.get&lt;1&gt;() = false;
-  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
-  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
-  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
-}
-TEST(tuple_to_binary,wstring)
-{
-  typedef tuple&lt;string,wstring&gt; my_tuple;
-  my_tuple t, t1;
-  t.get&lt;0&gt;() = &quot;Hello&quot;;
-  t.get&lt;1&gt;() = L&quot;World&quot;;
-  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
-  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
-  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
-}
-TEST(tuple_to_binary,test2_empty_string)
-{
-  typedef tuple&lt;wstring,wstring&gt; my_tuple;
-  my_tuple t, t1;
-  t.get&lt;0&gt;() = L&quot;Hello&quot;;
-  t.get&lt;1&gt;() = L&quot;&quot;;
-  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
-  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
-  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
-}
-TEST(tuple_to_binary,test2)
-{
-  typedef tuple&lt;int,char&gt; my_tuple;
-  my_tuple t, t1;
-  t.get&lt;0&gt;() = 1024;
-  t.get&lt;1&gt;() = 'A';
-  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
-  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
-  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
-}
-TEST(tuple_to_binary,test3)
-{
-  typedef tuple&lt;int,char,string&gt; my_tuple;
-  my_tuple t, t1;
-  t.get&lt;0&gt;() = 1024;
-  t.get&lt;1&gt;() = 'A';
-  t.get&lt;2&gt;() = &quot;Hello World&quot;;
-  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
-  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
-  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
-  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
-}
-TEST(tuple_to_binary,test4)
-{
-  typedef tuple&lt;int,char,string,float&gt; my_tuple;
-  my_tuple t, t1;
-  t.get&lt;0&gt;() = 1024;
-  t.get&lt;1&gt;() = 'A';
-  t.get&lt;2&gt;() = &quot;Hello World&quot;;
-  t.get&lt;3&gt;() = 12.34f;
-  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
-  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
-  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
-  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
-  EXPECT_EQ( t.get&lt;3&gt;() , t1.get&lt;3&gt;() );
-}
-TEST(tuple_to_binary,test5)
-{
-  typedef tuple&lt;int,char,string,float,bool&gt; my_tuple;
-  my_tuple t, t1;
-  t.get&lt;0&gt;() = 1024;
-  t.get&lt;1&gt;() = 'A';
-  t.get&lt;2&gt;() = &quot;Hello World&quot;;
-  t.get&lt;3&gt;() = 12.34f;
-  t.get&lt;4&gt;() = false;
-  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
-  EXPECT_EQ( t.get&lt;0&gt;() , t1.get&lt;0&gt;() );
-  EXPECT_EQ( t.get&lt;1&gt;() , t1.get&lt;1&gt;() );
-  EXPECT_EQ( t.get&lt;2&gt;() , t1.get&lt;2&gt;() );
-  EXPECT_EQ( t.get&lt;3&gt;() , t1.get&lt;3&gt;() );
-  EXPECT_EQ( t.get&lt;4&gt;() , t1.get&lt;4&gt;() );
-}
-TEST(tuple_to_binary,struct)
-{
-  struct my_struct
-  {
-  int i;
-  char c;
-  float f;
-  bool b;
-  };
-
-  typedef tuple&lt;my_struct&gt; my_tuple;
-  my_tuple t, t1;
-  t.get&lt;0&gt;().i = 1024;
-  t.get&lt;0&gt;().c = 'A';
-  t.get&lt;0&gt;().f = 12.34f;
-  t.get&lt;0&gt;().b = false;
-  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
-  EXPECT_EQ( t.get&lt;0&gt;().i  , t1.get&lt;0&gt;().i  );
-  EXPECT_EQ( t.get&lt;0&gt;().c  , t1.get&lt;0&gt;().c  );
-  EXPECT_EQ( t.get&lt;0&gt;().f  , t1.get&lt;0&gt;().f  );
-  EXPECT_EQ( t.get&lt;0&gt;().b  , t1.get&lt;0&gt;().b  );
-}
-//TEST(tuple_to_binary,vector)
-//{
-//  struct my_struct
-//  {
-//  int i;
-//  char c;
-//  float f;
-//  bool b;
-//  };
-//
-//  typedef vector&lt;my_struct&gt; my_structs;
-//  typedef tuple&lt;my_structs&gt; my_tuple;
-//
-//  my_tuple t, t1;
-//
-//  for ( size_t i = 0 ; i &lt; 10 ; i ++ )
-//  {
-//  my_struct s;
-//  s.i = 1024;
-//  s.c = 'A';
-//  s.f = 12.34f;
-//  s.b = false;
-//
-//  t.get&lt;0&gt;().push_back(s);
-//  }
-//
-//  TUPLE_TO_BINARY_TO_TUPLE(t,t1);
-//
-//  const my_structs &amp; slist = t.get&lt;0&gt;();
-//  const my_structs &amp; slist1 = t1.get&lt;0&gt;();
-//
-//  EXPECT_EQ( slist1.size(), slist.size() );
-//  for ( size_t j = 0 ; j &lt; slist1.size() ; j ++ )
-//  {
-//  const my_struct &amp; s = slist[j];
-//  const my_struct &amp; s1 = slist1[j];
-//
-//  EXPECT_EQ( s1.i  , s.i  );
-//  EXPECT_EQ( s1.c  , s.c  );
-//  EXPECT_EQ( s1.f  , s.f  );
-//  EXPECT_EQ( s1.b  , s.b  );
-//  }
-//}
-int main(int argc, char **argv) {
-  cout &lt;&lt; &quot;Running main() from gtest_main.cc\n&quot;;
-  testing::InitGoogleTest(&amp;argc, argv);
-  return RUN_ALL_TESTS();
-}
-</code></pre></div>
-	
-	<p>
-	
-		<a href="/tag/boost/"><span class="label">boost</span></a>
-	
-		<a href="/tag/preprocessor/"><span class="label">preprocessor</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/02/08/earl-grey/">Earl Grey</a> <small>2009-02-08</small></h1>
-	</div>
-	<div><table style="width:auto;" border="0">
-<tbody>
-<tr>
-<td><a href="http://picasaweb.google.com/lh/photo/EY-Ym9sex9547IPeZxkRxA?feat=embedwebsite">![http://lh3.ggpht.com/_eFJUY9IzSSs/SY7efiJ2ZtI/AAAAAAAAAHA/_G7GJC2ySDY/s400/SANY0042.JPG](http://lh3.ggpht.com/_eFJUY9IzSSs/SY7efiJ2ZtI/AAAAAAAAAHA/_G7GJC2ySDY/s400/SANY0042.JPG)</a></td>
-</tr>
-</tbody></table>
-
-<p>얘가 최근 영입한 그레이(♂). 스코티쉬 폴드인데, 유명한 홍차 이름인 얼 그레이에서 이름을 따왔다. 똥꼬발랄하고 선배 냥이들이 많이 귀찮아한다.<br />
-<table style="width:auto;" border="0"><br />
-<tbody><br />
-<tr><br />
-<td><a href="http://picasaweb.google.com/lh/photo/HNhn36_UOIMobFZawSdIow?feat=embedwebsite"><img alt="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7fXRsrXZI/AAAAAAAAAIQ/HMBpkjqwPZI/s400/SANY0036.JPG" src="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7fXRsrXZI/AAAAAAAAAIQ/HMBpkjqwPZI/s400/SANY0036.JPG" /></a></td><br />
-</tr><br />
-</tbody></table><br />
-이놈이 밤마다 시끄럽게 하는 24시간 발정묘 보리(♂). 코리안 똥고양이의 후손으로,  쌀-보리의 그 보리다. 와이프가 맨날 이쁘다고 해서 요즘은 이뻐보이기도 하지만... 하긴 퇴근할 때 마중나오는 놈은 보리 밖에 없긴 하다. 당연히 쉬귀군의 룬보다는 한참 날씬하다. (푸훗)<br />
-<table style="width:auto;" border="0"><br />
-<tbody><br />
-<tr><br />
-<td><a href="http://picasaweb.google.com/lh/photo/TvwqxYaWG4rairUQ1OnVtg?feat=embedwebsite"><img alt="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7iED5QewI/AAAAAAAAALo/uOLDbCG_T8o/s400/SANY0096.JPG" src="http://lh3.ggpht.com/_eFJUY9IzSSs/SY7iED5QewI/AAAAAAAAALo/uOLDbCG_T8o/s400/SANY0096.JPG" /></a></td><br />
-</tr><br />
-</tbody></table><br />
-러시안 블루 아삼(♂). 역시 홍차 이름에서 따왔다. 진정한 고양이답게 날렵하고 점프력도 좋고 잘 울지도 않지만, 성격이 좀 까칠하다. 나랑은 어째 잘 맞는지, 부르면 가슴 위로 올라와서 머리를 부비는 애교도 부린다.</p>
-<p>더 많은 사진들은 <a href="http://picasaweb.google.com/Reiot94/yiFktC#">여기</a>에 있으니 구경해보시기 바란다. 그나저나 내 평생 고양이를 3마리나 키우게 될 줄은 몰랐다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/cat/"><span class="label">cat</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -823,23 +193,23 @@ int main(int argc, char **argv) {
 	</li>
 	
 	<li>
+		<a href="/2009/05/01/first-chance-exception-the-tag-is-invalid/">first chance exception : The tag is invalid</a>
+	</li>
+	
+	<li>
+		<a href="/2009/04/23/visual-studio-2005-intellisense-hotfix/">Visual Studio 2005 Intellisense Hotfix</a>
+	</li>
+	
+	<li>
+		<a href="/2009/04/12/cloud-computing-for-online-game/">Cloud Computing For Online Game</a>
+	</li>
+	
+	<li>
 		<a href="/2009/04/07/xbox-360-new-ui/">XBOX 360 NEW UI</a>
 	</li>
 	
 	<li>
 		<a href="/2009/04/01/dungeon-crawl-stone-soup/">Dungeon Crawl Stone Soup</a>
-	</li>
-	
-	<li>
-		<a href="/2009/02/17/tasklist-taskkill/">Tasklist/Taskkill</a>
-	</li>
-	
-	<li>
-		<a href="/2009/02/17/boost-preprocessor/">boost::preprocessor</a>
-	</li>
-	
-	<li>
-		<a href="/2009/02/08/earl-grey/">Earl Grey</a>
 	</li>
 	
 </ul>

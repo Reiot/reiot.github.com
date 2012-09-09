@@ -63,6 +63,74 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/01/26/physfs/">physfs</a> <small>2008-01-26</small></h1>
+	</div>
+	<div><p>지금까지는 압축 포맷 == 압축 알고리즘이라고 믿어 왔다. 무슨 말이냐 하면, zip 포맷은 zip 압축 알고리즘, rar 은 rar 압축 알고리즘을 쓰니까, 따라서 어떤 압축 알고리즘이라 할지라도 다중 파일, 다중 폴더, 암호화 같은 걸 다 지원한다고만 생각했다는 뜻이다.</p>
+<p>그런데, 이번에 소니군이 <a href="http://icculus.org/physfs/">physfs</a> 를 조사하는걸 옆에서 껄떡거리면서 깨달은 것은,</p>
+<pre><code>- 압축 알고리즘이란 stream -&gt; stream의 변환일 뿐이다.
+- 즉 파일명이나 폴더명 같은 정보들은 압축 포맷 레벨에서 관리한다.
+</code></pre>
+<p>physfs 를 처음 알아 봤을 때에는, 라이센스도 <a href="http://www.codeproject.com/KB/files/nfsLibrary.aspx">누구 </a>처럼 GPL도 아니고, 다양한 포맷도 지원하고, 여러 개의 압축 파일에서 asset들을 끄집어낼 수 있어서 패치할 때 유리할거 같아서 잠깐 검토를 해봤는데, 소니군이 소스 코드가 컴파일도 안될 정도로 부실하다길래 그냥 포기해버렸다. ㅋㅋ</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/01/26/msbuild-with-cruise-control-net-3/">MSBuild with Cruise Control .Net (3)</a> <small>2008-01-26</small></h1>
+	</div>
+	<div><p><a href="http://www.flickr.com/photos/reiot/2219214645/" title="Flickr에서 Reiot님의 ccnet3"><img alt="ccnet3" src="http://farm3.static.flickr.com/2387/2219214645_3e955b9244_o.png" /></a></p>
+<p>게임 개발에 있어서 지속적인 통합은, 단순하게 보면 커밋-빌드-테스트-패치-인스톨러가 매번 실행되어야 할 것처럼 보이지만, 실제 업무 프로세스를 감안하면 꼭 그렇지만은 않다.<br />
+<code>패치는 QA팀을 위한 것이다. 즉 실제로 버그가 수정되는 새로운 feature가 들어가든 무언가 테스트할 수 있는 요소가 완결되어야 한다는 의미다. 그러나 과연 개발팀의 커밋이 그러한 완결성을 보장해줄 것인가? 때로는 여러 번 임시적인 커밋을 거쳐야만 하나의 기능이 완료되는 경우가 많다. 원칙적으로는 이런 것은 피해야 하지만, 가끔은 어쩔 수 없이 밀어넣어야 할 때도 있다. 물론 테스트가 잘 갖추어져 있다면 패치와 인스톨러 단계로 들어가기 전에 막아주겠지만, 과연 게임 클라이언트를 위한 자동화된 테스트 슈트를 100% 갖춘 팀이 있을까...</code><br />
+이런 이유로 결국 패치와 인스톨러 생성을 다른 프로젝트로 분리해버렸다. 아직 인스톨러는 안 붙었고, 패치 쪽도 원래대로라면 asset들과 빌드된 .exe들을 복사해와서 따로 관리해야 하지만 일단 이번 주는 이 정도로 마무리지었다.</p>
+<h4>ccnet.config</h4>
+<pre><code>- [ccnetconfig](http://www.codeplex.com/ccnetconfig) 라는 GUI 툴을 이용하면 보다 손쉽게 config 파일을 설정할수 있다.
+- BuildPublisher : 패치 프로젝트에서 $(TargetDir)을 패치 폴더로 복사하기 위해 Tasks 섹션에도 넣어보고, PreBuild 에도 넣어봤지만, 둘 다 실행이 안되었다. 그냥 asset 은 svn으로, 실행 파일들은 배치 파일로 복사를 해야 할 듯. (아니면 커스텀 MSBuild 플러그인들을 쓰던가)
+- ScheduleTrigger : 매일밤 자정에 패치와 인스톨러를 빌드하고 싶어서 넣어봤음.
+- Rodemeyer.MsBuildToCCnet.dll 을 logger로 사용할 경우 링크 에러를 만나면 예외가 발생한다. 이 경우 [소스 코드를 다운 ](http://confluence.public.thoughtworks.org/display/CCNETCOMM/Improved+MSBuild+Integration)받은 후, [Steven Smith 의 패치를 적용](http://aspadvice.com/blogs/ssmith/archive/2007/07/22/Fixed_3A00_-CCNET-_2B00_-MSBUILD-Logger-Error.aspx)해서 빌드한 후 dll을 업데이트하면 해결된다.
+</code></pre>
+<h4>dashboard.config</h4>
+<pre><code>- viewConfigurationProjectPlugin 제거 : 대시보드에서 ccnet.config 파일을 못 읽게 하려면 제거할 것
+- serverLogServerPlugin, serverLogProjectPlugin : 역시나 보안적인 문제가 생길 수 있으니 제거할 것(물론 ccnet.exe 의 디버그 모드를 끄면 되지만)
+- xslReportBuildPlugin 제거 : C++ 프로젝트일 경우 거의 사용되지 않는 NUnit, FxCop, NCover, Simian, Fitness 들도 제거할 것
+- ViewStatisticsReport : 루트 엘리먼트가 없다고 나오는 이유는 ccnet.config 에 StatisticsPublisher가 설정되어 있지 않기 때문이다.
+</code></pre>
+<h4>see also:</h4>
+<pre><code>- [MS Build with Cruise Control .NET](http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/)
+- [MS Build with Cruise Control .NET (2)](http://reiot.cafe24.com/2007/10/26/msbuild-with-cruise-control-net-2/)
+- [WebDashboard &amp; CCTray](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)
+- [CCNET Google Group ](http://groups.google.co.il/group/ccnet-user)
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/01/23/upgrade-mantis-111/">Upgrade Mantis 1.1.1</a> <small>2008-01-23</small></h1>
+	</div>
+	<div><p><a href="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&h=&cache=cache"><img alt="mantis roadmap" src="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&amp;h=&amp;cache=cache" /></a></p>
+<p>회사에서 Mantis 1.0.8 을 몇 개월 동안 잘 쓰고 있다가, 최근 (Trac에서는 이미 지원하고 있는) <a href="http://www.mantisbt.org/wiki/doku.php/mantisbt:features:roadmap">Roadmap</a> 기능이 들어간 1.1 버전이 나왔다는 소식을 듣고, 역시나 업그레이드에 도전했다가 한글 문제 때문에 계속 포기해야만 했다. 그러던 오늘 오후, 이번에야말로 기필코 성공하리라고 마음먹고 4시간 넘게 삽질을 했지만 또다시 실패하고 "Fail to upgrade Mantis"라는 제목으로 글을 쓰다가 우연히도 성공해버렸다. 원래는 구차한 실패 과정을 낱낱히 써놨지만, 모두 생략하고 바로 결론으로 넘어가겠다.</p>
+<pre><code>OS : Windows Server 2003 R2
+
+Web Server  : Xampp apache2
+
+DB : Xampp mysql 5.0.45 community
+
+Mantis 1.0.8 + korean_utf8 설정으로 한글 사용중
+
+Encoding : latin1 + latin1_general_ci```
+[기본적인 팁](http://www.mantisbt.org/wiki/doku.php/mantisbt:upgrade_to_utf8)을 읽고 다양한 시도를 거쳐서 실패했는데 결과적으로 가장 핵심은 [이 문서](http://textsnippets.com/posts/show/84)에 들어 있었다. 나의 경우 굳이 [iconv](http://www.gnu.org/software/libiconv/)를 통하지 않고서도 한글 보존에 성공했다.
+</code></pre>
+
+<p>mysqldump -u username -p bugtracker --default-character-set=latin1 &gt; dump.sql</p>
+<p>SQL문의 모든 latin1 을 utf8 로 변경</p>
+<p>mysql -u username -p --execute="create database bugtracker2 default character set utf8;"</p>
+<p>mysql -u username -p bugtracker2 --default-character-set=utf8 &lt; dump.sql```<br />
+업그레이드에 성공한 것도 무지 기쁘지만, <a href="http://kldp.org/node/32987">vim 에서 utf-8 포맷의 문서를 자동으로 읽어 들이고 변환할 수 있다</a>는 것을 알게 되어서 더욱 기쁘다. enc, tenc, fenc, fencs 옵션을 잊지 말자.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/01/21/get-precompiled-boost-library/">Get Precompiled Boost Library</a> <small>2008-01-21</small></h1>
 	</div>
 	<div><p><a href="http://www.boost-consulting.com/products/free" title="boost-consulting.PNG"><img alt="boost-consulting.PNG" src="http://boxcatstudio.files.wordpress.com/2009/07/boost-consulting.PNG" /></a></p>
@@ -95,108 +163,6 @@ BOOST_CHECK( 2 == 1 );
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/01/19/cheat-engine/">Cheat Engine</a> <small>2008-01-19</small></h1>
-	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/cheatenginecokr.png" title="cheatenginecokr.png"><img alt="cheatenginecokr.png" src="http://boxcatstudio.files.wordpress.com/2009/07/cheatenginecokr.png" /></a></p>
-<p><a href="http://www.cheatengine.co.kr/main/">이  씁쓸한 장면</a>은 메모리 해킹 툴로 널리 알려진 <a href="http://www.cheatengine.org/">Cheat Engine</a>에 관해 구글링하다가 발견한 순간의 기록이다. 게임 개발자들에게는 아득하고 슬픈 현실이지만, 여기에는 각종 국산 온라인 게임들을 해킹하는 법, 핵을 사고 판다는 사람들로 북적이고 있었다. 한때 나와 내 동료들이 만들었던 게임의 이름이 올라와 있기에 더더욱 기분이 묘해지는 찰나에, 보다 정확한 정보를 얻기 위해서 회원 가입을 신청하려다가 <a href="http://www.cheatengine.co.kr/member/register_agree.php">미묘한 문구로 가득찬 이용 약관</a>을 발견하고 그냥 포기해버렸다.</p>
-<p>역시 뚫고 뚤리는 해킹과 보안은 전문가에게 맡겨두고, 게임 자체에만 집중하는 편이 비용 대비 효율이 좋다는 것은 명백하다. 그러나, <a href="http://forum.cheatengine.org/viewtopic.php?p=1901549&amp;sid=00767664a2027dd57eca014a11e07fb9">비싸게 주고 산 보안 프로그램들을 bypassing 하려는 노력은 오늘도 계속되고 있다</a>는 점을 간과해서는 안될 것이다. 역시나 어셈블리를 공부해야 하나...</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/01/14/svn-path-based-auth/">SVN path based auth</a> <small>2008-01-14</small></h1>
-	</div>
-	<div><p>svn + apache, 즉 mod_authz_svn  으로 권한 관리를 할 경우, 디자이너나 기획자에게 특정 폴더의 접근 권한을 열어 줘야 할 경우가 종종 있다.</p>
-<pre><code>
-/
-/bin
-/src
-</code></pre>
-
-<p>이 경우 @designer 들이 소스 코드를 못보게 하면서 그래픽 리소스 폴더에 대해서는 읽고 쓰기를 가능하게 해야 한다면, group.conf 를 어떻게 작성해야 할까?</p>
-<pre><code>
-[/]
-* = rw
-[/src]
-@designer =
-@programmer = rw
-</code></pre>
-
-<p>Browse Repository 를 하기 위해서는 최상위 경로에 읽기 권한이 있어야 한다는 점을 감안하면 이게 정답일 수 있지만, 소스 폴더가 여러 개일 경우라면 꽤 피곤한 일이 된다. 나도 처음에는 이렇게 밖에 안되는 줄 알고 포기하고 있었으나 오늘 진짜 답을 알게 되었다.</p>
-<pre><code>
-[/bin]
-@designer = rw
-[/]
-@designer =
-@programmer = rw
-</code></pre>
-
-<p>SVN의 인증 시스템은 <a href="http://svnbook.red-bean.com/en/1.4/svn.serverconfig.pathbasedauthz.html">선언한 순서대로 검색을 한다는 단순한 원칙</a>에 기반하기 때문에, 예외 사항이 있다면 가장 먼저 선언해버리면 최상위 경로에 대한 권한에 대해서 걱정하지 않아도 된다는 점이다. 다만 Browse Repository 를 통해서 root 에서부터 찾아가는 것이 막혀있기 때문에, 처음 체크아웃을 할 때 정확한 URL을 가르쳐줘야 한다.</p>
-<p>이외에도 다중 프로젝트를 관리할 때 동일한 사용자가 서로 다른 그룹에 속할 경우 미묘한 오류가 생길 수 있다. 아래와 같이 팀별로 자신의 프로젝트만 접근할 수 있도록 하고 싶다고 가정하자.</p>
-<pre><code>
-[groups]
-@admin = admin1
-@dev1 = admin1, user1, user2, ...
-@dev2 = admin1, user3, user4, ...
-[/]
-@admin = rw
-[project1:/]
-@dev1 = rw
-@dev2 =
-[project2:/]
-@dev1 =
-@dev2 = rw
-</code></pre>
-
-<p>원래의 의도는 관리자는 모든 프로젝트에 접근할 수 있도록 하는 것이었는데, 실제로는 양쪽 모두 접근할수 없게 된다. 이 경우, 관리자를 팀에서 제외하면 사실 문제는 간단해진다 ;)</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2007/11/11/kgc-2007-2nd-day/">KGC 2007 2nd Day</a> <small>2007-11-11</small></h1>
-	</div>
-	<div><p>see also <a href="http://reiot.cafe24.com/2007/11/08/kgc-2007-1st-day/">KGC 2007 1st Day</a></p>
-<p>아침에 호적등본을 뗀답시고 꾸물럭거리다가 키노트를 놓쳐버렸다.</p>
-<p><font size="5">Building Gamer communities in the West</font></p>
-<p>서구 게이머 커뮤니티 관리기법을 설명하는 줄 알고 갔는데, 알고보니 Outspark라는 퍼블리셔의 홍보 세션이었다.  우리 나라에서 사장당할 뻔한 Piesta 라는 MMO를 성공적으로(?) 퍼블리싱해냈고, 또 다른 건수를 찾아서 들어왔다고 봐도 무방할 정도. (수잔 언니 실망입니다.) 그래도 한 두 마디 정도는 건질 수 있었다.</p>
-<ul>
-<li>서구 게이머들은 GM과의 교류 자체를 즐기며, 상당히 중요시한다.</li>
-<li>서구 게이머들은 게임을 하면서 서핑에서부터 DVD 감상에 이르기까지, 멀티태스킹이 생활화되어 있으므로 윈도우 모드에서의 안정성을 강화해야 한다.</li>
-<li>미국 네트워크 특성상, 배포할 때 용량은 500M 이하로 가볍게 하는 것이 좋다.</li>
-<li>GM들이 게임을 손쉽게 바꿔낼 수 있도록 지원해줘야 한다</li>
-</ul>
-<p><font size="5">게임 소프트웨어 성능 및 품질 관리</font></p>
-<p>오늘의 베스트 세션. 강사가 정말 달변이었다. Visual Studio 2008의 성능 측정 관련 기능들에 대한 소개와 함께 재미있는 이야기를 많이 들었다.</p>
-<ul>
-<li>Active Report 를 만든 회사에서 있었던 사실. 사내 모듈 재사용성을 높이기 위해서, 자신의 컴포넌트가 많이 사용될수록 스톡 옵션을 더 많이 부여하기로 하니, 웬걸 사람들이 다들 재사용될만한 컴포넌트만 찍어내고 있는게 아닌가. 고민을 하다가, 남의 컴포넌트를 많이 사용할수록 스톡 옵션을 부여하는 정책으로 바꾸었더니, 피드백이 강화되고 컴포넌트들이 더욱 빨리 안정화되었다고 한다.</li>
-<li>XP의 경우 출시전 버그 1개를 수정하는 비용이 500만원이었는데, 출시후에는 개당 1억 정도(기간으로 따지면 7-10일 정도)의 비용이 든다고 한다.</li>
-</ul>
-<p><font size="5">Xbox Live Arcade에 대해</font></p>
-<p>역시 어제의 세션과 중복된 내용이 많았다. 마이크로소프트 이러시면 곤란합니다.</p>
-<ul>
-<li>라이브 아케이드 게임의 경우 정품 전환율이 18-20% 정도.</li>
-<li>게임이 출시되면 보통 한 달 만에 35만번 정도의 다운로드가 발생한다.</li>
-<li>첫 두 달안에 35% 정도가 판매되기 때문에, 초기 판매량을 보면 총 수익을 산정해낼 수 잇다.</li>
-<li><font color="#ffffff">XNA로는 마켓플레이스에서 산 특정 프리미엄 아이템 구매 정보를 검색할 수 없다. 오직 XDK로만 가능하다.</font></li>
-</ul>
-<p><font size="5">Massive 를 통한 효과적인 게임 내 광고 사업</font></p>
-<p>오늘도 어김없이 질문을 하고 선물을 받았다. 360용 위닝일레븐10. 캬하하!</p>
-<ul>
-<li>이제 한국에 들어올 준비를 하는 걸로 봐서, 아직 한국내 공식 파트너는 없는 모양이다. 단지 XBOX 360 만으로는 수입이 아쉬웠던 모양이다.</li>
-<li>매시브 광고는, 화면의 55%를 10초동안 누적해서 보여주면 1임프레션을 얻는다. 관련 디버깅 UI가 인상적었는데, 우리도 시간 카운트 및 임프레션 카운트를 보여주는 비슷한 넘을 구현해봐야겠다.</li>
-<li>70k의 정적 메모리, 15k의 힙 메모리 사용량을 자랑(?)한다. 그럭저럭 가벼운 모양이다.</li>
-<li>3-5일 정도만에 통합이 가능하고, 5-8일 정도만에 광고 배치를 완료할 수 있다고 한다. 3회의 QA를 거쳐서 최종 릴리즈가 되는데 이때 각각 3-5일 정도의 기간이 소모된다.</li>
-<li>역시나 사용자가 매시브 서버의 포트를 방화벽으로 막아버리면 대책이 없다고 한다. 결국 이 몫은 개발사가 손해를 봐야 된다는 이야기인데, 무턱대고 광고 only 의 비지니스 모델을 채택했다가는 큰 피해를 입을 수도 있을 것 같다. 왜냐하면 광고를 막는 방법이라고 어딘가에 포스팅이 되면 다들 그걸 사용해버리기 때문.</li>
-<li>더블 퓨전에 비해 뭐가 낫냐고 물어보니, 아무래도 오랜 서비스를 통한 높은 안정성이라는 이야기를 들었다. 흠. 임프레션 대비 높은 개발사 수익..이면 더 좋겠는데.</li>
-</ul>
-<p>see also <a href="http://reiot.cafe24.com/2007/11/08/kgc-2007-1st-day/">KGC 2007 1st Day</a></p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -217,23 +183,23 @@ BOOST_CHECK( 2 == 1 );
 	</li>
 	
 	<li>
+		<a href="/2008/01/26/physfs/">physfs</a>
+	</li>
+	
+	<li>
+		<a href="/2008/01/26/msbuild-with-cruise-control-net-3/">MSBuild with Cruise Control .Net (3)</a>
+	</li>
+	
+	<li>
+		<a href="/2008/01/23/upgrade-mantis-111/">Upgrade Mantis 1.1.1</a>
+	</li>
+	
+	<li>
 		<a href="/2008/01/21/get-precompiled-boost-library/">Get Precompiled Boost Library</a>
 	</li>
 	
 	<li>
 		<a href="/2008/01/19/punk-buster/">Punk Buster</a>
-	</li>
-	
-	<li>
-		<a href="/2008/01/19/cheat-engine/">Cheat Engine</a>
-	</li>
-	
-	<li>
-		<a href="/2008/01/14/svn-path-based-auth/">SVN path based auth</a>
-	</li>
-	
-	<li>
-		<a href="/2007/11/11/kgc-2007-2nd-day/">KGC 2007 2nd Day</a>
 	</li>
 	
 </ul>

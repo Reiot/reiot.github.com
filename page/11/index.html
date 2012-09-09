@@ -63,6 +63,267 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/01/27/change-the-battle-field/">Change the Battle Field</a> <small>2009-01-27</small></h1>
+	</div>
+	<div><p>MS, Google, Intel, IBM, Adobe, Dell, Sony, Sanyo... <a href="http://itviewpoint.com/98855">놀라운 감원 쯔나미</a>는 겨우 시작일 뿐이다.</p>
+<p>성장 동력이 없거나 멈춘 국내 게임 회사들이, 직원 월급을 못주고 있다는 첩보가 속속 입수되고 있다.  정말 <a href="http://reiot.cafe24.com/2008/11/16/prepare-the-battle/">대충 예상해본 것</a>들이 슬슬 현실로 다가 오고 있다는 이야기다. 그나마 반가운 소식은 <a href="http://qu2ik.tistory.com/297">게임이 불황에도 웃음지을 수 있는 몇 안되는 산업이라는 뉴스 </a>정도다.  </p>
+<p>혹자는 힘들 때일수록 몸집을 줄이고 직원 교육에 투자하라고 조언하지만, 내가 사장이라도 그건 쉽지 않은 일이다.  마구 사람을 잘라내고 있는 서구 기업들은 과연 바보라서 그러는 걸까. 그럼 우리는 이 추운 겨울을 어떻게 견디어내야 할까? 개인적으로도 <a href="http://blog.daum.net/tudler/15659618">선 거두절미 후 줄탁동시</a>를 시행해야 한다고 본다. 즉,</p>
+<pre><code>- 무엇보다도 가장 먼저 바보 C급 인재들을 내보낸다. 기회 비용을 고려해 봤을 때, 무작정 열심히 일하는 C급 인재야말로 회사의 최대 적이다. 덤으로 불만분자들도 함께 처분하면 더욱 좋다. (뜨끔!!)
+- A급 리더들은 쓰다듬어주기만 해도 알아서 잘 할테니, 웅크리고 있는 B급 인재들에게는 인센티브 강화 같은 당근과 **** 등의 채찍을 제공한다. 개인적으로 테라의 공개된 영상에 많은 감명을 받았는데, 외부의 공격(?)이 내부의 결속을 강화시킨 좋은 예가 아닐까 한다. 
+- 돈, 지식, 노하우, 그리고 열정적인 핵심 인재들 등 축적할 수 있는 모든 리소스들을 아껴서, 더욱 더 길어질 겨울에 대비한다. 아무리 생각해도, 이번 겨울은 10년짜리다. 
+- 부동산 난개발과 같은 불필요한 중복 개발을 자제하고, 제대로된 게임을 최대한 빨리 출시할 수 있는 프로세스를 다진다. 이걸 갖춘 회사만이 10년을 살아남을 게다. 결과적으로 개발을 투명하게 바라볼 수 있게 해주는, 애자일 프로세스의 전사적 도입도 좋은 방법이 되겠지만, 준비되지 않은 상태에서는 오히려 반감만 불러일으킬 확률이 99.999% 되겠다.
+- 무엇보다도 전장 플랫폼을 바꾼다. 살아남는 자가 강한 것처럼, 하고 싶어 하는 것보다는 잘하는 분야를 계속 파나가고, 그걸 다른 플랫폼으로 옮겨가는 전략은 어떨까. 돈먹는 하마인 MMO, 다 비슷비슷한 캐주얼, 횡스크롤 액션..  새로운 성장 동력 찾기가 쉽지 않은 건 알고 있는데, 너무 멀리서 찾다가 피같은 돈을 다 날려먹으면 곤란하다. 물론 와우를 능가하는 MMO를 만들어서 년간 1조씩 벌어들여도 되겠지만.
+</code></pre>
+<p>뻔한 이야기를 시니컬하게 쓰면 다들 우러러 보는 게 요즘 트렌드이길래, 나도 덩달아서 비스무리하게 써 봤다. 그러나 요즘은 불유쾌한 예언을 하는 자가 잡혀 들어가는 세상인지라, 또 쓸데없이 오해 크리나 받지나 않을까 해서 고이 모셔뒀었는데, 오늘 또<a href="http://news.bbc.co.uk/2/hi/business/7851481.stm"> ING 7천, 필립스 6천, GM 2천 등 총 7만명짜리 GLOBAL JOB CUTS</a> 이 있었다길래 어째 으스스해서 공개해본다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a> <small>2009-01-20</small></h1>
+	</div>
+	<div><p>boost serialization를 사용하려면 이모저모로 귀찮은 점이 많아서, 생각해본 것이 <a href="http://docs.python.org/library/struct.html?highlight=pack">파이썬의 struct 라이브러리</a>와 같은 느낌으로 프로토콜 포맷을 정의하고, 이걸 boost tuple 코드로 뽑아낸다는 아이디어이다.</p>
+<p>대강의 포맷은<br />
+<table border="1" cellspacing="0" cellpadding="1"><br />
+<tbody></tbody><br />
+<thead><br />
+<tr><br />
+<th class="head">Format</th><br />
+<th class="head">C Type</th><br />
+<th class="head">Python</th><br />
+<th class="head">Notes</th><br />
+</tr><br />
+</thead><br />
+<tbody><br />
+<tr><br />
+<td><tt class="docutils literal">x</tt></td><br />
+<td>pad byte</td><br />
+<td>no value</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">c</tt></td><br />
+<td><tt class="xref docutils literal">char</tt></td><br />
+<td>string of length 1</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">b</tt></td><br />
+<td><tt class="xref docutils literal">signed char</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">B</tt></td><br />
+<td><tt class="xref docutils literal">unsigned char</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">?</tt></td><br />
+<td><tt class="xref docutils literal">_Bool</tt></td><br />
+<td>bool</td><br />
+<td>(1)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">h</tt></td><br />
+<td><tt class="xref docutils literal">short</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">H</tt></td><br />
+<td><tt class="xref docutils literal">unsigned short</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">i</tt></td><br />
+<td><tt class="xref docutils literal">int</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">I</tt></td><br />
+<td><tt class="xref docutils literal">unsigned int</tt></td><br />
+<td>integer or long</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">l</tt></td><br />
+<td><tt class="xref docutils literal">long</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">L</tt></td><br />
+<td><tt class="xref docutils literal">unsigned long</tt></td><br />
+<td>long</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">q</tt></td><br />
+<td><tt class="xref docutils literal">long long</tt></td><br />
+<td>long</td><br />
+<td>(2)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">Q</tt></td><br />
+<td><tt class="xref docutils literal">unsigned long<br />
+long</tt></td><br />
+<td>long</td><br />
+<td>(2)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">f</tt></td><br />
+<td><tt class="xref docutils literal">float</tt></td><br />
+<td>float</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">d</tt></td><br />
+<td><tt class="xref docutils literal">double</tt></td><br />
+<td>float</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">s</tt></td><br />
+<td><tt class="xref docutils literal">char[]</tt></td><br />
+<td>string</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">p</tt></td><br />
+<td><tt class="xref docutils literal">char[]</tt></td><br />
+<td>string</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">P</tt></td><br />
+<td><tt class="xref docutils literal">void *</tt></td><br />
+<td>long</td><br />
+<td> </td><br />
+</tr><br />
+</tbody></table><br />
+가령 로그인 메시지를 "ppl" 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
+<p>typedef boost::tuple<string,string,long> msgLogin;</p>
+<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
+<pre><code>- 64 bit integer
+- datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)
+- STL 지원 : list, vector, map, set
+- 비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.
+</code></pre>
+<p>단점이라면 내부 멤버 접근을 userid, passwd 같은 이름 기반이 아니라 get&lt;1&gt;, get&lt;2&gt; 처럼 해야 한다는 점인데, 이건 좀 심하게 귀찮긴 하겠다. 역시 이름 기반 접근이 그나마 컴파일러가 검증해주니 제일 좋은 방법인가.</p>
+<p>자. 만들어주세요.</p></div>
+	
+	<p>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a> <small>2009-01-18</small></h1>
+	</div>
+	<div><p>얼랭으로 만든, 가장 단순한 UDP Echo 서버와 클라이언트는 이렇게 생겨먹었다. (워드프레스에서 들여쓰기가 자꾸 날아가는 버그가 있으므로, 귀찮아서 고치지는 않겠다.)</p>
+<pre><code>
+-module(udp_server).
+-compile(export_all).
+
+init(ServerPort) -&gt;
+{ok, Sock} = gen_udp:open(ServerPort,[binary,inet]),
+loop().
+
+loop() -&gt;
+io:format(&quot;server_loop~n&quot;),
+receive
+{udp, Sock, ClientIP, ClientPort, Packet } -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[ClientIP,ClientPort,Packet]),
+ok = gen_udp:send(Sock,ClientIP,ClientPort,Packet),
+loop()
+end.
+</code></pre>
+
+<pre><code>
+-module(udp_client).
+-compile(export_all).
+
+init(ServerPort) -&gt;
+{ok, Sock} = gen_udp:open(0),
+gen_udp:send(Sock,&quot;localhost&quot;,ServerPort,&quot;Hello World!&quot;),
+loop().
+
+loop() -&gt;
+io:format(&quot;waiting response...~n&quot;),
+receive
+{udp, Peer, PeerIP, PeerPort, Packet } -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[PeerIP,PeerPort,Packet])
+after 1000 -&gt;
+io:format(&quot;timeout..~n&quot;)
+end.
+
+</code></pre>
+
+<p>여기에서 바로 OTP로 만들겠다고 뛰어들었다가 삽질을 한 후,  <a href="http://www.trapexit.org/Building_a_Non-blocking_TCP_server_using_OTP_principles">Building_a_Non-blocking_TCP_server_using_OTP_principles</a> 와 <a href="http://erlrtpproxy.googlecode.com/svn-history/r19/trunk/rtpproxy.erl">구글에서 검색한 gen_udp 예제</a>을 참고해서 겨우 성공한 게 다음의 코드이다.</p>
+<pre><code>
+-module(udp_otp_server).
+-compile(export_all).
+
+% stand-alone server version
+start() -&gt;
+gen_server:start({local, ?MODULE}, ?MODULE, [], []).
+
+% supervision tree version
+start_link() -&gt;
+gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
+
+init([]) -&gt;
+process_flag(trap_exit,true),
+{ok, Sock} = gen_udp:open(1111,[binary,inet]),
+io:format(&quot;udp server started...~n&quot;),
+{ok,0}.
+
+handle_call(Request, From, State) -&gt;
+io:format(&quot;~p~n&quot;,[Request]),
+{noreply,State}.
+
+handle_cast(_Msg,State) -&gt;
+io:format(&quot;handle_cast(~p)~n&quot;,_Msg),
+{noreply, State}.
+
+%% udp message should be handled here
+handle_info({udp,Sock, ClientIP, ClientPort, Packet}, State) -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[ClientIP,ClientPort,Packet]),
+ok = gen_udp:send(Sock,ClientIP,ClientPort,Packet),
+{noreply, State}
+;
+
+handle_info(_Info,State) -&gt;
+io:format(&quot;handle_info~n&quot;),
+{noreply, State}.
+
+terminate(_Reason,N) -&gt;
+io:format(&quot;stopping...~n&quot;),
+ok.
+code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
+
+</code></pre>
+
+<p>핵심 요지는, UDP 메시지는 handle_call 이나 cast 가 아니라, handle_info에서 처리해야 한다는 점이다. 요즘 <strong>업.무.가. 바.빠.서.</strong> 얼랭을 3주 정도 못봤는데 또 서서히 기억이 소멸하기 시작했다. OTP에서는 함수의 리턴값 규칙을 정말 잘 맞춰야 하는 관계로, 다음 번부터는 gen_server 템플릿 하나 정도는 갖고 시작해야겠다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/erlang/"><span class="label">erlang</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2009/01/12/teamcide/">Teamcide</a> <small>2009-01-12</small></h1>
 	</div>
 	<div><div>
@@ -114,105 +375,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2009/01/02/fault-tolerant-system/">Fault Tolerant System</a> <small>2009-01-02</small></h1>
-	</div>
-	<div><p>얼랭스터디에서 얼랭/OTP 의 무정지성(Fault Tolerance)에 대해서 소개하자,</p>
-<pre><code>&quot;문제가 생긴 서버를 되살리는 것도 좋은데, 메모리상의 중요한 데이터들을 어떻게 다른 서버로 안전하게 전송할 수 있는가?&quot;```
-라는 질문이 나왔다. 여기에 대해서 가장 먼저 떠오른 생각은
-</code></pre>
-
-<p>"클라이언트와의 연결은 어차피 날아가는 거고, 과연 그 서버 안에 있는 데이터까지 살릴 만한 가치가 있는 것일까?"```<br />
-라는 것이었다. 일반적인 C++ 서버의 경우 오류로 인한 서버의 크래시가 발생했을 때 당연히 SEH 를 이용해서 그 순간을 캡처해낼 수는 있다. 그러나 문제는 그때의 메모리가 정말 DB에 저장하거나 다른 머신으로 보낼 만큼 신뢰성이 있는가? 하는 것이다. 치명적인 오류가 발생한지 시간이 좀 지나서, 이미 많은 데이터가 오염되었을 수도 있기 때문에, 보통은 그냥 데이터는 버리고 서버를 내려버리는 것이 정상이다.</p>
-<p>그러다보니 무정지성이라는 의미에 대해서 다시금 생각하게 되었다. 그래서, 위키피디아에서 <a href="http://en.wikipedia.org/wiki/Fault-tolerant_system">Fault Tolerant System</a>을 검색해보니 다음과 같이 나와 있었다.</p>
-<pre><code>
-    - No single point of failure
-    - No single point of repair
-    - Fault isolation to the failing component
-    - Fault containment to prevent propagation of the failure
-    - Availability of reversion modes
-
-</code></pre>
-
-<p>즉, 하나 죽었다고 전체 시스템이 마비된다든지, 복구하다가 바보가 된다든지, 실패한 모듈 때문에 나머지 시스템이 동작하지 않는 등의 현상이 없어야 된다는, Five Nine(99.999%) 수준의 가용성(Availability)에 대한 이야기이지 완벽하게 모든 것이 재가동되어야 한다는 이야기는 아니었다. DB에도 오류가 생기면 롤백을 하듯이, MMO의 서버 시스템 역시 어느 수준으로 롤백을 하더라도 나머지 사용자들이 모를 정도로만 감춰줘도 사장님한테 이쁨받기에 충분한 수준인 것이다.</p>
-<p>그런데, "<strong>진정한 변수</strong>"가 없는 얼랭에서는 - <em>정말 에러가 발생한 직후라는 확신이 든다면 </em>- 아래와 같은 코드를 이용해서, 오류를 다른 모듈로 확산시키지 않고도 로컬 코드 레벨에서 롤백이 가능하긴 하다.</p>
-<pre><code>
-loop( OldState ) -&gt;
-try handle_something(msg,OldState) of
-{ ok, NewState } -&gt;
-loop(NewState)
-catch
-{ error } -&gt;
-loop(OldState)
-end
-end.
-</code></pre>
-
-<p>여기에 얼랭/OTP의 슈퍼비전 트리가 결합하면 책에서 주장하는 것처럼 Nine Nine(99.9999999%)의 가용성이 보장된다고 하니, 초반에 생각했던 언어적 분산 네트워킹의 지원 보다는 이쪽이 더 매력적인 기능이 아닐까 싶다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/erlang/"><span class="label">erlang</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/12/27/networking-metaphore/">Networking Metaphor</a> <small>2008-12-27</small></h1>
-	</div>
-	<div><p>[caption id="" align="aligncenter" width="500" caption="http://www.flickr.com/photos/jasoncross/1260110610/"]<a href="http://www.flickr.com/photos/jasoncross/1260110610/"><img alt="http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg" src="http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg" /></a>[/caption]</p>
-<p>네트워크 프로그래머가 클라이언트 서버간 통신(혹은 P2P 통신)을 바라보는 메타포에 대해서 갑자기 궁금해졌다.</p>
-<p>가장 흔한 개념은 바로 패킷이다. 만약 컨텐트 코드에서 Packet 이나 Command, Message 같은 객체와, Send 와 Receive 같은 함수가 노출되어 있다면, 그걸 만든 사람은 데이터 통신을 바이트의 전송이라는 개념으로 인지하는 것이 아닐까? 데이터를 던지고 받는다는 개념의 네트워킹은 아마도 귀찮은 하드코딩 노가다 작업일 확률이 높다. 흐흐.</p>
-<p>조금 높은 레벨(?)로 올라간다면 원격 함수 호출(RPC)이 있겠다. 무언가를 상대방에게 요청(request)하면, 상대방은 그걸 처리한 후 성공이나 실패 같은 결과(response)를 보내준다. 이런 메타포에서는 동기/비동기라든지, 타임아웃 같은 처리들이 따라오게 된다. 만약 네트워크로 무언가를 요청하는 행위가 함수 호출 인터페이스처럼 잘 래핑되어 있다면, 대략 1초간 으쓱해도 무방하겠다. :P</p>
-<p><img alt="http://ou800doc.caldera.com/en/SDK_netapi/graphics/rpc.gif" src="http://ou800doc.caldera.com/en/SDK_netapi/graphics/rpc.gif" /></p>
-<p>추가적으로, 결과가 없는 요청은 특별히 이벤트(event) 혹은 통지(notification)라는 메타포라고 부를 수 있겠다. 사실 매번 렌더링을 해야 하는 게임 클라이언트나, 항상 빠른 응답 속도를 보장해야 하는 서버가 동기적 요청을 하는 일은 정말 드문 경우이다. 이런 이유로 비동기적인 통신이 대부분이기 때문에 적당히 현재 상황을 알려주고 잊어버리고 있다가, 혹시나 결과(보통은 에러)가 오면 음..그런가? 하고 처리하는 느낌으로 코드를 만들 때가 있다. 시간이 나면 Notify 같은 이름들이 있는지 한번 체크해보시라.</p>
-<p>위에 나온 것들은 대체로 즉각적인 처리를 필요로 하는 반면, 어떤 이벤트들은 시간축으로 늘어질 때가 있다. 무슨 말이냐 하면 이동, 공격, 물리 같이 float 단위의 정밀한 사건들은 공간 뿐만 아니라 시간과도 밀접한 관계가 있기 때문이다. 이런 상황을 아름답게 처리하려면, 받는 족족 무언가를 처리하기보다는, 데이터를 시간순으로 쌓아두고 예측, 보간을 통해 그럴듯하게 보여줄 필요가 있다. 이런 걸 보통 동기화(synchronization) 또는 복제(replication)이라고 부른다. 보통 이런 코드들은 네트워크를 넘어선 상위 로직 레벨에 존재하는 경우가 많은데, 어떤 네트워크 라이브러리들은 이런 수준도 알아서 잘 처리하기도 한다.</p>
-<p>[caption id="" align="aligncenter" width="300" caption="from http://www.problogger.net"]<a href="http://www.problogger.net"><img alt="http://www.problogger.net/wp-content/uploads/2007/08/rss-buttons.gif" src="http://www.problogger.net/wp-content/uploads/2007/08/rss-buttons.gif" /></a>[/caption]</p>
-<p>좀 억지스럽긴 하나, 이메일이나 RSS 등에서 주로 쓰이는 발행(publish)과 구독(subscribe)이라는 메타포는 어떨까?  채팅 채널 같이 지속적인 이벤트가 간간히 발생하는 논리적인 영역에 참가하면, 꾸준히 어떤 이벤트들이 날아오게 된다. 사람들이 바글바글 거리는 지역에 발생하는 수많은 이벤트들을 클라이언트에게 알려줄 때 즉각적인 브로드캐스팅 대신, 이런 개념을 사용한다면 필터링을 통해 트래픽 절감의 효과를 손쉽게 얻을 지도 모르겠다. 후후.</p>
-<p>이렇게 단순한 이야기를 현학적으로 어렵게 쓴 이유는, 사실 며칠 전 XML로 프로토콜을 정의하고 코드를 만드는 걸 한번 해볼까 하고, <a href="http://www.codalogic.com/lmx/xsd-overview.html">스키마 튜토리얼</a>을 살펴 보다가, 프로토콜은 XML이 아니라 XSD에 들어가는게 맞지 않냐는 생각이 들어서였다. 물론 XSD도 사실 XML이니까, 쓸데없는 고민 없이 그냥 해도 될 것 같기도 한데... 그러다보니 또 굳이 요즘 세상에 트래픽이 많은 게임이 아니라면 XML 프로토콜을 쓰고, 파싱 및 검증을 XSD로 하는 것도 괜찮지 않냐는 망상에서 허우적 거리고 있다.</p>
-<p><img alt="http://upload.wikimedia.org/wikipedia/en/3/32/CheckEmail.png" src="http://upload.wikimedia.org/wikipedia/en/3/32/CheckEmail.png" /></p>
-<p>또 한편으로는 클래스 다이어그램과 시퀀스 다이어그램으로 클라이언트/서버간 통신을 표현하고, 그걸 파싱해서 각종 RPC 함수들의 골격을 만들어내면 인생이 좀 수월해지지 않을까 하는 생각도 든다. 물론 프로토콜이 바뀔 때에 기존 코드가 날아가지 않도록 코드 제너레이터를 잘 짜야겠지.</p>
-<p>글 시작과 끝의 주제가 다른 걸로 봐서, 아무래도 요즘 스트레스를 많이 받나 보다. ㅋㅋ</p></div>
-	
-	<p>
-	
-		<a href="/tag/xml/"><span class="label">xml</span></a>
-	
-		<a href="/tag/protocol/"><span class="label">protocol</span></a>
-	
-		<a href="/tag/schema/"><span class="label">schema</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/12/21/memory-wall/">Memory Wall</a> <small>2008-12-21</small></h1>
-	</div>
-	<div><p><img alt="http://lh6.ggpht.com/_nOquiran9-s/Rur1hp0B7kI/AAAAAAAAALI/rjrpIObJtMo/IMG_1987.JPG" src="http://lh6.ggpht.com/_nOquiran9-s/Rur1hp0B7kI/AAAAAAAAALI/rjrpIObJtMo/IMG_1987.JPG" /></p>
-<p>9.11 Memory Wall</p>
-<p>구글에서 memory wall 을 검색하면 위와 같은 사진들이 나온다. 아마도 기억과 회상을 위한 그림이나 사진, 메모들을 붙이는 벽을  memory wall 또는 remembrance wall 이라고 부르는 모양이다.</p>
-<p>훗날 128 코어의 시대가 도래하면 얼랭 게임 서버가 혹시 대세가 되지는 않을까 했는데, 벌써부터 <a href="http://minjang.egloos.com/2166350">멀티 코어에도 메모리 장벽이라는 한계가 있다는 이야기</a>가 솔솔 들린다. 이로 인해 <a href="http://devnote.net/86">8-16코어를 넘어서기가 힘들다고 해서 널티코어 효과(Nulticore Effect)</a>라고 부른다니.. <a href="http://xeraph.egloos.com/4781141">xeraph님이 GG하신 게</a> 정답이지도? :)</p>
-<p>보통 물리적/논리적으로 서버 프로세스가 늘어날수록 디버깅이 어려워지고, 관리 비용도 증가한다고 한다. 그래서 요즘은 분산을 고려해서 모듈끼리도 메시지 통신을 하도록 한 후, 개별 모듈들을 최대한으로 단순하게 구현하려고 노력중이다. 대신 메시지를 만드는게 여간 귀찮은 일이 아니라서, 언제 시간이 나면 후딱 XML 메시지 같은 걸 만들어볼까 싶기도 한데... 그럴 여유도 없을 뿐더러, 만들어도 같이 감동해줄 전우가 없다는 게 안타깝다. 크흑.</p>
-<pre><code>
- 
-
-</code></pre></div>
-	
-	<p>
-	
-		<a href="/tag/multicore/"><span class="label">multicore</span></a>
-	
-		<a href="/tag/erlang/"><span class="label">erlang</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -233,23 +395,23 @@ end.
 	</li>
 	
 	<li>
+		<a href="/2009/01/27/change-the-battle-field/">Change the Battle Field</a>
+	</li>
+	
+	<li>
+		<a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a>
+	</li>
+	
+	<li>
+		<a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a>
+	</li>
+	
+	<li>
 		<a href="/2009/01/12/teamcide/">Teamcide</a>
 	</li>
 	
 	<li>
 		<a href="/2009/01/07/redmine/">Redmine</a>
-	</li>
-	
-	<li>
-		<a href="/2009/01/02/fault-tolerant-system/">Fault Tolerant System</a>
-	</li>
-	
-	<li>
-		<a href="/2008/12/27/networking-metaphore/">Networking Metaphor</a>
-	</li>
-	
-	<li>
-		<a href="/2008/12/21/memory-wall/">Memory Wall</a>
 	</li>
 	
 </ul>

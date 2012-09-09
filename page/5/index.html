@@ -63,6 +63,94 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a> <small>2010-11-07</small></h1>
+	</div>
+	<div><p>이번 11월부터 <a href="http://aws.amazon.com/free/">1년 무료인 마이크로 인스턴스</a>라는 게 있다길래 node.js 를 위해서 재빨리 가입을 했다. 왜 하필 node.js 인지 궁금하신 분은 <a href="http://www.synchrosinteractive.com/blog/9-nodejs/22-nodejs-has-a-bright-future">nodejs-has-a-bright-future</a> 를 읽어보시길. 싱가포르쪽이 좀 느린 듯해서 그냥 미쿡 버지니아에다가 만들었다.</p>
+<p>처음 가입할 때 전화를 준다고 해서 살짝 망설였는데 그냥 미리 녹음된 전화에 개인키를 입력해서 인증하는 방식이라길래 용감하게 시도했으나.. 아무리 등록하려고 해도 요청 폭주로 전화가 오지 않아서 이틀이나 기다려야 했다. (3회 실패하면 12시간 후에나 다시 요청이 가능한 시스템..) 알고보니 전화 번호를 잘못 써서.울먹.. 다들 외국 사이트 가입할 때 +82 국제 전화 번호 붙이지 않나요 ㅠㅠ </p>
+<p>어쨌든 초보답게 아마존에서 제공하는 기본 리눅스 AMI 64bit 를 설치하고 보니, git 는 커녕 gcc 도 설치 안된 깔끔한 배포판이었다. 10년만에 리눅스를 만져본 터라 어떤 패키지 시스템을 써야 하는지 헷갈렸는데, 요즘은 yum 이란게 인기가 있나보다. (마지막으로 써본 게 rpm 이었던가..)</p>
+<p>기억 소멸을 방지하기 위해 대충 순서를 정리해본다 :P</p>
+<ul>
+<li>sudo yum install git-core</li>
+<li>git clone https://github.com/ry/node.git</li>
+<li>sudo yum install gcc</li>
+<li>sudo yum install gcc-c++</li>
+<li>sudo yum install openssl-devel</li>
+<li>./configure</li>
+<li>make </li>
+<li>sudo make install</li>
+<li>make test</li>
+</ul>
+<p>마이크로 인스턴스에서 빌드 시간은 17분 정도 걸린다. configure 할 때 select/eio/kqueue 를 찾는 걸 보니, 내부적으로 저런 걸 쓰는 모양이다. 내 경우에는  test-exec,  test-repl, test-http-curl-chunk-problem 3개의 테스트가 실패했다 :(</p>
+<p>ps. 오랜만에 느끼는 이 콘솔의 감촉. 아 섹시하다~~</p></div>
+	
+	<p>
+	
+		<a href="/tag/node.js/"><span class="label">node.js</span></a>
+	
+		<a href="/tag/amazon-ec2/"><span class="label">amazon-ec2</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/11/02/custom-tag/"><% raw %> custom tag</a> <small>2010-11-02</small></h1>
+	</div>
+	<div><p>jQuery 템플릿의 조건문/반복문들은 {{if}} {{each}}와 같이 선언하는데, 이게 Django의 템플릿 변수 {{var}} 선언과 동일해서 템플릿 문법 에러가 발생하게 된다. 이를 해결하려면 모든 {{ }} 에 대해서</p>
+<pre><code>{% templatetag openvariable %}if ${var}==a{% templatetag closevariable%} 
+</code></pre>
+
+<p>과 같이 바꿔줘야 한다. <a href="http://stackoverflow.com/questions/4021896/jquery-template-tags-conflict-with-django-template">StackOverflow 에 물어보니</a> Django 1.3 에서 &lt;% raw %&gt; 에 대한 제안이 들어가긴 했다고 하는데, 언제 나올지도 모르고 해서 구글에 검색해보니 다행스럽게도 누군가가 이미 구현해둔 걸 찾을 수 있었다.</p>
+<ul>
+<li><a href="http://www.holovaty.com/writing/django-two-phased-rendering/">http://www.holovaty.com/writing/django-two-phased-rendering/</a></li>
+</ul>
+<p>다만 GPL 이라는 점에 유의할 것 :P</p></div>
+	
+	<p>
+	
+		<a href="/tag/django/"><span class="label">django</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/10/12/photoshop-shortcuts/">Photoshop Shortcuts</a> <small>2010-10-12</small></h1>
+	</div>
+	<div><ul>
+<li>영역 선택시 shift 는 더하고, alt 는 빼고, shift+alt 는 교집합이 된다.</li>
+<li>굳이 move(v) 를 선택하지 않아도 ctrl 을 누르면 현재 레이어를 이동시킬 수 있다. </li>
+<li>ctrl 을 누르고 현재 레이어의 미리보기(썸네일) 아이콘을 누르면 레이어만을 선택할 수 있다. 이 상태에서 ctrl + shift 로 다른 레이어 미리보기를 선택하면 영역이 더해지고, ctrl + alt 를 누르면 빼지고, ctrl + shift + alt 를 누르면 교집합 영역이 골라진다.</li>
+<li>툴 단축키는 shift 를 누르면 비슷한 다른 툴들이 순차적으로 선택된다.</li>
+<li>ctrl + 오른쪽 클릭: 현재 마우스 위치의 레이어 목록이 보인다. 레이어 리스트 없이 특정 레이어를 고를때 편하다. 대신 레이어 이름을 잘 붙여둬야 한다.</li>
+<li>ctrl + G 는 선택된 레이어들을 그룹으로 묶어준다. ctrl + alt + G 는 클리핑 마스크를 만든다. </li>
+<li>클리핑 마스크를 만들면 브러시가 아래 하위 레이어의 영역에서만 칠해진다. 실제로 레이어의 그레디언트나 패턴 이펙트들은 클리핑 마스크로 구현되어 있다. (각각의 이펙트를 별도의 레이어로 분리해보면 알 수 있다) 썸네일을 상위 레이어로 ALT 드래그하면 클리핑을 할 수 있다. 썸네일을 폴더로 드래그하면 폴더에 속한 레이어들 전체에 마스크가 씌여진다. shift 를 누르고 썸네일을 클릭하면 해당 마스크를 disable 시킬 수 있다.</li>
+<li>레이어 목록에서 ctrl 드래그는 복사, alt 드래그는 위치 이동이다. (그냥 드래그해도 이동이긴 하다)</li>
+<li>글로벌 라이트는 모든 열린 문서를 끈 상태에서 설정해야 한다.</li>
+<li>브러쉬 크기 조절은 [] 로 할 수 있다. alt 를 누르면 잠시 스포이드(eyedropper) 모드로 색깔을 지정할 수 있다. </li>
+<li>ctrl + 1 또는 줌 버튼을 더블클릭하면 100% 크기로 볼 수 있다. 줌을 바꾸려면 ctrl + alt + wheel 을 누르면 된다.</li>
+<li>ctrl + [] 은 현재 레이어를 아래 위로 옮기는 반면, alt + [] 는 아래 위로 레이어를 선택한다. ctrl + shift + [] 는 가장 위 또는 가장 아래로 레이어를 보낸다. </li>
+<li>ctrl 을 누른 상태에서 새 레이어 버튼을 누르면 현재 레이어 아래에 새 레이어가 만들어진다. 그냥 ctrl + shift  + N 은 현재 레이어 위에 만든다.</li>
+<li>alt 를 누른 상태에서 레이어의 눈 아이콘을 누르면, 해당 레이어만 보여준다. ctrl + alt 를 누른 상태에서 다시 누르면 모두 다 보이게 된다.</li>
+<li>shift 를 누른 상태에서 +- 를 누르면, 블렌딩 모드를 순차적으로 바꿀 수 있다. move 툴을 선택한 상태에서 숫자키를 누르면 opacity 를 바꿀 수 있다. </li>
+<li>각종 숫자로 된 입력창에 포커스를 두고, ctrl 을 누르고 좌우로 드래그하면 마우스로도 바꿀 수 있다. ctrl + shift 를 누르면 10단위로 바뀐다. 그냥 휠만 움직이면 1씩 증감된다. 화살표 상하 키로도 휠과 동일한 효과를 줄 수 있다.</li>
+<li>폰트 크기를 바꾸려면 ctrl + shift + &lt;&gt;</li>
+<li>브러시 모드에서 1-0 숫자를 누르면 opacity 를 바꿔서 칠할 수 있다.</li>
+<li>ctrl + T 로 크기 변환할 때 shift 를 누르면 비율이 고정되고, alt + shift 는 중심이 고정되고, ctrl + shift 는 현재 점 외의 다른 점들이 고정된다.</li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/photoshop/"><span class="label">photoshop</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2010/10/12/advanced-photoshop-techniques-for-ui/">Advanced Photoshop Techniques for UI</a> <small>2010-10-12</small></h1>
 	</div>
 	<div><ul>
@@ -115,137 +203,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a> <small>2010-09-24</small></h1>
-	</div>
-	<div><p><strong>스프레드시트 리스트 읽어오기</strong></p>
-<pre><code>client = gdata.spreadsheets.client.SpreadsheetsClient()
-
-feed = client.get_spreadsheets()
-</code></pre>
-
-<p>내부적으로 다음과 같은 URL 을 사용한다.</p>
-<p><code>http://spreadsheets.google.com/feeds/spreadsheets/private/full</code></p>
-<p><strong>특정 스프레드 시트의 워크 시트 리스트 읽어오기</strong></p>
-<pre><code>feed = client.get_worksheets(spreadsheet_key)
-</code></pre>
-
-<p>내부적으로 </p>
-<p><code>http://spreadsheets.google.com/feeds/worksheets/&lt;키&gt;/private/full</code></p>
-<p><strong>특정 워크 시트를 리스트 기반으로 읽어오기</strong></p>
-<p>이건 gdata.spreadsheets.client 에서 지원하지 않는다.</p>
-<pre><code>url = &quot;https://spreadsheets.google.com/feeds/list/%s/%s/private/full&quot; % (spreadsheet,worksheet) 
-feed = client.get_feed(url, desired_class = gdata.spreadsheets.data.ListsFeed)
-</code></pre>
-
-<p>이렇게 읽어온 feed.entry 에서 적당한 필드를 잘 읽어내야 한다. 내부적으로는 XML 이므로 다음과 같이 읽을 것. 잘 안읽히면 feed 를 그대로 출력해서 어떤 값이 있는지 보면 된다.</p>
-<ul>
-<li>entry.id.text</li>
-<li>entry.title.text</li>
-<li>entry.content.text: ListsFeed 로 읽어왔을 때 row 의 값들이 문자열로 들어가 있다.</li>
-<li>entry.get_elements(namespace=GSX_ELEMENT): 컬럼은 gsx: 태그로 들어가 있으므로, iterating 할 때에는 이걸 써야 한다.</li>
-<li>entry.get_value(column name): 이미 이름을 알고 있을때..</li>
-</ul>
-<p>핵심은,</p>
-<ul>
-<li>구글 스프레드 시트의 모든 문서, 워크시트, row, cell 들은 유니크한 URL 을 가진다. </li>
-<li>적당한 URL 로 요청하면 ATOM XML 등으로 리턴한다.</li>
-<li>gd_client.get_feed 에 URL 을 넘기고 desired_class 를 잘 지정하면, 적당한 파이썬 객체로 래핑된다.</li>
-<li>어떤 XML 이 리턴되는지만 잘 파악하면 끗.</li>
-</ul></div>
-	
-	<p>
-	
-		<a href="/tag/google spreadsheet api/"><span class="label">google spreadsheet api</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/08/16/createdeepkey/">create_deep_key</a> <small>2010-08-16</small></h1>
-	</div>
-	<div><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
-<pre><code>- 부모 키 : AAABBBCCCDDD
-- 자식 키 : AAABBBCCCDDDEEEFFF
-</code></pre>
-<p>따라서,  부모의 키값과 자식의 키 아이디 또는 이름을 별도의 컬럼으로 내보내고, 반대로 가져올 때에는 하나로 합쳐서 원래의 키값을 복구해야 한다.</p>
-<pre><code>property_map:
-  - property: __key__
-  external_name: Activity
-  import_transform:  transform.create_deep_key((‘Visit’, ‘Visit’), (‘VisitActivity’, ‘Activity’))
-  export:
-  - external_name: Visit
-  export_transform: transformhelper.extract_deep_key(1)
-  - external_name: Activity
-  export_transform: transformhelper.extract_deep_key(2)
-</code></pre>
-
-<p>이때 만약 키가 아니라 id/name 을 내보내고 싶다면,  transform.key_id_or_name_as_string_n(N) 을 사용할 것.</p></div>
-	
-	<p>
-	
-		<a href="/tag/bulkload/"><span class="label">bulkload</span></a>
-	
-		<a href="/tag/datastore/"><span class="label">datastore</span></a>
-	
-		<a href="/tag/appengine/"><span class="label">appengine</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/08/12/google-app-engine-tips/">Google App Engine Tips</a> <small>2010-08-12</small></h1>
-	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png"><img alt="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" src="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" /></a>구글 앱 엔진으로 개발하면서 학습한 내용을 정리합니다. 이론적으로 혹은 실제 서비스할 때 잘못되거나 틀린 부분이 있을 수 있음을 미리 알려 드립니다.</p>
-<p><strong>검증 및 마이그레이션의 책임은 '프로그래머'가 진다.</strong></p>
-<p>관계형 데이터베이스의 경우, 스키마 및 그 정합성을 검증할 책임이 데이터베이스 엔진에 있는 반면, 구글 데이터스토어는 분산 및 속도 향상을 위해, 스키마와 검증의 책임이 프로그램 쪽으로 넘어와 있다. 이게 무슨 뜻이냐 하면, 같은 모델(테이블)에 서로 다른 필드로 구성된 객체(Entity,열)가 들어갈 수 있다는 뜻이다. 따라서 데이터스토어는 임의의 데이터 집합을 쿼리해서 읽어왔을 때, 그 안에 어떤 데이터가 들어가 있을지 모르기 때문에, 마이그레이션 역시 프로그램이 책임지고 구현해야 한다. 새로 속성(Property,컬럼)을 추가하거나, 삭제하려면 해당 모델에 속한 모든 객체들을 찾아서 하나씩 변경해줘야 한다.</p>
-<p>예를 들어, 어떤 모델의 속성이 더이상 필요없어져서 삭제하려면, 무려 <a href="http://code.google.com/intl/ko-KR/appengine/articles/update_schema.html">소스 코드에서 모델의 부모 클래스를 바꿔서 저장한 후, 서버에 터미널을 열고 수동으로 해당 속성들을 지우고 다시 돌아와서 코드를 롤백하는 등의 수고로움</a>이 필요하다.</p>
-<p>이런 이유로, 가급적이면 앱엔진에서 서비스중에, 모델의 특정 속성 이름을 바꾸는 일은 피해야 한다.</p>
-<p><strong>트랜잭션으로 묶을 객체들은 '생성' 시점에 부모를 지정해야 한다.</strong></p>
-<p>관계형 데이터베이스에서는 서비스 이후에도 적당히 쿼리 최적화와 마이그레이션을 통해서 새로 트랜잭션을 추가할 수 있다. 그런데, 데이터스토어는 좀 다르다. 왜냐하면 일단 만들어진 객체의 키값은 절대 변경될 수 없는데, 트랜젹션으로 묶을 객체들은 생성 시점에 미리 같은 부모 객체를 지정해서, 같은 엔티티 그룹으로 만들어 줘야 하기 때문이다. 아마도 분산 트랜잭션을 피하기 위해서, 같은 그룹에 속한 객체들을 동일한(또는, 가급적 가까운?) 물리적인 노드에 두기 위함일테다.</p>
-<p>또한 동시에 여러 명이 같은 데이터를 변경하는 등의 충돌을 방지하려면, 주의깊게 부모 엔티티를 고르거나 아예 이런 일이 없도록 설계하는 것이 중요하다. 이런 제약으로 인해, 개발 시점에 어떤 트랜잭션이 필요할 것인지를 미리 예측하고, 코드 레벨에서 부모 객체를 미리 만들어둬야 한다. 구체적인 예를 들자면, 어떤 플레이어에 속한 모든 아이템, 도전과제, 퀘스트 같은 하위 객체들은 플레이어를 부모로 가지는 게 정신 건강에 좋다는 정도가 되겠다.</p>
-<p>이처럼 앱엔진 개발은 유지 보수의 책임이 데이터베이스가 아니라 프로그래머의 영역이 된다는 점을 항상 염두에 둬야 한다.</p>
-<p><strong>키 이름(key_name), 아이디(id)의 용도를 잘 구분해야 한다.</strong></p>
-<p>모든 객체는 시스템에서 유일한 키 값을 가진다는 점은 비교적 이해하기가 쉽다. 그런데, 키 이름(문자열)과 아이디(정수) 중 하나만을 가져야 한다는 점은 처음에 좀 헷갈렸다. 과연 어떤 객체에는 키 이름을 쓰고, 어디에는 아이디를 자동 생성해야 하는지가 할까? 처음엔, 해석을 잘못해서 키 이름이 시스템 전체에서 유일한 줄 알아서 많이 헤맸었는데, 알고보니 같은 모델(정확하게는 엔티티 그룹)안에서만 유일하면 된다는 것을 늦게서야 알게 되었다.</p>
-<p>결론부터 말하자면, 내가 맞게 쓰고 있는 건지는 모르지만, 개발 시점에 미리 생성해둬야 하는 정적인 객체들(아이템 정보, 맵 정보, 밸런싱 데이터 등 유일성을 개발 시점에 파악할 수 있는 객체들)에게는 유일한 키 이름을 할당해서, 향후 빠른 변경 및 접근을 할 수 있게 하고, 런타임에 생성하기 때문에 유일성을 미리 파악하기 힘든 다른 수많은 객체들(계정, 플레이어, 아이템 인스턴스, 도전 과제 인스턴스 등)은 자동으로 아이디를 할당받게 하는 게 좋다.</p>
-<p>그런데, 개발을 위해서 동일한 코드를 기반으로 서로 다른 app-id를 가진 구글 앱엔진 서버(Development - Test - Production)를 운영할 경우, 자동으로 만들어져서 아이디를 가진 객체들 - 특히나 ReferenceProperty 로 관계가 맺어진 넘들-을 다른 서버로 옮기는 것이 거의 불가능하다는 점에 유의해야 한다. 왜냐하면 객체의 키값에 이미 app-id 가 들어가 있기 때문에 CSV 등으로 백업해서 복원할 경우, 만약  기존에 동일한 id 를 가진 객체가 존재하면 그냥 덮어써버리기 때문이다. :(</p>
-<p><strong>쿼리(datastore_v3.RunQuery)와 읽기(datastore_v3.Get)의 차이를 이해해야 한다.</strong></p>
-<p>ReferenceProperty 를 이용하면, 1:N 의 관계를 표현할 수 있다. 아래의 코드처럼</p>
-<p>[code language="python"]<br />
-class Player(db.Model):<br />
-  pass<br />
-class Item(db.Model):<br />
-  player = db.ReferenceProperty(Player,collection_name="items")</p>
-<pre><code>
-과 같이 정의된 경우, player.items 라는 역참조가 자동적으로 만들어진다. 문제는 이게 코드를 읽을 때에는 왠지 캐싱이 될 것처럼 보이지만, 내부적으로 datastore_v3.RunQuery 라는 RPC가 호출되기 때문에 매번마다 다시 데이터스토어에서 읽어온다는 점이다. 무조건 [appstat](http://code.google.com/intl/ko-KR/appengine/docs/python/tools/appstats.html) 을 활성화시켜 두고, 조금이라도 반응 속도가 느린 요청이 있으면 항상 확인하는 버릇을 길러야 한다.
-
-반대로 이미 키값을 알고 있는 item 의 소유자 이름을 읽어오려면, item.player.name 처럼만 하면 된다. 그런데 내부적으로 datastore_v3.Get 요청은 특정 필드만 읽어오는 기능을 지원하지 않기 때문에, 항상 모든 속성들이 다 읽어지게 된다. 더욱 무서운 점은 그냥 item.player 나 item.player.key() 라고만 해도 Get 요청이 이루어진다는 거다. 만약 참조하는 객체의 하위 속성이 아니라 오직 키값만 알고 있으면 되는 경우에는 model_name.reference_prop.get_value_for_datastore(entity) 를 이용하면, 코드는 더러워지지만 불필요한 요청을 피할 수 있다.
-
-특히 루프 안에서 참조키의 하위 속성을 읽는 짓은 가급적 피하는 것을 권장한다.
-
-[code language=&quot;python&quot;]
-for item in Item.all().filter():
-  if item.player.hp == 0: # bad bad
-  pass
-</code></pre>
-
-<p>계속 추가할 예정입니다 :)</p></div>
-	
-	<p>
-	
-		<a href="/tag/datastore/"><span class="label">datastore</span></a>
-	
-		<a href="/tag/appengine/"><span class="label">appengine</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -266,23 +223,23 @@ for item in Item.all().filter():
 	</li>
 	
 	<li>
+		<a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a>
+	</li>
+	
+	<li>
+		<a href="/2010/11/02/custom-tag/"><% raw %> custom tag</a>
+	</li>
+	
+	<li>
+		<a href="/2010/10/12/photoshop-shortcuts/">Photoshop Shortcuts</a>
+	</li>
+	
+	<li>
 		<a href="/2010/10/12/advanced-photoshop-techniques-for-ui/">Advanced Photoshop Techniques for UI</a>
 	</li>
 	
 	<li>
 		<a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a>
-	</li>
-	
-	<li>
-		<a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a>
-	</li>
-	
-	<li>
-		<a href="/2010/08/16/createdeepkey/">create_deep_key</a>
-	</li>
-	
-	<li>
-		<a href="/2010/08/12/google-app-engine-tips/">Google App Engine Tips</a>
 	</li>
 	
 </ul>

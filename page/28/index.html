@@ -63,6 +63,78 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/09/09/activex/">ActiveX</a> <small>2006-09-09</small></h1>
+	</div>
+	<div><p><strong><em>[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87215">http://reiot.springnote.com/pages/87215</a> 에서 읽으실 수 있습니다.</em></strong></p>
+<p>어쩌다보니 ActiveX를 이용해서 브라우저에서 클라이언트를 실행하는 작업을 도와주게 되었다. 담당자나 나나 이 쪽으로는 거의 지식이 전무한 상태였는데, 삽질을 반복하면서 여러 가지 유용한 정보들을 알아내었다. 이미 귀국 날짜가 연기된 마당이므로 시간도 널널하고 해서 알아낸 점들을 정리해본다.</p>
+<p>혹시라도 이 분야에 처음 발을 들였다면 <a href="http://www.codeproject.com/com/CompleteActiveX.asp">A Complete ActiveX Web Control Tutorial</a>를 꼭 읽어보기 바란다. 물론 <a href="http://en.wikipedia.org/wiki/ActiveX">위키피디아</a>의 설명도 괜찮다.</p>
+<h2>설치 여부 알아내기</h2>
+<p><a href="http://game.paran.com/">파란닷컴</a>처럼 active-x 컨트롤이 설치되지 않은 컴퓨터에 대해서 설치 안내 페이지로 redirect 시키려면, onerror 이벤트를 이용하면 된다.</p>
+<p><a href="http://december.com/html/4/element/script.html">&lt;script</a> language="javascript" for="mycontrol" event="onerror"&gt;<br />
+location.href = '/redirect/to/how-to-install.html';<br />
+</script></p>
+<p><a href="http://december.com/html/4/element/object.html">&lt;OBJECT</a> ID='mycontrol' CLASSID='....' codebase=....&gt;<br />
+<a href="http://december.com/html/4/element/span.html"><SPAN></a>Active-X control not installed. go to <a href="http://december.com/html/4/element/a.html">&lt;a</a> href="/redirect/to/how-to-install.html"&gt;HOW TO INSTALL Active-X</a> page</SPAN><br />
+</OBJECT></p>
+<p>이때 OBJECT 태그 사이의 코드들은 해당 객체가 로드되지 않을 경우 렌더링된다는 점을 잘 활용하면 좋을 것이다.</p>
+<h2>삭제하기</h2>
+<p>XP 의 경우 $WINDOWS/Downloaded Program Files/ 아래에서 삭제하면 된다. Windows 2003 의 경우는 어디인지 확인할 수 없었다.</p>
+<h2>컨트롤 활성화</h2>
+<p>올해부터 IE에서는 <a href="http://www.microsoft.com/korea/windows/ie/ie6/activex/activate/default.mspx">컨트롤이나 애플릿들이 기본적으로 비활성화 상태로 변경되</a>었다. 이를 수정하는 방법은 자바스크립트 코드를 이용해서 OBJECT 태그를 쓰면 된다. 보다 자세한 사항은 <a href="http://support.microsoft.com/kb/914257/ko">HOWTO</a> 문서를 참고할 것.</p>
+<p><a href="http://december.com/html/4/element/script.html"><script></a><br />
+document.write('<a href="http://december.com/html/4/element/object.html">&lt;object</a> classid="CLSID:..." type="application/x-oleobject" codebase="..." width="320" height="240"&gt; </object>');<br />
+</script></p>
+<h2>ActiveX Control Pad</h2>
+<p>마이크로소프트에서 제공하는 유틸리티인데 실제로 마소에서는 받아지질 않는다. 따라서 <a href="http://www.download.com/ActiveX-Control-Pad/3000-2406_4-861343.html?tag=pop">여기</a>서 받을 것.</p>
+<h2>브라우저로 이벤트 전달하기</h2>
+<p>만약 ActiveX 컨트롤에서 click 등의 마우스 이벤트 핸들러를 정의했다면 javascript 레벨에서 동일한 이벤트 핸들러를 정의할 수 없다. 이는 컨트롤이 이벤트를 먹어버리기 때문으로 보이는데, 이를 해결하려면 컨트롤에서 이벤트를 정의하고 브라우저로 보내준 다음 브라우저에서 핸들링을 하면 된다.</p>
+<p>Public Event CloseBrowser()<br />
+Public Sub OnClick()<br />
+' handle click event<br />
+RaiseEvent CloseBrowser() ' fire event<br />
+End</p>
+<p><a href="http://december.com/html/4/element/script.html">&lt;script</a> language="javascript" for="mycontrol" event="closebrowser"&gt;<br />
+self.close();<br />
+</script></p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/09/07/라스베가스-그랜드캐년-사진전/">라스베가스 & 그랜드캐년 사진전</a> <small>2006-09-07</small></h1>
+	</div>
+	<div><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236625957"><img alt="http://static.flickr.com/89/236625957_2d160f7cba_s.jpg" src="http://static.flickr.com/89/236625957_2d160f7cba_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236621761"><img alt="http://static.flickr.com/82/236621761_b241158e4d_s.jpg" src="http://static.flickr.com/82/236621761_b241158e4d_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236616922"><img alt="http://static.flickr.com/97/236616922_616cba2587_s.jpg" src="http://static.flickr.com/97/236616922_616cba2587_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236614900"><img alt="http://static.flickr.com/88/236614900_938f823497_s.jpg" src="http://static.flickr.com/88/236614900_938f823497_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236612458"><img alt="http://static.flickr.com/89/236612458_b410c994f0_s.jpg" src="http://static.flickr.com/89/236612458_b410c994f0_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236610619"><img alt="http://static.flickr.com/84/236610619_5ffc59b02c_s.jpg" src="http://static.flickr.com/84/236610619_5ffc59b02c_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235675320"><img alt="http://static.flickr.com/80/235675320_614fb8ff75_s.jpg" src="http://static.flickr.com/80/235675320_614fb8ff75_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235660261"><img alt="http://static.flickr.com/81/235660261_0940dec4f4_s.jpg" src="http://static.flickr.com/81/235660261_0940dec4f4_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235660260"><img alt="http://static.flickr.com/88/235660260_b7d4c9a0b6_s.jpg" src="http://static.flickr.com/88/235660260_b7d4c9a0b6_s.jpg" /></a></p>
+<p>레이옷의 <a href="http://flickr.com/photos/78725883@N00/sets/72157594258890065/detail/">Flicker</a>에 가시면 좀더 최신의 사진들을 보실 수 있습니다. 자자. 저희 회사로 오십시요. 해외 출장 겸 영어 연수 겸 관광의 기회가 주어집니다. 매번 겨울-봄 워크샵은 스키장에서 보내고, 이번 가을 워크샵은 일본으로 갈 예정이라니까요~~</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/09/06/미국이라는-나라는/">미국이라는 나라는…</a> <small>2006-09-06</small></h1>
+	</div>
+	<div><p><img alt="BlackBerry" src="http://ec1.images-amazon.com/images/P/B000FEHG76.01._SS500_SCLZZZZZZZ_V53894984_.jpg" /></p>
+<ul>
+<li>
+<p>우리 보스는 <a href="http://www.dt.co.kr/contents.htm?article_no=2006030302013231728002">대규모 정전에도 무선 인터넷을 통해서 업무 메일을 받아 볼 수 있다</a>는 블랙 베리폰을 사용한다. 며칠 전 점심때 회사에서 약 20분 정도 떨어진 말레이시아 레스토랑에서 점심을 먹고, 돌아오는 길에 이 폰으로 현재 LA 의 각 도로 사정을 검색하고 어느 도로를 타고 돌아갈 것인지를 검색했다. 그러면서 한달에 겨우 10달러로 무선인터넷을 무제한으로 사용할 수 있다고 자랑하면서, 구글에 접속해서 검색도 하고, 현재 서비스중인 게임의 각 서버 별 MRTG 트래픽 그래프도 확인하는 걸 보여주기도 했다. 저녁 때에도 함께 식사를 마치고 돌아오는 길에는 부하 직원으로부터 메일이 온 것도 보여줬다. (이쯤 되면 짐작하겠지만, 우리 보스 역시 지름신의 가호를 받은 사람 중의 하나다. 오죽했으면 BMW 745의 다음 차로 무엇을 골라야 할지 걱정이라고까지 말할 정도겠는가..)</p>
+</li>
+<li>
+<p>본사의 마케팅 담당인 션(27세)은 최근 <a href="http://www.sonee.com/blog/?no=265">소니군이 무척이나 갖고 싶어하는 350Z</a>를 겨우 이만오천달러에 구입했다. 우리가 본사로 첫 출근하는 날, 그는 자신의 바탕 화면에 당당하게 새 차의 사진을 붙여 놓고, 우리 실장에게 자랑을 해대었다. 그리고는 며칠 후 생일 휴가를 받아서 한동안 얼굴도 보이지 않았다. -_-;;</p>
+</li>
+<li>
+<p>본사가 들어선 건물의 화장실은 항상 굳게 잠겨 있다. 잠을 설쳐 컨디션이 좋지 않은 날, 에어컨 바람을 계속 쐬다 보면 배가 아파지는 허약한 장을 소유한 레이옷에게는 참 죽을 맛이다. 물어보니 자꾸 화장실을 이상한 용도(-_-)로 사용하는 사람들이 있어서 그렇다나?</p>
+</li>
+<li>
+<p>본사도 그렇고 호텔도 그렇고 이 근처(다이아몬드 바)에는 아시아계 사람들이 꽤나 많다. 그래서, 일부를 제외하면 대체로 본토 발음이 아니라서 그럭 저럭 잘(?) 들리기는 한데, 뭔가 샤방샤방한 언니들 대신 거대하신 분들만 계셔서 좀 아쉽긴 하다. (참고로 밥먹으러 가거나 쇼핑을 가도 한국어가 통한다. -_-+)</p>
+</li>
+<li>
+<p>미국의 고속 도로도 때로는 막히곤 한다. 이번 주 월요일은 노동절이어서 다들 놀았는데, 덕분에 라스베가스에서 LA까지 오는데 8시간이나 걸렸다. 운전하느라 무리하신 최실장에게 묵념. 잇힝.</p>
+</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/09/04/여기는-라스베가스/">여기는 라스베가스</a> <small>2006-09-04</small></h1>
 	</div>
 	<div><div style="float:right;margin-left:10px;margin-bottom:10px;">
@@ -91,67 +163,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/08/29/아메리칸-스케일/">아메리칸 스케일</a> <small>2006-08-29</small></h1>
-	</div>
-	<div><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/228179028"><img alt="http://static.flickr.com/75/228179028_c06dbabfbf_s.jpg" src="http://static.flickr.com/75/228179028_c06dbabfbf_s.jpg" /></a></p>
-<p>LA에 도착하자 마자 느낀 점은 눈에 보이는 모든 것이 커다랗다는 점이다. 넓은 도로 폭, 큰 자동차, 큰 건물과 창고들 그리고 거대한 사람들(-_-). 이것이 바로 어메리칸 스타일인가? 하고 신기해하던 촌놈 레이옷은 점심으로 나온 몬스터 감자를 보고 또 한번 놀랬다. 비록 시차 적응 때문에 컨디션이 영 아니었지만 토핑만 겨우 먹을 수 있을 정도로 크기와 양이 대단했다.</p>
-<p>오늘 하루는 영단어의 홍수 속에서 헤엄만 치다가 끝났다. 가만히 사람들이 말하는 것을 들어보면, 표준 영어와 비표준 영어의 차이가 확 느껴질 덩도로, 영어라는 언어의 스펙트럼이 넓다는 것이 새삼 느껴졌다. (물론 우리나라의 사투리도 장난 아니지만) 다행인 것은 몇몇 착한 친구들이 계속 이야기를 걸어 줘서 그럭저럭 대화를 이어갈 수 있었다는 사실. 단어의 조합으로 질문의 의도를 파악하고 적당히 대답해주는 걸 반복하다 보니, 조금은 자신감이 생기는 것 같았다. 역시 외국어를 배울 때 가장 중요한 것은 의사 소통 실패를 두려워하지 않는 자신감인 것 같다.</p>
-<p>역시나, 여기도 사람이 사는 곳에 불과한 것 같다. (단지 크기만 클 뿐)</p>
-<ul>
-<li>심심하신 분은 <a href="http://www.flickr.com/photos/78725883@N00/sets/72157594254444505/show/">출장 첫째날 사진</a>도 보셔요.</li>
-</ul></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/08/26/la로-출장갑니다/">LA로 출장갑니다.</a> <small>2006-08-26</small></h1>
-	</div>
-	<div><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/225102939"><img class="tt-flickr" src="http://static.flickr.com/60/225102939_8390297a9b_s.jpg" width="75" height="75"></a> 2002-2003년도에 중국에서 5개월 정도 출장간 후, 몇 년만에 처음으로 바다를 건너게 되었다. 내일 저녁에 출국해서 본사가 위치한 LA 근처 Diamond Bar라는 곳에서 약 2주 정도 머무를 예정이다.</p>
-<p>이번 출장의 지상 최대의 목적은 바로 이번에 작업한 파일럿 무비를 보스에게 시연하는 것이다. 물론 시연 자체는 같이 가는 우리 실장이 하고, 나는 옆에서 고개만 끄덕거리면서 적당히 코멘트를 날리면 될 뿐이다. 그 외에 몇 가지 사항, 가령 3D 스캐닝을 미국에서 외주를 줬을 때 돈이 얼마가 들 것인지 조사하는 것과, 차세대 콘솔로의 이식 문제라든지 차차기 프로젝트의 동시 진행 여부 등에 대해서 보스의 의향을 알아 와야 하는 정도가 있겠다.</p>
-<p>미국으로의 첫 출장임에도 그다지 긴장하거나 기대가 되지 않는 이유는, 아무래도 중국에서의 경험 덕분일지도 모르겠다. 다만 유일하게 기대되는 것은 지평선을 또다시 볼 수 있다는 것 정도??</p>
-<p>아무튼, 잘 다녀오겠습니다~</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/08/03/osx-tips/">OSX Tips</a> <small>2006-08-03</small></h1>
-	</div>
-	<div><h2>초보들을 위한 팁</h2>
-<ul>
-<li><a href="http://x86osx.com/bbs/zboard.php?id=knowhow">OSX 팁</a> - x86osx.com</li>
-<li><a href="http://www.appleforum.com/showthread.php?t=9413&amp;page=2&amp;pp=15">OSX 단축키 모음글</a> from 애플포럼</li>
-<li>애플 코리아 제공 OSX 단축키 문서<br />
-<a class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/OSX_shortcut.jpg" title="OSX shortcut" rel="lightbox"><img alt="OSX shortcut" src="http://boxcatstudio.files.wordpress.com/2009/07/OSX_shortcut.jpg" /></a></li>
-</ul>
-<h2>유용한 유틸리티</h2>
-<ul>
-<li><a href="http://www.versiontracker.com/dyn/moreinfo/macosx/182">Stuffit Expander</a> : sit 포맷 압축 해제</li>
-<li><a href="http://macupdate.com/info.php/id/6366">Adium X</a> : 맥용 MSN/AOL/ICQ/... 클라이언트</li>
-<li><a href="http://macromates.com/">TextMate</a> : 맥용 텍스트 에디터</li>
-</ul>
-<h2>애플 초보라면 자주 들러야 할 곳</h2>
-<ul>
-<li><a href="http://appleforum.com">애플포럼</a> - 일명 애포.</li>
-<li><a href="http://www.albireo.net/powerbook/forum/">Albireo's Powerbook forum</a></li>
-<li><a href="http://maczoo.com">http://maczoo.com</a></li>
-<li><a href="http://www.clien.net/zboard/zboard.php?id=cm_mac2">클리앙+맥</a> - 클리앙 맥 소모임</li>
-<li><a href="http://mackipedia.org">mackipedia</a> - 한글 맥 위키피디아</li>
-<li><a href="http://www.osxdev.org/forum/">OSXDev포럼</a>, <a href="http://www.osxdev.org/wiki/">OSXDev위키</a></li>
-</ul>
-<h2>Q&amp;A</h2>
-<ul>
-<li>윈도우 x 를 눌러도 프로세스는 남아있다. 완전 종료 하는 법은?</li>
-<li>윈도우 종료, 닫기, 최대화, 최소화 단축키</li>
-<li>컴퓨터 이름 바꾸는 법<br />
-*</li>
-</ul></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -172,23 +183,23 @@
 	</li>
 	
 	<li>
+		<a href="/2006/09/09/activex/">ActiveX</a>
+	</li>
+	
+	<li>
+		<a href="/2006/09/07/라스베가스-그랜드캐년-사진전/">라스베가스 & 그랜드캐년 사진전</a>
+	</li>
+	
+	<li>
+		<a href="/2006/09/06/미국이라는-나라는/">미국이라는 나라는…</a>
+	</li>
+	
+	<li>
 		<a href="/2006/09/04/여기는-라스베가스/">여기는 라스베가스</a>
 	</li>
 	
 	<li>
 		<a href="/2006/09/01/xp팀의-작업실/">XP팀의 작업실</a>
-	</li>
-	
-	<li>
-		<a href="/2006/08/29/아메리칸-스케일/">아메리칸 스케일</a>
-	</li>
-	
-	<li>
-		<a href="/2006/08/26/la로-출장갑니다/">LA로 출장갑니다.</a>
-	</li>
-	
-	<li>
-		<a href="/2006/08/03/osx-tips/">OSX Tips</a>
 	</li>
 	
 </ul>

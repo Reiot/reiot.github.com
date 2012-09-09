@@ -63,6 +63,177 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a> <small>2011-04-14</small></h1>
+	</div>
+	<div><p>구글 앱엔진은 데이터스토어의 내용을 로컬 파일로 내려받거나 올리는 벌크로딩을 지원한다. 그런데 막상 기획 데이터와 실시간 연동하려면, 스프레드시트를 편집한 후 CSV로 '하나씩' 다운받아서 다시 콘솔창에서 appcfg.py 로 '한 종류씩' 올려야 하는, 상당히 피곤한 과정을 거쳐야 한다.</p>
+<p>만약 구글 스프레드시트의 데이터를 바로 데이터스토어로 올리고 내릴 수 있다면 얼마나 편할까? 해서 스프레드시트 API 를 써서 직접 만들어봤는데, Model 당 import/export/create 코드를 각각 작성해야 하는 단점이 있었다. 그런데, 이미 bulkloader.yaml 를 만들어서 관리중이라면, 아래 커넥터를 써서 간단하게 구현할 수 있다.</p>
+<p><a href="http://code.google.com/p/bulkloader-gdata-connector/">http://code.google.com/p/bulkloader-gdata-connector/</a></p>
+<p>기본적인 사항들은 <a href="http://code.google.com/p/bulkloader-gdata-connector/wiki/GettingStarted">가이드 문서</a>를 읽어보면 되고, 아래 다음 사항들을 참고하면 된다.</p>
+<ul>
+<li>django 1.2 를 사용할 경우, 코드 맨 위에     use_library('django', '1.2')를 추가할 것. 그렇지 않으면 무서운 0.96.4 is already in use 에러를 맛보리라.</li>
+<li>구글앱스 도메인을 사용할 경우 GenerateAuthSubURL(..., domain='yourapps.com') 을 추가할 것.</li>
+<li>컬럼 이름에는 공백, underscore(_), 대문자를 사용하면 안된다.</li>
+<li>내보내기는 제법 오랜 시간이 걸리지만, 불러오는 건 꽤 빠르다. 즉 최초에 한번 내보내고 그 다음부터는 금방 금방 불러올 수 있다는 뜻이다. :)</li>
+<li>단점이라면, 데이터를 불러오려면 콘솔 즉 프로그래머의 개입(==패스워드 입력)이 필요하다는 점이다. 웹 기반 UI 에서 Connector를 어찌어찌 잘 부를 수 있으면 좋겠는데, 워낙 코드가 복잡해서;;</li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/bulkload/"><span class="label">bulkload</span></a>
+	
+		<a href="/tag/appengine/"><span class="label">appengine</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2011/04/14/ant-cookbook/">Ant Cookbook</a> <small>2011-04-14</small></h1>
+	</div>
+	<div><h2>Property vs. Var</h2>
+<p>상수인 Property은 하위 Target 에게 보이지 않지만, 변수인 Var 는 보인다.</p>
+<h2>특정 확장자를 가진 파일만 삭제하기(recursive)</h2>
+<pre><code>&lt;delete&gt;
+    &lt;fileset dir=&quot;${dir}/..&quot; includes=&quot;**/*.js&quot;/&gt;
+&lt;/delete&gt;
+</code></pre>
+
+<h2>특정 폴더 이하 모든 하위 폴더를 삭제하기(빈 폴더 포함)</h2>
+<pre><code>&lt;delete includeemptydirs=&quot;yes&quot;&gt;
+    &lt;fileset dir=&quot;${dir}&quot; includes=&quot;**/*&quot;/&gt;
+&lt;/delete&gt;
+</code></pre>
+
+<h2>정규식을 이용해서 파일 이름 바꾸기</h2>
+<p>apply task 보다는 move task + regexpmapper 를 이용하면 간단하다. move 는 대상 폴더가 없으면 무조건 만들기 때문에 편하다!<strong> </strong></p>
+<pre><code>&lt;!--
+&lt;apply executable=&quot;mv&quot;&gt;
+    &lt;fileset dir=&quot;${dir}&quot; includes=&quot;*.png&quot;/&gt;
+    -v&quot;/&gt;
+    &lt;srcfile/&gt;
+    &lt;targetfile/&gt;
+    &lt;regexpmapper from=&quot;^_\d\d\d\d_(.*)\.png$&quot; to=&quot;${dir}/\1.png&quot;/&gt;
+&lt;/apply&gt;
+--&gt;
+
+&lt;move todir=&quot;${dir}&quot;&gt;
+    &lt;fileset dir=&quot;${dir}&quot; includes=&quot;*.png&quot;/&gt;
+    &lt;regexpmapper from=&quot;_\d\d\d\d_(.*)\.png&quot; to=&quot;\1.png&quot;/&gt;
+&lt;/move&gt;
+</code></pre>
+
+<h2>경로에서 부모 폴더(dirname)와 파일명(basename)으로 분리하기</h2>
+<p>basename 의 suffix 를 지정하면 확장자 없는 순수 파일명만 저장할 수 있다.</p>
+<pre><code>&lt;dirname property=&quot;parentdir&quot; file=&quot;${file}&quot;/&gt;
+&lt;basename property=&quot;basename&quot; file=&quot;${file}&quot; suffix=&quot;.png&quot;/&gt;
+</code></pre>
+
+<h2>파일명에 정규식을 적용해서 속성에 저장하기</h2>
+<p>propertyregex 를 이용하면 된다. 이때 디폴트값을 정해줄 수도 있다.</p>
+<pre><code>&lt;propertyregex property=&quot;output&quot;
+    input=&quot;${file}&quot;
+    regexp=&quot;(.+?)_(.+)&quot;
+    select=&quot;\2&quot;
+    defaultValue=&quot;${default}&quot;/&gt;
+</code></pre>
+
+<h2>하위 폴더 각각에 대해서 특정 타겟을 실행하기</h2>
+<p>foreach task 를 이용하면 된다. 이때 dirset 은 항상 부모 폴더 자신(./)을 포함하는데, excludes=./ 등으로 자신을 제거할 수 없으므로, 아래처럼 includes=<em>/</em>* 으로 제외할 수 있다.</p>
+<pre><code>&lt;foreach param=&quot;dir&quot; target=&quot;xxx&quot;&gt;
+    &lt;path&gt;
+        &lt;dirset dir=&quot;${parentdir}&quot; includes=&quot;*/**&quot;/&gt;
+    &lt;/path&gt;
+&lt;/foreach&gt;
+</code></pre>
+
+<h2>Exec vs. Apply</h2>
+<p>exec 는 커맨드라인 명령을 1회 실행하지만, apply 는 특정 집합에 대해서 for 루프처럼 실행이 가능하다.<br />
+이때 arg value 는 -v 나 -f 같은 단일 파라미터이고, arg line 은 --output xxx 처럼 공백이 들어가는 긴 파라미터에 사용한다.<br />
+또한 regexpmapper 를 이용해서 targetfile 에 대해 정규식을 적용할 수도 있다.</p>
+<pre><code>&lt;exec executable=&quot;${file.python}&quot;&gt;
+    &lt;arg value=&quot;trim.py&quot;/&gt;
+    &lt;arg value=&quot;--verbose&quot;/&gt;
+    json ${trim.dir}/anchor.json&quot;/&gt;
+    &lt;arg value=&quot;${trim.dir}&quot;/&gt;
+&lt;/exec&gt;
+&lt;apply executable=&quot;${file.python}&quot;&gt;
+    &lt;fileset dir=&quot;${flip.dir}&quot; includes=&quot;*.png&quot; excludes=&quot;*.r.png&quot;/&gt;
+    &lt;arg value=&quot;flip.py&quot;/&gt;
+    &lt;arg value=&quot;--verbose&quot;/&gt;
+    &lt;arg value=&quot;-o&quot;/&gt;
+    &lt;targetfile/&gt;
+    &lt;srcfile/&gt;
+    &lt;regexpmapper from=&quot;(.*)\.png$&quot; to=&quot;${flip.dir}/${flip.default}.png&quot;/&gt;
+&lt;/apply&gt;
+</code></pre>
+
+<h2>파일 출력</h2>
+<p>echo task를 이용하면 화면 출력 뿐만 아니라, 파일에 임의의 문자열을 append를 할 수 있다. 이걸 이용하면 concat task 를 쓰지 않고도 header 나 footer 를 간단하게 넣을 수 있다.</p>
+<pre><code>&lt;echo file=&quot;${script}&quot; append=&quot;yes&quot;&gt;
+    sprites = sprites || {};
+    sprites.data = sprites.data || {};
+&lt;/echo&gt;
+</code></pre>
+
+<h2>파일 이어붙일 때 필터링하기</h2>
+<p>filterchain 을 이용해서 특정 문자열을 포함한 라인을 제거하거나, tokenfilter + replaceregex 를 이용해서 문자열을 바꿀 수도 있다.</p>
+<pre><code>&lt;concat destfile=&quot;${script}&quot; append=&quot;yes&quot;&gt;
+    &lt;path&gt;
+        &lt;filelist dir=&quot;${dir}&quot; files=&quot;${json}&quot; /&gt;
+    &lt;/path&gt;
+    &lt;filterchain&gt;
+        &lt;linecontains negate=&quot;true&quot;&gt;
+            &lt;contains value=&quot;trimmed&quot;/&gt;
+        &lt;/linecontains&gt;
+        &lt;tokenfilter&gt;
+            &lt;!--
+            &lt;replaceregex pattern=&quot;\{&quot;frames&quot;\:&quot; replace='sprites[&quot;${spritename}&quot;] =' flags=&quot;g&quot;/&gt;
+            --&gt;
+            &lt;!-- remove .&lt;span class=&quot;hiddenSpellError&quot; pre=&quot;remove &quot;&gt;png&lt;/span&gt; --&gt;
+            &lt;replaceregex pattern=&quot;\.png&quot; replace='' flags=&quot;g&quot;/&gt;
+        &lt;/tokenfilter&gt;
+    &lt;/filterchain&gt;
+&lt;/concat&gt;
+</code></pre>
+
+<h2>파일을 복사하면서 이름 바꾸기</h2>
+<p>copy task 와 globmapper 를 쓰면 파일을 복사하면서 단순하게 이름을 바꿀 수 있다.</p>
+<pre><code>&lt;copy todir=&quot;${destdir}&quot;&gt;
+    &lt;fileset dir=&quot;${srcdir}&quot; includes=&quot;*.png&quot;/&gt;
+&lt;/copy&gt;
+&lt;copy todir=&quot;${destdir}&quot;&gt;
+    &lt;filelist dir=&quot;${srcdir}&quot; files=&quot;${src}.js&quot;/&gt;
+    &lt;mapper type=&quot;glob&quot; from=&quot;*.js&quot; to=&quot;sprite.*.js&quot;/&gt;
+&lt;/copy&gt;
+</code></pre>
+
+<h2>명령 실행시 입력 리다이렉트 적용하기</h2>
+<p>잘 알려지진 않았지만, 구글 앱엔진의 패스워드를 파일에 저장한 후, appcfg.py --passin &lt; file 을 이용하면 자동화가 가능하다. ant 에서는 exec 의 inputstring 으로 대체할 수 있다.</p>
+<pre><code>&lt;exec executable=&quot;appcfg.py&quot; inputstring=&quot;${bulkload.pass}&quot;&gt;
+  &lt;arg value=&quot;${bulkload.cmd}&quot;/&gt;
+  &lt;arg line=&quot;--application=${bulkload.appid}&quot;/&gt;
+  &lt;arg value=&quot;--config_file=${bulkload.config}&quot;/&gt;
+  &lt;arg value=&quot;--email=${bulkload.email}&quot;/&gt;
+  &lt;arg value=&quot;--url=${bulkload.url}&quot;/&gt;
+  &lt;arg value=&quot;--kind=${bulkload.kind}&quot;/&gt;
+  &lt;arg value=&quot;--filename=${bulkload.csv}&quot;/&gt;
+  &lt;arg value=&quot;--no_cookies&quot;/&gt;
+  passin&quot;/&gt;
+  &lt;arg value=&quot;.&quot;/&gt;
+  &lt;/exec&gt;
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/ant/"><span class="label">ant</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2011/03/01/textmate-tips/">TextMate Tips</a> <small>2011-03-01</small></h1>
 	</div>
 	<div><h2>깔끔하게 지우기</h2>
@@ -160,162 +331,91 @@ on_production_server = have_appserver and \
 			
 				<article>
 	<div class="page-header">
-		<h1><a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a> <small>2010-12-14</small></h1>
+		<h1><a href="/2011/01/04/git-tips/">Git Tips</a> <small>2011-01-04</small></h1>
 	</div>
-	<div><p>jQuery UI widget 은 기본적으로 한번에 여러 개의 옵션을 설정할 수 있다.</p>
-<pre><code>$('...').somewidget('option',{aa:bb, cc:dd});
+	<div><h3>git ignore</h3>
+<p><a href="http://github.com/guides/ignore-for-git">http://github.com/guides/ignore-for-git</a></p>
+<p>pull 할 때 다음 에러가 뜰 경우</p>
+<pre><code>You asked me to pull without telling me which branch you
+want to merge with, and ‘branch.master.merge’ in
+your configuration file does not tell me either. Please
+specify which branch you want to merge on the command line and
+try again (e.g. ‘git pull ‘).
+See git-pull(1) for details.
+
+If you often merge with the same branch, you may want to
+configure the following variables in your configuration
+file:
+
+branch.master.remote =
+branch.master.merge =
+remote..url =
+remote..fetch =
+
+See git-config(1) for details.
 </code></pre>
 
-<p>하나의 옵션을 설정할 때의 추가적인 로직을 넣으려면  _setOption() 을 재정의하면 된다.</p>
-<pre><code>_setOption: function(key,value){
-  if(key=='some'){...do something...}
-}
+<p>git config -l 로 살펴보면 이미 remote 들은 등록이 되어 있다. 여기서 할 일은 branch master 를 설정하는 거다.</p>
+<pre><code>git config branch.master.remote origin
+git config branch.master.merge refs/heads/master
 </code></pre>
 
-<p>가끔은 여러 개의 옵션을 한번에 설정할 때, 그 중 몇몇 옵션이 바뀔 경우에 대한 추가적인 로직을 넣으려면  _setOptions 를 재정의하면 된다. jQuery UI Dialog 의 코드가 가장 좋은 예제일 것이다. 다만 1.8.6 부터 지원하니까 버전에 주의하길.</p>
-<pre><code>_setOptions: function( options ) {
-  var self = this,
-  resizableOptions = {},
-  resize = false;
+<p>이걸 해주면 된다. via <a href="http://stackoverflow.com/questions/2335343/how-to-tell-git-to-always-pull-the-master-branch">http://stackoverflow.com/questions/2335343/how-to-tell-git-to-always-pull-the-master-branch</a></p>
+<h3>작업한 모든 파일을 버리고 이전 버전으로 되돌리고 싶을 때</h3>
+<blockquote>
+<p>git reset --hard HEAD</p>
+</blockquote>
+<p>변경된 모든 파일을 HEAD 버전으로 복구한다. </p>
+<blockquote>
+<p>git clean -f</p>
+</blockquote>
+<p>새로 만들어졌지만 아직 stage 상태가 아닌 파일들을 삭제한다.</p>
+<h3>이미 커밋한 내용을 수정하고 싶은 경우</h3>
+<blockquote>
+<p>git commit --amend</p>
+</blockquote>
+<p>이전 커밋 로그를 변경하거나, 이번에 바꾼 파일을 이전 커밋으로 합쳐버릴 때 사용한다. </p>
+<blockquote>
+<p>git revert HEAD</p>
+</blockquote>
+<p>가장 마지막 커밋(HEAD)을 취소하고 되돌린다. HEAD^2, HEAD~3 </p>
+<blockquote>
+<p>git revert HEAD^</p>
+</blockquote>
+<p>마지막 커밋의 바로 이전 커밋(즉 HEAD+1)으로 되돌린다.</p>
+<blockquote>
+<p>git revert -m 1 {commit}</p>
+</blockquote>
+<h3>파일이나 폴더를 버전관리하고 싶지 않을 때</h3>
+<p>.gitignore 에 파일 이름을 등록한다. </p>
+<pre><code>#exclude folder
+TEMP/*
+#include file in exclude folder
+!TEMP/include_me
+</code></pre>
 
-  $.each( options, function( key, value ) {
-  self._setOption( key, value );
-
-  if ( key in sizeRelatedOptions ) {
-  resize = true;
-  }
-  if ( key in resizableRelatedOptions ) {
-  resizableOptions[ key ] = value;
-  }
-  });
-
-  if ( resize ) {
-  this._size();
-  }
-  if ( this.uiDialog.is( &quot;:data(resizable)&quot; ) ) {
-  this.uiDialog.resizable( &quot;option&quot;, resizableOptions );
-  }
-},
-</code></pre></div>
-	
-	<p>
-	
-		<a href="/tag/jQueryUI/"><span class="label">jQueryUI</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/11/16/jqueryuitooltip/">jquery.ui.tooltip</a> <small>2010-11-16</small></h1>
-	</div>
-	<div><h2>개요</h2>
+<p>이미 추가된 파일이나 폴더를 빼고 싶은 경우</p>
+<blockquote>
+<p>git rm --cached {FILE}<br />
+git rm --cached -r {DIR}</p>
+</blockquote>
+<p>특정 폴더를 실제로 지우진 않고, 버전관리에서만 삭제한다. 이때 .gitignore 에 추가해둬야만 다른 사람이 하위 파일을 수정한 경우에 또다시 추가되는 걸 막을 수 있다.</p>
+<h3>파일이 너무 많아서 무엇을 커밋할 지 알기 힘들 때</h3>
+<blockquote>
+<p>git add -i</p>
+</blockquote>
+<p>인터랙티브 모드를 이용해서 변경된 파일을 stage 상태로 만든다.</p>
+<h3>최근 N 개의 커밋을 하나로 만들려면</h3>
+<p>git rebase -i HEAD~N</p>
+<p>으로 하면 커밋 편집기가 뜬다. 이때 삭제하고픈 커밋 앞에 pick 대신 squash (또는 s)를 써 넣으면, 최종적으로 커밋 로그 입력모드로 들어간다. 단,</p>
 <ul>
-<li>jquery ui 1.9 에서부터 지원된다. 1.8 에서 사용하려면 약간의 소스 수정이 필요하다.</li>
-<li>기본적으로 title 속성을 툴팁 텍스트로 사용한다. 동적으로 컨텐트를 만들려면 content 함수를 이용해서 DOM 을 리턴해야 한다.</li>
-<li>툴팁은 dialog 와 마찬가지로 body 에 추가된다. 자동으로 ui-tooltip-1 ui-tooltip-2 와 같이 id 가 붙는다.</li>
-<li>this.element 는 툴팁을 띄우는 원본 DOM 이고, 툴팁 컨텐트에 직접 접근하려면 this.tooltip 또는 this.widget() 을 이용해야 한다.</li>
-<li>beforeOpen 같은 걸 지원하면 좋을텐데.. 일단은 없다. 뜨지 않게 하려면 disable 시키는 수 밖에 없다.</li>
-<li>툴팁 내부 컨텐트에 jquery ui 위젯을 사용하려면 open 콜백에서 적용할 것.</li>
-</ul>
-<h2>툴팁 내부에 템플릿을 적용한 후 Progressbar 넣기</h2>
-<pre><code>xxx.tooltip({
-  content: function(){
-    return $('#building-unit-tooltip-tmpl')
-      .tmpl(unit);
-  },
-  open: function(event){
-    var timeRatio = (unit.maxTime-unit.remainTime) / unit.maxTime * 100;
-    var $tooltip = $(this).data('tooltip').widget();
-    $tooltip
-      .find('div.progressbar')
-        .progressbar({value:timeRatio})
-      .end()
-      .find('.ui-progressbar-value')
-        .animate({
-          width: &quot;100%&quot;
-        }, {
-          duration: unit.remainTime*1000
-        });
-  }});
-</code></pre></div>
+<li>rebase 를 취소하고 싶으면 q! 대신 모든 라인을 지워야 된다. </li>
+<li>이미 외부 서버로 push 되었을 경우엔 rebase 하면 인생이 꼬인다.</li>
+</ul></div>
 	
 	<p>
 	
-		<a href="/tag/jquery ui/"><span class="label">jquery ui</span></a>
-	
-		<a href="/tag/tooltip/"><span class="label">tooltip</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a> <small>2010-11-15</small></h1>
-	</div>
-	<div><p>구글맵처럼 (바닥 - 마커 - 오버레이) 등 여러 개의 레이어로 구성하고, 그 안에 위치한 각종 마커들끼리의 z-index 를 상황(?)에 따라서 코드 레벨에서 정렬해야 한다고 가정하자.</p>
-<pre><code>&lt;div id=&quot;map&quot;&gt;
-  &lt;div id=&quot;ground&quot;&gt;
-  &lt;div id=&quot;first&quot; class=&quot;marker&quot;&gt;1st&lt;/div&gt;
-  &lt;div id=&quot;second&quot; class=&quot;marker&quot;&gt;2nd&lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div id=&quot;overlay&quot;&gt;
-  &lt;div id=&quot;third&quot; class=&quot;overlay&quot;&gt;3rd&lt;/div&gt;
-  &lt;div id=&quot;fourth&quot; class=&quot;overlay&quot;&gt;4th&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
-
-<p>보통 맵은 relative, 레이어들은 absolute 로 두게 된다. 이때 레이어들의 z-index 를 지정하지 않으면(또는 auto 로 설정하면), #first 마커의 z-index 를 9999 로 잡으면 상위 레이어 위로 올라오게 된다.</p>
-<pre><code>#map {
-  position: relative;
-  width: 100%;
-  height: 500px;
-  background-color: gray;
-}
-.marker, .overlay {
-  position: absolute;
-  text-align: center;
-}
-#ground {
-  position: absolute;
-  left: 0;
-  top: 0;
-  background-color: #ededed;
-  z-index: 1000;
-}
-#overlay {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1001;
-}
-#first {
-  width: 100px;height: 100px;
-  background-color: yellow;
-}
-#second {
-  width: 50px;height: 200px;
-  background-color: green;
-}
-#third {
-  width: 200px;height: 50px;
-  background-color: red;
-}
-#fourth {
-  width: 50px;height: 300px;
-  background-color: blue;
- }
-</code></pre>
-
-<p>대신 그냥 <strong>각 레이어들의 z-index 를 각각 1000,1001 로 설정</strong>하기만 하면, 아무리 하위 레이어의 마커에 높은 z-index 를 줘도, 절대 상위 레이어를 침범하지는 않게 된다.</p>
-<p>관련 테스트 코드는 <a href="http://jsfiddle.net/Reiot/dPYcJ/embedded/result">jsfiddle</a>에서 볼 수 있다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/css/"><span class="label">css</span></a>
+		<a href="/tag/git/"><span class="label">git</span></a>
 	
 	</p>
 	
@@ -341,6 +441,14 @@ on_production_server = have_appserver and \
 	</li>
 	
 	<li>
+		<a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+	</li>
+	
+	<li>
+		<a href="/2011/04/14/ant-cookbook/">Ant Cookbook</a>
+	</li>
+	
+	<li>
 		<a href="/2011/03/01/textmate-tips/">TextMate Tips</a>
 	</li>
 	
@@ -349,15 +457,7 @@ on_production_server = have_appserver and \
 	</li>
 	
 	<li>
-		<a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a>
-	</li>
-	
-	<li>
-		<a href="/2010/11/16/jqueryuitooltip/">jquery.ui.tooltip</a>
-	</li>
-	
-	<li>
-		<a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a>
+		<a href="/2011/01/04/git-tips/">Git Tips</a>
 	</li>
 	
 </ul>

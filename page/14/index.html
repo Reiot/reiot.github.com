@@ -63,6 +63,95 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/10/24/variadic-macros/">Variadic Macros</a> <small>2008-10-24</small></h1>
+	</div>
+	<div><p>GCC 3.0 과 Visual Studio 2005 에서부터 지원하는 <a href="http://en.wikipedia.org/wiki/Variadic_macro">가변인자 매크로</a>는 <strong>VA_ARGS</strong> 로 치환된다. 알고보니 이게 1999년도에 제정된 <a href="http://en.wikipedia.org/wiki/C99">C99 표준안중 하나</a>였다는데, <a href="http://www.swallowstudio.com/wiki/doku.php?id=technicalarticles:variadicmacros">GCC에서는 약간 다른 방식도 지원</a>했던 모양이다.</p>
+<p>[code language="cpp"]</p>
+<h1>define MY_LINUX_LOG(fmt,args...) printf(fmt,##args)</h1>
+<h1>define MY_WIN_LOG(fmt,...) printf(fmt,<strong>VA_ARGS</strong>)</h1>
+<p>```</p>
+<p>뭔가 있었던거 같은데 도저히 기억도 안나고 오후 무렵에는 인터넷도 안되어서 그냥 __noop 로 고쳤는데, 집에 와서 찾아보니 MSDN 전처리기 섹션에 버젓히 자리잡고 있었다. 쩝. (늙은건가!) 이 외에도 오늘 마이그레이션 과정에서 겪었던 내용을 조금 정리해보면...</p>
+<pre><code>- __func__ / __PRETTY_FUNCTION__ 과 __FUNCTION__ : 이런건 #define 으로 해결 가능하다.
+- sleep() 과 Sleep() : 초단위 계산 잘못하면 CPU를 99% 잡아먹는다. 헤헤.
+- gettimeofday() 는 리눅스에서만 지원한다. [윈도우에서는 직접 구현](http://alones.kr/blog/654?TSSESSIONaloneskrblog=2182012b6093486515612f823d0561d8)해야 한다.
+- random() 과 rand()
+- 매크로를 이용해서 모든 .cpp 에다가 #stdafx.h 붙이기 -_-;
+- buffer overflow 가 자주 발생하는 패턴을 정규식으로 찾아내서 일괄적으로 버퍼 크기 증가시키기
+</code></pre>
+<p>그 중에서도 압권은 바로 <a href="http://en.wikipedia.org/wiki/Variable-length_array">variable length array</a> 일 것이다. 물론 이건 GCC 에서만 가능한 일인데, 내일 출근해서 std::vector 로 고치고, 경고 레벨4로 다시 컴파일해봐야겠다. </p>
+<p>[code language="cpp"]<br />
+void func(int n)<br />
+{<br />
+    float  vals[n];<br />
+    //....<br />
+}<br />
+ ```</p>
+<p>그나저나, 일본에는 40살이 넘어도 리눅스에서 서버 프로그래밍을 한다던데... 웬지 그런 사회 풍조가 부러울 따름이다. 분명히 그 아저씨의 책상 옆에는 콜라 캔들이 정리되어 있고, vi 로 코딩하다가 make 걸어놓고 네트핵을 즐길 것 같은데 말이다.</p>
+<p>[caption id="" align="aligncenter" width="500" caption="요즘 네트핵은 이정도다!"]<a href="http://cfs2.tistory.com/upload_control/download.blog?fhandle=YmxvZzM4NjMxQGZzMi50aXN0b3J5LmNvbTovYXR0YWNoLzAvMS5qcGc=" target="_blank"><img alt="요즘 네트핵은 이정도다!" src="http://cfs2.tistory.com/upload_control/download.blog?fhandle=YmxvZzM4NjMxQGZzMi50aXN0b3J5LmNvbTovYXR0YWNoLzAvMS5qcGc=" /></a>[/caption]</p>
+<p>어쨌든, 이로서 오늘 시작한 리눅스에서 윈도우로의 마이그레이션은 내일중으로는 완료될 듯!!</p>
+<p>ps. 오늘 드디어 변태군의 야심작 <a href="http://game4.netmarble.net/prius/main.asp">프리우스 온라인</a>이 대망의 오픈 베타에 들어갔다. 회사에서 누가 해보길래 은근슬쩍 "제 후배가 이거 만들었어요" 라고 자랑을 하긴 했는데... ㅋㅋ 초반 다운 안되고 무사히 서비스되기를 기원해본다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/nethack/"><span class="label">nethack</span></a>
+	
+		<a href="/tag/migration/"><span class="label">migration</span></a>
+	
+		<a href="/tag/linux/"><span class="label">linux</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/10/22/tracking-solution-item-in-visual-studio/">Tracking Solution Item</a> <small>2008-10-22</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg" /></a></p>
+<p>현재 편집기에 선택한 문서를 솔루션 탐색기에서 찾아주는 옵션이다. 프로젝트가 여러 개이거나 폴더 트리가 깊을 경우 유용하다. (Visual Studio 2005 이상)</p>
+<p><a href="http://www.google.co.kr/search?rlz=1C1GGLS_koKR294&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=솔루션+탐색기에서+활성화된+항목+추적">아시는 분들</a>도 꽤 많으시지만, <a href="http://suigui.com/wordpress/2008/10/22/디버깅-watch/">DDD(Debugging Driven Development)의 창시자</a>이신 모군도 모르는 옵션이라고 해서 한번 써본다.</p>
+<p>ps. 소니군이 최근 <a href="http://sonee.com/253">미국 불황의 여파와 중국 올림픽 덕분에 캔슬된 비운의 프로젝트의 스크린샷</a>을 공개했으니 한번쯤 구경해주시기 바란다.</p>
+<p>[caption id="" align="aligncenter" width="500" caption="Real Baseball 2009(Ceased)"]<a href="http://sonee.com/253" target="_blank"><img alt="http://cfs15.tistory.com/upload_control/download.blog?fhandle=YmxvZzk4OTRAZnMxNS50aXN0b3J5LmNvbTovYXR0YWNoLzAvMC5qcGc=" src="http://cfs15.tistory.com/upload_control/download.blog?fhandle=YmxvZzk4OTRAZnMxNS50aXN0b3J5LmNvbTovYXR0YWNoLzAvMC5qcGc=" /></a>[/caption]</p></div>
+	
+	<p>
+	
+		<a href="/tag/visualstudio/"><span class="label">visualstudio</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/10/22/edit-pray/">Edit & Pray</a> <small>2008-10-22</small></h1>
+	</div>
+	<div><p><img alt="http://web.mit.edu/cat/Desktop/cat/images/pray.jpg" src="http://web.mit.edu/cat/Desktop/cat/images/pray.jpg" /></p>
+<pre><code>Changes in a system can be made in two primary ways. I like to call them* Edit And Pray *and *Cover and Modify.* Unfortunately, *Edit and Pray* is pretty much the industry standard.
+
+--Michael C. Feathers
+
+</code></pre>
+
+<p>TDD를 쓰지 않는 대부분의 프로그래머들은 <a href="http://suigui.com/wordpress/2008/10/10/editcontinue-쓰시나요/">Edit &amp;Continue</a> 보다는 Edit &amp; Pray 를 더 사랑한다. 물론 나도 컴파일러와 윈도우 커널와 쓰레드들에게 자주 빌기도 하지만, 언젠가부터 테스트 없이 일을 진행하면 아무리 실행이 잘되어도 마음 한구석이 편치 않게 되는 경우가 많아졌다. 테스트 통과 후 커밋할 때의 쾌감에 중독되었기 때문인데, 사소한 것까지 테스트한다고 잔소리를 들은 후에야 겨우 벗어날 수 있었다. 그래서 요즘에는 라이브러리 학습이나 개인적인 프로젝트에서만 테스트를 활용하고 있다. </p>
+<p>최근, 새 프로젝트에서 한정된 시간안에 핵심적인 로직을 제외한 나머지 - 플랫폼, 데이터베이스, 네트워크 프레임워크 외 다수- 들을 마이그레이션하면서 성능과 안정성을 동시에 만족시켜야 하는, 그야말로 도전적인 과제를 맡았다. 이 <a href="http://www.xevious7.com/300">세마리 토끼를 한방에 잡아주는 은총알이 없는 거야</a> 당연하지만, 그렇다고 점진적으로 리팩토링해나가면서 지켜보는 것도 불가능한 상황이다. 비유적으로 말하자면, <a href="http://www.google.co.kr/search?rlz=1C1GGLS_koKR294&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=직불금">새로 논밭을 사서 농사를 대충 짓다가 적당히 직불금을 받아먹은 후 양도세를 면제받은 후(응?)</a>, 기존의 집을 그대로 들어 올려서 새 토지에 얹어 놓고, 인테리어를 막판에 갈아 엎는 대공사를 할 수 밖에 없을 것 같다. 물론 기도를 빠뜨리면 안되겠지만.</p>
+<p>어쨌거나 기회가 되면 <a href="http://reiot.cafe24.com/2008/07/04/google-test/">google test</a>를 써보고 싶은데, 이 대운하에 버금가는 공사에서 가능할 것인지 나도 참 궁금하다. 쉬귀군이 밥먹다가 말한 것처럼 삽질이 되면 안되는데... 후덜덜.</p></div>
+	
+	<p>
+	
+		<a href="/tag/test/"><span class="label">test</span></a>
+	
+		<a href="/tag/refactoring/"><span class="label">refactoring</span></a>
+	
+		<a href="/tag/legacy/"><span class="label">legacy</span></a>
+	
+		<a href="/tag/TDD/"><span class="label">TDD</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/10/19/pareto-principle/">Pareto Principle</a> <small>2008-10-19</small></h1>
 	</div>
 	<div><p><img alt="http://shop.advanceweb.com/images/products/2007/GI/GI_home_garden/05188_TroubleMakerMug_GI/05188_TroubleMMg_GI_med.jpg" src="http://shop.advanceweb.com/images/products/2007/GI/GI_home_garden/05188_TroubleMakerMug_GI/05188_TroubleMMg_GI_med.jpg" /></p>
@@ -101,84 +190,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/08/17/apple-app-store/">Apple App Store</a> <small>2008-08-17</small></h1>
-	</div>
-	<div><p><img alt="http://filmmakerone.com/blog/wp-content/uploads/2008/03/stevejobspresentation_2.jpg" src="http://filmmakerone.com/blog/wp-content/uploads/2008/03/stevejobspresentation_2.jpg" /></p>
-<p>애플 앱 스토어(App Store)는 조만간 초대박이 날 거라는 <a href="http://i-dreaming.com/2511588">드리밍님의 예측</a>에 강력하게 동의한다. 지금껏 이만큼 소프트웨어 또는 게임 개발자들에게 유리한 플랫폼이 전무했기 때문이다. 하긴 다들 플랫폼을 구축하고 엔드 유저들이 컨텐트를 쌓아나가도록 하자는 이야기를 하지만, 잡스 횽아는 (보나다만 성공을 확신하지는 않았을테지만) 이걸 실제로 해냈다. 그것도 애플과 개발자 양자가 서로 윈윈할 수 있는 매력적인 비지니스 모델을 기반으로 해서.</p>
-<p><img alt="http://onten.net/images/blogs/xna_20.jpg" src="http://onten.net/images/blogs/xna_20.jpg" /></p>
-<p>반면 마이크로소프트의 XNA도 점점 접근성을 높여가고 있지만, 수많은 인디 게임 개발자들을 유혹할만한 어떤 지표($)도 보여준 적이 없다. (물론 자기들이 돈을 많이 벌었다는 이야기는 계속 나오고 있긴 하다.) 구글의 안드로이드에 대해서는 소식이 거의 들리지 않아서 생략.</p>
-<p>자. 그렇다면 애플이 수많은 공룡 통신 기업들 사이에서 점차 모바일 시장을 잠식해들어가고 있는 이 마당에, 한국 게임 개발자 및 게임 개발사는 무엇을 해야 할까? 사실 대박 뉴스가 퍼졌으니 세가를 비롯한 구미/일본의 라이센스 보유 기업들은 자사의 유명 게임을 아이폰으로 포팅해서 판매할 것이다. 단순한 아이디어로도 돈을 많이 벌었다는 소식을 들은 인디 게임 개발자들 역시 마찬가지. 즉 레드 오션의 조짐이 서서히 번지고 있다는 이야기인데...</p>
-<p>뭐 정답은 뻔하다. 오래된 회사들은 하루 빨리 과거의 명작들을 포팅하면 되고, 그렇지 않은 회사들은 오락실 게임들에서 아이디어를 추려내서 온라인으로 옮기는 대신, 아이폰으로 이사를 가면 되겠다. 다만 아이폰의 인터페이스에 걸맞게 게임을 적당히 변화시켜야 한다는 점은 모두 같으니, 어떻게 보면 이건 시간 싸움이 되지 않겠나 싶다.</p>
-<p>위 동영상처럼 화면을 기울여서 운전하는 수준의 게임은 이미 쌓여 있기 때문에, 레이싱은 좀 힘든 싸움이 되겠고.. 퍼즐류는 창작이 아니면 라이센스를 갖고 있으면 얼른 시작하면 될 듯. (그러나 비주얼드나 주마를 따라가려면 꽤 힘들꺼다) 슈팅은 터치 화면으로 총 쏘기가 힘들고, FPS는 조준이 힘들고...</p>
-<p>정답은 스포츠 또는 RPG. iBaldur's Gate 는 힘들겠지만 iWizardary 는 아무래도 될 거 같다!</p></div>
-	
-	<p>
-	
-		<a href="/tag/apple/"><span class="label">apple</span></a>
-	
-		<a href="/tag/iphone/"><span class="label">iphone</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/08/16/stay-hungry-stay-foolish/">Stay Hungry, Stay Foolish</a> <small>2008-08-16</small></h1>
-	</div>
-	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2009/07/stay_hungry.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/stay_hungry.jpg" /></p>
-<p>좀 철이 지난 이야기이지만, <a href="http://news-service.stanford.edu/news/2005/june15/jobs-061505.html">잡스 횽아의 스탠포드 연설문</a>에서 단어들을 추출해서 태그 구름처럼 만들어주는 <a href="http://wordle.net/">Wordle</a> 이미지이다. 이 연설문이 너무 감동적이어서 PSP에 인코딩해서 듣고 다녔고, 서점에서 우연히 <a href="http://drchoi.or.kr/535">영어 공부용 책으로 나온 걸</a> 찾아서 한참동안 읽기도 했다. 반쯤은 자기 자랑이지만 <a href="http://blog.dreamwiz.com/chanjin/7633299">애플의 주가 총액이 구글을 넘어선 이 마당</a>에 이 정도의 자랑 정도는 봐줄만 하다. 고화질 버전은 아이튠즈에서 다운받을 수 있다 :)</p>
-<p>[youtube=http://www.youtube.com/watch?v=UF8uR6Z6KLc&amp;hl=ko&amp;fs=1]</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/08/13/default-key-binding-dict/">DefaultKeyBinding.dict</a> <small>2008-08-13</small></h1>
-	</div>
-	<div><p>OSX 에서 윈도우와 같은 키조합을 사용하려면 <strong>~/Library/KeyBindings/DefaultKeyBinding.dict </strong>파일을 아래와 같이 만든 후, 키바인딩을 적용하려는 어플리케이션을 재시작하면 된다.</p>
-<pre><code>
-{
-    &quot;$\Uf700&quot; = &quot;moveUpAndModifySelection:&quot;;
-    &quot;$\Uf701&quot; = &quot;moveDownAndModifySelection:&quot;;
-    &quot;$\Uf702&quot; = &quot;moveLeftAndModifySelection:&quot;;
-    &quot;$\Uf703&quot; = &quot;moveRightAndModifySelection:&quot;;
-    &quot;$\Uf729&quot; = &quot;moveToBeginningOfLineAndModifySelection:&quot;;
-    &quot;$\Uf72b&quot; = &quot;moveToEndOfLineAndModifySelection:&quot;;
-    &quot;^\b&quot; = &quot;deleteWordBackward:&quot;;
-    &quot;^$\Uf702&quot; = &quot;moveWordBackwardAndModifySelection:&quot;;
-    &quot;^$\Uf703&quot; = &quot;moveWordRightAndModifySelection:&quot;;
-    &quot;^$\Uf729&quot; = &quot;moveToBeginningOfDocumentAndModifySelection:&quot;;
-    &quot;^$\Uf72b&quot; = &quot;moveToEndOfDocumentAndModifySelection:&quot;;
-    &quot;^a&quot; = &quot;selectAll:&quot;;
-    &quot;^c&quot; = &quot;copy:&quot;;
-    &quot;^s&quot; = &quot;saveDocument:&quot;;
-    &quot;^v&quot; = &quot;paste:&quot;;
-    &quot;^x&quot; = &quot;cut:&quot;;
-    &quot;^z&quot; = &quot;undo:&quot;;
-    &quot;^&quot; = &quot;deleteWordForward:&quot;;
-    &quot;^\Uf702&quot; = &quot;moveWordLeft:&quot;;
-    &quot;^\Uf703&quot; = &quot;moveWordRight:&quot;;
-    &quot;^\Uf728&quot; = &quot;deleteWordForward:&quot;;
-    &quot;^\Uf729&quot; = &quot;moveToBeginningOfDocument:&quot;;
-    &quot;^\Uf72b&quot; = &quot;moveToEndOfDocument:&quot;;
-    &quot;\Uf729&quot; = &quot;moveToBeginningOfLine:&quot;;
-    &quot;\Uf72b&quot; = &quot;moveToEndOfLine:&quot;;
-    &quot;\Uf72c&quot; = &quot;pageUp:&quot;;
-    &quot;\Uf72d&quot; = &quot;pageDown:&quot;;
-}
-
-</code></pre>
-
-<p>Ctrl+D 같은 손에 익은 키조합들을 적용하려면 아래의 문서들을 참고하기 바란다.</p>
-<pre><code>- [Cocoa Text System](http://www.hcs.harvard.edu/~jrus/Site/System%20Bindings.html)
-- [Customizing Cocoa Text System](http://www.hcs.harvard.edu/~jrus/site/cocoa-text.html)
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -199,23 +210,23 @@
 	</li>
 	
 	<li>
+		<a href="/2008/10/24/variadic-macros/">Variadic Macros</a>
+	</li>
+	
+	<li>
+		<a href="/2008/10/22/tracking-solution-item-in-visual-studio/">Tracking Solution Item</a>
+	</li>
+	
+	<li>
+		<a href="/2008/10/22/edit-pray/">Edit & Pray</a>
+	</li>
+	
+	<li>
 		<a href="/2008/10/19/pareto-principle/">Pareto Principle</a>
 	</li>
 	
 	<li>
 		<a href="/2008/10/11/google-translate/">Google Translate</a>
-	</li>
-	
-	<li>
-		<a href="/2008/08/17/apple-app-store/">Apple App Store</a>
-	</li>
-	
-	<li>
-		<a href="/2008/08/16/stay-hungry-stay-foolish/">Stay Hungry, Stay Foolish</a>
-	</li>
-	
-	<li>
-		<a href="/2008/08/13/default-key-binding-dict/">DefaultKeyBinding.dict</a>
 	</li>
 	
 </ul>

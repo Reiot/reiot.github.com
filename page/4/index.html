@@ -63,6 +63,169 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a> <small>2010-12-14</small></h1>
+	</div>
+	<div><p>jQuery UI widget 은 기본적으로 한번에 여러 개의 옵션을 설정할 수 있다.</p>
+<pre><code>$('...').somewidget('option',{aa:bb, cc:dd});
+</code></pre>
+
+<p>하나의 옵션을 설정할 때의 추가적인 로직을 넣으려면  _setOption() 을 재정의하면 된다.</p>
+<pre><code>_setOption: function(key,value){
+  if(key=='some'){...do something...}
+}
+</code></pre>
+
+<p>가끔은 여러 개의 옵션을 한번에 설정할 때, 그 중 몇몇 옵션이 바뀔 경우에 대한 추가적인 로직을 넣으려면  _setOptions 를 재정의하면 된다. jQuery UI Dialog 의 코드가 가장 좋은 예제일 것이다. 다만 1.8.6 부터 지원하니까 버전에 주의하길.</p>
+<pre><code>_setOptions: function( options ) {
+  var self = this,
+  resizableOptions = {},
+  resize = false;
+
+  $.each( options, function( key, value ) {
+  self._setOption( key, value );
+
+  if ( key in sizeRelatedOptions ) {
+  resize = true;
+  }
+  if ( key in resizableRelatedOptions ) {
+  resizableOptions[ key ] = value;
+  }
+  });
+
+  if ( resize ) {
+  this._size();
+  }
+  if ( this.uiDialog.is( &quot;:data(resizable)&quot; ) ) {
+  this.uiDialog.resizable( &quot;option&quot;, resizableOptions );
+  }
+},
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/jQueryUI/"><span class="label">jQueryUI</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/11/16/jqueryuitooltip/">jquery.ui.tooltip</a> <small>2010-11-16</small></h1>
+	</div>
+	<div><h2>개요</h2>
+<ul>
+<li>jquery ui 1.9 에서부터 지원된다. 1.8 에서 사용하려면 약간의 소스 수정이 필요하다.</li>
+<li>기본적으로 title 속성을 툴팁 텍스트로 사용한다. 동적으로 컨텐트를 만들려면 content 함수를 이용해서 DOM 을 리턴해야 한다.</li>
+<li>툴팁은 dialog 와 마찬가지로 body 에 추가된다. 자동으로 ui-tooltip-1 ui-tooltip-2 와 같이 id 가 붙는다.</li>
+<li>this.element 는 툴팁을 띄우는 원본 DOM 이고, 툴팁 컨텐트에 직접 접근하려면 this.tooltip 또는 this.widget() 을 이용해야 한다.</li>
+<li>beforeOpen 같은 걸 지원하면 좋을텐데.. 일단은 없다. 뜨지 않게 하려면 disable 시키는 수 밖에 없다.</li>
+<li>툴팁 내부 컨텐트에 jquery ui 위젯을 사용하려면 open 콜백에서 적용할 것.</li>
+</ul>
+<h2>툴팁 내부에 템플릿을 적용한 후 Progressbar 넣기</h2>
+<pre><code>xxx.tooltip({
+  content: function(){
+    return $('#building-unit-tooltip-tmpl')
+      .tmpl(unit);
+  },
+  open: function(event){
+    var timeRatio = (unit.maxTime-unit.remainTime) / unit.maxTime * 100;
+    var $tooltip = $(this).data('tooltip').widget();
+    $tooltip
+      .find('div.progressbar')
+        .progressbar({value:timeRatio})
+      .end()
+      .find('.ui-progressbar-value')
+        .animate({
+          width: &quot;100%&quot;
+        }, {
+          duration: unit.remainTime*1000
+        });
+  }});
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/jquery ui/"><span class="label">jquery ui</span></a>
+	
+		<a href="/tag/tooltip/"><span class="label">tooltip</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a> <small>2010-11-15</small></h1>
+	</div>
+	<div><p>구글맵처럼 (바닥 - 마커 - 오버레이) 등 여러 개의 레이어로 구성하고, 그 안에 위치한 각종 마커들끼리의 z-index 를 상황(?)에 따라서 코드 레벨에서 정렬해야 한다고 가정하자.</p>
+<pre><code>&lt;div id=&quot;map&quot;&gt;
+  &lt;div id=&quot;ground&quot;&gt;
+  &lt;div id=&quot;first&quot; class=&quot;marker&quot;&gt;1st&lt;/div&gt;
+  &lt;div id=&quot;second&quot; class=&quot;marker&quot;&gt;2nd&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;overlay&quot;&gt;
+  &lt;div id=&quot;third&quot; class=&quot;overlay&quot;&gt;3rd&lt;/div&gt;
+  &lt;div id=&quot;fourth&quot; class=&quot;overlay&quot;&gt;4th&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>보통 맵은 relative, 레이어들은 absolute 로 두게 된다. 이때 레이어들의 z-index 를 지정하지 않으면(또는 auto 로 설정하면), #first 마커의 z-index 를 9999 로 잡으면 상위 레이어 위로 올라오게 된다.</p>
+<pre><code>#map {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background-color: gray;
+}
+.marker, .overlay {
+  position: absolute;
+  text-align: center;
+}
+#ground {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #ededed;
+  z-index: 1000;
+}
+#overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1001;
+}
+#first {
+  width: 100px;height: 100px;
+  background-color: yellow;
+}
+#second {
+  width: 50px;height: 200px;
+  background-color: green;
+}
+#third {
+  width: 200px;height: 50px;
+  background-color: red;
+}
+#fourth {
+  width: 50px;height: 300px;
+  background-color: blue;
+ }
+</code></pre>
+
+<p>대신 그냥 <strong>각 레이어들의 z-index 를 각각 1000,1001 로 설정</strong>하기만 하면, 아무리 하위 레이어의 마커에 높은 z-index 를 줘도, 절대 상위 레이어를 침범하지는 않게 된다.</p>
+<p>관련 테스트 코드는 <a href="http://jsfiddle.net/Reiot/dPYcJ/embedded/result">jsfiddle</a>에서 볼 수 있다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/css/"><span class="label">css</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a> <small>2010-11-11</small></h1>
 	</div>
 	<div><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
@@ -167,94 +330,6 @@ sudo node server.js
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a> <small>2010-11-07</small></h1>
-	</div>
-	<div><p>이번 11월부터 <a href="http://aws.amazon.com/free/">1년 무료인 마이크로 인스턴스</a>라는 게 있다길래 node.js 를 위해서 재빨리 가입을 했다. 왜 하필 node.js 인지 궁금하신 분은 <a href="http://www.synchrosinteractive.com/blog/9-nodejs/22-nodejs-has-a-bright-future">nodejs-has-a-bright-future</a> 를 읽어보시길. 싱가포르쪽이 좀 느린 듯해서 그냥 미쿡 버지니아에다가 만들었다.</p>
-<p>처음 가입할 때 전화를 준다고 해서 살짝 망설였는데 그냥 미리 녹음된 전화에 개인키를 입력해서 인증하는 방식이라길래 용감하게 시도했으나.. 아무리 등록하려고 해도 요청 폭주로 전화가 오지 않아서 이틀이나 기다려야 했다. (3회 실패하면 12시간 후에나 다시 요청이 가능한 시스템..) 알고보니 전화 번호를 잘못 써서.울먹.. 다들 외국 사이트 가입할 때 +82 국제 전화 번호 붙이지 않나요 ㅠㅠ </p>
-<p>어쨌든 초보답게 아마존에서 제공하는 기본 리눅스 AMI 64bit 를 설치하고 보니, git 는 커녕 gcc 도 설치 안된 깔끔한 배포판이었다. 10년만에 리눅스를 만져본 터라 어떤 패키지 시스템을 써야 하는지 헷갈렸는데, 요즘은 yum 이란게 인기가 있나보다. (마지막으로 써본 게 rpm 이었던가..)</p>
-<p>기억 소멸을 방지하기 위해 대충 순서를 정리해본다 :P</p>
-<ul>
-<li>sudo yum install git-core</li>
-<li>git clone https://github.com/ry/node.git</li>
-<li>sudo yum install gcc</li>
-<li>sudo yum install gcc-c++</li>
-<li>sudo yum install openssl-devel</li>
-<li>./configure</li>
-<li>make </li>
-<li>sudo make install</li>
-<li>make test</li>
-</ul>
-<p>마이크로 인스턴스에서 빌드 시간은 17분 정도 걸린다. configure 할 때 select/eio/kqueue 를 찾는 걸 보니, 내부적으로 저런 걸 쓰는 모양이다. 내 경우에는  test-exec,  test-repl, test-http-curl-chunk-problem 3개의 테스트가 실패했다 :(</p>
-<p>ps. 오랜만에 느끼는 이 콘솔의 감촉. 아 섹시하다~~</p></div>
-	
-	<p>
-	
-		<a href="/tag/node.js/"><span class="label">node.js</span></a>
-	
-		<a href="/tag/amazon-ec2/"><span class="label">amazon-ec2</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/11/02/custom-tag/"><% raw %> custom tag</a> <small>2010-11-02</small></h1>
-	</div>
-	<div><p>jQuery 템플릿의 조건문/반복문들은 {{if}} {{each}}와 같이 선언하는데, 이게 Django의 템플릿 변수 {{var}} 선언과 동일해서 템플릿 문법 에러가 발생하게 된다. 이를 해결하려면 모든 {{ }} 에 대해서</p>
-<pre><code>{% templatetag openvariable %}if ${var}==a{% templatetag closevariable%} 
-</code></pre>
-
-<p>과 같이 바꿔줘야 한다. <a href="http://stackoverflow.com/questions/4021896/jquery-template-tags-conflict-with-django-template">StackOverflow 에 물어보니</a> Django 1.3 에서 &lt;% raw %&gt; 에 대한 제안이 들어가긴 했다고 하는데, 언제 나올지도 모르고 해서 구글에 검색해보니 다행스럽게도 누군가가 이미 구현해둔 걸 찾을 수 있었다.</p>
-<ul>
-<li><a href="http://www.holovaty.com/writing/django-two-phased-rendering/">http://www.holovaty.com/writing/django-two-phased-rendering/</a></li>
-</ul>
-<p>다만 GPL 이라는 점에 유의할 것 :P</p></div>
-	
-	<p>
-	
-		<a href="/tag/django/"><span class="label">django</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2010/10/12/photoshop-shortcuts/">Photoshop Shortcuts</a> <small>2010-10-12</small></h1>
-	</div>
-	<div><ul>
-<li>영역 선택시 shift 는 더하고, alt 는 빼고, shift+alt 는 교집합이 된다.</li>
-<li>굳이 move(v) 를 선택하지 않아도 ctrl 을 누르면 현재 레이어를 이동시킬 수 있다. </li>
-<li>ctrl 을 누르고 현재 레이어의 미리보기(썸네일) 아이콘을 누르면 레이어만을 선택할 수 있다. 이 상태에서 ctrl + shift 로 다른 레이어 미리보기를 선택하면 영역이 더해지고, ctrl + alt 를 누르면 빼지고, ctrl + shift + alt 를 누르면 교집합 영역이 골라진다.</li>
-<li>툴 단축키는 shift 를 누르면 비슷한 다른 툴들이 순차적으로 선택된다.</li>
-<li>ctrl + 오른쪽 클릭: 현재 마우스 위치의 레이어 목록이 보인다. 레이어 리스트 없이 특정 레이어를 고를때 편하다. 대신 레이어 이름을 잘 붙여둬야 한다.</li>
-<li>ctrl + G 는 선택된 레이어들을 그룹으로 묶어준다. ctrl + alt + G 는 클리핑 마스크를 만든다. </li>
-<li>클리핑 마스크를 만들면 브러시가 아래 하위 레이어의 영역에서만 칠해진다. 실제로 레이어의 그레디언트나 패턴 이펙트들은 클리핑 마스크로 구현되어 있다. (각각의 이펙트를 별도의 레이어로 분리해보면 알 수 있다) 썸네일을 상위 레이어로 ALT 드래그하면 클리핑을 할 수 있다. 썸네일을 폴더로 드래그하면 폴더에 속한 레이어들 전체에 마스크가 씌여진다. shift 를 누르고 썸네일을 클릭하면 해당 마스크를 disable 시킬 수 있다.</li>
-<li>레이어 목록에서 ctrl 드래그는 복사, alt 드래그는 위치 이동이다. (그냥 드래그해도 이동이긴 하다)</li>
-<li>글로벌 라이트는 모든 열린 문서를 끈 상태에서 설정해야 한다.</li>
-<li>브러쉬 크기 조절은 [] 로 할 수 있다. alt 를 누르면 잠시 스포이드(eyedropper) 모드로 색깔을 지정할 수 있다. </li>
-<li>ctrl + 1 또는 줌 버튼을 더블클릭하면 100% 크기로 볼 수 있다. 줌을 바꾸려면 ctrl + alt + wheel 을 누르면 된다.</li>
-<li>ctrl + [] 은 현재 레이어를 아래 위로 옮기는 반면, alt + [] 는 아래 위로 레이어를 선택한다. ctrl + shift + [] 는 가장 위 또는 가장 아래로 레이어를 보낸다. </li>
-<li>ctrl 을 누른 상태에서 새 레이어 버튼을 누르면 현재 레이어 아래에 새 레이어가 만들어진다. 그냥 ctrl + shift  + N 은 현재 레이어 위에 만든다.</li>
-<li>alt 를 누른 상태에서 레이어의 눈 아이콘을 누르면, 해당 레이어만 보여준다. ctrl + alt 를 누른 상태에서 다시 누르면 모두 다 보이게 된다.</li>
-<li>shift 를 누른 상태에서 +- 를 누르면, 블렌딩 모드를 순차적으로 바꿀 수 있다. move 툴을 선택한 상태에서 숫자키를 누르면 opacity 를 바꿀 수 있다. </li>
-<li>각종 숫자로 된 입력창에 포커스를 두고, ctrl 을 누르고 좌우로 드래그하면 마우스로도 바꿀 수 있다. ctrl + shift 를 누르면 10단위로 바뀐다. 그냥 휠만 움직이면 1씩 증감된다. 화살표 상하 키로도 휠과 동일한 효과를 줄 수 있다.</li>
-<li>폰트 크기를 바꾸려면 ctrl + shift + &lt;&gt;</li>
-<li>브러시 모드에서 1-0 숫자를 누르면 opacity 를 바꿔서 칠할 수 있다.</li>
-<li>ctrl + T 로 크기 변환할 때 shift 를 누르면 비율이 고정되고, alt + shift 는 중심이 고정되고, ctrl + shift 는 현재 점 외의 다른 점들이 고정된다.</li>
-</ul></div>
-	
-	<p>
-	
-		<a href="/tag/photoshop/"><span class="label">photoshop</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -275,23 +350,23 @@ sudo node server.js
 	</li>
 	
 	<li>
+		<a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a>
+	</li>
+	
+	<li>
+		<a href="/2010/11/16/jqueryuitooltip/">jquery.ui.tooltip</a>
+	</li>
+	
+	<li>
+		<a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a>
+	</li>
+	
+	<li>
 		<a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a>
 	</li>
 	
 	<li>
 		<a href="/2010/11/09/setup-npm-socketio/">Setup npm & socket.io</a>
-	</li>
-	
-	<li>
-		<a href="/2010/11/07/setup-nodejs-on-amazon-ec2-linux/">Setup Node.js on Amazon EC2 Linux</a>
-	</li>
-	
-	<li>
-		<a href="/2010/11/02/custom-tag/"><% raw %> custom tag</a>
-	</li>
-	
-	<li>
-		<a href="/2010/10/12/photoshop-shortcuts/">Photoshop Shortcuts</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,108 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a> <small>2006-05-28</small></h1>
+	</div>
+	<div><p>템플릿 프로그래밍을 하다 보면, 문자열이나 사용자 정의 클래스(UDT) 같은 특정 타입에 대한 특수화(specializaiton)를 할 경우가 있다. 그 중에서 가장 헷갈리는 부분이 바로 특정 클래스의 포인터를 템플릿 인자로 받아서 특수화해야 하는 경우인데, boost typetraits 중 하나인 boost::is_base_of를 사용하면 손쉽게 해결할 수 있다.</p>
+<pre><code>
+template
+void old_algorithm ( const T &amp; value )
+{
+  // do generic something
+}
+</code></pre>
+
+<p>위와 같은 함수 템플릿에 대해서 Base 클래스의 하위 클래스 포인터를 받았을 때를 위한 특수화를 해야 할 경우, 다음과 같은 패턴을 사용하라. 핵심은 is_base_of::type 이 true_type 또는 false_type 이라는 2 개의 서로 다른 타입을 리턴하며, 이 값을 이용해서 특수화를 한다는 것이다.</p>
+<pre><code>
+template
+void new_algorithm ( const T &amp; value )
+{
+  typedef typename boost::is_base_of::type is_derived_class;
+
+  // call impl
+  new_algorithm_impl(value,is_derived_class());
+}
+
+template
+void new_algorithm_impl ( const T &amp; value, const boost::true_type&amp; )
+{
+  // do specialized for Base class
+}
+
+template
+void new_algorithm_impl ( const T &amp; value, const boost::false_type&amp; )
+{
+  // do generic something
+}
+
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/05/25/boostany/">boost::any</a> <small>2006-05-25</small></h1>
+	</div>
+	<div><p>게임 개발을 하다 보면, 가끔 서로 다른 타입의 객체들을 하나의 컨테이너에서 다루어야 할 때가 있다. 만약 이 컨테이너로 하는 일이 간단하다면야 인터페이스 상속을 쓰면 되지만, 상속을 할 수 없을 정도로 타입이 다를 때도 있다. 이럴 때 사용하는 것이 바로 boost::any 클래스이다.</p>
+<p>boost::any는 이름 그대로 어떤(any) 것도 담을 수 있는 클래스로, void * 와 비슷한 역할을 한다. (더욱 자세한 설명은 <a href="http://boost.org/doc/html/any.html">boost 온라인 매뉴얼</a>을 참고)</p>
+<p>이번에 boost::any 의 코드를 참조해서 작업을 하다 보니 몇 가지 장단점들이 눈에 띄었다.</p>
+<ul>
+<li>미리 any 의 내부값의 타입을 파악하고 있어야 한다. 즉, type() 을 이용해서 if-else 방식으로 비교하는 수 밖에 없다.</li>
+<li>any_cast(value) 는 생각보다 타이핑하기가 귀찮다. 꺽쇠와 괄호를 다 타이핑한다고 생각해보라...</li>
+<li>디버깅시 any 내부의 placeholder 에 들어 있는 값을 찾기가 곤란하다.</li>
+</ul>
+<p>이번 주는 영식군이 한 달 동안 쇼핑하면서 작업한 <a href="http://reiot.cafe24.com/archives/395">객체 복제 프레임워크</a>를 이틀 동안 인수인계 받은 후, 복제의 최소 단위인 replication value 클래스를 boost::any 의 코드를 참조해서 고치고 있다. 미리 2000라인 정도의 테스트 코드를 만들어둔 덕택에 <del datetime="2006-05-25T14:14:00+00:00">코드 학습</del> 리팩토링이 겨우 4일 만에 거의 끝낼 수 있었다. 물론 영식군이 계속 지나가면서 어차피 기능이 똑같다면 왜 사서 삽질을 하냐고 갈구고 있지만 그냥 못들은 척하고 중이다. 흐흐.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/05/16/p2p-tips/">P2P Tips</a> <small>2006-05-16</small></h1>
+	</div>
+	<div><p>P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다)</p>
+<h1>분석 및 검토</h1>
+<h2>게임성 분석</h2>
+<p>만들고자 하는 게임의 다양한 속성들에 대한 분석이 최우선 단계이다. 다음 질문에 자신의 게임이 어떤 쪽인지를 잘 따져보기 바란다.</p>
+<pre><code>- 최대접속자는 얼마인가? (4-8, 16-32, 64-256, Massive)
+- 카운터 스트라이크처럼 사용자들에게 핑이 빠른 서버를 선택할 수 있도록 할 것인가?
+- NPC 또는 몹이 존재하는가? 만약 그렇다면 누가 그들을 움직이게 할 것인가?
+- 승패 또는 타격 판정, 이동에 대한 검증은 누가 할 것인가?
+- dedicated server 를 지원할 것인가? 또는 클라이언트 중에서 UDP 서버를 선택할 것인가?
+</code></pre>
+<h2>토폴로지의 선택</h2>
+<p>어떤 토폴로지를 선택하느냐에 따라서 최대 대역폭, 최대 접속자가 결정되므로, 위에서 조사한 결과에 따라서 적합한 토폴로지를 선택해야 한다. 아래의 문서를 참고하기 바란다.</p>
+<p>see also : <a href="http://reiot.cafe24.com/2006/02/18/%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%81%ac-%ec%95%a1%ec%85%98-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%b6%84%eb%a5%98/">네트워크 액션 게임의 분류</a></p>
+<h2>UDP 라이브러리의 선택</h2>
+<p>토폴로지를 선택했다면 이제 UDP 라이브러리를 선택할 단계이다.</p>
+<p>단지 위치 정보만을 보내는 게 아닌 이상, 순수 UDP 만으로 네트워크 게임을 개발하기란 쉽지 않다. 결국은 reliable UDP 를 지원하는 외부 라이브러리를 사용하거나 직접 구현하게 될텐데, 직접 구현하는 것은 시간이 많거나 자신이 천재가 아닌 이상 그다지 좋은 선택은 아니다. 반면 어떤 라이브러리를 선택해도 깊은 이해 없이는 잘 사용하기가 힘든 것이 사실이다.</p>
+<p>가능하면 Unreal, Source Engine 등 네트워크 모듈이 포함된 게임 엔진을 구매하는 것을 권장하며, 그럴 수 없다면 충분한 검토 기간 하에 RakNet, OpenTNL, udt, enet 중에서 하나를 선택하기 바란다.</p>
+<h1>디자인 및 구현, 테스트</h1>
+<h2>네트워크 모듈의 통합</h2>
+<p>많은 UDP 라이브러리들은 보다 빠른 반응성을 위해 자체적으로 쓰레드를 사용한다. 그러나 dedicated server 가 아닌 이상, 서버쪽은 무작정 쓰레드를 남발해서는 곤란하다. 하나의 서버가 여러 개의 게임을 동시 처리해야 할 경우가 많으므로, 이럴 때에는 소스를 수정해야 할 수 있다.</p>
+<pre><code>- polling vs. event-driven
+- single thread vs. multithread
+</code></pre>
+<p>이때 폴링 방식의 클라이언트는 로딩 혹은 렌더링으로 인해 네트워크 업데이트를 방해하는 일이 없도록 주의해야 한다.</p>
+<h2>NAT와 홀펀칭</h2>
+<dl> <dt>하드웨어의 구비</dt> <dd>하드웨어가 없는 상태에서의 NAT 프로그래밍은 장님 코끼리 다리 만지기와 같다.</dd> <dt>SNAT</dt> <dd>SNAT-SNAT 간에는 홀펀칭이 통하지 않는다는 사실만 기억하면 된다. 중국이 아닌 이상 SNAT를 만나기란 쉽지 않다. 정 귀찮다면 C/S구조로 가는 것도 나쁘지 않다. GPGStudy 포럼을 잘 검색하면 어떤 라우터가 SNAT인지를 찾을 수 있다.</dd> <dt>N+1</dt> <dd>어떤 NAT는 새로운 매핑을 위해 포트 번호를 점차 증가시키기도 한다. 그러나 라우터 제조 업체마다 다르므로 일반적으로는 알 수 없다고 봐야 한다.</dd> <dt>Timeout</dt> <dd>30-40초마다 패킷을 밖으로 쏘지 않을 경우 매핑을 삭제하는 공유기가 존재한다.</dd> <dt>패킷 릴레이</dt> <dd>직접적인 통신이 되지 않는 peer 에게 패킷을 보낼 수 있는 유일한 방법이다. 문제는 릴레이는 핑이 2배 느려지는 것이 보통이므로 데드 레커닝 및 보간 기능으로 잘 극복해야 한다. 릴레이가 끊기는 경우 실시간으로 다른 루트를 찾아주면 금상첨화.</dd> <dt>사설 네트워크</dt> <dd>같은 네트워크에 있는 사용자들 끼리는 굳이 public 주소로 접속할 필요는 없다. 상대방의 (public,private) 모두로 핑을 쏜 다음, 응답이 오면 그 중 빠른 넘을 실제 주소로 선택하라. 이때 둘 다 될 경우라면 대체로 private를 사용하는 편이 좋다. 물론 **본인 확인**은 필수. 방화벽 내부에 있는 사람들끼리 플레이할 경우 public 으로 통신하면 괴로워진다.</dd> <dt>다단계 NAT</dt> <dd>중국은 다단계 NAT로 악명이 높다. 최소한 2단계로 NAT를 배치한 후 각 노드마다 클라이언트를 두고 내부/외부와 통신이 잘 되는지를 확인할 것. 그렇게 열심히 테스트해도 안되는 환경이 분명 존재하므로, 처음부터 릴레이를 기본 기능으로 포함시킬 것.</dd> <dt>사용자 서버</dt> <dd>네트워크 비용을 줄이려면 특정 클라이언트가 서버 역할을 하도록 하라. 단 Drop-out시 게임을 중단하고 새 서버를 찾는 기능을 구현해야 한다. 물론 보안 문제는 책임질 수 없다;;</dd> </dl>
+
+<h2>대역폭 관리</h2>
+<dl> <dt>모뎀 지원</dt> <dd>해외에는 아직도 모뎀을 많이 사용하고 있다. 따라서 모뎀 유저가 방에 들어올 경우 최대 접속자를 줄이든가 대역폭에 맞게 데이터를 실시간 관리하는 기능이 필요하다.</dd> <dt>MTU</dt> <dd>게임에서의 최대 패킷 크기를 항상 알고 있을 것. 특히 리스트 방식으로 전송되는 데이터들(방 목록, 사람 목록, 게임 목록)을 유의할 것.</dd> <dt>순간 대역폭 체크</dt> <dd>어떤 공유기(D-Link)는 순간 대역폭을 초과할 경우 reset 되기도 한다.</dd> </dl>
+
+<h2>공유기, 방화벽, 포트 포워딩</h2>
+<dl> <dt>(D)DOS 공격</dt> <dd>어떤 공유기는 외부로부터 갑자기 연결이 많이 들어올 경우 DOS 혹은 DDOS 로 간주해서 연결을 차단하기도 한다.</dd> <dt>XP 방화벽</dt> <dd>Windows XP의 방화벽에 자동 등록하기는 필수. 단 사용자에게 허가를 받지 않고 몰래 방화벽을 끌 경우 해외에서는 고소당할 수 있다.</dd> <dt>백신 호환성 체크</dt> <dd>일부 백신들은 정상적인 어플리케이션도 바이러스나 웜으로 간주하기도 한다. 따라서 유명 백신들을 설치한 상태에서 툴과의 호환성을 체크한 후 문제가 있다면 매뉴얼을 홈페이지에 등록해야 한다.</dd> <dt>포트 포워딩</dt> <dd>portforward.com이나 [WOW](http://www.blizzard.com/support/wow/?id=aww01154p)처럼 공유기에서 포트포워딩을 하는 방법을 홈페이지에 기술할 것. 가능하면 클라이언트에 네트워크 진단 도구를 탑재하거나, 웹 기반 진단 페이지를 만들기를 권장한다.</dd> <dt>주의 깊은 포트의 선택</dt> <dd>해외의 일부 회선 업체는 자신들의 자체 서비스(VoIP)를 위해 특정 UDP 포트를 임의로 막기도 한다. 가능한한 다른 게임 및 어플리케이션과 충돌하지 않는 포트를 선택할 것.</dd> <dt>서버 방화벽</dt> <dd>네트워크 관리자에게 사용하는 포트에 대한 문서를 넘기고 수시로 업데이트 해줄 것. (특히 해외 서비스일 경우는 필수) 허용된 포트의 끝언저리에서 실수로 인한 문제가 종종 생기곤 한다.</dd> </dl>
+
+<h2>기타</h2>
+<pre><code>- 공유기의 타입 찾기 : STUN
+- Drop-In : 게임 도중 새로운 접속자가 들어올 때
+- 연결 끊김 감지 : 게임 도중 연결이 끊길 경우 얼마나 빨리 감지할 수 있을까?
+- 데이터 복제, 보안, 통계 수집
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/05/16/iocp-tips/">IOCP Tips</a> <small>2006-05-16</small></h1>
 	</div>
 	<div><p><strong><em>[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87239">http://reiot.springnote.com/pages/87239 </a>에서 읽으실 수 있습니다. </em></strong></p>
@@ -154,381 +256,6 @@ see also:</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/29/css-tip/">CSS Tip</a> <small>2006-04-29</small></h1>
-	</div>
-	<div><p><strong>[공지사항] : 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/22538">http://reiot.springnote.com/pages/22538</a> 에서 보실 수 있습니다.</strong></p>
-<h1>id &amp; class</h1>
-<p>class는 여러 곳에 쓸 수 있지만 id는 한 군데만 써야 하고, 특히 id는 anchor 의 타겟으로도 사용될 수 있다.<br />
-<table><br />
-<thead><br />
-<th>selector</th><br />
-<th>scope</th><br />
-<th>example</th></p>
-<tr>
-<td>id selector</td>
-<td>instance level style (single)</td>
-<td>H1 #xxx {...}</td>
-</tr>
-
-<tr>
-<td>class selector</td>
-<td>class level style (multiple)</td>
-<td>H1.xxx {...}</td>
-</tr>
-
-<p></thead></table><br />
-'*' 문자는 생략 가능하기 때문에, 다음의 두 표현식은 동등하다.</p>
-<p>*#xxx {...}</p>
-<h1 class="..">xxx</h1>
-<h1>padding &amp; margin</h1>
-<p>padding 은 box 영역의 안쪽, margin 은 바깥쪽을 의미하는데, 본문 바깥쪽의 여백을 나타낸다는 것을 연상하면 쉬울 것이다. 각 방향별 속성을 지정할 수도 있고, 한꺼번에 지정할 수도 있다. 이때, 위에서부터 시계방향이라는 것만 외우면 편하다.</p>
-<p>padding-top: 1px;<br />
-padding-bottom: 2em;<br />
-padding : 'top' 'right' 'bottom' 'left';</p>
-<p><a href="http://www.w3.org/TR/REC-CSS2/box.html#mpb-examples">padding &amp; margin example</a>을 참고할 것.</p>
-<h1>div &amp; span</h1>
-<p>div는 해당 블럭에 특정 id 또는 class 속성을 적용한다. 아래의 예제는 2개의 테이블 모두를 우측 정렬을 하기 위해서 DIV 태그를 사용했다.</p>
-<p><a href="http://december.com/html/4/element/div.html">&lt;div</a> align="right"&gt;<br />
-<a href="http://december.com/html/4/element/table.html"><table></a>...</table><br />
-<a href="http://december.com/html/4/element/table.html"><table></a>...</table><br />
-</div></p>
-<p>반면 span은 inline 으로 특정 id 또는 class 속성을 적용한다. 아래의 예제는 P 전체에 클래스 스타일을 적용해서 폰트 크기 및 종류를 지정한 다음, ' 에 대해서만 빨간색으로 표시하기 위해서 SPAN 태그를 사용했다.</p>
-<p><a href="http://december.com/html/4/element/p.html">&lt;p</a> class="oreiot"&gt;O<a href="http://december.com/html/4/element/span.html">&lt;span</a> class="red"&gt;'</span>REIOT</p></p>
-<h1>font size</h1>
-<p>픽셀 등의 단위를 사용하게 되면, 화면 해상도에 관계없이 크기가 고정되게 된다. 이렇게 할 경우, 브라우저의 문자 크기 확대-축소를 해도 바뀌지 않는다. 눈이 나쁜 사람들을 위해서도 픽셀 고정 보다는 아래의 크기를 사용하는 것을 권장한다. (순수 디자인의 관점에서는 맞지 않을지도?)</p>
-<p>xx-small &lt;x-small &lt;small &lt;medium &lt;large &lt;x-large &lt;xx-large</p>
-<p>아니면, 상대 크기인 smaller - larger를 써서, 자신의 부모 객체의 폰트보다 크거나 작도록 지정할 수도 있다.</p>
-<h1>호환성 있는 페이지 만들기</h1>
-<p>우선, 해당 페이지를 순수하게 텍스트로 렌더링하는 페이지를 만든다. 이때, h1, h2, ..., p, hr, ul, ol, li, b 등의 텍스트형 태그만을 사용하도록 한다. (당연히 font 류의 데코레이션형 태그는 사용하지 않도록 한다.)</p>
-<p>텍스트 페이지가 완성되면, 이제 각 element 에 적당한 클래스 스타일을 지정해서, 아름답게 꾸미도록 한다. 중복되는 스타일은 DIV 등을 이용해서 그룹으로 묶는다. (가령 li 태그들)</p>
-<p>끝으로 CSS validate 및 HTML validate 를 통해서 호환성을 검증한다. 브라우저 테스트는 기본.</p>
-<h1>float &amp; clear</h1>
-<p>박스 또는 이미지가 다른 레이어와 충돌하지 않는 상태에서, 좌측 또는 우측으로 정렬될 수 있게 해준다. 가끔은, float 박스가 2개 이상의 레이어에 걸치지 않았으면 할 때가 있다. 이럴 경우, float 를 포함한 상위 레이어에다가 clear:both 속성을 지정해주면 걸치기를 막을 수 있다.</p>
-<p><a href="http://www.w3.org/TR/REC-CSS2/visuren.html">Visual Formatting Model</a>을 참고할 것.</p>
-<h1>기타 태그 설명</h1>
-<pre><code>- line-height : 줄 간격
-</code></pre>
-<p>see also:</p>
-<pre><code>- [CSS2 specification](http://www.w3.org/TR/REC-CSS2)
-- [XHTML specification](http://www.w3.org/TR/xhtml-basic)
-</code></pre></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/28/raknet-tips/">RakNet Tips</a> <small>2006-04-28</small></h1>
-	</div>
-	<div><h2>RakPeer::Disconnect(msec,orderingChannel)</h2>
-<p>서버에 접속 해제를 알리기 위해서는 RakPeer::Disconnet(msec&gt;0) 를 사용해야 한다. Disconnect(0) 후에 바로 객체를 삭제하면 서버는 10-15초 후에나 연결 끊김을 감지할 수 있게 되며, 그 사이에 서버에 다시 접속할 경우 서버는 이미 연결되어 있는 것으로 간주해버린다. 단 내부적으로 blocking wait 를 하기 때문에 너무 큰 시간을 넘기면 곤란.</p>
-<h2>PacketLogger</h2>
-<p>RakNet에서 제공하는 플러그인 인터페이스를 이용한 패킷 로깅 클래스. peer.AttachPlugin(logger) 만 해주면 콜백에서 자동적으로 로그를 남겨준다. PacketFileLogger를 사용하면 CSV형식으로 로그를 남긴다. 엑셀을 잘 활용해서 트래픽 최적화라든지 그래프를 확인할 수 있다. 좀더 세밀한 로그를 원하면 상속을 받을 것.</p>
-<h2>Unconnected Ping</h2>
-<p>동일한 NAT아래에 있는 peer와 통신할 때에는 public보다는 private를 사용하는 것이 좋다. 이런 주소 선택 과정은 RakPeer::Connect()를 호출하기 전에 이루어져야 하는데, RakPeer::Ping(host,port,acceptOnly)을 이용해서 양쪽 주소 모두에게 Ping을 쏴서 확인할 수 있다. 기본적으로 ID_PING 을 보내고 ID_PONG을 받는데, 마지막 파라미터를 true로 할 경우 ID_PING_OPEN_CONNECTIONS을 보내며 상대방은 이미 연결되어 있을 경우에만 ID_PONG 으로 응답한다. FullyConnectedMesh처럼 플러그인 인터페이스를 이용해서 깔끔하게 구현할 수 있을 것 같은데, 플러그인에게 직접 뭔가를 보낼 수 있는지는 미확인.</p>
-<p>주의사항 : Unconnected Ping을 보낸 직후 Connect()를 하게 되면 3-way handshake 흐름이 꼬일 수 있다. 원인은 연결되기 전후의 프로토콜이 다르긴 하나 확률적으로 같게 될 수 있어서, 연결하는 동안 핑/퐁을 하다 보면 가끔 패킷을 잘못 처리하기 때문이다. 라크넷의 메인 개발자 Rak’kar는 가능하면 핑을 보낸 후 일정 시간 동안 기다린 다음 연결하는 것을 권장한다고 한다. 레이옷은 이 버그로 인해서 1개월 가량을 고생했다. -_-;;</p>
-<h2>ReliabilityLayer</h2>
-<p>패킷 전송 보장, 순서 보장을 구현하는 레이어</p>
-<dl><dt>Unreliable</dt><dd>Unreliable packets are sent by straight UDP. They may arrive out of order, or not at all. This is best for data that is unimportant, or data that you send very frequently so even if some packets are missed newer packets will compensate.</dd></dl>
-
-<pre><code>- Advantages - These packets don’t need to be acknowledged by the network, saving the size of a UDP header in acknowlegement (about 50 bytes or so). The savings can really add up.
-- Disadvantages - No packet ordering, packets may never arrive, these packets are the first to get dropped if the send buffer is full.
-</code></pre>
-<dl><dt>Unreliable sequenced</dt><dd>Unreliable sequenced packets are the same as unreliable packets, except that only the newest packet is ever accepted. Older packets are ignored.</dd></dl>
-
-<pre><code>- Advantages - Same low overhead as unreliable packets, and you don’t have to worry about older packets changing your data to old values.
-- Disadvantages - A LOT of packets will be dropped since they may never arrive because of UDP and may be dropped even when they do arrive. These packets are the first to get dropped if the send buffer is full. The last packet sent may never arrive, which can be a problem if you stop sending packets at some particular point.
-</code></pre>
-<p>Note that the transmission of one of the three reliable packets types is required for the detection of lost connections. If you never send reliable packets you need to implement lost connection detection manually.</p>
-<dl><dt>Reliable</dt><dd>Reliable packets are UDP packets monitored by a reliablilty layer to ensure they arrive at the destination.</dd></dl>
-
-<pre><code>- Advantages - You know the packet will get there. Eventually…
-- Disadvantages - Retransmissions and acknowlegements can add significant bandwidth requirements. Packets may arrive very late if the network is busy. No packet ordering.
-</code></pre>
-<dl><dt>Reliable ordered</dt><dd>Reliable ordered packets are UDP packets monitored by a reliability layer to ensure they arrive at the destination and are ordered at the destination.</dd></dl>
-
-<pre><code>- Advantages - The packet will get there and in the order it was sent. These are by far the easiest to program for because you don’t have to worry about strange behavior due to out of order or lost packets.
-- Disadvantages - Retransmissions and acknowlegements can add significant bandwidth requirements. Packets may arrive very late if the network is busy. One late packet can delay many packets that arrived sooner, resulting in significant lag spikes. However, this disadvantage can be mitigated by the clever use of ordering streams .
-</code></pre>
-<dl><dt>Reliable sequenced</dt><dd>Reliable ordered packets are UDP packets monitored by a reliability layer to ensure they arrive at the destination and are sequenced at the destination.</dd></dl>
-
-<pre><code>- Advantages - You get the reliability of UDP packets, the ordering of ordered packets, yet don’t have to wait for old packets. More packets will arrive with this method than with the unreliable sequenced method, and they will be distributed more evenly. The most important advantage however is that the latest packet sent will arrive, where with unreliable sequenced the latest packet sent may not arrive.
-- Disadvantages - Wasteful of bandwidth because it uses the overhead of reliable UDP packets to ensure late packets arrive that just get ignored anyway.
-</code></pre>
-<h3>전송 보장의 구현</h3>
-<p>전송 보장(packet reliability)은 말 그대로 어떤 패킷이 Peer 에 잘 도착했다는 것을 의미한다.</p>
-<pre><code>- 전송시 RELIABLE_XXX 플래그를 지정한다.
-- 보내는 쪽에서는 재전송큐에 패킷을 넣어둔다.
-- 받는 쪽에서는 RELIABLE 패킷이 도착하면 ACK(num)를 전송한다.
-- 보내는 쪽에서는 ACK(num)를 받으면 재전송큐에서 삭제한다.
-- ACK 손실에 대비, 모든 ACK들은 ACK큐에 저장된다.
-- 주기적으로 실행되는 ReliabilityLayer::Update()에서 그동안 쌓인 ACK큐와 재전송큐를 한꺼번에 모아서 Peer에게 전송한다. (물론 손실이 가정되는 넘에 대해서만)
-- 모든 user defined message 앞에 위와 같은 InternalPacket 이 1개 이상 붙어 나갈 수 있다.
-</code></pre>
-<p>결국, 모든 RELIABLE 메시지에 대해서 ACK 가 왔다갔다 하는 셈이다.</p>
-<h3>순서 보장의 구현</h3>
-<p>모든 데이터가 순서 보장이 필요하지 않으며, 오직 몇몇 종류의 패킷들만이 순서 보장이 필요하다. 따라서, 이런 류들을 위한 채널(ordering channel)을 구현해서 각각의 채널마다의 순서를 보장해줘야 한다.</p>
-<pre><code>- 각 채널마다 waitingForOrderedPacketReadIndex 가 존재한다.
-- 순서 보장 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패
-- 만약 orderingIndex == waitingForOrderedPacketReadIndex 이면, 대기 인덱스를 증가시키고, 대기 리스트(orderingList)에 들어있는 넘들을 처리해준다.
-- 그렇지 않으면 중간에 누락된 것이므로 대기 리스트에 넣어둔다.
-- orderingIndex 는 BYTE 로 구현된다. 255 로 해서 wrap 시키면 충분한 듯.
-- 그렇지만 아주 오래전의 패킷이 도착했다면 순서가 꼬일 수 있을 법 하다. 이런 것들은 상대편의 전송 시간을 이용해서 체크한다.
-</code></pre>
-<h3>패킷 시퀀스의 구현</h3>
-<p>순서 보장(packet ordering)과는 달리 패킷 시퀀스(packet sequence)는 최신의 패킷이 도착하면, 그 전에 도착한 동일한 패킷은 모두 무시하는 것을 의미한다. 가령, xyz 좌표가 10개가 쌓여 있다면 가장 최신의 좌표만을 보여주면 되므로 시퀀스 플래그를 사용하면 된다. 패킷 시퀀스 역시 ordering channel + ordering index 로 구현된다.</p>
-<pre><code>- 각 채널마다 waitingForSequencedPacketReadIndex 가 존재한다.
-- 시퀀스 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패
-- 만약 orderingIndex &gt;= waitingForSequencedPacketReadIndex 이면, 시퀀스  인덱스를 증가시킨다.
-- 그렇지 않으면 이미 최신 데이터가 먼저 와 있으므로, 무시해버린다.
-</code></pre>
-<h3>긴 메시지의 구현</h3>
-<p>MTU 크기를 넘어선 긴 데이터는, 여러 개의 작은 패킷에 나눠져서(split) 전송될 수 밖에 없다.</p>
-<p>더 많은 팁들은 레이옷의 <a href="http://del.icio.us/reiot/raknet">RakNet 링크모음</a>을 참고할 것.</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/26/sql-tips/">SQL Tips</a> <small>2006-04-26</small></h1>
-	</div>
-	<div><p>MS-SQL SERVER + Transact SQL Tip</p>
-<h2>IP 문자열에서 a.b.c 추출하기</h2>
-<p>declare @ip varchar(20)<br />
-SET @ip = '111.22.33.22'<br />
-SELECT LEFT(@ip,len(@ip)-patindex('%.%',reverse(@ip)))</p>
-<h2>리포팅 서비스</h2>
-<p><a href="http://network.hanbitbook.co.kr/view.php?bi_id=1048">IIS + ASP + VisualStudio.NET 을 이용한 리포트 서비스 제작</a></p>
-<h2>FTP 파일 업로드</h2>
-<p>DTS 에서 제공하는 파일 전송 프로토콜 작업(FTPTask)의 경우, 다운로드만 가능하고 업로드는 지원하지 않는다. 가령, 로컬 백업한 <em>.bak, </em>.trn 파일을 리모트 서버로 옮기려면 업로드 스크립트를 SQL 이나 VB 또는 Python으로 직접 개발해야 한다.</p>
-<h2>복구 모델</h2>
-<p>당연히, 트랜잭션 로그를 남기려면 FULL 복구 모델로 데이터베이스를 설정해야 한다. 백업 정책을 세울 때 꼭 모델을 체크하기 바란다. (기본적으로 FULL 모델로 만들어지는 것 같지만, 필수적으로 체크할 것)</p>
-<h2>SQLServerAgent</h2>
-<p>유지 관리 계획 등 주기적인 작업을 실행하려면 기본적으로 꺼져있는 SqlServerAgent 를 켜야 한다.</p>
-<h2>테이블 스키마 복사</h2>
-<p>스크립트로 추출해서 다른 DB 에 설치할 경우 디폴트값이 지정되지 않는 경우가 있다. 이때 DEFAULT 등 제약조건 스크립팅에 꼭 체크를 해야 한다. 아니면 그냥 데이터 내보내기를 사용하길.</p>
-<h2>노트북에 SQL Server 설치하기</h2>
-<p>SQL Server 상위 버전들은 기본적으로 서버급 OS 에서만 설치된다. 그러나 노트북은 대체로 XP Professional or Home Edition 을 사용하는 법. 이를 지원하는 SQL Server 버전들을 살펴보자.<br />
-<table><br />
-<thead><br />
-<th></th><br />
-<th>XP Home</th><br />
-<th>XP Pro</th><br />
-<th>comment</th></p>
-<tr>
-<td>MSDE</td>
-<td>O</td>
-<td>O</td>
-<td> </td>
-</tr>
-
-<tr>
-<td>Evaluation Edition</td>
-<td>O</td>
-<td>O</td>
-<td>120 일 평가판</td>
-</tr>
-
-<tr>
-<td>Persional Edition</td>
-<td>X</td>
-<td>O</td>
-<td> </td>
-</tr>
-
-<tr>
-<td>Developer Edition</td>
-<td>X</td>
-<td>O</td>
-<td> </td>
-</tr>
-
-<p></thead></table><br />
-결국 XP Home Edition 을 사용하는 경우에는 평가판 또는 MSDE 를 사용해야 한다. 이참에 MSDE 의 새 버전인 SQL Server Express 2005 를 사용해보는 것도... <img alt="(" src="http://boxcatstudio.files.wordpress.com/2009/07/icon_sad.gif" /></p>
-<p>see also: * [http://www.microsoft.com/sql/evaluation/overview/default.asp SQL Server Overview] - 여기에 버전별 비교표가 들어있다 * [http://go.microsoft.com/?linkid=2534867 120일 평가판 다운로드]</p>
-<h2>NULL 비교</h2>
-<p>NULL 에 대한 비교는 is 로 하라!</p>
-<p>declare @a int<br />
-SET @a = NULL</p>
-<p>IF @a = NULL<br />
-print '@a=NULL'<br />
-IF @a IS NULL<br />
-print '@a is NULL'</p>
-<p>declare @b int<br />
-SET @b = 1</p>
-<p>IF @b &lt;&gt; NULL<br />
-print '@b &lt;&gt; NULL'<br />
-IF @b IS NOT NULL<br />
-print '@b is not NULL'</p>
-<p>-- 실행 결과<br />
-@a IS NULL<br />
-@b IS NOT NULL</p>
-<h2>constraint 관리</h2>
-<p>디폴트 constraint 를 삭제하고 다시 추가하는 법...</p>
-<p>-- 삭제<br />
-ALTER TABLE [dbo].[테이블] DROP<br />
-CONSTRAINT [DF_테이블_컬럼]</p>
-<p>-- 추가<br />
-ALTER TABLE [dbo].[테이블] WITH NOCHECK ADD<br />
-CONSTRAINT [DF_테이블_컬럼] DEFAULT (디폴트값) FOR [관련컬럼]</p>
-<h2>CASE WHEN...</h2>
-<p>다음은 승률을 나타내는 컬럼을 계산해오는 방식이다.</p>
-<p>SELECT<br />
-....<br />
-CASE<br />
-WHEN (WinCount + LoseCount + DrawCount) = 0 THEN 0.00<br />
-ELSE round((WinCount * 1.0) / (WinCount + LoseCount + DrawCount) , 2)<br />
-END AS WinRate,<br />
-....</p>
-<h2>SELECT...INTO...</h2>
-<p>INSERT INTO...SELECT...가 존재하는 테이블에 데이터를 넣을 때 사용한다면, SELECT...INTO...는 새로운 테이블을 만들어 넣을 때 사용한다. 특히 통계 테이블에 데이터를 넣을 때, TRUNCATE TABLE xxx; INSERT INTO...SELECT를 하게 되면, 문제가 생길 수 있으므로 아예 DROP 한 다음 SELECT...INTO... 를 사용하도록 한다. (우리 DBA의 말씀~)</p>
-<p>SELECT.. INTO는 MS-SQL의 기능! . 일반적인 ANSI-SQL에서는 CREATE TABLE ... SELECT 를 사용함.</p>
-<h2>대용량 데이터 빨리 넣기</h2>
-<pre><code>- 관련 데이터베이스의 로그 타입 변경 : EM에서 데이터베이스 등록정보를 선택, 복구 모델을 단순 또는 대량 로그로 임시 변경해준다.
-- ALTER TABLE ... 로 관련 테이블의 PK 제거하기. 그러나, FK 관계에 있을 경우에도 제거를 해야 하므로 EM 또는 VS 의 DB 다이어그램에서 삭제하는게 제일 간편하다. 단. 복구는 수동 -_-;
-- DROP INDEX ...로 관련 테이블의 인덱스 제거하기. 그러나, 다시 복구해야 하므로... 수작업 필수
-- BULK INSERT : DB 스트레스 테스트를 위해 백만건 이상의 데이터를 넣어야 할 때 사용하면 간편하다. 단 샘플 데이터 파일을 제공해줘야 한다.
-- INSERT INTO xxx () SELECT ...로 자기 자신 혹은 관련 테이블을 활용할 것. while + insert 1 보다 훨씬 빠르다. 테스트해본 결과 한줄씩 insert 할 경우 10만건에 40초, 그러나 위의 방법을 쓰면 2초로 해결 가능. 단, 용량이 너무 커질 경우 실행이 안되므로, 범위를 나눠야 할 듯. 300만건에서는 대충 됨.
-- PK/FK/Index/Trigger 복구하기. 800만건이 들어있는 테이블의 PK 를 복구하는데 Xeon Dual 0.8G 에서 무려 '''5분'''이나 걸렸다.
-</code></pre>
-<p>ALTER TABLE xxx ADD CONSTRAINT PK_xxx_yyy PRIMARY KEY(yyy)<br />
-ALTER TABLE xxx ADD CONSTRAINT FK_xxx_yyy FORENGN KEY REFERENCES zzz(yyy) ON DELETE CASCADE<br />
-CREATE [UNIQUE] INDEX IX_xxx_yyy ON xxx(yyy)</p>
-<h2>데드락 해결하기</h2>
-<p>sp_who2<br />
-sp_lock pid<br />
-KILL pid</p>
-<h2>like 와 인덱스</h2>
-<pre><code>- col like 'userid%'
-- col like '%userid%'
-- col like '%userid'
-</code></pre>
-<p>오직 1번만이 인덱스를 타게 된다. Index는 Binary Tree로 구성되어 있기 때문에 처음부터 찾아서 들어가는 것임. 당연히 첫자를 알 수 없다면 index를 경유하지 못함!!!</p>
-<h2>Update Trigger</h2>
-<p>특정 컬럼이 변경된 경우 로그 테이블에 row 를 추가해야할 경우 Update Trigger 를 사용하면 간편하다. 가령, 플레이어 레벨이 바뀌었을 때 레벨 테이블에 insert 를 해야 한다고 가정하면 트리거는 대략 다음과 같다.</p>
-<p>CREATE TRIGGER trigger_name ON src_tbl FOR UPDATE<br />
-AS<br />
-IF UPDATE(level)<br />
-begin<br />
-declare @old_level smallint, @new_level smallint<br />
-SELECT @new_level = [Level] FROM inserted<br />
-SELECT @old_level = [Level] FROM deleted<br />
-IF @old_level &lt;&gt; @new_level<br />
-begin<br />
-INSERT INTO log_tbl (....) VALUES (...,@old_level,@new_level,...)<br />
-end<br />
-RETURN<br />
-end</p>
-<h2>@@IDENTITY vs. SCOPE_IDENTITY()</h2>
-<p>전자의 경우, 현재 세션에서의 최종적인 IDENTITY 컬럼의 값을 리턴해준다. 단, 트리거에 의해서 다른 테이블에서 IDENTITY 가 바뀐 경우 그 값을 리턴해준다. 따라서, 최종적으로 직접 만진 테이블의 IDENTITY 값을 알아오려면 SCOPE_IDENTITY() 를 사용하는 것이 안전하다.</p>
-<h2>UPDLOCK</h2>
-<p>쿼리 분석기에서 좌측 쿼리를 먼저 실행한 후 우측 쿼리를 실행할 때, 첫번째 예제의 경우 그냥 실행이 되지만 두번째 예제는 block 된다. 오라클에는 select for update 라는 게 있다나...<br />
-<table><br />
-<tr><br />
-<td>nonblocked query</td><br />
-</tr><br />
-<tr><br />
-<td>begin trans</td><br />
-<td rowspan="2">select * from users</td><br />
-</tr><br />
-<tr><br />
-<td>select * from users with (updlock)</td><br />
-</tr><br />
-<tr><br />
-<td>blocked query</td><br />
-</tr><br />
-<tr><br />
-<td>begin trans</td><br />
-<td rowspan="2">select * from users with (updlock)</td><br />
-</tr><br />
-<tr><br />
-<td>select * from users with (updlock)</td><br />
-</tr><br />
-</table><br />
-DB레벨에서 중복로그인을 처리할 경우, DB 컬럼에 LogOn flag 를 둬야 한다. LOGOFF - LOGON - GAME 이런 식의 상태 변화가 있다고 가정하면, 로그인시 LOGOFF -&gt; LOGON 으로 바꿔주고 로그아웃시 LOGON -&gt; LOGOFF 로 설정하게 될 것이다. 문제는 이걸 언제 어떻게 체크해서 바꾸느냐인데...</p>
-<p>-- simplified login procedure<br />
-declare @logon<br />
-SELECT @logon=LogOn FROM users WHERE ...<br />
-IF ( @logon &lt;&gt; LOGOFF )<br />
-begin<br />
-handle_error...<br />
-end<br />
-UPDATE users SET @logon = LOGON WHERE ...</p>
-<p>이런 식으로 처리할 경우, abuser 에 의해서 동일 유저에 대한 로그온 프로시저가 DB에서 동시에 일어난다고 가정하면 중복로그인이 충분히 발생할 수 있게 된다. (아주 낮은 확률이지만...) 이를 손쉽게 막으려면 select with updlock를 사용하면 된다. (단, 이때 (Page,IU), (KEY,U), (Table,IX) 의 3가지의 락이 걸린다)</p>
-<p>웬지 불필요한 lock 을 피하기 위해서는, update 의 where 절에서 다시 한번 LogOn 필드를 체크(즉 select 해온 뒤 누가 바꿨는지 다시 확인) 해주면 될 거 같다.</p>
-<p>-- simplified login procedure<br />
-declare @logon<br />
-SELECT @logon=LogOn FROM users WHERE ...<br />
-IF ( @logon &lt;&gt; LOGOFF )<br />
-begin<br />
-handle_error...<br />
-end<br />
-UPDATE users SET @logon = LOGON WHERE ... AND logon = LOGOFF<br />
-IF ( @@rowcount &lt;&gt; 1 )<br />
-begin<br />
-handle_error...<br />
-end</p>
-<p>테스트 해 본 결과 양 쪽에서 select 한 후 한쪽에서 update 를 하면, 다른 쪽의 update 는 트랜잭션에 의해 block 되며 상대 트랜잭션이 끝나면 실패를 리턴하게 된다. (만약 where 절의 체크가 없다면 둘 다 로그인 성공으로 간주되므로 주의할 것)<br />
-<code>이게 consistent non-blocking read을 지원하기 때문인데, 간혹 조금 이해하기 힘든 현상이 일어날 때도 있지. 하지만 Query 하나 들어갈때마다 table에 lock을 걸어버리는 방법은 너무 위험부담이 크기 때문에. consistent read에 대한 설명이 필요하다면 다음 기회에..</code></p>
-<h2>sp_lock, sp_who2</h2>
-<pre><code>- sp_lock : 현재 시스템에 존재하는 lock 을 보여준다.
-- sp_who2 : 현재 시스템에서 실행되는 프로세스, 소유주, 접속지, 실행내용 등을 보여준다.
-</code></pre>
-<p>이 내용은 Enterprise Manager 의 관리에서 찾아볼 수 있다.</p>
-<h2>GOTO</h2>
-<p>어릴 적(?)부터 항상 GOTO 는 쓰지 말라는 이야기를 들어 왔지만, 프로시저에서 또 쓰게 될 줄은... 그러나, 트랜잭션이 존재할 경우 GOTO 를 쓰지 않으면 자꾸 if-else-if-else 로 indent 해들어가는 바람에 읽기가 힘들어져서...</p>
-<p>begin transaction<br />
-....<br />
-....<br />
-IF ( error_found )<br />
-begin<br />
-rollback transaction<br />
-SET @errorcode = -1<br />
-goto Label<br />
-end<br />
-....<br />
-....<br />
-commit transaction<br />
-....<br />
-....<br />
-Label:<br />
-log something...<br />
-....<br />
-....</p>
-<h2>SET IDENTITY_INSERT</h2>
-<p>identity 컬럼의 경우 DELETE FROM tbl 하더라도 시드값은 계속 증가하게 되어 있다. 또한, 특정 값을 명시적으로 insert 할 수 없다. 이를 가능하게 하기 위해서는 아래와 같이 하면 된다.</p>
-<p>SET identity_insert tbl ON<br />
-INSERT INTO tbl (identity_col,...) VALUES (N,...)<br />
-SET identity_insert tbl off</p>
-<h2>@@ERROR / @@ROWCOUNT</h2>
-<p>프로시저 중간에 insert 나 update 할 경우 혹시 모를 실패에 대비해서 아래와 같이 체크해야 한다.</p>
-<p>INSERT ...<br />
-IF @@error &lt;&gt; 0<br />
-begin<br />
-rollback transaction<br />
-RETURN<br />
-end</p>
-<p>update 의 경우 1개의 업데이트만 기대했는데, 2개가 업데이트된 경우 @@ERROR는 정상이 된다. 이때에는 @@ROWCOUNT 를 체크해야 한다.</p>
-<h2>시간 필드의 디폴트값</h2>
-<p>insert 시점의 시간을 저장하는 필드의 경우, 테이블 선언시</p>
-<p>CREATE TABLE xxx<br />
-...<br />
-yyy DATETIME DEFAULT GETDATE()<br />
-...</p>
-<p>라고 해주면 insert 할때 굳이 명시할 필요가 없다.</p>
-<h2>현재 시간 + a</h2>
-<p>dateadd( datepart, N, getdate() )</p>
-<h2>스크립트 디버깅</h2>
-<p>exec sp_sdidebug 'legacy_on'</p>
-<h2>시간 변환</h2>
-<p>convert(varchar(10),getdate(),121)</p>
-<h2>프로시저 실행시 파라미터</h2>
-<p>out 을 명시해주지 않으면 받아낼 수 없다</p>
-<p>execute proc @param1, @param2, @param3 out, @param4 out</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -549,23 +276,23 @@ yyy DATETIME DEFAULT GETDATE()<br />
 	</li>
 	
 	<li>
+		<a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a>
+	</li>
+	
+	<li>
+		<a href="/2006/05/25/boostany/">boost::any</a>
+	</li>
+	
+	<li>
+		<a href="/2006/05/16/p2p-tips/">P2P Tips</a>
+	</li>
+	
+	<li>
 		<a href="/2006/05/16/iocp-tips/">IOCP Tips</a>
 	</li>
 	
 	<li>
 		<a href="/2006/05/02/오블리비언-스토리2/">오블리비언 스토리#2</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/29/css-tip/">CSS Tip</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/28/raknet-tips/">RakNet Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/26/sql-tips/">SQL Tips</a>
 	</li>
 	
 </ul>

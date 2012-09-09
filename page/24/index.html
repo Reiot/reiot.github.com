@@ -63,6 +63,53 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2007/09/15/svn-notifier/">SVN Notifier</a> <small>2007-09-15</small></h1>
+	</div>
+	<div><p><a href="http://writely.tistory.com/">hey </a>님의 <a href="http://writely.tistory.com/18">SVN MSN Bot</a> 을 약간 수정해서 사용하던 중, 뜻밖의 복병을 만났다. 귀찮다는 이유로 팀원 중 두 명이나 봇을 MSN에서 차단해버리고 만 것이다. 내막을 물어보니</p>
+<p>"메시지가 왔길래 반가운 마음에 클릭해보면 맨날 BOT 이어서 화가 났다"</p>
+<p>는 이유였다. 물론 우리처럼 하루에도 수십차례 커밋이 이루어지는 환경에서는 충분히 이해가 가긴 한다. :)</p>
+<p>그 외에도 동일한 repository 의 다른 팀의 커밋이 보이는 현상이라든지 (이건 코딩으로 해결할 수 있었지만 ㅎㅎ), 메시지를 보내느라 커밋이 대략 10초 정도 느려지는 문제가 있긴 했는데, 결정적으로 며칠전 SVN 을 Windows Server 2003 으로 옮긴 다음부터 또 한글이 깨지는 현상이 발생해서 결국 post-commit.bat 는 폐기되고 말았다.</p>
+<p>그러던 와중에 오늘 <a href="http://kaistizen.net/EE/index.php/weblog/comments/svn_notifier/">KAISTIZEN 님의 SVN Notifier 소개글</a>을 발견했다. hook 방식이 아니라 아래와 같이 트레이에 숨어 있다가 주기적으로 update 를 체크하는 방식의 프로그램이니, 너무 반가워서 실망한다든지, 차단당할 염려는 없을 듯하다.  단점이라면 추가적으로 subversion 과 .NET 1.1 프레임워크를 깔아야 된다는 점이랄까?</p>
+<p><img alt="http://svnnotifier.tigris.org/img/1.jpg" src="http://svnnotifier.tigris.org/img/1.jpg" /></p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2007/07/16/visual-cpp-express/">Visual C++ 2005 express 의 한계</a> <small>2007-07-16</small></h1>
+	</div>
+	<div><p>연휴동안 정말 할 일이 없어서 <a href="http://asio.sourceforge.net/">ASIO </a>코드를 살펴보고 있다. 몇 달전에 깔아둔 VC++ express 를 띄워서 예제 코드를 빌드하니 winsock2.h 가 없다는 에러가 뜨는게 아닌가? 찾아보니 <a href="http://msdn.microsoft.com/vstudio/express/visualc/usingpsdk/">Platform SDK를 설치한 후, 몇 가지 설정을 손봐줘야 한다</a>는 내용을 발견할수 있었다. 열심히 다운로드를 받다가, 문득 professional 이나 standard 보다이 놈이 못한게 무엇무엇이 있는지 궁금했다. 구글링해본 결과 다음과 같은 내용을 발견할 수 있었다.</p>
+<p><a href="http://msdn2.microsoft.com/ko-kr/vstudio/aa700921.aspx">Visual Studio 2005 Product Line Overview</a></p>
+<p>간단히 요약해보면,</p>
+<pre><code>- 생산성에 가장 지대한 영향을 미치는 제약 조건은, 바로 매크로라든지 Visual Assist 같은 외부 애드인들을 지원하지 않는다는 것이다.
+- 소스세이프와의 연동을 지원하지 않지만, svn 같은 다른 툴을 사용하고 있다면 그다지 심각하지는 않다.
+- 리모트 디버깅을 지원하지 않지만, 사실상 회사 내부 외에는 이 기능을 사용할 확률이 적으므로 충분히 극복할수 있다.
+- Data Access Designer 는 로컬에서만 지원한다든지, SQL 2005 통합 기능을 미지원하는 것도 아쉽다.
+</code></pre>
+<p>이 정도의 제약 조건이라면 사실상 제약이 거의 없다고 봐도 무방하다.  최악의 경우 express 만으로도 헝그리하게 개발할 수도 있을 정도이니 말이다. (<a href="http://msdn.microsoft.com/vstudio/express/support/faq/">FAQ</a> 4번에 의하면 상업적 용도로 사용해도 된다고 나온다) 가까이로는, 빌드 머신 같은 데 설치해두면 VC의 카피수를 줄이는데 많은 도움이 될 듯하다. 여력이 되면 전 사원들의 컴퓨터에 깔아두고 테스트하다가 크래시될 때 자동으로 뜨도록 해두는 것도 괜찮을것 같다.</p>
+<p>그나저나, Team System 에서 Code Profiling - Static Analysis - Code Coverage - DB refactoring - DB schema compare 같은 기능을 지원한다는 것은 이번에 처음 알았다. 흐음. 써볼만 하겠는걸? 이라고 생각하는 순간 Visual Studio 2008 이 조만간(?) 출시된다는 걸 보고 슬그머니 귀찮아졌다. :)</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2007/06/20/basecamp-trac-xampp/">basecamp, trac, xampp</a> <small>2007-06-20</small></h1>
+	</div>
+	<div><p>최근 살펴본 몇 가지 툴들을 간단히 소개해본다.</p>
+<p><a href="http://www.basecamphq.com/index"><img alt="Basecamp logo" src="http://www.basecamphq.com/images/basecamplogo-small.png" /></a></p>
+<p><a href="http://www.basecamphq.com/">BaseCamp </a>: <a href="http://www.37signals.com/">37signals</a> 의 <strong>호스팅형 프로젝트 협업툴</strong>. 그동안 본 웹 기반의 협업툴 중에서 가장 깔끔하고 단순한 인터페이스를 자랑한다. 따라서 이런 툴을 쓰는데 거부감을 가진 일부 개발자들도 쉽게 적응할 수 있을 것이다. 웬만한 기능은 무료 모드로 다 쓸 수 있는 반면, time tracking 과 ssh 는 월 $49를 지불해야만 한다.  아쉬운 점이라면 커스터마이징 옵션이 거의 없어서, 그냥 있는 그대로만 써야 한다는 정도? 쓸만한 협업툴을 아직 찾지 못하거나 대체품을 원하는 분은 <a href="http://www.basecamphq.com/tour">Tour 페이지</a>에서 스크린샷과 동영상을 쭈욱 훑어보는 것도 좋겠다.</p>
+<p><a href="http://www.basecamphq.com/"><img alt="Trac" src="http://www.edgewall.org/gfx/trac_logo.png" /></a></p>
+<p><a href="http://trac.edgewall.org/">trac 0.11</a> : 아직 개발중인 버전이라서 그런지, AccountManagerPlugin 같은 플러그인들이 제대로 동작하지 않았다. 0.10 버전부터 easy_install 스크립트를 이용한 자동 플러그인 설치 기능을 지원해서 꽤 편해졌다. 그러나, 웬지 다들 거부감을 가져서 일단은 봉인 상태. 대신 <a href="http://www.trac-hacks.org/wiki">Trac-Hacks.org</a> 같은 보물창고를 찾게 되어서 무척 기쁘다.</p>
+<p><img alt="http://images.apachefriends.org/images/1240.jpg" src="http://images.apachefriends.org/images/1240.jpg" /><br />
+<a href="http://www.apachefriends.org/en/xampp.html"></a></p>
+<p><a href="http://www.apachefriends.org/en/xampp.html">xampp</a> : apache + php + mysql 의 통합 설치 버전 중에서 가장 깔끔한 넘이다. 특히나 윈도우에서는 단지 몇 분만에 wiki 나 trac 을 위한 환경을 설치할 수 있다. 다만 최신 버전인 1.6.2은 <a href="http://beta.zb5.zeroboard.com/">최근 오픈소스로 전환된 zb5 </a>와 호환이 되지 않는다.</p>
+<p><a href="http://xplanner.codehaus.org/"><img alt="http://media.xircles.codehaus.org/_projects/xplanner/_logos/medium.png" src="http://media.xircles.codehaus.org/_projects/xplanner/_logos/medium.png" /></a></p>
+<p><a href="http://www.xplanner.org/">xplanner</a> 는 설치 매뉴얼이 너무 무성의해서 포기했다.  JDK도 설치하고 tomcat 도 xampp 에서 배포하는 넘을 깔았지만, 그 다음 무엇을 어떻게 해야 할지를 이해할 수 없었다.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2007/05/07/_has_iterator_debugging/">_HAS_ITERATOR_DEBUGGING</a> <small>2007-05-07</small></h1>
 	</div>
 	<div><p>디버그 버전에서 STL (특히 collection iterating) 로 인해서 무지막지하게 느려지는 경우가 종종 있다. 이때<br />
@@ -100,47 +147,6 @@ the right, we value the items on the left more.</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2007/03/20/소규모-게임-회사에서-sw-구매-비용을-줄이는-법/">소규모 게임 회사에서 SW 구매 비용을 줄이는 법</a> <small>2007-03-20</small></h1>
-	</div>
-	<div><pre><code>- 위키는 [스프링노트](http://www.springnote.com/)
-- 워드와 엑셀은 [docs.google.com](http://docs.google.com/)
-- 이메일은 [구글 Apps](http://www.google.com/a/)
-- 회사 홈페이지는 [Wordpress ](http://wordpress.com)나 [Tistory ](http://tistory.com)같은 무료 블로그 + Custom CSS + 사용자 도메인
-- 사내 메신저는 [구글 Talk](http://www.google.com/talk/)
-- 개발툴은 [Visual Studio Express](http://www.microsoft.com/korea/msdn/vstudio/express/support/faq/) 또는 [Turbo Explorer](http://turboexplorer.com/)
-- 회의실 사용 예약, 연월차 기록, 지각 카운터(-_-)은 [구글 캘린더](http://www.google.com/talk/)
-- 백신은 구글 데스크탑과 함께 배포하는 6개월 무료 Norton AntiVirus 또는 AOL의 무료 카스퍼스키
-- 포토샵 대신 [Paint.net](http://www.getpaint.net/)
-- 3D MAX 대신 [Blender](http://www.blender.org/)
-</code></pre></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2007/03/16/unreal3-is-from-10000k/">언리얼3 엔진을 단돈 1억으로 라이센싱?</a> <small>2007-03-16</small></h1>
-	</div>
-	<div><pre><code>- [언리얼 3 엔진을 단돈 1억으로 라이센싱하는 법](http://www.gpgstudy.com/forum/viewtopic.php?topic=15141) : 우와!이 정도면 1억만 구해서 개발을 시작한 다음, 엔진 가격을 벌 수 있을 때까지 오픈베타를 질질 끌면 되지 않을까? :P
-- [me2day vs. playtalk](http://jhrogue.blogspot.com/2007/03/blog-post_14.html) 논란 :  사람들은 채팅으로 받아들이고 있었구나.. 난 단지 [더블트랙 스타일](http://www.hof.pe.kr/wp/archives/2323)로 믿고 있었는데.
-</code></pre></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2007/02/28/70ms-최대-입력-딜레이/">70ms : 최대 입력 딜레이</a> <small>2007-02-28</small></h1>
-	</div>
-	<div><p><a href="http://devsupport.ageia.com/ics/support/default.asp?deptID=1949">PhysX Knowledge Base</a>(가입 필요)에 의하면,</p>
-<pre><code>- 서울의 RTT는 200ms 정도인 반면, 미국은 400-500ms을 넘기는 게 보통이다.
-- 한국에서의 어떤 연구 결과에 의하면,  대부분의 사용자들은 70ms정도의 입력 딜레이를 인지하지 못한다. 100ms 정도가 되면 느리다고 인식을 하지만 대체로잘 적응해나가지만, 그 이상이 되면 아무도 이를 용납하려고 하지 않는다고 한다.
-- 70ms의 입력 딜레이를 잘 이용하면 레이턴시를 일정 정도 극복할 수 있다.
-</code></pre>
-<p>PhysX이야기가 나온 김에, 이번에 새로 나온듯한<a href="http://www.planetphysx.com/weblog/archives/2007/02/ageia_soft_body_demonstration.html"> soft body demo</a>를 한번쯤 보기 바란다. 쓸 데는 별로 없는 듯하지만;;</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -161,23 +167,23 @@ the right, we value the items on the left more.</p>
 	</li>
 	
 	<li>
+		<a href="/2007/09/15/svn-notifier/">SVN Notifier</a>
+	</li>
+	
+	<li>
+		<a href="/2007/07/16/visual-cpp-express/">Visual C++ 2005 express 의 한계</a>
+	</li>
+	
+	<li>
+		<a href="/2007/06/20/basecamp-trac-xampp/">basecamp, trac, xampp</a>
+	</li>
+	
+	<li>
 		<a href="/2007/05/07/_has_iterator_debugging/">_HAS_ITERATOR_DEBUGGING</a>
 	</li>
 	
 	<li>
 		<a href="/2007/05/01/manifesto-for-agile-software-development/">Manifesto for Agile Software Development</a>
-	</li>
-	
-	<li>
-		<a href="/2007/03/20/소규모-게임-회사에서-sw-구매-비용을-줄이는-법/">소규모 게임 회사에서 SW 구매 비용을 줄이는 법</a>
-	</li>
-	
-	<li>
-		<a href="/2007/03/16/unreal3-is-from-10000k/">언리얼3 엔진을 단돈 1억으로 라이센싱?</a>
-	</li>
-	
-	<li>
-		<a href="/2007/02/28/70ms-최대-입력-딜레이/">70ms : 최대 입력 딜레이</a>
 	</li>
 	
 </ul>
