@@ -63,6 +63,279 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/02/22/wow-warden-as-spyware/">WOW Warden as Spyware</a> <small>2008-02-22</small></h1>
+	</div>
+	<div><p><a href="http://www.amazon.com/exec/obidos/ASIN/0132271915/ref=nosim/learreio-20"><img alt="Exploiting Online Games: Cheating Massively Distributed Systems" src="http://ecx.images-amazon.com/images/I/311RgaO6v4L.jpg" /></a></p>
+<p><a href="http://www.amazon.com/exec/obidos/ASIN/0132271915/ref=nosim/learreio-20">Exploiting Online Games</a>에 와우의 보안 프로그램인 <a href="http://en.wikipedia.org/wiki/Warden_%28software%29">Warden</a>이 어떻게 동작하는지에 대한 간략한 설명이 나와 있다.</p>
+<pre><code>- 서버로부터 실시간으로 전송받는 듯하다. (스크립트일지도?)
+- 15초에 한번씩 사용자의 컴퓨터를 검색한다.
+- 와우 클라이언트의 주소 공간에 로딩된 모든 DLL 의 정보를 읽어들인다. (ToolHelp API)
+- 모든 윈도우 타이틀의 텍스트를 GetWindowTextA 로 읽어들인 다음, 해싱을 거쳐서 미리 등록된 금지 어플리케이션 목록과 비교한다.
+- 모든 프로세스의 코드 영역(0x004**** 이나 0x0041****)의 10-20바이트를 읽어서, 역시 해싱을 거쳐 미리 등록된 금지 어플리케이션 목록과 비교한다.
+</code></pre>
+<p><a href="http://www.rootkit.com/">이 책의 저자는</a>, 윈도우 타이틀에 SSN이나 카드 번호, URL, 이메일 등의 개인 정보가 블리자드로 빠져나갈 수 있고, 또한 내가 실행하고 있는 프로세스의 기밀 정보가 유출될 수 있기에, Warden이 안티해킹툴이라기 보다는 스파이웨어라고 주장하고 있다.</p>
+<p>한 명의 게이머의 입장에서는 저자의 주장에 수긍이 가지만, 이런 저런 해킹에 시달리는 게임 개발자의 관점에서 보면 이런 통계 기반의 해킹 체크도 한번 도입해보면 재미있지 않을까 하는 호기심도 솟아오른다. 우헷.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/02/22/boostasio-documentation/">boost::asio documentation</a> <small>2008-02-22</small></h1>
+	</div>
+	<div><p><a href="http://c10k.googlecode.com/svn/trunk/Doxyfile">doxygen 환경 파일</a>과 <a href="http://c10k.googlecode.com/svn/trunk/asio.chm">직접 컴파일한 CHM 파일</a>을 구글 코드에 올려뒀으니 관심있는 분들의 많은 애용 바랍니다.</p>
+<p>단, chm 파일이 80메가가 넘으므로, 환경 파일을 받고 OUTPUT_DIRECTORY라든지 STRIP_FROM_PATH 등을 적당히 고친 후 직접 컴파일하는게 나을 수도 있겠네요 :)</p>
+<p>제 홈페이지에서도 직접 받으실 수 있습니다.</p>
+<pre><code>- [boost asio doxygen configuration](http://reiot.cafe24.com/Doxyfile)
+- [boost asio compiled html(chm)](http://reiot.cafe24.com/asio.chm)
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/02/18/getting-real/">Getting Real</a> <small>2008-02-18</small></h1>
+	</div>
+	<div><p><a href="http://gettingreal.37signals.com/GR_kor.php">Getting Real</a>은 단지 웹개발에 대한 지침이기도 하지만, 쌓여 있는 버그와 뒤죽박죽한 요구 사항 속에서 고민하는 게임 개발자에게도 꽤 유익한 내용이다. 가끔씩 길을 잘못 들고 있지 않을까 하는 불안감이 들 때마다 읽어봐야겠다.<br />
+```<br />
+<strong>"혁신은 '아니오' 에서 시작된다."</strong></p>
+<p>[혁신]은 1000가지 일에 대해서 '아니오'라고 말하므로써 잘못된 길을 가거나 불필요하게 너무 많은 일을 하지 않도록 하는 것에서 시작됩니다. 우리는 항상 새롭게 진입가능한 시장에 대해서 고민합니다. 하지만 그것은 과감히 '아니오'라고 말하므로써 실질적으로 중요한 일들에 대해서만 집중할 수 있을 때 가능합니다.<br />
+<cite>—Steve Jobs, CEO, <a href="http://www.apple.com/">Apple</a> (from <a href="http://www.businessweek.com/bwdaily/dnflash/oct2004/nf20041012_4018_db083.htm">The Seed of Apple's Innovation</a>)<br />
+</cite></p>
+<p><strong>"천 개의 기능은 필요하지 않습니다."</strong></p>
+<p>스티브 잡스가 아이튠즈에 대해서 독립음반회사 사람들을 모아놓고 조그만 발표를 했습니다. 그 날 많은 사람들은 쉴 새없이 손을 들면서 어떤 기능이 제공되는 지, 혹은 어떤 기능을 추가할 계획이 있는 지 물었습니다. 마침내 쟙스가 말했습니다. "잠깐만요. 손을 잠시 내리고 제 말을 들어보시죠. 저는 여러분이 아이튠즈에 있으면 좋을 만한 아이디어를 수 천개 가지고 있다는 것을 잘압니다. 하지만 우리는 수 천개의 기능을 원하지 않습니다. 그렇게 하면 엉망이 될 겁니다. 혁신은 모든 것에 대해서 '예'라고 말하는 것이 아닙니다. 혁신은 정말 중요한 것을 제외한 나머지에 대해서는 '아니오'라고 말하는 것입니다."</p>
+<p><cite>—Derek Sivers, 대표 및 프로그래머, <a href="http://www.cdbaby.com/">CD Baby</a>  and <a href="http://www.hostbaby.com/">HostBaby</a></cite><cite>(from <a href="http://www.oreillynet.com/onlamp/blog/2004/08/say_no_by_default.html">Say NO by default</a>)</cite>```<br />
+그러고 보면  헛똑똑이질을 하다가 매번 revert를 하다가 저런 글을 보고 뉘우치곤 하는 나보다, 이런 류의 글따위는 한번도 읽어보진 않아도 뭐가 중요한지 몸으로 깨닫고 있는 모군이 2g 정도 대견스럽긴 하다. ㅋㅋ</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/02/10/boost-serialization/">boost::serialization</a> <small>2008-02-10</small></h1>
+	</div>
+	<div><p>boost::serialization 은, 템플릿 멤버 함수 하나 또는 free function 하나만 정의하면, 해당 클래스를 다양한 스트림으로 직렬화할 수 있게 해준다. 특히 list - vector - map - set 등의 다양한 STL 컨테이너들을 지원한다는 것이 장점이다.</p>
+<p>이때, 매크로 없이 &amp; 연산자 만으로 읽고 쓰기를 가능하게 했는데, 이건 템플릿 아카이브 파라미터가 알아서 잘 읽거나 쓰도록 책임을 전가했다는 게 상당히 아름답다.. 단, virtual 이 아니라서 하위 클래스는 모두 이걸 정의해줘야 한다. 그리고 아직 hash_map 은 잘 지원하지 않는 모양인데, 뭔가 복잡한 사정이 있는 듯하다.</p>
+<p>주의할 점이라면 아래 예제처럼 쓰려는 객체가 const 여야 한다는 점 정도?</p>
+<pre><code>
+#include &quot;stdafx.h&quot;
+
+#include &lt;fstream&gt;
+
+#include &lt;boost/archive/text_oarchive.hpp&gt;
+#include &lt;boost/archive/text_iarchive.hpp&gt;
+
+#include &lt;boost/archive/binary_oarchive.hpp&gt;
+#include &lt;boost/archive/binary_iarchive.hpp&gt;
+
+#include &lt;boost/serialization/list.hpp&gt;
+#include &lt;boost/serialization/vector.hpp&gt;
+#include &lt;boost/serialization/map.hpp&gt;
+#include &lt;boost/serialization/hash_map.hpp&gt;
+
+class chat_message
+{
+    friend class boost::serialization::access;
+public:
+
+    chat_message() {}
+
+    chat_message(unsigned short id, unsigned short body_length, string msg, wstring wmsg)
+        : id_(id)
+        , body_length_(body_length)
+        , message(msg)
+        , wmessage(wmsg)
+    {
+        for ( size_t i = 0 ; i &lt; 10 ; i ++ )
+        {
+            string val = boost::str(boost::format(&quot;Hello %1%&quot;)%i);
+            messages[i] = val;
+            array_[i] = val;
+            list_.push_back(i);
+            vector_.push_back(i);
+            map_[i] = val;
+            hash_map_[val] = (rand()%2==0 ? true : false);
+        }
+    }
+
+    template&lt;class Archive&gt;
+    void serialize(Archive &amp; ar, const unsigned int version)
+    {
+        ar &amp; id_;
+        ar &amp; body_length_;
+        ar &amp; message;
+        ar &amp; wmessage;
+        ar &amp; messages;          // pritimive array
+        ar &amp; array_.elems;      // boost::array
+        ar &amp; list_;             // std::list
+        ar &amp; vector_;           // std::vector
+        ar &amp; map_;              // std::map
+        //ar &amp; hash_map_;
+    }
+
+    void check_equal( const chat_message &amp; r ) const
+    {
+        BOOST_CHECK_EQUAL(id_,r.id_);
+        BOOST_CHECK_EQUAL(body_length_,r.body_length_);
+        BOOST_CHECK_EQUAL(message,r.message);
+        BOOST_CHECK(wmessage==r.wmessage);
+
+        for ( size_t i = 0 ; i &lt; 10 ; i ++ )
+        {
+            BOOST_CHECK_EQUAL(messages[i],r.messages[i]);
+        }
+
+        for ( size_t i = 0 ; i &lt; array_.size() ; i ++ )
+        {
+            BOOST_CHECK_EQUAL(array_[i],r.array_[i]);
+        }
+
+        {
+            BOOST_REQUIRE_EQUAL( list_.size(), r.list_.size() );
+            list&lt;float&gt;::const_iterator itr = list_.begin();
+            list&lt;float&gt;::const_iterator itr2 = r.list_.begin();
+            for ( ; itr != list_.end() ; itr ++, itr2++ )
+            {
+                BOOST_CHECK_EQUAL( *itr, *itr2 );
+            }
+        }
+
+        {
+            BOOST_REQUIRE_EQUAL( vector_.size(), r.vector_.size() );
+            vector&lt;int&gt;::const_iterator itr = vector_.begin();
+            vector&lt;int&gt;::const_iterator itr2 = r.vector_.begin();
+            for ( ; itr != vector_.end() ; itr ++, itr2++ )
+            {
+                BOOST_CHECK_EQUAL( *itr, *itr2 );
+            }
+        }
+
+        {
+            BOOST_REQUIRE_EQUAL( map_.size(), r.map_.size() );
+            map&lt;int,string&gt;::const_iterator itr = map_.begin();
+            map&lt;int,string&gt;::const_iterator itr2 = r.map_.begin();
+            for ( ; itr != map_.end() ; itr ++, itr2++ )
+            {
+                BOOST_CHECK_EQUAL( itr-&gt;first, itr2-&gt;first );
+                BOOST_CHECK_EQUAL( itr-&gt;second, itr2-&gt;second );
+            }
+        }
+
+        //{
+        //  BOOST_REQUIRE_EQUAL( hash_map_.size(), r.hash_map_.size() );
+        //  stdext::hash_map&lt;string,bool&gt;::const_iterator itr = hash_map_.begin();
+        //  stdext::hash_map&lt;string,bool&gt;::const_iterator itr2 = r.hash_map_.begin();
+        //  for ( ; itr != hash_map_.end() ; itr ++, itr2++ )
+        //  {
+        //      BOOST_CHECK_EQUAL( itr-&gt;first, itr2-&gt;first );
+        //      BOOST_CHECK_EQUAL( itr-&gt;second, itr2-&gt;second );
+        //  }
+        //}
+    }
+private :
+    unsigned short id_;
+    unsigned short body_length_;
+    string message;
+    wstring wmessage;
+    string messages[10];
+    boost::array&lt;string,10&gt; array_;
+    list&lt;float&gt; list_;
+    vector&lt;int&gt; vector_;
+    map&lt;int,string&gt; map_;
+    stdext::hash_map&lt;string,bool&gt; hash_map_;
+};
+
+// TODO
+// - archive from/to buffer
+// - user defined archive
+// - string, wstring load/save
+// - stl support (list,vector,map)
+
+BOOST_AUTO_TEST_CASE(test_serialize)
+{
+    const chat_message msg1(35, 59, &quot;Hello World!&quot;,L&quot;Welcome!&quot;);
+
+    {
+        chat_message msg2;
+
+        std::ofstream ofs(&quot;serialize.txt&quot;);
+        boost::archive::text_oarchive oa(ofs);
+        oa &lt;&lt; msg1;
+        ofs.close();
+
+        std::ifstream ifs(&quot;serialize.txt&quot;);
+        boost::archive::text_iarchive ia(ifs);
+        ia &gt;&gt; msg2;
+        ifs.close();
+
+        msg1.check_equal(msg2);
+    }
+
+    {
+        chat_message msg2;
+
+        std::ofstream ofs(&quot;serialize.bin&quot;, std::ios::binary);
+        boost::archive::binary_oarchive oa(ofs);
+        oa &lt;&lt; msg1;
+        ofs.close();
+
+        std::ifstream ifs(&quot;serialize.bin&quot;, std::ios::binary);
+        boost::archive::binary_iarchive ia(ifs);
+        ia &gt;&gt; msg2;
+        ifs.close();
+
+        msg1.check_equal(msg2);
+    }
+
+    {
+        chat_message msg2;
+
+        boost::asio::streambuf buf;
+        ostream os(&amp;buf);
+        boost::archive::text_oarchive oa(os);
+        oa &lt;&lt; msg1;
+
+        istream is(&amp;buf);
+        boost::archive::text_iarchive ia(is);
+        ia &gt;&gt; msg2;
+
+        msg1.check_equal(msg2);
+    }
+
+    {
+        chat_message msg2;
+
+        boost::asio::streambuf osf;
+        boost::archive::binary_oarchive oa(osf);
+        oa &lt;&lt; msg1;
+
+        boost::archive::binary_iarchive ia(osf);
+        ia &gt;&gt; msg2;
+
+        msg1.check_equal(msg2);
+    }
+
+    // via istream/ostream
+    {
+        chat_message msg2;
+
+        boost::asio::streambuf buf;
+        ostream os(&amp;buf);
+        boost::archive::binary_oarchive oa(os);
+        oa &lt;&lt; msg1;
+
+        istream is(&amp;buf);
+        boost::archive::binary_iarchive ia(is);
+        ia &gt;&gt; msg2;
+
+        msg1.check_equal(msg2);
+    }
+
+}
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/02/09/boost_asio_iostream/">boost::asio iostream</a> <small>2008-02-09</small></h1>
 	</div>
 	<div><p>문자열 기반의 네트워크 입출력 프로그래밍을 해야 한다면, ASIO 의 iostream 을 사용하면 간단히 해결된다.</p>
@@ -176,517 +449,6 @@ BOOST_AUTO_TEST_CASE( test_iostream )
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/02/09/boost-test-thread-safe/">boost::test thread safe</a> <small>2008-02-09</small></h1>
-	</div>
-	<div><p>다른 표준 라이브러리와 마찬가지로, boost::test 역시 멀티쓰레드에 대해서 안전하지 않다. 물론 BOOST_CHECK 등의 테스트 매크로들은 내부적으로 싱글톤을 사용하기 때문에, 쓰레드 함수 내부에서 사용하더라도 실패할 경우 에러 메시지를 출력해주지만, 다른 쓰레드에서 동일한 순간에 역시 같은 매크로를 호출하게 되면 콜스택 깊은 곳에서 난감한 에러를 뱉어버린다.</p>
-<p>이걸 해결하려면 결국 mutex 로 테스트 매크로들을 wrap 한 또다른 매크로를 만들어서 써야 하는 수 밖에 없다.</p>
-<pre><code>
-#define SAFE_BOOST_CHECK_EQUAL(m,x,y) { \
-boost::mutex::scoped_lock lock(m); \
-BOOST_CHECK_EQUAL(x,y); }
-
-void boost_check_always( boost::mutex * m )
-{
-boost::timer timer_;
-
-while(timer_.elapsed() &lt; 10.f )
-{
-SAFE_BOOST_CHECK_EQUAL(*m,1,1);
-}
-
-}
-
-BOOST_AUTO_TEST_CASE( test_boost_check_always )
-{
-boost::mutex m;
-boost::thread t(boost::bind(boost_check_always,&amp;m));
-
-boost::timer timer_;
-while(timer_.elapsed() &lt; 10.f )
-{
-SAFE_BOOST_CHECK_EQUAL(m,1,1);
-}
-
-t.join();
-}
-</code></pre></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/02/04/boostasio-tcp-resolver/">boost::asio TCP resolver</a> <small>2008-02-04</small></h1>
-	</div>
-	<div><p>한가로운 주말, 최신 BOOST 를 vc81로 빌드하고 <a href="http://asio.sourceforge.net/">ASIO</a>를 만지작거려 봤다. 대충 훑어본 바, 이 정도면 지금 코드에서 충분히 ACE를 제거해도 될 수준의 기능인 듯하다. 어차피 둘 다 디버깅 들어가면 템플릿 사이에서 헤매이는 건 마찬가지니...</p>
-<!--more-->
-
-<pre><code>
-// TODO multiple ip address in localmachine (..localmachine)
-BOOST_AUTO_TEST_CASE( test_resolver )
-{
- boost::asio::io_service io_service;
- boost::system::error_code error;
- tcp::resolver resolver(io_service);
- tcp::resolver::iterator end_;
-
- // localmachine
- {
-  tcp::resolver::query query(boost::asio::ip::host_name(),&quot;&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;192.168.10.101&quot; );
- }
-
- // host -&gt; ip
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
- }
-
- // localhost
- {
-  tcp::resolver::query query(&quot;localhost&quot;,&quot;&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;127.0.0.1&quot; );
-  if ( ++iterator != end_ )
-  {
-   _endpoint = *iterator;
-   BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;192.168.10.101&quot; );
-  }
- }
-
- // http
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;http&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
-  BOOST_CHECK_EQUAL( _endpoint.port(), 80 );
- }
-
- // ftp
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;ftp&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
-  BOOST_CHECK_EQUAL( _endpoint.port(), 21 );
- }
-
- // telnet
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;telnet&quot;);
-  tcp::resolver::iterator iterator = resolver.resolve(query);
-  tcp::endpoint _endpoint = *iterator;
-  BOOST_CHECK_EQUAL( _endpoint.address().to_string(), &quot;123.214.172.49&quot; );
-  BOOST_CHECK_EQUAL( _endpoint.port(), 23 );
- }
-
- // unknown host
- {
-  tcp::resolver::query query(&quot;reiot1.com&quot;,&quot;&quot;);
-  resolver.resolve(query,error);
-  BOOST_CHECK_EQUAL( error.value(), boost::asio::error::host_not_found );
- }
-
- // unknown service
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;test&quot;);
-  resolver.resolve(query,error);
-  BOOST_CHECK_EQUAL( error.value(), boost::asio::error::service_not_found );
- }
-}
-
-void print_address(const boost::system::error_code&amp; e, tcp::resolver::iterator itr )
-{
- tcp::endpoint endpoint_ = *itr;
- BOOST_MESSAGE( endpoint_.address() );
-}
-
-class AsyncResolveHandler
-{
-public :
- AsyncResolveHandler( int errorcode ) : address_(&quot;&quot;), port_(0), errorcode_(errorcode) {}
- AsyncResolveHandler( std::string addr, int port = 0 ) : address_(addr), port_(port) {}
- void operator() (const boost::system::error_code&amp; e, tcp::resolver::iterator itr )
- {
-  if ( !e )
-  {
-   tcp::endpoint endpoint_ = *itr;
-   BOOST_CHECK_EQUAL( endpoint_.address().to_string(), address_ );
-   if ( port_ != 0 )
-   {
-    BOOST_CHECK_EQUAL( endpoint_.port(), port_ );
-   }
-  }
-  else
-  {
-   BOOST_CHECK_EQUAL( e.value(), errorcode_ );
-  }
- }
- std::string address_;
- int port_;
- int errorcode_;
-};
-
-BOOST_AUTO_TEST_CASE( test_async_resolver )
-{
- boost::asio::io_service io_service;
-
- tcp::resolver resolver(io_service);
-
- boost::system::error_code error;
-
- // host -&gt; ip
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-
- // localhost -&gt; 127.0.0.1
- {
-  tcp::resolver::query query(&quot;localhost&quot;,&quot;&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(&quot;127.0.0.1&quot;));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-
- // http
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;http&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;,80));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
-
- }
-
- // ftp
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;ftp&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;,21));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-
- // telnet
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;telnet&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(&quot;123.214.172.49&quot;,23));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-
- // unknown host
- {
-  tcp::resolver::query query(&quot;reiot1.com&quot;,&quot;&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(boost::asio::error::host_not_found));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-
- // unknown service
- {
-  tcp::resolver::query query(&quot;reiot.cafe24.com&quot;,&quot;test&quot;);
-  resolver.async_resolve(query,AsyncResolveHandler(boost::asio::error::service_not_found));
-  BOOST_CHECK_EQUAL(io_service.run_one(error),1);
-  BOOST_CHECK_MESSAGE(!error,error.message());
-  io_service.reset();
- }
-}
-
-</code></pre></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/02/04/anticheatengine/">AntiCheatEngine</a> <small>2008-02-04</small></h1>
-	</div>
-	<div><p>원래는 Cheat Engine 으로도 freeze 를 걸 수 없는 안전한 변수를 만들기 위해서 만든 클래스다. 여기에 CRC라든지 XOR도 넣고, 또 값이 바뀔 때마다 위치도 바꾸고 할려고 했는데, 가만히 생각해보니 속도도 제법 느리고 막상 함수 내에 아래와 같이 로컬 캐시가 있다면 그걸 바꿔버리면 전혀 쓸모 없어져서 그냥 포기버렸다.</p>
-<pre><code>
-float speed = ac.Get&lt;float&gt;(&quot;speed&quot;);
-// -- inject code here --
-check_next_pos(pos,speed);
-</code></pre>
-
-<p><a href="http://reiot.cafe24.com/2008/02/03/ai-game-programming-wisdom-3/">어제 주문한 책들</a>이 도착하면 다시 한번 도전해볼까 싶기도 하지만, assembly 쪽 지식이 전무해서...</p>
-<!--more-->
-
-<pre><code>
-// AntiCheatEngine.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.
-//
-
-#include &quot;stdafx.h&quot;
-#include &lt;string&gt;
-#include &lt;set&gt;
-#include &lt;vector&gt;
-#include &lt;list&gt;
-#include &lt;hash_map&gt;
-
-#pragma warning(disable:4819)
-#define BOOST_TEST_MAIN
-#include &lt;boost/format.hpp&gt;
-#include &lt;boost/test/unit_test.hpp&gt;
-
-using std::string;
-
-size_t GenerateIndex()
-{
-static size_t key = 0;
-return key++;
-}
-
-class AntiCheat
-{
-typedef std::vector&lt;size_t&gt; INDEX_LIST;
-typedef stdext::hash_map&lt;string, INDEX_LIST &gt; KEY_MAP;
-
-public :
-
-AntiCheat( size_t N = 1024*64 )
-{
-m_Buffer.assign(N,0);
-m_UnusedIndex.assign(N,0);
-std::generate(m_UnusedIndex.begin(),m_UnusedIndex.end(),GenerateIndex);
-std::random_shuffle(m_UnusedIndex.begin(),m_UnusedIndex.end());
-}
-
-bool IsValid() const { return true; }
-
-unsigned int GetCRC() { return m_CRC; }
-
-// FIXME use ASSERT, dont check return value
-template&lt;class T&gt;
-bool Set( const string &amp; name , const T &amp; valueIn )
-{
-KEY_MAP::iterator itr = m_Keys.find(name);
-if ( itr == m_Keys.end() )
-{
-INDEX_LIST idxList;
-for ( size_t i = 0 ; i &lt; sizeof(valueIn); i ++ )
-{
-if ( m_UnusedIndex.empty() )
-return false;
-size_t idx = m_UnusedIndex.back();
-m_UnusedIndex.pop_back();
-idxList.push_back(idx);
-}
-
-itr = m_Keys.insert(make_pair(name,idxList)).first;
-}
-
-INDEX_LIST &amp; indexList = itr-&gt;second;
-
-for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
-{
-size_t idx = indexList[i];
-m_Buffer[idx] = reinterpret_cast&lt;const char*&gt;(&amp;valueIn)[i];
-}
-
-return true;
-}
-
-template&lt;typename T&gt;
-bool Get( const string &amp; name, T &amp; valueOut )
-{
-KEY_MAP::iterator itr = m_Keys.find(name);
-if ( itr == m_Keys.end() )
-{
-return false;
-}
-
-INDEX_LIST &amp; indexList = itr-&gt;second;
-
-for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
-{
-size_t idx = indexList[i];
-reinterpret_cast&lt;char*&gt;(&amp;valueOut)[i] = m_Buffer[idx];
-}
-return true;
-}
-
-size_t GetUnusedIndexCount() const { return m_UnusedIndex.size(); }
-
-unsigned int m_CRC;
-
-INDEX_LIST m_UnusedIndex;
-std::vector&lt;unsigned char&gt; m_Buffer;
-KEY_MAP m_Keys;
-};
-
-//////////////////////////////////////////////////////////////////////////
-template&lt;&gt;
-bool AntiCheat::Set&lt;string&gt;( const string &amp; name, const string &amp; valueIn )
-{
-KEY_MAP::iterator itr = m_Keys.find(name);
-if ( itr == m_Keys.end() )
-{
-INDEX_LIST idxList;
-for ( size_t i = 0 ; i &lt; valueIn.size(); i ++ )
-{
-if ( m_UnusedIndex.empty() )
-return false;
-size_t idx = m_UnusedIndex.back();
-m_UnusedIndex.pop_back();
-idxList.push_back(idx);
-}
-
-itr = m_Keys.insert(make_pair(name,idxList)).first;
-}
-
-INDEX_LIST &amp; indexList = itr-&gt;second;
-
-for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
-{
-size_t idx = indexList[i];
-m_Buffer[idx] = valueIn[i];
-}
-
-return true;
-}
-
-template&lt;&gt;
-bool AntiCheat::Get&lt;string&gt;( const string &amp; name, string &amp; valueOut )
-{
-KEY_MAP::iterator itr = m_Keys.find(name);
-if ( itr == m_Keys.end() )
-{
-return false;
-}
-
-INDEX_LIST &amp; indexList = itr-&gt;second;
-
-// FIXME 최초 크기 보다 작은 사이즈는 저장할 수 없다?
-valueOut.assign(indexList.size(),0);
-for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
-{
-size_t idx = indexList[i];
-valueOut[i] = m_Buffer[idx];
-}
-return true;
-}
-
-BOOST_AUTO_TEST_CASE( test1 )
-{
-AntiCheat ac(100);
-
-BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100 );
-
-BOOST_CHECK( ac.IsValid() );
-
-string strIn = &quot;World&quot;, strOut;
-
-{
-ac.Set(&quot;string&quot;,strIn);
-BOOST_CHECK( ac.IsValid() );
-BOOST_CHECK( ac.Get&lt;string&gt;(&quot;string&quot;,strOut) );
-BOOST_CHECK_EQUAL( strIn, strOut );
-BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size());
-}
-
-{
-int intIn, intOut;
-
-intIn = 1;
-ac.Set(&quot;int&quot;,intIn);
-BOOST_CHECK( ac.IsValid() );
-BOOST_CHECK( ac.Get&lt;int&gt;(&quot;int&quot;,intOut) );
-BOOST_CHECK_EQUAL( intIn, intIn );
-BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int));
-
-intIn = -1;
-ac.Set(&quot;int&quot;,intIn);
-BOOST_CHECK( ac.IsValid() );
-BOOST_CHECK( ac.Get&lt;int&gt;(&quot;int&quot;,intOut) );
-BOOST_CHECK_EQUAL( intIn, intIn );
-BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int));
-}
-
-{
-bool boolIn, boolOut;
-
-boolIn = true;
-ac.Set(&quot;bool&quot;,boolIn);
-BOOST_CHECK( ac.IsValid() );
-BOOST_CHECK( ac.Get&lt;bool&gt;(&quot;bool&quot;,boolOut) );
-BOOST_CHECK_EQUAL( boolIn, boolOut );
-BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool));
-
-boolIn = true;
-ac.Set(&quot;bool&quot;,boolIn);
-BOOST_CHECK( ac.IsValid() );
-BOOST_CHECK( ac.Get&lt;bool&gt;(&quot;bool&quot;,boolOut) );
-BOOST_CHECK_EQUAL( boolIn, boolOut );
-BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool));
-}
-
-{
-float floatIn, floatOut;
-
-floatIn = 1.234f;
-ac.Set(&quot;float&quot;,floatIn);
-BOOST_CHECK( ac.IsValid() );
-BOOST_CHECK( ac.Get&lt;float&gt;(&quot;float&quot;,floatOut) );
-BOOST_CHECK_EQUAL( floatIn, floatOut );
-BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool)-sizeof(float));
-
-floatIn = -56.78f;
-ac.Set(&quot;float&quot;,floatIn);
-BOOST_CHECK( ac.IsValid() );
-BOOST_CHECK( ac.Get&lt;float&gt;(&quot;float&quot;,floatOut) );
-BOOST_CHECK_EQUAL( floatIn, floatOut );
-BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool)-sizeof(float));
-}
-
-}
-
-/*
-
-값을 바꾸면 Key 및 CRC 가 바뀐다
-멤버 함수가 아닌 다른 경로로 값을 바꾸면 CRC 체크가 깨져야 한다.
-AntiCheat 는 하나의 큰 버퍼를 가진다. (ex: 32k)
-여기에 변수를 키값을 이용해서 저장하고 읽어낸다.
-이때 각 변수들은 바이트 단위로 흩어진다. 이때 흩어지는 인덱스는 저장하는 순간 랜덤하게, 중복되지 않게 결정된다.
-(이때문에 unused index set 이 필요함)
-또한 각 변수들은 Verifier 라는 range-checker 와 연동될 수 있다.
-키값 역시 다이나믹하게 결정된다. (가령 player.hp 의 경우 매크로에 의해서 __K(PlayerHP) -&gt; 세션키와의 XOR 등등 )
-Verify()를 호출하면 각 키에 대해서 Verify 한 다음,
-특정 영역 마다 0xEF 등 boundry checker 를 넣어두고, 바뀌었는지 체크한다.
-
-문자열일 경우 (길이 2바이트,본문) 이렇게 저장해야 한다. 만약 길이가 달라질 경우 인덱스를 새로 얻어 오거나 반납해야 한다.
-
-*/
-</code></pre></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/01/29/solid-compression/">Solid Compression</a> <small>2008-01-29</small></h1>
-	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/learning_reiot.png" title="learning_reiot.png"><img alt="learning_reiot.png" src="http://boxcatstudio.files.wordpress.com/2009/07/learning_reiot.png" /></a></p>
-<p><a href="http://sonee.com">소니</a>군의 가상 파일 시스템 작업을 배후조종 하면서 알아낸 팁.<br />
-<code>여러 파일들을 하나의 스트림으로 압축해버리는 [Solid Compression](http://en.wikipedia.org/wiki/Solid_compression) 으로 압축한 파일에서는, 단 하나의 파일을 해제하는데에도 꽤 오랜 시간이 걸린다.</code><br />
-see also:</p>
-<pre><code>- 위 그림은 [O'Reilly 책 표지를 만들어주는 사이트](http://www.oreillymaker.com/)에서 생성해냈다.
-- [Photoscape](http://www.photoscape.org/ps/main/index.php) : 쉬귀 군이 추천해준, 사진 편집 기능이 탁월한 무료 그래픽 에디터
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -707,23 +469,23 @@ see also:</p>
 	</li>
 	
 	<li>
+		<a href="/2008/02/22/wow-warden-as-spyware/">WOW Warden as Spyware</a>
+	</li>
+	
+	<li>
+		<a href="/2008/02/22/boostasio-documentation/">boost::asio documentation</a>
+	</li>
+	
+	<li>
+		<a href="/2008/02/18/getting-real/">Getting Real</a>
+	</li>
+	
+	<li>
+		<a href="/2008/02/10/boost-serialization/">boost::serialization</a>
+	</li>
+	
+	<li>
 		<a href="/2008/02/09/boost_asio_iostream/">boost::asio iostream</a>
-	</li>
-	
-	<li>
-		<a href="/2008/02/09/boost-test-thread-safe/">boost::test thread safe</a>
-	</li>
-	
-	<li>
-		<a href="/2008/02/04/boostasio-tcp-resolver/">boost::asio TCP resolver</a>
-	</li>
-	
-	<li>
-		<a href="/2008/02/04/anticheatengine/">AntiCheatEngine</a>
-	</li>
-	
-	<li>
-		<a href="/2008/01/29/solid-compression/">Solid Compression</a>
 	</li>
 	
 </ul>

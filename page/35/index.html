@@ -63,6 +63,81 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a> <small>2006-04-25</small></h1>
+	</div>
+	<div><p><a href="http://udt.sf.net">UDT</a>는 Internet2 혹은 기가비트 이더넷과 같이 빠른 네트워크에서 수십~수백 기가 바이트의 대용량 데이터를 전송할 때 TCP가 매우 느리다는 점때문에 시작된 오픈소스 프로젝트이다. 버클리 소켓 API를 그대로 유지하고 있어서 접근성이 좋고, TCP의 슬라이딩 윈도우 같은 Congestion Control 을 사용자가 상황에 맞게 조정할 수 있다는 장점이 있다. 2.0 버전까지는 UDP 스트림만을 지원했는데 3.0부터는 UDP 다이어그램과 중첩입출력(Overlapped)도 지원하기 시작했다. 현재 3.0 beta 가 나와 있는 상태이다.</p>
+<p>이번에 reliable UDP 라이브러리 조사 도중 탐지망에 걸려 들어서 검토한 결과, 하나의 소켓에 대해서 내부적으로 입력과 출력 쓰레드를 1개씩 사용하는 것을 발견했다. 원래부터 데이터 전송을 목적으로 구현되어서 그런 듯한데, 이를 수정하지 않고는 게임 서버에서 사용하기는 힘들다는 판단을 내렸다. 시간이 난다면 IOCP를 연동할 수 있게 살짝 고쳐 보고 싶지만, 누구 말마따나 게임 회사는 연구소가 아닌 관계로... OTL</p>
+<p>결국 다시 RakNet으로 가야 된단 말인가...</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/04/25/codekeep/">CodeKeep</a> <small>2006-04-25</small></h1>
+	</div>
+	<div><p><a class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.JPG" title="codekeep.JPG"><img alt="codekeep.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.thumbnail.JPG" /></a><br />
+<a href="http://msdn.microsoft.com/msdnmag/issues/05/12/VisualStudioAddins/default.aspx">Visual Studio Add-Ins Every Developer Should Download Now</a> 에서 비주얼 스튜디오를 위한 10 가지 필수 플러그인들을 만나볼 수 있다. 그 중에서 제일 마음에 드는 것은, 함수를 선택하면 파라미터를 읽어서 자동적으로 XML 코멘트를 만들어주는 <a href="http://www.roland-weigelt.de/ghostdoc">GhostDoc</a>과, 웹에서 코드 조각들을 검색해서 내 코드에 넣을 수 있는 <a href="http://www.codekeep.net/">CodeKeep</a>이라는 플러그인이다.</p>
+<p>단 GhostDoc은 아직 VS2005 영문판만 지원해서 CodeKeep만 구경해볼 수 있었는데, 아직은 기부된 코드의 양이 부족한 듯해서 아쉬웠다. del.icio.us처럼 많은 사람들이 사용해줘야 시너지 효과가 날텐데, 홈페이지만 <a href="http://goodhyun.com/archives/2006/04/_co_oe_aoea_a_2.php">웹2.0 디자인</a>을 닮으려고 해서는 안될 것이다. 이런 식으로 팀 내부적으로 코드조각을 공유할 수 있는 솔루션이 있었으면 좋으련만... (누가 위키 기반으로 만들어주시게~~)</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/04/24/odbc-tips/">ODBC Tips</a> <small>2006-04-24</small></h1>
+	</div>
+	<div><p><strong>Timestamp -&gt; C</strong></p>
+<p>TIMESTAMP 값을 C 에서 받는 방법은 다양하다. 단순 SELECT 를 통해 날짜 스트링으로 받던가, SQL 문으로 적절히 CONVERT 한 변형된 스트링을 받던가, 아예 아래처럼 구조체로 바로 받을 수 있다.</p>
+<pre><code>
+// SQL_C_TYPE_DATE
+struct tagDATE_STRUCT {
+SQLSMALLINT year;
+SQLUSMALLINT month;
+SQLUSMALLINT day;
+} DATE_STRUCT;
+
+// SQL_C_TYPE_TIME
+struct tagTIME_STRUCT {
+SQLUSMALLINT hour;
+SQLUSMALLINT minute;
+SQLUSMALLINT second;
+} TIME_STRUCT;
+
+// SQL_C_TYPE_TIMESTAMP
+struct tagTIMESTAMP_STRUCT {
+SQLSMALLINT year;
+SQLUSMALLINT month;
+SQLUSMALLINT day;
+SQLUSMALLINT hour;
+SQLUSMALLINT minute;
+SQLUSMALLINT second;
+SQLUINTEGER fraction;[b]
+} TIMESTAMP_STRUCT;
+</code></pre>
+
+<p>see also:</p>
+<pre><code>- [ODBC  C
+</code></pre>
+<p>](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/odbcc_data_types.asp)</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/04/24/memory-leak-detection-tools/">Memory Leak Detection Tools</a> <small>2006-04-24</small></h1>
+	</div>
+	<div><p>from <a href="http://www.rakkarsoft.com/raknet/forum/index.php?topic=251.0">RakNet forum</a></p>
+<pre><code>- [http://www.flipcode.com/articles/article_memoryleaks.shtml](http://www.flipcode.com/articles/article_memoryleaks.shtml)
+- [http://www.flipcode.com/cgi-bin/fcarticles.cgi?show=64744](http://www.flipcode.com/cgi-bin/fcarticles.cgi?show=64744)
+- [http://www.embedded.com/story/OEG20020321S0021](http://www.embedded.com/story/OEG20020321S0021)
+- [http://wyw.dcweb.cn/leakage.htm](http://wyw.dcweb.cn/leakage.htm)
+- [http://www.codeproject.com/cpp/MemoryHooks.asp](http://www.codeproject.com/cpp/MemoryHooks.asp)
+- [http://www.codeproject.com/tools/leakfinder.asp](http://www.codeproject.com/tools/leakfinder.asp)
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/04/23/oblivion-story/">오블리비언 스토리</a> <small>2006-04-23</small></h1>
 	</div>
 	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/umbraplusskooma.jpg" title="umbraplusskooma.jpg"></a></p>
@@ -90,121 +165,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/15/how-to-test-my-server-frameworks-performance/">How to test my server framework’s performance?</a> <small>2006-04-15</small></h1>
-	</div>
-	<div><p>갓 만들어진 서버 프레임워크의 성능을 제대로 테스트하기란 쉽지 않다. 대체로 (서비스 예정인) 표준 하드웨어 사양 하에서 가상 클라이언트를 1000-2000 개 정도 붙이고 적절한 트래픽을 주었을 때 반응 속도라든지 CPU 점유율, 메모리 사용량 등을 측정하는 것이 일반적인데, 문제는 서버 프레임워크에서 채택한 내부 구조에 따라서, 특히 동기화, 쓰레드 같은 민감한 요소들에 따라 결과가 천차만별이 된다는 것이다.</p>
-<p>예를 들면 이런 구조에서는 트래픽이 늘어날수록 CPU 사용량이 폭주할 수도 있고, 저런 구조에서는 접속자가 늘어날수록 반응속도가 느려질 수도 있다는 것인데, <a href="http://reiot.cafe24.com/archives/434">이번 마이그레이션</a>에서도 비슷한 현상을 경험했다. 사실 어제 아침까지만 해도 테스트 결과가 좋아서 안심하고 있었는데, 혹시나 해서 트래픽을 2배로 늘린 후 성능 모니터링을 해보니 CPU 점유율이 130%까지 급증하는게 아닌가... 반면 예전에 만들어둔 코드는 동일 조건에서도 CPU 점유율은 40%를 넘지 않았다. 흑흑.</p>
-<p>오늘 Visual Studio .NET 2005 에 내장된 프로파일러로 을사오적(?)들을 찾아내서 모두 제거하고,  최종적으로 6배 트래픽으로 테스트한 결과 debug에서는 120%, release에서는 150% 정도 빨라진 놈을 완성할 수 있었다. 아직 idle 체크를 위한 타이머 처리라든지, 메시지 핸들러 같은 구태의연한 작업이 남아있긴 하지만, 웬지 성공적으로 끝이 날 것 같다는 희망에 차 있는 상태다. :)</p>
-<p>아무튼 이번 삽질을 통해, 가상 클라이언트를 이용한 서버 프레임워크의 테스트 방법론에 대해서 좀 더 체계화를 해야 할 필요성을 느꼈다. 이번 주에 한 일이라고는 고작, 2개의 머신에서 파라미터를 적절히 바꿔가면서 서버와 클라이언트를 수동으로 실행하고, 성능 모니터링 도구를 이용해서 CPU 및 메모리 사용량을 눈으로 살펴보고, 최종적으로 클라이언트측에 남겨진 통계 로그 파일을 위키 페이지로 복사한 후, 성능의 변동을 살펴보는 단순 작업들을 반복해왔기 때문이다. 물론 밀린 일정 덕에 자동화에 투자할 시간은 더이상 없겠지만 대략 다음과 같은 테스트 프레임워크를 구성해 볼 기회가 있었으면 좋겠다.</p>
-<p><strong>준비물</strong></p>
-<pre><code>- 커맨드라인 명령으로 내부 구조를 실시간으로 변경할 수 있는 서버 프레임워크
-- 클라이언트 개수, 초당 트래픽 등을 손쉽게 제어할 수 있는 가상 클라이언트
-- CPU 점유율, 메모리 사용량 등의 통계 데이터를 XML 이나 CSV 형식으로 저장
-- 다른 머신으로 원클릭 자동 배포를 지원하는 도구
-- 다른 머신에서 특정 실행 파일을 실행해주는 도구
-- 다른 머신에서 통계 데이터 파일을 읽어와서 적절히 merge 해주는 도구
-- 테스트 케이스의 리스트에 등록된 테스트를 위 도구를 이용해서 잘 실행해주는 통합 도구
-- 다른 머신의 특정 프로세스의 다양한 성능 카운터들을 실시간 그래프로 보여주는 도구
-</code></pre>
-<p><strong>테스트 도구 디자인</strong></p>
-<p>유닛 테스트의 개념과 형식을 빌어오면 좋을 듯하다.</p>
-<pre><code>- TestSuite : 트리 방식으로 실행할 테스트 슈트 및 케이스를 지정할 수 있어야 한다. NUnit 를 상상하면 가장 좋을 듯.
-- TestCase : 테스트하고자 하는 서버와 클라이언트 실행 파일을 선택하고 각각의 커맨드라인 옵션을 설정한다.
-- Setup, TearDown : 관련 파일을 특정 머신으로 복사하거나 덮어쓴다. 테스트가 끝이 나면 결과를 받아온다.
-- TestTools : 각 머신에서 살펴보고자 하는 성능 카운터를 선택하고, 예상하는 한계치를 설정한다.
-- TestRunner : 특정 머신에 복사된 파일을 지정된 파라미터로 실행한다. 만약을 위해서 adplus 도 붙여주는 센스!
-</code></pre>
-<p><strong>테스트 리포트</strong></p>
-<p>(내부 구조, 클라이언트 개수, 트래픽)에 따른 (반응 속도, CPU 점유율, 메모리 사용량)의 변화를 한눈에 알아볼 수 있어야 한다.</p>
-<pre><code>- 테스트 개요
-
-- 테스트 아이디
-- 테스트 설명
-- 테스트 시각
-- 빌드
-- 서버 환경
-- 클라이언트 환경
-
-- 서버/클라이언트 성능 카운터 및 통계 데이터
-
-- CPU 통계
-- 메모리 통계
-- 트래픽 통계
-- 각종 서버 성능 카운터
-- 서버의 반응 속도
-</code></pre>
-<p>웬지 마이크로소프트나 ant 같은 것들이 이런 기능을 제공할 법도 한데 말이다. 혹시나 비슷한 기능을 가진 도구를 아시는 분은 꼭 코멘트 부탁드린다.</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/15/first-class-object/">First Class Object</a> <small>2006-04-15</small></h1>
-	</div>
-	<div><table>
-<thead>
-<tr>
-<th></th>
-<th>First Class Object</th>
-<th>Second Class Object</th>
-<th>Third Class Object</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>함수처럼 호출될 수 있는가?</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>파라미터로 넘겨질 수 있는가?</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-<tr>
-<td>함수의 리턴값으로 사용될 수 있는가?</td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-</tr>
-<tr>
-<td>변수에 대입될 수 있는가?</td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-</tr>
-</tbody>
-</table></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/15/ethereal-tips/">Ethereal Tips</a> <small>2006-04-15</small></h1>
-	</div>
-	<div><p><strong>Local Packets</strong></p>
-<p>로컬 어플리케이션 간의 TCP/IP 패킷 전송은 캡처되지 않는다. 뭔가 내가 모르는게 있는걸까?</p>
-<p><strong>Conversation</strong></p>
-<p><a title="EtherealConversation.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.thumbnail.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/EtherealConversation.thumbnail.JPG" /></a>특정 어플리케이션에 대해서 패킷 캡처를 하고 나면, 캡처 하는 동안 발생했던 다른 쓸모없는 패킷들까지도 뒤섞여 있기 때문에, 이를 잘 필터링해야 한다. 물론 Display Filter 를 써서 수동으로 하나씩 필터링하는 방법도 있지만, Statistics - Conversation 메뉴를 통해서 그동안 전송된 패킷들을 프로토콜별로 분류해 놓은 표를 통해서 필터링하는 방법도 있다.</p>
-<p>이 표를 보면 프로토콜별/주소별 패킷 분류가 되어 있으며, 각 분류마다 전송 횟수가 표시되어 있으므로 원하는 프로토콜과 주소지를 잘 선택하면 끝.</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/11/migrate-to-ace/">Migrate To ACE</a> <small>2006-04-11</small></h1>
-	</div>
-	<div><p><a href="http://reiot.cafe24.com/archives/404">예전에도 밝혔다시피</a> 요즘 legacy server core framework 를 <a href="http://reiot.cafe24.com/archives/413">ACE</a> 기반으로 마이그레이션하고 있다. 기존 코드의 경우 골치아픈 동기화와 데드락을 최대한 피하기 위해서 IOCP를 썼음에도 불구하고 polling 을 통한 순차 처리를 하도록 되어 있어서, 일단 이 형태를 그대로 ACE 기반으로 재구성 한 후 제대로 된 이벤트 드리븐을 구현해보려고 노력 중이다. 사실, 테스트 결과는 그다지 좋지는 않지만, 숨겨진 병목 부분을 해결하면 원래 코드의 80-90% 정도는 따라갈 수 있으리라고 예상중이다.</p>
-<p>그런데 작업 도중 오랜만에 동기화 관련 버그를 만났다. ACE_ASSERT( p != 0 ); 에서 에러가 났는데 디버거로 쫒아가면 우습게도 포인터가 정상이 아닌가... 처음엔 VS2005를 탓하면서 한동안 헤롱거리다가 가만히 생각해보니, ASSERT가 발생한 직후 다른 쓰레드가 재빨리 값을 바꾸어 버리는 것 외에는 이유가 없다는 것을 깨달았다. 알고 보니 ACE API 의 호출 순서를 헷갈려서 생긴 문제였다. :(</p>
-<p>이번 마이그레이션의 최종 목표는 ACE 기반으로 제대로 된 gather-scatter I/O를 구현하는 것이다. 프레임워크가 잘 만들어져 있어서 금방 할 수 있긴 한데, 가능한한 락과 복사를 하지 않고 구현하려고 하니 잘 안되는 듯했다. (lock 으로 보호되는 ACE_Message_Block 을 duplicate() 해서 각각의 출력 버퍼에 concat 하고 출력 스트림에다가 writev() 만 하면 되는데 말이다. 물론 메모리 풀링도 필요하다.) 과연 하나의 버퍼에 복사한 후 플러시하는 게 빠를지, 버퍼 복사 없이 리스트로 관리하다가 한꺼번에 플러시하는게 빠를지... 결과가 기대된다. (ref-count 를 위한 락 때문에 더욱 결과가 모호하다 ㅋㅋ)</p>
-<p>이거 외에도 써먹어야 할 ACE 고급 기능들이 부지기수인데...  스케줄은 늘어지고, 야근은 하기 싫고, 오블리비언도 해야 되고... 진퇴양난이다.</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -225,23 +185,23 @@
 	</li>
 	
 	<li>
+		<a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a>
+	</li>
+	
+	<li>
+		<a href="/2006/04/25/codekeep/">CodeKeep</a>
+	</li>
+	
+	<li>
+		<a href="/2006/04/24/odbc-tips/">ODBC Tips</a>
+	</li>
+	
+	<li>
+		<a href="/2006/04/24/memory-leak-detection-tools/">Memory Leak Detection Tools</a>
+	</li>
+	
+	<li>
 		<a href="/2006/04/23/oblivion-story/">오블리비언 스토리</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/15/how-to-test-my-server-frameworks-performance/">How to test my server framework’s performance?</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/15/first-class-object/">First Class Object</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/15/ethereal-tips/">Ethereal Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/11/migrate-to-ace/">Migrate To ACE</a>
 	</li>
 	
 </ul>

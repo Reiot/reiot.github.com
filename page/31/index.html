@@ -63,6 +63,159 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/07/05/operator-는-상속되지-않는다/">operator= 는 상속되지 않는다.</a> <small>2006-07-05</small></h1>
+	</div>
+	<div><pre><code>
+template
+class Hello
+{
+public :
+void operator=( const T &amp;amp;val ) { value = val; }
+T value;
+};
+
+class HelloStr : public Hello {};
+
+TEST(TemplateAndOperator)
+{
+Hello i;
+i = 100;
+Hello s;
+s = &quot;Hello&quot;; // error
+}
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/07/01/fps-게임의-복제-프레임워크-분석/">FPS 게임의 복제 프레임워크 분석</a> <small>2006-07-01</small></h1>
+	</div>
+	<div><p>다음 글을 읽기 전에 우선 <a href="http://reiot.cafe24.com/archives/571">전통적인 FPS게임의 네트워크 구현</a>부터 읽어보기를 권장한다. 참고한 원문은 <a href="http://developer.valvesoftware.com/wiki/Networking_Entities">하프2위키:Networking_Entities</a>이며, 단순 번역이 아니라 코드를 기반으로 정리한 내용임을 미리 밝힌다.</p>
+<p>가장 먼저 알아야 할 점은, 소스 엔진에서는 서버에서 클라이언트로의 단방향 복제(replication)만이 일어난다는 점이다. 반대의 경우에는 입력 샘플링과 메시징 시스템만 사용할 수 있다. 아무래도 양방향 복제의 경우 경쟁 조건 같은 문제들이 골치 아프기 때문에, 자체적인 복제 프레임워크를 구축하는 분들에게도 단방향 복제만 구현하는 것을 권장한다.</p>
+<p><a class="imagelink" title="entity.png" href="http://boxcatstudio.files.wordpress.com/2009/07/entity.png"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/entity.png" src="http://boxcatstudio.files.wordpress.com/2009/07/entity.png" /></p>
+<p>복제는 서버와 클라이언트에 정의된 엔티티(entity) 사이에서 이루어진다. 이때 동일한 클래스를 C/S 공통으로 사용하는 대신, 서버에서는 CBaseEntity 를, 클라이언트에서는 C_BaseEntity를 상속받은 엔티티를 각각 따로 정의한다.</p>
+<p>복제의 최소 단위는 엔티티 내부에 존재하는 네트워크 변수(CNetworkVar)이다. 단순히 이름이나 좌표 같은 visual 데이터 뿐만이 아니라 애니메이션 프레임이나 물리 엔진에서 사용하는 미시적인 데이터까지도 복제되는 것을 확인할 수 있다. 참고로 CBaseEntity -&gt; C_BaseEntity 간에 복제되는 네트워크 변수가 26가지나 되는 걸로 봐서, 소스 엔진에서의 복제 프레임워크의 비중이 매우 크다는 것을 알 수 있다.</p>
+<pre><code>
+// server base entity
+class CBaseEntity : public IServerEntity {
+    CNetworkVector( m_vecOrigin );
+    CNetworkQAngle( m_angRotation );
+};
+
+// client base entity
+class C_BaseEntity : public ICilentEntity {
+    Vector m_vecOrigin;
+    QAngle m_angRotation;
+};
+
+</code></pre>
+
+<p>네트워크 변수들은 다양한 연산자 오버로딩을 지원하기 때문에 일반적인 빌트인 타입처럼 사용할 수 있다. 또한, 서버 엔티티의 특정 네트워크 변수가 바뀌게 되면 해당 엔티티의 dirty flag가 자동적으로 켜져서 다음 번 스냅샷에 포함되게 되어 있다. 최종적인 코드는 꽤 간단해보이지만, 이를 구현하기 위해서 매크로와 void * 를 이용한 offset 처리, 그리고 템플릿이 꽤나 복잡하게 얽혀 있어서, 분석에 애를 좀 먹었다. 관심 있는 사람은 내공 증진을 위해 한번 훑어 보는 것을 권장한다.</p>
+<p>네트워크 변수의 복제는 비트스트림(bitbuf)을 통해서 이루어진다. 각각의 엔티티에는 네트워크 변수들을 비트스트림으로 변환하는 방법을 담은 데이터 테이블(DataTable)이 클래스 static 변수로 정의되어 있다. 앞서 밝혔듯이 오직 단방향 복제만 지원되기 때문에, 서버 엔티티의 데이터 테이블은 Send Table, 클라이언트 엔티티의 데이터 테이블은 Recv Table 이라고 불린다. 데이터 테이블을 만드는 함수인 SendProp()과 RecvProp()들을 이용하면, 네트워크 변수를 주고 받을 때, 타입과 비트 크기, 복제용 플래그, 변경될 경우에 호출할 프록시 함수(==콜백 함수)등을 지정할 수 있다.</p>
+<pre><code>
+// CBaseEntity Send Table
+
+IMPLEMENT_SERVERCLASS_ST_NOBASE( CBaseEntity, DT_BaseEntity )
+    ...
+    SendPropVector  (SENDINFO(m_vecOrigin), -1,  SPROP_COORD|SPROP_CHANGES_OFTEN,
+        0.0f, HIGH_DEFAULT, SendProxy_Origin ),
+    SendPropQAngles (SENDINFO(m_angRotation), 13, SPROP_CHANGES_OFTEN, SendProxy_Angles ),
+    ...
+END_SEND_TABLE()
+
+// C_BaseEntity Recv Table
+
+BEGIN_RECV_TABLE_NOBASE(C_BaseEntity, DT_BaseEntity)
+    ...
+    RecvPropVector( RECVINFO_NAME( m_vecNetworkOrigin, m_vecOrigin ) ),
+    RecvPropQAngles( RECVINFO_NAME( m_angNetworkAngles, m_angRotation ) ),
+    ...
+END_RECV_TABLE()
+</code></pre>
+
+<p>여기까지만 구현하면 기본적인 객체 및 데이터의 복제는 끝난다. 그러나 이것만으로 랙이나 손실 등의 다양한 예외 상황을 처리하기는 곤란하다. 이것이 바로 복제 프레임워크가 Interpolation 을 지원해야 하는 이유이다. 손쉽게 외삽과 내삽을 구현하려면 복제된 데이터의 히스토리를 일정 분량동안 저장한 후 다양한 보간 함수들을 이용해서 예측을 해야 하는데, 이런 기능을 도와주는 것이 바로 IInterpolatedVar 이다. 어떤 네트워크 변수가 Interpolate 를 지원하게 하려면 해당 엔티티에 CInterpolatedVar 를 함께 정의한 후, AddVar()를 이용해서 매핑을 시키면 된다. 그러면 네트워크 변수가 서버에 의해 업데이트 될 때마다 히스토리가 쌓이게 되며 필요할 때마다 적당히 보간된 값을 얻어올 수 있게 된다.</p>
+<pre><code>
+// client base entity
+class C_BaseEntity : public ICilentEntity {
+  Vector m_vecOrigin;
+  CInterpolatedVar m_iv_vecOrigin;
+  QAngle m_angRotation;
+  CInterpolatedVar m_iv_angRotation;
+};
+
+C_BaseEntity::C_BaseEntity() :
+    m_iv_vecOrigin( &quot;m_iv_vecOrigin&quot; ),
+    m_iv_angRotation( &quot;m_iv_angRotation&quot; )
+{
+    AddVar( &amp;m_vecOrigin, &amp;m_iv_vecOrigin, LATCH_SIMULATION_VAR );
+    AddVar( &amp;m_angRotation, &amp;m_iv_angRotation, LATCH_SIMULATION_VAR );
+}
+</code></pre>
+
+<p>정리하면, 소스 엔진의 복제 프레임워크는</p>
+<ul>
+<li>상속을 통해서 객체 복제를 구현한다. 반면 언리얼 엔진에서는 스크립트와 C++간의 바인딩을 이용한다. 아무래도 속도는 C++ 레벨에서 복제하는 소스 엔진 쪽이 더 우세할 것으로 추측한다.</li>
+<li>복제하려는 데이터의 선별은 C++ 클래스 디자인 단계에서 이루어진다. 데이터의 송수신은 매크로로 간단히 구현되며, 객체 단위가 아니라 데이터 단위로 콜백을 지정할 수 있다.</li>
+<li>Interpolation은 히스토리를 관리할 객체를 더 필요로 하며, 원본 데이터가 바뀔 때마다 자동적으로 히스토리에 쌓이도록 되어 있어서, 개발자의 스트레스를 꽤 많이 덜어줄 것 같다.</li>
+</ul>
+<p>어제 위 내용을 토대로 기존에 작성된 복제 프레임워크를 뜯어 고치다가 영식군이 힐끗 보고 말하길 "도대체 우리 게임에 객체가 몇 개나 되길래 그렇게 최적화를 하냐?"는 이야기를 듣고 적당히 포기하기로 했다. 흑. </a></p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/06/23/vs2005-vs2003-함께-사용하기/">VS2005 & VS2003 함께 사용하기</a> <small>2006-06-23</small></h1>
+	</div>
+	<div><p>Visual Studio 2005를 설치한 다음 Visual Studio 2003을 설치하면, 우선 탐색기에서 솔루션과 프로젝트 파일에 대한 연결이 깨지며, 두번째로는 크래시 발생시 디버거 선택 창에서 VS2005 가 사라진다. 원래 VS2005에서는 이런 문제를 해결하기 위해서 Visual Studio Version Selector(%ProgramFiles%\Common Files\Microsoft Shared\MSEnv\VSLauncher.exe)를 제공하는데, 설치 순서가 바뀌는 바람에 이게 날아가는 바람에 생기는 문제들이다.</p>
+<h2>파일 연결 복구</h2>
+<p>파일 연결을 복구하는 것은 간단하다.</p>
+<ul>
+<li>솔루션이나 프로젝트 파일을 시프트+우클릭을 해서 연결 프로그램을 선택한 다음 Version Selector를 지정하면 된다.</li>
+<li><strong>도구 - 옵션 - 환경 - 일반</strong> 에서 파일 연결 복원 버튼을 누른다.</li>
+</ul>
+<h2>디버거 연결 복구</h2>
+<p>디버거 연결을 복구하는 방법은 여러 가지가 있다.</p>
+<ul>
+<li>레지스트리 수정 : regedit 로 AeDebug 키를 찾은 다음 Debug 하위키를 아래와 같이 변경하면 된다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug\Debug</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"C:\WINDOWS\system32\vsjitdebugger.exe" -p %ld -e %ld</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>도구 - 옵션 - 디버깅 - Just-In-Time</strong> 메뉴에서 적당히 선택한 후 저장한다.</li>
+<li><strong>도구 - 설정 가져오기 및 내보내기</strong>에서 모두 다시 설정을 선택해도 된다.</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a> <small>2006-06-19</small></h1>
+	</div>
+	<div><p>한국 대 프랑스전을 기다리면서 <a href="http://developer.valvesoftware.com/wiki/">하프라이프2 위키</a> 중에서 <a href="http://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking">Source Multiplayer Networking</a> 부분을 요약 정리해보았다.</p>
+<p><img alt="하프라이프2 서버와 클라이언트" src="http://developer.valvesoftware.com/w/images/e/ea/Networking1.gif" /></p>
+<p>퀘이크나 하프라이프2(이하 HL2) 같은 클라이언트-서버 기반의 FPS 게임에서, 클라이언트는 기본적으로 렌더링 더미(dummy)라고 봐야 한다. 왜냐하면 클라이언트가 키보드나 마우스 입력을 샘플링해서 서버로 보내면, 서버는 초당 30-40회의 시뮬레이션을 거친 후 그 결과(snapshot)를 주기적으로 브로드캐스트하며, 클라이언트는 스냅샷을 받아서 렌더링을 하는 방식으로 구현되기 때문이다. 대신 서버는 보안적인 이유 때문에 대부분의 이동, 공격, 인증, 보안 체크를 해야 한다. (참고로, HL2 서버는 초당 33회의 시뮬레이션을 거치고 20회의 스냅샷을 브로드캐스트하며, 클라이언트는 초당 20회의 입력샘플링을 한다.)</p>
+<p>문제는 사용자의 입력 결과가 도착해서 실제로 그려지기까지의 시간이 꽤 오래 걸린다는 점이다. 이 랙(lag)을 해결하기 위해서 입력 예측(Input Prediction)이 사용되는데, 이는 내 캐릭터만큼은 서버의 결과를 기다리지 않고 먼저 움직이게 한다는 것이다. 이를 위해서 이동에 관련된 시뮬레이션 로직을 서버와 클라이언트 모두에 탑재해야 하며, 클라이언트는 서버에 입력을 보내자마자 로컬 시뮬레이션을 거쳐 내 캐릭터를 이동시킨 후, 서버에서 도착한 결과가 너무 차이가 많이 날 경우에만 보정을 하게 된다.</p>
+<p><img alt="Lag Compensation" src="http://developer.valvesoftware.com/w/images/c/ca/Lag_compensation.jpg" /></p>
+<p>그런데 이것만으로 제대로된 FPS를 구현하기엔 조금 부족하다. 내가 보는 다른 사람의 위치는 언제나 과거이기 때문에, 명중 판정이 매우 곤란해지기 때문이다. (특히 퀘이크 시리즈의 레일건처럼 <a href="http://reiot.cafe24.com/archives/386">발사와 동시에 판정이 일어나야 하는 무기의 명중 판정</a>을 서버에서 해야 한다고 상상해보라.) HL2에서는 이를 <a href="http://reiot.cafe24.com/archives/303">랙 보상(Lag Compensation)</a> 기법으로 해결하는데, 서버에서 클라이언트의 위치 정보의 히스토리를 갖고 있다가 공격 패킷이 도착하면 발사 시간에서의 목표의 과거 위치를 찾아서 명중 체크를 한다는 것이다.</p>
+<p><img alt="Entity Interpolation" src="http://developer.valvesoftware.com/w/images/4/49/Interpolation.gif" /></p>
+<p>이 정도면 정상적인 네트워크에서의 기본적인 이동과 전투 까지는 해결할 수 있지만, 만약 패킷 손실을 고려하지 않으면 불안한 네트워크에서 캐릭터가 마구 점프하는 모습을 보게 될 것이다. 물론 적절한 데드 레커닝으로 해결할 수도 있겠지만, HL2 클라이언트에서는 서버가 보낸 스냅샷을 즉시 처리하는 대신 일정 시간(100ms)동안 버퍼링을 한 후, 내삽(interpolation)과 외삽(extrapolation)을 이용해서 패킷 손실에 우아하게 처리한다. 위 그림을 보면 짐작하겠지만, 최소한 2개의 패킷을 버퍼링함으로써 둘 중 하나가 손실되더라도 나머지 패킷으로 추정이 가능하다.</p>
+<p>결국 전통적인 FPS 게임에서의 서버는, 단순히 패킷을 브로드캐스팅하는 릴레이 서버가 아니라, 이동-공격-판정-충돌 등 대부분의 로직을 처리해해야 하기 때문에, 생각보다 꽤 무거워질 수 밖에 없다. 반면 클라이언트는 자기 캐릭터를 제외한 대부분의 입력을 네트워크로부터 받아들이는 구조로 작성되어야 한다. 만약 여러분이 다른 FPS게임과는 달리 플레이어들에게 dedicated server를 배포할 수 없는 상황이라면, 여러분은 대역폭을 무한히 절약해야 하는 꽤 힘든 싸움을 시작한 것이다. Welcome to the hell, guys.. :)</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/06/08/lua-tips/">Lua Tips</a> <small>2006-06-08</small></h1>
 	</div>
 	<div><p><strong><em>이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87244">http://reiot.springnote.com/pages/87244</a> 에서 읽으실 수 있습니다.</em></strong></p>
@@ -315,596 +468,6 @@ end</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a> <small>2006-06-04</small></h1>
-	</div>
-	<div><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
-<p><em>그러나 가장 좋은 것은 뭐니뭐니해도 하드웨어 방화벽이다</em>. :)</p>
-<h2>보안 정책</h2>
-<p>보안 정책은 {IP 필터:필터 동작}의 매핑으로 이루어진다.</p>
-<ul>
-<li>IP 필터 - {src_ip,dest_ip,protocol,port,...} 으로 구성된다.</li>
-<li>필터 동작 - 위 IP 필터에 의해 걸러진 트래픽을 허용/보안요청/보안필요/거부할 것인지를 결정한다.</li>
-</ul>
-<p>기본적으로 3가지의 보안 정책이 존재한다. 단 OS 설치 초기에는 모든 정책이 꺼져 있다.</p>
-<ul>
-<li>서버(보안요청)</li>
-<li>클라이언트(응답만)</li>
-<li>보안 서버(보안필요)</li>
-</ul>
-<p>따라서, 우리는 새로운 커스텀 보안정책을 생성한 후 아래와 같이 필터와 동작들을 추가해야 한다.</p>
-<ul>
-<li>터미널 서비스 : 회사의 개발용 머신, IDC의 다른 컴퓨터들에서만 허용</li>
-<li>MSSQL : IDC의 다른 컴퓨터에서만 허용</li>
-<li>WWW : 방화벽 없슴</li>
-</ul>
-<h2>IP필터</h2>
-<h3>터미널 서비스</h3>
-<p>터미널 서비스는 TCP 3389 포트를 사용한다. 따라서, 기본적으로 터미널 서비스를 거부한 다음, 접근을 허용하고 싶은 컴퓨터의 IP만 지정해주면 간단하다. OS 방화벽을 함께 사용한 경우, TCP 3389 포트를 열어주는 것을 잊지 말자.</p>
-<p>반면, 특정 subnet에서만 터미널 서비스를 허용하려면 , 해당 subnet 이 시작하는 주소를 잘 지정해야 한다. 하긴 mask 만 잘 지정하면 적당한 대역의 IP를 넣으면 알아서 변환이 되니깐 별 관계는 없다만...</p>
-<table>
-<thead>
-<tr>
-<th>정책</th>
-<th>프로토콜</th>
-<th>원본주소</th>
-<th>원본포트</th>
-<th>대상주소</th>
-<th>대상포트</th>
-<th>필터동작</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>모든 터미널 서비스 거부</td>
-<td>TCP</td>
-<td>any</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>3389</td>
-<td>거부</td>
-</tr>
-<tr>
-<td>특정 컴퓨터의 터미널 서비스 허용</td>
-<td>TCP</td>
-<td>특정 컴퓨터 - IP 또는 DNS</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>3389</td>
-<td>허용</td>
-</tr>
-<tr>
-<td>특정 서브넷의 터미널 서비스 허용</td>
-<td>TCP</td>
-<td>특정 subnet- 시작 IP / subnet mask</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>3389</td>
-<td>허용</td>
-</tr>
-</tbody>
-</table>
-<h3>SqlServer 에 대한 외부 접근 제어</h3>
-<p>SqlServer 는 TCP 1433, UDP 1433 포트를 사용한다. OS 방화벽을 함께 사용한 경우, 각 포트들을 열어주는 것을 잊지 말자. TCP/UDP에 대한 거부 필터를 2개 만들어서 추가한 뒤, 접근을 허용하고 싶은 서버를 허용 필터로 추가하면 된다. (보안의 기본적인 컨셉은 모두 막은 뒤 하나씩 풀어주는 것..이라고 누가 말했던가..)</p>
-<table>
-<thead>
-<tr>
-<th>정책</th>
-<th>프로토콜</th>
-<th>원본주소</th>
-<th>원본포트</th>
-<th>대상주소</th>
-<th>대상포트</th>
-<th>필터동작</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SqlServer 외부 접근 거부</td>
-<td>TCP/UDP 각각</td>
-<td>any</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>1433</td>
-<td>거부</td>
-</tr>
-<tr>
-<td>SqlServer 특정 서버 허용</td>
-<td>TCP/UDP 각각</td>
-<td>특정 서버의 IP 또는 DNS</td>
-<td>any</td>
-<td>서버의 IP</td>
-<td>1433</td>
-<td>허용</td>
-</tr>
-</tbody>
-</table></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a> <small>2006-06-04</small></h1>
-	</div>
-	<div><h2>multiple result set + parameter binding</h2>
-<pre><code>- 캐릭터 정보 로딩과 같이, 하나의 프로시저에서 여러 테이블의 row 들을 select 하면서 파라미터도 바인딩해야 할 경우, static binding 으로는 구현할 수 없으며, CDynamicParameterAccessor::GetParam()를 이용해야 한다.
-- 파라미터의 경우, select 해온 모든 result set 을 소진한 후, 가장 마지막에 읽어와야 한다. 즉 DB_S_NORESULT == GetNextResult(...); 를 실행한 후에만 유효하다는 뜻이다. 만약, 그 전에 읽게 되면 garbage 가 리턴된다.
-- Bind()와 무관하므로, GetInterface()!=NULL 체크를 할 필요가 없다.
-</code></pre>
-<h2>CCommand::Prepare()</h2>
-<p>한번 생성후 재사용하는 구조가 필요하다.</p>
-<h2>GetNextResult(rowCount)</h2>
-<p>웬지 계속 -1 이 넘어오는 걸로 봐서 뭔가 문제가 있는 듯? property 설정이 필요한가?</p>
-<h2>DateTime to String</h2>
-<pre><code>- VarBstrFromDate 이걸 써야 될까나~
-- use
-</code></pre>
-<p>HRESULT DataConvert (<br />
-DBTYPE          wSrcType,<br />
-DBTYPE          wDstType,<br />
-DBLENGTH        cbSrcLength,<br />
-DBLENGTH <em>      pcbDstLength,<br />
-void </em>          pSrc,<br />
-void <em>          pDst,<br />
-DBLENGTH        cbDstMaxLength,<br />
-DBSTATUS        dbsSrcStatus,<br />
-DBSTATUS </em>      pdbsStatus,<br />
-BYTE            bPrecision,<br />
-BYTE            bScale,<br />
-DBDATACONVERT   dwFlags);</p>
-<h2>Connection Pooling</h2>
-<pre><code>- SqlServer Provider 를 기반으로, ThreadPooling 을 이용해 쿼리를 할 경우, DataSource 가 1개이고 Session 이 N 개를 생성했다면, 실제 DB에 대한 연결은 N 개가 된다.
-- 즉, Session 이 내부적으로 연결 풀링을 사용하게 되므로, DataSource 객체는 1개만 만들어도 된다.
-</code></pre>
-<h2>어떤 Accessor 를 사용할 것인가?</h2>
-<p>MSDN 의 비교표를 간략하게 요약하면 다음과 같다.</p>
-<pre><code>- CAccessor : 매크로를 이용한 컴파일 타임 바인딩이므로 성능 면에서 가장 우수하지만, 쉽게 말해서 하드코딩이므로 귀찮은 작업들이 많다. 컬럼 및 파라미터 바인딩 모두 지원.
-- CDynamicAccessor : 런타임 바인딩. 따라서 컬럼 정보를 읽어와야한다. 대신 파라미터 바인딩은 불가능. 뭔가 컴파일 타임에 정보를 알기 힘든 경우, 또는 multiple result set 을 리턴하는 프로시저에 사용하면 된다.
-- CDynamicParameterAccessor : CDynamicAccessor 에 파라미터 바인딩 기능이 추가되었다. 당연히 더욱 느려졌다.
-- CDynamicStringAccessor : CDynamicAccessor 와 유사하지만 컬럼값을 스트링으로 리턴한다.
-- CManualAccessor : AddBindEntry(), AddParameterEntry() 를 이용해서 수동으로 컬럼과 파라미터를 바인딩한다. 아마 CAccessor 에 이어 두번째로 빠른 듯.
-- CXMLAccessor : CDynamicStringAccessor 와 같지만, XML 스트링의 형태로 컬럼값을 리턴한다.
-</code></pre>
-<p>성능적인 순서로 정렬해 본다면 대충 다음과 같지 않을까? (이건 본인의 추측)</p>
-<pre><code>- CAccessor &lt; CManualAccessor &lt; CDynamicAccessor &lt; CDynamicStringAccessor &lt; CXMLAccessor &lt; CDynamicParameterAccessor
-</code></pre>
-<p>단, 파라미터 바인딩을 지원하는 넘은 아래의 3가지 뿐이다.</p>
-<pre><code>- CAccessor
-- CManualAccessor
-- CDynamicParameterAccessor
-</code></pre>
-<p>see also</p>
-<pre><code>- [Which accessor should I use?](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/vcfaqwhichaccessorshouldiuse.asp) from MSDN
-</code></pre></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/06/01/stl-tips/">STL Tips</a> <small>2006-06-01</small></h1>
-	</div>
-	<div><pre><code></code></pre>
-
-<pre><code>***이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 http://reiot.springnote.com/pages/87168에서 보실 수 있습니다.***```
-</code></pre>
-
-<pre><code>## dll + STL
-
-dll 에서 hash_set 을 멤버로 가진 클래스를 만들려다가 nested class 인 _Hash 라든지 hash_compare 등등을 모두 dllexport 하라길래 포기하고 PIMPL 패턴으로 해결해야만 했다.
-
-    - [How To Exporting STL Components Inside &amp; Outside of a Class](http://support.microsoft.com/default.aspx?scid=kb;EN-US;168958)
-
-## boost::lambda
-
-아래의 mem_fun_if 류와 비슷한 역할을 하는 것이 바로 boost::lambda 라이브러리다. 일단 아래처럼 포인터 컨테이너를 순회하면서 NOT NULL 일 경우에 특정 멤버 함수를 호출하는 예제를 살펴보자.
-
-</code></pre>
-
-<p>for_each( l.begin(), l.end(),<br />
-if_then( _1 != constant((A*)NULL), bind( &amp;A::print, _1 ) ) );</p>
-<pre><code>lambda 라이브러리를 사용하면 위와 같이 간단한 코드로 표현이 가능하다. 대신 컴파일 속도는... ㅠㅠ
-## mem_fun_if
-
-일반적으로 포인터 컨테이너를 순회하면서 특정 조건을 만족할 경우 멤버 함수를 호출하는 패턴을 위한 자작 adapter function 이다. (물론 const 버전과 파라미터 1개를 받는 버전, 합쳐서 총 4개의 클래스와 4개의 함수를 만들어야 하지만... 시간상 생략)
-
-</code></pre>
-
-<dl>
-<dt>template<class _Pred, class _Result, class _Ty></dt>
-<dt>class mem_fun_if_t : public unary_function&lt;_Ty *, _Result&gt;</dt>
-<dt>{</dt>
-<dt>public:</dt>
-<dt>explicit mem_fun_if_t( _Pred pred, _Result (_Ty::*_Pm)())</dt>
-<dd>_pred(pred), _Pmemfun(_Pm), _count(0)<br />
-  {<br />
-  }</dd>
-</dl>
-<p>// 단점이라면 멤버함수의 리턴값은... 도무지 캐치불가능...<br />
-  bool operator()(_Ty <em>_Pleft) const<br />
-  {<br />
-  if ( _pred(_Pleft) )<br />
-  {<br />
-  ((_Pleft-&gt;</em>_Pmemfun)());<br />
-_count++;<br />
-  return true;<br />
-  }<br />
-  return false;<br />
-  }</p>
-<p>int count() const { return _count; }</p>
-<p>private:<br />
-_Pred _pred;  // predicate<br />
-_Result (_Ty::*_Pmemfun)(); // the member function pointer<br />
-mutable int _count;<br />
-};</p>
-<p>template<class _Pred, class _Result, class _Ty><br />
-inline<br />
-mem_fun_if_t&lt;_Pred,_Result, _Ty&gt;<br />
-mem_fun_if(_Pred pred,_Result (_Ty::*_Pm)())<br />
-{<br />
-  return (mem_fun_if_t&lt;_Pred,_Result, _Ty&gt;(pred,_Pm));<br />
-}</p>
-<pre><code>이를 이용한 샘플이다.
-
-</code></pre>
-
-<p>using namespace std;</p>
-<p>class A<br />
-{<br />
-public :<br />
-  explicit A( const string &amp; s ): str(s) {}<br />
-  void print() { cout &lt;&lt;str &lt;&lt;endl; }<br />
-string str;<br />
-};</p>
-<h1>define not_null(T) bind2nd( not_equal_to<T*>(), (T*)0)</h1>
-<p>int _tmain(int argc, _TCHAR* argv[])<br />
-{<br />
-list<A*> l;<br />
-l.push_back( new A("Hello") );<br />
-l.push_back( NULL );<br />
-l.push_back( new A("World") );<br />
-l.push_back( NULL );<br />
-l.push_back( new A("!") );</p>
-<p>for_each( l.begin(), l.end(), mem_fun_if( bind2nd( not_equal_to<A*>(), (A*)0 ), &amp;A::print ) );<br />
-for_each( l.begin(), l.end(), mem_fun_if( not_null(A), &amp;A::print ) );</p>
-<p>return 0;<br />
-}```</p>
-<h2>if_not_null</h2>
-<p>다음은 포인터 컨테이너에서 NOT NULL 인 갯수를 찾는 코드이다.</p>
-<pre><code>
-count_if( l.begin(), l.end(),
-bind2nd( not_equal_to&lt;A*&gt;(), (A*)0 ) );
-</code></pre>
-
-<h2>ptr_fun and not1, not2</h2>
-<p>ptr_fun 은 말 그대로 pointer to function 이다.</p>
-<pre><code>
-template&lt;class Arg, class Result&gt;
-pointer_to_unary_function&lt;Arg, Result&gt;
-ptr_fun(Result (_*pfunc)(Arg));
-
-template&lt;class Arg1, class Arg2, class Result&gt;
-pointer_to_binary_function&lt;Arg1, Arg2, Result&gt;
-ptr_fun(Result (_*pfunc)(Arg1, Arg2));
-
-not1 은 unary_function 의 negate 이며, not2 는 binary_function 의 negate 이다.
-
-template&lt;class UnaryPredicate&gt;
-unary_negate&lt;UnaryPredicate&gt; not1(
-const UnaryPredicate&amp; _Pred
-);
-
-template&lt;class Predicate&gt;
-class unary_negate
-: public unary_function&lt;
-typename Predicate::argument_type,
-bool&gt;
-{
-public:
-explicit unary_negate(
-const Predicate&amp; _Func
-);
-bool operator()(
-const typename Predicate::argument_type&amp; _Left ) const;
-};
-
-template&lt;class BinaryPredicate&gt;
-binary_negate&lt;BinaryPredicate&gt; not2(
-const BinaryPredicate&amp; _Func
-);
-
-template&lt;class Operation&gt;
-class binary_negate
-: public binary_function &lt;
-typename Operation::first_argument_type,
-typename Operation::second_argument_type,
-bool&gt;
-{
-public:
-explicit binary_negate(
-const Operation&amp; _Func
-);
-bool operator()(
-const typename Operation::first_argument_type&amp; _Left,
-const typename Operation::second_argument_type&amp; _Right
-) const;
-};
-</code></pre>
-
-<p>그럼 그동안 배운 것을 토대로 다음 MSDN 샘플을 살펴보자.</p>
-<p>not1( bind2nd( ptr_fun(strcmp), "pearly" ) )</p>
-<p>만약 1초만에 strcmp(X,"pearly")==0 임을 인지해 냈다면 당신은 STL의 고수... ㅠㅠ</p>
-<h2>mem_fun vs. mem_fun_ref</h2>
-<p>EffectiveSTL 에도 나오는 이야기이니, 책을 가지신 분은 43 아이템을 참고하라.</p>
-<p>나를 비롯한 대부분의 프로그래머들은 이런 코드를 사랑한다.</p>
-<p>for ( list<GameObject*>::iterator itr = gameObjects.begin() ; itr != gameObjects.end() ; itr ++ )<br />
-{<br />
-GameObject * pObject = *itr;<br />
-__ASSERT(pObject!=NULL); /// be a paranoid!!!<br />
-pObject-&gt;Update();<br />
-}</p>
-<p>너무나도 직관적인 코드이지만, 사실 mem_fun 을 사용하면 한 줄로 해결이 가능하다.</p>
-<p>for_each( gameObjects.begin(), gameObject.end(), mem_fun(&amp;GameObject::Update) );</p>
-<p>코드는 간단해졌지만 익숙하지 않은 관계로 팀원들이 싫어할 지도 모른다. 그러나, 타이핑하는 글자수도 적으면서 성능도 훨씬 더 좋다는데... 그 누가 안 쓸수 있으랴? (대신 디버깅할 때에는 멤버함수에다가 breakpoint 를 걸어야 하는 단점이 있을 수도 있다 <img alt=";)" src="http://boxcatstudio.files.wordpress.com/2009/07/icon_wink.gif" />  )</p>
-<p>포인터의 컨테이너일 경우에는 mem_fun 을, 객체의 컨테이너라면 mem_fun_ref 를 사용하면 된다. 만약 멤버함수에 파라미터를 넘겨야 한다면, 아래와 같이 bind 함수를 사용할 것.</p>
-<p>for_each( gameObjects.begin(), gameObject.end(), bind2nd( mem_fun(&amp;GameObject::SetHP),100) );</p>
-<h2>bind1st vs. bind2nd</h2>
-<p>우선 bind 함수를 알아보기에 앞서, unary_function 과 binary_function 에 대해서 알아보자. 이들은 단지 파라미터와 리턴타입에 대한 typedef 만을 담는 template structure 일 뿐이다. 즉 이들은 혼자서는 아무런 기능도 하지 않지만, 이를 상속받은 하위 클래스에서 타입 정보를 적절히 참조하기 좋도록 디자인된 베이스 클래스라는 뜻이다.</p>
-<p>template<class Arg, class Result><br />
-struct unary_function {<br />
-typedef Arg argument_type;<br />
-typedef Result result_type;<br />
-};</p>
-<p>template<class Arg1, class Arg2, class Result><br />
-struct binary_function {<br />
-typedef Arg1 first_argument_type;<br />
-typedef Arg2 second_argument_type;<br />
-typedef Result result_type;<br />
-};</p>
-<p>기본적으로 STL 알고리즘에서 사용되는 Predicate 등의 함수들은 unary_function 의 형태를 띄어야 한다. 쉽게 말하면, find(), for_each(), count() 의 마지막 인자가 해당 컨테이너 내부의 객체 하나만을 인자로 받는 함수 객체라는 뜻이다.</p>
-<p>가령 list<int> 에서 10보다 큰 객체를 찾으려면 대략 다음과 같은 predicate 을 작성해야 한다.</p>
-<p>class GreaterThan10<br />
-{<br />
-public :<br />
-bool operator() ( int i ) { return i&gt;= 10; }<br />
-};</p>
-<p>사실 이렇게 짜면 너무 코드가 범용적이지 못하므로, 대부분의 경우에는 이렇게 구현할 것이다.</p>
-<p>class GreaterThanN<br />
-{<br />
-public :<br />
-GreaterThenN( int N ) : m_N(N) {}<br />
-bool operator() ( int i ) { return i&gt;= m_N; }<br />
-private :<br />
-int m_N;<br />
-};</p>
-<p>이걸 STL 적인 생각으로 다시 구현한 것이 바로 bind 함수들이다. bindN(A,B) 은 binary_function A 의 N 번째 파라미터로 parameter B 을 바인딩해서, unary_function 을 만들어주는 놈이다. 얘네들을 잘 활용하면 단순 함수들은 간단히 한줄로 구현할 수 있게 된다.</p>
-<pre><code>- bind1st( BINARY_FUNC, PARAM ) : PARAM 을 BINARY_FUNC의 1st 파라미터로 바인딩한다.
-
-- ex&gt; bind1st( greater, 10 ) --&gt; 10 &gt; N
-
-- bind2nd( BINARY_FUNC, PARAM ) : PARAM 을 BINARY_FUNC의 2nd 파라미터로 바인딩한다.
-
-- bind2nd( greater, 10 ) --&gt; N &gt; 10
-</code></pre>
-<p>bind1st( greater, 10 ) 이 어떻게 10 &gt; N 이라는 함수로 바뀌는지 자세히 살펴본다면...</p>
-<pre><code>- greater는 binary_function 이다.
-</code></pre>
-<p>template<class Type><br />
-struct greater : public binary_function <Type, Type, bool><br />
-{<br />
-bool operator()(<br />
-const Type&amp; _Left,<br />
-const Type&amp; _Right<br />
-) const;<br />
-};</p>
-<pre><code>- bind1st(A,B) 는 binder1st 객체를 리턴한다.
-</code></pre>
-<p>template<class Operation, class Type><br />
-binder1st <Operation> bind1st(<br />
-const Operation&amp; _Func,<br />
-const Type&amp; _Left<br />
-);</p>
-<pre><code>- binder1st&lt;A&gt; 는 A의 두번째 파라미터를 파라미터로 받고, A의 리턴값을 리턴하는 함수 객체이다. 이때 이 클래스의 생성자의 인자 목록을 유심히 살펴보면, binary_function 하나와 이놈의 하나의 파라미터는 받고 있다. (나머지 하나는 당연히 container 에서 받게 된다.)
-</code></pre>
-<dl>
-<dt>template<class Operation></dt>
-<dt>class binder1st</dt>
-<dd>public unary_function &lt;<br />
-typename Operation::second_argument_type,<br />
-typename Operation::result_type&gt;<br />
-{<br />
-public:<br />
-typedef typename Operation::second_argument_type argument_type;<br />
-typedef typename Operation::result_type result_type;<br />
-binder1st(<br />
-const Operation &amp; _Func,<br />
-const typename Operation::first_argument_type&amp; _Left<br />
-);<br />
-result_type operator()(<br />
-const argument_type&amp; _Right<br />
-);<br />
-result_type operator()(<br />
-const argument_type&amp; _Right<br />
-) const;<br />
-protected:<br />
-Operation op;<br />
-typename Operation::first_argument_type value;<br />
-};</dd>
-</dl>
-<h2>SafeDeleter</h2>
-<p>템플릿 클래스 버전을 사용할 경우, 매번마다 타입을 지정해줘야 하지만, 템플릿 멤버함수 버전을 사용하면 타입 없이도 사용할 수 있다. 아직까지 이걸 몰랐다니.. ㅠㅠ 쑥갓군 땡큐~</p>
-<p>/// template class version<br />
-template <class T><br />
-class SafeDeleter<br />
-{<br />
-public :<br />
-void operator () ( T * &amp; ptr ) const<br />
-{<br />
-SAFE_DELETE(ptr);<br />
-}<br />
-};</p>
-<p>for_each( a.begin(), a.end(), SafeDeleter<A>() );</p>
-<p>/// template member function version<br />
-class SafeDeleter2<br />
-{<br />
-public :<br />
-template <class T><br />
-void operator () ( T * &amp; ptr ) const<br />
-{<br />
-SAFE_DELETE(ptr);<br />
-}<br />
-};</p>
-<p>for_each( a.begin(), a.end(), SafeDeleter2() );</p>
-<h2>Static Key vs. Dynamic Key</h2>
-<p>class Object<br />
-{<br />
-KeyType_t Key;<br />
-....;<br />
-};<br />
-map<KeyType_t,Obj*> orderedObjects;</p>
-<p>위와 같이 객체의 특정 필드의 값으로 정렬된 map이 있다고 하자. 일단 map에 객체를 넣고 난 다음에 Key 값을 변경하면 map 내부의 트리가 깨지므로 바꿔서는 곤란해진다. 그러나, 때로는 Key 값이 바뀌어야 할 필요가 있다. 언제나 실시간으로 바꿔주려면 map 에서 객체를 빼낸 다음 Key 값을 바꾸고 다시 넣어야 하는데, 항상 넣었다 뺐다 하기에는 성능적인 부분이 걱정되는데...</p>
-<p>이럴 경우에는 외부에서 필요할 때마다 새로운 키를 저장한 다음, 적당히 바꿀 타이밍이 되면 객체를 map 에서 빼낸 다음 키값을 업데이트해주면 된다. 특히 아래와 같이, 정적인 메인 키의 맵으로 구성된 객체의 매니저가 내부에 특정 순서로 정렬된 서브 키의 맵을 가진 경우, 위와 같은 패턴을 사용하면 꽤 편하다.</p>
-<p>class Object<br />
-{<br />
-StaticKeyType_t MainKey;<br />
-DynamicKeyType_t SubKey;<br />
-DynamicKeyType_t NewSubKey;<br />
-....;<br />
-};</p>
-<p>class ObjectManager : public map<StaticKeyType_t,Object*><br />
-{<br />
-map<DynamicKeyType_t,Object*> orderedObjects;<br />
-void ChangeSubKey( StaticKeyType_t mainKey, DynamicKeyType_t newSubKey );<br />
-void UpdateSubMap();<br />
-};</p>
-<p><strong>어쨌든, map 의 키값을 외부에서 바꿨다가는 큰 낭패를 볼 것이다.</strong></p>
-<p>see also:</p>
-<pre><code>- [Boost Multi-index Containers Library](http://boost.org/libs/multi_index/doc/index.html)
-</code></pre>
-<h2>multixxx::erase(key_type)</h2>
-<p>일반적인 erase()는 iterator/const_iterator 를 파라미터로 받아서 그 넘을 지우는 역할을 한다. 그런데, multimap/multiset 에서는 key_type 만 넘겨서 해당 값을 지우는 메쏘드를 제공한다. 대체로 이는 잘 동작하지만 predicate 가 명시된 multimap/multiset 에서는 생각대로 동작하지 않는다. 다음 예를 보자.</p>
-<p>class TeamInfo<br />
-{<br />
-public :<br />
-TeamInfo ( int point = 0 )  : TeamPoint(point) {}<br />
-int TeamPoint;<br />
-};</p>
-<p>class GreaterTeam<br />
-{<br />
-public :<br />
-bool operator () (const TeamInfo<em> l, const TeamInfo</em> r) const<br />
-{<br />
-return l-&gt;TeamPoint&gt; r-&gt;TeamPoint;<br />
-}<br />
-};</p>
-<p>void<br />
-test_multiset()<br />
-{<br />
-typedef multiset<TeamInfo*,GreaterTeam> TEAMS;</p>
-<p>TEAMS teams;</p>
-<p>TeamInfo t1(1);<br />
-TeamInfo t2(1);<br />
-TeamInfo t3(0);<br />
-TeamInfo t4(2);</p>
-<p>teams.insert( &amp;t1 );<br />
-teams.insert( &amp;t2 );<br />
-teams.insert( &amp;t3 );<br />
-teams.insert( &amp;t4 );</p>
-<p>// erase by key test <br />
-teams.erase( &amp;t4 ); assert( teams.size() == 3 );<br />
-teams.erase( &amp;t1 ); assert( teams.size() == 1 );  // t1 과 t2 를 지운다. 낭패~</p>
-<p>// erase with iterator test<br />
-teams.clear();<br />
-teams.insert( &amp;t1 );<br />
-teams.insert( &amp;t2 );<br />
-teams.insert( &amp;t3 );<br />
-teams.insert( &amp;t4 );</p>
-<p>pair<TEAMS::iterator,TEAMS::iterator> itrs = teams.equal_range(&amp;t1);<br />
-teams.erase( find( itrs.first, itrs.second, &amp;t1 ) );<br />
-assert( teams.size() == 3 );</p>
-<p>assert( <em>(teams.find(&amp;t1)) == &amp;t2 ); // t1 을 찾으면 t2 가 나온다는 놀라운 사실!<br />
-assert( </em>(teams.find(&amp;t2)) == &amp;t2 );<br />
-assert( <em>(teams.find(&amp;t3)) == &amp;t3 );<br />
-assert( </em>(teams.find(&amp;t4)) == &amp;t4 );<br />
-}</p>
-<p>여기서 배울 수 있는 교훈은</p>
-<pre><code>- 코드상으로는 equal_range(&amp;t1)이라는 것이 t1을 찾는 것처럼 보이지만, 실제로는 key_type과 무관하며 오직 predicate 를 이용해서 검색을 한다!
-- multi 시리즈에서는 find()나 erase()에 있어서 항상 동일한 값이 존재할 수 있다!
-- predicate 의 비교문에서 &gt;= 을 사용하면 다른 결과가 나온다!
-- predicate 관련 변수(m_TeamPoint)와 같이, 비교 로직에 영향을 주는 무언가를 외부에서 바꾸게 되면 multixxx 내부의 트리가 깨지게 된다. 너무나 당연한 사실이지만, Key 를 바꾸는게 아니라서 안전할 거 같아 보이는 것도 사실이다. 이를 방지하려면 일단 container 에서 해당 값을 erase한 다음 값을 수정하고 다시 insert 하는 것을 권장한다.
-</code></pre></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a> <small>2006-06-01</small></h1>
-	</div>
-	<div><p>Windows 에서 제공하는 ThreadPooling API인 QueueUserWorkItem()에 대해서 알아보자.</p>
-<h2>QueueUserWorkItem()</h2>
-<p>Programming Application for Microsoft Windows 에 의하면 ThreadPooling 시 새로운 쓰레드가 추가되기 위한 factor 에는 아래와 같은 것이 있다.</p>
-<ul>
-<li>쓰레드가 추가된 지 몇 초가 지나면, 한번 고민해본다</li>
-<li>WT_EXECUTELONGFUNCTION 이 사용될 경우, 한번 고민해본다</li>
-<li>큐잉된 작업의 개수가 일정 threadhold 를 넘어설 경우, 한번 고민해본다.</li>
-</ul>
-<p>그러나, 상세한 파라미터는 알려져 있지 않아서.. 테스트를 해 보았다.</p>
-<pre><code>
-const int MAX_WORK = 1000;
-LONG WorkCounter = 0;
-int add_time = 1;
-int work_time = 10;
-int nloop = 1;
-bool bPreQueue = false;
-int pre_queue_time = 1000;
-bool bMiddleSleep = false;
-int middle_sleep_time = 1000;
-
-DWORD WINAPI MyWorkThreadProc(PVOID pParam)
-{
-    MyWork* pWork = (MyWork*)pParam;
-
-    Sleep(pWork-&gt;workTime);
-
-    pWork-&gt;threadID = ::GetCurrentThreadId();
-    pWork-&gt;output = pWork-&gt;input * 2;
-
-    InterlockedIncrement( &amp;WorkCounter );
-
-    return 0;
-}
-
-void
-thread_pool_test_fixture::test_really_pooling()
-{
-    for ( int k = 0 ; k  0 )
-            {
-                Sleep(pre_queue_time);
-            }
-        }
-
-        MyWork works[MAX_WORK];
-        for (int i=0; i 0 )
-            {
-                Sleep(add_time);
-            }
-
-            if ( i == 500 &amp;&amp; bMiddleSleep &amp;&amp; middle_sleep_time &gt; 0 )
-            {
-                Sleep( middle_sleep_time );
-            }
-        }
-
-        while ( WorkCounter  threads;
-        for (int i=0; i::iterator itr = threads.begin() ; itr != threads.end() ; itr ++ )
-        {
-            BOOST_MESSAGE( *itr  처리 시간 |
-| 10 | 10 | 1  | 큐잉되는 시간 == 처리 시간 |
-| 10 | 20 | 3  | 큐잉되는 시간
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -925,23 +488,23 @@ thread_pool_test_fixture::test_really_pooling()
 	</li>
 	
 	<li>
+		<a href="/2006/07/05/operator-는-상속되지-않는다/">operator= 는 상속되지 않는다.</a>
+	</li>
+	
+	<li>
+		<a href="/2006/07/01/fps-게임의-복제-프레임워크-분석/">FPS 게임의 복제 프레임워크 분석</a>
+	</li>
+	
+	<li>
+		<a href="/2006/06/23/vs2005-vs2003-함께-사용하기/">VS2005 & VS2003 함께 사용하기</a>
+	</li>
+	
+	<li>
+		<a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a>
+	</li>
+	
+	<li>
 		<a href="/2006/06/08/lua-tips/">Lua Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/01/stl-tips/">STL Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a>
 	</li>
 	
 </ul>

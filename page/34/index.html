@@ -63,86 +63,586 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/04/28/raknet-tips/">RakNet Tips</a> <small>2006-04-28</small></h1>
+	</div>
+	<div><h2>RakPeer::Disconnect(msec,orderingChannel)</h2>
+<p>서버에 접속 해제를 알리기 위해서는 RakPeer::Disconnet(msec&gt;0) 를 사용해야 한다. Disconnect(0) 후에 바로 객체를 삭제하면 서버는 10-15초 후에나 연결 끊김을 감지할 수 있게 되며, 그 사이에 서버에 다시 접속할 경우 서버는 이미 연결되어 있는 것으로 간주해버린다. 단 내부적으로 blocking wait 를 하기 때문에 너무 큰 시간을 넘기면 곤란.</p>
+<h2>PacketLogger</h2>
+<p>RakNet에서 제공하는 플러그인 인터페이스를 이용한 패킷 로깅 클래스. peer.AttachPlugin(logger) 만 해주면 콜백에서 자동적으로 로그를 남겨준다. PacketFileLogger를 사용하면 CSV형식으로 로그를 남긴다. 엑셀을 잘 활용해서 트래픽 최적화라든지 그래프를 확인할 수 있다. 좀더 세밀한 로그를 원하면 상속을 받을 것.</p>
+<h2>Unconnected Ping</h2>
+<p>동일한 NAT아래에 있는 peer와 통신할 때에는 public보다는 private를 사용하는 것이 좋다. 이런 주소 선택 과정은 RakPeer::Connect()를 호출하기 전에 이루어져야 하는데, RakPeer::Ping(host,port,acceptOnly)을 이용해서 양쪽 주소 모두에게 Ping을 쏴서 확인할 수 있다. 기본적으로 ID_PING 을 보내고 ID_PONG을 받는데, 마지막 파라미터를 true로 할 경우 ID_PING_OPEN_CONNECTIONS을 보내며 상대방은 이미 연결되어 있을 경우에만 ID_PONG 으로 응답한다. FullyConnectedMesh처럼 플러그인 인터페이스를 이용해서 깔끔하게 구현할 수 있을 것 같은데, 플러그인에게 직접 뭔가를 보낼 수 있는지는 미확인.</p>
+<p>주의사항 : Unconnected Ping을 보낸 직후 Connect()를 하게 되면 3-way handshake 흐름이 꼬일 수 있다. 원인은 연결되기 전후의 프로토콜이 다르긴 하나 확률적으로 같게 될 수 있어서, 연결하는 동안 핑/퐁을 하다 보면 가끔 패킷을 잘못 처리하기 때문이다. 라크넷의 메인 개발자 Rak’kar는 가능하면 핑을 보낸 후 일정 시간 동안 기다린 다음 연결하는 것을 권장한다고 한다. 레이옷은 이 버그로 인해서 1개월 가량을 고생했다. -_-;;</p>
+<h2>ReliabilityLayer</h2>
+<p>패킷 전송 보장, 순서 보장을 구현하는 레이어</p>
+<dl><dt>Unreliable</dt><dd>Unreliable packets are sent by straight UDP. They may arrive out of order, or not at all. This is best for data that is unimportant, or data that you send very frequently so even if some packets are missed newer packets will compensate.</dd></dl>
+
+<pre><code>- Advantages - These packets don’t need to be acknowledged by the network, saving the size of a UDP header in acknowlegement (about 50 bytes or so). The savings can really add up.
+- Disadvantages - No packet ordering, packets may never arrive, these packets are the first to get dropped if the send buffer is full.
+</code></pre>
+<dl><dt>Unreliable sequenced</dt><dd>Unreliable sequenced packets are the same as unreliable packets, except that only the newest packet is ever accepted. Older packets are ignored.</dd></dl>
+
+<pre><code>- Advantages - Same low overhead as unreliable packets, and you don’t have to worry about older packets changing your data to old values.
+- Disadvantages - A LOT of packets will be dropped since they may never arrive because of UDP and may be dropped even when they do arrive. These packets are the first to get dropped if the send buffer is full. The last packet sent may never arrive, which can be a problem if you stop sending packets at some particular point.
+</code></pre>
+<p>Note that the transmission of one of the three reliable packets types is required for the detection of lost connections. If you never send reliable packets you need to implement lost connection detection manually.</p>
+<dl><dt>Reliable</dt><dd>Reliable packets are UDP packets monitored by a reliablilty layer to ensure they arrive at the destination.</dd></dl>
+
+<pre><code>- Advantages - You know the packet will get there. Eventually…
+- Disadvantages - Retransmissions and acknowlegements can add significant bandwidth requirements. Packets may arrive very late if the network is busy. No packet ordering.
+</code></pre>
+<dl><dt>Reliable ordered</dt><dd>Reliable ordered packets are UDP packets monitored by a reliability layer to ensure they arrive at the destination and are ordered at the destination.</dd></dl>
+
+<pre><code>- Advantages - The packet will get there and in the order it was sent. These are by far the easiest to program for because you don’t have to worry about strange behavior due to out of order or lost packets.
+- Disadvantages - Retransmissions and acknowlegements can add significant bandwidth requirements. Packets may arrive very late if the network is busy. One late packet can delay many packets that arrived sooner, resulting in significant lag spikes. However, this disadvantage can be mitigated by the clever use of ordering streams .
+</code></pre>
+<dl><dt>Reliable sequenced</dt><dd>Reliable ordered packets are UDP packets monitored by a reliability layer to ensure they arrive at the destination and are sequenced at the destination.</dd></dl>
+
+<pre><code>- Advantages - You get the reliability of UDP packets, the ordering of ordered packets, yet don’t have to wait for old packets. More packets will arrive with this method than with the unreliable sequenced method, and they will be distributed more evenly. The most important advantage however is that the latest packet sent will arrive, where with unreliable sequenced the latest packet sent may not arrive.
+- Disadvantages - Wasteful of bandwidth because it uses the overhead of reliable UDP packets to ensure late packets arrive that just get ignored anyway.
+</code></pre>
+<h3>전송 보장의 구현</h3>
+<p>전송 보장(packet reliability)은 말 그대로 어떤 패킷이 Peer 에 잘 도착했다는 것을 의미한다.</p>
+<pre><code>- 전송시 RELIABLE_XXX 플래그를 지정한다.
+- 보내는 쪽에서는 재전송큐에 패킷을 넣어둔다.
+- 받는 쪽에서는 RELIABLE 패킷이 도착하면 ACK(num)를 전송한다.
+- 보내는 쪽에서는 ACK(num)를 받으면 재전송큐에서 삭제한다.
+- ACK 손실에 대비, 모든 ACK들은 ACK큐에 저장된다.
+- 주기적으로 실행되는 ReliabilityLayer::Update()에서 그동안 쌓인 ACK큐와 재전송큐를 한꺼번에 모아서 Peer에게 전송한다. (물론 손실이 가정되는 넘에 대해서만)
+- 모든 user defined message 앞에 위와 같은 InternalPacket 이 1개 이상 붙어 나갈 수 있다.
+</code></pre>
+<p>결국, 모든 RELIABLE 메시지에 대해서 ACK 가 왔다갔다 하는 셈이다.</p>
+<h3>순서 보장의 구현</h3>
+<p>모든 데이터가 순서 보장이 필요하지 않으며, 오직 몇몇 종류의 패킷들만이 순서 보장이 필요하다. 따라서, 이런 류들을 위한 채널(ordering channel)을 구현해서 각각의 채널마다의 순서를 보장해줘야 한다.</p>
+<pre><code>- 각 채널마다 waitingForOrderedPacketReadIndex 가 존재한다.
+- 순서 보장 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패
+- 만약 orderingIndex == waitingForOrderedPacketReadIndex 이면, 대기 인덱스를 증가시키고, 대기 리스트(orderingList)에 들어있는 넘들을 처리해준다.
+- 그렇지 않으면 중간에 누락된 것이므로 대기 리스트에 넣어둔다.
+- orderingIndex 는 BYTE 로 구현된다. 255 로 해서 wrap 시키면 충분한 듯.
+- 그렇지만 아주 오래전의 패킷이 도착했다면 순서가 꼬일 수 있을 법 하다. 이런 것들은 상대편의 전송 시간을 이용해서 체크한다.
+</code></pre>
+<h3>패킷 시퀀스의 구현</h3>
+<p>순서 보장(packet ordering)과는 달리 패킷 시퀀스(packet sequence)는 최신의 패킷이 도착하면, 그 전에 도착한 동일한 패킷은 모두 무시하는 것을 의미한다. 가령, xyz 좌표가 10개가 쌓여 있다면 가장 최신의 좌표만을 보여주면 되므로 시퀀스 플래그를 사용하면 된다. 패킷 시퀀스 역시 ordering channel + ordering index 로 구현된다.</p>
+<pre><code>- 각 채널마다 waitingForSequencedPacketReadIndex 가 존재한다.
+- 시퀀스 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패
+- 만약 orderingIndex &gt;= waitingForSequencedPacketReadIndex 이면, 시퀀스  인덱스를 증가시킨다.
+- 그렇지 않으면 이미 최신 데이터가 먼저 와 있으므로, 무시해버린다.
+</code></pre>
+<h3>긴 메시지의 구현</h3>
+<p>MTU 크기를 넘어선 긴 데이터는, 여러 개의 작은 패킷에 나눠져서(split) 전송될 수 밖에 없다.</p>
+<p>더 많은 팁들은 레이옷의 <a href="http://del.icio.us/reiot/raknet">RakNet 링크모음</a>을 참고할 것.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/04/26/sql-tips/">SQL Tips</a> <small>2006-04-26</small></h1>
+	</div>
+	<div><p>MS-SQL SERVER + Transact SQL Tip</p>
+<h2>IP 문자열에서 a.b.c 추출하기</h2>
+<p>declare @ip varchar(20)<br />
+SET @ip = '111.22.33.22'<br />
+SELECT LEFT(@ip,len(@ip)-patindex('%.%',reverse(@ip)))</p>
+<h2>리포팅 서비스</h2>
+<p><a href="http://network.hanbitbook.co.kr/view.php?bi_id=1048">IIS + ASP + VisualStudio.NET 을 이용한 리포트 서비스 제작</a></p>
+<h2>FTP 파일 업로드</h2>
+<p>DTS 에서 제공하는 파일 전송 프로토콜 작업(FTPTask)의 경우, 다운로드만 가능하고 업로드는 지원하지 않는다. 가령, 로컬 백업한 <em>.bak, </em>.trn 파일을 리모트 서버로 옮기려면 업로드 스크립트를 SQL 이나 VB 또는 Python으로 직접 개발해야 한다.</p>
+<h2>복구 모델</h2>
+<p>당연히, 트랜잭션 로그를 남기려면 FULL 복구 모델로 데이터베이스를 설정해야 한다. 백업 정책을 세울 때 꼭 모델을 체크하기 바란다. (기본적으로 FULL 모델로 만들어지는 것 같지만, 필수적으로 체크할 것)</p>
+<h2>SQLServerAgent</h2>
+<p>유지 관리 계획 등 주기적인 작업을 실행하려면 기본적으로 꺼져있는 SqlServerAgent 를 켜야 한다.</p>
+<h2>테이블 스키마 복사</h2>
+<p>스크립트로 추출해서 다른 DB 에 설치할 경우 디폴트값이 지정되지 않는 경우가 있다. 이때 DEFAULT 등 제약조건 스크립팅에 꼭 체크를 해야 한다. 아니면 그냥 데이터 내보내기를 사용하길.</p>
+<h2>노트북에 SQL Server 설치하기</h2>
+<p>SQL Server 상위 버전들은 기본적으로 서버급 OS 에서만 설치된다. 그러나 노트북은 대체로 XP Professional or Home Edition 을 사용하는 법. 이를 지원하는 SQL Server 버전들을 살펴보자.<br />
+<table><br />
+<thead><br />
+<th></th><br />
+<th>XP Home</th><br />
+<th>XP Pro</th><br />
+<th>comment</th></p>
+<tr>
+<td>MSDE</td>
+<td>O</td>
+<td>O</td>
+<td> </td>
+</tr>
+
+<tr>
+<td>Evaluation Edition</td>
+<td>O</td>
+<td>O</td>
+<td>120 일 평가판</td>
+</tr>
+
+<tr>
+<td>Persional Edition</td>
+<td>X</td>
+<td>O</td>
+<td> </td>
+</tr>
+
+<tr>
+<td>Developer Edition</td>
+<td>X</td>
+<td>O</td>
+<td> </td>
+</tr>
+
+<p></thead></table><br />
+결국 XP Home Edition 을 사용하는 경우에는 평가판 또는 MSDE 를 사용해야 한다. 이참에 MSDE 의 새 버전인 SQL Server Express 2005 를 사용해보는 것도... <img alt="(" src="http://boxcatstudio.files.wordpress.com/2009/07/icon_sad.gif" /></p>
+<p>see also: * [http://www.microsoft.com/sql/evaluation/overview/default.asp SQL Server Overview] - 여기에 버전별 비교표가 들어있다 * [http://go.microsoft.com/?linkid=2534867 120일 평가판 다운로드]</p>
+<h2>NULL 비교</h2>
+<p>NULL 에 대한 비교는 is 로 하라!</p>
+<p>declare @a int<br />
+SET @a = NULL</p>
+<p>IF @a = NULL<br />
+print '@a=NULL'<br />
+IF @a IS NULL<br />
+print '@a is NULL'</p>
+<p>declare @b int<br />
+SET @b = 1</p>
+<p>IF @b &lt;&gt; NULL<br />
+print '@b &lt;&gt; NULL'<br />
+IF @b IS NOT NULL<br />
+print '@b is not NULL'</p>
+<p>-- 실행 결과<br />
+@a IS NULL<br />
+@b IS NOT NULL</p>
+<h2>constraint 관리</h2>
+<p>디폴트 constraint 를 삭제하고 다시 추가하는 법...</p>
+<p>-- 삭제<br />
+ALTER TABLE [dbo].[테이블] DROP<br />
+CONSTRAINT [DF_테이블_컬럼]</p>
+<p>-- 추가<br />
+ALTER TABLE [dbo].[테이블] WITH NOCHECK ADD<br />
+CONSTRAINT [DF_테이블_컬럼] DEFAULT (디폴트값) FOR [관련컬럼]</p>
+<h2>CASE WHEN...</h2>
+<p>다음은 승률을 나타내는 컬럼을 계산해오는 방식이다.</p>
+<p>SELECT<br />
+....<br />
+CASE<br />
+WHEN (WinCount + LoseCount + DrawCount) = 0 THEN 0.00<br />
+ELSE round((WinCount * 1.0) / (WinCount + LoseCount + DrawCount) , 2)<br />
+END AS WinRate,<br />
+....</p>
+<h2>SELECT...INTO...</h2>
+<p>INSERT INTO...SELECT...가 존재하는 테이블에 데이터를 넣을 때 사용한다면, SELECT...INTO...는 새로운 테이블을 만들어 넣을 때 사용한다. 특히 통계 테이블에 데이터를 넣을 때, TRUNCATE TABLE xxx; INSERT INTO...SELECT를 하게 되면, 문제가 생길 수 있으므로 아예 DROP 한 다음 SELECT...INTO... 를 사용하도록 한다. (우리 DBA의 말씀~)</p>
+<p>SELECT.. INTO는 MS-SQL의 기능! . 일반적인 ANSI-SQL에서는 CREATE TABLE ... SELECT 를 사용함.</p>
+<h2>대용량 데이터 빨리 넣기</h2>
+<pre><code>- 관련 데이터베이스의 로그 타입 변경 : EM에서 데이터베이스 등록정보를 선택, 복구 모델을 단순 또는 대량 로그로 임시 변경해준다.
+- ALTER TABLE ... 로 관련 테이블의 PK 제거하기. 그러나, FK 관계에 있을 경우에도 제거를 해야 하므로 EM 또는 VS 의 DB 다이어그램에서 삭제하는게 제일 간편하다. 단. 복구는 수동 -_-;
+- DROP INDEX ...로 관련 테이블의 인덱스 제거하기. 그러나, 다시 복구해야 하므로... 수작업 필수
+- BULK INSERT : DB 스트레스 테스트를 위해 백만건 이상의 데이터를 넣어야 할 때 사용하면 간편하다. 단 샘플 데이터 파일을 제공해줘야 한다.
+- INSERT INTO xxx () SELECT ...로 자기 자신 혹은 관련 테이블을 활용할 것. while + insert 1 보다 훨씬 빠르다. 테스트해본 결과 한줄씩 insert 할 경우 10만건에 40초, 그러나 위의 방법을 쓰면 2초로 해결 가능. 단, 용량이 너무 커질 경우 실행이 안되므로, 범위를 나눠야 할 듯. 300만건에서는 대충 됨.
+- PK/FK/Index/Trigger 복구하기. 800만건이 들어있는 테이블의 PK 를 복구하는데 Xeon Dual 0.8G 에서 무려 '''5분'''이나 걸렸다.
+</code></pre>
+<p>ALTER TABLE xxx ADD CONSTRAINT PK_xxx_yyy PRIMARY KEY(yyy)<br />
+ALTER TABLE xxx ADD CONSTRAINT FK_xxx_yyy FORENGN KEY REFERENCES zzz(yyy) ON DELETE CASCADE<br />
+CREATE [UNIQUE] INDEX IX_xxx_yyy ON xxx(yyy)</p>
+<h2>데드락 해결하기</h2>
+<p>sp_who2<br />
+sp_lock pid<br />
+KILL pid</p>
+<h2>like 와 인덱스</h2>
+<pre><code>- col like 'userid%'
+- col like '%userid%'
+- col like '%userid'
+</code></pre>
+<p>오직 1번만이 인덱스를 타게 된다. Index는 Binary Tree로 구성되어 있기 때문에 처음부터 찾아서 들어가는 것임. 당연히 첫자를 알 수 없다면 index를 경유하지 못함!!!</p>
+<h2>Update Trigger</h2>
+<p>특정 컬럼이 변경된 경우 로그 테이블에 row 를 추가해야할 경우 Update Trigger 를 사용하면 간편하다. 가령, 플레이어 레벨이 바뀌었을 때 레벨 테이블에 insert 를 해야 한다고 가정하면 트리거는 대략 다음과 같다.</p>
+<p>CREATE TRIGGER trigger_name ON src_tbl FOR UPDATE<br />
+AS<br />
+IF UPDATE(level)<br />
+begin<br />
+declare @old_level smallint, @new_level smallint<br />
+SELECT @new_level = [Level] FROM inserted<br />
+SELECT @old_level = [Level] FROM deleted<br />
+IF @old_level &lt;&gt; @new_level<br />
+begin<br />
+INSERT INTO log_tbl (....) VALUES (...,@old_level,@new_level,...)<br />
+end<br />
+RETURN<br />
+end</p>
+<h2>@@IDENTITY vs. SCOPE_IDENTITY()</h2>
+<p>전자의 경우, 현재 세션에서의 최종적인 IDENTITY 컬럼의 값을 리턴해준다. 단, 트리거에 의해서 다른 테이블에서 IDENTITY 가 바뀐 경우 그 값을 리턴해준다. 따라서, 최종적으로 직접 만진 테이블의 IDENTITY 값을 알아오려면 SCOPE_IDENTITY() 를 사용하는 것이 안전하다.</p>
+<h2>UPDLOCK</h2>
+<p>쿼리 분석기에서 좌측 쿼리를 먼저 실행한 후 우측 쿼리를 실행할 때, 첫번째 예제의 경우 그냥 실행이 되지만 두번째 예제는 block 된다. 오라클에는 select for update 라는 게 있다나...<br />
+<table><br />
+<tr><br />
+<td>nonblocked query</td><br />
+</tr><br />
+<tr><br />
+<td>begin trans</td><br />
+<td rowspan="2">select * from users</td><br />
+</tr><br />
+<tr><br />
+<td>select * from users with (updlock)</td><br />
+</tr><br />
+<tr><br />
+<td>blocked query</td><br />
+</tr><br />
+<tr><br />
+<td>begin trans</td><br />
+<td rowspan="2">select * from users with (updlock)</td><br />
+</tr><br />
+<tr><br />
+<td>select * from users with (updlock)</td><br />
+</tr><br />
+</table><br />
+DB레벨에서 중복로그인을 처리할 경우, DB 컬럼에 LogOn flag 를 둬야 한다. LOGOFF - LOGON - GAME 이런 식의 상태 변화가 있다고 가정하면, 로그인시 LOGOFF -&gt; LOGON 으로 바꿔주고 로그아웃시 LOGON -&gt; LOGOFF 로 설정하게 될 것이다. 문제는 이걸 언제 어떻게 체크해서 바꾸느냐인데...</p>
+<p>-- simplified login procedure<br />
+declare @logon<br />
+SELECT @logon=LogOn FROM users WHERE ...<br />
+IF ( @logon &lt;&gt; LOGOFF )<br />
+begin<br />
+handle_error...<br />
+end<br />
+UPDATE users SET @logon = LOGON WHERE ...</p>
+<p>이런 식으로 처리할 경우, abuser 에 의해서 동일 유저에 대한 로그온 프로시저가 DB에서 동시에 일어난다고 가정하면 중복로그인이 충분히 발생할 수 있게 된다. (아주 낮은 확률이지만...) 이를 손쉽게 막으려면 select with updlock를 사용하면 된다. (단, 이때 (Page,IU), (KEY,U), (Table,IX) 의 3가지의 락이 걸린다)</p>
+<p>웬지 불필요한 lock 을 피하기 위해서는, update 의 where 절에서 다시 한번 LogOn 필드를 체크(즉 select 해온 뒤 누가 바꿨는지 다시 확인) 해주면 될 거 같다.</p>
+<p>-- simplified login procedure<br />
+declare @logon<br />
+SELECT @logon=LogOn FROM users WHERE ...<br />
+IF ( @logon &lt;&gt; LOGOFF )<br />
+begin<br />
+handle_error...<br />
+end<br />
+UPDATE users SET @logon = LOGON WHERE ... AND logon = LOGOFF<br />
+IF ( @@rowcount &lt;&gt; 1 )<br />
+begin<br />
+handle_error...<br />
+end</p>
+<p>테스트 해 본 결과 양 쪽에서 select 한 후 한쪽에서 update 를 하면, 다른 쪽의 update 는 트랜잭션에 의해 block 되며 상대 트랜잭션이 끝나면 실패를 리턴하게 된다. (만약 where 절의 체크가 없다면 둘 다 로그인 성공으로 간주되므로 주의할 것)<br />
+<code>이게 consistent non-blocking read을 지원하기 때문인데, 간혹 조금 이해하기 힘든 현상이 일어날 때도 있지. 하지만 Query 하나 들어갈때마다 table에 lock을 걸어버리는 방법은 너무 위험부담이 크기 때문에. consistent read에 대한 설명이 필요하다면 다음 기회에..</code></p>
+<h2>sp_lock, sp_who2</h2>
+<pre><code>- sp_lock : 현재 시스템에 존재하는 lock 을 보여준다.
+- sp_who2 : 현재 시스템에서 실행되는 프로세스, 소유주, 접속지, 실행내용 등을 보여준다.
+</code></pre>
+<p>이 내용은 Enterprise Manager 의 관리에서 찾아볼 수 있다.</p>
+<h2>GOTO</h2>
+<p>어릴 적(?)부터 항상 GOTO 는 쓰지 말라는 이야기를 들어 왔지만, 프로시저에서 또 쓰게 될 줄은... 그러나, 트랜잭션이 존재할 경우 GOTO 를 쓰지 않으면 자꾸 if-else-if-else 로 indent 해들어가는 바람에 읽기가 힘들어져서...</p>
+<p>begin transaction<br />
+....<br />
+....<br />
+IF ( error_found )<br />
+begin<br />
+rollback transaction<br />
+SET @errorcode = -1<br />
+goto Label<br />
+end<br />
+....<br />
+....<br />
+commit transaction<br />
+....<br />
+....<br />
+Label:<br />
+log something...<br />
+....<br />
+....</p>
+<h2>SET IDENTITY_INSERT</h2>
+<p>identity 컬럼의 경우 DELETE FROM tbl 하더라도 시드값은 계속 증가하게 되어 있다. 또한, 특정 값을 명시적으로 insert 할 수 없다. 이를 가능하게 하기 위해서는 아래와 같이 하면 된다.</p>
+<p>SET identity_insert tbl ON<br />
+INSERT INTO tbl (identity_col,...) VALUES (N,...)<br />
+SET identity_insert tbl off</p>
+<h2>@@ERROR / @@ROWCOUNT</h2>
+<p>프로시저 중간에 insert 나 update 할 경우 혹시 모를 실패에 대비해서 아래와 같이 체크해야 한다.</p>
+<p>INSERT ...<br />
+IF @@error &lt;&gt; 0<br />
+begin<br />
+rollback transaction<br />
+RETURN<br />
+end</p>
+<p>update 의 경우 1개의 업데이트만 기대했는데, 2개가 업데이트된 경우 @@ERROR는 정상이 된다. 이때에는 @@ROWCOUNT 를 체크해야 한다.</p>
+<h2>시간 필드의 디폴트값</h2>
+<p>insert 시점의 시간을 저장하는 필드의 경우, 테이블 선언시</p>
+<p>CREATE TABLE xxx<br />
+...<br />
+yyy DATETIME DEFAULT GETDATE()<br />
+...</p>
+<p>라고 해주면 insert 할때 굳이 명시할 필요가 없다.</p>
+<h2>현재 시간 + a</h2>
+<p>dateadd( datepart, N, getdate() )</p>
+<h2>스크립트 디버깅</h2>
+<p>exec sp_sdidebug 'legacy_on'</p>
+<h2>시간 변환</h2>
+<p>convert(varchar(10),getdate(),121)</p>
+<h2>프로시저 실행시 파라미터</h2>
+<p>out 을 명시해주지 않으면 받아낼 수 없다</p>
+<p>execute proc @param1, @param2, @param3 out, @param4 out</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/04/26/spread/">Spread</a> <small>2006-04-26</small></h1>
+	</div>
+	<div><h1>개요</h1>
+<p><a href="http://www.spread.org">Spread</a>는 그룹 기반의 UDP 메시징 라이브러리로, unicast &amp; multicast 및 scattered send/receive를 지원한다. 단 PeerToPeer 모델이 아니라, 독립적인 어플리케이션인 Spread 데몬이 가운데에서 중계를 해주는, 일종의 메시지 버스의 역할을 한다. RakNet 과 마찬가지로 다양한 UDP 전송 방식을 지원한다.</p>
+<table>
+<thead>
+<tr>
+<th>전송방식</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unreliable</td>
+<td>least</td>
+</tr>
+<tr>
+<td>Reliable</td>
+<td>will get there, no ordering</td>
+</tr>
+<tr>
+<td>Fifo</td>
+<td>reliable and ordered fifo by source</td>
+</tr>
+<tr>
+<td>Causal</td>
+<td>reliable and all mesg from any source of this  level are causally ordered</td>
+</tr>
+<tr>
+<td>Agreed</td>
+<td>reliable and all mesg from any source of this level are totally ordered</td>
+</tr>
+<tr>
+<td>Safe</td>
+<td>Agreed ordering and mesg will not be delivered to application until the mesg has reached ALL receipients' daemons</td>
+</tr>
+</tbody>
+</table>
+<h1>성능</h1>
+<p>문서에 의하면 1k 메시지 8000개를 1초에 전송 보장한다고 하며, 또한, <a href="http://www.cnds.jhu.edu/pub/papers/cnds-2004-1.pdf">The Spread Toolkit: Architecture and Performance</a>에 따르면 만개의 그룹에서 Safe 메시지를 보낼 때의 지연 시간이 6ms 라고 나온다. 실제로, 파이썬 바인딩을 이용한 클라이언트와 (아무런 부하를 주지 않은) localhost 데몬과의 테스트 결과 0.25ms 정도의 반응 시간을 보여줬다.</p>
+<table>
+<thead>
+<tr>
+<th>전송방식</th>
+<th>평균 ping 시간</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UNRELIABLE_MESS</td>
+<td>0.248ms</td>
+</tr>
+<tr>
+<td>RELIABLE_MESS</td>
+<td>0.248ms</td>
+</tr>
+<tr>
+<td>FIFO_MESS</td>
+<td>0.247ms</td>
+</tr>
+<tr>
+<td>CAUSAL_MESS</td>
+<td>0.247ms</td>
+</tr>
+<tr>
+<td>AGREED_MESS</td>
+<td>0.247ms</td>
+</tr>
+<tr>
+<td>SAFE_MESS</td>
+<td>0.248ms</td>
+</tr>
+</tbody>
+</table>
+<p>로컬랜에 연결된 2개의 머신에서 한쪽(Windows XP, P4 2G + 512M)에 데몬을 real time priority 로 띄우고 다른 쪽에 송수신 전용 쓰레드를 가진 테스트 클라이언트를 붙인 다음, 초당 8000개의 4byte 메시지를 보내는 경우 CPU 사용량 100% 에 RTT 0.8s 가 나왔다. 즉 1초 안에 전송은 보장하지만 반응 속도는 영 좋지 않았다. 그리고 로컬랜의 방화벽 바깥에 있는 머신(Windows 2003 + P4 2.8G + RAM 2G)에 데몬을 띄우고 방화벽 안쪽에서 테스트한 결과, 초당 4000개를 보내면 연결이 끊기며 초당 1000개를 보내면 0.8s 의 반응 속도를 보여줬다.</p>
+<h1>예상되는 용도</h1>
+<dl>
+<dt>컨텐트 중계 서버</dt>
+<dd>채팅 채널, 파티 채팅, 길드 채팅을 중계해주는 서버. 굳이 채팅 서버를 두지 않아도 무방할 듯. 그 역할을 Spread Daemon 이 해주니까.</dd>
+<dt>게이트웨이 서버</dt>
+<dd>M:N 관계에 있는 tier 에서의 중계 서버 역할. 가령 N개의 에이전트와 M개의 게임서버간의 연결을 TCP로 하게 되면 각 에이전트는 M개의 TCP연결을 하고 그것을 관리해야 한다. 이를 1개의 Spread 연결로 해결할 수 있다. (M개의 그룹에 대해 1개의 연결을 사용한다는 가정 하에서...) 마찬가지로 게임서버는 1개의 Spread 연결에 대해서만 처리하게 되므로 이벤트 드리븐이 간단하게 이루어진다. 가령 클라이언트가 에이전트에 로그인하고 이전 위치를 로딩하게 되면, 에이전트는 해당 서버 그룹에 join 하고, 클라이언트가 로그아웃하면 그룹에서 leave 하면 된다. (ref-counting을 사용하면 간단) 서버간 이동도 마찬가지로 처리할 수 있다. 단 이렇게 될 경우 데몬이 다운되면 게임 끝이다.</dd>
+<dt>브로드캐스트 서버</dt>
+<dd>(현실성이 없는 이야기지만) 게임 서버의 각 브로드캐스트 영역(일명 Area)을 그룹으로 간주하고, 그 안에 들어있는 플레이어들에게 멀티캐스팅할 수 있겠다. 단 이런 모델은 잦은 그룹 join/leave 가 이루어지므로 Area 개수가 늘어날수록 부하가 심해질 듯. 1000개의 그룹일 경우 35ms 정도니까... 10000개면...</dd>
+<dt>데이터 복제 서버</dt>
+<dd>게임 서버의 경계 영역에서의 데이터 변화를, 이를 공유하는 다른 서버로 복제한다. 예를 들면, NPC 길찾기를 위한 동적 객체 정보를 게임 서버에서 NPC 에이전트로 복제하는 등.</dd>
+</dl>
+<h1>참고사항</h1>
+<p>경험자의 말에 의하면, windows xp 와의 궁합이 잘 맞지 않다고 한다. 대신 windows 2000 에서는 잘 된다고 하는데, 커널의 네트워크 모듈과의 궁합 문제일 가능성이 있다고 한다. 즉 windows 2003 에서 테스트를 더 해봐야 한다는 의미.</p>
+<p>see also:</p>
+<ul>
+<li><a href="http://www.spread.org/docs/guide/users_guide.pdf">Spread User Guide</a></li>
+<li><a href="http://www.zope.org/Members/tim_one/spread/">Python Spread</a></li>
+<li><a href="http://www3.telus.net/taj_khattra/luaspread.html">Lua Spread</a></li>
+</ul>
+<!--more-->
+
+<pre><code>
+#format python
+import spread
+import unittest
+import time
+
+daemon = '3333@localhost'
+
+class SpreadTest(unittest.TestCase):
+  def testConnect(self):
+  mbox = spread.connect(daemon,'test1')
+  self.failUnless( mbox.fileno &gt; 0 )
+  mbox.disconnect()
+  def testJoin(self):
+  mbox = spread.connect(daemon,'test2')
+  mbox.join('test1')
+  if mbox.poll() &gt; 0:
+  msg = mbox.receive()
+  self.failUnlessEqual( str(type(msg)) , &quot;&quot; )
+  self.failUnlessEqual( msg.group , &quot;test1&quot; )
+  self.failUnlessEqual( msg.reason, spread.CAUSED_BY_JOIN )
+  mbox.leave('test1')
+  if mbox.poll() &gt; 0:
+  msg = mbox.receive()
+  self.failUnlessEqual( str(type(msg)) , &quot;&quot; )
+  self.failUnlessEqual( msg.group , &quot;test1&quot; )
+  self.failUnlessEqual( msg.reason, spread.CAUSED_BY_LEAVE )
+  mbox.disconnect()
+  def testLeave(self):
+  mbox = spread.connect(daemon,'test2')
+  mbox.join('test1')
+  mbox.leave('test2')
+  mbox.disconnect()
+  def testSend(self):
+  mbox = spread.connect(daemon,'test3')
+  group = 'StressTesters'
+  message = 'Hello Spread!'
+  mbox.join(group)
+  if mbox.poll() &gt; 0:
+  msg = mbox.receive()
+  self.failUnlessEqual( msg.reason, spread.CAUSED_BY_JOIN )
+  mbox.multicast( spread.FIFO_MESS, group, message)
+  if mbox.poll() &gt; 0:
+  msg = mbox.receive()
+  self.failUnlessEqual( msg.groups[0], group )
+  self.failUnlessEqual( msg.message, message )
+  mbox.leave(group)
+  mbox.disconnect()
+
+def testPing( trycount = 100 ):
+  mbox = spread.connect(daemon,'StressTester')
+  group = 'StressTesters'
+  mbox.join(group)
+  msg = mbox.receive()
+  assert msg.reason == spread.CAUSED_BY_JOIN
+
+  service_types = (
+  spread.UNRELIABLE_MESS,
+  spread.RELIABLE_MESS,
+  spread.FIFO_MESS,
+  spread.CAUSAL_MESS,
+  spread.AGREED_MESS,
+  spread.SAFE_MESS )
+  service_type_str = (
+  'UNRELIABLE_MESS',
+  'RELIABLE_MESS',
+  'FIFO_MESS',
+  'CAUSAL_MESS',
+  'AGREED_MESS',
+  'SAFE_MESS' )
+  ping_stat = []
+
+  for service_type in service_types:
+  ping_count = 0
+  total_ping = 0
+  for i in range(0,trycount):
+  mbox.multicast( service_type, group, str(time.clock()) )
+  msg = mbox.receive()
+  total_ping = total_ping + time.clock() - float( msg.message )
+  ping_count = ping_count + 1
+
+  if ping_count &gt; 0 :
+  ping_stat.append( total_ping / ping_count )
+  else:
+  ping_stat.append(0)
+
+  for i in range( 0, len(service_type_str) ):
+  print &quot;%15s : %8f&quot; %( service_type_str[i],ping_stat[i])
+
+  mbox.leave(group)
+  msg = mbox.receive()
+  assert msg.reason == spread.CAUSED_BY_LEAVE
+
+  mbox.disconnect()
+if __name__ == '__main__':
+  testPing(10000)
+  #unittest.main()
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2006/04/26/python-tips/">Python Tips</a> <small>2006-04-26</small></h1>
+	</div>
+	<div><h3># asyncore.dispatcher</h3>
+<pre><code>- 원래부터 nonblocking 이다.
+- set_socket 하는 시점에 map 에 등록된다.
+</code></pre>
+<h3># StringIO.readline()</h3>
+<p>StringIO 는 file-like 객체이므로 readline() 을 지원한다. 그러나 write() 한 후 읽어들이면 None 을 리턴한다. 내부적으로 유지하는 offset 이 하나이기 때문인데, 만약 사용하려면 offset(0) 을 호출해서 포인터를 맨 앞으로 돌려줘야 한다. (너무 단순한가?)</p>
+<h3># zipfile</h3>
+<p>zip 포맷으로 특정 폴더를 압축하기 위해서는 다음과 같이 해야 한다. 이때 압축 포맷으로 ZIP_DEFLATED 를 사용해야 파일 크기가 작아진다.</p>
+<pre><code>
+def zipdir(zfile,dir,base='.'):
+&quot;&quot;&quot;zip directory recursively&quot;&quot;&quot;
+print '\nzip %s'%dir,
+
+global log
+log.write('zip %s...'%dir)
+
+for f in os.listdir(dir):
+nf = os.path.join(dir,f)
+if os.path.isdir(nf):
+zipdir(zfile,nf,os.path.basename(dir))
+else:
+print '.',
+zfile.write(nf,
+os.path.join( base, os.path.basename(dir), f),
+zipfile.ZIP_DEFLATED)
+</code></pre>
+
+<h3># dict(zip(seq1,seq2))</h3>
+<p>keys와 values를 dict로 매치시킬 때 dict()와 zip()을 사용할 수 있다.</p>
+<pre><code>
+&gt;&gt;&gt; keys = [ 'aaa', 'bbb', 'ccc' ]
+&gt;&gt;&gt; values = [ 1, 2, 3 ]
+&gt;&gt;&gt; zip(keys,values)
+[('aaa', 1), ('bbb', 2), ('ccc', 3)]
+&gt;&gt;&gt; dict(zip(keys,values))
+{'aaa': 1, 'bbb': 2, 'ccc': 3}
+</code></pre>
+
+<h3># re.findall</h3>
+<p>스트링에서 특정 seperator 로 구분된 패턴으로 자를 때, string.split() 도 좋지만 re.findall() 을 강추</p>
+<pre><code>
+&gt;&gt;&gt; args = '&quot;SELECT * FROM User&quot;,&quot;aaa,bbb,ccc,ddd&quot;'
+&gt;&gt;&gt; args.split('&quot;')
+['', 'SELECT * FROM User', ',', 'aaa,bbb,ccc,ddd', '']
+&gt;&gt;&gt; re.findall('&quot;(.+?)&quot;',args)
+['SELECT * FROM User', 'aaa,bbb,ccc,ddd']
+</code></pre>
+
+<h3># re 를 이용한 파일명 변경</h3>
+<p>특정 폴더 안에 여러가지 파일명들을 바꾸기 위해서는 re 모듈을 잘 사용해야 한다. 다음은 파일명에 {{{[...]}}} 을 없엘 때 쓰는 스크립트이다.</p>
+<pre><code>
+import os, re
+os.chdir(target_folder)
+for old_name in os.listdir('.'):
+new_name = re.sub('\[.+\]','',old_name)
+os.rename(old_name,new_name)
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/04/26/funny-memory-values/">Funny Memory Values</a> <small>2006-04-26</small></h1>
 	</div>
 	<div><p>from <a href="http://www.samblackburn.com/wfc/technotes/WTN006.htm">WFC Technical Note 006 - Funny Memory Values</a></p>
 <p>윈도우 환경에서 디버깅을 하다 보면 0XCDCD 라든지 0XDDDD 같은 특이한 값들을 만날 수 있는데, 이게 그냥 가비지가 아니라 각각마다 특유의 의미를 가지고 있었다. 가령 0xDDDD는 이미 지워진 포인터라든지 0xFDFD는 힙에 할당한 값의 앞뒤에 위치하는 경계값이라든지 말이다.</p>
 <p>한글로 된 설명은 <a href="http://codian.net/wp/archives/352">요기</a>와 <a href="http://www.trozan.net/blog/tag/%B5%F0%B9%F6%B1%D7">요기</a>가 제일 잘 되어 있으니 참고하시길.</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a> <small>2006-04-25</small></h1>
-	</div>
-	<div><p><a href="http://udt.sf.net">UDT</a>는 Internet2 혹은 기가비트 이더넷과 같이 빠른 네트워크에서 수십~수백 기가 바이트의 대용량 데이터를 전송할 때 TCP가 매우 느리다는 점때문에 시작된 오픈소스 프로젝트이다. 버클리 소켓 API를 그대로 유지하고 있어서 접근성이 좋고, TCP의 슬라이딩 윈도우 같은 Congestion Control 을 사용자가 상황에 맞게 조정할 수 있다는 장점이 있다. 2.0 버전까지는 UDP 스트림만을 지원했는데 3.0부터는 UDP 다이어그램과 중첩입출력(Overlapped)도 지원하기 시작했다. 현재 3.0 beta 가 나와 있는 상태이다.</p>
-<p>이번에 reliable UDP 라이브러리 조사 도중 탐지망에 걸려 들어서 검토한 결과, 하나의 소켓에 대해서 내부적으로 입력과 출력 쓰레드를 1개씩 사용하는 것을 발견했다. 원래부터 데이터 전송을 목적으로 구현되어서 그런 듯한데, 이를 수정하지 않고는 게임 서버에서 사용하기는 힘들다는 판단을 내렸다. 시간이 난다면 IOCP를 연동할 수 있게 살짝 고쳐 보고 싶지만, 누구 말마따나 게임 회사는 연구소가 아닌 관계로... OTL</p>
-<p>결국 다시 RakNet으로 가야 된단 말인가...</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/25/codekeep/">CodeKeep</a> <small>2006-04-25</small></h1>
-	</div>
-	<div><p><a class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.JPG" title="codekeep.JPG"><img alt="codekeep.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.thumbnail.JPG" /></a><br />
-<a href="http://msdn.microsoft.com/msdnmag/issues/05/12/VisualStudioAddins/default.aspx">Visual Studio Add-Ins Every Developer Should Download Now</a> 에서 비주얼 스튜디오를 위한 10 가지 필수 플러그인들을 만나볼 수 있다. 그 중에서 제일 마음에 드는 것은, 함수를 선택하면 파라미터를 읽어서 자동적으로 XML 코멘트를 만들어주는 <a href="http://www.roland-weigelt.de/ghostdoc">GhostDoc</a>과, 웹에서 코드 조각들을 검색해서 내 코드에 넣을 수 있는 <a href="http://www.codekeep.net/">CodeKeep</a>이라는 플러그인이다.</p>
-<p>단 GhostDoc은 아직 VS2005 영문판만 지원해서 CodeKeep만 구경해볼 수 있었는데, 아직은 기부된 코드의 양이 부족한 듯해서 아쉬웠다. del.icio.us처럼 많은 사람들이 사용해줘야 시너지 효과가 날텐데, 홈페이지만 <a href="http://goodhyun.com/archives/2006/04/_co_oe_aoea_a_2.php">웹2.0 디자인</a>을 닮으려고 해서는 안될 것이다. 이런 식으로 팀 내부적으로 코드조각을 공유할 수 있는 솔루션이 있었으면 좋으련만... (누가 위키 기반으로 만들어주시게~~)</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/24/odbc-tips/">ODBC Tips</a> <small>2006-04-24</small></h1>
-	</div>
-	<div><p><strong>Timestamp -&gt; C</strong></p>
-<p>TIMESTAMP 값을 C 에서 받는 방법은 다양하다. 단순 SELECT 를 통해 날짜 스트링으로 받던가, SQL 문으로 적절히 CONVERT 한 변형된 스트링을 받던가, 아예 아래처럼 구조체로 바로 받을 수 있다.</p>
-<pre><code>
-// SQL_C_TYPE_DATE
-struct tagDATE_STRUCT {
-SQLSMALLINT year;
-SQLUSMALLINT month;
-SQLUSMALLINT day;
-} DATE_STRUCT;
-
-// SQL_C_TYPE_TIME
-struct tagTIME_STRUCT {
-SQLUSMALLINT hour;
-SQLUSMALLINT minute;
-SQLUSMALLINT second;
-} TIME_STRUCT;
-
-// SQL_C_TYPE_TIMESTAMP
-struct tagTIMESTAMP_STRUCT {
-SQLSMALLINT year;
-SQLUSMALLINT month;
-SQLUSMALLINT day;
-SQLUSMALLINT hour;
-SQLUSMALLINT minute;
-SQLUSMALLINT second;
-SQLUINTEGER fraction;[b]
-} TIMESTAMP_STRUCT;
-</code></pre>
-
-<p>see also:</p>
-<pre><code>- [ODBC  C
-</code></pre>
-<p>](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/odbcc_data_types.asp)</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/24/memory-leak-detection-tools/">Memory Leak Detection Tools</a> <small>2006-04-24</small></h1>
-	</div>
-	<div><p>from <a href="http://www.rakkarsoft.com/raknet/forum/index.php?topic=251.0">RakNet forum</a></p>
-<pre><code>- [http://www.flipcode.com/articles/article_memoryleaks.shtml](http://www.flipcode.com/articles/article_memoryleaks.shtml)
-- [http://www.flipcode.com/cgi-bin/fcarticles.cgi?show=64744](http://www.flipcode.com/cgi-bin/fcarticles.cgi?show=64744)
-- [http://www.embedded.com/story/OEG20020321S0021](http://www.embedded.com/story/OEG20020321S0021)
-- [http://wyw.dcweb.cn/leakage.htm](http://wyw.dcweb.cn/leakage.htm)
-- [http://www.codeproject.com/cpp/MemoryHooks.asp](http://www.codeproject.com/cpp/MemoryHooks.asp)
-- [http://www.codeproject.com/tools/leakfinder.asp](http://www.codeproject.com/tools/leakfinder.asp)
-</code></pre></div>
 	
 </article>
 			
@@ -166,23 +666,23 @@ SQLUINTEGER fraction;[b]
 	</li>
 	
 	<li>
+		<a href="/2006/04/28/raknet-tips/">RakNet Tips</a>
+	</li>
+	
+	<li>
+		<a href="/2006/04/26/sql-tips/">SQL Tips</a>
+	</li>
+	
+	<li>
+		<a href="/2006/04/26/spread/">Spread</a>
+	</li>
+	
+	<li>
+		<a href="/2006/04/26/python-tips/">Python Tips</a>
+	</li>
+	
+	<li>
 		<a href="/2006/04/26/funny-memory-values/">Funny Memory Values</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/25/codekeep/">CodeKeep</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/24/odbc-tips/">ODBC Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/24/memory-leak-detection-tools/">Memory Leak Detection Tools</a>
 	</li>
 	
 </ul>

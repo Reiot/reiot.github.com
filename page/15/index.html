@@ -63,6 +63,93 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/10/22/tracking-solution-item-in-visual-studio/">Tracking Solution Item</a> <small>2008-10-22</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg" /></a></p>
+<p>현재 편집기에 선택한 문서를 솔루션 탐색기에서 찾아주는 옵션이다. 프로젝트가 여러 개이거나 폴더 트리가 깊을 경우 유용하다. (Visual Studio 2005 이상)</p>
+<p><a href="http://www.google.co.kr/search?rlz=1C1GGLS_koKR294&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=솔루션+탐색기에서+활성화된+항목+추적">아시는 분들</a>도 꽤 많으시지만, <a href="http://suigui.com/wordpress/2008/10/22/디버깅-watch/">DDD(Debugging Driven Development)의 창시자</a>이신 모군도 모르는 옵션이라고 해서 한번 써본다.</p>
+<p>ps. 소니군이 최근 <a href="http://sonee.com/253">미국 불황의 여파와 중국 올림픽 덕분에 캔슬된 비운의 프로젝트의 스크린샷</a>을 공개했으니 한번쯤 구경해주시기 바란다.</p>
+<p>[caption id="" align="aligncenter" width="500" caption="Real Baseball 2009(Ceased)"]<a href="http://sonee.com/253" target="_blank"><img alt="http://cfs15.tistory.com/upload_control/download.blog?fhandle=YmxvZzk4OTRAZnMxNS50aXN0b3J5LmNvbTovYXR0YWNoLzAvMC5qcGc=" src="http://cfs15.tistory.com/upload_control/download.blog?fhandle=YmxvZzk4OTRAZnMxNS50aXN0b3J5LmNvbTovYXR0YWNoLzAvMC5qcGc=" /></a>[/caption]</p></div>
+	
+	<p>
+	
+		<a href="/tag/visualstudio/"><span class="label">visualstudio</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/10/22/edit-pray/">Edit & Pray</a> <small>2008-10-22</small></h1>
+	</div>
+	<div><p><img alt="http://web.mit.edu/cat/Desktop/cat/images/pray.jpg" src="http://web.mit.edu/cat/Desktop/cat/images/pray.jpg" /></p>
+<pre><code>Changes in a system can be made in two primary ways. I like to call them* Edit And Pray *and *Cover and Modify.* Unfortunately, *Edit and Pray* is pretty much the industry standard.
+
+--Michael C. Feathers
+
+</code></pre>
+
+<p>TDD를 쓰지 않는 대부분의 프로그래머들은 <a href="http://suigui.com/wordpress/2008/10/10/editcontinue-쓰시나요/">Edit &amp;Continue</a> 보다는 Edit &amp; Pray 를 더 사랑한다. 물론 나도 컴파일러와 윈도우 커널와 쓰레드들에게 자주 빌기도 하지만, 언젠가부터 테스트 없이 일을 진행하면 아무리 실행이 잘되어도 마음 한구석이 편치 않게 되는 경우가 많아졌다. 테스트 통과 후 커밋할 때의 쾌감에 중독되었기 때문인데, 사소한 것까지 테스트한다고 잔소리를 들은 후에야 겨우 벗어날 수 있었다. 그래서 요즘에는 라이브러리 학습이나 개인적인 프로젝트에서만 테스트를 활용하고 있다. </p>
+<p>최근, 새 프로젝트에서 한정된 시간안에 핵심적인 로직을 제외한 나머지 - 플랫폼, 데이터베이스, 네트워크 프레임워크 외 다수- 들을 마이그레이션하면서 성능과 안정성을 동시에 만족시켜야 하는, 그야말로 도전적인 과제를 맡았다. 이 <a href="http://www.xevious7.com/300">세마리 토끼를 한방에 잡아주는 은총알이 없는 거야</a> 당연하지만, 그렇다고 점진적으로 리팩토링해나가면서 지켜보는 것도 불가능한 상황이다. 비유적으로 말하자면, <a href="http://www.google.co.kr/search?rlz=1C1GGLS_koKR294&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=직불금">새로 논밭을 사서 농사를 대충 짓다가 적당히 직불금을 받아먹은 후 양도세를 면제받은 후(응?)</a>, 기존의 집을 그대로 들어 올려서 새 토지에 얹어 놓고, 인테리어를 막판에 갈아 엎는 대공사를 할 수 밖에 없을 것 같다. 물론 기도를 빠뜨리면 안되겠지만.</p>
+<p>어쨌거나 기회가 되면 <a href="http://reiot.cafe24.com/2008/07/04/google-test/">google test</a>를 써보고 싶은데, 이 대운하에 버금가는 공사에서 가능할 것인지 나도 참 궁금하다. 쉬귀군이 밥먹다가 말한 것처럼 삽질이 되면 안되는데... 후덜덜.</p></div>
+	
+	<p>
+	
+		<a href="/tag/test/"><span class="label">test</span></a>
+	
+		<a href="/tag/refactoring/"><span class="label">refactoring</span></a>
+	
+		<a href="/tag/legacy/"><span class="label">legacy</span></a>
+	
+		<a href="/tag/TDD/"><span class="label">TDD</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/10/19/pareto-principle/">Pareto Principle</a> <small>2008-10-19</small></h1>
+	</div>
+	<div><p><img alt="http://shop.advanceweb.com/images/products/2007/GI/GI_home_garden/05188_TroubleMakerMug_GI/05188_TroubleMMg_GI_med.jpg" src="http://shop.advanceweb.com/images/products/2007/GI/GI_home_garden/05188_TroubleMakerMug_GI/05188_TroubleMMg_GI_med.jpg" /></p>
+<p>80:20의 법칙이라는 이름으로 더욱 잘 알려진 <a href="http://en.wikipedia.org/wiki/Pareto_principle">파레토의 법칙</a>을 게임 개발에 적용한 가장 좋은 예는, "20%의 코드가 80%의 부하를 차지하므로 섣부른 최적화는 피하라"는 격언일 것이다. 그리고, 20%의 개발자가 80%의 업무를 처리한다는 일명 개미와 베짱이의 법칙도 유명하다. 그런데 <a href="http://kr.geek2live.org/155">라이프해커님의 최근 글에서 발견한 또다른 재미있는 예</a>가 있는데,<br />
+<code>20%에 불과한 사람들이 회사의 80%의 트러블을 만들어내며 당신과 기타 사람들은  부득불 80%의 시간을 내서 그 문제들을 처리해야 한다.</code><br />
+라는 내용이었다. 이 글을 보고 그저 고개를 끄덕일 수 없었던 이유는, 최근까지도 이런 문제들로 고생을 해봤기 때문이다. 다만 이<a href="http://reiot.cafe24.com/2008/10/09/announcement/">번에 큰 조직으로 옮긴 후부터</a>, 20%에 해당하는 개미 부류의 개발자들을 한 명씩 발견하게 되어 과거의 상처가 서서히 아물어가고 있지만, 이 불타는 분노는 최소 10년동안은 지워지지 않을 것 같다. 덕분에 조직의 암적인 존재들은 조기에 제거해야 한다는 좋은 교훈을 배웠다. 그리고, 그들을 보다 빨리 인식하기 위한 눈썰미를 키워야 한다는 다짐도.</p>
+<p>ps. 그렇다고 또 본인은 지금까지 한번도 트러블이 되어본 적이 없었다고 말하기도 뭣하다는게 조금 가슴 아프기도 하다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/gamedev/"><span class="label">gamedev</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2008/10/11/google-translate/">Google Translate</a> <small>2008-10-11</small></h1>
+	</div>
+	<div><p>갑자기 특정 폴더 트리안에 있는 모든 파일을 번역할 필요가 생겼다.</p>
+<p>회사에 정품 번역기가 있지만, 그냥 다중 파일 번역 기능도 자꾸 크래시가 되는 수준이라서, 결국 <a href="http://www.djangosnippets.org/snippets/1048/">파이썬으로 여기 저기서 코드를 긁어붙여</a> 돌려놓고 퇴근해버렸다. 구글 번역기는 POST가 아니라 GET 으로 문장을 받기 때문에, 200자 정도만 번역이 가능하다. (혹자는 500자 혹은 5000바이트라고도 하지만) 어쨌거나 단문 번역기인 셈이다. 고로 성능은 초당 1라인 정도이니 주말 내내 돌려도 될지 말지 의심스러운 상황이었다. (물론 멀티쓰레딩을 해볼까도 싶었으나 귀찮아서..)</p>
+<p>집에 와서 곰곰히 생각해보니 Visual Studio 에서 매크로를 써서 번역해버리면 되지 않을까 하는 생각이 문득 떠올랐다. 정규식 검색으로 번역할 문장을 찾아서 번역하는 걸 매크로에서 반복해버리면, 필요할 때마다 찾아볼 필요가 없으니 말이다.</p>
+<p>구글링해보니 운좋게도 <a href="http://www.codeplex.com/GAPIdotNET">GAPI.NET 이라는 구글 서비스의 .NET 래퍼(C#)</a>가 존재했다. 희미한 기억을 되살려 VB.NET과 연동도 겨우 성공. 본격적으로 매크로를 만드는 일만 남은 셈이었으나... 매크로에서 외부 dll 참조 기능이 지원되지 않는 모양이었다. ( 그냥 ...\Microsoft Visual Studio 9\Common7\IDE\PublicAssemblies 에 복사하면 된다)</p>
+<p>자. 삽질은 계속된다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/translate/"><span class="label">translate</span></a>
+	
+		<a href="/tag/.NET/"><span class="label">.NET</span></a>
+	
+		<a href="/tag/google/"><span class="label">google</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/08/17/apple-app-store/">Apple App Store</a> <small>2008-08-17</small></h1>
 	</div>
 	<div><p><img alt="http://filmmakerone.com/blog/wp-content/uploads/2008/03/stevejobspresentation_2.jpg" src="http://filmmakerone.com/blog/wp-content/uploads/2008/03/stevejobspresentation_2.jpg" /></p>
@@ -81,87 +168,6 @@
 		<a href="/tag/iphone/"><span class="label">iphone</span></a>
 	
 	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/08/16/stay-hungry-stay-foolish/">Stay Hungry, Stay Foolish</a> <small>2008-08-16</small></h1>
-	</div>
-	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2009/07/stay_hungry.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/stay_hungry.jpg" /></p>
-<p>좀 철이 지난 이야기이지만, <a href="http://news-service.stanford.edu/news/2005/june15/jobs-061505.html">잡스 횽아의 스탠포드 연설문</a>에서 단어들을 추출해서 태그 구름처럼 만들어주는 <a href="http://wordle.net/">Wordle</a> 이미지이다. 이 연설문이 너무 감동적이어서 PSP에 인코딩해서 듣고 다녔고, 서점에서 우연히 <a href="http://drchoi.or.kr/535">영어 공부용 책으로 나온 걸</a> 찾아서 한참동안 읽기도 했다. 반쯤은 자기 자랑이지만 <a href="http://blog.dreamwiz.com/chanjin/7633299">애플의 주가 총액이 구글을 넘어선 이 마당</a>에 이 정도의 자랑 정도는 봐줄만 하다. 고화질 버전은 아이튠즈에서 다운받을 수 있다 :)</p>
-<p>[youtube=http://www.youtube.com/watch?v=UF8uR6Z6KLc&amp;hl=ko&amp;fs=1]</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/08/13/default-key-binding-dict/">DefaultKeyBinding.dict</a> <small>2008-08-13</small></h1>
-	</div>
-	<div><p>OSX 에서 윈도우와 같은 키조합을 사용하려면 <strong>~/Library/KeyBindings/DefaultKeyBinding.dict </strong>파일을 아래와 같이 만든 후, 키바인딩을 적용하려는 어플리케이션을 재시작하면 된다.</p>
-<pre><code>
-{
-    &quot;$\Uf700&quot; = &quot;moveUpAndModifySelection:&quot;;
-    &quot;$\Uf701&quot; = &quot;moveDownAndModifySelection:&quot;;
-    &quot;$\Uf702&quot; = &quot;moveLeftAndModifySelection:&quot;;
-    &quot;$\Uf703&quot; = &quot;moveRightAndModifySelection:&quot;;
-    &quot;$\Uf729&quot; = &quot;moveToBeginningOfLineAndModifySelection:&quot;;
-    &quot;$\Uf72b&quot; = &quot;moveToEndOfLineAndModifySelection:&quot;;
-    &quot;^\b&quot; = &quot;deleteWordBackward:&quot;;
-    &quot;^$\Uf702&quot; = &quot;moveWordBackwardAndModifySelection:&quot;;
-    &quot;^$\Uf703&quot; = &quot;moveWordRightAndModifySelection:&quot;;
-    &quot;^$\Uf729&quot; = &quot;moveToBeginningOfDocumentAndModifySelection:&quot;;
-    &quot;^$\Uf72b&quot; = &quot;moveToEndOfDocumentAndModifySelection:&quot;;
-    &quot;^a&quot; = &quot;selectAll:&quot;;
-    &quot;^c&quot; = &quot;copy:&quot;;
-    &quot;^s&quot; = &quot;saveDocument:&quot;;
-    &quot;^v&quot; = &quot;paste:&quot;;
-    &quot;^x&quot; = &quot;cut:&quot;;
-    &quot;^z&quot; = &quot;undo:&quot;;
-    &quot;^&quot; = &quot;deleteWordForward:&quot;;
-    &quot;^\Uf702&quot; = &quot;moveWordLeft:&quot;;
-    &quot;^\Uf703&quot; = &quot;moveWordRight:&quot;;
-    &quot;^\Uf728&quot; = &quot;deleteWordForward:&quot;;
-    &quot;^\Uf729&quot; = &quot;moveToBeginningOfDocument:&quot;;
-    &quot;^\Uf72b&quot; = &quot;moveToEndOfDocument:&quot;;
-    &quot;\Uf729&quot; = &quot;moveToBeginningOfLine:&quot;;
-    &quot;\Uf72b&quot; = &quot;moveToEndOfLine:&quot;;
-    &quot;\Uf72c&quot; = &quot;pageUp:&quot;;
-    &quot;\Uf72d&quot; = &quot;pageDown:&quot;;
-}
-
-</code></pre>
-
-<p>Ctrl+D 같은 손에 익은 키조합들을 적용하려면 아래의 문서들을 참고하기 바란다.</p>
-<pre><code>- [Cocoa Text System](http://www.hcs.harvard.edu/~jrus/Site/System%20Bindings.html)
-- [Customizing Cocoa Text System](http://www.hcs.harvard.edu/~jrus/site/cocoa-text.html)
-</code></pre></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/08/07/the-abcs-of-xbox-360-dlc/">The ABCs of Xbox 360 DLC</a> <small>2008-08-07</small></h1>
-	</div>
-	<div><p><img alt="http://www.xbox.com/NR/rdonlyres/C185D8B7-F8C7-4AED-AF90-E5415D383212/0/ilmmarketplace001.jpg" src="http://www.xbox.com/NR/rdonlyres/C185D8B7-F8C7-4AED-AF90-E5415D383212/0/ilmmarketplace001.jpg" /></p>
-<p><a href="http://www.gamasutra.com/php-bin/news_index.php?story=19552">가마수트라 기사</a>에 따르면,<br />
-<code>"Right now we have over 12 million users in over 26 countries, with $240 million in transactions revenue so far, with $180 million in the last 12 months alone," said Salcedo of the Xbox 360's marketplace.</code><br />
-최근 1년 동안 XBOX 360 마켓플레이스가 다운로드 컨텐츠(DLC)로 벌어들인 수익이 무려 우리돈 1800억원에 이른다고 한다. <a href="http://reiot.cafe24.com/2007/01/16/%EC%A7%80%EA%B8%88%EA%B9%8C%EC%A7%80-%ED%8C%94%EB%A6%B0-microsoft-points%EB%8A%94-%EC%96%BC%EB%A7%88/">작년 1월에 쓴 글을 찾아보니 당시 누적 금액이 200억원 정도</a>였는데, 그동안 정말 괄목할만한 성장을 한 것 같다. 최근 부족하나마 XNA 에 많은 지원을 하고 있는 것도 다 이런 통계 때문이 아닐까 한다.</p>
-<p>애플이나 마소의 예에서도 알 수 있듯이, 해외에서 소액결제가 힘들다고는 하지만, 이렇게 큰 플랫폼들이 계속 활성화되어가는 걸 보면 우리나라의 수준으로 따라오는 것도 금방이 아닐까 한다. 그런 걸 보면, 우리 나라의 게임 산업은 특정 게임(MMORPG)에만 집중하는 경향이 많아서, 해외 게임 회사들의 비지니스 모델 테스트 베드로로 전락해버리는 게 아닐까 하는 걱정도 든다.</p>
-<p>플랫폼을 지배하는 자가 게임을 지배하는 시대가 오고 있는 걸까?</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/08/05/iphone-game-2000day/">IPhone Game = 2000$/day</a> <small>2008-08-05</small></h1>
-	</div>
-	<div><p><a href="http://i-dreaming.com/2511585">드리밍님의 포스트</a>에 의하면</p>
-<p><img alt="http://cfs9.tistory.com/upload_control/download.blog?fhandle=YmxvZzU2NjVAZnM5LnRpc3RvcnkuY29tOi9hdHRhY2gvMC8xMjAwMDAwMDAwMDEuUE5H" src="http://cfs9.tistory.com/upload_control/download.blog?fhandle=YmxvZzU2NjVAZnM5LnRpc3RvcnkuY29tOi9hdHRhY2gvMC8xMjAwMDAwMDAwMDEuUE5H" /></p>
-<p>이런 게임이 <a href="http://www.macrumors.com/2008/08/01/iphone-app-store-numbers-reveal-large-revenue-opportunities/">하루에 2천달러나 돈을 벌어준다고</a> 한다. (매일 매일 저만큼 팔렸다는 이야기는 아니굽쇼)</p>
-<p>으흠. 직종 전환을 심각하게 고려해봐야겠다. XNA이고 뭐고 저렇게 바로 현금화할 수 있는 플랫폼이 있어야 뛰어들만하지.</p>
-<p>see also:<br />
-<a href="http://reiot.cafe24.com/2007/03/02/%ec%95%84%ec%9d%b4%ed%8f%b0-%ea%b2%8c%ec%9e%84-%eb%a7%9d%ec%83%81/">아이폰 게임 망상</a></p></div>
 	
 </article>
 			
@@ -185,23 +191,23 @@
 	</li>
 	
 	<li>
+		<a href="/2008/10/22/tracking-solution-item-in-visual-studio/">Tracking Solution Item</a>
+	</li>
+	
+	<li>
+		<a href="/2008/10/22/edit-pray/">Edit & Pray</a>
+	</li>
+	
+	<li>
+		<a href="/2008/10/19/pareto-principle/">Pareto Principle</a>
+	</li>
+	
+	<li>
+		<a href="/2008/10/11/google-translate/">Google Translate</a>
+	</li>
+	
+	<li>
 		<a href="/2008/08/17/apple-app-store/">Apple App Store</a>
-	</li>
-	
-	<li>
-		<a href="/2008/08/16/stay-hungry-stay-foolish/">Stay Hungry, Stay Foolish</a>
-	</li>
-	
-	<li>
-		<a href="/2008/08/13/default-key-binding-dict/">DefaultKeyBinding.dict</a>
-	</li>
-	
-	<li>
-		<a href="/2008/08/07/the-abcs-of-xbox-360-dlc/">The ABCs of Xbox 360 DLC</a>
-	</li>
-	
-	<li>
-		<a href="/2008/08/05/iphone-game-2000day/">IPhone Game = 2000$/day</a>
 	</li>
 	
 </ul>

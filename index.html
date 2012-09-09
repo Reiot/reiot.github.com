@@ -233,6 +233,43 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2012/04/27/unity3d-serialization/">Unity3D 에서 직렬화하기</a> <small>2012-04-27</small></h1>
+	</div>
+	<div><h3>C# 에서의 직렬화</h3>
+<ul>
+<li>클래스에 [Serializable()]만 선언하면 됨</li>
+<li>추가적으로 ISerializable 을 상속받아서 다음 함수를 재정의</li>
+<li>GetObjectData(): serialize 시 호출됨</li>
+<li>protected constructor: deserialize 에서 호출됨</li>
+</ul>
+<p>via <a href="http://msdn.microsoft.com/ko-kr/library/ty01x675(v=vs.80).aspx">MSDN</a></p>
+<h3>Unity3d의 제약 조건</h3>
+<ul>
+<li>static 필드, private 필드, property 는 자동 제외.</li>
+<li>각 필드별로 넣으려면 [SerializeField], 빼고 싶으면 <a href="http://unity3d.com/support/documentation/ScriptReference/SerializeField.html">NonSerialized</a> 선언.</li>
+<li>Dictionary, List of List, Array of Array 의 직렬화는 지원 안함</li>
+</ul>
+<p>via <a href="http://unity3d.com/support/documentation/ScriptReference/SerializeField.html">Unity3d SerializeField</a></p>
+<p>이렇게 하더라도 가끔 iOS에서 지원하지 않는 경우가 있으니, 꼭 디바이스에서 테스트해보기 바란다 :P</p>
+<h3>참고 자료</h3>
+<ul>
+<li><a href="http://answers.unity3d.com/questions/49286/serialize-a-list-containing-another-list-listlisto.html">리스트의 리스트 직렬화</a></li>
+<li><a href="http://stackoverflow.com/questions/3510763/why-is-my-listt-not-being-serialized">Dictionary 직렬화 예제</a></li>
+<li><a href="http://www.electrotank.com/forums/archive/index.php/t-12005.html">JIT 문제</a></li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/unity3d/"><span class="label">unity3d</span></a>
+	
+		<a href="/tag/serialization/"><span class="label">serialization</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2012/04/24/building-a-team-to-ship-a-great-product/">성공하는 제품을 만들기 위한 팀 구축</a> <small>2012-04-24</small></h1>
 	</div>
 	<div><p>thanks to 박종천(블리자드)</p>
@@ -382,208 +419,42 @@
 			
 				<article>
 	<div class="page-header">
-		<h1><a href="/2012/04/04/appengine-pipeline/">AppEngine pipeline</a> <small>2012-04-04</small></h1>
+		<h1><a href="/2012/04/16/python-generator/">Python Iterator vs. Generator</a> <small>2012-04-16</small></h1>
 	</div>
-	<div><h3>개요</h3>
-<p>Datastore 에 task 순서를 저장하고 순차적으로 하나씩 실행한다. <br />
-task 1 의 리턴값이 task2 의 출력값이 된다.<br />
-내부적으로 task queue 를 사용한다.</p>
-<ul>
-<li>run() 의 리턴값 또는 마지막 yield 값이 self.outputs.default.value 가 된다.</li>
-<li>여러 개의 값을 리턴할 수도 있다.</li>
-<li>값에 이름이 필요할 경우 output_names 와 fill() 함수를 이용할 것.</li>
-</ul>
-<pre><code>output = [ slot, ... ] 
+	<div><h2>iterator</h2>
+<p>임의의 sequence 를 순회하는데 필요한 정보를 담은 오브젝트.<br />
+iter() 함수를 통해서 생성하고, next() 함수를 이용해서 index 를 증가시켜서 다음 객체를 리턴한다. 맨 끝에 도달하면 StopIteration 예외를 던진다.</p>
+<p>즉 for x in seq 는 내부적으로 아래와 같다.</p>
+<pre><code>it = iter(seq)
+while 1:
+  try:
+    x = it.next()
+  except StopIteration:
+    break
 </code></pre>
 
-<h3>2개를 순차 실행</h3>
-<p>task2 에서 task1 을 yield 로 호출할 것.</p>
-<pre><code>class Task1(pipeline.Pipeline):
-  def run(self, input):
-    return input*2
-
-class Task2(pipeline.Pipeline):
-  def run(self, input):
-    result = yield Task1(input)
-    return input+1
+<p>임의의 클래스에 <strong>iter</strong>() 과 next() 함수를 정의하면, in 연산자로 iteration 이 가능하다.</p>
+<pre><code>class MyCollection:
+  def __init__(self, seq): self.idx=0; self.seq=seq
+  def __iter__(self): return self
+  def next(self):
+    if self.idx &gt; len(self.seq): raise StopIteration
+    self.idx += 1
+    return self.seq[self.idx]
 </code></pre>
 
-<p>이때 x 는 Future 객체다. x 의 값을 읽어오려면 또다른 yield 로만 가능하다. </p>
-<h3>common 모듈</h3>
-<p>각종 다양한 파이프라인 기능을 지원한다.</p>
-<h3>callback(), get_callback_task(), get_callback_url()</h3>
-<p>어떤 태스크들은 사람이 중간에 개입해서 이메일의 링크를 클릭하거나, delay 처럼 일정 시간 후에 태스크큐를 통해서 비동기적으로 수행될 필요가 있다. </p>
-<p>이때 콜백 함수가 호출된다. </p>
-<h3>finalize()</h3>
-<p>아직 결과값이 저장되지는 않은 상태다. </p>
-<h3>output_names &amp; fill()</h3>
-<p>하나의 값이 아니라 여러 개의 값을 이름 기반으로 넘겨야 할 때</p>
-<pre><code>output_names = ['aa', 'bb']
-…
-self.fill(self.outputs.aa, 11)
-self.fill(self.outputs.bb, 'bbbbb')
-</code></pre>
-
-<p>와 같은 방식으로 저장한다.</p>
-<h3>with pipeline.After()</h3>
-<p>futures 를 파라미터로 받아서 해당 태스크가 모두 끝난 경우 with 아래 문을 실행한다.</p>
-<h3>common.Append()</h3>
-<p>여러 개의 태스크를 실행한 후 하나의 리스트로 리턴한다.</p>
-<h3>raise pipeline.Retry, Abort</h3>
-<p>예외는 위와 같이 넘길 것</p>
-<h3>yield common.Log.info()</h3>
-<p>비동기 로그 남기기</p></div>
+<h2>generator function</h2>
+<p>iterator 가 next() 호출을 통해서 값을 "리턴"하는 것과 달리, generator 는 next() 함수를 부르면 이전에 멈춘 곳부터 실행(resume)하다가 yield로 값을 리턴하고 다시 멈춤(pause)으로써, 결과적으로 값을 순차적으로 "생성"한다. 맨 끝에서는 역시 StopIteration 예외를 던진다.</p>
+<h2>generator expression</h2>
+<p><code>(x for x in seq)</code> 처럼 [] 대신 () 로 list comprehension 을 묶으면 generator 를 간단히 만들 수 있다.</p>
+<p>리스트를 파라미터로 받는 함수에 그대로 넘길 수도 있다.</p>
+<blockquote>
+<p>sum(x for x in seq)</p>
+</blockquote></div>
 	
 	<p>
 	
-		<a href="/tag/appengine/"><span class="label">appengine</span></a>
-	
-		<a href="/tag/pipeline/"><span class="label">pipeline</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2012/04/02/nosql-research/">NoSQL 조사</a> <small>2012-04-02</small></h1>
-	</div>
-	<div><p><a href="http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis">NoSQL DB 비교</a>라는 문서를 기준으로 각 데이터베이스의 특성을 간략 조사해봤다.</p>
-<h3>mongodb</h3>
-<p>10gen 이라는 회사에서 운영. 오픈 소스. 컬럼 그룹 기반.</p>
-<ul>
-<li>C++ based</li>
-<li>SQL과의 호환성(쿼리, 인덱스)</li>
-<li>protocol: BSON &amp; custom</li>
-<li>storage: memory mapped file</li>
-<li>sharding</li>
-<li>query: javascript expression</li>
-<li>server script: javascript</li>
-<li>다이나믹 쿼리가 필요한 경우</li>
-<li>map/reduce 보다 index 가 많은 경우</li>
-<li>데이터가 많을 때 성능이 중요한 경우</li>
-<li>couch db 에 비해서 데이터가 자주 변하는 경우</li>
-</ul>
-<h3>Riak</h3>
-<ul>
-<li>Erlang &amp; C (+ JS) based</li>
-<li>fault tolerance 가 최우선</li>
-<li>Protocol: HTTP/REST</li>
-<li>map/reduce: by JS &amp; Erlang</li>
-</ul>
-<h3>CouchDB</h3>
-<ul>
-<li>Erlang based</li>
-<li>DB 안정성이 최우선. 손쉬운 사용.</li>
-<li>Protocol: HTTP/REST</li>
-<li>자주 바뀌지 않는 데이터</li>
-<li>데이터 버전관리가 중요한 경우</li>
-<li>ex&gt; CMS, CRM</li>
-</ul>
-<h3><a href="http://redis.io/">Redis</a></h3>
-<p>key-value store. github, disqus, digg, stackoverflow 에서 사용중이다.</p>
-<h4>특징</h4>
-<ul>
-<li>C/C++ based</li>
-<li>속도가 최우선</li>
-<li>Protocol: telnet like?</li>
-<li>disk backed in memory db ??</li>
-<li>disk swap 지원 안함</li>
-<li>set, list, hash, sorted set 등 다양한 타입 지원</li>
-<li>트랜잭션도 있다..</li>
-<li>데이터 용량 == 메모리에 올라 갈 정도의 크기여야 한다</li>
-<li>자주 데이터가 바뀌지만 크기는 예측 가능한 분야에 적절</li>
-<li>ex&gt; 주가, 분석, 실시간 데이터, 실시간 통신..</li>
-</ul>
-<h4>데이터 안정성</h4>
-<p>via <a href="http://redis.io/topics/persistence#snapshotting">스냅샷</a></p>
-<h5>저장 방식</h5>
-<ul>
-<li>RDB(snapshot): 큰 파일 하나에 DB 전체를 저장.</li>
-<li>AOF(Append Only File): 변경 사항(command)을 로그 파일에 계속 추가함. 서버가 뜰 때 이걸 쭈욱 읽어서 원본 데이터를 만들어낸다.</li>
-<li>둘 다 끄면 캐시 모드가 됨. 서버 끄면 사라짐.</li>
-<li>둘 다 적용하면, 마지막 rdb 다음부터의 AOF 를 읽어서 만들어냄</li>
-</ul>
-<h5>RDB 의 장점</h5>
-<ul>
-<li>특정 시각의 데이터를 하나의 파일에 담았다</li>
-<li>백업/복구에 용이: 주기적으로 RDB를 만들어서 외부에 백업하기 쉽다</li>
-<li>성능면에서 최고</li>
-<li>빠른 재시작</li>
-</ul>
-<h5>RDB 단점</h5>
-<ul>
-<li>데이터 손실 가능성: 파워 나감</li>
-<li>주기적으로 여러 RDB를 만들어야 된다.</li>
-<li>저장할 때마다 fork 한다. 이때 I/O 가 멈추거나 CPU가 스파이크 친다.</li>
-<li>물론 AOF 도 fork 를 하긴 한다.. 대신 조정이 가능.</li>
-</ul>
-<h5>AOF 장점</h5>
-<ul>
-<li>보다 안정적. fsync 정책을 튜닝 가능(매 초마다, 모든 쿼리 마다)</li>
-<li>기본 정책은 1초마다. 백그라운드 쓰레드가 실행함.</li>
-<li>append only 라서 데이터 커럽션이 없다. 마지막 데이터가 깨질 경우에도 쉽게 고칠 수 있다.</li>
-<li>로그가 너무 커지면 자동적으로 다른 파일로 분할한다.</li>
-<li>로그 포맷이 이해하기 쉽다.</li>
-</ul>
-<h5>AOF 단점</h5>
-<ul>
-<li>RDB 보다 파일 용량이 크다</li>
-<li>RDB 보다 느리다</li>
-<li>데이터가 꼬일 확률이 존재한다. 과거에 그런 버그가 있었다. 근데 아직 버그 리포트는 없다.</li>
-</ul>
-<h5>결론</h5>
-<ul>
-<li>둘 다 사용해야 함</li>
-<li>스냅샷: dump.rdb 를 남김.</li>
-<li>초 단위 주기. 또는 데이터셋의 변화량 단위.<br />
- ex&gt; save 60 1000 === 60초 마다, 1000 개의 변화 마다</li>
-<li>fork 해서 자식 프로세스가 dump.rdb 를 저장하면 기존 파일을 변경</li>
-<li>AOS:</li>
-</ul>
-<h3>cassandra</h3>
-<p>페이스북이 개발해서 오픈소스화. 지금은 아파치에서 관리중. 페이스북/트위터/Digg 에서 사용. 컬럼 그룹 형태의 데이터 모델. 데이터 일관성 잘 지원한다.</p>
-<ul>
-<li>자바 기반</li>
-<li>읽기 보다는 쓰기를 많이 할 때</li>
-<li>모든 컴포넌트가 다 자바일때</li>
-<li>은행, 금융.</li>
-</ul>
-<h3>couchbase(membase)</h3>
-<p>via <a href="http://www.couchbase.com/couchbase-server/features">Features</a></p>
-<p>membase 가 couchbase 로 통합됨</p>
-<ul>
-<li>Erlang &amp; C 기반</li>
-<li>memcache 호환성 + 영속성 + 클러스터링 이 중요</li>
-<li>존나 빠름</li>
-<li>디스크 영속성</li>
-<li>web GUI</li>
-<li>DB를 끄지 않고 업그레이드 가능</li>
-<li>데이터 접근 속도가 중요할 때, 많은 접근이 있을 경우, 높은 가용성 필요할 때</li>
-<li>징가 같은 highly concurrent web app</li>
-</ul>
-<h3>HBase</h3>
-<ul>
-<li>google big table 의 오픈 소스 클론</li>
-</ul>
-<h2>총평</h2>
-<h3>유력한 후보들</h3>
-<ul>
-<li>mongodb: 팔방미인. blob</li>
-<li>redis: 로그 &amp; 캐시</li>
-<li>couchbase(membase): 메모리 기반 but 용량 한계. 근데 node.js 클라 없다.</li>
-</ul>
-<h3>무시할 놈들</h3>
-<ul>
-<li>couchdb: 데이터가 자주 바뀐다…</li>
-<li>cassandra: 자바 기반</li>
-<li>riak: 머임..</li>
-<li>hbase: 즐..</li>
-</ul></div>
-	
-	<p>
-	
-		<a href="/tag/nosql/"><span class="label">nosql</span></a>
+		<a href="/tag/python/"><span class="label">python</span></a>
 	
 	</p>
 	
@@ -609,6 +480,10 @@ self.fill(self.outputs.bb, 'bbbbb')
 	</li>
 	
 	<li>
+		<a href="/2012/04/27/unity3d-serialization/">Unity3D 에서 직렬화하기</a>
+	</li>
+	
+	<li>
 		<a href="/2012/04/24/building-a-team-to-ship-a-great-product/">성공하는 제품을 만들기 위한 팀 구축</a>
 	</li>
 	
@@ -617,11 +492,7 @@ self.fill(self.outputs.bb, 'bbbbb')
 	</li>
 	
 	<li>
-		<a href="/2012/04/04/appengine-pipeline/">AppEngine pipeline</a>
-	</li>
-	
-	<li>
-		<a href="/2012/04/02/nosql-research/">NoSQL 조사</a>
+		<a href="/2012/04/16/python-generator/">Python Iterator vs. Generator</a>
 	</li>
 	
 </ul>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Social Game Developer wandering strange dungeon...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<article>
+	<div class="page-header">
+		<h1><a href="/2012/04/16/python-generator/">Python Iterator vs. Generator</a> <small>2012-04-16</small></h1>
+	</div>
+	<div><h2>iterator</h2>
+<p>임의의 sequence 를 순회하는데 필요한 정보를 담은 오브젝트.<br />
+iter() 함수를 통해서 생성하고, next() 함수를 이용해서 index 를 증가시켜서 다음 객체를 리턴한다. 맨 끝에 도달하면 StopIteration 예외를 던진다.</p>
+<p>즉 for x in seq 는 내부적으로 아래와 같다.</p>
+<pre><code>it = iter(seq)
+while 1:
+  try:
+    x = it.next()
+  except StopIteration:
+    break
+</code></pre>
+
+<p>임의의 클래스에 <strong>iter</strong>() 과 next() 함수를 정의하면, in 연산자로 iteration 이 가능하다.</p>
+<pre><code>class MyCollection:
+  def __init__(self, seq): self.idx=0; self.seq=seq
+  def __iter__(self): return self
+  def next(self):
+    if self.idx &gt; len(self.seq): raise StopIteration
+    self.idx += 1
+    return self.seq[self.idx]
+</code></pre>
+
+<h2>generator function</h2>
+<p>iterator 가 next() 호출을 통해서 값을 "리턴"하는 것과 달리, generator 는 next() 함수를 부르면 이전에 멈춘 곳부터 실행(resume)하다가 yield로 값을 리턴하고 다시 멈춤(pause)으로써, 결과적으로 값을 순차적으로 "생성"한다. 맨 끝에서는 역시 StopIteration 예외를 던진다.</p>
+<h2>generator expression</h2>
+<p><code>(x for x in seq)</code> 처럼 [] 대신 () 로 list comprehension 을 묶으면 generator 를 간단히 만들 수 있다.</p>
+<p>리스트를 파라미터로 받는 함수에 그대로 넘길 수도 있다.</p>
+<blockquote>
+<p>sum(x for x in seq)</p>
+</blockquote></div>
+	
+	<p>
+	
+		<a href="/tag/python/"><span class="label">python</span></a>
+	
+	</p>
+	
+</article>
+
+    
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'reiot'; // required: replace example with your forum shortname
+        //var disqus_developer = 1;
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+
+  </body>
+</html>

@@ -63,6 +63,215 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2012/04/04/appengine-pipeline/">AppEngine pipeline</a> <small>2012-04-04</small></h1>
+	</div>
+	<div><h3>개요</h3>
+<p>Datastore 에 task 순서를 저장하고 순차적으로 하나씩 실행한다. <br />
+task 1 의 리턴값이 task2 의 출력값이 된다.<br />
+내부적으로 task queue 를 사용한다.</p>
+<ul>
+<li>run() 의 리턴값 또는 마지막 yield 값이 self.outputs.default.value 가 된다.</li>
+<li>여러 개의 값을 리턴할 수도 있다.</li>
+<li>값에 이름이 필요할 경우 output_names 와 fill() 함수를 이용할 것.</li>
+</ul>
+<pre><code>output = [ slot, ... ] 
+</code></pre>
+
+<h3>2개를 순차 실행</h3>
+<p>task2 에서 task1 을 yield 로 호출할 것.</p>
+<pre><code>class Task1(pipeline.Pipeline):
+  def run(self, input):
+    return input*2
+
+class Task2(pipeline.Pipeline):
+  def run(self, input):
+    result = yield Task1(input)
+    return input+1
+</code></pre>
+
+<p>이때 x 는 Future 객체다. x 의 값을 읽어오려면 또다른 yield 로만 가능하다. </p>
+<h3>common 모듈</h3>
+<p>각종 다양한 파이프라인 기능을 지원한다.</p>
+<h3>callback(), get_callback_task(), get_callback_url()</h3>
+<p>어떤 태스크들은 사람이 중간에 개입해서 이메일의 링크를 클릭하거나, delay 처럼 일정 시간 후에 태스크큐를 통해서 비동기적으로 수행될 필요가 있다. </p>
+<p>이때 콜백 함수가 호출된다. </p>
+<h3>finalize()</h3>
+<p>아직 결과값이 저장되지는 않은 상태다. </p>
+<h3>output_names &amp; fill()</h3>
+<p>하나의 값이 아니라 여러 개의 값을 이름 기반으로 넘겨야 할 때</p>
+<pre><code>output_names = ['aa', 'bb']
+…
+self.fill(self.outputs.aa, 11)
+self.fill(self.outputs.bb, 'bbbbb')
+</code></pre>
+
+<p>와 같은 방식으로 저장한다.</p>
+<h3>with pipeline.After()</h3>
+<p>futures 를 파라미터로 받아서 해당 태스크가 모두 끝난 경우 with 아래 문을 실행한다.</p>
+<h3>common.Append()</h3>
+<p>여러 개의 태스크를 실행한 후 하나의 리스트로 리턴한다.</p>
+<h3>raise pipeline.Retry, Abort</h3>
+<p>예외는 위와 같이 넘길 것</p>
+<h3>yield common.Log.info()</h3>
+<p>비동기 로그 남기기</p></div>
+	
+	<p>
+	
+		<a href="/tag/appengine/"><span class="label">appengine</span></a>
+	
+		<a href="/tag/pipeline/"><span class="label">pipeline</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2012/04/02/nosql-research/">NoSQL 조사</a> <small>2012-04-02</small></h1>
+	</div>
+	<div><p><a href="http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis">NoSQL DB 비교</a>라는 문서를 기준으로 각 데이터베이스의 특성을 간략 조사해봤다.</p>
+<h3>mongodb</h3>
+<p>10gen 이라는 회사에서 운영. 오픈 소스. 컬럼 그룹 기반.</p>
+<ul>
+<li>C++ based</li>
+<li>SQL과의 호환성(쿼리, 인덱스)</li>
+<li>protocol: BSON &amp; custom</li>
+<li>storage: memory mapped file</li>
+<li>sharding</li>
+<li>query: javascript expression</li>
+<li>server script: javascript</li>
+<li>다이나믹 쿼리가 필요한 경우</li>
+<li>map/reduce 보다 index 가 많은 경우</li>
+<li>데이터가 많을 때 성능이 중요한 경우</li>
+<li>couch db 에 비해서 데이터가 자주 변하는 경우</li>
+</ul>
+<h3>Riak</h3>
+<ul>
+<li>Erlang &amp; C (+ JS) based</li>
+<li>fault tolerance 가 최우선</li>
+<li>Protocol: HTTP/REST</li>
+<li>map/reduce: by JS &amp; Erlang</li>
+</ul>
+<h3>CouchDB</h3>
+<ul>
+<li>Erlang based</li>
+<li>DB 안정성이 최우선. 손쉬운 사용.</li>
+<li>Protocol: HTTP/REST</li>
+<li>자주 바뀌지 않는 데이터</li>
+<li>데이터 버전관리가 중요한 경우</li>
+<li>ex&gt; CMS, CRM</li>
+</ul>
+<h3><a href="http://redis.io/">Redis</a></h3>
+<p>key-value store. github, disqus, digg, stackoverflow 에서 사용중이다.</p>
+<h4>특징</h4>
+<ul>
+<li>C/C++ based</li>
+<li>속도가 최우선</li>
+<li>Protocol: telnet like?</li>
+<li>disk backed in memory db ??</li>
+<li>disk swap 지원 안함</li>
+<li>set, list, hash, sorted set 등 다양한 타입 지원</li>
+<li>트랜잭션도 있다..</li>
+<li>데이터 용량 == 메모리에 올라 갈 정도의 크기여야 한다</li>
+<li>자주 데이터가 바뀌지만 크기는 예측 가능한 분야에 적절</li>
+<li>ex&gt; 주가, 분석, 실시간 데이터, 실시간 통신..</li>
+</ul>
+<h4>데이터 안정성</h4>
+<p>via <a href="http://redis.io/topics/persistence#snapshotting">스냅샷</a></p>
+<h5>저장 방식</h5>
+<ul>
+<li>RDB(snapshot): 큰 파일 하나에 DB 전체를 저장.</li>
+<li>AOF(Append Only File): 변경 사항(command)을 로그 파일에 계속 추가함. 서버가 뜰 때 이걸 쭈욱 읽어서 원본 데이터를 만들어낸다.</li>
+<li>둘 다 끄면 캐시 모드가 됨. 서버 끄면 사라짐.</li>
+<li>둘 다 적용하면, 마지막 rdb 다음부터의 AOF 를 읽어서 만들어냄</li>
+</ul>
+<h5>RDB 의 장점</h5>
+<ul>
+<li>특정 시각의 데이터를 하나의 파일에 담았다</li>
+<li>백업/복구에 용이: 주기적으로 RDB를 만들어서 외부에 백업하기 쉽다</li>
+<li>성능면에서 최고</li>
+<li>빠른 재시작</li>
+</ul>
+<h5>RDB 단점</h5>
+<ul>
+<li>데이터 손실 가능성: 파워 나감</li>
+<li>주기적으로 여러 RDB를 만들어야 된다.</li>
+<li>저장할 때마다 fork 한다. 이때 I/O 가 멈추거나 CPU가 스파이크 친다.</li>
+<li>물론 AOF 도 fork 를 하긴 한다.. 대신 조정이 가능.</li>
+</ul>
+<h5>AOF 장점</h5>
+<ul>
+<li>보다 안정적. fsync 정책을 튜닝 가능(매 초마다, 모든 쿼리 마다)</li>
+<li>기본 정책은 1초마다. 백그라운드 쓰레드가 실행함.</li>
+<li>append only 라서 데이터 커럽션이 없다. 마지막 데이터가 깨질 경우에도 쉽게 고칠 수 있다.</li>
+<li>로그가 너무 커지면 자동적으로 다른 파일로 분할한다.</li>
+<li>로그 포맷이 이해하기 쉽다.</li>
+</ul>
+<h5>AOF 단점</h5>
+<ul>
+<li>RDB 보다 파일 용량이 크다</li>
+<li>RDB 보다 느리다</li>
+<li>데이터가 꼬일 확률이 존재한다. 과거에 그런 버그가 있었다. 근데 아직 버그 리포트는 없다.</li>
+</ul>
+<h5>결론</h5>
+<ul>
+<li>둘 다 사용해야 함</li>
+<li>스냅샷: dump.rdb 를 남김.</li>
+<li>초 단위 주기. 또는 데이터셋의 변화량 단위.<br />
+ ex&gt; save 60 1000 === 60초 마다, 1000 개의 변화 마다</li>
+<li>fork 해서 자식 프로세스가 dump.rdb 를 저장하면 기존 파일을 변경</li>
+<li>AOS:</li>
+</ul>
+<h3>cassandra</h3>
+<p>페이스북이 개발해서 오픈소스화. 지금은 아파치에서 관리중. 페이스북/트위터/Digg 에서 사용. 컬럼 그룹 형태의 데이터 모델. 데이터 일관성 잘 지원한다.</p>
+<ul>
+<li>자바 기반</li>
+<li>읽기 보다는 쓰기를 많이 할 때</li>
+<li>모든 컴포넌트가 다 자바일때</li>
+<li>은행, 금융.</li>
+</ul>
+<h3>couchbase(membase)</h3>
+<p>via <a href="http://www.couchbase.com/couchbase-server/features">Features</a></p>
+<p>membase 가 couchbase 로 통합됨</p>
+<ul>
+<li>Erlang &amp; C 기반</li>
+<li>memcache 호환성 + 영속성 + 클러스터링 이 중요</li>
+<li>존나 빠름</li>
+<li>디스크 영속성</li>
+<li>web GUI</li>
+<li>DB를 끄지 않고 업그레이드 가능</li>
+<li>데이터 접근 속도가 중요할 때, 많은 접근이 있을 경우, 높은 가용성 필요할 때</li>
+<li>징가 같은 highly concurrent web app</li>
+</ul>
+<h3>HBase</h3>
+<ul>
+<li>google big table 의 오픈 소스 클론</li>
+</ul>
+<h2>총평</h2>
+<h3>유력한 후보들</h3>
+<ul>
+<li>mongodb: 팔방미인. blob</li>
+<li>redis: 로그 &amp; 캐시</li>
+<li>couchbase(membase): 메모리 기반 but 용량 한계. 근데 node.js 클라 없다.</li>
+</ul>
+<h3>무시할 놈들</h3>
+<ul>
+<li>couchdb: 데이터가 자주 바뀐다…</li>
+<li>cassandra: 자바 기반</li>
+<li>riak: 머임..</li>
+<li>hbase: 즐..</li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/nosql/"><span class="label">nosql</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2012/02/26/libuv/">libUV 분석</a> <small>2012-02-26</small></h1>
 	</div>
 	<div><h2>개요</h2>
@@ -239,78 +448,6 @@ do {
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a> <small>2011-06-18</small></h1>
-	</div>
-	<div><p>jQuery Mobile(이후 jQM)으로 아이패드용 클리앙 뷰어를 만든 경험을 토대로 팁을 정리했습니다. 이후, 편의상 경어를 사용합니다.</p>
-<h2>data-xxx</h2>
-<p>jQM의 위젯들은 다른 jQuery 위젯이나 플러그인들과는 달리 자바스크립트로 옵션을 지정하는 대신, HTML 의 data- 속성을 이용해서 모양새와 동작을 지정한다.</p>
-<p>가장 중요한 것은 data-role 속성인데, HTML 태그에 page, header, content, footer 에서부터 listview, navibar, button 등의 "역할"을 지정하면, jQM이 알아서 적당한 렌더링 해준다는 거다. 이를 통해서 자바스크립트 코드는 거의 손대지도 않고 순수 HTML 만으로 깔끔한 모바일 뷰를 만들어낼 수 있게 된다.</p>
-<p>예를 들어 버튼을 만들어야 된다고 하자. 단순한 anchor 에 data-role="button" 속성을 넣는 것만으로 버튼을 만들 수 있다. 버튼 아이콘은 data-icon 으로 바꾸고, 페이지 전환 애니메이션이 필요할 경우 data-transition= slide | slideup | slidedown | pop | flip | fade 을 사용하면 되고, 또 data-direction="reverse" 으로 애니메이션 방향을 반대로 바꿀 수 있다. 만약 페이지 전환이 아니라 다이얼로그를 띄워야 할 때 anchor.rel 속성처럼 data-rel="dialog" 속성을 지정하면 된다.</p>
-<p>이 모든 것이 JS 코드 한줄 없이도 자동적으로 이루어지게 만든, jQM 개발팀에게 박수를 보낸다.</p>
-<h2>페이지와 캐싱</h2>
-<p>페이지는 보통 header - content - footer 로 나뉘는, jQM의 가장 핵심적인 구성 요소다. 그냥 모바일 화면의 하나의 뷰라고 생각하면 된다. HTML 파일 안에 여러 개의 페이지들이 존재할 수 있다. 보통은 각 페이지들 마다 #id 를 붙여두면 되긴 한데, AJAX 로 읽어오는 페이지들의 하위 요소(예를 들면 listview)에 #id를 붙여서 jQuery로 접근하는 것은 가급적 피해야 한다.</p>
-<p>왜냐하면 모바일 환경의 특성상 이미 방문했던 페이지에 대해서 다시 서버에 요청을 하지 않기 위해서, jQM은 이미 한번 방문했던 페이지들은 URL 을 해쉬한 키값으로 DOM 에 저장한 후 숨겨버린다. 그러므로, 동일한 #id 를 가진 페이지가 캐싱될 경우 자바스크립트에서 검색하는 게 불가능하므로, 현재 화면에 보이는 페이지를 기준으로 CSS 클래스로 찾는 것을 권한다.</p>
-<p>그냥 페이지 전환이 발생하면 항상 div.data-role="page" 라는 게 무조건 추가된다고 생각하면 이해가 빠를 듯하다. 참고로 로컬 캐싱된 이런 페이지들에 대해 히스토리(Back-Forward) 이동을 적용하기 위해서 yourdomain.com/#/some/where 등의 로컬 주소로 변환된다는 점에 유의할 것.(트위터에서 쓰는 방식이랑 비슷한건데, 뭔가 이걸 가리키는 용어가 있었던 듯... 가물가물..)</p>
-<h2>ul-li-thumb 문제</h2>
-<p>리스트 아이템(li) 바로 아래에 이미지 태그를 넣어두면, jQM은 자동적으로 트위터와 같은 2단 레이아웃으로 바꾼다. 내부적으로 이미지에 ul-li-icon 또는 ul-li-thumb 클래스를 붙이고 li 에다가도 ul-li-has-thumb 같은 클래스를 붙여서 크기와 너비, 마진을 설정해버린다.</p>
-<p>한편으로는 좋은 기능이지만, 원치않는 경우라고 해도 이미지 크기가 강제로 줄어들게 된다. 해결책은 리스트 바로 아래 자식 이미지를 다른 태그로 둘러싸서 jQuery 검색에 걸리지 않게 만들면 된다.</p>
-<p>see also: <a href="http://forum.jquery.com/topic/latest-release-list-thumbnail-issue">http://forum.jquery.com/topic/latest-release-list-thumbnail-issue</a></p>
-<h2>터치 이벤트 사용하기</h2>
-<p>데스크탑에서 개발하다가 아이패드에서 테스트해보니 유독 내가 만든 버튼만 클릭이 잘 안먹는 경우가 있어서 뭔가 했는데, 가만히 생각해보니 click 이벤트와 touch 이벤트는 별개라는 사실을 잠시 잊어서 생긴 문제였다. 항상 tap (tab 이 아니다) 이벤트를 click 과 함께 등록해야 된다 :)</p>
-<h2>fixed header &amp; footer</h2>
-<p>data-position="fixed" 를 이용하면 헤더나 푸터를 스크롤에 관계없이 화면에 고정할 수 있다. 스크롤 할 때에는 사라져서 편한 거 같은데, 막상 아이패드에서는 이게 번쩍거리거나 프레임을 떨어뜨리는 문제가 있으므로 적당히 사용해야 할 거 같다. 나도 처음에는 긴 글이 있을 때 넣으면 좋겠거니 했는데, 워낙 깜빡임이 심해서 빼버렸다. 페이지 전환 애니메이션도 너무 과하면 곤란한 듯하다.</p>
-<h2>$.mobile.ajaxEnabled = false</h2>
-<p>기본적으로, 링크를 클릭하면 jqm은 이동하려는 페이지가 DOM에 없을 때에만, ajax()를 호출해서 페이지를 자동으로 만든다.  그런데 backbone 같은 MVC 라이브러리를 사용할 경우, 이런 흐름은 달라져야 된다. 사용자가 링크를 클릭하면 관련된 모델을 fetch 하고 컬렉션을 적당히 변경한 후, 페이지는 backbone 뷰가 자동으로 만들어주는 느낌이 가장 어울릴 것이다. 즉 ajaxEnabled 옵션을 끄고 관련된 이벤트들을 직접 바인딩해서 처리하면 된다.</p>
-<h2>소소한 팁들</h2>
-<ul>
-<li>버튼을 헤더의 오른 편으로 정렬하기 : 버튼의 class 속성에 ui-btn-right 를 추가하면 된다.</li>
-<li>data-backbtn="false": jQM 1.0a4.1 까지는 페이지 전환시 자동적으로 헤더에 Back 버튼이 추가되므로, 돌아가기 버튼이 필요없는 메인 페이지 등에서는 이 속성을 지정하면 된다.</li>
-<li>원치않는 nested list : ul-li-thumb 와 마찬가지로 li 바로 아래에 ul 이나 ol 이 있으면 자동적으로 페이지가 만들어지므로, 다른 태그로 둘러싸면 된다.</li>
-<li>사용자가 추가한 버튼에 live("click tap") 을 지정하면 이벤트가 2개 발생되는 모양이다. 그냥 tap 만 넣어도 컴퓨터에서는 잘 동작한다.</li>
-<li>자바스크립트로 리스트 아이템을 추가한 후 listview("refresh")를 해도 그 안에 있는 inset listview 는 별도의 쿼리를 통해서 listview 위젯으로 만들어야 한다. 샘플 코드는 여기 <a href="http://jsfiddle.net/Reiot/CpudD/">http://jsfiddle.net/Reiot/CpudD/</a></li>
-</ul></div>
-	
-	<p>
-	
-		<a href="/tag/jquerymobile/"><span class="label">jquerymobile</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a> <small>2011-06-18</small></h1>
-	</div>
-	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" src="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" /></p>
-<p>와이프가 아이패드에서 클리앙을 보시는게 너무 불편해 보여서, jQuery Mobile 공부 삼아 간단히 웹앱을 만들어봤습니다. 소스 코드는 GitHub 에 공개해두었습니다.</p>
-<ul>
-<li>주소: <a href="http://clienpad.appspot.com">http://clienpad.appspot.com </a></li>
-<li>소스코드: <a href="http://github.com/Reiot/clienpad">https://github.com/Reiot/clienpad</a></li>
-</ul>
-<p>Google App Engine 으로 프록시 서버를 만들었고, jQuery Mobile을 이용해서 모바일 브라우저에서 JSON 으로 받아서 보여주는 방식입니다. 가능하면 프록시 서버 없이 하고 싶었는데 iOS 에서 돌아가도록 할려다 보니 방법이 없더군요.</p>
-<p>구현에 관련해서 간단히 정리해보자면,</p>
-<ul>
-<li>template 의 최신 기능 때문에 django 1.2 를 이용했는데, 코드 레벨에서는 거의 webapp 만 사용했습니다;;;</li>
-<li>memcache 에 각 URL 을 파싱한 dict를 저장하는데, 60초 정도만 살아남도록 했습니다. 그래서 그런지 처음 접속하는 사람은 제법 느린 편입니다. 반응 속도가 4-5초 정도가 나오는 바람에 와이프가 많이 실망하네요. ㅠㅠ 다시 생각해보니 그냥 JSON 이나 렌더링된 문자열 자체를 저장하는게 나을 수 있겠네요.</li>
-<li><a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a> 으로 HTML DOM 파싱을 했습니다. 클리앙의 HTML 구조가 old-school 같아서 (ㅎㅎ) 시간이 좀 걸렸습니다;;;</li>
-</ul>
-<p>조만간 jQuery Mobile 팁에 관한 글을 좀 써보겠습니다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/jquerymobile/"><span class="label">jquerymobile</span></a>
-	
-		<a href="/tag/clien/"><span class="label">clien</span></a>
-	
-		<a href="/tag/appengine/"><span class="label">appengine</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -331,6 +468,14 @@ do {
 	</li>
 	
 	<li>
+		<a href="/2012/04/04/appengine-pipeline/">AppEngine pipeline</a>
+	</li>
+	
+	<li>
+		<a href="/2012/04/02/nosql-research/">NoSQL 조사</a>
+	</li>
+	
+	<li>
 		<a href="/2012/02/26/libuv/">libUV 분석</a>
 	</li>
 	
@@ -340,14 +485,6 @@ do {
 	
 	<li>
 		<a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a>
-	</li>
-	
-	<li>
-		<a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-	</li>
-	
-	<li>
-		<a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
 	</li>
 	
 </ul>

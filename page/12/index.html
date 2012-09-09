@@ -63,6 +63,303 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a> <small>2009-01-20</small></h1>
+	</div>
+	<div><p>boost serialization를 사용하려면 이모저모로 귀찮은 점이 많아서, 생각해본 것이 <a href="http://docs.python.org/library/struct.html?highlight=pack">파이썬의 struct 라이브러리</a>와 같은 느낌으로 프로토콜 포맷을 정의하고, 이걸 boost tuple 코드로 뽑아낸다는 아이디어이다.</p>
+<p>대강의 포맷은<br />
+<table border="1" cellspacing="0" cellpadding="1"><br />
+<tbody></tbody><br />
+<thead><br />
+<tr><br />
+<th class="head">Format</th><br />
+<th class="head">C Type</th><br />
+<th class="head">Python</th><br />
+<th class="head">Notes</th><br />
+</tr><br />
+</thead><br />
+<tbody><br />
+<tr><br />
+<td><tt class="docutils literal">x</tt></td><br />
+<td>pad byte</td><br />
+<td>no value</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">c</tt></td><br />
+<td><tt class="xref docutils literal">char</tt></td><br />
+<td>string of length 1</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">b</tt></td><br />
+<td><tt class="xref docutils literal">signed char</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">B</tt></td><br />
+<td><tt class="xref docutils literal">unsigned char</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">?</tt></td><br />
+<td><tt class="xref docutils literal">_Bool</tt></td><br />
+<td>bool</td><br />
+<td>(1)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">h</tt></td><br />
+<td><tt class="xref docutils literal">short</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">H</tt></td><br />
+<td><tt class="xref docutils literal">unsigned short</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">i</tt></td><br />
+<td><tt class="xref docutils literal">int</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">I</tt></td><br />
+<td><tt class="xref docutils literal">unsigned int</tt></td><br />
+<td>integer or long</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">l</tt></td><br />
+<td><tt class="xref docutils literal">long</tt></td><br />
+<td>integer</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">L</tt></td><br />
+<td><tt class="xref docutils literal">unsigned long</tt></td><br />
+<td>long</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">q</tt></td><br />
+<td><tt class="xref docutils literal">long long</tt></td><br />
+<td>long</td><br />
+<td>(2)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">Q</tt></td><br />
+<td><tt class="xref docutils literal">unsigned long<br />
+long</tt></td><br />
+<td>long</td><br />
+<td>(2)</td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">f</tt></td><br />
+<td><tt class="xref docutils literal">float</tt></td><br />
+<td>float</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">d</tt></td><br />
+<td><tt class="xref docutils literal">double</tt></td><br />
+<td>float</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">s</tt></td><br />
+<td><tt class="xref docutils literal">char[]</tt></td><br />
+<td>string</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">p</tt></td><br />
+<td><tt class="xref docutils literal">char[]</tt></td><br />
+<td>string</td><br />
+<td> </td><br />
+</tr><br />
+<tr><br />
+<td><tt class="docutils literal">P</tt></td><br />
+<td><tt class="xref docutils literal">void *</tt></td><br />
+<td>long</td><br />
+<td> </td><br />
+</tr><br />
+</tbody></table><br />
+가령 로그인 메시지를 "ppl" 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
+<p>typedef boost::tuple<string,string,long> msgLogin;</p>
+<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
+<pre><code>- 64 bit integer
+- datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)
+- STL 지원 : list, vector, map, set
+- 비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.
+</code></pre>
+<p>단점이라면 내부 멤버 접근을 userid, passwd 같은 이름 기반이 아니라 get&lt;1&gt;, get&lt;2&gt; 처럼 해야 한다는 점인데, 이건 좀 심하게 귀찮긴 하겠다. 역시 이름 기반 접근이 그나마 컴파일러가 검증해주니 제일 좋은 방법인가.</p>
+<p>자. 만들어주세요.</p></div>
+	
+	<p>
+	
+		<a href="/tag/boost/"><span class="label">boost</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a> <small>2009-01-18</small></h1>
+	</div>
+	<div><p>얼랭으로 만든, 가장 단순한 UDP Echo 서버와 클라이언트는 이렇게 생겨먹었다. (워드프레스에서 들여쓰기가 자꾸 날아가는 버그가 있으므로, 귀찮아서 고치지는 않겠다.)</p>
+<pre><code>
+-module(udp_server).
+-compile(export_all).
+
+init(ServerPort) -&gt;
+{ok, Sock} = gen_udp:open(ServerPort,[binary,inet]),
+loop().
+
+loop() -&gt;
+io:format(&quot;server_loop~n&quot;),
+receive
+{udp, Sock, ClientIP, ClientPort, Packet } -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[ClientIP,ClientPort,Packet]),
+ok = gen_udp:send(Sock,ClientIP,ClientPort,Packet),
+loop()
+end.
+</code></pre>
+
+<pre><code>
+-module(udp_client).
+-compile(export_all).
+
+init(ServerPort) -&gt;
+{ok, Sock} = gen_udp:open(0),
+gen_udp:send(Sock,&quot;localhost&quot;,ServerPort,&quot;Hello World!&quot;),
+loop().
+
+loop() -&gt;
+io:format(&quot;waiting response...~n&quot;),
+receive
+{udp, Peer, PeerIP, PeerPort, Packet } -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[PeerIP,PeerPort,Packet])
+after 1000 -&gt;
+io:format(&quot;timeout..~n&quot;)
+end.
+
+</code></pre>
+
+<p>여기에서 바로 OTP로 만들겠다고 뛰어들었다가 삽질을 한 후,  <a href="http://www.trapexit.org/Building_a_Non-blocking_TCP_server_using_OTP_principles">Building_a_Non-blocking_TCP_server_using_OTP_principles</a> 와 <a href="http://erlrtpproxy.googlecode.com/svn-history/r19/trunk/rtpproxy.erl">구글에서 검색한 gen_udp 예제</a>을 참고해서 겨우 성공한 게 다음의 코드이다.</p>
+<pre><code>
+-module(udp_otp_server).
+-compile(export_all).
+
+% stand-alone server version
+start() -&gt;
+gen_server:start({local, ?MODULE}, ?MODULE, [], []).
+
+% supervision tree version
+start_link() -&gt;
+gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
+
+init([]) -&gt;
+process_flag(trap_exit,true),
+{ok, Sock} = gen_udp:open(1111,[binary,inet]),
+io:format(&quot;udp server started...~n&quot;),
+{ok,0}.
+
+handle_call(Request, From, State) -&gt;
+io:format(&quot;~p~n&quot;,[Request]),
+{noreply,State}.
+
+handle_cast(_Msg,State) -&gt;
+io:format(&quot;handle_cast(~p)~n&quot;,_Msg),
+{noreply, State}.
+
+%% udp message should be handled here
+handle_info({udp,Sock, ClientIP, ClientPort, Packet}, State) -&gt;
+io:format(&quot;~p:~p ==&gt; ~p~n&quot;,[ClientIP,ClientPort,Packet]),
+ok = gen_udp:send(Sock,ClientIP,ClientPort,Packet),
+{noreply, State}
+;
+
+handle_info(_Info,State) -&gt;
+io:format(&quot;handle_info~n&quot;),
+{noreply, State}.
+
+terminate(_Reason,N) -&gt;
+io:format(&quot;stopping...~n&quot;),
+ok.
+code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
+
+</code></pre>
+
+<p>핵심 요지는, UDP 메시지는 handle_call 이나 cast 가 아니라, handle_info에서 처리해야 한다는 점이다. 요즘 <strong>업.무.가. 바.빠.서.</strong> 얼랭을 3주 정도 못봤는데 또 서서히 기억이 소멸하기 시작했다. OTP에서는 함수의 리턴값 규칙을 정말 잘 맞춰야 하는 관계로, 다음 번부터는 gen_server 템플릿 하나 정도는 갖고 시작해야겠다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/erlang/"><span class="label">erlang</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/12/teamcide/">Teamcide</a> <small>2009-01-12</small></h1>
+	</div>
+	<div><div>
+
+[caption id="" align="alignnone" width="478" caption="Micro management (from conveniencebits.com)"]<a href="http://conveniencebits.com/2008/07/25/micromanaging-is-positive/">![Micromanagement](http://conveniencebits.com/pics/micromanage.jpg)</a>[/caption]
+
+</div>
+
+<div>Teamcide는 최근에 구독을 시작한 [코딩 호러](http://www.codinghorror.com/)의 [마이크로매니지먼트 좀비](http://www.codinghorror.com/blog/archives/001205.html)라는 글에서 발견한 7가지 팀관리의 안티 패턴이다. 알고 보니 피플웨어에서 소개된 이야기라고 해서 책을 찾아보려고 했는데, 어딘가에 쳐박혀 있는지 책이 보이지 않아, [일본어 웹문서 번역](http://translate.google.com/translate?prev=&hl=ko&ie=UTF-8&u=http://yuuntim.fc2web.com/chapter20.html&sl=auto&tl=ko&history_state0=)을 통해서 짤막하게만 정리해본다.</div>
+
+<div>
+
+    - 자기 방어적인 관리(Defensive Management)
+    - 관료주의(Bureaucracy)
+    - 팀원들을 여기 저기로 흩어 놓아서, 이동 거리를 멀게 하기(Physical Separation)
+    - 한 명에게 여러 가지 작업을 시키기(Fragmentation of People's Time)
+    - 납기일을 위해 품질을 희생하기(Quality Reduction of the Product)
+    - 무의미한, 또는 가짜 데드라인(Phony Deadlines)
+    - 파벌이 무서워서 프로젝트 종료 후 팀을 해체하기(Clique Control)
+
+</div>
+
+<p>거리 이야기는 이제 상식 수준이고, 마지막 파벌 이야기는 좀 비현실적이긴 한데, 가짜 데드라인 같은 이야기는 나도 종종 유혹을 느꼈기에, 이 시간을 빌어 씁쓸한 반성을 해본다.</p>
+<p>때로는 빠른 의사 결정과 그에 따른 무한한 책임을 지는 <a href="http://seoworld.net/tt/261">잡스 같은 카리스마적인 독재자</a>와 일해보고 싶기도 하다. 다만, 거의 무개념 폭군이라는 이미지가 강한 초기의 잡스보다는, 이제 필 쉴러 아저씨에게 키노트 진행을 양보(?)한 최근의 잡스가 더 나을 것 같다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/management/"><span class="label">management</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2009/01/07/redmine/">Redmine</a> <small>2009-01-07</small></h1>
+	</div>
+	<div><p><a href="http://www.redmine.org/screenshots/gantt.png"><img alt="http://www.redmine.org/screenshots/gantt_tn.png" src="http://www.redmine.org/screenshots/gantt_tn.png" /></a></p>
+<p><a href="http://bitnami.org/stack/mantis">bitnami mantis</a> 는 한글이 안되고, trac은 뭔가 플러그인 설치가 귀찮아서, 아<a href="http://www.redmine.org/wiki/redmine/Features">름다운 간트 차트</a>도 지원하는  <a href="http://bitnami.org/stack/redmine">bitnami redmine </a>을 써보기로 했다. (<a href="http://twiny.tistory.com/1676">twiny 님</a> 감사~)</p>
+<p>평소대로라면 최신 버전(0.8)을 위해 ruby 와 rails 부터 설치했겠지만, 이런 삽질은 꿈도 못 꿀 정도로 바빠서, 그냥 0.7 버전을 마음 편하게 깔아버렸다. 한글 문제(이슈, 파일 업로드)는 전혀 없었고, SMTP와 https svn 저장소 연결만 남은 상태인데, 각각 한번씩 해보고 연결이 안되길래 과감하게 포기했다. 참고로, <a href="http://www.redmine.org/wiki/redmine/ThemeBasecamp">베이스캠프 테마</a>를 설치하면 mantis 보다 100배 미려한 화면을 볼 수 있다. :)</p>
+<p>아쉬운 점이라면 위키 포맷이 익숙치 않은 textile 이라는 점과, 이미 <a href="http://www.gtdinbox.com/">GTDinbox </a>에 적응해버렸다는 정도. 그러고보니 GTD를 지원하는 이슈 관리 시스템은 없을까나~</p>
+<p>ps. 드디어 SQL 2005 스키마의 개별 객체들을 <a href="http://www.sqlservercentral.com/articles/Administering/2896/">각각 SQL 로 추출해주는 방법</a>을 찾았다. 소스 코드르 다운받아서 약간만 수정해주면 SQL  스키마의 버전 관리는 끝!</p></div>
+	
+	<p>
+	
+		<a href="/tag/redmine/"><span class="label">redmine</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2009/01/02/fault-tolerant-system/">Fault Tolerant System</a> <small>2009-01-02</small></h1>
 	</div>
 	<div><p>얼랭스터디에서 얼랭/OTP 의 무정지성(Fault Tolerance)에 대해서 소개하자,</p>
@@ -106,101 +403,6 @@ end.
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/12/27/networking-metaphore/">Networking Metaphor</a> <small>2008-12-27</small></h1>
-	</div>
-	<div><p>[caption id="" align="aligncenter" width="500" caption="http://www.flickr.com/photos/jasoncross/1260110610/"]<a href="http://www.flickr.com/photos/jasoncross/1260110610/"><img alt="http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg" src="http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg" /></a>[/caption]</p>
-<p>네트워크 프로그래머가 클라이언트 서버간 통신(혹은 P2P 통신)을 바라보는 메타포에 대해서 갑자기 궁금해졌다.</p>
-<p>가장 흔한 개념은 바로 패킷이다. 만약 컨텐트 코드에서 Packet 이나 Command, Message 같은 객체와, Send 와 Receive 같은 함수가 노출되어 있다면, 그걸 만든 사람은 데이터 통신을 바이트의 전송이라는 개념으로 인지하는 것이 아닐까? 데이터를 던지고 받는다는 개념의 네트워킹은 아마도 귀찮은 하드코딩 노가다 작업일 확률이 높다. 흐흐.</p>
-<p>조금 높은 레벨(?)로 올라간다면 원격 함수 호출(RPC)이 있겠다. 무언가를 상대방에게 요청(request)하면, 상대방은 그걸 처리한 후 성공이나 실패 같은 결과(response)를 보내준다. 이런 메타포에서는 동기/비동기라든지, 타임아웃 같은 처리들이 따라오게 된다. 만약 네트워크로 무언가를 요청하는 행위가 함수 호출 인터페이스처럼 잘 래핑되어 있다면, 대략 1초간 으쓱해도 무방하겠다. :P</p>
-<p><img alt="http://ou800doc.caldera.com/en/SDK_netapi/graphics/rpc.gif" src="http://ou800doc.caldera.com/en/SDK_netapi/graphics/rpc.gif" /></p>
-<p>추가적으로, 결과가 없는 요청은 특별히 이벤트(event) 혹은 통지(notification)라는 메타포라고 부를 수 있겠다. 사실 매번 렌더링을 해야 하는 게임 클라이언트나, 항상 빠른 응답 속도를 보장해야 하는 서버가 동기적 요청을 하는 일은 정말 드문 경우이다. 이런 이유로 비동기적인 통신이 대부분이기 때문에 적당히 현재 상황을 알려주고 잊어버리고 있다가, 혹시나 결과(보통은 에러)가 오면 음..그런가? 하고 처리하는 느낌으로 코드를 만들 때가 있다. 시간이 나면 Notify 같은 이름들이 있는지 한번 체크해보시라.</p>
-<p>위에 나온 것들은 대체로 즉각적인 처리를 필요로 하는 반면, 어떤 이벤트들은 시간축으로 늘어질 때가 있다. 무슨 말이냐 하면 이동, 공격, 물리 같이 float 단위의 정밀한 사건들은 공간 뿐만 아니라 시간과도 밀접한 관계가 있기 때문이다. 이런 상황을 아름답게 처리하려면, 받는 족족 무언가를 처리하기보다는, 데이터를 시간순으로 쌓아두고 예측, 보간을 통해 그럴듯하게 보여줄 필요가 있다. 이런 걸 보통 동기화(synchronization) 또는 복제(replication)이라고 부른다. 보통 이런 코드들은 네트워크를 넘어선 상위 로직 레벨에 존재하는 경우가 많은데, 어떤 네트워크 라이브러리들은 이런 수준도 알아서 잘 처리하기도 한다.</p>
-<p>[caption id="" align="aligncenter" width="300" caption="from http://www.problogger.net"]<a href="http://www.problogger.net"><img alt="http://www.problogger.net/wp-content/uploads/2007/08/rss-buttons.gif" src="http://www.problogger.net/wp-content/uploads/2007/08/rss-buttons.gif" /></a>[/caption]</p>
-<p>좀 억지스럽긴 하나, 이메일이나 RSS 등에서 주로 쓰이는 발행(publish)과 구독(subscribe)이라는 메타포는 어떨까?  채팅 채널 같이 지속적인 이벤트가 간간히 발생하는 논리적인 영역에 참가하면, 꾸준히 어떤 이벤트들이 날아오게 된다. 사람들이 바글바글 거리는 지역에 발생하는 수많은 이벤트들을 클라이언트에게 알려줄 때 즉각적인 브로드캐스팅 대신, 이런 개념을 사용한다면 필터링을 통해 트래픽 절감의 효과를 손쉽게 얻을 지도 모르겠다. 후후.</p>
-<p>이렇게 단순한 이야기를 현학적으로 어렵게 쓴 이유는, 사실 며칠 전 XML로 프로토콜을 정의하고 코드를 만드는 걸 한번 해볼까 하고, <a href="http://www.codalogic.com/lmx/xsd-overview.html">스키마 튜토리얼</a>을 살펴 보다가, 프로토콜은 XML이 아니라 XSD에 들어가는게 맞지 않냐는 생각이 들어서였다. 물론 XSD도 사실 XML이니까, 쓸데없는 고민 없이 그냥 해도 될 것 같기도 한데... 그러다보니 또 굳이 요즘 세상에 트래픽이 많은 게임이 아니라면 XML 프로토콜을 쓰고, 파싱 및 검증을 XSD로 하는 것도 괜찮지 않냐는 망상에서 허우적 거리고 있다.</p>
-<p><img alt="http://upload.wikimedia.org/wikipedia/en/3/32/CheckEmail.png" src="http://upload.wikimedia.org/wikipedia/en/3/32/CheckEmail.png" /></p>
-<p>또 한편으로는 클래스 다이어그램과 시퀀스 다이어그램으로 클라이언트/서버간 통신을 표현하고, 그걸 파싱해서 각종 RPC 함수들의 골격을 만들어내면 인생이 좀 수월해지지 않을까 하는 생각도 든다. 물론 프로토콜이 바뀔 때에 기존 코드가 날아가지 않도록 코드 제너레이터를 잘 짜야겠지.</p>
-<p>글 시작과 끝의 주제가 다른 걸로 봐서, 아무래도 요즘 스트레스를 많이 받나 보다. ㅋㅋ</p></div>
-	
-	<p>
-	
-		<a href="/tag/xml/"><span class="label">xml</span></a>
-	
-		<a href="/tag/protocol/"><span class="label">protocol</span></a>
-	
-		<a href="/tag/schema/"><span class="label">schema</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/12/21/memory-wall/">Memory Wall</a> <small>2008-12-21</small></h1>
-	</div>
-	<div><p><img alt="http://lh6.ggpht.com/_nOquiran9-s/Rur1hp0B7kI/AAAAAAAAALI/rjrpIObJtMo/IMG_1987.JPG" src="http://lh6.ggpht.com/_nOquiran9-s/Rur1hp0B7kI/AAAAAAAAALI/rjrpIObJtMo/IMG_1987.JPG" /></p>
-<p>9.11 Memory Wall</p>
-<p>구글에서 memory wall 을 검색하면 위와 같은 사진들이 나온다. 아마도 기억과 회상을 위한 그림이나 사진, 메모들을 붙이는 벽을  memory wall 또는 remembrance wall 이라고 부르는 모양이다.</p>
-<p>훗날 128 코어의 시대가 도래하면 얼랭 게임 서버가 혹시 대세가 되지는 않을까 했는데, 벌써부터 <a href="http://minjang.egloos.com/2166350">멀티 코어에도 메모리 장벽이라는 한계가 있다는 이야기</a>가 솔솔 들린다. 이로 인해 <a href="http://devnote.net/86">8-16코어를 넘어서기가 힘들다고 해서 널티코어 효과(Nulticore Effect)</a>라고 부른다니.. <a href="http://xeraph.egloos.com/4781141">xeraph님이 GG하신 게</a> 정답이지도? :)</p>
-<p>보통 물리적/논리적으로 서버 프로세스가 늘어날수록 디버깅이 어려워지고, 관리 비용도 증가한다고 한다. 그래서 요즘은 분산을 고려해서 모듈끼리도 메시지 통신을 하도록 한 후, 개별 모듈들을 최대한으로 단순하게 구현하려고 노력중이다. 대신 메시지를 만드는게 여간 귀찮은 일이 아니라서, 언제 시간이 나면 후딱 XML 메시지 같은 걸 만들어볼까 싶기도 한데... 그럴 여유도 없을 뿐더러, 만들어도 같이 감동해줄 전우가 없다는 게 안타깝다. 크흑.</p>
-<pre><code>
- 
-
-</code></pre></div>
-	
-	<p>
-	
-		<a href="/tag/multicore/"><span class="label">multicore</span></a>
-	
-		<a href="/tag/erlang/"><span class="label">erlang</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/12/08/smart-people/">Smart People</a> <small>2008-12-08</small></h1>
-	</div>
-	<div><p><img alt="http://pds9.egloos.com/logo/200804/01/93/f0025793.jpg" src="http://pds9.egloos.com/logo/200804/01/93/f0025793.jpg" /></p>
-<pre><code>- [열심히 하는 사람 보다는, 잘하는 사람이 되어라.(Don't Work Hard, Work Well)](http://agile.egloos.com/2897508)
-- 전문 직장인이 되기 보단, 전문 직업인이 되어라.
-</code></pre>
-<p>예전에 모시던 분들이 즐겨 하시던 말들이다. 과거의 무능하고 나태했던 내 모습을 곳곳에서 찾아낼 때마다, 혹시나 나도 곧 그렇게 무뎌질까 두렵다.</p>
-<p>칼날을 더욱 날카롭게 세우기 위해서, 이번 달부터 새벽 영어 회화를 다시 시작했다. 영어 강사에게 리만 브라더스가 왜 나쁜지를, 왜 미국산 소고기가 나쁜지를 설명하기가 여간 힘들지 않았다. 역시나 함께 듣는 이십대 중반의 젊은 친구들은 정치에 관심이 없었다는 것도 확인했다. 덕분에 의도하지 않게 근무 시간이 한 시간 넘게 늘어나 버렸는데, 나보다 항상 더 일찍 나와서 일하는 사람도 있어서 깜짝 놀랬다. 역시 출근 순서가 회사의 실질적 직급 순라는 이야기가 맞는 걸까 하핫 :)</p>
-<p>그리고, 스마트한 회사 친구들과 얼랭 대결(?) 프로젝트도 바야흐로 가동되었다. 주사위를 굴려 2:2 로 짝을 지어 모종의 코딩 대결을 펼치려고 하는 중인데, 역시나 한 마디만으로 열길 사람 속도 알아듣는 친구들이라서 기대가 된다. 반짝이는 후학들의 걸림돌이 되지 않기 위해서라도, 집에서 열심히 예습복습을 해야것다. 클클.</p></div>
-	
-	<p>
-	
-		<a href="/tag/erlang/"><span class="label">erlang</span></a>
-	
-	</p>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/11/16/prepare-the-battle/">Prepare the battle</a> <small>2008-11-16</small></h1>
-	</div>
-	<div><p><a href="http://minjang.egloos.com/2137737"><img alt="http://www.tesionline.com/intl/img/focus/asian-crisis.jpg" src="http://www.tesionline.com/intl/img/focus/asian-crisis.jpg" /></a></p>
-<p><a href="http://minjang.egloos.com/2137737">DHL도 미국에서 철수하고, SUN, 구글, HP, 이베이, 아마존 같은 유수 기업들이 감원을 하고 있고,</a> 실리콘밸리에는 <a href="http://mushman.co.kr/2690827">총격 사고</a>까지 나고 있는데, 펀더멘탈이 그렇게나 튼튼하다는 바이 코리아의 게임 회사들은 어떨게 될까? 최대한 네가티브하게 예측해서 그게 운좋게 맞아 떨어지면 나중에 1g 정도 우쭐하려나 싶어, 최악의 경우만을 가정해 보겠다.</p>
-<p>조만간 닥쳐온다는 10년짜리 세계적 불황에 대해 조금이라도 고려하고 있는 회사라면, 슬슬 군살을 빼기 시작할 것이다. 가장 간단한 전기 절약 운동에서부터 연봉 동결, 유휴 인력 정리 해고, 싹수 없는 프로젝트의 조기 캔슬에 이르기까지 다양한 방식의 근검절약을 시행할 것이다. 최근의 중대형 회사들은 개발자들을 싹쓸이한 후, 동시에 5-10개의 프로젝트를 돌리는 것이 대세인데, 게임이란 것이 50% 의 성공률 완성율도 보장할 수 없는게 현실이다. 즉 인건비만 년간 50-100억 정도 까먹는다는 걸 감안해보면, 어떤 CEO도 이런 유혹을 이겨낼 수 없을 게다. 만약 이게 현실이 된다면 조만간 인력 시장에 고급 인력들이 가득하게 되고, 그러면 <a href="http://reiot.cafe24.com/2008/10/19/pareto-principle/">회사에서 어울렁 더울렁 웹서핑하면서 버티던 베짱이들</a>의 목은 더욱 위태로워질 것이다. :P</p>
-<p>또, 부분 유료화라는 비지니스 모델이 기나긴 불황의 터널 속에서는 오히려 악재가 될 수도 있다. 내수 침체로 청소년들의 지갑이 얇아지면 그냥 무료 상태로만 게임을 즐길 가능성도 배제할 수 없으니까 말이다. 혹자는 IMF 시절을 예로 들면서, 경기가 침체될 수록 사람들이 값싼 놀이 수단을 찾기 때문에 게임 쪽은 괜찮을 거라고 하고, 나도 그렇게 믿고 싶지만.. 마찬가지로 이유로 해외 수출에 의존하는 모델도 힘들어질 수 있다. 이미 불황을 겪고 있는 일본이나, 중국 같은 이머징 마켓을 제외하면, 다들 배고픈데 비싼 돈을 주고 우리 나라 게임을 수입해와서 서비스 할 이유도 없지 않을까. 단 쥐새끼가 계속 삽질을 해대면 계속 원화 가치가 떨어져서 그때쯤이면 비싼 돈이 아닐 수도 있으니, 어째 고마워해야 할지도 모르겠다.</p>
-<p><img alt="http://img148.imageshack.us/img148/9008/bf2142billboard2ha4.jpg" src="http://img148.imageshack.us/img148/9008/bf2142billboard2ha4.jpg" /></p>
-<p>또 불황이 길어지면 사람들이 더이상 컴퓨터를 업그레이드하지 않을 수도 있다. 즉 차세대 콘솔 수준의 높은 퀄리티의 그래픽 때문에 개발비를 투입하는 것보다는, 아이폰 게임이나 닌텐도의 Wii처럼 게임성에 올인하는 게 더 현명한 전략일 수도 있겠다. 이런 걸 감안해보면 저사양에서도 잘 돌아가면서, 전세계 글로벌하게 광고를 수주해서 게임 내에서 보여주는 방식으로 (게이머들에게 금전적인 부담없이) 수익을 벌어들이는 모델이 가장 좋지 않을까 싶기도 하다. 광고 한번 보면 한 시간 플레이가 가능해요! 아이템도 하나 드려요! 뭐 이런 방식이 될까나..</p>
-<p>그렇다면 대한민국만큼 공돌이들이 하류 인생인 나라도 드물테니, 해외로 나가서 새로운 미래를 개척해보면 어떨까?  아마 그때 쯤이면 환급받을 국민 연금도 똥값이 되고, 그나마 현금 보유한 걸 달러로 환전하면 50% 로 줄어들어 버릴 것 같다. 그나마 내수가 튼튼한 나라로 이민가서 후딱 적응하는 게 나을 수도 있겠지만, 이 불황이란 게 전지구적인 규모라서 그 나라의 게임 회사들이라고 영향을 받지 않으리란 보장이 없으니... 지금 후딱 나가서 신입으로 입사해도 시원찮을 판이다. (<a href="http://criburn.net/blog/jongs/entry/%EB%B8%94%EB%A6%AC%EC%9E%90%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90-Jeff-Kang%EA%B0%95%ED%98%95%EC%9B%90%EC%94%A8%EA%B0%80-%EB%A7%90%ED%95%98%EB%8A%94-%EA%B0%9C%EB%B0%9C-%ED%8F%AC%EC%9D%B8%ED%8A%B8%EC%99%80-%EB%82%B4-%EC%83%9D%EA%B0%81">블리자드는 56살짜리 신입 디자이너도 뽑는다</a>니, 두려워하지 말지어다)</p>
-<p>이래서, 회사를 옮기려고 하는 지인들에게 무조건 100억 이상의 매출을 가진 회사로 옮기라고 권했는데, 어째 다들 힘든 모양이다. 올해를 넘기면 새 회사에서 실력을 발휘해 보기도 전에 밀려날 지도 모르니 어서 빨리 취업하시기 바라며, 결국 중요한 건 자신의 내공을 재테크 하고, 회사에서 열심히 일해서 낙오 그룹에 끼이지 않는 방법 밖에 없다. 그래도 안되면 핀란드 가서 임업을 하든, 뉴질랜드에서 목축업을 해야 될지도... ㅠ_ㅠ</p></div>
-	
-	<p>
-	
-		<a href="/tag/ingamead/"><span class="label">ingamead</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -221,23 +423,23 @@ end.
 	</li>
 	
 	<li>
+		<a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a>
+	</li>
+	
+	<li>
+		<a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a>
+	</li>
+	
+	<li>
+		<a href="/2009/01/12/teamcide/">Teamcide</a>
+	</li>
+	
+	<li>
+		<a href="/2009/01/07/redmine/">Redmine</a>
+	</li>
+	
+	<li>
 		<a href="/2009/01/02/fault-tolerant-system/">Fault Tolerant System</a>
-	</li>
-	
-	<li>
-		<a href="/2008/12/27/networking-metaphore/">Networking Metaphor</a>
-	</li>
-	
-	<li>
-		<a href="/2008/12/21/memory-wall/">Memory Wall</a>
-	</li>
-	
-	<li>
-		<a href="/2008/12/08/smart-people/">Smart People</a>
-	</li>
-	
-	<li>
-		<a href="/2008/11/16/prepare-the-battle/">Prepare the battle</a>
 	</li>
 	
 </ul>

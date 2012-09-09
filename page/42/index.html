@@ -63,6 +63,274 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a> <small>2005-12-11</small></h1>
+	</div>
+	<div><h2>키 바인딩</h2>
+<p>가능하면 Visual Studio 랑 비슷하게 맞추려면 다음과 같이 하라.</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Command</th>
+<th>Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Window</td>
+<td>Next Editor</td>
+<td>Ctrl + Tab</td>
+</tr>
+<tr>
+<td>Text Editing</td>
+<td>Delete Line</td>
+<td>Ctrl + L</td>
+</tr>
+<tr>
+<td>PyDev - Editor</td>
+<td>Python Comment</td>
+<td>Ctrl + K, Ctrl + C</td>
+</tr>
+<tr>
+<td>PyDev - Editor</td>
+<td>Python Uncomment</td>
+<td>Ctrl + K, Ctrl + U</td>
+</tr>
+<tr>
+<td>Run/Debug</td>
+<td>Run Last Launched</td>
+<td>Ctrl + F5</td>
+</tr>
+<tr>
+<td>Run/Debug</td>
+<td>Debug Last Launched</td>
+<td>F5</td>
+</tr>
+</tbody>
+</table>
+<h2>SubVersion 연동하기</h2>
+<p>eclipse 용 subversion 플러그인인 subclipse 를 이용하면 손쉽게 버전 관리가 가능하다. <a href="http://openframework.or.kr/JSPWiki/Wiki.jsp?page=Subversion">다음 글</a>을 참고할 것.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/12/11/adonet-팁/">ADO.NET 팁</a> <small>2005-12-11</small></h1>
+	</div>
+	<div><p>ADO.NET + VB.NET 으로 게임 상점 관리툴을 개발하면서 얻은 팁들을 정리해보았다.</p>
+<!--more-->
+
+<h2>현재 선택된 셀 알아내기</h2>
+<p>그리드에서 현재 선택된 셀을 알아내려면 DataGrid.CurrentCell 또는 DataGrid.CurrentRowIndex 를 사용한다. 그런데, 마우스가 그리드 프레임 또는 외부에 존재할 경우 값이 부정확하게 나온다. 따라서, DataGrid.HitTest(mousepos) 를 사용해서 마우스 좌표를 그리드 좌표로 변환한 다음 바운드 체크를 해야 한다.</p>
+<h2>스키마 변경시 해야 할 일들</h2>
+<p>DB 관련 작업을 하다 보면 불가피하게 스키마를 변경해야 할 때가 있다. 그때마다, 기존의 VB.NET 프로젝트에 만들어져 있는 형식화된 DataSet과 DataAdapter를 재설정해야만 낭패를 면할 수 있다.</p>
+<ul>
+<li>방법은 간단한데, 디자이너 모드에서 각 DataAdapter를 선택하고 오른쪽 클릭해서, "데이터 어댑터 구성"을 선택해서 새로 SQLCommand 들을 생성해주면 된다.</li>
+<li>그다음 "데이터 집합 생성"을 선택하면 된다.</li>
+<li>끝나고 나서 DataSet 객체를 오른쪽 클릭해서, "데이터 집합 보기" 를 선택한 후 잘 바뀌었는지 체크해본다. (때로는, FK 문제로 에러가 나기도 하지만 무방하다)</li>
+<li>틈틈히 스키마가 담겨있는 xsd 파일을 체크해서 최신 스키마로 되어 있는지를 확인해주면 더욱 좋다.</li>
+</ul>
+<h2>관계 지정</h2>
+<p>데이터 그리드에서 관련된 row 를 보여주고 싶다면 DataRelation 을 설정하면 된다.</p>
+<ul>
+<li>프로그래밍 방식 : DataRelation 객체를 생성해서 부모 테이블의 컬럼과 자식 테이블의 컬럼을 지정할 수 있다. (비츄)</li>
+</ul>
+<p>' ProductInfo.ProductID = ProductItems.ProductID<br />
+Dim FK_ProductItems_ProductInfo As DataRelation = New DataRelation( "FK_ProductItems_ProductInfo", _<br />
+  dsBoom.ProductInfo.ProductIDColumn, dsBoom.ProductItems.ProductIDColumn)<br />
+FK_ProductItems_ProductInfo.Nested = True<br />
+dsBoom.Relations.Add(FK_ProductItems_ProductInfo)</p>
+<ul>
+<li>
+<p>디자이너 방식 : 스키마 에디터에서 컬럼 끼리 연결짓고 이름을 명시하면 된다. (추천)</p>
+</li>
+<li>
+<p>DataRelation.Nested 속성은 디자이너 모드에서 속성 화면에서 수정하면 된다.</p>
+</li>
+<li>만약, 상위 혹은 하위 테이블의 내용을 보여주고 싶지 않다면 DataGrid.AllowNavigation = False 로 지정하라.</li>
+<li>네비게이션 상태에서의 테이블 스타일은 명시적으로 설정하려면, 해당 DataGrid 에 테이블 스타일을 하나 더 추가하면 된다.</li>
+<li>DataRelation의 이름이 한글이어도 무방하다. 단 row 마다 다르게 줄 수는 없는 듯하다. (가령 하위 테이블 row 의 개수를 이름 뒤에 붙이고 싶어도..포기하라..)</li>
+</ul>
+<h2>DataSet.Merge</h2>
+<p>데이터 집합의 개념상 메모리상의 캐시를 갖고 이리 저리 갖고 놀다가 최종적인 변화를 DB로 업데이트하게 된다. 보통 이런 작업은 그리드의 특정 row 를 클릭하면 해당 정보를 보여주는 새로운 윈도우 폼이 뜨고, 여기에서 수정을 하고 저장하면 원래 데이터 집합에 반영시키면 된다는 거다.</p>
+<p>이때 주의해야 할 점은.. DataSet.AcceptChanges() 와 DataSet.RejectChanges() 는 DB에서 읽어온 후로의 변화를 커밋하거나 롤백시킨다는 점이다. 즉 이 함수 중 하나를 일단 부르게 되면, 그동안 있었던 모든 변화가 날아가거나 더이상 롤백시킬 수 없는 상황에 이르게 된다.</p>
+<p>만약, 에디트 폼의 수많은 컨트롤들과 원본 데이터집합을 DataView 를 통해서 바인딩시킬 경우, 에디트 폼에서 수정을 하다가 캔슬시켜도 원본 데이터집합이 변형되게 된다. 그렇다고 Reject 를 호출하게 되면 그전의 수정 사항이 모두 날아가게 되니... 대략 난감한 상황이 된다.</p>
+<p>레이옷이 추천하는 방식은, 새 에디트 폼에 원본 데이터집합의 복사본(DataSet.Copy())을 넘겨주고 에디트 폼에서 수정한 후 OK 하면 Merge 하고 Cancel 하면 그냥 무시하는 방식이다.</p>
+<h2>관련 테이블의 내용도 함께 보여주는 방법</h2>
+<p>특정 상품에 포함된 아이템 정보를 보여준다고 하자. DB 상에서는 이를 상품-아이템 관계 테이블로 구현하게 된다. 이때, DB 에서 읽어오는 값은 보통 정수형 상품키/아이템키 값일 뿐이며, 이를 그냥 바인딩시키면 그리드에는 숫자만 나오게 되므로 대략 알아보기가 곤란하다. ( 3번 아이템 2개와 5번 아이템 1개로 구성된 상품.. 직관적이지 않다)</p>
+<p>이를 해결하는 방법은 여러 가지가 있는 듯한데, 본좌 1개의 방법만 발견했다. 그것은, 아예 데이터 아답타 레벨에서 join 을 걸든 join 된 view 를 이용하든, 키값과 이름을 함께 읽어온다는 거다.</p>
+<p>이 방식의 단점은, 데이터 아답타 마법사에서 UpdateCommand와 DeleteCommand 를 자동으로 생성하지 못한다는데 있다. 결국 이 부분은 수동으로 해줘야 하는데... 난감하다.</p>
+<p>일단 다른 아답타의 Update/Delete Command 에서 샘플을 보고 참고해서 만들어나가면 되긴 된다. 이때, 파라미터가 잘 만들어졌는지, Current/Original 인지 확인해줄 것</p>
+<p>주의사항 : 뷰를 통해서 데이터를 갖고 올 경우, 데이터 집합 생성시 xxxView 로 만들어진다. 이를 원래의 관계 테이블로 매핑시키려면, DataAdapter.TableMapping 속성을 설정해주면된다.</p>
+<h2>입력 검증(verification) 과 이벤트 핸들링</h2>
+<p>만약 그리드에서 on the fly 수정을 하려면, 데이터 테이블에서 발생시키는 이벤트를 핸들링시켜야 한다. 총 6가지의 이벤트가 존재한다.</p>
+<ul>
+<li>ColumnChanging -&gt; ColumnChanged</li>
+<li>RowChanging -&gt; RowChanged</li>
+<li>RowDeleting -&gt; RowDeleted</li>
+</ul>
+<p>이런 이벤트들은 대략 다음과 같은 조건에서 발생한다.</p>
+<ul>
+<li>특정 셀을 수정한 다음 column 이 바뀌면(==focus changed) ColumnChanging -&gt; ColumnChanged 순서로 호출된다.</li>
+<li>row 가 바뀌면 ColumnChanging -&gt; ColumnChanged -&gt; RowChanging -&gt; RowChanged 순서로 호출된다.</li>
+</ul>
+<p>상점 관리툴에서는, 그리드에서 수정을 하게 되면 저장 버튼을 활성화 시켜서 뭔가가 바뀌었다고 사용자에게 알려주도록 하기 위해, xxxChanged 이벤트 핸들러에서 대략 다음과 같은 코드를 사용했다.</p>
+<p>Private Sub OnCategoryRowChanged(ByVal sender As Object, ByVal args As DataRowChangeEventArgs)<br />
+  SaveButton.Enabled = dsBoom.HasChanges<br />
+End Sub</p>
+<p>실제로 이벤트 핸들러에서는 현재 유저가 수정한 내용을 보고, 범위에 맞는지 혹은 적절한 값인지를 검사해서 틀릴 경우 예외를 던지는 방식의 입력 검증을 해줘야 한다.</p>
+<h2>데이터 그리드 간 연동</h2>
+<p>데이터베이스 상에 MasterTable, SlaveTable 이라는 2개의 테이블이 dsXXX 라는 데이터셋에 dlXXX 라는 relation 으로 연관되어 있다고 하자. 이 테이블들을 각각 MasterGrid, SlaveGrid 에서 보여주려고 할 때, 아래와 같이 설정하면 두 그리드가 연동된다.</p>
+<p>MasterGrid.DataSource = dsXXX<br />
+MasterGrid.DataMember = "MasterTable"</p>
+<p>SlaveGrid.DataSource = dsXXX<br />
+SalveGrid.DataMember = "MasterTable.dlXXX"</p>
+<p>이때 주의할 점은, SlaveGrid 와 연관된 SlaveTable 의 실제 크기와 보여지는 크기가 다르다는 것이다. (FK로 필터링되었으니 출력되는 크기는 실제 크기보다 작거나 같게 된다) 따라서, 마우스로 특정 row 를 선택했을 때, MasterGrid 의 경우 데이터테이블을 통해서 직접 접근하면 되지만, SlaveGrid 의 경우에는 이를 알 수 없다는 것이 문제가 된다. (특히 VisibleRowCount 는 단지 현재 화면에 보이는 크기라서 신용할 수 없다)</p>
+<p>이 경우에는 현재 SlaveGrid 의 CurrentRowIndex 라든지 HitTestInfo 를 써서 현재 row 를 알아낸 다음, MasterTable(MasterGrid.CurrentRowIndex).GetChildRows("dlXXX") 를 통해서 실제 값에 접근하면 된다. 이 GetChildRows(relation_name) 은 DataGrid.AllowNavigation = True 를 설정했을 때 나오는 놈들과 같다.</p>
+<h2>다이얼로그 with 데이터집합</h2>
+<p>단지 책을 통해서 얻은 지식만으로 한 거라서 더 좋은 방법이 있을지도 모르겠지만, 폼에서 작업을 하다가 어떤 상황이 되어 다이얼로그를 띄워야 할 때, 그 다이얼로그에서도 현재 데이터셋과 동일한 넘을 Clone() 이든 Copy() 든 복제해서 써야 할 경우가 있다.</p>
+<p>예를 들면, 특정 상품 카테고리에 새 상품을 추가할 때, 전체 상품 목록 중에서 이미 해당 카테고리에 들어가 있는 상품을 제외한 나머지 목록이 데이터 그리드에 담긴 새 다이얼로그를 띄워야 하는 경우가 있을 수 있다. (지금 하고 있는 작업이다) 이를 위해서는</p>
+<p>i. 새 다이얼로그에 데이터셋을 추가<br />
+i. 데이터 그리드 하나를 추가<br />
+i. 디자이너에서 데이터그리드의 데이터소스 및 데이터멤버를 지정<br />
+i. 코드에서 다이얼로그 객체를 생성하고 부모 폼에서 데이터셋을 복사한 다음 다이얼로그를 띄우기</p>
+<p>Dim dlg As ProductSelectDialog = new ProductSelectDialog<br />
+dlg.dsXXX = Me.dsXXX.Copy<br />
+dlg.ShowDialog()</p>
+<p>이렇게 해도, 새 다이얼로그는 빈 그리드만을 담게 된다. 이유는 단 하나. 디자이너 모드에서 지정한 데이터소스 및 데이터멤버가 Copy() 에 의해서 초기화되었기 때문이다. (너무나도 사소한 버그) 이를 해결하려면 프로그래밍방식으로 지정하는 수 밖에 없다.</p>
+<p>Dim dlg As ProductSelectDialog = new ProductSelectDialog<br />
+dlg.dsXXX = Me.dsXXX.Copy<br />
+dlg.DataGrid1.DataSource = dlg.dsXXX<br />
+dlg.DataGrid1.DataMember = "what"<br />
+dlg.ShowDialog()</p>
+<h2>마우스로 그리드 위치 알아내기</h2>
+<p>물론 DataGrid.CurrentRowIndex 라든지 CurrentCell 이 좋을 것 같지만, MouseUp 이벤트 핸들러에서 얘들은 그리드 바깥쪽을 클릭했을 때 이전에 선택된 값을 리턴하므로 부정확한 정보를 리턴하게 된다. 따라서 HItTestInfo 를 사용하는 것을 추천한다.</p>
+<blockquote>
+<p>Dim pos As DataGrid.HitTestInfo = MyGrid.HitTest(e.X, e.Y)</p>
+</blockquote>
+<p>그런데, 이렇게 값을 얻어와서 선택된 row 의 실제 값을 알아오려면 바운드 체크가 필수적이다. 만약 그리드에서 row header, column header 를 출력하고 있다면 유저는 헤더를 선택하기가 쉬운데, 이때 각 값은 -1 을 리턴하게 되고 이 값으로 데이터테이블에 접근하면 낭패가 된다. 즉, pos.Row &gt; 0 And pos.Column &gt; 0 체크는 필수적이며, 가능하면 바인딩된 데이터 테이블의 최대 크기와도 비교해주면 좋을 것이다. 덤으로, DataGrid.Select(row) 를 해주면 현재 row 전체의 배경색을 반전시킬 수 있다.</p>
+<h2>새 row 의 특정 셀에 값 넣기</h2>
+<p>그리드의 마지막 row 를 클릭하면 임시 row 가 새로 만들어지고, 여기에 값을 적당히 넣고 포커스를 다른 곳으로 옮기면 이넘이 그리드에 바인딩된 데이터 테이블로 커밋된다.</p>
+<p>문제는, 이 넘은 커밋되기 전까지는 데이터 테이블에서 검색할 수 없다는 점이다. 웬지 이 row 의 상태는 Detached 인 거 같지만, DataTable.Select() 에서는 이 상태로 검색을 지원하지 않는다. 당연히 아직 커밋되지 않았으므로 CurrentRows 로도 찾을 수는 없다.</p>
+<p>해결책은, DataGrid.Item(row,col) 을 이용해서 직접 수정하면 된다는 것. 지금까지는 무조건 데이터테이블을 통해서 실제 데이터에 접근했는데, 앞으로는 그리드를 통해서 데이터에 접근하는 것도 좋은 방법이 될 듯하다.</p>
+<h2>특정 셀에 DBNull 넣기</h2>
+<p>원하는 셀에 포커스를 맞춘 다음, Ctrl + 0 를 입력하면 DBNULL 로 초기화된다.</p>
+<h2>output parameter 가 있는 프로시저 실행</h2>
+<p>코드에서 SQLCommand 를 직접 사용하면 된다. 코드는 매우 직관적이며 간단하지만, 한가지 주의할 점이 있다.</p>
+<blockquote>
+<p>실제 프로시저에서 명시한 것과 동일한 이름의 파라미터를 사용하라!!</p>
+</blockquote>
+<p>Dim cmd As SqlCommand = New SqlCommand<br />
+cmd.CommandText = "proc_name"<br />
+cmd.Connection = conn<br />
+cmd.CommandType = CommandType.StoredProcedure</p>
+<p>Dim param As SqlParameter = cmd.Parameters.Add("@in_param", SqlDbType.VarChar, 11)<br />
+param.Value = "something"</p>
+<p>param = cmd.Parameters.Add("@out_param", SqlDbType.Int)<br />
+param.Direction = ParameterDirection.Output</p>
+<p>conn.Open()</p>
+<p>Dim reader As SqlDataReader<br />
+reader = cmd.ExecuteReader()<br />
+reader.Read()<br />
+reader.Close()<br />
+conn.Close()</p>
+<p>TextBox1.Text = cmd.Parameters("@out_param").Value</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/12/11/adonet-이란/">ADO.NET 이란?</a> <small>2005-12-11</small></h1>
+	</div>
+	<div><blockquote>
+<p>ADO.NET은 OLE DB 및 XML을 통해 제공되는 데이터 소스뿐 아니라 Microsoft SQL Server와 같은 '''데이터 소스에 대한 일관성 있는 액세스'''를 제공합니다. 데이터 공유 소비자 응용 프로그램은 ADO.NET을 사용해서 이러한 데이터 소스에 연결하여 '''데이터를 검색, 조작 및 업데이트'''할 수 있습니다.<br />
+-- from MSDN</p>
+</blockquote>
+<ul>
+<li>모든 것은 데이터 소스 - DB, 엑셀, XML, 텍스트파일, ...</li>
+<li>연결되지 않은 데이터 집합 - 캐싱 방식</li>
+<li>XML 과의 강력한 통합</li>
+<li>N 레이어 어플리케이션에 적합 - 특히 웹 어플리케이션...</li>
+</ul>
+<!--more-->
+
+<h2>ADO.NET의 구성 요소</h2>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" /></a></p>
+<h3>DataSet</h3>
+<p>메모리에 존재하는 데이터들 (쉽게 말하자면 in 메모리 DB, but...)</p>
+<ul>
+<li>데이터 테이블(들) + 데이터 관계(들)</li>
+<li>형식화된 데이터 집합 vs. 형식화되지 않은 데이터 집합</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ado1.jpg" /></a><br />
+<a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO2.jpg" /></a></p>
+<h3>DataTable</h3>
+<p>동일한 데이터(DataRow)의 집합.</p>
+<ul>
+<li>PK. Unique, Auto Increment, Not Null 등의 Constraint 를 지정할 수 있다.</li>
+<li>DB 테이블과 유사하다. 그러나, 완벽하게 같지 않다 -&gt; DB View 또는 조인을 통해 데이터 테이블로 갖고 올 수도 있고, 로컬에서 수동 생성도 가능하다.</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO3.jpg" /></a></p>
+<h3>DataRelation</h3>
+<p>데이터 테이블간의 관계.</p>
+<ul>
+<li>PK. FK. Unique, Auto Increment</li>
+<li>데이터 그리드의 navigation 에서 사용됨.</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO4.jpg" /></a></p>
+<h3>DataAdapter</h3>
+<p>데이터 소스에서 데이터를 읽어 데이터집합을 채운다. 그리고, 데이터집합의 변경 사항을 데이터 소스로 반영한다.</p>
+<ul>
+<li>SelectCommand, UpdateCommand, DeleteCommand, InsertCommand...</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO5.jpg" /></a></p>
+<h3>DataView</h3>
+<p>특정 데이터 테이블을 row 필터링한 부분 집합.</p>
+<ul>
+<li>컬럼 필터링은 안됨</li>
+<li>데이터 테이블의 조인도 안됨</li>
+<li>SQL 처럼 WHERE 필터를 걸 수 있다.</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO6.jpg" /></a></p>
+<h3>DataGrid</h3>
+<p>테이블 형태의 데이터를 보여주는 강력한 .NET 컨트롤</p>
+<ul>
+<li>정렬, 추가, 삭제, 수정, 네비게이션, 등등 웬만한 기본 기능들은 모두 들어 있다.</li>
+<li>텍스트박스, 체크박스만이 포함될 수 있다. 그러나, 커스텀 컨트롤을 만들면 딴 넘들도 가능.</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO8.jpg" /></a></p>
+<h3>DataBinding</h3>
+<p>데이터와 컨트롤의 자동 매핑</p>
+<ul>
+<li>텍스트 박스, 체크 박스 등 단순 컨트롤과의 바인딩</li>
+<li>콤보박스, 그리드 등 복잡한 컨트롤과의 바인딩</li>
+</ul>
+<p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ADO.jpg" title="ADO" target="_top"><img alt="ADO" src="http://boxcatstudio.files.wordpress.com/2009/07/ADO9.jpg" /></a></p>
+<h2>VB.NET 으로 데이터베이스 어플리케이션 만들기</h2>
+<p>가장 빨리 DB 어플리케이션을 만드는 방법!</p>
+<ol>
+<li>2개의 테이블을 드래그 앤 드랍해와서, 형식화된 데이터 집합을 만든다</li>
+<li>XSD를 수정해서 관계를 만든다.</li>
+<li>데이터 그리드를 추가, 바인딩한다.</li>
+<li>수정후 업데이트하기</li>
+<li>끝.</li>
+</ol></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
+		<h1><a href="/2005/12/07/나쁜-아이디어를-위한-좋은-방법/">나쁜 아이디어를 위한 좋은 방법</a> <small>2005-12-07</small></h1>
+	</div>
+	<div><blockquote>
+<p>지금 하고 있는 이런 하찮은 일은 대충 빨리 끝낼 예정이다. 난 멋진 프로젝트를 언젠가 해야할 몸이기 때문이다.</p>
+</blockquote>
+<p>당연히 <a href="http://www.extra-project.com/bbs/view.php?id=keeping01&amp;page=1&amp;sn1=&amp;divpage=1&amp;sn=off&amp;ss=on&amp;sc=on&amp;select_arrange=headnum&amp;desc=asc&amp;no=82">웹 디자인에만 적용되는 이야기</a>는 아니며, 특히 legacy code 를 다루는 프로그래머들이 쉽게 빠지는 길이기도 하다. 사실 나를 포함한 우리 팀원들 대다수가 이런 마음가짐으로 일하고 있기에 더욱 가슴이 시리다. 물론 지금으로서는 빨리 끝내는 것만이 유일한 해결책이지만...</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2005/11/23/vb를-이용한-선분과-원의-충돌체크/">VB를 이용한 선분과 원의 충돌체크</a> <small>2005-11-23</small></h1>
 	</div>
 	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/collide.JPG" title="collide" target="_top"><img alt="collide" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_collide.JPG" /></a></p>
@@ -136,121 +404,6 @@ If e.X
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/10/31/inet_ntoa-의-위험성/">inet_ntoa 의 위험성</a> <small>2005-10-31</small></h1>
-	</div>
-	<div><p>아래와 같이 내부 버퍼를 리턴하는 함수를 연속적으로 사용할 경우에는 주의해야 한다. 그냥 string 으로 감싸서 사용하는 것이 정신건강에 좋다. (단 타이핑 횟수는 .c_str() 때문에 꽤 증가한다)</p>
-<p>printf( "external_address=%s internal_address=%s",<br />
-  inet_ntoa(exaddr),<br />
-  inet_ntoa(inaddr));</p></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/10/22/find_if-와-boostlambda/">find_if 와 boost::lambda</a> <small>2005-10-22</small></h1>
-	</div>
-	<div><p>STL 컨테이너를 만지작거리다보면 종종 algorithm 을 써서 코드를 간략하게 표현하고픈 충동이 든다. 그런데 STL에서 제공하는 각종 function template 의 파워는 생각보다 약하다. 가령 다음과 같이 컨테이너 내부 객체의 멤버 함수의 실행 결과를 기준으토 무언가를 하고 싶은 경우...</p>
-<pre><code>class Focker
-{
-public :
-    Focker(int v) : value(v) {}
-    int GetValue() const { return value; }
-private:
-    int value;
-};
-
-typedef list FOCKERS;
-
-FOCKERS fockers;
-
-fockers.push_back( Focker(1) );
-fockers.push_back( Focker(2) );
-fockers.push_back( Focker(3) );
-fockers.push_back( Focker(4) );
-fockers.push_back( Focker(5) );
-
-// how to find whose value ==3 ??
-</code></pre>
-<p>가장 단순한 방법으로는 하드코딩 함수자를 사용하면 된다.</p>
-<pre><code>class GetValueIs3
-{
-public :
-    GetValueIs3(){}
-    bool operator() ( const Focker &amp; f ) const
-    {
-        return f.GetValue() == 3;
-    }
-};
-
-FOCKERS::iterator itr;
-
-itr = find_if( fockers.begin(), fockers.end(), GetValueIs3() );
-assert( itr != fockers.end() );
-cout GetValue() GetValue() (),3),
-        mem_fun_ref(&amp;Focker::GetValue )) );
-</code></pre>
-<p>그래서 이걸 가능하게 하기 위해서 몇 시간동안 씨름하다가 mem_fun_ref 의 코드를 살짝 고쳐서 다음과 같은 코드를 만들어봤다.</p>
-<pre><code>template
-class my_const_mem_fun_ref_t
-    : public unary_function
-{
-public:
-    explicit my_const_mem_fun_ref_t(_Result (_Ty::*_Pm)() const, const _Fn &amp; f )
-        : _Pmemfun(_Pm), func(f)
-    {
-    }
-
-    typename _Fn::result_type operator()(const _Ty&amp; _Left) const
-    {
-        return (func((_Left.*_Pmemfun)()));
-    }
-
-private:
-    _Result (_Ty::*_Pmemfun)() const;   // the member function pointer
-    _Fn func;
-};
-
-template
-inline
-my_const_mem_fun_ref_t
-my_mem_fun_ref(_Result (_Ty::*_Pm)() const, const _Fn &amp; f)
-{
-    return (my_const_mem_fun_ref_t(_Pm,f));
-}
-
-itr = find_if( fockers.begin(), fockers.end(),
-    my_mem_fun_ref( &amp;Focker::GetValue, bind2nd(equal_to(),3) )
-);
-assert( itr != fockers.end() );
-cout GetValue() GetValue()
-</code></pre></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/10/21/sourceanywhere-remote-vss-tools/">SourceAnyWhere - Remote VSS tools</a> <small>2005-10-21</small></h1>
-	</div>
-	<div><p>미국 출장가는 쉬귀군을 위해서 테스트를 해봐야겠다. 근데 이거 정품을 살바엔 cvs 나 subversion 을 쓰지..</p>
-<ul>
-<li><a href="http://www.dynamsoft.com/SAW_Overview.html">Official SourceAnyWhere Homepage</a></li>
-<li><a href="http://www.perl.or.kr/okbb/okbview.php?cmd=view&amp;lm=list&amp;site=Site&amp;forum=Perl&amp;lang=Corea&amp;p=4&amp;msg_id=2081&amp;sch=&amp;sn=&amp;ss=&amp;st=">Remote VSS tools 비교 분석</a></li>
-</ul></div>
-	
-</article>
-			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/10/18/mmo를-위한-커뮤니티-서비스-구현하기/">MMO를 위한 커뮤니티 서비스 구현하기</a> <small>2005-10-18</small></h1>
-	</div>
-	<div><p>MMO 를 위한 커뮤니티 서비스가 가장 잘 구현된 곳은 World Of Warcraft 이다. 물론 채팅과 귓말이야 별거 아닌 것처럼 느껴지지만, 친구 관리나 편지, 길드 채팅 같은  커뮤니티 서비스를 다중 서버에서도 투명하게 구현한다는 것은 생각보다 귀찮은 일이다. 오늘 어디에서 줏어 들기로 와우에서는 내부 채팅을 위해서 IRC 를 쓰고 있다고 하고(미확인 정보), 역시 게임을 개발하는 한 후배는 <a href="http://www.jabber.org/">jabber </a>를 고려중이라고 했다.</p>
-<p>올해 초 <a href="http://www.spread.org/">spread </a>를 기반으로 서버간 채팅을 구현하려고 했는데, 이미 이 놈을 기반으로 만들어본 후배의 불만을 접수하고 바로 계획을 폐기해야만 했다. 어차피 관련 기능을 새로 만들어야 한다면 이미 검증된 놈을 갖다 쓰는 최고니깐 말이다. (그나저나 와우에서는 DB의 계정과 irc 의 데이터간의 연동은 과연 어떻게 할 것인지가 궁금하다. 탈퇴하거나 삭제할 경우 irc 쪽의 데이터도 변경해줘야 할텐데...헐헐)</p>
-<p>언제 나도 저런 걸 만지면서 놀까 생각하니... 깜깜하다.. 이힝~</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -271,23 +424,23 @@ cout GetValue() GetValue()
 	</li>
 	
 	<li>
+		<a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a>
+	</li>
+	
+	<li>
+		<a href="/2005/12/11/adonet-팁/">ADO.NET 팁</a>
+	</li>
+	
+	<li>
+		<a href="/2005/12/11/adonet-이란/">ADO.NET 이란?</a>
+	</li>
+	
+	<li>
+		<a href="/2005/12/07/나쁜-아이디어를-위한-좋은-방법/">나쁜 아이디어를 위한 좋은 방법</a>
+	</li>
+	
+	<li>
 		<a href="/2005/11/23/vb를-이용한-선분과-원의-충돌체크/">VB를 이용한 선분과 원의 충돌체크</a>
-	</li>
-	
-	<li>
-		<a href="/2005/10/31/inet_ntoa-의-위험성/">inet_ntoa 의 위험성</a>
-	</li>
-	
-	<li>
-		<a href="/2005/10/22/find_if-와-boostlambda/">find_if 와 boost::lambda</a>
-	</li>
-	
-	<li>
-		<a href="/2005/10/21/sourceanywhere-remote-vss-tools/">SourceAnyWhere - Remote VSS tools</a>
-	</li>
-	
-	<li>
-		<a href="/2005/10/18/mmo를-위한-커뮤니티-서비스-구현하기/">MMO를 위한 커뮤니티 서비스 구현하기</a>
 	</li>
 	
 </ul>
