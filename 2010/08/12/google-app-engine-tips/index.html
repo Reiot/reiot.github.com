@@ -103,7 +103,7 @@ class Item(db.Model):
 <p>see also <a href="http://neopythonic.blogspot.com/2011/08/compare-and-set-in-memcache.html">Compare-And-Set in Memcache by Guido</a></p>
 <h3>Pagenation</h3>
 <h4>using offset</h4>
-<p>Query.fetch(limit, offset)을 이용하면 간단히 페이징 네비게이션을 구현할 수 있다. </p>
+<p>Query.fetch(limit, offset)을 이용하면 간단히 페이징 네비게이션을 구현할 수 있다.</p>
 <ul>
 <li>item per page: K</li>
 <li>total page: query.count() / K</li>
@@ -112,25 +112,32 @@ class Item(db.Model):
 </ul>
 <p>으로 데이터를 읽어올 수 있다. 문제는 offset 이라는게 실제로 데이터스토어에서 읽으면서 skip 하기 때문에 느리다는 점. 이를 위해서 cursor 가 도입되었다.</p>
 <h4>using cursor</h4>
-<pre><code>result, end_cursor, more = ndb.Query.fetch_page(limit, start_cursor, end_cursor) 
+<pre><code>result, end_cursor, more = ndb.Query.fetch_page(limit, start_cursor, end_cursor)
 </code></pre>
 
 <p>를 이용하면 start_cursor ~ end_cursor 사이의 아이템 limit 개를 읽어올 수 있다. 또한 더 읽어올 데이터가 있는지, 다음 번에 읽을 커서는 무엇인지도 쉽게 리턴해준다. offset 과는 달리 커서는 한번에 해당 객체까지 찾아가므로 보다 빠르게 페이징을 구현할 수 있다.</p>
 <p>이때 커서는 urlsafe 문자열로 바꿔서 클라이언트로 보내서 다음번 요청때 사용하게끔 한다.</p>
-<p>문제는 특정 커서로부터 이전 몇 개 - 예를 들면 fetch_page(-N, cursor) 같은 건 아직 지원하지 않는다. 따라서 next - next 이동은 간편한 반면 특정 시점에서 prev - prev 이동은 매번마다 이전 쿼리의 시작 커서를 알고 있지 않는 한 불가능하다는 점이다. </p>
+<p>문제는 특정 커서로부터 이전 몇 개 - 예를 들면 fetch_page(-N, cursor) 같은 건 아직 지원하지 않는다. 따라서 next - next 이동은 간편한 반면 특정 시점에서 prev - prev 이동은 매번마다 이전 쿼리의 시작 커서를 알고 있지 않는 한 불가능하다는 점이다.</p>
 <p>해결책이라면</p>
 <ol>
-<li>이미 이전 페이지는 브라우징을 했다는 전제 하에, 이전 페이지 이동은 순수 자바스크립트로 구현한다. </li>
+<li>이미 이전 페이지는 브라우징을 했다는 전제 하에, 이전 페이지 이동은 순수 자바스크립트로 구현한다.</li>
 </ol>
 <h3>Taskqueue</h3>
 <h4>task name</h4>
-<p>name 은 유니크해야 한다. 이미 큐잉 되어 있으면 Already Exist, 실행된 적이 있으면 TombstonedTaskError 가 발생한다. 즉, 이미 실행되고 사라져도 시스템은 그걸 기억하고 있으며, 오직 내부적으로 중복 큐잉 및 실행을 방지하기 위한 거다. (또는 나중에 취소하기 위함) </p>
+<p>name 은 유니크해야 한다. 이미 큐잉 되어 있으면 Already Exist, 실행된 적이 있으면 TombstonedTaskError 가 발생한다. 즉, 이미 실행되고 사라져도 시스템은 그걸 기억하고 있으며, 오직 내부적으로 중복 큐잉 및 실행을 방지하기 위한 거다. (또는 나중에 취소하기 위함)</p>
 <p>queue.purge 를 실행해도 이름 자체는 남아있다. ㅎㅎㅎ</p>
 <h3>중복 실행 방지</h3>
 <ol>
 <li>메모리 캐시 또는 DB에 LOCK 을 걸어두거나</li>
 <li>커스텀 태스크 큐에 넣고 실행하되 아예 모두 날려버리는 방법이 있다. 커스텀 큐는 queue.yaml 에 정의되어야 한다. rate(몇 초마다 큐를 체크하는가?), bucket_size(한번에 몇 개의 태스크를 처리하는가?)만 주의하면 된다.</li>
 </ol>
+<h3>appcfg.py 자동화</h3>
+<p>예전엔 <code>--passin</code> 파라미터를 이용하면 패스워드를 커맨드라인에 지정할 수 있었는데 어떻게든 패스워드가 노출되기 때문에 보안적으로 위험이 있었다. 요즘에는 <code>--oauth2</code> 를 이용해서 비교적 안전하게 인증을 할 수 있게 되었다.</p>
+<h3>참고 자료</h3>
+<ul>
+<li><a href="http://appengine-cookbook.appspot.com/recipe/getting-dbreferenceproperty-key-without-loading-entity/?id=ahJhcHBlbmdpbmUtY29va2Jvb2tylwELEgtSZWNpcGVJbmRleCI8YWhKaGNIQmxibWRwYm1VdFkyOXZhMkp2YjJ0eUZ3c1NDRU5oZEdWbmIzSjVJZ2xFWVhSaGMzUnZjbVVNDAsSBlJlY2lwZSI-YWhKaGNIQmxibWRwYm1VdFkyOXZhMkp2YjJ0eUZ3c1NDRU5oZEdWbmIzSjVJZ2xFWVhSaGMzUnZjbVVNMTYM">ReferenceProperty 의 키값만 갖고 오는 쉬운 방법</a></li>
+<li><a href="http://appengine-cookbook.appspot.com/recipe/define-a-decorator-for-transactions/?id=ahJhcHBlbmdpbmUtY29va2Jvb2tylgELEgtSZWNpcGVJbmRleCI8YWhKaGNIQmxibWRwYm1VdFkyOXZhMkp2YjJ0eUZ3c1NDRU5oZEdWbmIzSjVJZ2xFWVhSaGMzUnZjbVVNDAsSBlJlY2lwZSI9YWhKaGNIQmxibWRwYm1VdFkyOXZhMkp2YjJ0eUZ3c1NDRU5oZEdWbmIzSjVJZ2xFWVhSaGMzUnZjbVVNMAw">decorator for transaction</a></li>
+</ul>
 <hr />
 <p>계속 추가할 예정입니다 :)</p></div>
 	
