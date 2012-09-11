@@ -63,6 +63,70 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2004/11/26/moniwiki-tips/">MoniWiki Tips</a> <small>2004-11-26</small></h1>
+	</div>
+	<div><h2>Security</h2>
+<blockquote>
+<p>$security_class="needtologin";</p>
+</blockquote>
+<h2>RcsLite</h2>
+<blockquote>
+<p>$version_class='RcsLite';</p>
+</blockquote>
+<h2>Disable Theme</h2>
+<p>테마와 CSS 모두 강제 지정하려면 아래와 같이 할 것.</p>
+<blockquote>
+<p>$theme='...';</p>
+<p>$theme_css=1;</p>
+</blockquote>
+<h2>MoinMoin Migration(?)</h2>
+<p>MoinMoin 위키에서 MoniWiki 로 이전한 경우, 구글 등의 검색 엔진이나 지인들의 링크가 이전 주소로 되어 있는 경우, fake moin.cgi 를 만들어서 링크를 계속 유지시킬 필요가 있다.  특히 apache 환경에서는 .htaccess 설정을 이용해서 손쉽게 fake moin.cgi 를 만들 수 있다.  일단 아래와 같이 moin.cgi 를 만든다. 특별히 실행권한을 주지 않아도 무방하다.</p>
+<blockquote>
+<p>&lt;?php</p>
+<p>chdir("/path/to/moniwiki");</p>
+<p>include("wiki.php");</p>
+<p>?&gt;</p>
+</blockquote>
+<ul>
+<li>.htaccess 에 moin.cgi 를 php 가 핸들링하도록 다음과 같이 추가한다.</li>
+</ul>
+<blockquote>
+<p><Files moin.cgi></p>
+<p>SetHandler application/x-httpd-php</p>
+<p></Files></p>
+</blockquote>
+<h2>파일 업로드 크기 제한</h2>
+<p>이것은 모니위키의 문제가 아닌 php 의 문제이다. php.ini 에서 업로드 및 POST 크기 제한을 적절하게 수정해야 한다.</p>
+<h2>xls 파일 업로드</h2>
+<p>UploadFiles.php 에서 기본적으로 정의된 확장자가 아닐 경우 업로드가 금지된다. 따라서, 여기에 xls 확장자를 추가할 것.</p>
+<blockquote>
+<p>// plugin/UploadFile.php:71</p>
+<p>$pds_exts="png|jpg|jpeg|gif|mp3|zip|tgz|gz|txt|css|exe|hwp|xls";</p>
+</blockquote>
+<h2>external link 제거</h2>
+<p>한글로 된 외부 링크의 경우 URL 이 너무 길어져서 화면 크기를 넘어서는 경우가 있다. 아예 URL 표시를 제거하는 편이 더 좋을 듯?</p>
+<blockquote>
+<p>// wiki.php:1440</p>
+<p>$external=$this-&gt;ex_bra.$url.$this-&gt;ex_ket;</p>
+<p>$external=''; //  <link rel="icon" href="/reiot.png" type="image/png" /></p>
+</blockquote>
+<p>see also:</p>
+<ul>
+<li>http://en.wikipedia.org/wiki/Favicon</li>
+</ul></div>
+	
+	<p>
+	
+		<a href="/tag/wiki/"><span class="label">wiki</span></a>
+	
+		<a href="/tag/moniwiki/"><span class="label">moniwiki</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2004/11/24/어떻게-우리-팀의-xp가-실패했는가/">어떻게 우리 팀의 XP가 실패했는가?</a> <small>2004-11-24</small></h1>
 	</div>
 	<div><p>붐붐차차 프로젝트는 처음부터 "XP를 한번 연습해본다"라는 기치를 내걸고 시작했다. 개발 초기 3-4개월동안은 별 문제없이 흘러갔지만, 7-8 개월이 지난 이후부터 지금까지, 테스트 코드는 더이상 유지보수되지 않고 있다. 과연 무엇이 문제였을까? 그리고 다음번 프로젝트에서도 XP 를 성공적으로 도입할 수 있을까?</p>
@@ -175,41 +239,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2004/11/24/using-xerces-c/">Using Xerces C++</a> <small>2004-11-24</small></h1>
-	</div>
-	<div><p>Xerces는 XML 파싱을 위한 C++/Java 공개 라이브러리다. 기존의 Microsoft XML SDK를 이용한 XML 파싱 라이브러리가 있음에도 불구하고, Xerces를 이용한 파서를 새로 만들게 된 것은 Microsoft XML SDK가 Visual C++에서만 컴파일이 정상적으로 되었기 때문이다. Borland C++ Builder를 이용해서 기존의 라이브러리를 컴파일하기 위해 몇가지 시도를 해보았지만, 정상적으로 되지가 않았다. 결국 포기하고 다른 방편으로 Xerces를 이용하게 되었다.</p>
-<p>파싱 클래스나 함수 등은 W3C에서 이미 규정한 것이기 때문에 Xerces나 Microsoft나 별반 다르지 않다. 차이점은 함수의 프로토타입이나, 내부적으로 사용하는 유틸리티 클래스들인데, 이는 쉽게 넘어갈 수 있는 문제였다. 게다가 나중에 유닉스 계열로 가도 이 라이브러리를 그대로 이용할 수 있으니 이 어찌 즐겁지 않으리요.</p>
-<h2>Install For Microsoft Visual C++</h2>
-<pre><code>- http://xml.apache.org 에서 Xerces 바이너리를 다운받는다. 소스를 다운받아도 상관없으나 컴파일하는 수고를 덜려면 바이너리를 받는 게 낫다.
-- 인스톨하고, Visual C++에서 PATH를 잡아준다.
-- 프로젝트 링크 탭에다가 xerces-c_2.lib 또는 xerces-c_2D.lib 라이브러리를 집어넣는다.
-- xerces-c_2.lib라면 xerces-c_2_2_0.dll을, xerces-c_2D.lib라면 xerces-c_2_2_0D.dll을 PATH로 잡혀있는 디렉토리 어디엔가 복사해둔다.
-- 컴파일하고 실행한다.
-</code></pre>
-<h2>주의해야할 점</h2>
-<p>Xerces를 사용해서 XML 문서를 다룰 때, 한글을 사용하기 위해서는</p>
-<pre><code>  &lt; ?xml version=&quot;1.0&quot; encoding=&quot;Windows-1252&quot;?&gt;```
-과 같은 헤더를 붙여줘야한다. 인터넷 익스플로러에서 보면 한글이 깨져서 보이지만, 실제로 프로그램에서 돌릴 때는 괜찮다.
-</code></pre>
-
-<p>&lt; ?xml version="1.0" encoding="euc-kr"?&gt;```<br />
-로 하는 경우에는 인터넷 익스플로러에서는 보면 괜찮지만, 프로그램 돌릴 때는 한글 문자가 깨지게 된다.</p>
-<p>see also:</p>
-<pre><code>- [http://xml.apache.org](http://xml.apache.org/)
-</code></pre></div>
-	
-	<p>
-	
-		<a href="/tag/xml/"><span class="label">xml</span></a>
-	
-		<a href="/tag/xerces/"><span class="label">xerces</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -230,6 +259,10 @@
 	</li>
 	
 	<li>
+		<a href="/2004/11/26/moniwiki-tips/">MoniWiki Tips</a>
+	</li>
+	
+	<li>
 		<a href="/2004/11/24/어떻게-우리-팀의-xp가-실패했는가/">어떻게 우리 팀의 XP가 실패했는가?</a>
 	</li>
 	
@@ -243,10 +276,6 @@
 	
 	<li>
 		<a href="/2004/11/24/xml-rpc/">XML RPC</a>
-	</li>
-	
-	<li>
-		<a href="/2004/11/24/using-xerces-c/">Using Xerces C++</a>
 	</li>
 	
 </ul>

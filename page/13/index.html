@@ -63,6 +63,51 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2009/01/02/fault-tolerant-system/">Fault Tolerant System</a> <small>2009-01-02</small></h1>
+	</div>
+	<div><p>얼랭스터디에서 얼랭/OTP 의 무정지성(Fault Tolerance)에 대해서 소개하자,</p>
+<pre><code>&quot;문제가 생긴 서버를 되살리는 것도 좋은데, 메모리상의 중요한 데이터들을 어떻게 다른 서버로 안전하게 전송할 수 있는가?&quot;```
+라는 질문이 나왔다. 여기에 대해서 가장 먼저 떠오른 생각은
+</code></pre>
+
+<p>"클라이언트와의 연결은 어차피 날아가는 거고, 과연 그 서버 안에 있는 데이터까지 살릴 만한 가치가 있는 것일까?"```<br />
+라는 것이었다. 일반적인 C++ 서버의 경우 오류로 인한 서버의 크래시가 발생했을 때 당연히 SEH 를 이용해서 그 순간을 캡처해낼 수는 있다. 그러나 문제는 그때의 메모리가 정말 DB에 저장하거나 다른 머신으로 보낼 만큼 신뢰성이 있는가? 하는 것이다. 치명적인 오류가 발생한지 시간이 좀 지나서, 이미 많은 데이터가 오염되었을 수도 있기 때문에, 보통은 그냥 데이터는 버리고 서버를 내려버리는 것이 정상이다.</p>
+<p>그러다보니 무정지성이라는 의미에 대해서 다시금 생각하게 되었다. 그래서, 위키피디아에서 <a href="http://en.wikipedia.org/wiki/Fault-tolerant_system">Fault Tolerant System</a>을 검색해보니 다음과 같이 나와 있었다.</p>
+<pre><code>
+    - No single point of failure
+    - No single point of repair
+    - Fault isolation to the failing component
+    - Fault containment to prevent propagation of the failure
+    - Availability of reversion modes
+
+</code></pre>
+
+<p>즉, 하나 죽었다고 전체 시스템이 마비된다든지, 복구하다가 바보가 된다든지, 실패한 모듈 때문에 나머지 시스템이 동작하지 않는 등의 현상이 없어야 된다는, Five Nine(99.999%) 수준의 가용성(Availability)에 대한 이야기이지 완벽하게 모든 것이 재가동되어야 한다는 이야기는 아니었다. DB에도 오류가 생기면 롤백을 하듯이, MMO의 서버 시스템 역시 어느 수준으로 롤백을 하더라도 나머지 사용자들이 모를 정도로만 감춰줘도 사장님한테 이쁨받기에 충분한 수준인 것이다.</p>
+<p>그런데, "<strong>진정한 변수</strong>"가 없는 얼랭에서는 - <em>정말 에러가 발생한 직후라는 확신이 든다면 </em>- 아래와 같은 코드를 이용해서, 오류를 다른 모듈로 확산시키지 않고도 로컬 코드 레벨에서 롤백이 가능하긴 하다.</p>
+<pre><code>
+loop( OldState ) -&gt;
+try handle_something(msg,OldState) of
+{ ok, NewState } -&gt;
+loop(NewState)
+catch
+{ error } -&gt;
+loop(OldState)
+end
+end.
+</code></pre>
+
+<p>여기에 얼랭/OTP의 슈퍼비전 트리가 결합하면 책에서 주장하는 것처럼 Nine Nine(99.9999999%)의 가용성이 보장된다고 하니, 초반에 생각했던 언어적 분산 네트워킹의 지원 보다는 이쪽이 더 매력적인 기능이 아닐까 싶다.</p></div>
+	
+	<p>
+	
+		<a href="/tag/erlang/"><span class="label">erlang</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/12/27/networking-metaphore/">Networking Metaphor</a> <small>2008-12-27</small></h1>
 	</div>
 	<div><p>[caption id="" align="aligncenter" width="500" caption="http://www.flickr.com/photos/jasoncross/1260110610/"]<a href="http://www.flickr.com/photos/jasoncross/1260110610/"><img alt="http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg" src="http://farm2.static.flickr.com/1304/1260110610_4e110ad3f5.jpg" /></a>[/caption]</p>
@@ -156,33 +201,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/11/15/three-rules-for-database-work/">Three Rules for Database Work</a> <small>2008-11-15</small></h1>
-	</div>
-	<div><p><a href="http://www.openmaru.com/273"><img alt="http://www.openmaru.com/attach/1/1046597520.jpg" src="http://www.openmaru.com/attach/1/1046597520.jpg" /></a><br />
-<em><a href="http://www.openmaru.com/273">하루에 10만을 채우는 게임</a>은 이런 게 이벤트가 되는구나.</em></p>
-<p>오늘자 코드 프로젝트에 올라온 <a href="http://www.codeproject.com/KB/architecture/DBTool.aspx">DBTool</a>의 근간이 된, <a href="http://odetocode.com/Blogs/scott/archive/2008/01/30/11702.aspx">데이터베이스를 갖고 놀 때의 세가지 룰</a>은 생각보다 간단했다.</p>
-<h3>Never use a shared database server for development work.</h3>
-<p>예전에는 (rails 스타일의) development-test-production 의 3단계 구분법을 사용했다. DBA와 서버 프로그래머는 dev DB에서 열심히 뒤집어 엎어도, test DB에 연결된 다른 프로그래머들이나 테스터들은 안정적으로 사용할 수 있고, 실제 서비스는 production 데이터베이스를 쓰게 된다는 거다.</p>
-<h3>Always Have a Single, Authoritative Source For Your Schema</h3>
-<p>DB 에 짧지만 단순한 나의 지론은, 레파지토리 어딘가에 무조건 전체 스키마+초기데이터를 담은 SQL 파일을 두고 버전 관리를 해야 한다는 거다. 소스 코드, 애셋들은 과거의 특정 시점의 스냅샷을 꺼내올 수 있는데, 유독 데이터베이스가 열외일 수는 없다고 본다.</p>
-<p>또한 어차피 데이터베이스 패치를 해야 할 테니, create, alter로 가득찬 DB 패치 스크립트도 버전 관리해야 한다. test -&gt; production 를 업그레이드할 때 모두 지우고 새로 만드는 만행을 할 수 없을테니, 아예 dev -&gt; test 에서부터 미리 스크립트를 만들어서 테스트하면 정신 건강에 좋지 않겠냔 말이다. 처음에 언급한 DBTool 이 이런 걸 자동화해주는 모양이다.</p>
-<h3>Always Version Your Database</h3>
-<p>보통은 Config 테이블에다가 문자열로 데이터베이스 스키마 최종 변경일을 넣어두는 걸로 해결하고 있다. 그런데 아직 뭔가 변경이 잘 되었는지를 체크할 만한 테스트를 만들 능력은 안된다. 대체로 alter 든 drop 이든 서버가 뜰 때까지는 잘 모를것 같아서.. :)</p>
-<p>이 외에도 무시무시하게 긴 <a href="http://www.ssw.com.au/ssw/Standards/Rules/RulesToBetterSQLServerDatabases.aspx">Better SQL Server Databases</a> 라는 규칙도 있는데 이건 좀 귀찮구나....</p>
-<p>추가:</p>
-<pre><code>- 다른 글을 찾아 보니, 프로시저나 테이블 각각을 서로 다른 파일에 저장해서 관리하라는 말도 있다. 은근히 그럴듯한데?
-</code></pre></div>
-	
-	<p>
-	
-		<a href="/tag/database/"><span class="label">database</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -203,6 +221,10 @@
 	</li>
 	
 	<li>
+		<a href="/2009/01/02/fault-tolerant-system/">Fault Tolerant System</a>
+	</li>
+	
+	<li>
 		<a href="/2008/12/27/networking-metaphore/">Networking Metaphor</a>
 	</li>
 	
@@ -216,10 +238,6 @@
 	
 	<li>
 		<a href="/2008/11/16/prepare-the-battle/">Prepare the battle</a>
-	</li>
-	
-	<li>
-		<a href="/2008/11/15/three-rules-for-database-work/">Three Rules for Database Work</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,46 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a> <small>2006-05-28</small></h1>
+	</div>
+	<div><p>템플릿 프로그래밍을 하다 보면, 문자열이나 사용자 정의 클래스(UDT) 같은 특정 타입에 대한 특수화(specializaiton)를 할 경우가 있다. 그 중에서 가장 헷갈리는 부분이 바로 특정 클래스의 포인터를 템플릿 인자로 받아서 특수화해야 하는 경우인데, boost typetraits 중 하나인 boost::is_base_of를 사용하면 손쉽게 해결할 수 있다.</p>
+<pre><code>
+template
+void old_algorithm ( const T &amp; value )
+{
+  // do generic something
+}
+</code></pre>
+
+<p>위와 같은 함수 템플릿에 대해서 Base 클래스의 하위 클래스 포인터를 받았을 때를 위한 특수화를 해야 할 경우, 다음과 같은 패턴을 사용하라. 핵심은 is_base_of::type 이 true_type 또는 false_type 이라는 2 개의 서로 다른 타입을 리턴하며, 이 값을 이용해서 특수화를 한다는 것이다.</p>
+<pre><code>
+template
+void new_algorithm ( const T &amp; value )
+{
+  typedef typename boost::is_base_of::type is_derived_class;
+
+  // call impl
+  new_algorithm_impl(value,is_derived_class());
+}
+
+template
+void new_algorithm_impl ( const T &amp; value, const boost::true_type&amp; )
+{
+  // do specialized for Base class
+}
+
+template
+void new_algorithm_impl ( const T &amp; value, const boost::false_type&amp; )
+{
+  // do generic something
+}
+
+</code></pre></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/05/25/boostany/">boost::any</a> <small>2006-05-25</small></h1>
 	</div>
 	<div><p>게임 개발을 하다 보면, 가끔 서로 다른 타입의 객체들을 하나의 컨테이너에서 다루어야 할 때가 있다. 만약 이 컨테이너로 하는 일이 간단하다면야 인터페이스 상속을 쓰면 되지만, 상속을 할 수 없을 정도로 타입이 다를 때도 있다. 이럴 때 사용하는 것이 바로 boost::any 클래스이다.</p>
@@ -216,69 +256,6 @@ see also:</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/04/29/css-tip/">CSS Tip</a> <small>2006-04-29</small></h1>
-	</div>
-	<div><p><strong>[공지사항] : 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/22538">http://reiot.springnote.com/pages/22538</a> 에서 보실 수 있습니다.</strong></p>
-<h1>id &amp; class</h1>
-<p>class는 여러 곳에 쓸 수 있지만 id는 한 군데만 써야 하고, 특히 id는 anchor 의 타겟으로도 사용될 수 있다.<br />
-<table><br />
-<thead><br />
-<th>selector</th><br />
-<th>scope</th><br />
-<th>example</th></p>
-<tr>
-<td>id selector</td>
-<td>instance level style (single)</td>
-<td>H1 #xxx {...}</td>
-</tr>
-
-<tr>
-<td>class selector</td>
-<td>class level style (multiple)</td>
-<td>H1.xxx {...}</td>
-</tr>
-
-<p></thead></table><br />
-'*' 문자는 생략 가능하기 때문에, 다음의 두 표현식은 동등하다.</p>
-<p>*#xxx {...}</p>
-<h1 class="..">xxx</h1>
-<h1>padding &amp; margin</h1>
-<p>padding 은 box 영역의 안쪽, margin 은 바깥쪽을 의미하는데, 본문 바깥쪽의 여백을 나타낸다는 것을 연상하면 쉬울 것이다. 각 방향별 속성을 지정할 수도 있고, 한꺼번에 지정할 수도 있다. 이때, 위에서부터 시계방향이라는 것만 외우면 편하다.</p>
-<p>padding-top: 1px;<br />
-padding-bottom: 2em;<br />
-padding : 'top' 'right' 'bottom' 'left';</p>
-<p><a href="http://www.w3.org/TR/REC-CSS2/box.html#mpb-examples">padding &amp; margin example</a>을 참고할 것.</p>
-<h1>div &amp; span</h1>
-<p>div는 해당 블럭에 특정 id 또는 class 속성을 적용한다. 아래의 예제는 2개의 테이블 모두를 우측 정렬을 하기 위해서 DIV 태그를 사용했다.</p>
-<p><a href="http://december.com/html/4/element/div.html">&lt;div</a> align="right"&gt;<br />
-<a href="http://december.com/html/4/element/table.html"><table></a>...</table><br />
-<a href="http://december.com/html/4/element/table.html"><table></a>...</table><br />
-</div></p>
-<p>반면 span은 inline 으로 특정 id 또는 class 속성을 적용한다. 아래의 예제는 P 전체에 클래스 스타일을 적용해서 폰트 크기 및 종류를 지정한 다음, ' 에 대해서만 빨간색으로 표시하기 위해서 SPAN 태그를 사용했다.</p>
-<p><a href="http://december.com/html/4/element/p.html">&lt;p</a> class="oreiot"&gt;O<a href="http://december.com/html/4/element/span.html">&lt;span</a> class="red"&gt;'</span>REIOT</p></p>
-<h1>font size</h1>
-<p>픽셀 등의 단위를 사용하게 되면, 화면 해상도에 관계없이 크기가 고정되게 된다. 이렇게 할 경우, 브라우저의 문자 크기 확대-축소를 해도 바뀌지 않는다. 눈이 나쁜 사람들을 위해서도 픽셀 고정 보다는 아래의 크기를 사용하는 것을 권장한다. (순수 디자인의 관점에서는 맞지 않을지도?)</p>
-<p>xx-small &lt;x-small &lt;small &lt;medium &lt;large &lt;x-large &lt;xx-large</p>
-<p>아니면, 상대 크기인 smaller - larger를 써서, 자신의 부모 객체의 폰트보다 크거나 작도록 지정할 수도 있다.</p>
-<h1>호환성 있는 페이지 만들기</h1>
-<p>우선, 해당 페이지를 순수하게 텍스트로 렌더링하는 페이지를 만든다. 이때, h1, h2, ..., p, hr, ul, ol, li, b 등의 텍스트형 태그만을 사용하도록 한다. (당연히 font 류의 데코레이션형 태그는 사용하지 않도록 한다.)</p>
-<p>텍스트 페이지가 완성되면, 이제 각 element 에 적당한 클래스 스타일을 지정해서, 아름답게 꾸미도록 한다. 중복되는 스타일은 DIV 등을 이용해서 그룹으로 묶는다. (가령 li 태그들)</p>
-<p>끝으로 CSS validate 및 HTML validate 를 통해서 호환성을 검증한다. 브라우저 테스트는 기본.</p>
-<h1>float &amp; clear</h1>
-<p>박스 또는 이미지가 다른 레이어와 충돌하지 않는 상태에서, 좌측 또는 우측으로 정렬될 수 있게 해준다. 가끔은, float 박스가 2개 이상의 레이어에 걸치지 않았으면 할 때가 있다. 이럴 경우, float 를 포함한 상위 레이어에다가 clear:both 속성을 지정해주면 걸치기를 막을 수 있다.</p>
-<p><a href="http://www.w3.org/TR/REC-CSS2/visuren.html">Visual Formatting Model</a>을 참고할 것.</p>
-<h1>기타 태그 설명</h1>
-<pre><code>- line-height : 줄 간격
-</code></pre>
-<p>see also:</p>
-<pre><code>- [CSS2 specification](http://www.w3.org/TR/REC-CSS2)
-- [XHTML specification](http://www.w3.org/TR/xhtml-basic)
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -299,6 +276,10 @@ padding : 'top' 'right' 'bottom' 'left';</p>
 	</li>
 	
 	<li>
+		<a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a>
+	</li>
+	
+	<li>
 		<a href="/2006/05/25/boostany/">boost::any</a>
 	</li>
 	
@@ -312,10 +293,6 @@ padding : 'top' 'right' 'bottom' 'left';</p>
 	
 	<li>
 		<a href="/2006/05/02/오블리비언-스토리2/">오블리비언 스토리#2</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/29/css-tip/">CSS Tip</a>
 	</li>
 	
 </ul>

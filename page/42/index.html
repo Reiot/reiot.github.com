@@ -63,6 +63,96 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2005/12/11/vbnet-팁/">VB.NET 팁</a> <small>2005-12-11</small></h1>
+	</div>
+	<div><p>레이옷이 추천하는, 온라인 게임 서버 및 운영을 위한 툴을 만드는데 가장 좋은 언어는 바로 VB.Net 이다. 당신이 클라이언트 프로그래머가 아닌 이상 온라인 게임에서 주로 사용되는 툴은, 대체로 시스템 관리, 제어, 모니터링, 분석, 로그에 관련된 툴이 분명하다. (때로는 스크립트 에디터 같은 툴이 필요할 때도 있지만) 진짜 간단한 것은 Python 을 사용한 콘솔 스크립트로 해결할 수 있지만, 프로그래머가 아닌 GM 이나 QA팀, 모니터링팀들이 계속 사용해야 하는 툴들은 이쁘고, 사용하기 쉽고, 자주 수정되어야 하는 특성을 지니는 것이 보통이다. 이럴때 VB.Net을 사용하면, 빠른 개발속도와 높은 생산성, 그리고 아름다운 GUI 를 쉽게 얻을 수 있다.</p>
+<p>특히 VB.Net은 MsSQL과는 거의 찰떡궁합이라고 할 수 있다. MS 특유의 데이터 공유가 한몫한다고 할 수 있다. 예전에는 Oracle과 문제가 좀 있었다고 하는데 지금은 좋다. 하지만 Oracle을 사용할 예정이라면 Developer가 아직도 짱~이다.</p>
+<!--more-->
+
+<h2>TabControl.SelectedIndex</h2>
+<p>사용자가 탭을 변경했을 때 이벤트 핸들러를 작성하고 싶다면 SelectedIndexChanged 이벤트를 이용하면 된다.</p>
+<h2>DialogResult</h2>
+<p>사용자로부터 입력을 받는 다이얼로그에는 보통 OK/Cancel 버튼이 존재한다. 문제는 사용자가 OK 를 눌렀을 때 입력받은 데이터를 검증하게 되는데, 이때 검증이 실패할 경우의 처리이다.</p>
+<p>Private Sub m_OKButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)<br />
+  Handles m_OKButton.Click</p>
+<p>If UserName.Text = "" Then<br />
+  MsgBox("아이디를 입력하세요", MsgBoxStyle.Exclamation)<br />
+  Me.DialogResult = DialogResult.None<br />
+  Exit Sub<br />
+  End If<br />
+  If ChangeLog.Text = "" Then<br />
+  MsgBox("변경사항을 입력하세요", MsgBoxStyle.Exclamation)<br />
+  Me.DialogResult = DialogResult.None<br />
+  Exit Sub<br />
+  End If<br />
+  If GetOldVersion() = GetNewVersion() Then<br />
+  MsgBox("상점 버전이 변경되지 않았습니다.", MsgBoxStyle.Exclamation)<br />
+  Me.DialogResult = DialogResult.Cancel<br />
+  Exit Sub<br />
+  End If</p>
+<p>End Sub</p>
+<p>정리하자면,</p>
+<ul>
+<li>만약 사용자가 다시 입력하게끔 하려면 Me.DialogResult = DialogResult.None 을 지정</li>
+<li>입력을 무시하고 다이얼로그를 닫으려면 Me.DialogResult = DialogResult.Cancel 을 지정</li>
+</ul>
+<p>하면 된다. 또한, 다이얼로그 폼의 {{{AcceptButton/CancelButton}}} 속성을 위의 버튼으로 지정해주면 디폴트 포커스가 OK 버튼으로 가게 되며, Enter/ESC 키로 각 버튼을 실행시킬 수 있어 편하다.</p>
+<h2>DataGrid</h2>
+<p>VisualBasicDotNet 이 가장 좋은 점은, 바로 어떤 데이터를 표 형식으로 보여주는 작업을 정말 손쉽게 해준다는 데 있다. 다음과 같은 클래스들의 관계를 잘 이해해야만 보다 쉽게 표를 만들 수 있다.</p>
+<ol>
+<li>DataGrid - 데이터 그리드 컨트롤.</li>
+<li>DataSource - 표를 구성하는 데이터 소스를 의미. SetDataBinding() 으로 지정할 수도 있고, 디자이너의 속성창에서 지정할 수도 있다.</li>
+<li>DataSet - 여러 개의 DataTable 을 하위에 가진다. DataSet 은 여러 개의 DataTable 들의 연관 관계도 지정할 수 있다. DataSet 이 Document 라면 DataGrid 는 View 가 된다. 일종의 데이터 캐시로 봐도 무방하다.</li>
+<li>Tables : DataTable - 하위 테이블 컬렉션</li>
+<li>Relations : DataRelation - 하위 테이블 관계 컬렉션</li>
+<li>DataTable - 데이터베이스의 테이블과 유사한 개념으로, 실질적인 데이터를 담고 있는 데이터 객체이다.</li>
+<li>Rows : DataRow - 하위 행 컬렉션</li>
+<li>Columns : DataColumn - 하위 열 컬렉션</li>
+<li>DataRow - 데이터베이스의 행과 유사한 개념.</li>
+<li>RowState - 얻어온 행이 바뀌었는가? 삭제되었는가? 등을 나타냄</li>
+<li>DataView - 화면상에 출력되는 뷰를 의미한다. 데이터베이스에서의 뷰와도 대략 비슷하다. 정렬, 필터링</li>
+</ol>
+<h2>표 만들기</h2>
+<p>디자이너 모드에서 다음과 같이 하면 된다.</p>
+<ol>
+<li>도구상자에서 DataGrid 를 Drag &amp; Drop 으로 추가한다.</li>
+<li>도구상자에서 DataSet 을 Drag &amp; Drop 으로 추가한다.</li>
+<li>DataGrid.DataSource 속성을 DataSet 으로 지정한다.</li>
+<li>DataSet.Tables 속성을 선택, 새로운 DataTable 을 추가한다.</li>
+<li>DataTable.Columns 속성을 선택, 새로운 DataColumn 을 추가한다. 컬럼 이름과 속성을 지정하면 그리드로 출력할 표의 형태가 완성된다.</li>
+</ol>
+<h2>마우스로 선택한 row 가 가리키는 DataRow 찾기</h2>
+<p>일반적으로는 CurrentRowIndex 또는 HitTestInfo 를 사용하면, 마우스의 (x,y) 좌표를 활용, 현재 선택된 row 를 쉽게 찾을 수 있다. 그러나, 그리드가 정렬되어 순서가 바뀌게 되면 이 방식으로 찾기가 곤란하다. 이를 위해서는 DataView 를 잘 활용해야 한다. (더불어 rowIndex 의 바운드 체크에도 주의할 것)</p>
+<p>Dim rowIndex As Integer = EventLogGrid.CurrentRowIndex</p>
+<p>If rowIndex &gt;= 0 Then<br />
+  Dim view As DataView = m_DataSet.Tables(0).DefaultView<br />
+  Dim rowView As DataRowView = view.Item(rowIndex)<br />
+  Dim id As Int32 = rowView.Item("ID")</p>
+<p>' do something</p>
+<p>End If</p>
+<h2>이전 날짜 계산하기</h2>
+<p>Dim date As DateTime = sqlDataReader("col name")<br />
+Dim date2 As DateTime = date.AddDays(-15) ' 15 일 이전 날짜를 계산하기</p>
+<h2>날짜 포매팅 바꾸기</h2>
+<p>데이터베이스와 OS 의 언어 설정이 다를 경우, 그냥 SQL 로 바꿨다가는 에러가 난다. 따라서 강제 포매팅을 해줘야 한다.</p>
+<p>Dim date As DateTime = DateTime.Now()<br />
+date.ToString("yyyy-MM-dd hh:mm:ss")</p>
+<h2>DateTimePicker 에서 시간까지 보이게 하기</h2>
+<p>DateTimePicker 는 기본적으로 날짜만이 출력된다. 만약 시간까지 보이고 싶게 하려면, 프라퍼티를 다음과 같이 설정하라</p>
+<ul>
+<li>Format = Custom</li>
+<li>CustomFormat = yyyy-MM-dd HH:mm:ss (24시간)</li>
+</ul>
+<p>see also:</p>
+<ul>
+<li><a href="http://www.visualbasicforum.com">Xtreme VB Talk</a></li>
+<li><a href="http://www.i-syn.gmxhome.de/devcom/colstyles/intro.htm">Column Styles</a></li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a> <small>2005-12-11</small></h1>
 	</div>
 	<div><h2>키 바인딩</h2>
@@ -329,81 +419,6 @@ conn.Close()</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2005/11/23/vb를-이용한-선분과-원의-충돌체크/">VB를 이용한 선분과 원의 충돌체크</a> <small>2005-11-23</small></h1>
-	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/collide.JPG" title="collide" target="_top"><img alt="collide" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_collide.JPG" /></a></p>
-<p>고등학교때까지만 해도 기하쪽은 상당히 자신있었는데 나이가 들어갈수록 3D 쪽에는 상당히 취약해서 가고 있다. 몇 달 전 관련 서적을 쭈욱 질러주고 조금 보다가 때려쳤었다. 그러다 이번에 유지 보수 중인 legacy code 에서 brute force 충돌 체크 코드를 좀 더 깔끔하게 해보고자 선분과 원의 충돌 체크를 구현해보게 되었다. 역시나 이럴 때에는 MFC 보다는 .NET winform 이 제일 손쉽기에 재빨리 VB.NET 을 띄워 줬다.</p>
-<p>우선 Matrix 나 Vector 류의 함수는 .NET framework 에서 지원하지 않기 때문에 DirectX 쪽의 참조를 갖고 와야 한다. 그다음 리얼타임렌더링 625 페이지를 펼쳐서 그대로 코딩하면 된다.  실제로 타이핑은 금방 끝났는데 웬걸 제대로 동작하지 않아서 이 사람 저 사람 붙잡고 물어보다가 잠이 들고, 오늘 회사에 와서 차분히 책을 읽어보니 그 중 한 넘이 normalized vector 여야 한다는 걸 찾아냈다. 뿌듯.. -_-+</p>
-<p>책은 반직선과 구의 충돌이라서 선분 충돌을 구하려면 교차 좌표 중 가까운 넘을 찾아내서 그 길이가 원래 반직선 길이보다 짧아야 진짜 충돌이 된다. 사실 3D 를 쭉 하던 사람들이야 너무 쉬운 것일테지만 수학책을 한동안 놓고 살았던 본인에게는 꽤나 막중한 과제였다. 역시나 해내고 나니 성취감 보다는 허탈감이 든다. 흑.</p>
-<pre><code>
-Imports Microsoft.DirectX
-
-Public Class Form1
-Inherits System.Windows.Forms.Form
-
-Dim bCollided As Boolean = False
-
-Dim circleRect As Rectangle
-Dim PenWidth As Integer = 1
-
-Dim o As Vector2 = New Vector2
-Dim o2 As Vector2 = New Vector2
-Dim c As Vector2 = New Vector2
-Dim r As Single = New Single
-Dim d As Vector2 = New Vector2
-Dim l As Vector2 = New Vector2
-Dim s As Single = New Single
-
-Dim l2 As Single = New Single
-Dim m2 As Single = New Single
-Dim world As Matrix = New Matrix
-Dim t As Single = New Single
-
-Private Function CheckCollide() As Boolean
-
-r = circleRect.Width / 2
-c.X = circleRect.X + r
-c.Y = circleRect.Y + r
-
-Dim P As Vector2 = Vector2.Subtract(o2, o)
-d = Vector2.Normalize(P)
-
-l = Vector2.Subtract(c, o)  ' l = c - o
-s = Vector2.Dot(l, d)  ' s = l dot d
-l2 = Vector2.Dot(l, l)  ' l^2 = l dot l
-Dim r2 As Single = r * r
-
-If (s  r2) Then  ' if ( s  r^2 ) return reject
-Return False
-End If
-
-m2 = l2 - s * s  ' m^2 = l^2 - s^2
-
-If (m2 &gt; r2) Then  ' if ( m^2 &gt; r^2 ) return reject
-Return False
-End If
-
-' 이제 선분이 교차하고 있다. 교차하는 두 점을 구한 후 가장 가까운 넘과의 거리가 선분의 길이보다 작아야 한다.
-
-Dim q As Single = Math.Sqrt(r2 - m2)
-If (l2 &gt; r2) Then
-t = s - q
-Else
-t = s + q
-End If
-
-Return P.Length &gt;= t
-
-End Function
-
-Private Sub setupCircle(ByVal e As Point)
-If e.X
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -424,6 +439,10 @@ If e.X
 	</li>
 	
 	<li>
+		<a href="/2005/12/11/vbnet-팁/">VB.NET 팁</a>
+	</li>
+	
+	<li>
 		<a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a>
 	</li>
 	
@@ -437,10 +456,6 @@ If e.X
 	
 	<li>
 		<a href="/2005/12/07/나쁜-아이디어를-위한-좋은-방법/">나쁜 아이디어를 위한 좋은 방법</a>
-	</li>
-	
-	<li>
-		<a href="/2005/11/23/vb를-이용한-선분과-원의-충돌체크/">VB를 이용한 선분과 원의 충돌체크</a>
 	</li>
 	
 </ul>

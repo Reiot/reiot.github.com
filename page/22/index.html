@@ -63,6 +63,19 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/01/26/physfs/">physfs</a> <small>2008-01-26</small></h1>
+	</div>
+	<div><p>지금까지는 압축 포맷 == 압축 알고리즘이라고 믿어 왔다. 무슨 말이냐 하면, zip 포맷은 zip 압축 알고리즘, rar 은 rar 압축 알고리즘을 쓰니까, 따라서 어떤 압축 알고리즘이라 할지라도 다중 파일, 다중 폴더, 암호화 같은 걸 다 지원한다고만 생각했다는 뜻이다.</p>
+<p>그런데, 이번에 소니군이 <a href="http://icculus.org/physfs/">physfs</a> 를 조사하는걸 옆에서 껄떡거리면서 깨달은 것은,</p>
+<pre><code>- 압축 알고리즘이란 stream -&gt; stream의 변환일 뿐이다.
+- 즉 파일명이나 폴더명 같은 정보들은 압축 포맷 레벨에서 관리한다.
+</code></pre>
+<p>physfs 를 처음 알아 봤을 때에는, 라이센스도 <a href="http://www.codeproject.com/KB/files/nfsLibrary.aspx">누구 </a>처럼 GPL도 아니고, 다양한 포맷도 지원하고, 여러 개의 압축 파일에서 asset들을 끄집어낼 수 있어서 패치할 때 유리할거 같아서 잠깐 검토를 해봤는데, 소니군이 소스 코드가 컴파일도 안될 정도로 부실하다길래 그냥 포기해버렸다. ㅋㅋ</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/01/26/msbuild-with-cruise-control-net-3/">MSBuild with Cruise Control .Net (3)</a> <small>2008-01-26</small></h1>
 	</div>
 	<div><p><a href="http://www.flickr.com/photos/reiot/2219214645/" title="Flickr에서 Reiot님의 ccnet3"><img alt="ccnet3" src="http://farm3.static.flickr.com/2387/2219214645_3e955b9244_o.png" /></a></p>
@@ -150,16 +163,6 @@ BOOST_CHECK( 2 == 1 );
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/01/19/cheat-engine/">Cheat Engine</a> <small>2008-01-19</small></h1>
-	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/cheatenginecokr.png" title="cheatenginecokr.png"><img alt="cheatenginecokr.png" src="http://boxcatstudio.files.wordpress.com/2009/07/cheatenginecokr.png" /></a></p>
-<p><a href="http://www.cheatengine.co.kr/main/">이  씁쓸한 장면</a>은 메모리 해킹 툴로 널리 알려진 <a href="http://www.cheatengine.org/">Cheat Engine</a>에 관해 구글링하다가 발견한 순간의 기록이다. 게임 개발자들에게는 아득하고 슬픈 현실이지만, 여기에는 각종 국산 온라인 게임들을 해킹하는 법, 핵을 사고 판다는 사람들로 북적이고 있었다. 한때 나와 내 동료들이 만들었던 게임의 이름이 올라와 있기에 더더욱 기분이 묘해지는 찰나에, 보다 정확한 정보를 얻기 위해서 회원 가입을 신청하려다가 <a href="http://www.cheatengine.co.kr/member/register_agree.php">미묘한 문구로 가득찬 이용 약관</a>을 발견하고 그냥 포기해버렸다.</p>
-<p>역시 뚫고 뚤리는 해킹과 보안은 전문가에게 맡겨두고, 게임 자체에만 집중하는 편이 비용 대비 효율이 좋다는 것은 명백하다. 그러나, <a href="http://forum.cheatengine.org/viewtopic.php?p=1901549&amp;sid=00767664a2027dd57eca014a11e07fb9">비싸게 주고 산 보안 프로그램들을 bypassing 하려는 노력은 오늘도 계속되고 있다</a>는 점을 간과해서는 안될 것이다. 역시나 어셈블리를 공부해야 하나...</p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -180,6 +183,10 @@ BOOST_CHECK( 2 == 1 );
 	</li>
 	
 	<li>
+		<a href="/2008/01/26/physfs/">physfs</a>
+	</li>
+	
+	<li>
 		<a href="/2008/01/26/msbuild-with-cruise-control-net-3/">MSBuild with Cruise Control .Net (3)</a>
 	</li>
 	
@@ -193,10 +200,6 @@ BOOST_CHECK( 2 == 1 );
 	
 	<li>
 		<a href="/2008/01/19/punk-buster/">Punk Buster</a>
-	</li>
-	
-	<li>
-		<a href="/2008/01/19/cheat-engine/">Cheat Engine</a>
 	</li>
 	
 </ul>

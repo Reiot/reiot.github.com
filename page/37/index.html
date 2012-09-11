@@ -63,6 +63,41 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/03/23/윈도우즈-무인설치/">윈도우즈 무인설치</a> <small>2006-03-23</small></h1>
+	</div>
+	<div><p>5 대 이상의 머신에 OS를 가장 빨리 (그리고 안전하게) 설치하는 방법에 대해서 정리한 문서이다.</p>
+<h3>개요</h3>
+<p>이번에 ETRI 에서 주관하는 온라인게임테스트베드에 당첨되어, 서버를 설치하러 분당 KT IDC 에 가야 한다. 그런데, 많은 회사들이 회선을 공유하는지라 완전히 OS 를 설치하고 패치를 적용하고 백신을 설치해야만 인터넷 연결을 허용한다고 해서, 철저하게 CD 를 준비해서 재빨리 설치하고 돌아와야 한다!!</p>
+<ul>
+<li>사용 OS : Windows Server 2003 Standard</li>
+<li>대상 머신 : HP DL580 (1 EA), HP DL360 (4 EA)</li>
+</ul>
+<h3>순서</h3>
+<ul>
+<li>http://v4.windowsupdate.microsoft.com/catalog/ko/default.asp 에서 해당 OS 의 최신 패치들을 다운받아서 CD 에 굽는다.</li>
+<li>http://support.microsoft.com/?kbid=296861 을 기반으로 다운받은 패치들을 한번만에 적용하기 위해, CD 의 루트에다가 다음과 같은 배치 파일을 만든다.</li>
+</ul>
+<p><code>&lt;code&gt;
+@echo off
+setlocal
+set PATHTOFIXES=Drive:\Update
+%PATHTOFIXES%\WindowsServer2003-KB######-Platform-LLL.exe /Z /U
+%PATHTOFIXES%\WindowsServer2003-KB######-Platform-LLL.exe /Z /U
+%PATHTOFIXES%\WindowsServer2003-KB######-Platform-LLL.exe /Z /U
+&lt;/code&gt;</code></p>
+<ul>
+<li>리부팅한 후, 이제 인터넷과 연결한다. (방화벽 및 백신은 꼭 설정할 것)</li>
+</ul>
+<p>see also:</p>
+<ul>
+<li>SeriousCode:AutomatingWindowsInstallation</li>
+<li>IpSec - IP 레벨의 접근 제어에 대해</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/03/23/doxygen/">Doxygen</a> <small>2006-03-23</small></h1>
 	</div>
 	<div><h3>설치</h3>
@@ -208,54 +243,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/03/22/active-object-pattern/">Active Object Pattern</a> <small>2006-03-22</small></h1>
-	</div>
-	<div><p>Active Object Pattern, 일명 능동 객체 패턴은 ACE_Task (ACE), ActiveObject (JAVA), LuaTask (LUA) 등에 적용된 패턴으로, 쓰레드간의 비동기적인 함수 호출을 '''객체지향적으로''' 구현한 패턴이다.</p>
-<p>로깅을 담당한 쓰레드에게 비동기적으로 로그를 남기는 함수를 구현한다고 가정해보자.</p>
-<pre><code>
-/// async log
-Logger::Log(&quot;Hello World!&quot;);
-
-void Logger::Log(LPCTSTR msg)
-{
-m_Queue.Add( new AsyncLog(msg,this) );
-}
-
-DWORD Logger::Run()
-{
-while(true)
-{
-AsyncWork * pWork = m_Queue.Get();
-pWork-&gt;Execute();
-SAFE_DELETE(pWork);
-}
-}
-
-class AsyncLog : public AsyncWork {
-public :
-AsyncLog( LPCTSTR msg, Logger * pLogger )
-: m_Message(msg), m_pLogger(pLogger)
-{
-}
-void Execute()
-{
-m_pLogger-&gt;SafeLog(m_Message);
-}
-};
-
-</code></pre>
-
-<p>요청하는 쪽은 로그 쓰레드에서 로그 메써드를 호출토록 하기 위해서 요청을 객체에 넣어서 큐에 삽입하게 되고, 로그 쓰레드는 큐에서 이 객체를 끄집어내어서 관련 메써드를 호출하게 된다. ACE에서는 비동기 함수 호출의 결과를 나타내는 Future 를 지원한다. 이걸 잘 쓰면, 해당 함수 호출이 잘 끝났는지, 결과는 무엇인지 polling 등을 통해서 알아낼 수 있다.</p>
-<p>see also :</p>
-<ul>
-<li><a href="http://www.cs.wustl.edu/~schmidt/PDF/Act-Obj.pdf">http://www.cs.wustl.edu/~schmidt/PDF/Act-Obj.pdf</a></li>
-<li><a href="http://c2.com/cgi/wiki?ActiveObject">Wiki:ActiveObject</a></li>
-</ul></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -276,6 +263,10 @@ m_pLogger-&gt;SafeLog(m_Message);
 	</li>
 	
 	<li>
+		<a href="/2006/03/23/윈도우즈-무인설치/">윈도우즈 무인설치</a>
+	</li>
+	
+	<li>
 		<a href="/2006/03/23/doxygen/">Doxygen</a>
 	</li>
 	
@@ -289,10 +280,6 @@ m_pLogger-&gt;SafeLog(m_Message);
 	
 	<li>
 		<a href="/2006/03/22/half-sync-half-async-pattern/">Half Sync Half Async Pattern</a>
-	</li>
-	
-	<li>
-		<a href="/2006/03/22/active-object-pattern/">Active Object Pattern</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,20 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2006/08/29/아메리칸-스케일/">아메리칸 스케일</a> <small>2006-08-29</small></h1>
+	</div>
+	<div><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/228179028"><img alt="http://static.flickr.com/75/228179028_c06dbabfbf_s.jpg" src="http://static.flickr.com/75/228179028_c06dbabfbf_s.jpg" /></a></p>
+<p>LA에 도착하자 마자 느낀 점은 눈에 보이는 모든 것이 커다랗다는 점이다. 넓은 도로 폭, 큰 자동차, 큰 건물과 창고들 그리고 거대한 사람들(-_-). 이것이 바로 어메리칸 스타일인가? 하고 신기해하던 촌놈 레이옷은 점심으로 나온 몬스터 감자를 보고 또 한번 놀랬다. 비록 시차 적응 때문에 컨디션이 영 아니었지만 토핑만 겨우 먹을 수 있을 정도로 크기와 양이 대단했다.</p>
+<p>오늘 하루는 영단어의 홍수 속에서 헤엄만 치다가 끝났다. 가만히 사람들이 말하는 것을 들어보면, 표준 영어와 비표준 영어의 차이가 확 느껴질 덩도로, 영어라는 언어의 스펙트럼이 넓다는 것이 새삼 느껴졌다. (물론 우리나라의 사투리도 장난 아니지만) 다행인 것은 몇몇 착한 친구들이 계속 이야기를 걸어 줘서 그럭저럭 대화를 이어갈 수 있었다는 사실. 단어의 조합으로 질문의 의도를 파악하고 적당히 대답해주는 걸 반복하다 보니, 조금은 자신감이 생기는 것 같았다. 역시 외국어를 배울 때 가장 중요한 것은 의사 소통 실패를 두려워하지 않는 자신감인 것 같다.</p>
+<p>역시나, 여기도 사람이 사는 곳에 불과한 것 같다. (단지 크기만 클 뿐)</p>
+<ul>
+<li>심심하신 분은 <a href="http://www.flickr.com/photos/78725883@N00/sets/72157594254444505/show/">출장 첫째날 사진</a>도 보셔요.</li>
+</ul></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2006/08/26/la로-출장갑니다/">LA로 출장갑니다.</a> <small>2006-08-26</small></h1>
 	</div>
 	<div><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/225102939"><img class="tt-flickr" src="http://static.flickr.com/60/225102939_8390297a9b_s.jpg" width="75" height="75"></a> 2002-2003년도에 중국에서 5개월 정도 출장간 후, 몇 년만에 처음으로 바다를 건너게 되었다. 내일 저녁에 출국해서 본사가 위치한 LA 근처 Diamond Bar라는 곳에서 약 2주 정도 머무를 예정이다.</p>
@@ -210,33 +224,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2006/07/05/pchpre-compiled-headers를-이용해-빌드-시간을-최소화하기/">PCH(pre-compiled headers)를 이용해 빌드 시간을 최소화하기</a> <small>2006-07-05</small></h1>
-	</div>
-	<div><p><strong>무엇을 PCH에 포함시킬 것인가?</strong></p>
-<p>Noel Llopis의 <a href="http://www.gamesfromwithin.com/articles/0504/000086.html">The Care and Feeding of Pre-Compiled Headers</a>에 의하면, 다음과 같은 파일들만이 stdafx.h 에 들어갈 수 있다고 한다.</p>
-<pre><code>- 크기가 큰 시스템 헤더 파일 : windows.h, stdio.h, time.h, ...
-- 가장 많이 포함된 헤더 파일 : string, list, vector, map 같은 STL 헤더와 boost 헤더들
-- **자체 헤더 파일 : 그 어떤 자체 헤더 파일도 stdafx.h 에 들어가서는 안된다.**
-</code></pre>
-<p>문제는 이런 헤더를 찾아내는 게 참 애매하다는 점인데, <a href="http://www.gamesfromwithin.com/bin/list_precomp.py">이 스크립트</a>를 사용하면 stdafx.h 에 들어가기에 적합한 헤더들을 찾아준다. 빌드 시간이 오래 걸려서 고생하시는 분들에게 추천한다. 단 주의할 점은</p>
-<pre><code>-
-</code></pre>
-<p><strong>수동으로 PCH 추가하기</strong></p>
-<pre><code>- PCH 로 사용할 MyStdAfx.h 와 MyStdAfx.cpp 파일을 프로젝트에 추가한다.
-- 우선 프로젝트 설정(C/C++ - 미리 컴파일된 헤더)에서 *PCH 사용하기*를 선택하고 MyStdAfx.cpp 의 속성 메뉴에서 '''PCH 만들기'''로 지정한다.
-- 모든 .cpp 파일의 맨 위에 #include "MyStdAfx.h" 를 추가한다.
-</code></pre>
-<p><strong>외부 파일 따로 지정</strong></p>
-<p>PCH를 사용하지 않는 외부 라이브러리의 .cpp를 현재 프로젝트에 추가해서 빌드해야 할 때가 있다. 이 경우 해당 파일의 속성 메뉴에서 "PCH 사용하기 - 사용하지 않음"을 선택하면 된다.</p>
-<p>see also:</p>
-<pre><code>- [SeriousCode.Net:PCH](http://serious-code.net/moin.cgi?VisualCppBuildTimeSpeedup)
-- [GPGStudy:PCH](http://www.gpgstudy.com/forum/viewtopic.php?topic=5914)
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -257,6 +244,10 @@
 	</li>
 	
 	<li>
+		<a href="/2006/08/29/아메리칸-스케일/">아메리칸 스케일</a>
+	</li>
+	
+	<li>
 		<a href="/2006/08/26/la로-출장갑니다/">LA로 출장갑니다.</a>
 	</li>
 	
@@ -270,10 +261,6 @@
 	
 	<li>
 		<a href="/2006/07/06/visual-assist-x의-리팩토링-기능을-활용해보자/">Visual Assist X의 리팩토링 기능을 활용해보자</a>
-	</li>
-	
-	<li>
-		<a href="/2006/07/05/pchpre-compiled-headers를-이용해-빌드-시간을-최소화하기/">PCH(pre-compiled headers)를 이용해 빌드 시간을 최소화하기</a>
 	</li>
 	
 </ul>

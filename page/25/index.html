@@ -63,6 +63,19 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2007/09/15/svn-notifier/">SVN Notifier</a> <small>2007-09-15</small></h1>
+	</div>
+	<div><p><a href="http://writely.tistory.com/">hey </a>님의 <a href="http://writely.tistory.com/18">SVN MSN Bot</a> 을 약간 수정해서 사용하던 중, 뜻밖의 복병을 만났다. 귀찮다는 이유로 팀원 중 두 명이나 봇을 MSN에서 차단해버리고 만 것이다. 내막을 물어보니</p>
+<p>"메시지가 왔길래 반가운 마음에 클릭해보면 맨날 BOT 이어서 화가 났다"</p>
+<p>는 이유였다. 물론 우리처럼 하루에도 수십차례 커밋이 이루어지는 환경에서는 충분히 이해가 가긴 한다. :)</p>
+<p>그 외에도 동일한 repository 의 다른 팀의 커밋이 보이는 현상이라든지 (이건 코딩으로 해결할 수 있었지만 ㅎㅎ), 메시지를 보내느라 커밋이 대략 10초 정도 느려지는 문제가 있긴 했는데, 결정적으로 며칠전 SVN 을 Windows Server 2003 으로 옮긴 다음부터 또 한글이 깨지는 현상이 발생해서 결국 post-commit.bat 는 폐기되고 말았다.</p>
+<p>그러던 와중에 오늘 <a href="http://kaistizen.net/EE/index.php/weblog/comments/svn_notifier/">KAISTIZEN 님의 SVN Notifier 소개글</a>을 발견했다. hook 방식이 아니라 아래와 같이 트레이에 숨어 있다가 주기적으로 update 를 체크하는 방식의 프로그램이니, 너무 반가워서 실망한다든지, 차단당할 염려는 없을 듯하다.  단점이라면 추가적으로 subversion 과 .NET 1.1 프레임워크를 깔아야 된다는 점이랄까?</p>
+<p><img alt="http://svnnotifier.tigris.org/img/1.jpg" src="http://svnnotifier.tigris.org/img/1.jpg" /></p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2007/07/16/visual-cpp-express/">Visual C++ 2005 express 의 한계</a> <small>2007-07-16</small></h1>
 	</div>
 	<div><p>연휴동안 정말 할 일이 없어서 <a href="http://asio.sourceforge.net/">ASIO </a>코드를 살펴보고 있다. 몇 달전에 깔아둔 VC++ express 를 띄워서 예제 코드를 빌드하니 winsock2.h 가 없다는 에러가 뜨는게 아닌가? 찾아보니 <a href="http://msdn.microsoft.com/vstudio/express/visualc/usingpsdk/">Platform SDK를 설치한 후, 몇 가지 설정을 손봐줘야 한다</a>는 내용을 발견할수 있었다. 열심히 다운로드를 받다가, 문득 professional 이나 standard 보다이 놈이 못한게 무엇무엇이 있는지 궁금했다. 구글링해본 결과 다음과 같은 내용을 발견할 수 있었다.</p>
@@ -134,24 +147,6 @@ the right, we value the items on the left more.</p>
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2007/03/20/소규모-게임-회사에서-sw-구매-비용을-줄이는-법/">소규모 게임 회사에서 SW 구매 비용을 줄이는 법</a> <small>2007-03-20</small></h1>
-	</div>
-	<div><pre><code>- 위키는 [스프링노트](http://www.springnote.com/)
-- 워드와 엑셀은 [docs.google.com](http://docs.google.com/)
-- 이메일은 [구글 Apps](http://www.google.com/a/)
-- 회사 홈페이지는 [Wordpress ](http://wordpress.com)나 [Tistory ](http://tistory.com)같은 무료 블로그 + Custom CSS + 사용자 도메인
-- 사내 메신저는 [구글 Talk](http://www.google.com/talk/)
-- 개발툴은 [Visual Studio Express](http://www.microsoft.com/korea/msdn/vstudio/express/support/faq/) 또는 [Turbo Explorer](http://turboexplorer.com/)
-- 회의실 사용 예약, 연월차 기록, 지각 카운터(-_-)은 [구글 캘린더](http://www.google.com/talk/)
-- 백신은 구글 데스크탑과 함께 배포하는 6개월 무료 Norton AntiVirus 또는 AOL의 무료 카스퍼스키
-- 포토샵 대신 [Paint.net](http://www.getpaint.net/)
-- 3D MAX 대신 [Blender](http://www.blender.org/)
-</code></pre></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -172,6 +167,10 @@ the right, we value the items on the left more.</p>
 	</li>
 	
 	<li>
+		<a href="/2007/09/15/svn-notifier/">SVN Notifier</a>
+	</li>
+	
+	<li>
 		<a href="/2007/07/16/visual-cpp-express/">Visual C++ 2005 express 의 한계</a>
 	</li>
 	
@@ -185,10 +184,6 @@ the right, we value the items on the left more.</p>
 	
 	<li>
 		<a href="/2007/05/01/manifesto-for-agile-software-development/">Manifesto for Agile Software Development</a>
-	</li>
-	
-	<li>
-		<a href="/2007/03/20/소규모-게임-회사에서-sw-구매-비용을-줄이는-법/">소규모 게임 회사에서 SW 구매 비용을 줄이는 법</a>
 	</li>
 	
 </ul>

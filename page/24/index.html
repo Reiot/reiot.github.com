@@ -63,6 +63,26 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2007/10/10/webdashboard-cctray/">WebDashboard & CCTray</a> <small>2007-10-10</small></h1>
+	</div>
+	<div><p><a href="http://farm3.static.flickr.com/2400/1531958729_78072a6f59_o.jpg"><img alt="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" src="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" /></a></p>
+<p>IIS와 CruiseControl.NET(이하 CCNET)의 <a href="http://ccnet.sourceforge.net/CCNET/Web%20Dashboard.html">WebDashBoard</a>를 이용하면 최근 빌드 현황이나 그래프를 웹에서 관리할 수 있다. 그 중에서도 가장 매력적인 기능은, - 사실 우리 팀에게 가장 필요한 - 바로 저 "Force Build" 인데, 웹에서 버튼만 눌러서 자동적으로 빌드 -&gt; 배포를 할 수 있게 해주는 기능이다. 우리 팀처럼 단지 배포용 빌드 머신만을 운용하고 있는 작은 조직에게는, CCNET의 수많은 자동화 기능보다는 저런 단순하면서도 아름다운 기능이 제일 절실하게 와닿는다고나 할까? (사실 빌드 머신까지는 한발짝 거리인데, SVN 업데이트 -&gt; Visual Studio 빌드 -&gt; 배포 버전 빌드..라는 3단계를 무지 귀찮아하는 것 같다 -_-)</p>
+<p><a href="http://farm3.static.flickr.com/2191/1532824658_534e3b8fbe_o.jpg"><img alt="http://farm3.static.flickr.com/2191/1532824658_af03210327.jpg" src="http://farm3.static.flickr.com/2191/1532824658_af03210327.jpg" /></a></p>
+<p><a href="http://ccnet.sourceforge.net/CCNET/CCTray.html">CCTray</a>는 CCNET에서 제공하는 트레이에서 실행되는 자바 유틸리티로, 서버의 빌드 현황을 실시간으로 모니터링할 때 사용된다. 이 넘도 마찬가지로 강제 빌드 기능을 제공한다.  맨 위의 스크린샷에서도 볼 수 있듯이, 원래는  WebDashBoard 에서 다운받아서 실행할 수 있는 듯한데, 집에서 테스트해보니 경고음만 나오고 아무 것도 실행되지 않았다. 결국은 그냥 인스톨러를 이용해서 설치해서 사용중인데 별 문제는 없는 듯하다.</p>
+<p>이제 대충 다음과 같은 것들을 테스트해보는 것만 남았다. 과연 어느 세월에 이걸 다 해볼지는 의문이지만.</p>
+<pre><code>- CCStatistics 붙여보기
+- CppUnitLite2 연동
+- SVN Revision 을 클라이언트 rc 파일에 넣기
+- Mantis 연동하기
+- exe, pdb 파일을 버전별로 백업하기
+- 인스톨러 연동하기
+</code></pre>
+<p>이렇게 적다 보니, 과연 이걸 다 테스트해서 얼마나 더 좋은 효율을 얻을 수 있을지가 심히 궁금해진다. 에휴.</p></div>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2007/10/08/msbuild-with-cruise-control-net/">MSBuild with Cruise Control .Net</a> <small>2007-10-08</small></h1>
 	</div>
 	<div><p><img alt="http://www.codeplex.com/ccstatistics/Project/FileDownload.aspx?DownloadId=19113" src="http://www.codeplex.com/ccstatistics/Project/FileDownload.aspx?DownloadId=19113" /></p>
@@ -170,19 +190,6 @@ SQLRETURN result = SQLMoreResults( s.cda );
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2007/09/15/svn-notifier/">SVN Notifier</a> <small>2007-09-15</small></h1>
-	</div>
-	<div><p><a href="http://writely.tistory.com/">hey </a>님의 <a href="http://writely.tistory.com/18">SVN MSN Bot</a> 을 약간 수정해서 사용하던 중, 뜻밖의 복병을 만났다. 귀찮다는 이유로 팀원 중 두 명이나 봇을 MSN에서 차단해버리고 만 것이다. 내막을 물어보니</p>
-<p>"메시지가 왔길래 반가운 마음에 클릭해보면 맨날 BOT 이어서 화가 났다"</p>
-<p>는 이유였다. 물론 우리처럼 하루에도 수십차례 커밋이 이루어지는 환경에서는 충분히 이해가 가긴 한다. :)</p>
-<p>그 외에도 동일한 repository 의 다른 팀의 커밋이 보이는 현상이라든지 (이건 코딩으로 해결할 수 있었지만 ㅎㅎ), 메시지를 보내느라 커밋이 대략 10초 정도 느려지는 문제가 있긴 했는데, 결정적으로 며칠전 SVN 을 Windows Server 2003 으로 옮긴 다음부터 또 한글이 깨지는 현상이 발생해서 결국 post-commit.bat 는 폐기되고 말았다.</p>
-<p>그러던 와중에 오늘 <a href="http://kaistizen.net/EE/index.php/weblog/comments/svn_notifier/">KAISTIZEN 님의 SVN Notifier 소개글</a>을 발견했다. hook 방식이 아니라 아래와 같이 트레이에 숨어 있다가 주기적으로 update 를 체크하는 방식의 프로그램이니, 너무 반가워서 실망한다든지, 차단당할 염려는 없을 듯하다.  단점이라면 추가적으로 subversion 과 .NET 1.1 프레임워크를 깔아야 된다는 점이랄까?</p>
-<p><img alt="http://svnnotifier.tigris.org/img/1.jpg" src="http://svnnotifier.tigris.org/img/1.jpg" /></p></div>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -203,6 +210,10 @@ SQLRETURN result = SQLMoreResults( s.cda );
 	</li>
 	
 	<li>
+		<a href="/2007/10/10/webdashboard-cctray/">WebDashboard & CCTray</a>
+	</li>
+	
+	<li>
 		<a href="/2007/10/08/msbuild-with-cruise-control-net/">MSBuild with Cruise Control .Net</a>
 	</li>
 	
@@ -216,10 +227,6 @@ SQLRETURN result = SQLMoreResults( s.cda );
 	
 	<li>
 		<a href="/2007/09/16/syntax-highlighter-on-wordpress-com/">SyntaxHighlighter on Wordpress</a>
-	</li>
-	
-	<li>
-		<a href="/2007/09/15/svn-notifier/">SVN Notifier</a>
 	</li>
 	
 </ul>

@@ -63,6 +63,33 @@
 			
 				<article>
 	<div class="page-header">
+		<h1><a href="/2008/11/15/three-rules-for-database-work/">Three Rules for Database Work</a> <small>2008-11-15</small></h1>
+	</div>
+	<div><p><a href="http://www.openmaru.com/273"><img alt="http://www.openmaru.com/attach/1/1046597520.jpg" src="http://www.openmaru.com/attach/1/1046597520.jpg" /></a><br />
+<em><a href="http://www.openmaru.com/273">하루에 10만을 채우는 게임</a>은 이런 게 이벤트가 되는구나.</em></p>
+<p>오늘자 코드 프로젝트에 올라온 <a href="http://www.codeproject.com/KB/architecture/DBTool.aspx">DBTool</a>의 근간이 된, <a href="http://odetocode.com/Blogs/scott/archive/2008/01/30/11702.aspx">데이터베이스를 갖고 놀 때의 세가지 룰</a>은 생각보다 간단했다.</p>
+<h3>Never use a shared database server for development work.</h3>
+<p>예전에는 (rails 스타일의) development-test-production 의 3단계 구분법을 사용했다. DBA와 서버 프로그래머는 dev DB에서 열심히 뒤집어 엎어도, test DB에 연결된 다른 프로그래머들이나 테스터들은 안정적으로 사용할 수 있고, 실제 서비스는 production 데이터베이스를 쓰게 된다는 거다.</p>
+<h3>Always Have a Single, Authoritative Source For Your Schema</h3>
+<p>DB 에 짧지만 단순한 나의 지론은, 레파지토리 어딘가에 무조건 전체 스키마+초기데이터를 담은 SQL 파일을 두고 버전 관리를 해야 한다는 거다. 소스 코드, 애셋들은 과거의 특정 시점의 스냅샷을 꺼내올 수 있는데, 유독 데이터베이스가 열외일 수는 없다고 본다.</p>
+<p>또한 어차피 데이터베이스 패치를 해야 할 테니, create, alter로 가득찬 DB 패치 스크립트도 버전 관리해야 한다. test -&gt; production 를 업그레이드할 때 모두 지우고 새로 만드는 만행을 할 수 없을테니, 아예 dev -&gt; test 에서부터 미리 스크립트를 만들어서 테스트하면 정신 건강에 좋지 않겠냔 말이다. 처음에 언급한 DBTool 이 이런 걸 자동화해주는 모양이다.</p>
+<h3>Always Version Your Database</h3>
+<p>보통은 Config 테이블에다가 문자열로 데이터베이스 스키마 최종 변경일을 넣어두는 걸로 해결하고 있다. 그런데 아직 뭔가 변경이 잘 되었는지를 체크할 만한 테스트를 만들 능력은 안된다. 대체로 alter 든 drop 이든 서버가 뜰 때까지는 잘 모를것 같아서.. :)</p>
+<p>이 외에도 무시무시하게 긴 <a href="http://www.ssw.com.au/ssw/Standards/Rules/RulesToBetterSQLServerDatabases.aspx">Better SQL Server Databases</a> 라는 규칙도 있는데 이건 좀 귀찮구나....</p>
+<p>추가:</p>
+<pre><code>- 다른 글을 찾아 보니, 프로시저나 테이블 각각을 서로 다른 파일에 저장해서 관리하라는 말도 있다. 은근히 그럴듯한데?
+</code></pre></div>
+	
+	<p>
+	
+		<a href="/tag/database/"><span class="label">database</span></a>
+	
+	</p>
+	
+</article>
+			
+				<article>
+	<div class="page-header">
 		<h1><a href="/2008/11/14/kgc2008-2/">KGC2008(2)</a> <small>2008-11-14</small></h1>
 	</div>
 	<div><p><img alt="http://sirini.net/blog/data/diablo_3_3.jpg" src="http://sirini.net/blog/data/diablo_3_3.jpg" /></p>
@@ -203,48 +230,6 @@
 	
 </article>
 			
-				<article>
-	<div class="page-header">
-		<h1><a href="/2008/10/24/variadic-macros/">Variadic Macros</a> <small>2008-10-24</small></h1>
-	</div>
-	<div><p>GCC 3.0 과 Visual Studio 2005 에서부터 지원하는 <a href="http://en.wikipedia.org/wiki/Variadic_macro">가변인자 매크로</a>는 <strong>VA_ARGS</strong> 로 치환된다. 알고보니 이게 1999년도에 제정된 <a href="http://en.wikipedia.org/wiki/C99">C99 표준안중 하나</a>였다는데, <a href="http://www.swallowstudio.com/wiki/doku.php?id=technicalarticles:variadicmacros">GCC에서는 약간 다른 방식도 지원</a>했던 모양이다.</p>
-<p>[code language="cpp"]</p>
-<h1>define MY_LINUX_LOG(fmt,args...) printf(fmt,##args)</h1>
-<h1>define MY_WIN_LOG(fmt,...) printf(fmt,<strong>VA_ARGS</strong>)</h1>
-<p>```</p>
-<p>뭔가 있었던거 같은데 도저히 기억도 안나고 오후 무렵에는 인터넷도 안되어서 그냥 __noop 로 고쳤는데, 집에 와서 찾아보니 MSDN 전처리기 섹션에 버젓히 자리잡고 있었다. 쩝. (늙은건가!) 이 외에도 오늘 마이그레이션 과정에서 겪었던 내용을 조금 정리해보면...</p>
-<pre><code>- __func__ / __PRETTY_FUNCTION__ 과 __FUNCTION__ : 이런건 #define 으로 해결 가능하다.
-- sleep() 과 Sleep() : 초단위 계산 잘못하면 CPU를 99% 잡아먹는다. 헤헤.
-- gettimeofday() 는 리눅스에서만 지원한다. [윈도우에서는 직접 구현](http://alones.kr/blog/654?TSSESSIONaloneskrblog=2182012b6093486515612f823d0561d8)해야 한다.
-- random() 과 rand()
-- 매크로를 이용해서 모든 .cpp 에다가 #stdafx.h 붙이기 -_-;
-- buffer overflow 가 자주 발생하는 패턴을 정규식으로 찾아내서 일괄적으로 버퍼 크기 증가시키기
-</code></pre>
-<p>그 중에서도 압권은 바로 <a href="http://en.wikipedia.org/wiki/Variable-length_array">variable length array</a> 일 것이다. 물론 이건 GCC 에서만 가능한 일인데, 내일 출근해서 std::vector 로 고치고, 경고 레벨4로 다시 컴파일해봐야겠다. </p>
-<p>[code language="cpp"]<br />
-void func(int n)<br />
-{<br />
-    float  vals[n];<br />
-    //....<br />
-}<br />
- ```</p>
-<p>그나저나, 일본에는 40살이 넘어도 리눅스에서 서버 프로그래밍을 한다던데... 웬지 그런 사회 풍조가 부러울 따름이다. 분명히 그 아저씨의 책상 옆에는 콜라 캔들이 정리되어 있고, vi 로 코딩하다가 make 걸어놓고 네트핵을 즐길 것 같은데 말이다.</p>
-<p>[caption id="" align="aligncenter" width="500" caption="요즘 네트핵은 이정도다!"]<a href="http://cfs2.tistory.com/upload_control/download.blog?fhandle=YmxvZzM4NjMxQGZzMi50aXN0b3J5LmNvbTovYXR0YWNoLzAvMS5qcGc=" target="_blank"><img alt="요즘 네트핵은 이정도다!" src="http://cfs2.tistory.com/upload_control/download.blog?fhandle=YmxvZzM4NjMxQGZzMi50aXN0b3J5LmNvbTovYXR0YWNoLzAvMS5qcGc=" /></a>[/caption]</p>
-<p>어쨌든, 이로서 오늘 시작한 리눅스에서 윈도우로의 마이그레이션은 내일중으로는 완료될 듯!!</p>
-<p>ps. 오늘 드디어 변태군의 야심작 <a href="http://game4.netmarble.net/prius/main.asp">프리우스 온라인</a>이 대망의 오픈 베타에 들어갔다. 회사에서 누가 해보길래 은근슬쩍 "제 후배가 이거 만들었어요" 라고 자랑을 하긴 했는데... ㅋㅋ 초반 다운 안되고 무사히 서비스되기를 기원해본다.</p></div>
-	
-	<p>
-	
-		<a href="/tag/nethack/"><span class="label">nethack</span></a>
-	
-		<a href="/tag/migration/"><span class="label">migration</span></a>
-	
-		<a href="/tag/linux/"><span class="label">linux</span></a>
-	
-	</p>
-	
-</article>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -265,6 +250,10 @@ void func(int n)<br />
 	</li>
 	
 	<li>
+		<a href="/2008/11/15/three-rules-for-database-work/">Three Rules for Database Work</a>
+	</li>
+	
+	<li>
 		<a href="/2008/11/14/kgc2008-2/">KGC2008(2)</a>
 	</li>
 	
@@ -278,10 +267,6 @@ void func(int n)<br />
 	
 	<li>
 		<a href="/2008/10/27/blob-quiz/">Blob Quiz</a>
-	</li>
-	
-	<li>
-		<a href="/2008/10/24/variadic-macros/">Variadic Macros</a>
 	</li>
 	
 </ul>
