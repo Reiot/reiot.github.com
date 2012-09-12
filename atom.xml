@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-09-13T07:32:27Z</updated><author><name>Ray Yun</name></author><entry><title>AppScale</title><link href="/2012/05/22/appscale/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/05/22/appscale//</id><summary type="html">&lt;h2&gt;개요&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://appscale.cs.ucsb.edu/"&gt;AppScale&lt;/a&gt;은 구글 앱엔진 플랫폼을 &lt;a href="http://code.google.com/p/appscale/"&gt;오픈 소스&lt;/a&gt;화하는 프로젝트이다. 아래와 같이 구글 앱엔진의 주요 모듈들을 오픈 소스 서비스들로 교체했다고 보면 정답이다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;big table =&amp;gt; mysql, MongoDB, Cassandra 등 입맛대로 선택.&lt;/li&gt;
+&lt;li&gt;memcache =&amp;gt; memcached&lt;/li&gt;
+&lt;li&gt;task queue =&amp;gt; RabbitMQ&lt;/li&gt;
+&lt;li&gt;backend =&amp;gt; not supported&lt;/li&gt;
+&lt;li&gt;email =&amp;gt; sendmail&lt;/li&gt;
+&lt;li&gt;cron =&amp;gt; cron&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;다만, 위 서비스들을 리얼 머신들에 직접 분산 설치하는 게 아니라, Ubuntu 가상 머신 이미지에 설치해둔 후 Amazon EC2 같은 가상 머신에 인스턴스들을 설치하고 역할을 지정하는 식으로 설치를 하게 된다. 가상 머신에는 그 외에도 다음과 같은 서비스들이 떠 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ruby&lt;/li&gt;
+&lt;li&gt;erlang &amp;amp; neptune =&amp;gt; neptune 이라는 cloud config/delpoy language&lt;/li&gt;
+&lt;li&gt;mongrel, mongodb&lt;/li&gt;
+&lt;li&gt;ndbd&lt;/li&gt;
+&lt;li&gt;nginix master &amp;amp; slave =&amp;gt; 로드밸런싱용 웹서버&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;appscale tools라는 아마존 EC2 tools와 비슷한 루비로된 스크립트로 플랫폼을 관리하게 되며, 아직까지는 python 2.5 만 지원한다. 웹 기반의 간단한 관리툴도 제공한다.&lt;/p&gt;
+&lt;h2&gt;구조&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;load balancer : http 분산&lt;/li&gt;
+&lt;li&gt;application : python&lt;/li&gt;
+&lt;li&gt;data management : DB. (cassandra, hbase, hypertable, mongodb, memcachedb, simpledb, mysql cluster, voldmort)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;배포 모델&lt;/h2&gt;
+&lt;h3&gt;virtualized cluster deployment&lt;/h3&gt;
+&lt;p&gt;관리자가 각 호스트에 이미지를 설치하고 부팅해서 각각 네트워킹이 되는지 체크하고 IP를 기록해서 통신토록.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;인스턴스 하나당 1G 메모리, 2 virtual CPU 를 권장&lt;/li&gt;
+&lt;li&gt;ssh &amp;amp; root 접근 권한 필요&lt;/li&gt;
+&lt;li&gt;그냥 셧다운하면 안됨. appscale 전체를 셧다운한 후에 개별 노드를 셧다운해야 함.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;cloud infrastructure deployment&lt;/h3&gt;
+&lt;p&gt;아마존 EC2 에 설치하거나 Eucalyptus(아마존EC2의 오픈소스 버전) 에 배포. AppScale 이 미리 설치된 AMI(Amazon Machine Image)로 설치.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;클라우드 관리자는 account credential 필요&lt;/li&gt;
+&lt;li&gt;appscale 설치 전에 non-appscale image 가 배포되고 public/private ip 를 설치할 수 있는지 체크해야 함.&lt;/li&gt;
+&lt;li&gt;이 테스트가 모두 끝나고 나서 전체 셧다운 후 배포.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;배포&lt;/h2&gt;
+&lt;p&gt;appscale tools 를 이용해서 자동화함.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;클라우드 관리 인터페이스 제공&lt;/li&gt;
+&lt;li&gt;각 인스턴스들의 ssh 키와 credential 들을 동기화함&lt;/li&gt;
+&lt;li&gt;ips.yaml 에 각 노드 정보가 있음.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;:controller: --&amp;gt; database master &amp;amp; load balancer 가 설치됨&lt;br /&gt;
+:servers: --&amp;gt; application servers &amp;amp; database slave 가 설치됨&lt;/p&gt;
+&lt;h2&gt;AppScale Tools&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://code.google.com/p/appscale/wiki/AppScale_Tools_Usage"&gt;사용법&lt;/a&gt; 참조&lt;/p&gt;
+&lt;h3&gt;appscale-run-instances&lt;/h3&gt;
+&lt;p&gt;특정 폴더를 배포하면서 appscale 서비스를 시작함.&lt;br /&gt;
+--file: 배포할 폴더 지정&lt;br /&gt;
+--table: 데이터베이스 지정.&lt;/p&gt;
+&lt;p&gt;맨 처음에는 controller 노드를 시작함. servers 노드들은 비동기로 시작. 클라우드 배포시 VM 부팅을 시작함. 이미지 크기 때문에 수십분 걸림. 그다음엔 DB를 시작함.&lt;/p&gt;
+&lt;h3&gt;appscale-describe-instances&lt;/h3&gt;
+&lt;p&gt;각 노드 상태를 보여줌. 메모리. CPU. HDD. 역할. DB.&lt;/p&gt;
+&lt;h3&gt;appscale-upload-app, appscale-remove-app&lt;/h3&gt;
+&lt;p&gt;특정 앱을 업로드하거나 삭제함.&lt;/p&gt;
+&lt;h3&gt;appscale-terminate-instances&lt;/h3&gt;
+&lt;p&gt;전체 클라우드를 셧다운함.&lt;/p&gt;
+&lt;h2&gt;배포 구성 전략&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;load balancer: 라우팅. 모든 노드들의 상태 페이지 호스팅. 여러 개 실행 가능.&lt;/li&gt;
+&lt;li&gt;app engine: 커스터마이즈된 gae sdk 가 실행됨&lt;/li&gt;
+&lt;li&gt;database&lt;/li&gt;
+&lt;li&gt;login: 딱 한놈만 appscale-run-instances/appscale-upload-app 역할을 담당&lt;/li&gt;
+&lt;li&gt;zoo keeper : db transaction 을 위한 메타 데이터 호스팅&lt;/li&gt;
+&lt;li&gt;shadow :&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;호환성 &amp;amp; 차이점&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://appscale.cs.ucsb.edu/appengine.html"&gt;python 의 경우 backend, oauth 를 제외하고는 다 호환된다고 함&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;blobstore file size &amp;lt; 100M: 우린 안쓰니까 괜찮음.&lt;/li&gt;
+&lt;li&gt;query 를 위해서 인덱스를 만드는 대신 in memory filtering 을 한다. 즉 사이즈가 커지면 느려진다 ㅠㅠ 대용량 사용자일 때 개됨.&lt;/li&gt;
+&lt;li&gt;task queue 는 실패시 재시작하지 않는다.&lt;/li&gt;
+&lt;li&gt;관리자만 메일을 보낼 수 있다.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://groups.google.com/forum/?fromgroups#!topic/Appscale_Community/j_P6nd5NVzs"&gt;DB 는 소프트웨어적으로 에뮬레이션한다고 보면 됨&lt;/a&gt; (mysql mongodb …) 즉 앱엔진에 맞게 튜닝하는 건 힘들다고 봄. (memcached + mysql 조합이 가능한지?)&lt;/li&gt;
+&lt;li&gt;최대 100개의 노드&lt;/li&gt;
+&lt;li&gt;앱엔진 1.6.2 (python) 지원&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://groups.google.com/forum/?fromgroups#!searchin/appscale_community/Copying$20over$20app/appscale_community/816qI9SiDWo/SLYb1A3kBwYJ"&gt;인스턴스간 세션 공유 문제&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;벌크로딩은 실패함&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;설치하기&lt;/h2&gt;
+&lt;p&gt;가상 환경에서 guest OS로 돌아감. 가상 머신 이미지를 배포함. KVM, XEN. 근데 리눅스 Host 만 지원함. 보통 우분투를 씀.&lt;/p&gt;
+&lt;p&gt;아마존에서는 이미지 업로드 없이 public AMI 를 써서 바로 띄울 수 있음. 단 버지니아에만 이미지가 존재함.&lt;/p&gt;
+&lt;p&gt;see also &lt;a href="http://code.google.com/p/appscale/wiki/Deploying_AppScale_1_3_Beta_via_EC2"&gt;deploying appscale via ec2&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;환경 변수 설정&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://aws-portal.amazon.com/gp/aws/securityCredentials"&gt;AWS 키 &amp;amp; 크레덴셜&lt;/a&gt; 에서 X.509 키들을 다운받아서 pem 파일을 저장하고 환경 변수로 등록할 것.&lt;/p&gt;
+&lt;p&gt;Access Keys 를 카피해서 배치 파일에 등록한다.&lt;/p&gt;
+&lt;p&gt;see also &lt;a href="http://code.google.com/p/appscale/wiki/AppScale_IaaS_Cloud_Deployment"&gt;appscale IaaS cloud deployment&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;euca tools 설치&lt;/h3&gt;
+&lt;p&gt;아마존 접근을 위해서는 이 툴을 설치해야 된다.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.eucalyptus.com/download/euca2ools/source"&gt;euca tools 다운로드&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://sourceforge.net/projects/pcre/files/pcre/8.30/pcre-8.30.tar.gz/download"&gt;pcre&lt;/a&gt; 설치&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://sourceforge.net/projects/swig/files/swig/swig-2.0.6/swig-2.0.6.tar.gz/download"&gt;swig&lt;/a&gt; 설치&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;euca tools src deps 에서&lt;br /&gt;
+3-1. boto-1.9b&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;python2.7 에서는 &lt;a href="http://code.google.com/p/boto/issues/detail?id=408"&gt;다음 패치&lt;/a&gt;를 해야 함.&lt;/p&gt;
+&lt;p&gt;3-2. M2Crypto-0.20.2&lt;/p&gt;
+&lt;h3&gt;appscale tools 설치&lt;/h3&gt;
+&lt;p&gt;debian/appscale_build_source.sh 열어서 help2man 관련 섹션 제거 후&lt;br /&gt;
+&lt;code&gt;sudo bash debian/appscale_build_source.sh&lt;/code&gt; 를 실행하면 /usr/local/appscale-tools 에 설치됨&lt;/p&gt;
+&lt;h3&gt;아마존 서버 설치&lt;/h3&gt;
+&lt;p&gt;버지니아에만 있는 appscale 1.6.1rc AMI (ami-e4a3048d) 을 이용해서 1 노드로 설치할 것. 이때 db 는 mysql&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;appscale-run-instances --min 1 --max 1 --file /usr/local/appscale-tools/sample_apps/python/guestbook --machine ami-e4a3048d --table mysql --iaas --force -v&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;인스턴스 타입은 지정하지 않으면 m1.large&lt;/p&gt;
+&lt;p&gt;가끔 키가 이미 등록되어 있다고 하는데, 그럴 때에는 --keyname XXX 로 다른 걸 사용할 것.&lt;/p&gt;
+&lt;p&gt;관련 키들은 ~/.appscale 폴더에 저장됨. pem 도 들어가 있음.&lt;/p&gt;
+&lt;p&gt;ssh 하기&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ssh -i /Users/reiot/.appscale/warcloud.key root@ec2-23-22-2-204.compute-1.amazonaws.com&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;팁&lt;/h2&gt;
+&lt;h3&gt;access key &amp;amp; secret&lt;/h3&gt;
+&lt;p&gt;대칭형 암호화.&lt;br /&gt;
+모든 리퀘스트마다 public key id 를 보내고 더불어 secret key의 해시코드를 보내서 서버에서 검증하는 방식. 페북 캔버스앱과 동일한 구조다.&lt;/p&gt;
+&lt;h3&gt;X.509 Certificates&lt;/h3&gt;
+&lt;p&gt;공개키 암호화. cert.pem 으로 암호화하면 pk.pem 으로 복호화.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;abbr title="Privacy Enhancd Mail"&gt;PEM&lt;/abbr&gt; encoded X.509 certificate: cert-xxxx.pem&lt;/li&gt;
+&lt;li&gt;&lt;abbr title="Privacy Enhancd Mail"&gt;PEM&lt;/abbr&gt; encoded RSA private key: pk-xxxx.pem&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;key pairs&lt;/h3&gt;
+&lt;p&gt;EC2 인스턴스 접근시 권한.&lt;/p&gt;
+&lt;p&gt;ssh 를 위해서 가상 서버 인스턴스에 키를 등록함.&lt;/p&gt;
+&lt;h3&gt;ssh 하기&lt;/h3&gt;
+&lt;p&gt;-v 옵션으로 상태를 볼 것. -i 로 cert-xxx.pem 파일을 이용. 로그인시 account@server 형식 사용.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ssh -i ~/.ec2/cert.pem root@ec2-23-22-2-204.compute-1.amazonaws.com -v&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;ec2 commands&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ec2-authorize default -p NN&lt;/code&gt; : 특정 포트를 기본 오픈. (보통 ssh 22, 웹 80번 포트가 필요함)&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Unity3D Serialization</title><link href="/2012/04/27/unity3d-serialization/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/27/unity3d-serialization//</id><summary type="html">&lt;h2&gt;C# 에서의 직렬화&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://msdn.microsoft.com/ko-kr/library/ty01x675(v=vs.80).aspx"&gt;MSDN&lt;/a&gt;에 따르면, 클래스에 &lt;code&gt;[Serializable()]&lt;/code&gt;만 선언하면 자동적으로 직렬화가 되며, ISerializable 을 상속받아서 다음 함수를 재정의해도 된다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GetObjectData(): serialize 시 호출됨&lt;/li&gt;
+&lt;li&gt;protected constructor: deserialize 에서 호출됨&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Unity3d의 제약 조건&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://unity3d.com/support/documentation/ScriptReference/SerializeField.html"&gt;Unity3d SerializeField&lt;/a&gt; 문서에 따르면,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;static 필드, private 필드, property 는 자동 제외.&lt;/li&gt;
+&lt;li&gt;각 필드별로 넣으려면 &lt;code&gt;[SerializeField]&lt;/code&gt;, 빼고 싶으면 &lt;code&gt;[NonSerialized]&lt;/code&gt; 선언.&lt;/li&gt;
+&lt;li&gt;Dictionary, List of List, Array of Array 의 직렬화는 지원 안함&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;이렇게 하더라도 가끔 iOS에서 지원하지 않는 경우가 있으니, 꼭 디바이스에서 테스트해보기 바란다 :P&lt;/p&gt;
+&lt;h2&gt;참고 자료&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://answers.unity3d.com/questions/49286/serialize-a-list-containing-another-list-listlisto.html"&gt;리스트의 리스트 직렬화&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/3510763/why-is-my-listt-not-being-serialized"&gt;Dictionary 직렬화 예제&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.electrotank.com/forums/archive/index.php/t-12005.html"&gt;JIT 문제&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>성공하는 제품을 만들기 위한 팀 구축</title><link href="/2012/04/24/building-a-team-to-ship-a-great-product/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/24/building-a-team-to-ship-a-great-product//</id><summary type="html">&lt;p&gt;thanks to 박종천(블리자드)&lt;/p&gt;
+&lt;h2&gt;팀의 핵심 요소&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;커뮤니케이션 &amp;lt;== 이게 제일 중요함&lt;/li&gt;
+&lt;li&gt;효율&lt;/li&gt;
+&lt;li&gt;생산성&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;사람을 모아놓고 뭘 하지 고민하지 말라. 좋은 프로젝트를 설정하고, 돈을 모은 후, 적합한 사람을 골라서 배치하는 거다.&lt;/p&gt;
+&lt;p&gt;신뢰와 지식&lt;/p&gt;
+&lt;p&gt;효율이 떨어지면 커뮤니케이션이 안되고 있는 거다&lt;/p&gt;
+&lt;h2&gt;Role&lt;/h2&gt;
+&lt;p&gt;누구에게 무엇을 말할 것인가? (무엇을 책임지는가?)&lt;/p&gt;
+&lt;p&gt;product owner 는 4-5년을 보고, team lead 는 3-4개월을 보고, 엔지니어는 1-2주 단위를 보는 거다. 롤 마다 뷰가 다르다.&lt;/p&gt;
+&lt;h2&gt;낭비(waste)&lt;/h2&gt;
+&lt;p&gt;해결책 보다는 원인이 중요하다. &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;중요하면서 (내가) 실행할 수 있으면 =&amp;gt; 즉시 한다.&lt;/li&gt;
+&lt;li&gt;중요한데 (내가) 실행을 못하면 =&amp;gt; 연기&lt;/li&gt;
+&lt;li&gt;중요하진 않지만 실행할 수 있으면 =&amp;gt; 위임&lt;/li&gt;
+&lt;li&gt;중요하지도, 할 수도 없으면 =&amp;gt; 무시(잊자)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;이건 zen to done 과 비슷하구나. 핵심은 해결못하면 고민하지도 마라는 점.&lt;/p&gt;
+&lt;h2&gt;우선순위&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;중요하고 급하면 =&amp;gt; 너무 명백하니까 오히려 쉽다. 누구나 다 안다.&lt;/li&gt;
+&lt;li&gt;중요한데 안급하다 =&amp;gt; 계획을 세운다. 이게 바로 리더가 해야 할 일이다.&lt;/li&gt;
+&lt;li&gt;안중요한데 급하다 =&amp;gt; 귀찮네..&lt;/li&gt;
+&lt;li&gt;안중요하고 급하지도 않다 =&amp;gt; 아주 사소한 일이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;판단하기(judgement)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;필요한가(need)/원하는가(want)&lt;/li&gt;
+&lt;li&gt;아는가/모르는가&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;위 조합으로 나오는 건&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;need+known : new feature&lt;/li&gt;
+&lt;li&gt;need+unknown : 계획을 세워야 한다. 이게 제일 중요함&lt;/li&gt;
+&lt;li&gt;want+known : change ui&lt;/li&gt;
+&lt;li&gt;want+unkonwn: 리팩토링&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;모르지만 중요한 것부터 도전해야 한다. 나머지는 다 견적 나온다.&lt;/p&gt;
+&lt;p&gt;known-want 부터 하면 실패한다.&lt;/p&gt;
+&lt;h2&gt;direction&lt;/h2&gt;
+&lt;p&gt;팀 간에 충돌은 당연. 오히려 충돌이 없는게 무서운 상황. 뭔가 잘 되어가고 있으면 의심하라. 배가 산으로 가는건 금방이다. &lt;/p&gt;
+&lt;p&gt;속도 보다는 디렉션이 훨씬 중요하다. 잠시 멈춰도 정확하게 자주 해야 된다. &lt;/p&gt;
+&lt;p&gt;속도가 빠를 수록 주의해야 한다. 속도는 일정해야 한다. 과속 택시 보다는 지하철이 좋은 거다. (예측하기 쉬우므로)&lt;/p&gt;
+&lt;h2&gt;기타&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;title : 직급. 성장하는 거다. associate &amp;lt; junier &amp;lt; senior &amp;lt; lead programmer …  &amp;lt; cto&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;position : 현재의 롤&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;블리자드 HR 팀의 핵심 명제: Attract &amp;lt; Develop &amp;lt; Engage : 꼬셔서 잘 발전시켜서 잘 적응시킨다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;performance review&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;생산성, 전문성, 팀웍, 지식, 역할, 구현&lt;/li&gt;
+&lt;li&gt;각각의 항목을 측정해서 발전시킨다. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;vision &amp;amp; goal&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;비전은 장기적, 목표은 단기적&lt;/li&gt;
+&lt;li&gt;회사, 팀, 개인의 비전과 목표가 일치하는게 좋다.&lt;/li&gt;
+&lt;li&gt;회사의 core values == 문화를 핵심 문장으로 표현하기&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3 가지 룰&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;행복할 것&lt;/li&gt;
+&lt;li&gt;목표를 잘 이룰 것&lt;/li&gt;
+&lt;li&gt;매일 매일 배울 것&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Node.js로 25만 동접 만들기</title><link href="/2012/04/21/250k-node-connections/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/21/250k-node-connections//</id><summary type="html">&lt;p&gt;via &lt;a href="http://blog.caustik.com/"&gt;caustik's blog&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;a href="http://blog.caustik.com/2012/04/08/scaling-node-js-to-100k-concurrent-connections/"&gt;node.js 를 10만 동접으로 스케일링하기&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;10만 동접을 처리하는데 CPU 점유율 40%, (virtual) 메모리 1.4G 를 차지함. 이 정도면 rackspace 2G 클라우드 서버일 경우 시간당 0.1$ 로 가능함.&lt;/li&gt;
+&lt;li&gt;각 연결은 5초에 한번 메시지를 보냄. 대략 초당 4만개의 JSON 패킷이 보내짐. 응답성도 좋음. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;이런 성능을 위한 설정은:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nagle 알고리즘을 사용안함: 빠른 응답성을 위해 커널 내부에 네트워크 버퍼링을 사용하지 않고 즉시 보내지도록 함. socket.setNoDelay().&lt;/li&gt;
+&lt;li&gt;v8의 idle 가비지 컬렉션을 끄기 위해 --nouse-idle-notification 옵션 사용: JS 객체가 2백만개 정도 되면 몇 초마다 가비지 컬렉션 때문에 1초 가까이 랙이 걸림. 실제로 객체들을 순회하는 데만 이 정도의 시간이 소모됨. &lt;br /&gt;
+[역주] 소스 코드를 보면 --expose_gc 옵션으로 실행해서 gc()를 실행할 수 있게 한 다음, /debug/gc 메시지를 보내서 가비지 컬렉션을 하게 되는데, 이걸 실행하는 순간 랙은 뭘 해도 피할 수 없음. ㅠㅠ &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;&lt;a href="http://blog.caustik.com/2012/04/10/node-js-w250k-concurrent-connections/"&gt;node.js 로 25만 동접 만들기&lt;/a&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;가장 최근 태그된 v8 리비전의 성능이 그나마 낫다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;25만 연결은 v8의 1.4기가 힙 메모리 제한 하에서의 최대치. 이 상황에서도 CPU 사용량이나 메모리 사용량이 낮은 걸 본다면, 충분히 더 나아질 수 있을 듯.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;여러 번 테스트해본 결과, SVN의 가장 최근에 태그된 리비전이 그나마 제일 안정적이었음&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;클러스터 모듈의 워커들을 이용&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;100개의 아마존 EC2 서버들로부터 초당 10만개의 JSON HTTP GET 요청을 보냄. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;클러스터 모듈을 사용해서 일시적인 요청(?) 처리의 오버헤드를 줄임. (35만 연결 중 10만개 정도가 일시적이었다) [역주] 자식 프로세스로 어떻게 뭘 분산하는지는 현재 미확인 &lt;/li&gt;
+&lt;li&gt;마스터는 이전과 동일. 워커는 CPU 당 하나씩 생성하고, 마스터와는 다른 포트를 사용해서 요청을 받아서 마스터로 포워딩함. 이렇게 한 이유는 오직 1.4기가 힙 제한 때문.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;&lt;a href="http://blog.caustik.com/2012/04/11/escape-the-1-4gb-v8-heap-limit-in-node-js/"&gt;V8의 1.4GB 힙제한 벗어나기&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ulimit -n 999999&lt;/code&gt;: 소켓 오픈 개수 제한을 증가. 기본 1024.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--nouse-idle-notification&lt;/code&gt;: 가바지 컬렉터가 자동적으로 실행되는 걸 막음. 30초마다 4초짜리 랙이 걸리고 싶지 않으면 사용해야 함. --expose-gc 로 gc() 함수를 자바스크립트에서 직접 호출. &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--max-old-space-size=8192&lt;/code&gt; : 메모리 제한 최대값을 임의로 설정. &lt;/li&gt;
+&lt;li&gt;최신 v8 소스를 약간 고쳐서 빌드: 메모리 관련 설정이나 가비지 컬렉터 실행 부분을 수정. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;최근엔 1.4G 제한을 넘어서 2.2G 까지도 사용할 수 있었음. :)&lt;/p&gt;
+&lt;p&gt;[역주] node.js 서버 실행시 넘기는 파라미터:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;node --trace-gc --expose-gc --nouse-idle-notification --max-new-space-size=2048 --max-old-space-size=8192 sprites.js&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;총평&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;게임 서버를 개발시 이슈가 되는, 응답성, 동접 처리 등의 문제를 node.js 개발자들도 만나기 시작함. 의외로 메모리 제한이 문제가 된다는 게 특이했음. node.js 개발진은 메모리 제약은 클러스터 모듈로 분산해서 해결하는 걸 추천하는 듯. &lt;/li&gt;
+&lt;li&gt;가비지 컬렉팅 문제는 응답성이 중요한 액션 게임을 개발할 경우 심각할 수 있음. (4초나 랙이 걸린다니! 그것도 30초마다!) 그래도 소셜 게임 수준은 걱정하지 않아도 될 듯. &lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Python Iterator vs. Generator</title><link href="/2012/04/16/python-generator/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/16/python-generator//</id><summary type="html">&lt;h2&gt;iterator&lt;/h2&gt;
+&lt;p&gt;임의의 sequence 를 순회하는데 필요한 정보를 담은 오브젝트.&lt;br /&gt;
+iter() 함수를 통해서 생성하고, next() 함수를 이용해서 index 를 증가시켜서 다음 객체를 리턴한다. 맨 끝에 도달하면 StopIteration 예외를 던진다.&lt;/p&gt;
+&lt;p&gt;즉 for x in seq 는 내부적으로 아래와 같다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;it = iter(seq)
+while 1:
+  try:
+    x = it.next()
+  except StopIteration:
+    break
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;임의의 클래스에 &lt;strong&gt;iter&lt;/strong&gt;() 과 next() 함수를 정의하면, in 연산자로 iteration 이 가능하다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class MyCollection:
+  def __init__(self, seq): self.idx=0; self.seq=seq
+  def __iter__(self): return self
+  def next(self):
+    if self.idx &amp;gt; len(self.seq): raise StopIteration
+    self.idx += 1
+    return self.seq[self.idx]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;generator function&lt;/h2&gt;
+&lt;p&gt;iterator 가 next() 호출을 통해서 값을 "리턴"하는 것과 달리, generator 는 next() 함수를 부르면 이전에 멈춘 곳부터 실행(resume)하다가 yield로 값을 리턴하고 다시 멈춤(pause)으로써, 결과적으로 값을 순차적으로 "생성"한다. 맨 끝에서는 역시 StopIteration 예외를 던진다.&lt;/p&gt;
+&lt;h2&gt;generator expression&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;(x for x in seq)&lt;/code&gt; 처럼 [] 대신 () 로 list comprehension 을 묶으면 generator 를 간단히 만들 수 있다.&lt;/p&gt;
+&lt;p&gt;리스트를 파라미터로 받는 함수에 그대로 넘길 수도 있다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sum(x for x in seq)&lt;/p&gt;
+&lt;/blockquote&gt;</summary></entry><entry><title>AppEngine pipeline</title><link href="/2012/04/04/appengine-pipeline/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/04/appengine-pipeline//</id><summary type="html">&lt;h3&gt;개요&lt;/h3&gt;
+&lt;p&gt;Datastore 에 task 순서를 저장하고 순차적으로 하나씩 실행한다. &lt;br /&gt;
+task 1 의 리턴값이 task2 의 출력값이 된다.&lt;br /&gt;
+내부적으로 task queue 를 사용한다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;run() 의 리턴값 또는 마지막 yield 값이 self.outputs.default.value 가 된다.&lt;/li&gt;
+&lt;li&gt;여러 개의 값을 리턴할 수도 있다.&lt;/li&gt;
+&lt;li&gt;값에 이름이 필요할 경우 output_names 와 fill() 함수를 이용할 것.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;output = [ slot, ... ] 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;2개를 순차 실행&lt;/h3&gt;
+&lt;p&gt;task2 에서 task1 을 yield 로 호출할 것.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Task1(pipeline.Pipeline):
+  def run(self, input):
+    return input*2
+
+class Task2(pipeline.Pipeline):
+  def run(self, input):
+    result = yield Task1(input)
+    return input+1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;이때 x 는 Future 객체다. x 의 값을 읽어오려면 또다른 yield 로만 가능하다. &lt;/p&gt;
+&lt;h3&gt;common 모듈&lt;/h3&gt;
+&lt;p&gt;각종 다양한 파이프라인 기능을 지원한다.&lt;/p&gt;
+&lt;h3&gt;callback(), get_callback_task(), get_callback_url()&lt;/h3&gt;
+&lt;p&gt;어떤 태스크들은 사람이 중간에 개입해서 이메일의 링크를 클릭하거나, delay 처럼 일정 시간 후에 태스크큐를 통해서 비동기적으로 수행될 필요가 있다. &lt;/p&gt;
+&lt;p&gt;이때 콜백 함수가 호출된다. &lt;/p&gt;
+&lt;h3&gt;finalize()&lt;/h3&gt;
+&lt;p&gt;아직 결과값이 저장되지는 않은 상태다. &lt;/p&gt;
+&lt;h3&gt;output_names &amp;amp; fill()&lt;/h3&gt;
+&lt;p&gt;하나의 값이 아니라 여러 개의 값을 이름 기반으로 넘겨야 할 때&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;output_names = ['aa', 'bb']
+…
+self.fill(self.outputs.aa, 11)
+self.fill(self.outputs.bb, 'bbbbb')
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;와 같은 방식으로 저장한다.&lt;/p&gt;
+&lt;h3&gt;with pipeline.After()&lt;/h3&gt;
+&lt;p&gt;futures 를 파라미터로 받아서 해당 태스크가 모두 끝난 경우 with 아래 문을 실행한다.&lt;/p&gt;
+&lt;h3&gt;common.Append()&lt;/h3&gt;
+&lt;p&gt;여러 개의 태스크를 실행한 후 하나의 리스트로 리턴한다.&lt;/p&gt;
+&lt;h3&gt;raise pipeline.Retry, Abort&lt;/h3&gt;
+&lt;p&gt;예외는 위와 같이 넘길 것&lt;/p&gt;
+&lt;h3&gt;yield common.Log.info()&lt;/h3&gt;
+&lt;p&gt;비동기 로그 남기기&lt;/p&gt;</summary></entry><entry><title>NoSQL 조사</title><link href="/2012/04/02/nosql-research/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/02/nosql-research//</id><summary type="html">&lt;p&gt;&lt;a href="http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis"&gt;NoSQL DB 비교&lt;/a&gt;라는 문서를 기준으로 각 데이터베이스의 특성을 간략 조사해봤다.&lt;/p&gt;
+&lt;h3&gt;mongodb&lt;/h3&gt;
+&lt;p&gt;10gen 이라는 회사에서 운영. 오픈 소스. 컬럼 그룹 기반.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;C++ based&lt;/li&gt;
+&lt;li&gt;SQL과의 호환성(쿼리, 인덱스)&lt;/li&gt;
+&lt;li&gt;protocol: BSON &amp;amp; custom&lt;/li&gt;
+&lt;li&gt;storage: memory mapped file&lt;/li&gt;
+&lt;li&gt;sharding&lt;/li&gt;
+&lt;li&gt;query: javascript expression&lt;/li&gt;
+&lt;li&gt;server script: javascript&lt;/li&gt;
+&lt;li&gt;다이나믹 쿼리가 필요한 경우&lt;/li&gt;
+&lt;li&gt;map/reduce 보다 index 가 많은 경우&lt;/li&gt;
+&lt;li&gt;데이터가 많을 때 성능이 중요한 경우&lt;/li&gt;
+&lt;li&gt;couch db 에 비해서 데이터가 자주 변하는 경우&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Riak&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Erlang &amp;amp; C (+ JS) based&lt;/li&gt;
+&lt;li&gt;fault tolerance 가 최우선&lt;/li&gt;
+&lt;li&gt;Protocol: HTTP/REST&lt;/li&gt;
+&lt;li&gt;map/reduce: by JS &amp;amp; Erlang&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;CouchDB&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Erlang based&lt;/li&gt;
+&lt;li&gt;DB 안정성이 최우선. 손쉬운 사용.&lt;/li&gt;
+&lt;li&gt;Protocol: HTTP/REST&lt;/li&gt;
+&lt;li&gt;자주 바뀌지 않는 데이터&lt;/li&gt;
+&lt;li&gt;데이터 버전관리가 중요한 경우&lt;/li&gt;
+&lt;li&gt;ex&amp;gt; CMS, CRM&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;a href="http://redis.io/"&gt;Redis&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;key-value store. github, disqus, digg, stackoverflow 에서 사용중이다.&lt;/p&gt;
+&lt;h4&gt;특징&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;C/C++ based&lt;/li&gt;
+&lt;li&gt;속도가 최우선&lt;/li&gt;
+&lt;li&gt;Protocol: telnet like?&lt;/li&gt;
+&lt;li&gt;disk backed in memory db ??&lt;/li&gt;
+&lt;li&gt;disk swap 지원 안함&lt;/li&gt;
+&lt;li&gt;set, list, hash, sorted set 등 다양한 타입 지원&lt;/li&gt;
+&lt;li&gt;트랜잭션도 있다..&lt;/li&gt;
+&lt;li&gt;데이터 용량 == 메모리에 올라 갈 정도의 크기여야 한다&lt;/li&gt;
+&lt;li&gt;자주 데이터가 바뀌지만 크기는 예측 가능한 분야에 적절&lt;/li&gt;
+&lt;li&gt;ex&amp;gt; 주가, 분석, 실시간 데이터, 실시간 통신..&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;데이터 안정성&lt;/h4&gt;
+&lt;p&gt;via &lt;a href="http://redis.io/topics/persistence#snapshotting"&gt;스냅샷&lt;/a&gt;&lt;/p&gt;
+&lt;h5&gt;저장 방식&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;RDB(snapshot): 큰 파일 하나에 DB 전체를 저장.&lt;/li&gt;
+&lt;li&gt;AOF(Append Only File): 변경 사항(command)을 로그 파일에 계속 추가함. 서버가 뜰 때 이걸 쭈욱 읽어서 원본 데이터를 만들어낸다.&lt;/li&gt;
+&lt;li&gt;둘 다 끄면 캐시 모드가 됨. 서버 끄면 사라짐.&lt;/li&gt;
+&lt;li&gt;둘 다 적용하면, 마지막 rdb 다음부터의 AOF 를 읽어서 만들어냄&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;RDB 의 장점&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;특정 시각의 데이터를 하나의 파일에 담았다&lt;/li&gt;
+&lt;li&gt;백업/복구에 용이: 주기적으로 RDB를 만들어서 외부에 백업하기 쉽다&lt;/li&gt;
+&lt;li&gt;성능면에서 최고&lt;/li&gt;
+&lt;li&gt;빠른 재시작&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;RDB 단점&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;데이터 손실 가능성: 파워 나감&lt;/li&gt;
+&lt;li&gt;주기적으로 여러 RDB를 만들어야 된다.&lt;/li&gt;
+&lt;li&gt;저장할 때마다 fork 한다. 이때 I/O 가 멈추거나 CPU가 스파이크 친다.&lt;/li&gt;
+&lt;li&gt;물론 AOF 도 fork 를 하긴 한다.. 대신 조정이 가능.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;AOF 장점&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;보다 안정적. fsync 정책을 튜닝 가능(매 초마다, 모든 쿼리 마다)&lt;/li&gt;
+&lt;li&gt;기본 정책은 1초마다. 백그라운드 쓰레드가 실행함.&lt;/li&gt;
+&lt;li&gt;append only 라서 데이터 커럽션이 없다. 마지막 데이터가 깨질 경우에도 쉽게 고칠 수 있다.&lt;/li&gt;
+&lt;li&gt;로그가 너무 커지면 자동적으로 다른 파일로 분할한다.&lt;/li&gt;
+&lt;li&gt;로그 포맷이 이해하기 쉽다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;AOF 단점&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;RDB 보다 파일 용량이 크다&lt;/li&gt;
+&lt;li&gt;RDB 보다 느리다&lt;/li&gt;
+&lt;li&gt;데이터가 꼬일 확률이 존재한다. 과거에 그런 버그가 있었다. 근데 아직 버그 리포트는 없다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;결론&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;둘 다 사용해야 함&lt;/li&gt;
+&lt;li&gt;스냅샷: dump.rdb 를 남김.&lt;/li&gt;
+&lt;li&gt;초 단위 주기. 또는 데이터셋의 변화량 단위.&lt;br /&gt;
+ ex&amp;gt; save 60 1000 === 60초 마다, 1000 개의 변화 마다&lt;/li&gt;
+&lt;li&gt;fork 해서 자식 프로세스가 dump.rdb 를 저장하면 기존 파일을 변경&lt;/li&gt;
+&lt;li&gt;AOS:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;cassandra&lt;/h3&gt;
+&lt;p&gt;페이스북이 개발해서 오픈소스화. 지금은 아파치에서 관리중. 페이스북/트위터/Digg 에서 사용. 컬럼 그룹 형태의 데이터 모델. 데이터 일관성 잘 지원한다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;자바 기반&lt;/li&gt;
+&lt;li&gt;읽기 보다는 쓰기를 많이 할 때&lt;/li&gt;
+&lt;li&gt;모든 컴포넌트가 다 자바일때&lt;/li&gt;
+&lt;li&gt;은행, 금융.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;couchbase(membase)&lt;/h3&gt;
+&lt;p&gt;via &lt;a href="http://www.couchbase.com/couchbase-server/features"&gt;Features&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;membase 가 couchbase 로 통합됨&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Erlang &amp;amp; C 기반&lt;/li&gt;
+&lt;li&gt;memcache 호환성 + 영속성 + 클러스터링 이 중요&lt;/li&gt;
+&lt;li&gt;존나 빠름&lt;/li&gt;
+&lt;li&gt;디스크 영속성&lt;/li&gt;
+&lt;li&gt;web GUI&lt;/li&gt;
+&lt;li&gt;DB를 끄지 않고 업그레이드 가능&lt;/li&gt;
+&lt;li&gt;데이터 접근 속도가 중요할 때, 많은 접근이 있을 경우, 높은 가용성 필요할 때&lt;/li&gt;
+&lt;li&gt;징가 같은 highly concurrent web app&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;HBase&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;google big table 의 오픈 소스 클론&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;총평&lt;/h2&gt;
+&lt;h3&gt;유력한 후보들&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;mongodb: 팔방미인. blob&lt;/li&gt;
+&lt;li&gt;redis: 로그 &amp;amp; 캐시&lt;/li&gt;
+&lt;li&gt;couchbase(membase): 메모리 기반 but 용량 한계. 근데 node.js 클라 없다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;무시할 놈들&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;couchdb: 데이터가 자주 바뀐다…&lt;/li&gt;
+&lt;li&gt;cassandra: 자바 기반&lt;/li&gt;
+&lt;li&gt;riak: 머임..&lt;/li&gt;
+&lt;li&gt;hbase: 즐..&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>libUV 분석</title><link href="/2012/02/26/libuv/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/02/26/libuv//</id><summary type="html">&lt;h2&gt;개요&lt;/h2&gt;
+&lt;p&gt;node.js의 플랫폼 레이어로 여러 플랫폼에서의 비동기 입출력을 추상화하고, 완료될 때 콜백을 실행할 수 있게 해준다.&lt;/p&gt;
+&lt;p&gt;see also &lt;a href="https://github.com/joyent/libuv"&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;입출력 타입&lt;/h2&gt;
+&lt;p&gt;include/uv.h 에 보면 다음과 같은 입출력 타입이 지원된다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TCP, UDP 소켓&lt;/li&gt;
+&lt;li&gt;IPC, named Pipe(부모-자식 프로세스간 통신)&lt;/li&gt;
+&lt;li&gt;타이머, 고해상도 타이머, idle 이벤트&lt;/li&gt;
+&lt;li&gt;쓰레드풀링(QueueUserWorkItem)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;이 정도면 능히 게임 서버를 만들 수 있는 수준이다?&lt;/p&gt;
+&lt;h2&gt;입출력 핸들과 처리 함수들&lt;/h2&gt;
+&lt;p&gt;일단, 비동기 입출력 타입들은 전용 핸들과 초기화/소멸 함수를 가진다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;uv_tcp_t: uv_tcp_init(), uv_tcp_endgame()&lt;/li&gt;
+&lt;li&gt;uv_udp_t: uv_udp_init(), uv_udp_endgame()&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;또한 각종 이벤트에 대해서 요청/완료 함수가 존재한다. 예를 들어 TCP 소켓 입출력에 대해서는 Accept/Connect/Read/Write 이벤트가 존재하는데 아래와 같은 함수들이 대응되어 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;uv_tcp_accept =&amp;gt; uv_process_tcp_accept_req&lt;/li&gt;
+&lt;li&gt;uv_tcp_read_start =&amp;gt; uv_process_tcp_read_req&lt;/li&gt;
+&lt;li&gt;uv_tcp_write =&amp;gt; uv_process_tcp_write_req&lt;/li&gt;
+&lt;li&gt;uv_tcp_connect =&amp;gt; uv_process_tcp_connect_req&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;특이한 것은 Loop Watcher 로 분류되는, idle/prepare/check 이벤트들이다. idle은 서버에 아무런 입출력이 없을 때 호출된다. prepare/check 는 이벤트 루프를 커스터마이징하기 위한 함수인데 거의 쓸 일은 없을 듯.&lt;/p&gt;
+&lt;h2&gt;메인 이벤트 루프&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;// src/core.cc
+do {
+     // 현재 시간 설정
+   uv_update_time((loop));
+
+   // 완료된 타이머 이벤트 실행
+   uv_process_timers((loop));
+
+   // 요청도 없고 타이머도 없으면 idle 이벤트 실행
+    if ((loop)-&amp;gt;pending_reqs_tail == NULL &amp;amp;&amp;amp; (loop)-&amp;gt;endgame_handles == NULL){
+      uv_idle_invoke((loop));
+   }
+
+   // 완료된 입출력을 정리하고 지정된 콜백을 실행
+   uv_process_reqs((loop));
+
+   // 끊긴 연결 등의 핸들을 정리
+   uv_process_endgames((loop));
+
+   // pre-poll 콜백들을 호출
+   uv_prepare_invoke((loop));
+
+   // GetQueuedCompletionStatus 를 실행해서 입출력 완료를 대기
+   // 현재 처리할 이벤트가 없으면 계속 대기
+   poll((loop), (loop)-&amp;gt;idle_handles == NULL &amp;amp;&amp;amp;
+                 (loop)-&amp;gt;pending_reqs_tail == NULL &amp;amp;&amp;amp;
+                 (loop)-&amp;gt;endgame_handles == NULL &amp;amp;&amp;amp;
+                 (loop)-&amp;gt;refs &amp;gt; 0);
+
+    // post-poll 콜백들을 호출
+    uv_check_invoke((loop));
+  } while (0);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;메모리 관리&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;TCP read : &lt;a href="http://stackoverflow.com/questions/4988168/wsarecv-and-wsabuf-questions"&gt;zero byte receive&lt;/a&gt;라는 기법을 이용한다. WSARecv 에 길이가 0인 빈 버퍼를 넘기고, 실제로 뭔가 오면 WSARecv 로 다시 읽는 방식이다. locked page 를 줄일 수 있어서 I/O 가 많은 서버들이 자주 쓴다고 한다. 참고로 WSARecv/WSASend 에 넘긴 메모리는 커널 드라이버가 접근해야 하므로 lock 이 걸리게 되는데 물리적인 최대값이 있다.(램의 1/8??)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;전통적인 게임 서버들은 하나에 프로세스가 여러 개의 쓰레드를 가지고, 세션당 1개의 입력 버퍼를 두는 1-recv 기법을 사용한다. 반면 node.js 는 클러스터링을 염두에 둔 탓인지, 메모리를 최소하는 전략을 채택한 듯하다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TCP write: N-send 를 사용한다. 즉 보낼 게 있을 때마다 버퍼가 만들어지거나 이미 존재하는 객체의 포인터를 이용한다는 뜻이다. 구조적으로는 gather write 가 가능할 거 같은데 코드에서는 없는 듯하다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;대신 브로드캐스팅을 해도 복사는 없으므로 한편으론 괜찮을지도.&lt;/p&gt;
+&lt;h2&gt;평가&lt;/h2&gt;
+&lt;p&gt;게임 서버 프로그래머로서 발견할 수 있는 문제는,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CPU 연산이 많은 경우 모든 실행이 멈춘다. 해결책은&lt;ul&gt;
+&lt;li&gt;process.nextTick() 으로 잘게 자른다. (또는 코루틴이 도입될 때까지 기다린다 ㅋㅋ) yield 같은 게 있으면 좋을텐데...&lt;/li&gt;
+&lt;li&gt;그래도 크다면 pipe 나 소켓을 통해 다른 프로세스로 task 를 넘기고 받을 것. 게임의 핵심 로직은 별도 프로세스로 분리하는 게 더 좋을 듯.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;캐릭터 이동이나 대규모 전투 같이 크기는 작지만 I/O의 절대 갯수가 많을 경우, 성능 저하가 좀 있을 것 같다.&lt;ul&gt;
+&lt;li&gt;왜냐하면 I/O 갯수만큼 GQCS를 호출해야 하니까. 이건 nv_run 코드를 패치하는 방법도 있지만..&lt;/li&gt;
+&lt;li&gt;어쨌거나 기본적으로 작게 분산해서 하나하나를 가볍게 가져가는 형태가 될 것이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;만약 node.js 만으로 리얼타임 MMO 게임 서버군을 구성한다면…&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;frontend servers: 클라이언트와의 인증, 입출력을 전담. 메시지가 도달하면 backend 의 적당한 서버로 IPC(pipe or socket)를 통해 보낸다.&lt;/li&gt;
+&lt;li&gt;backend servers: game server(sharding), AI, chat, guild, shop 등 역할별로 분산해서 지연을 최소화한다.&lt;/li&gt;
+&lt;li&gt;CPU 를 많이 사용해야 한다면 C++ native 로 전환해가는 방법도 좋다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;그 외에 고민해야 될 것들이라면&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;적당한 데이터베이스/캐시 미들웨어: membase?&lt;/li&gt;
+&lt;li&gt;node 프로세스 관리 도구 및 모니터링&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>NDB Tips</title><link href="/2011/11/15/ndb-tips/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2011/11/15/ndb-tips//</id><summary type="html">&lt;p&gt;구글 앱엔진의 새로운 데이터베이스 라이브러리인 ndb의 사용법과 팁을 소개한다.&lt;/p&gt;
+&lt;h2&gt;@tasklets.tasklet&lt;/h2&gt;
+&lt;p&gt;이 데코레이터를 사용하면, 함수를 내부에 yield 구문을 사용할 수 있는, generator 함수로 바꿀 수 있다. 대신 맨 끝에는 &lt;code&gt;raise tasklets.Return(x,y,z)&lt;/code&gt; 의 형태로 리턴을 해야 한다. (그냥 리턴을 하면 에러로 간주된다)&lt;/p&gt;
+&lt;p&gt;이 데코레이터로 둘러싼 함수를 호출하려면&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;x, y, z = my_func_async().get_result()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;또는&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;x, y, z = yield my_func_async()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;와 같이 사용할 수 있다. 다만 yield 를 사용하려면 호출하는 쪽도 tasklet 이 되어야 한다는 단점이 있다.&lt;/p&gt;
+&lt;p&gt;여기까지는 매뉴얼에 설명된 부분이고, 기본적인 단어의 의미를 살펴보자.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;tasklet : 비동기적으로 실행되는 단위 함수(coroutine)&lt;/li&gt;
+&lt;li&gt;yield : 비동기 함수의 결과를 받을 때까지 대기하면서, 다른 tasklet 에게 스케줄링을 양보한다. 결과가 도착하면 get_result() 와 동일하다.&lt;/li&gt;
+&lt;li&gt;future : 비동기 함수의 실행 상황을 저장해두는 객체. jQuery 의 promise 와 같다.&lt;/li&gt;
+&lt;li&gt;eventloop : 내부 큐에 쌓여있는 tasklet 들을 잘 실행해주는 스케줄러다. &lt;code&gt;@context.top_level&lt;/code&gt; 의 소스를 보면 큐에 쌓여있는 모든 작업들을 끝낼 때까지 무한루프(eventloop.run())를 돌리는 걸 볼 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;이제 실제 사용예를 살펴보자.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;여러 개의 비동기 함수를 기다리기&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;futures = []
+f1 = A.get_async()
+futures.append(f1)
+f2 = B.get_async()
+futures.append(f2)
+x, y = yield futures
+# or
+x, y = yield A.get_async(), B.get_async()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;이 경우 2개의 쿼리는 동시에 실행되며, 둘 다 끝날 때까지 대기하는 배리어(Barrier) 패턴을 사용할 수 있다. 주의할 점은 동시에 실행하는 함수들은 서로 서로 관계가 없어야 된다는 점이다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@tasklets.tasklet
+def load_async(v):
+    x = yield X.get_async()
+    v.x = x
+    raise taskets.Return(x)
+
+yield load_async(A), A.put_async()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;위 예제처럼 하나의 tasklet에서 객체를 변형하는데, 동시에 그 객체를 저장하는 함수를 실행할 경우, 완료 순서가 다름으로 인해서 A의 값이 저장될 수도 있고 되지 않을 수도 있다. 예제가 너무 극단적이지만 실제 프로젝트에서 비동기 함수들이 간접적으로 재귀 호출이 되는 상황에 처하다 보면, 헷갈릴 때가 많으니 주의 바란다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Map Query&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;쿼리로 읽어온 객체의 참조 속성(reference property)을 다시 읽어와야 할 경우라든지, 읽어온 값을 이용해서 또다른 쿼리를 해야 할 때 사용한다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@tasklets.tasklet
+def prefetch(x):
+    ref = yield x.ref_prop
+    raise tasklets.tasklet(x, ref)
+
+values = X.query().filter().map(prefetch)
+values = yield X.query().filter().map_async(prefetch)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;map/map_async는 파이썬 기본 함수인 map()처럼, 개별 쿼리 결과에 대해서 동기/비동기로 콜백을 실행해주는 함수다. 참고로, 위 예제를 아무리 병렬로 실행해본들, 첫번째 쿼리의 결과가 끝나야 그다음 결과를 읽어올 수 있다는 점에 주의할 것.&lt;/p&gt;
+&lt;p&gt;어쨌거나 내부적으로 AutoBatcher 가 2개의 쿼리로 만들어준다고 하니 믿고 써보자. 운좋게 컨텍스트 캐시에 적중하면 좀 더 빠르겠지…&lt;/p&gt;
+&lt;p&gt;위 예제를 yield 없이 구현하면 명백한 2개의 쿼리로 만들 수는 있다. 아주 직관적이지만 코드는 좀 더럽다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;futures = []
+v1 = []
+for x in X.query().filter().fetch():
+   futuers.append(x.ref.get_async())
+   v1.append(x)
+values = zip(v1, yield futures)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;여기까지는 그럭저럭 손코딩이 빠를 수 있지만, 여기에 서브 쿼리가 들어가고 리턴되는 양도 많아지면, 오히려 AutoBatcher가 더 빠르다고 한다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@tasklets.tasklet
+def prefetch_subquery(x):
+    ref, subquery = yield x.ref_prop, Y.query().fetch_async()
+    raise tasklets.tasklet(x, ref, subquery)
+values = X.query().filter().map(prefetch)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;잘 생각해보면, 이걸 아무리 손으로 최적화해본들 쿼리의 절대 숫자(1+첫번째 쿼리 결과 갯수)는 줄일 수가 없다. 따라서 첫번째 쿼리 결과가 많아지면 손으로 최적화하기 보다는 자동으로 처리하고 Guido에게 비는게 가장 좋은 방법이다.&lt;/p&gt;
+&lt;h2&gt;@tasklets.synctasklet&lt;/h2&gt;
+&lt;p&gt;이 데코레이터는 generator 함수를 일반 함수로 바꿔준다. 예를 들면&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@tasklets.synctasklet
+def func_async(k):
+    v = yield some_async(k)
+    raise tasklets.Return(v)
+
+v = func_async(k)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;위와 같이 평범한 함수 호출처럼 사용할 수 있다. 그냥 일반 tasklet 에서 get_result() 를 한번 더 호출해주는 걸로 구현되었다.&lt;/p&gt;
+&lt;h2&gt;@context.top_level&lt;/h2&gt;
+&lt;p&gt;이 데코레이터는 내부적인 모든 비동기 루틴들이 완료될 때까지 기다린다. 소스 코드를 살펴보면 eventloop 로 무한루프를 돌리는 걸 확인할 수 있다. django view 라든지 webapp view 에 사용하면 된다.&lt;/p&gt;</summary></entry><entry><title>Wordpress To Octopress</title><link href="/2011/09/21/wordpress-to-octopress/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2011/09/21/wordpress-to-octopress//</id><summary type="html">&lt;p&gt;&lt;img alt="해커 전용 블로깅 프레임워크?" src="http://octopress.org/images/logo.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://octopress.org"&gt;Octopress&lt;/a&gt;는 정적 사이트 생성기인 &lt;a href="http://jekyllrb.com/"&gt;Jekyll&lt;/a&gt; 을 이용해서 블로그를 손쉽게 구성하도록 해주는 루비 프레임워크다. 말 그대로 정적 HTML 파일들을 미리 만들어서 어딘가로 올려서 서비스하는 거라, GitHub에서 블로그를 서비스할 수 있음은 물론, Amason S3나 구글 앱엔진에서도 블로그 서비스가 가능하다.&lt;/p&gt;
+&lt;p&gt;큼직큼직한 글씨와 미려한 테마, 코드 문법 하일라이팅, blockquote, gist 코드 포함 등의 다양한 플러그인이 지원되며, 생성, 배포, 최신 소스 업데이트, 글쓰기 등의 작업들이 rake 콘솔 명령으로 간편하게 포장(?)되어 있다. DB를 쓰지 않기 때문에 코멘트는 Disqus 같은 외부 사이트를 이용하게 된다. 워낙 매뉴얼이 잘 되어 있어서 설치나 사용법은 그냥 따라해도 충분하다. 레이옷은 DropBox에 origin 레파지토리를 두고 사용중이다.&lt;/p&gt;
+&lt;p&gt;중요한 건 기존 블로그를 얼마나 손쉽게 이전하느냐인데, 워드프레스.com에서 이사오는 데 거의 3일이 걸렸다. 워낙 블로그 이사를 많이 다녀서 메타 정보가 개판이었고 본문에 이런 저런 비표준 태그를 많이 써서 문제는 더욱 심각했다. 또 워드프레스에서 내보내기로 받아온 XML 자체에도 문제가 많았다. (내 경우에는 글들이 중간에 짤려서 태그가 제대로 완결이 안되었다든지, ^Z가 본문 중에 있어서 파싱이 안되기도 했다.) Jekyll에서 제공하는 스크립트는 마크다운 변환 기능이 빠져 있고, 유니코드 에러를 자주 뱉기 때문에 직접 파이썬으로 만들어야만 했다. (루비 책 몇 권 사놓고도 문법을 보니 머리가 아파서 포기했다.)&lt;/p&gt;
+&lt;p&gt;어쨌든 그 삽질의 결과물을 아래와 같이 공개한다. 자유롭게 이용하되, 아래 스크립트의 사용시 책임은 사용자 본인에게 있다는 걸 미리 밝힌다. :P&lt;/p&gt;
+&lt;script src="https://gist.github.com/1239373.js"&gt; &lt;/script&gt;
+
+&lt;p&gt;참고로, 변환을 하다 보면 다양한 에러들을 만나게 된다. -_-+&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;invalid byte sequence in UTF-8 : 이건 본문 중에 애매한 문자열이 있다는 건데, 강제로 유니코드로 변환했음에도 발생한다. 알아서 찾아서 고치는 수 밖에 없다. 단 octopress 소스를 아래와 같이 고쳐야 한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;#ruby octopress/plugins/post_filters.rb
+    def do_layout(payload, layouts)
+      pre_render if respond_to?(:pre_render)
+      begin
+        old_do_layout(payload, layouts)
+      rescue StandardError =&amp;gt; e
+          puts &amp;quot;Post Filter Error: &amp;quot; + e.message + self.url
+      end
+    end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Liquid Exception: 혹시 django 나 jquery template 코드가 있을 경우, 이게 Jekyll 의 템플릿 엔진인 &lt;a href="http://liquidmarkup.org/"&gt;liquid&lt;/a&gt;의 태그와 동일하기 때문에 에러가 발생한다. &lt;a href="http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags"&gt;이런 문법&lt;/a&gt;에 따라 수동으로 잘 제거하는 수 밖에 없다.&lt;/li&gt;
+&lt;li&gt;핵심적으로 한글로 된 제목 때문에 가장 고생이 심했다. 아주 오래전에 쓴 글들은 제목은 한글, slug는 한글을 URL로 바꾼 %xx%yy와 같은 형식이었다. 이걸 다시 제대로된 유니코드로 역변환(unquote)해서 파일을 만들었는데 rake preview로 살펴보면 한글 URL 포스트에 접근이 안되는 것이었다. 몇 시간동안 삽질을 해본 결과 로컬 서버인 Webrick의 문제인지, GitHub에 올리니까 잘 되는 것이었다. 여기서의 교훈: slug는 영문을 애용할 것!!&lt;/li&gt;
+&lt;/ul&gt;</summary></entry></feed>
