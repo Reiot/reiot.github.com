@@ -13,6 +13,7 @@
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        font-family: 'Helvetica Neue', '맑은 고딕', Helvetica, Arial, sans-serif;
       }
     </style>
     <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -63,9 +64,8 @@
 		<h1><a href="/2012/04/27/unity3d-serialization/">Unity3D 에서 직렬화하기</a> <small>2012-04-27</small></h1>
 	</div>
 	<div><h3>C# 에서의 직렬화</h3>
+<p>클래스에 [Serializable()]만 선언하면 자동적으로 직렬화가 되며, ISerializable 을 상속받아서 다음 함수를 재정의해도 된다.</p>
 <ul>
-<li>클래스에 [Serializable()]만 선언하면 됨</li>
-<li>추가적으로 ISerializable 을 상속받아서 다음 함수를 재정의</li>
 <li>GetObjectData(): serialize 시 호출됨</li>
 <li>protected constructor: deserialize 에서 호출됨</li>
 </ul>
