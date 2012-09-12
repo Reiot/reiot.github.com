@@ -59,7 +59,7 @@
 	
 <div class="container">
 
-	<article>
+	<div>
 	<div class="page-header">
 		<h1><a href="/2012/05/22/appscale/">AppScale</a> <small>2012-05-22</small></h1>
 	</div>
@@ -73,8 +73,7 @@
 <li>email =&gt; sendmail</li>
 <li>cron =&gt; cron</li>
 </ul>
-<p>다만, 위 서비스들을 리얼 머신들에 직접 분산 설치하는 게 아니라, Ubuntu 가상 머신 이미지에 설치해둔 후 Amazon EC2 같은 가상 머신에 인스턴스들을 설치하고 역할을 지정하는 식으로 설치를 하게 된다.</p>
-<p>가상 머신에는 그 외에도 다음과 같은 서비스들이 떠 있다.</p>
+<p>다만, 위 서비스들을 리얼 머신들에 직접 분산 설치하는 게 아니라, Ubuntu 가상 머신 이미지에 설치해둔 후 Amazon EC2 같은 가상 머신에 인스턴스들을 설치하고 역할을 지정하는 식으로 설치를 하게 된다. 가상 머신에는 그 외에도 다음과 같은 서비스들이 떠 있다.</p>
 <ul>
 <li>ruby</li>
 <li>erlang &amp; neptune =&gt; neptune 이라는 cloud config/delpoy language</li>
@@ -90,8 +89,8 @@
 <li>data management : DB. (cassandra, hbase, hypertable, mongodb, memcachedb, simpledb, mysql cluster, voldmort)</li>
 </ul>
 <h2>배포 모델</h2>
-<h3>virtualized cluster depolyment</h3>
-<p>관리자가 각 호스트에 이미지를 설치하고 부팅해서 각각 네트워킹이 되는지 체크하고 IP 를 기록해서 통신토록.</p>
+<h3>virtualized cluster deployment</h3>
+<p>관리자가 각 호스트에 이미지를 설치하고 부팅해서 각각 네트워킹이 되는지 체크하고 IP를 기록해서 통신토록.</p>
 <ul>
 <li>인스턴스 하나당 1G 메모리, 2 virtual CPU 를 권장</li>
 <li>ssh &amp; root 접근 권한 필요</li>
@@ -217,7 +216,7 @@
 	
 	</p>
 	
-</article>
+</div>
 
     
     <div id="disqus_thread"></div>

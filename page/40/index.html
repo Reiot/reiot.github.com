@@ -62,7 +62,7 @@
 	<div class="row">
 		<div class="span9">
 			
-				<article>
+				<div>
 	<div class="page-header">
 		<h1><a href="/2006/02/10/오늘의-버그/">오늘의 버그</a> <small>2006-02-10</small></h1>
 	</div>
@@ -70,9 +70,9 @@
 <p>며칠 전부터 토너먼트 관련 UDP 버그가 발생한다는 보고를 받았다. 지정된 토너먼트 시각이 되면 자동적으로 방이 생성되고 사람들이 들어가는데, 유독 첫번째 방에서만 플레이가 되고 나머지 방에서는 100% UDP failed 가 생긴다는 것이었다. 도저히 소프트웨어 문제라고는 여겨지지 않아서 사내 테스트 환경에서는 테스트를 해봤지만 재현이 되지 않았다. 안되면 다 안되고 되면 다 되어야지 왜 딱 하나만 되는 것이며, 그것도 가장 첫번째 방만 되는 것인지 아무리 생각해도 믿어지지 않았지만 직접 눈으로 보게 되자 디버깅할 수 밖에 없었다. 30분정도 디버깅을 하다보니 아예 서버로부터 UDP 패킷이 오지 않는 걸 확인했고 그때 떠오른 게 바로 방화벽 설정이었다.</p>
 <p>알고보니 방화벽의 허용 범위의 맨 끝에 첫번째 방에서 사용하는 UDP 포트만이 운좋게 걸려 있었고 나머지는 out of bound 여서 생기는 문제였다. 미국은 거의 대부분 방화벽을 필수로 사용하고 있으며, 지난 번에도 역시 방화벽 때문에 한달 정도 고생을 한 적이 있어서 다행히 금방 문제를 찾을 수 있었다. 덕분에 미국 테스터들과 출장간 동료들이 좀 갈굼을 당했지만, 빨리 찾게 되었으니 그나마 다행이 아닐까 한다.</p></div>
 	
-</article>
+</div>
 			
-				<article>
+				<div>
 	<div class="page-header">
 		<h1><a href="/2006/02/10/pilot-movie/">파일럿 무비</a> <small>2006-02-10</small></h1>
 	</div>
@@ -83,9 +83,9 @@
 <p>더 관심이 있는 사람은 <a href="http://kwanny.ntreev.net/tt/index.php?pl=133&amp;ct1=-1">서관희님의 관련글</a>을 참고하시길...</p>
 <p>ps. 동영상 편집의 세계는 멀고도 험하다.</p></div>
 	
-</article>
+</div>
 			
-				<article>
+				<div>
 	<div class="page-header">
 		<h1><a href="/2006/02/05/ogre-for-psp/">Ogre for PSP</a> <small>2006-02-05</small></h1>
 	</div>
@@ -93,9 +93,9 @@
 <p>그나저나 OGRE를 보고도 /오우거/ 대신 글자 그대로 장난삼아 읽던 /오그레/라는 발음이 연상되어 큰일이다;;</p>
 <p>ps. <a href="http://luaplayer.org">LuaPlayer</a>가 <a href="http://www.goop.org/psp/gl/">PSPGL</a> 기반으로 재작성되고 있는 중인데, <a href="http://forums.ps2dev.org/viewtopic.php?t=4591">3D보다는 2D쪽 기능에 한정</a>될 것 같다.</p></div>
 	
-</article>
+</div>
 			
-				<article>
+				<div>
 	<div class="page-header">
 		<h1><a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a> <small>2006-02-02</small></h1>
 	</div>
@@ -111,9 +111,9 @@
 <p>"모든 DEFAULT 제약 조건에 이름을 붙여라"</p>
 </blockquote></div>
 	
-</article>
+</div>
 			
-				<article>
+				<div>
 	<div class="page-header">
 		<h1><a href="/2006/02/01/computed-column-divide-by-zero/">computed column & divide by zero</a> <small>2006-02-01</small></h1>
 	</div>
@@ -137,7 +137,7 @@
 </blockquote>
 <p>상황에 따라서는 SET ANSI_WARNING OFF 도 함께 지정해줘야 하는 경우도 있으므로 유의하기 바란다. 관련 사항을 테스트해준 floyd, icebreak 님께 감사를~</p></div>
 	
-</article>
+</div>
 			
 			<ul class="pager">
 			

@@ -62,7 +62,7 @@
 	<div class="row">
 		<div class="span9">
 			
-				<article>
+				<div>
 	<div class="page-header">
 		<h1><a href="/2012/05/22/appscale/">AppScale</a> <small>2012-05-22</small></h1>
 	</div>
@@ -76,8 +76,7 @@
 <li>email =&gt; sendmail</li>
 <li>cron =&gt; cron</li>
 </ul>
-<p>다만, 위 서비스들을 리얼 머신들에 직접 분산 설치하는 게 아니라, Ubuntu 가상 머신 이미지에 설치해둔 후 Amazon EC2 같은 가상 머신에 인스턴스들을 설치하고 역할을 지정하는 식으로 설치를 하게 된다.</p>
-<p>가상 머신에는 그 외에도 다음과 같은 서비스들이 떠 있다.</p>
+<p>다만, 위 서비스들을 리얼 머신들에 직접 분산 설치하는 게 아니라, Ubuntu 가상 머신 이미지에 설치해둔 후 Amazon EC2 같은 가상 머신에 인스턴스들을 설치하고 역할을 지정하는 식으로 설치를 하게 된다. 가상 머신에는 그 외에도 다음과 같은 서비스들이 떠 있다.</p>
 <ul>
 <li>ruby</li>
 <li>erlang &amp; neptune =&gt; neptune 이라는 cloud config/delpoy language</li>
@@ -93,8 +92,8 @@
 <li>data management : DB. (cassandra, hbase, hypertable, mongodb, memcachedb, simpledb, mysql cluster, voldmort)</li>
 </ul>
 <h2>배포 모델</h2>
-<h3>virtualized cluster depolyment</h3>
-<p>관리자가 각 호스트에 이미지를 설치하고 부팅해서 각각 네트워킹이 되는지 체크하고 IP 를 기록해서 통신토록.</p>
+<h3>virtualized cluster deployment</h3>
+<p>관리자가 각 호스트에 이미지를 설치하고 부팅해서 각각 네트워킹이 되는지 체크하고 IP를 기록해서 통신토록.</p>
 <ul>
 <li>인스턴스 하나당 1G 메모리, 2 virtual CPU 를 권장</li>
 <li>ssh &amp; root 접근 권한 필요</li>
@@ -220,28 +219,27 @@
 	
 	</p>
 	
-</article>
+</div>
 			
-				<article>
+				<div>
 	<div class="page-header">
-		<h1><a href="/2012/04/27/unity3d-serialization/">Unity3D 에서 직렬화하기</a> <small>2012-04-27</small></h1>
+		<h1><a href="/2012/04/27/unity3d-serialization/">Unity3D Serialization</a> <small>2012-04-27</small></h1>
 	</div>
-	<div><h3>C# 에서의 직렬화</h3>
-<p>클래스에 [Serializable()]만 선언하면 자동적으로 직렬화가 되며, ISerializable 을 상속받아서 다음 함수를 재정의해도 된다.</p>
+	<div><h2>C# 에서의 직렬화</h2>
+<p><a href="http://msdn.microsoft.com/ko-kr/library/ty01x675(v=vs.80).aspx">MSDN</a>에 따르면, 클래스에 <code>[Serializable()]</code>만 선언하면 자동적으로 직렬화가 되며, ISerializable 을 상속받아서 다음 함수를 재정의해도 된다.</p>
 <ul>
 <li>GetObjectData(): serialize 시 호출됨</li>
 <li>protected constructor: deserialize 에서 호출됨</li>
 </ul>
-<p>via <a href="http://msdn.microsoft.com/ko-kr/library/ty01x675(v=vs.80).aspx">MSDN</a></p>
-<h3>Unity3d의 제약 조건</h3>
+<h2>Unity3d의 제약 조건</h2>
+<p><a href="http://unity3d.com/support/documentation/ScriptReference/SerializeField.html">Unity3d SerializeField</a> 문서에 따르면,</p>
 <ul>
 <li>static 필드, private 필드, property 는 자동 제외.</li>
-<li>각 필드별로 넣으려면 [SerializeField], 빼고 싶으면 <a href="http://unity3d.com/support/documentation/ScriptReference/SerializeField.html">NonSerialized</a> 선언.</li>
+<li>각 필드별로 넣으려면 <code>[SerializeField]</code>, 빼고 싶으면 <code>[NonSerialized]</code> 선언.</li>
 <li>Dictionary, List of List, Array of Array 의 직렬화는 지원 안함</li>
 </ul>
-<p>via <a href="http://unity3d.com/support/documentation/ScriptReference/SerializeField.html">Unity3d SerializeField</a></p>
 <p>이렇게 하더라도 가끔 iOS에서 지원하지 않는 경우가 있으니, 꼭 디바이스에서 테스트해보기 바란다 :P</p>
-<h3>참고 자료</h3>
+<h2>참고 자료</h2>
 <ul>
 <li><a href="http://answers.unity3d.com/questions/49286/serialize-a-list-containing-another-list-listlisto.html">리스트의 리스트 직렬화</a></li>
 <li><a href="http://stackoverflow.com/questions/3510763/why-is-my-listt-not-being-serialized">Dictionary 직렬화 예제</a></li>
@@ -256,9 +254,9 @@
 	
 	</p>
 	
-</article>
+</div>
 			
-				<article>
+				<div>
 	<div class="page-header">
 		<h1><a href="/2012/04/24/building-a-team-to-ship-a-great-product/">성공하는 제품을 만들기 위한 팀 구축</a> <small>2012-04-24</small></h1>
 	</div>
@@ -343,9 +341,9 @@
 	
 	</p>
 	
-</article>
+</div>
 			
-				<article>
+				<div>
 	<div class="page-header">
 		<h1><a href="/2012/04/21/250k-node-connections/">Node.js로 25만 동접 만들기</a> <small>2012-04-21</small></h1>
 	</div>
@@ -405,9 +403,9 @@
 	
 	</p>
 	
-</article>
+</div>
 			
-				<article>
+				<div>
 	<div class="page-header">
 		<h1><a href="/2012/04/16/python-generator/">Python Iterator vs. Generator</a> <small>2012-04-16</small></h1>
 	</div>
@@ -448,7 +446,7 @@ while 1:
 	
 	</p>
 	
-</article>
+</div>
 			
 			<ul class="pager">
 			
@@ -470,7 +468,7 @@ while 1:
 	</li>
 	
 	<li>
-		<a href="/2012/04/27/unity3d-serialization/">Unity3D 에서 직렬화하기</a>
+		<a href="/2012/04/27/unity3d-serialization/">Unity3D Serialization</a>
 	</li>
 	
 	<li>

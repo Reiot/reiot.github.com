@@ -59,7 +59,7 @@
 	
 <div class="container">
 
-	<article>
+	<div>
 	<div class="page-header">
 		<h1><a href="/2006/02/13/sc-failure/">sc failure…</a> <small>2006-02-13</small></h1>
 	</div>
@@ -71,7 +71,7 @@
 <p>위 명령은 서비스의 시작 실패시 처음과 두번째에는 5초후 서비스 재시작, 세번째까지 실패하면 시스템 리붓을 하라는 이야기다. actions 의 단위는 밀리초라는 점에 유의할 것. reset 파라미터는 일단 서비스가 성공적으로 뜬 경우 몇 초 후에 실패 횟수를 초기화하느냐인데 그냥 0 으로 두는 편이 무난할 것 같다. actions 파라미터에 run 이 들어갈 경우 command 파라미터를 지정해줘야 하며, reboot 이 들어갈 경우 reboot 파라미터에다가 메시지를 넣어주면 훗날 디버깅이 용이할 것이다. (단 actions 을 사용할 경우 항상 reset 을 지정해야 하는 것처럼 필수 사항은 아니다.)</p>
 <p>참고로 이 명령은 오래된 MSDN 에서는 확인할 수 없다. 아무래도 최신 OS에서만 지원되는 것일지도?</p></div>
 	
-</article>
+</div>
 
     
     <div id="disqus_thread"></div>

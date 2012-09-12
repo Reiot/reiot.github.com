@@ -59,7 +59,7 @@
 	
 <div class="container">
 
-	<article>
+	<div>
 	<div class="page-header">
 		<h1><a href="/2006/04/11/migrate-to-ace/">Migrate To ACE</a> <small>2006-04-11</small></h1>
 	</div>
@@ -68,7 +68,7 @@
 <p>이번 마이그레이션의 최종 목표는 ACE 기반으로 제대로 된 gather-scatter I/O를 구현하는 것이다. 프레임워크가 잘 만들어져 있어서 금방 할 수 있긴 한데, 가능한한 락과 복사를 하지 않고 구현하려고 하니 잘 안되는 듯했다. (lock 으로 보호되는 ACE_Message_Block 을 duplicate() 해서 각각의 출력 버퍼에 concat 하고 출력 스트림에다가 writev() 만 하면 되는데 말이다. 물론 메모리 풀링도 필요하다.) 과연 하나의 버퍼에 복사한 후 플러시하는 게 빠를지, 버퍼 복사 없이 리스트로 관리하다가 한꺼번에 플러시하는게 빠를지... 결과가 기대된다. (ref-count 를 위한 락 때문에 더욱 결과가 모호하다 ㅋㅋ)</p>
 <p>이거 외에도 써먹어야 할 ACE 고급 기능들이 부지기수인데...  스케줄은 늘어지고, 야근은 하기 싫고, 오블리비언도 해야 되고... 진퇴양난이다.</p></div>
 	
-</article>
+</div>
 
     
     <div id="disqus_thread"></div>
