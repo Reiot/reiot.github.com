@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-09-13T07:32:27Z</updated><author><name>Ray Yun</name></author><entry><title>AppScale</title><link href="/2012/05/22/appscale/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/05/22/appscale//</id><summary type="html">&lt;h2&gt;개요&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-05-22T11:04:00Z</updated><author><name>Ray Yun</name></author><entry><title>AppScale</title><link href="/2012/05/22/appscale/" rel="alternate"></link><updated>2012-05-22T11:04:00Z</updated><id>tag:None,2012-05-22:/2012/05/22/appscale//</id><summary type="html">&lt;h2&gt;개요&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://appscale.cs.ucsb.edu/"&gt;AppScale&lt;/a&gt;은 구글 앱엔진 플랫폼을 &lt;a href="http://code.google.com/p/appscale/"&gt;오픈 소스&lt;/a&gt;화하는 프로젝트이다. 아래와 같이 구글 앱엔진의 주요 모듈들을 오픈 소스 서비스들로 교체했다고 보면 정답이다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;big table =&amp;gt; mysql, MongoDB, Cassandra 등 입맛대로 선택.&lt;/li&gt;
@@ -142,7 +142,7 @@
 &lt;h3&gt;ec2 commands&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;ec2-authorize default -p NN&lt;/code&gt; : 특정 포트를 기본 오픈. (보통 ssh 22, 웹 80번 포트가 필요함)&lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>Unity3D Serialization</title><link href="/2012/04/27/unity3d-serialization/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/27/unity3d-serialization//</id><summary type="html">&lt;h2&gt;C# 에서의 직렬화&lt;/h2&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Unity3D Serialization</title><link href="/2012/04/27/unity3d-serialization/" rel="alternate"></link><updated>2012-04-16T16:49:00Z</updated><id>tag:None,2012-04-16:/2012/04/27/unity3d-serialization//</id><summary type="html">&lt;h2&gt;C# 에서의 직렬화&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://msdn.microsoft.com/ko-kr/library/ty01x675(v=vs.80).aspx"&gt;MSDN&lt;/a&gt;에 따르면, 클래스에 &lt;code&gt;[Serializable()]&lt;/code&gt;만 선언하면 자동적으로 직렬화가 되며, ISerializable 을 상속받아서 다음 함수를 재정의해도 된다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;GetObjectData(): serialize 시 호출됨&lt;/li&gt;
@@ -161,7 +161,7 @@
 &lt;li&gt;&lt;a href="http://answers.unity3d.com/questions/49286/serialize-a-list-containing-another-list-listlisto.html"&gt;리스트의 리스트 직렬화&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://stackoverflow.com/questions/3510763/why-is-my-listt-not-being-serialized"&gt;Dictionary 직렬화 예제&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.electrotank.com/forums/archive/index.php/t-12005.html"&gt;JIT 문제&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>성공하는 제품을 만들기 위한 팀 구축</title><link href="/2012/04/24/building-a-team-to-ship-a-great-product/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/24/building-a-team-to-ship-a-great-product//</id><summary type="html">&lt;p&gt;thanks to 박종천(블리자드)&lt;/p&gt;
+&lt;/ul&gt;</summary></entry><entry><title>성공하는 제품을 만들기 위한 팀 구축</title><link href="/2012/04/24/building-a-team-to-ship-a-great-product/" rel="alternate"></link><updated>2012-04-24T21:16:00Z</updated><id>tag:None,2012-04-24:/2012/04/24/building-a-team-to-ship-a-great-product//</id><summary type="html">&lt;p&gt;thanks to 박종천(블리자드)&lt;/p&gt;
 &lt;h2&gt;팀의 핵심 요소&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;커뮤니케이션 &amp;lt;== 이게 제일 중요함&lt;/li&gt;
@@ -234,7 +234,7 @@
 &lt;li&gt;행복할 것&lt;/li&gt;
 &lt;li&gt;목표를 잘 이룰 것&lt;/li&gt;
 &lt;li&gt;매일 매일 배울 것&lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>Node.js로 25만 동접 만들기</title><link href="/2012/04/21/250k-node-connections/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/21/250k-node-connections//</id><summary type="html">&lt;p&gt;via &lt;a href="http://blog.caustik.com/"&gt;caustik's blog&lt;/a&gt;&lt;/p&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Node.js로 25만 동접 만들기</title><link href="/2012/04/21/250k-node-connections/" rel="alternate"></link><updated>2012-04-12T10:52:00Z</updated><id>tag:None,2012-04-12:/2012/04/21/250k-node-connections//</id><summary type="html">&lt;p&gt;via &lt;a href="http://blog.caustik.com/"&gt;caustik's blog&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;&lt;a href="http://blog.caustik.com/2012/04/08/scaling-node-js-to-100k-concurrent-connections/"&gt;node.js 를 10만 동접으로 스케일링하기&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;10만 동접을 처리하는데 CPU 점유율 40%, (virtual) 메모리 1.4G 를 차지함. 이 정도면 rackspace 2G 클라우드 서버일 경우 시간당 0.1$ 로 가능함.&lt;/li&gt;
@@ -282,7 +282,7 @@
 &lt;ul&gt;
 &lt;li&gt;게임 서버를 개발시 이슈가 되는, 응답성, 동접 처리 등의 문제를 node.js 개발자들도 만나기 시작함. 의외로 메모리 제한이 문제가 된다는 게 특이했음. node.js 개발진은 메모리 제약은 클러스터 모듈로 분산해서 해결하는 걸 추천하는 듯. &lt;/li&gt;
 &lt;li&gt;가비지 컬렉팅 문제는 응답성이 중요한 액션 게임을 개발할 경우 심각할 수 있음. (4초나 랙이 걸린다니! 그것도 30초마다!) 그래도 소셜 게임 수준은 걱정하지 않아도 될 듯. &lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>Python Iterator vs. Generator</title><link href="/2012/04/16/python-generator/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/16/python-generator//</id><summary type="html">&lt;h2&gt;iterator&lt;/h2&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Python Iterator vs. Generator</title><link href="/2012/04/16/python-generator/" rel="alternate"></link><updated>2012-04-16T16:49:00Z</updated><id>tag:None,2012-04-16:/2012/04/16/python-generator//</id><summary type="html">&lt;h2&gt;iterator&lt;/h2&gt;
 &lt;p&gt;임의의 sequence 를 순회하는데 필요한 정보를 담은 오브젝트.&lt;br /&gt;
 iter() 함수를 통해서 생성하고, next() 함수를 이용해서 index 를 증가시켜서 다음 객체를 리턴한다. 맨 끝에 도달하면 StopIteration 예외를 던진다.&lt;/p&gt;
 &lt;p&gt;즉 for x in seq 는 내부적으로 아래와 같다.&lt;/p&gt;
@@ -311,7 +311,7 @@ while 1:
 &lt;p&gt;리스트를 파라미터로 받는 함수에 그대로 넘길 수도 있다.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;sum(x for x in seq)&lt;/p&gt;
-&lt;/blockquote&gt;</summary></entry><entry><title>AppEngine pipeline</title><link href="/2012/04/04/appengine-pipeline/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/04/appengine-pipeline//</id><summary type="html">&lt;h3&gt;개요&lt;/h3&gt;
+&lt;/blockquote&gt;</summary></entry><entry><title>AppEngine pipeline</title><link href="/2012/04/04/appengine-pipeline/" rel="alternate"></link><updated>2012-04-04T18:12:00Z</updated><id>tag:None,2012-04-04:/2012/04/04/appengine-pipeline//</id><summary type="html">&lt;h3&gt;개요&lt;/h3&gt;
 &lt;p&gt;Datastore 에 task 순서를 저장하고 순차적으로 하나씩 실행한다. &lt;br /&gt;
 task 1 의 리턴값이 task2 의 출력값이 된다.&lt;br /&gt;
 내부적으로 task queue 를 사용한다.&lt;/p&gt;
@@ -359,7 +359,7 @@ self.fill(self.outputs.bb, 'bbbbb')
 &lt;h3&gt;raise pipeline.Retry, Abort&lt;/h3&gt;
 &lt;p&gt;예외는 위와 같이 넘길 것&lt;/p&gt;
 &lt;h3&gt;yield common.Log.info()&lt;/h3&gt;
-&lt;p&gt;비동기 로그 남기기&lt;/p&gt;</summary></entry><entry><title>NoSQL 조사</title><link href="/2012/04/02/nosql-research/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/04/02/nosql-research//</id><summary type="html">&lt;p&gt;&lt;a href="http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis"&gt;NoSQL DB 비교&lt;/a&gt;라는 문서를 기준으로 각 데이터베이스의 특성을 간략 조사해봤다.&lt;/p&gt;
+&lt;p&gt;비동기 로그 남기기&lt;/p&gt;</summary></entry><entry><title>NoSQL 조사</title><link href="/2012/04/02/nosql-research/" rel="alternate"></link><updated>2012-04-02T18:28:00Z</updated><id>tag:None,2012-04-02:/2012/04/02/nosql-research//</id><summary type="html">&lt;p&gt;&lt;a href="http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis"&gt;NoSQL DB 비교&lt;/a&gt;라는 문서를 기준으로 각 데이터베이스의 특성을 간략 조사해봤다.&lt;/p&gt;
 &lt;h3&gt;mongodb&lt;/h3&gt;
 &lt;p&gt;10gen 이라는 회사에서 운영. 오픈 소스. 컬럼 그룹 기반.&lt;/p&gt;
 &lt;ul&gt;
@@ -490,7 +490,7 @@ self.fill(self.outputs.bb, 'bbbbb')
 &lt;li&gt;cassandra: 자바 기반&lt;/li&gt;
 &lt;li&gt;riak: 머임..&lt;/li&gt;
 &lt;li&gt;hbase: 즐..&lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>libUV 분석</title><link href="/2012/02/26/libuv/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2012/02/26/libuv//</id><summary type="html">&lt;h2&gt;개요&lt;/h2&gt;
+&lt;/ul&gt;</summary></entry><entry><title>libUV 분석</title><link href="/2012/02/26/libuv/" rel="alternate"></link><updated>2011-01-04T13:07:54Z</updated><id>tag:None,2011-01-04:/2012/02/26/libuv//</id><summary type="html">&lt;h2&gt;개요&lt;/h2&gt;
 &lt;p&gt;node.js의 플랫폼 레이어로 여러 플랫폼에서의 비동기 입출력을 추상화하고, 완료될 때 콜백을 실행할 수 있게 해준다.&lt;/p&gt;
 &lt;p&gt;see also &lt;a href="https://github.com/joyent/libuv"&gt;GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;입출력 타입&lt;/h2&gt;
@@ -584,7 +584,7 @@ do {
 &lt;ul&gt;
 &lt;li&gt;적당한 데이터베이스/캐시 미들웨어: membase?&lt;/li&gt;
 &lt;li&gt;node 프로세스 관리 도구 및 모니터링&lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>NDB Tips</title><link href="/2011/11/15/ndb-tips/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2011/11/15/ndb-tips//</id><summary type="html">&lt;p&gt;구글 앱엔진의 새로운 데이터베이스 라이브러리인 ndb의 사용법과 팁을 소개한다.&lt;/p&gt;
+&lt;/ul&gt;</summary></entry><entry><title>NDB Tips</title><link href="/2011/11/15/ndb-tips/" rel="alternate"></link><updated>2011-11-15T10:52:00Z</updated><id>tag:None,2011-11-15:/2011/11/15/ndb-tips//</id><summary type="html">&lt;p&gt;구글 앱엔진의 새로운 데이터베이스 라이브러리인 ndb의 사용법과 팁을 소개한다.&lt;/p&gt;
 &lt;h2&gt;@tasklets.tasklet&lt;/h2&gt;
 &lt;p&gt;이 데코레이터를 사용하면, 함수를 내부에 yield 구문을 사용할 수 있는, generator 함수로 바꿀 수 있다. 대신 맨 끝에는 &lt;code&gt;raise tasklets.Return(x,y,z)&lt;/code&gt; 의 형태로 리턴을 해야 한다. (그냥 리턴을 하면 에러로 간주된다)&lt;/p&gt;
 &lt;p&gt;이 데코레이터로 둘러싼 함수를 호출하려면&lt;/p&gt;
@@ -669,7 +669,7 @@ v = func_async(k)
 
 &lt;p&gt;위와 같이 평범한 함수 호출처럼 사용할 수 있다. 그냥 일반 tasklet 에서 get_result() 를 한번 더 호출해주는 걸로 구현되었다.&lt;/p&gt;
 &lt;h2&gt;@context.top_level&lt;/h2&gt;
-&lt;p&gt;이 데코레이터는 내부적인 모든 비동기 루틴들이 완료될 때까지 기다린다. 소스 코드를 살펴보면 eventloop 로 무한루프를 돌리는 걸 확인할 수 있다. django view 라든지 webapp view 에 사용하면 된다.&lt;/p&gt;</summary></entry><entry><title>Wordpress To Octopress</title><link href="/2011/09/21/wordpress-to-octopress/" rel="alternate"></link><updated>2012-09-13T07:32:27Z</updated><id>tag:None,2012-09-13:/2011/09/21/wordpress-to-octopress//</id><summary type="html">&lt;p&gt;&lt;img alt="해커 전용 블로깅 프레임워크?" src="http://octopress.org/images/logo.png" /&gt;&lt;/p&gt;
+&lt;p&gt;이 데코레이터는 내부적인 모든 비동기 루틴들이 완료될 때까지 기다린다. 소스 코드를 살펴보면 eventloop 로 무한루프를 돌리는 걸 확인할 수 있다. django view 라든지 webapp view 에 사용하면 된다.&lt;/p&gt;</summary></entry><entry><title>Wordpress To Octopress</title><link href="/2011/09/21/wordpress-to-octopress/" rel="alternate"></link><updated>2011-09-21T00:15:00Z</updated><id>tag:None,2011-09-21:/2011/09/21/wordpress-to-octopress//</id><summary type="html">&lt;p&gt;&lt;img alt="해커 전용 블로깅 프레임워크?" src="http://octopress.org/images/logo.png" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://octopress.org"&gt;Octopress&lt;/a&gt;는 정적 사이트 생성기인 &lt;a href="http://jekyllrb.com/"&gt;Jekyll&lt;/a&gt; 을 이용해서 블로그를 손쉽게 구성하도록 해주는 루비 프레임워크다. 말 그대로 정적 HTML 파일들을 미리 만들어서 어딘가로 올려서 서비스하는 거라, GitHub에서 블로그를 서비스할 수 있음은 물론, Amason S3나 구글 앱엔진에서도 블로그 서비스가 가능하다.&lt;/p&gt;
 &lt;p&gt;큼직큼직한 글씨와 미려한 테마, 코드 문법 하일라이팅, blockquote, gist 코드 포함 등의 다양한 플러그인이 지원되며, 생성, 배포, 최신 소스 업데이트, 글쓰기 등의 작업들이 rake 콘솔 명령으로 간편하게 포장(?)되어 있다. DB를 쓰지 않기 때문에 코멘트는 Disqus 같은 외부 사이트를 이용하게 된다. 워낙 매뉴얼이 잘 되어 있어서 설치나 사용법은 그냥 따라해도 충분하다. 레이옷은 DropBox에 origin 레파지토리를 두고 사용중이다.&lt;/p&gt;
 &lt;p&gt;중요한 건 기존 블로그를 얼마나 손쉽게 이전하느냐인데, 워드프레스.com에서 이사오는 데 거의 3일이 걸렸다. 워낙 블로그 이사를 많이 다녀서 메타 정보가 개판이었고 본문에 이런 저런 비표준 태그를 많이 써서 문제는 더욱 심각했다. 또 워드프레스에서 내보내기로 받아온 XML 자체에도 문제가 많았다. (내 경우에는 글들이 중간에 짤려서 태그가 제대로 완결이 안되었다든지, ^Z가 본문 중에 있어서 파싱이 안되기도 했다.) Jekyll에서 제공하는 스크립트는 마크다운 변환 기능이 빠져 있고, 유니코드 에러를 자주 뱉기 때문에 직접 파이썬으로 만들어야만 했다. (루비 책 몇 권 사놓고도 문법을 보니 머리가 아파서 포기했다.)&lt;/p&gt;

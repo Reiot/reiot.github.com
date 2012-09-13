@@ -65,9 +65,14 @@
 	
 <div class="container">
 
-	<div class="hero-unit">
+	<div class="hero-unit hidden-phone">
 	  <h1>Rebooting Reiot</h1>
 	  <p>A social game developer wandering strange dungeons...</p>
+	  <p>
+	    <a href="atom.xml" class="btn btn-primary btn-large"><span class="icon icon-bookmark icon-white"></span>
+	      Subscribe Now
+	    </a>
+	  </p>
 	</div>
 
 	<div class="row">
@@ -102,17 +107,19 @@ void func(int n)<br />
 <p>[caption id="" align="aligncenter" width="500" caption="요즘 네트핵은 이정도다!"]<a href="http://cfs2.tistory.com/upload_control/download.blog?fhandle=YmxvZzM4NjMxQGZzMi50aXN0b3J5LmNvbTovYXR0YWNoLzAvMS5qcGc=" target="_blank"><img alt="요즘 네트핵은 이정도다!" src="http://cfs2.tistory.com/upload_control/download.blog?fhandle=YmxvZzM4NjMxQGZzMi50aXN0b3J5LmNvbTovYXR0YWNoLzAvMS5qcGc=" /></a>[/caption]</p>
 <p>어쨌든, 이로서 오늘 시작한 리눅스에서 윈도우로의 마이그레이션은 내일중으로는 완료될 듯!!</p>
 <p>ps. 오늘 드디어 변태군의 야심작 <a href="http://game4.netmarble.net/prius/main.asp">프리우스 온라인</a>이 대망의 오픈 베타에 들어갔다. 회사에서 누가 해보길래 은근슬쩍 "제 후배가 이거 만들었어요" 라고 자랑을 하긴 했는데... ㅋㅋ 초반 다운 안되고 무사히 서비스되기를 기원해본다.</p></div>
-	
+	<br />
 	<p>
 	
-		<a href="/tag/nethack/"><span class="label">nethack</span></a>
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
 	
-		<a href="/tag/migration/"><span class="label">migration</span></a>
 	
-		<a href="/tag/linux/"><span class="label">linux</span></a>
+		<a href="/tag/nethack/"><span class="label"><span class="icon icon-tag"></span> nethack</span></a>
+	
+		<a href="/tag/migration/"><span class="label"><span class="icon icon-tag"></span> migration</span></a>
+	
+		<a href="/tag/linux/"><span class="label"><span class="icon icon-tag"></span> linux</span></a>
 	
 	</p>
-	
 </div>
 			
 				<div>
@@ -124,13 +131,15 @@ void func(int n)<br />
 <p><a href="http://www.google.co.kr/search?rlz=1C1GGLS_koKR294&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=솔루션+탐색기에서+활성화된+항목+추적">아시는 분들</a>도 꽤 많으시지만, <a href="http://suigui.com/wordpress/2008/10/22/디버깅-watch/">DDD(Debugging Driven Development)의 창시자</a>이신 모군도 모르는 옵션이라고 해서 한번 써본다.</p>
 <p>ps. 소니군이 최근 <a href="http://sonee.com/253">미국 불황의 여파와 중국 올림픽 덕분에 캔슬된 비운의 프로젝트의 스크린샷</a>을 공개했으니 한번쯤 구경해주시기 바란다.</p>
 <p>[caption id="" align="aligncenter" width="500" caption="Real Baseball 2009(Ceased)"]<a href="http://sonee.com/253" target="_blank"><img alt="http://cfs15.tistory.com/upload_control/download.blog?fhandle=YmxvZzk4OTRAZnMxNS50aXN0b3J5LmNvbTovYXR0YWNoLzAvMC5qcGc=" src="http://cfs15.tistory.com/upload_control/download.blog?fhandle=YmxvZzk4OTRAZnMxNS50aXN0b3J5LmNvbTovYXR0YWNoLzAvMC5qcGc=" /></a>[/caption]</p></div>
-	
+	<br />
 	<p>
 	
-		<a href="/tag/visualstudio/"><span class="label">visualstudio</span></a>
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/visualstudio/"><span class="label"><span class="icon icon-tag"></span> visualstudio</span></a>
 	
 	</p>
-	
 </div>
 			
 				<div>
@@ -147,19 +156,21 @@ void func(int n)<br />
 <p>TDD를 쓰지 않는 대부분의 프로그래머들은 <a href="http://suigui.com/wordpress/2008/10/10/editcontinue-쓰시나요/">Edit &amp;Continue</a> 보다는 Edit &amp; Pray 를 더 사랑한다. 물론 나도 컴파일러와 윈도우 커널와 쓰레드들에게 자주 빌기도 하지만, 언젠가부터 테스트 없이 일을 진행하면 아무리 실행이 잘되어도 마음 한구석이 편치 않게 되는 경우가 많아졌다. 테스트 통과 후 커밋할 때의 쾌감에 중독되었기 때문인데, 사소한 것까지 테스트한다고 잔소리를 들은 후에야 겨우 벗어날 수 있었다. 그래서 요즘에는 라이브러리 학습이나 개인적인 프로젝트에서만 테스트를 활용하고 있다. </p>
 <p>최근, 새 프로젝트에서 한정된 시간안에 핵심적인 로직을 제외한 나머지 - 플랫폼, 데이터베이스, 네트워크 프레임워크 외 다수- 들을 마이그레이션하면서 성능과 안정성을 동시에 만족시켜야 하는, 그야말로 도전적인 과제를 맡았다. 이 <a href="http://www.xevious7.com/300">세마리 토끼를 한방에 잡아주는 은총알이 없는 거야</a> 당연하지만, 그렇다고 점진적으로 리팩토링해나가면서 지켜보는 것도 불가능한 상황이다. 비유적으로 말하자면, <a href="http://www.google.co.kr/search?rlz=1C1GGLS_koKR294&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=직불금">새로 논밭을 사서 농사를 대충 짓다가 적당히 직불금을 받아먹은 후 양도세를 면제받은 후(응?)</a>, 기존의 집을 그대로 들어 올려서 새 토지에 얹어 놓고, 인테리어를 막판에 갈아 엎는 대공사를 할 수 밖에 없을 것 같다. 물론 기도를 빠뜨리면 안되겠지만.</p>
 <p>어쨌거나 기회가 되면 <a href="http://reiot.cafe24.com/2008/07/04/google-test/">google test</a>를 써보고 싶은데, 이 대운하에 버금가는 공사에서 가능할 것인지 나도 참 궁금하다. 쉬귀군이 밥먹다가 말한 것처럼 삽질이 되면 안되는데... 후덜덜.</p></div>
-	
+	<br />
 	<p>
 	
-		<a href="/tag/test/"><span class="label">test</span></a>
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
 	
-		<a href="/tag/refactoring/"><span class="label">refactoring</span></a>
 	
-		<a href="/tag/legacy/"><span class="label">legacy</span></a>
+		<a href="/tag/test/"><span class="label"><span class="icon icon-tag"></span> test</span></a>
 	
-		<a href="/tag/TDD/"><span class="label">TDD</span></a>
+		<a href="/tag/refactoring/"><span class="label"><span class="icon icon-tag"></span> refactoring</span></a>
+	
+		<a href="/tag/legacy/"><span class="label"><span class="icon icon-tag"></span> legacy</span></a>
+	
+		<a href="/tag/TDD/"><span class="label"><span class="icon icon-tag"></span> TDD</span></a>
 	
 	</p>
-	
 </div>
 			
 				<div>
@@ -171,13 +182,13 @@ void func(int n)<br />
 <code>20%에 불과한 사람들이 회사의 80%의 트러블을 만들어내며 당신과 기타 사람들은  부득불 80%의 시간을 내서 그 문제들을 처리해야 한다.</code><br />
 라는 내용이었다. 이 글을 보고 그저 고개를 끄덕일 수 없었던 이유는, 최근까지도 이런 문제들로 고생을 해봤기 때문이다. 다만 이<a href="http://reiot.cafe24.com/2008/10/09/announcement/">번에 큰 조직으로 옮긴 후부터</a>, 20%에 해당하는 개미 부류의 개발자들을 한 명씩 발견하게 되어 과거의 상처가 서서히 아물어가고 있지만, 이 불타는 분노는 최소 10년동안은 지워지지 않을 것 같다. 덕분에 조직의 암적인 존재들은 조기에 제거해야 한다는 좋은 교훈을 배웠다. 그리고, 그들을 보다 빨리 인식하기 위한 눈썰미를 키워야 한다는 다짐도.</p>
 <p>ps. 그렇다고 또 본인은 지금까지 한번도 트러블이 되어본 적이 없었다고 말하기도 뭣하다는게 조금 가슴 아프기도 하다.</p></div>
-	
+	<br />
 	<p>
 	
-		<a href="/tag/gamedev/"><span class="label">gamedev</span></a>
+	
+		<a href="/tag/gamedev/"><span class="label"><span class="icon icon-tag"></span> gamedev</span></a>
 	
 	</p>
-	
 </div>
 			
 				<div>
@@ -189,17 +200,19 @@ void func(int n)<br />
 <p>집에 와서 곰곰히 생각해보니 Visual Studio 에서 매크로를 써서 번역해버리면 되지 않을까 하는 생각이 문득 떠올랐다. 정규식 검색으로 번역할 문장을 찾아서 번역하는 걸 매크로에서 반복해버리면, 필요할 때마다 찾아볼 필요가 없으니 말이다.</p>
 <p>구글링해보니 운좋게도 <a href="http://www.codeplex.com/GAPIdotNET">GAPI.NET 이라는 구글 서비스의 .NET 래퍼(C#)</a>가 존재했다. 희미한 기억을 되살려 VB.NET과 연동도 겨우 성공. 본격적으로 매크로를 만드는 일만 남은 셈이었으나... 매크로에서 외부 dll 참조 기능이 지원되지 않는 모양이었다. ( 그냥 ...\Microsoft Visual Studio 9\Common7\IDE\PublicAssemblies 에 복사하면 된다)</p>
 <p>자. 삽질은 계속된다.</p></div>
-	
+	<br />
 	<p>
 	
-		<a href="/tag/translate/"><span class="label">translate</span></a>
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
 	
-		<a href="/tag/.NET/"><span class="label">.NET</span></a>
 	
-		<a href="/tag/google/"><span class="label">google</span></a>
+		<a href="/tag/translate/"><span class="label"><span class="icon icon-tag"></span> translate</span></a>
+	
+		<a href="/tag/.NET/"><span class="label"><span class="icon icon-tag"></span> .NET</span></a>
+	
+		<a href="/tag/google/"><span class="label"><span class="icon icon-tag"></span> google</span></a>
 	
 	</p>
-	
 </div>
 			
 			<ul class="pager">
@@ -258,13 +271,7 @@ void func(int n)<br />
 	
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-    $(function(){
-      $('.search-query').typeahead({
-        source: ['MMORPG 밸런싱은 너무 힘들어요','Code Review Tips','CPB','데이터 주도적인 게임 설계','SAX 이벤트 처리하기','Using Xerces C++','XML RPC','XML tips','내맘대로 쓰는 게임 개발 방법론','어떻게 우리 팀의 XP가 실패했는가?','MoniWiki Tips','Python Service','Visual Studio Tips','Trac','TortoiseSvn','boost::test','맨티스에 custom severity 추가!','CPB 맛보기','cwRsync 를 이용한 클라이언트 배포','Client Network Utility','Remove Windows Service','MMO를 위한 커뮤니티 서비스 구현하기','SourceAnyWhere - Remote VSS tools','find_if 와 boost::lambda','inet_ntoa 의 위험성','VB를 이용한 선분과 원의 충돌체크','나쁜 아이디어를 위한 좋은 방법','ADO.NET 이란?','ADO.NET 팁','Eclipse 팁','VB.NET 팁','유니코드 팁','정렬 알고리즘 비교','DB datafile 옮기기','boost::singleton_pool 사용법','OS 재설치후 소스세이프가 바보가 될 때','computed column & divide by zero','ALTER TABLE ALTER COLUMN','Ogre for PSP','파일럿 무비','오늘의 버그','Console vs. Service','sc failure…','Lag Compensation','Zero Ping','네트워크 액션 게임의 분류','MMOSG - Massive Multiplayer Online Sports Game','Z-Net','Don’t reinvent the ACE','ACE Tips','Active Object Pattern','Half Sync Half Async Pattern','MMP Database Mini-Cookbook 요약','Relational Database Guidelines For MMOGs 요약','Doxygen','윈도우즈 무인설치','Migrate To ACE','Ethereal Tips','First Class Object','How to test my server framework’s performance?','오블리비언 스토리','Memory Leak Detection Tools','ODBC Tips','CodeKeep','UDT : UDP-based Data Transfer Library','Funny Memory Values','Python Tips','Spread','SQL Tips','RakNet Tips','CSS Tip','오블리비언 스토리#2','IOCP Tips','P2P Tips','boost::any','boost::is_base_of','QueueUserWorkItem()','STL Tips','OLE DB Tips','윈도우즈에서 IP 보안 정책 설정하기','Lua Tips','전통적인 FPS 게임의 네트워킹 구현','VS2005 & VS2003 함께 사용하기','FPS 게임의 복제 프레임워크 분석','operator= 는 상속되지 않는다.','PCH(pre-compiled headers)를 이용해 빌드 시간을 최소화하기','Visual Assist X의 리팩토링 기능을 활용해보자','RadRails Tips','OSX Tips','LA로 출장갑니다.','아메리칸 스케일','XP팀의 작업실','여기는 라스베가스','미국이라는 나라는…','라스베가스 & 그랜드캐년 사진전','ActiveX','Log4cxx','OTL Tips','Steam War : 함대전 MMOFPS','조금은 오래된, 재미있는 IT 개발자들의 토론','이런 툴이 있었으면 좋겠다','푸켓 다녀왔습니다.','Online SQL beautifier','데드락 추적하기','TRAC custom field','지금까지 팔린 Microsoft points는 얼마?','In-game Ads 의 현실','EA가 IPhone용 게임을 만든다?','70ms : 최대 입력 딜레이','언리얼3 엔진을 단돈 1억으로 라이센싱?','소규모 게임 회사에서 SW 구매 비용을 줄이는 법','Manifesto for Agile Software Development','_HAS_ITERATOR_DEBUGGING','basecamp, trac, xampp','Visual C++ 2005 express 의 한계','SVN Notifier','SyntaxHighlighter on Wordpress','Ideal Build System','AgileOST2007','MSBuild with Cruise Control .Net','WebDashboard & CCTray','MSBuild with Cruise Control .Net (2)','KGC 2007 1st Day','KGC 2007 2nd Day','SVN path based auth','Cheat Engine','Punk Buster','Get Precompiled Boost Library','Upgrade Mantis 1.1.1','MSBuild with Cruise Control .Net (3)','physfs','Solid Compression','AntiCheatEngine','boost::asio TCP resolver','boost::test thread safe','boost::asio iostream','boost::serialization','Getting Real','boost::asio documentation','WOW Warden as Spyware','제가 참가했던 프로젝트가 CNN을 탔습니다','boost::asio udp relay server','SVN MKACTIVITY 403 Forbidden','boost 1.35','boost with Visual Studio 2008 express','Customize Wordpress Prologue theme','libjingle','Teamwork > Talent','Google Apps','Google Trends','Google Test','Google Docs Form','Google Lively','Game Development Meme','Collaboration through Google Spreadsheet','Google Street View','IPhone Game = 2000$/day','The ABCs of Xbox 360 DLC','DefaultKeyBinding.dict','Stay Hungry, Stay Foolish','Apple App Store','Google Translate','Pareto Principle','Edit & Pray','Tracking Solution Item','Variadic Macros','Blob Quiz','Weekends Idle Thoughts','KGC2008','KGC2008(2)','Three Rules for Database Work','Prepare the battle','Smart People','Memory Wall','Networking Metaphor','Fault Tolerant System','Redmine','Teamcide','Erlang/OTP UDP Server','boost tuple based serialization','Change the Battle Field','Erlide','Google App Engine Overview','Earl Grey','boost::preprocessor','Tasklist/Taskkill','Dungeon Crawl Stone Soup','XBOX 360 NEW UI','Cloud Computing For Online Game','Visual Studio 2005 Intellisense Hotfix','first chance exception : The tag is invalid','Named Boost Tuple','Fail Fast, Fail Often','Idogame','Most Valuable Asset','Back to Wordpress.com','Ray the limited edition','Company Capitalism','Starting Reiot','virtualenv','virtualenv','Reality Check','Python Tip, Tricks and Hacks','리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...','jquery removeClass 를 이용해서 css sprite 교체하...','Google App Engine Tips','create_deep_key','Google Spreadsheet API Note','아이폰/컴퓨터 색상 차이 해결법','Advanced Photoshop Techniques for UI','Photoshop Shortcuts','<% raw %> custom tag','Setup Node.js on Amazon EC2 Linux','Setup npm & socket.io','Modify Rendered jQuery Template Before Append','DIV layering with z-index','jquery.ui.tooltip','jQuery UI Widget _setOption','Git Tips','have_app_server vs. on_production_server','TextMate Tips','Ant Cookbook','Bulkloader GData Connector','clienpad.appspot.com','jQuery Mobile Tip','jQuery Proven Performance Tips & Tricks','Wordpress To Octopress','NDB Tips','libUV 분석','NoSQL 조사','AppEngine pipeline','Python Iterator vs. Generator','Node.js로 25만 동접 만들기','성공하는 제품을 만들기 위한 팀 구축','Unity3D Serialization','AppScale',]
-      });
-    });
-    </script>
+    <script src="/assets/js/title_search.js"></script>
 	
 
   <script type="text/javascript">

@@ -65,9 +65,14 @@
 	
 <div class="container">
 
-	<div class="hero-unit">
+	<div class="hero-unit hidden-phone">
 	  <h1>Rebooting Reiot</h1>
 	  <p>A social game developer wandering strange dungeons...</p>
+	  <p>
+	    <a href="atom.xml" class="btn btn-primary btn-large"><span class="icon icon-bookmark icon-white"></span>
+	      Subscribe Now
+	    </a>
+	  </p>
 	</div>
 
 	<div class="row">
@@ -79,13 +84,15 @@
 	</div>
 	<div><p>"sc delete service name" 을 이용해서 서비스를 삭제할 때 만약 다른 어플리케이션이 참조를 하고 있으면 바로 삭제하지 않고 레지스트리에 <del datetime="2005-10-11T04:42:55+00:00">delete flag </del>가 추가된다. 이때 레지스트리 키값을 수동으로 삭제하더라도 "[SC] DeleteService FAILED 1072:" 라는 에러를 발생시키고 삭제가 되지 않는다.</p>
 <p>대체로 이런 경우에 관리 도구 - 서비스 관리자를 띄워둔 상태인데, 이 놈을 끈 상태에서 다시 삭제해보면 바로 사라진다. 요는, 서비스를 제거할 때에는 관리자를 끈 상태에서 하라는 것.</p></div>
-	
+	<br />
 	<p>
 	
-		<a href="/tag/service/"><span class="label">service</span></a>
+		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+	
+	
+		<a href="/tag/service/"><span class="label"><span class="icon icon-tag"></span> service</span></a>
 	
 	</p>
-	
 </div>
 			
 				<div>
@@ -94,13 +101,17 @@
 	</div>
 	<div><p>Enterprise Manager 로 접속해야 할 DB 가 custom port 를 사용하거나 VPN, 공유기 등의 문제로 name 기반의 접근이 안될 경우,<br />
 이 툴에서 TCP/IP 기반의 alias 를 만들어 두면 EM에 등록해서 연결할 수 있다.</p></div>
-	
+	<br />
 	<p>
 	
-		<a href="/tag/db/"><span class="label">db</span></a>
+		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
+	
+		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+	
+	
+		<a href="/tag/db/"><span class="label"><span class="icon icon-tag"></span> db</span></a>
 	
 	</p>
-	
 </div>
 			
 				<div>
@@ -143,15 +154,17 @@ transfer logging = yes</p>
 <p>그리고, 아무래도 안정적으로 파일을 배포하려면, <br />
 개발 머신 --(rsync)--&gt; 패치 서버 --(rsync)--&gt; 팀 배포<br />
  의 2단계를 거치는 것이 좋은데, 이를 위해서는 서버에 같은 폴더를 나타내는 upload 모듈과 download 모듈을 만들어 둬야 한다. 또한 실행 파일만을 배포할 경우를 위한 배치 파일도 따로 만드는 것을 권장한다. (아무래도 recursive 로 검색을 하면 시간이 좀 걸린다)</p></div>
-	
+	<br />
 	<p>
 	
-		<a href="/tag/ci/"><span class="label">ci</span></a>
+		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
 	
-		<a href="/tag/cwrsync/"><span class="label">cwrsync</span></a>
+	
+		<a href="/tag/ci/"><span class="label"><span class="icon icon-tag"></span> ci</span></a>
+	
+		<a href="/tag/cwrsync/"><span class="label"><span class="icon icon-tag"></span> cwrsync</span></a>
 	
 	</p>
-	
 </div>
 			
 				<div>
@@ -165,13 +178,15 @@ transfer logging = yes</p>
 <p>ps. 테스트 도중 갑자기 실행 파일 크기가 6k 로 줄어들면서 16비트 MS-DOS 프로그램을 CPU 에서 실행할 수 없다는 오류 메시지가 떴다. '아직 안정화가 덜 된 건가..' 하면서 접으려고 했는데, 프로젝트를 새로 만들어보니 문제가 없었다. 사실은 Ctrl+F5 로 실행하기 위해서 dll 과 lua 파일을 사용자 지정 작업에서 복사하도록 했는데, 이때 복사 위치를 $(TargetDir) 대신 $(TargetPath) 로 해서 생긴 문제.. *그 6k 짜리 실행파일은 사실은 test.lua 였었다는 사실.. *</p>
 <p>ps2. 여전히 namespace 지원은 안된다. 즉 어떤 변수나 클래스가 namespace 안에 존재할 경우 바인딩이 불가능하다. 이 말은, std::string 을 바인딩할 수 없다는 뜻이며, char * 변수에 대한 direct assignment 가 지원되지 않기에 이 문제는 조금 귀차니즘을 불러 일으키게 될 듯. :(</p>
 <p>ps3. const char * 를 리턴하는 함수를 호출해서 print 해보려고 했으나, 단지 userdata 로만 인식함. 약간은 서운한;;; (먼가 모르는 듯)</p></div>
-	
+	<br />
 	<p>
 	
-		<a href="/tag/lua/"><span class="label">lua</span></a>
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/lua/"><span class="label"><span class="icon icon-tag"></span> lua</span></a>
 	
 	</p>
-	
 </div>
 			
 				<div>
@@ -181,13 +196,15 @@ transfer logging = yes</p>
 	<div><p><img alt="mantis" src="http://manual.mantisbt.org/mantis_logo.gif" /></p>
 <p>오래전부터 맨티스에다가 중요도나 우선순위 상수를 추가해달라는 요청이 있었으나, 소스를 고쳐야 하기 때문에 방법이 없다고 모른 척 했었다가, 이번에 잠시 짬을 내어 추가를 해 보았다. 관련 자료를 아래에 정리했으니 심심할 때 한번 읽어보시길. :)</p>
 <p>see also : <a href="http://reiot.cafe24.com/wiki/MantisCustomize">MantisCustomize </a></p></div>
-	
+	<br />
 	<p>
 	
-		<a href="/tag/mantis/"><span class="label">mantis</span></a>
+		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
+	
+	
+		<a href="/tag/mantis/"><span class="label"><span class="icon icon-tag"></span> mantis</span></a>
 	
 	</p>
-	
 </div>
 			
 			<ul class="pager">
@@ -246,13 +263,7 @@ transfer logging = yes</p>
 	
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-    $(function(){
-      $('.search-query').typeahead({
-        source: ['MMORPG 밸런싱은 너무 힘들어요','Code Review Tips','CPB','데이터 주도적인 게임 설계','SAX 이벤트 처리하기','Using Xerces C++','XML RPC','XML tips','내맘대로 쓰는 게임 개발 방법론','어떻게 우리 팀의 XP가 실패했는가?','MoniWiki Tips','Python Service','Visual Studio Tips','Trac','TortoiseSvn','boost::test','맨티스에 custom severity 추가!','CPB 맛보기','cwRsync 를 이용한 클라이언트 배포','Client Network Utility','Remove Windows Service','MMO를 위한 커뮤니티 서비스 구현하기','SourceAnyWhere - Remote VSS tools','find_if 와 boost::lambda','inet_ntoa 의 위험성','VB를 이용한 선분과 원의 충돌체크','나쁜 아이디어를 위한 좋은 방법','ADO.NET 이란?','ADO.NET 팁','Eclipse 팁','VB.NET 팁','유니코드 팁','정렬 알고리즘 비교','DB datafile 옮기기','boost::singleton_pool 사용법','OS 재설치후 소스세이프가 바보가 될 때','computed column & divide by zero','ALTER TABLE ALTER COLUMN','Ogre for PSP','파일럿 무비','오늘의 버그','Console vs. Service','sc failure…','Lag Compensation','Zero Ping','네트워크 액션 게임의 분류','MMOSG - Massive Multiplayer Online Sports Game','Z-Net','Don’t reinvent the ACE','ACE Tips','Active Object Pattern','Half Sync Half Async Pattern','MMP Database Mini-Cookbook 요약','Relational Database Guidelines For MMOGs 요약','Doxygen','윈도우즈 무인설치','Migrate To ACE','Ethereal Tips','First Class Object','How to test my server framework’s performance?','오블리비언 스토리','Memory Leak Detection Tools','ODBC Tips','CodeKeep','UDT : UDP-based Data Transfer Library','Funny Memory Values','Python Tips','Spread','SQL Tips','RakNet Tips','CSS Tip','오블리비언 스토리#2','IOCP Tips','P2P Tips','boost::any','boost::is_base_of','QueueUserWorkItem()','STL Tips','OLE DB Tips','윈도우즈에서 IP 보안 정책 설정하기','Lua Tips','전통적인 FPS 게임의 네트워킹 구현','VS2005 & VS2003 함께 사용하기','FPS 게임의 복제 프레임워크 분석','operator= 는 상속되지 않는다.','PCH(pre-compiled headers)를 이용해 빌드 시간을 최소화하기','Visual Assist X의 리팩토링 기능을 활용해보자','RadRails Tips','OSX Tips','LA로 출장갑니다.','아메리칸 스케일','XP팀의 작업실','여기는 라스베가스','미국이라는 나라는…','라스베가스 & 그랜드캐년 사진전','ActiveX','Log4cxx','OTL Tips','Steam War : 함대전 MMOFPS','조금은 오래된, 재미있는 IT 개발자들의 토론','이런 툴이 있었으면 좋겠다','푸켓 다녀왔습니다.','Online SQL beautifier','데드락 추적하기','TRAC custom field','지금까지 팔린 Microsoft points는 얼마?','In-game Ads 의 현실','EA가 IPhone용 게임을 만든다?','70ms : 최대 입력 딜레이','언리얼3 엔진을 단돈 1억으로 라이센싱?','소규모 게임 회사에서 SW 구매 비용을 줄이는 법','Manifesto for Agile Software Development','_HAS_ITERATOR_DEBUGGING','basecamp, trac, xampp','Visual C++ 2005 express 의 한계','SVN Notifier','SyntaxHighlighter on Wordpress','Ideal Build System','AgileOST2007','MSBuild with Cruise Control .Net','WebDashboard & CCTray','MSBuild with Cruise Control .Net (2)','KGC 2007 1st Day','KGC 2007 2nd Day','SVN path based auth','Cheat Engine','Punk Buster','Get Precompiled Boost Library','Upgrade Mantis 1.1.1','MSBuild with Cruise Control .Net (3)','physfs','Solid Compression','AntiCheatEngine','boost::asio TCP resolver','boost::test thread safe','boost::asio iostream','boost::serialization','Getting Real','boost::asio documentation','WOW Warden as Spyware','제가 참가했던 프로젝트가 CNN을 탔습니다','boost::asio udp relay server','SVN MKACTIVITY 403 Forbidden','boost 1.35','boost with Visual Studio 2008 express','Customize Wordpress Prologue theme','libjingle','Teamwork > Talent','Google Apps','Google Trends','Google Test','Google Docs Form','Google Lively','Game Development Meme','Collaboration through Google Spreadsheet','Google Street View','IPhone Game = 2000$/day','The ABCs of Xbox 360 DLC','DefaultKeyBinding.dict','Stay Hungry, Stay Foolish','Apple App Store','Google Translate','Pareto Principle','Edit & Pray','Tracking Solution Item','Variadic Macros','Blob Quiz','Weekends Idle Thoughts','KGC2008','KGC2008(2)','Three Rules for Database Work','Prepare the battle','Smart People','Memory Wall','Networking Metaphor','Fault Tolerant System','Redmine','Teamcide','Erlang/OTP UDP Server','boost tuple based serialization','Change the Battle Field','Erlide','Google App Engine Overview','Earl Grey','boost::preprocessor','Tasklist/Taskkill','Dungeon Crawl Stone Soup','XBOX 360 NEW UI','Cloud Computing For Online Game','Visual Studio 2005 Intellisense Hotfix','first chance exception : The tag is invalid','Named Boost Tuple','Fail Fast, Fail Often','Idogame','Most Valuable Asset','Back to Wordpress.com','Ray the limited edition','Company Capitalism','Starting Reiot','virtualenv','virtualenv','Reality Check','Python Tip, Tricks and Hacks','리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...','jquery removeClass 를 이용해서 css sprite 교체하...','Google App Engine Tips','create_deep_key','Google Spreadsheet API Note','아이폰/컴퓨터 색상 차이 해결법','Advanced Photoshop Techniques for UI','Photoshop Shortcuts','<% raw %> custom tag','Setup Node.js on Amazon EC2 Linux','Setup npm & socket.io','Modify Rendered jQuery Template Before Append','DIV layering with z-index','jquery.ui.tooltip','jQuery UI Widget _setOption','Git Tips','have_app_server vs. on_production_server','TextMate Tips','Ant Cookbook','Bulkloader GData Connector','clienpad.appspot.com','jQuery Mobile Tip','jQuery Proven Performance Tips & Tricks','Wordpress To Octopress','NDB Tips','libUV 분석','NoSQL 조사','AppEngine pipeline','Python Iterator vs. Generator','Node.js로 25만 동접 만들기','성공하는 제품을 만들기 위한 팀 구축','Unity3D Serialization','AppScale',]
-      });
-    });
-    </script>
+    <script src="/assets/js/title_search.js"></script>
 	
 
   <script type="text/javascript">
