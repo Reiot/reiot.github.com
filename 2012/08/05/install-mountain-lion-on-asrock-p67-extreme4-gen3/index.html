@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+	<title>Rebooting Reiot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="A social game developer wandering strange dungeons...">
+	<meta name="author" content="Ray Yun">
+
+    <!-- Le styles -->
+	
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="/assets/css/droppress.css" rel="stylesheet">
+	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Rebooting Reiot</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+			  
+            </ul>
+            <form class="navbar-search pull-right">
+              <input type="text" class="search-query" placeholder="Title Search">
+            </form>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+<div class="container">
+
+	<div>
+	<div class="page-header">
+		<h1><a href="/2012/08/05/install-mountain-lion-on-asrock-p67-extreme4-gen3/">Asrock P67 Extreme4 Gen3 에 산사자 설치하기</a> <small>2012-08-05</small></h1>
+	</div>
+	<div><p>며칠간의 삽질 끝에 집에 있는 데스크탑에 산사자를 설치했다. 이놈의 사양은</p>
+<ul>
+<li>M/B: Asrock P67 Extreme4 Gen3</li>
+<li>Audio: Onboard ALC892</li>
+<li>Lan: Onboard Realtek Gigabit Ethernet</li>
+<li>VGA: NVidia Geforce GTX 560 Ti</li>
+<li>RAM: 8G</li>
+</ul>
+<p>이다. 요즘 대세인 tonymacx86의 Unibeast를 사용하면 아주 간단하게 설치할 수 있다. 까먹을까봐 정리해본다.</p>
+<ol>
+<li>Unibeast 1.5.2에 정품 산사자를 설치. Legacy USB 옵션은 지정하지 않았다.</li>
+<li>기본적인 Unibeast 바이오스 설정(ACPI 등)만 해서 설치를 하니, 인스톨러 화면도 못보고 그냥 리붓되었다. 이 경우 <code>CPU Configuration - No-Execute Memory Protect: Enable</code>를 설정해서 해결했다.</li>
+<li>부팅 옵션은 <code>PCIRootUID=0</code> 하나만으로 충분했다.</li>
+<li>무사히 산사자 설치가 완료되면 이제 멀티비스트로 네트워크와 오디오 드라이버를 잡아야 한다. <a href="http://legacy.tonymacx86.com/viewtopic.php?f=81&amp;t=66901&amp;start=0">이 자료</a>가 많은 도움이 되었다.</li>
+<li>오디오는 <code>ALC8XXHDA</code>, <code>AppleHDA Rollback</code>, <code>Non-DSDT HDA Enabler for ALC892</code>를 선택할 것.</li>
+<li>네트워크 설정시, 위 글에서는 <code>Lnx2Mac's RealtekRTL81xx Ethernet Driver</code>를 하라고 했는데, 그냥 <code>Realtek Gigabit Ethernet</code> 을 지정해도 잘 설정되었다. (사실 최초 부팅시 네트워크는 인식되지만, 멀티비스트를 돌리고 나면 사라지기 때문에 꼭 지정해줘야 한다)</li>
+</ol>
+<p>가끔 다운되는 현상이 있긴 해서 백점 만점을 주진 못하겠지만, 어쨌든 성공이다.</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/stuff/"><span class="label label-info"><span class="icon icon-folder-open"></span> stuff</span></a>
+	
+	
+		<a href="/tag/hacintosh/"><span class="label"><span class="icon icon-tag"></span> hacintosh</span></a>
+	
+		<a href="/tag/mountain lion/"><span class="label"><span class="icon icon-tag"></span> mountain lion</span></a>
+	
+		<a href="/tag/asrock/"><span class="label"><span class="icon icon-tag"></span> asrock</span></a>
+	
+		<a href="/tag/multibeast/"><span class="label"><span class="icon icon-tag"></span> multibeast</span></a>
+	
+		<a href="/tag/unibeast/"><span class="label"><span class="icon icon-tag"></span> unibeast</span></a>
+	
+	</p>
+</div>
+
+    <hr/>
+
+    
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'reiot'; // required: replace example with your forum shortname
+        //var disqus_developer = 1;
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+    <footer>
+	<p class="pull-right">
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+	</p>
+</footer>
+
+</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/google-code-prettify/prettify.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/droppress.js"></script>
+	
+
+  
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-247024-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+  
+
+  </body>
+</html>
