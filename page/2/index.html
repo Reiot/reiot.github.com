@@ -10,16 +10,9 @@
     <!-- Le styles -->
 	
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-        font-family: 'Helvetica Neue', '맑은 고딕', Helvetica, Arial, sans-serif;
-      }
-      .tag-cloud, .category-cloud {
-        line-height: 250%;
-      }
-    </style>
     <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="/assets/css/droppress.css" rel="stylesheet">
 	
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -69,6 +62,51 @@
 
 	<div class="row">
 		<div class="span9">
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2012/04/16/python-generator/">Python Iterator vs. Generator</a> <small>2012-04-16</small></h1>
+	</div>
+	<div><h2>iterator</h2>
+<p>임의의 sequence 를 순회하는데 필요한 정보를 담은 오브젝트.<br />
+iter() 함수를 통해서 생성하고, next() 함수를 이용해서 index 를 증가시켜서 다음 객체를 리턴한다. 맨 끝에 도달하면 StopIteration 예외를 던진다.</p>
+<p>즉 for x in seq 는 내부적으로 아래와 같다.</p>
+<pre><code>it = iter(seq)
+while 1:
+  try:
+    x = it.next()
+  except StopIteration:
+    break
+</code></pre>
+
+<p>임의의 클래스에 <strong>iter</strong>() 과 next() 함수를 정의하면, in 연산자로 iteration 이 가능하다.</p>
+<pre><code>class MyCollection:
+  def __init__(self, seq): self.idx=0; self.seq=seq
+  def __iter__(self): return self
+  def next(self):
+    if self.idx &gt; len(self.seq): raise StopIteration
+    self.idx += 1
+    return self.seq[self.idx]
+</code></pre>
+
+<h2>generator function</h2>
+<p>iterator 가 next() 호출을 통해서 값을 "리턴"하는 것과 달리, generator 는 next() 함수를 부르면 이전에 멈춘 곳부터 실행(resume)하다가 yield로 값을 리턴하고 다시 멈춤(pause)으로써, 결과적으로 값을 순차적으로 "생성"한다. 맨 끝에서는 역시 StopIteration 예외를 던진다.</p>
+<h2>generator expression</h2>
+<p><code>(x for x in seq)</code> 처럼 [] 대신 () 로 list comprehension 을 묶으면 generator 를 간단히 만들 수 있다.</p>
+<p>리스트를 파라미터로 받는 함수에 그대로 넘길 수도 있다.</p>
+<blockquote>
+<p>sum(x for x in seq)</p>
+</blockquote></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
+	
+	</p>
+</div>
 			
 				<div>
 	<div class="page-header">
@@ -498,49 +536,6 @@ v = func_async(k)
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a> <small>2011-09-21</small></h1>
-	</div>
-	<div><p><img alt="해커 전용 블로깅 프레임워크?" src="http://octopress.org/images/logo.png" /></p>
-<p><a href="http://octopress.org">Octopress</a>는 정적 사이트 생성기인 <a href="http://jekyllrb.com/">Jekyll</a> 을 이용해서 블로그를 손쉽게 구성하도록 해주는 루비 프레임워크다. 말 그대로 정적 HTML 파일들을 미리 만들어서 어딘가로 올려서 서비스하는 거라, GitHub에서 블로그를 서비스할 수 있음은 물론, Amason S3나 구글 앱엔진에서도 블로그 서비스가 가능하다.</p>
-<p>큼직큼직한 글씨와 미려한 테마, 코드 문법 하일라이팅, blockquote, gist 코드 포함 등의 다양한 플러그인이 지원되며, 생성, 배포, 최신 소스 업데이트, 글쓰기 등의 작업들이 rake 콘솔 명령으로 간편하게 포장(?)되어 있다. DB를 쓰지 않기 때문에 코멘트는 Disqus 같은 외부 사이트를 이용하게 된다. 워낙 매뉴얼이 잘 되어 있어서 설치나 사용법은 그냥 따라해도 충분하다. 레이옷은 DropBox에 origin 레파지토리를 두고 사용중이다.</p>
-<p>중요한 건 기존 블로그를 얼마나 손쉽게 이전하느냐인데, 워드프레스.com에서 이사오는 데 거의 3일이 걸렸다. 워낙 블로그 이사를 많이 다녀서 메타 정보가 개판이었고 본문에 이런 저런 비표준 태그를 많이 써서 문제는 더욱 심각했다. 또 워드프레스에서 내보내기로 받아온 XML 자체에도 문제가 많았다. (내 경우에는 글들이 중간에 짤려서 태그가 제대로 완결이 안되었다든지, ^Z가 본문 중에 있어서 파싱이 안되기도 했다.) Jekyll에서 제공하는 스크립트는 마크다운 변환 기능이 빠져 있고, 유니코드 에러를 자주 뱉기 때문에 직접 파이썬으로 만들어야만 했다. (루비 책 몇 권 사놓고도 문법을 보니 머리가 아파서 포기했다.)</p>
-<p>어쨌든 그 삽질의 결과물을 아래와 같이 공개한다. 자유롭게 이용하되, 아래 스크립트의 사용시 책임은 사용자 본인에게 있다는 걸 미리 밝힌다. :P</p>
-<script src="https://gist.github.com/1239373.js"> </script>
-
-<p>참고로, 변환을 하다 보면 다양한 에러들을 만나게 된다. -_-+</p>
-<ul>
-<li>invalid byte sequence in UTF-8 : 이건 본문 중에 애매한 문자열이 있다는 건데, 강제로 유니코드로 변환했음에도 발생한다. 알아서 찾아서 고치는 수 밖에 없다. 단 octopress 소스를 아래와 같이 고쳐야 한다.</li>
-</ul>
-<pre><code>#ruby octopress/plugins/post_filters.rb
-    def do_layout(payload, layouts)
-      pre_render if respond_to?(:pre_render)
-      begin
-        old_do_layout(payload, layouts)
-      rescue StandardError =&gt; e
-          puts &quot;Post Filter Error: &quot; + e.message + self.url
-      end
-    end
-</code></pre>
-
-<ul>
-<li>Liquid Exception: 혹시 django 나 jquery template 코드가 있을 경우, 이게 Jekyll 의 템플릿 엔진인 <a href="http://liquidmarkup.org/">liquid</a>의 태그와 동일하기 때문에 에러가 발생한다. <a href="http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags">이런 문법</a>에 따라 수동으로 잘 제거하는 수 밖에 없다.</li>
-<li>핵심적으로 한글로 된 제목 때문에 가장 고생이 심했다. 아주 오래전에 쓴 글들은 제목은 한글, slug는 한글을 URL로 바꾼 %xx%yy와 같은 형식이었다. 이걸 다시 제대로된 유니코드로 역변환(unquote)해서 파일을 만들었는데 rake preview로 살펴보면 한글 URL 포스트에 접근이 안되는 것이었다. 몇 시간동안 삽질을 해본 결과 로컬 서버인 Webrick의 문제인지, GitHub에 올리니까 잘 되는 것이었다. 여기서의 교훈: slug는 영문을 애용할 것!!</li>
-</ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/blogging/"><span class="label label-info"><span class="icon icon-folder-open"></span> blogging</span></a>
-	
-	
-		<a href="/tag/jekyll/"><span class="label"><span class="icon icon-tag"></span> jekyll</span></a>
-	
-		<a href="/tag/octopress/"><span class="label"><span class="icon icon-tag"></span> octopress</span></a>
-	
-	</p>
-</div>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -570,6 +565,10 @@ v = func_async(k)
 	</li>
 	
 	<li>
+		<a href="/2012/04/16/python-generator/">Python Iterator vs. Generator</a>
+	</li>
+	
+	<li>
 		<a href="/2012/04/04/appengine-pipeline/">AppEngine pipeline</a>
 	</li>
 	
@@ -583,10 +582,6 @@ v = func_async(k)
 	
 	<li>
 		<a href="/2011/11/15/ndb-tips/">NDB Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">
@@ -611,8 +606,9 @@ v = func_async(k)
     <!-- Placed at the end of the document so the pages load faster -->
 	
     <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/google-code-prettify/prettify.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/title_search.js"></script>
+    <script src="/assets/js/droppress.js"></script>
 	
 
   

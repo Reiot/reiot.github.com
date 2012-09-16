@@ -10,16 +10,9 @@
     <!-- Le styles -->
 	
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-        font-family: 'Helvetica Neue', '맑은 고딕', Helvetica, Arial, sans-serif;
-      }
-      .tag-cloud, .category-cloud {
-        line-height: 250%;
-      }
-    </style>
     <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="/assets/css/droppress.css" rel="stylesheet">
 	
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -80,6 +73,97 @@
 
 	<div class="row">
 		<div class="span9">
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2012/09/16/droppress/">DropPress</a> <small>2012-09-16</small></h1>
+	</div>
+	<div><p><a href="http://github.com/Reiot/droppress">DropPress</a>는 내가 파이썬으로 직접 구현한 간단한 정적 사이트 생성기다.</p>
+<p>처음엔 <a href="http://ace.org">ACE 에디터</a>로 직접 드랍박스의 글을 편집하고 배포하는 웹서비스였다.</p>
+<ul>
+<li>드랍박스에 마크다운으로 된 블로그 포스트들을 저장해두면, 자동으로 버전관리가 된다.</li>
+<li>PC든 모바일이든 드랍박스와 연동되는 수많은 마크다운 에디터가 널렸다.</li>
+<li>결정적으로 이미 비슷한 웹서비스가 존재한다.</li>
+</ul>
+<p>는 점에서 착안, 마크다운을 HTML으로 변환하고 github 페이지로 배포하는 단순 스크립트를 목표로 했다. 그런데 지금은 사실 드랍박스 없이도 전혀 문제가 없다. :)</p>
+<p>대충 다음과 같은 라이브러리들을 짜집기해서 만들었다. 개발은 서브라임 텍스트2가 도와줬다.</p>
+<table>
+<thead>
+<tr>
+<th>라이브러리</th>
+<th>적용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://twitter.github.com/bootstrap">twitter bootstrap</a></td>
+<td>HTML 레이아웃 및 웹 디자인. 진짜 열심히 사용했다.</td>
+</tr>
+<tr>
+<td><a href="http://bootswatch.com">bootstwatch</a></td>
+<td>부트스트랩의 무료 테마. 현재 <a href="http://bootswatch.com/readable">readable</a> 테마를 사용중이다.</td>
+</tr>
+<tr>
+<td>python-markdown</td>
+<td>마크다운 변환. 테이블을 지원하는 플러그인도 존재한다. :)</td>
+</tr>
+<tr>
+<td>jinja2</td>
+<td>HTML 템플릿</td>
+</tr>
+<tr>
+<td>yaml</td>
+<td>설정 파일 및 글의 헤더 포맷</td>
+</tr>
+<tr>
+<td>feedgenerator</td>
+<td>atom.xml 생성용</td>
+</tr>
+<tr>
+<td>google-code-prettifier</td>
+<td>자바스크립트 코드 하일라이팅</td>
+</tr>
+</tbody>
+</table>
+<p>각 포스트 파일에는 Octopress와 동일한 YAML 헤더가 붙어 있다. 가령 이 글의 헤더는 다음과 같다.</p>
+<pre><code>---
+layout: post
+title: &quot;DropPress&quot;
+date: 2012-09-16 08:19:35
+link: http://github.com/Reiot/droppress
+categories:
+- programming
+tags:
+- droppress
+- python
+- github
+- bootstrap
+- markdown
+- dropbox
+published: true
+comments: true
+---
+</code></pre></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/droppress/"><span class="label"><span class="icon icon-tag"></span> droppress</span></a>
+	
+		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
+	
+		<a href="/tag/github/"><span class="label"><span class="icon icon-tag"></span> github</span></a>
+	
+		<a href="/tag/bootstrap/"><span class="label"><span class="icon icon-tag"></span> bootstrap</span></a>
+	
+		<a href="/tag/markdown/"><span class="label"><span class="icon icon-tag"></span> markdown</span></a>
+	
+		<a href="/tag/dropbox/"><span class="label"><span class="icon icon-tag"></span> dropbox</span></a>
+	
+	</p>
+</div>
 			
 				<div>
 	<div class="page-header">
@@ -432,51 +516,6 @@
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2012/04/16/python-generator/">Python Iterator vs. Generator</a> <small>2012-04-16</small></h1>
-	</div>
-	<div><h2>iterator</h2>
-<p>임의의 sequence 를 순회하는데 필요한 정보를 담은 오브젝트.<br />
-iter() 함수를 통해서 생성하고, next() 함수를 이용해서 index 를 증가시켜서 다음 객체를 리턴한다. 맨 끝에 도달하면 StopIteration 예외를 던진다.</p>
-<p>즉 for x in seq 는 내부적으로 아래와 같다.</p>
-<pre><code>it = iter(seq)
-while 1:
-  try:
-    x = it.next()
-  except StopIteration:
-    break
-</code></pre>
-
-<p>임의의 클래스에 <strong>iter</strong>() 과 next() 함수를 정의하면, in 연산자로 iteration 이 가능하다.</p>
-<pre><code>class MyCollection:
-  def __init__(self, seq): self.idx=0; self.seq=seq
-  def __iter__(self): return self
-  def next(self):
-    if self.idx &gt; len(self.seq): raise StopIteration
-    self.idx += 1
-    return self.seq[self.idx]
-</code></pre>
-
-<h2>generator function</h2>
-<p>iterator 가 next() 호출을 통해서 값을 "리턴"하는 것과 달리, generator 는 next() 함수를 부르면 이전에 멈춘 곳부터 실행(resume)하다가 yield로 값을 리턴하고 다시 멈춤(pause)으로써, 결과적으로 값을 순차적으로 "생성"한다. 맨 끝에서는 역시 StopIteration 예외를 던진다.</p>
-<h2>generator expression</h2>
-<p><code>(x for x in seq)</code> 처럼 [] 대신 () 로 list comprehension 을 묶으면 generator 를 간단히 만들 수 있다.</p>
-<p>리스트를 파라미터로 받는 함수에 그대로 넘길 수도 있다.</p>
-<blockquote>
-<p>sum(x for x in seq)</p>
-</blockquote></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
-	
-	</p>
-</div>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -502,6 +541,10 @@ while 1:
 	</li>
 	
 	<li>
+		<a href="/2012/09/16/droppress/">DropPress</a>
+	</li>
+	
+	<li>
 		<a href="/2012/05/22/appscale/">AppScale</a>
 	</li>
 	
@@ -515,10 +558,6 @@ while 1:
 	
 	<li>
 		<a href="/2012/04/21/250k-node-connections/">Node.js로 25만 동접 만들기</a>
-	</li>
-	
-	<li>
-		<a href="/2012/04/16/python-generator/">Python Iterator vs. Generator</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">
@@ -543,8 +582,9 @@ while 1:
     <!-- Placed at the end of the document so the pages load faster -->
 	
     <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/google-code-prettify/prettify.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/title_search.js"></script>
+    <script src="/assets/js/droppress.js"></script>
 	
 
   

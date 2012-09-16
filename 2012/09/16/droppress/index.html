@@ -10,16 +10,9 @@
     <!-- Le styles -->
 	
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-        font-family: 'Helvetica Neue', '맑은 고딕', Helvetica, Arial, sans-serif;
-      }
-      .tag-cloud, .category-cloud {
-        line-height: 250%;
-      }
-    </style>
     <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="/assets/css/droppress.css" rel="stylesheet">
 	
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -67,54 +60,73 @@
 
 	<div>
 	<div class="page-header">
-		<h1><a href="/2010/01/25/virtualenv-easy/">virtualenv</a> <small>2010-01-25</small></h1>
+		<h1><a href="/2012/09/16/droppress/">DropPress</a> <small>2012-09-16</small></h1>
 	</div>
-	<div><h2>준비물</h2>
+	<div><p><a href="http://github.com/Reiot/droppress">DropPress</a>는 내가 파이썬으로 직접 구현한 간단한 정적 사이트 생성기다.</p>
+<p>처음엔 <a href="http://ace.org">ACE 에디터</a>로 직접 드랍박스의 글을 편집하고 배포하는 웹서비스였다.</p>
 <ul>
-<li>xcode : node 와 virtualenv 설치시 필요함</li>
-<li><a href="http://www.pip-installer.org/en/latest/installing.html">PIP</a> : easy_install 을 대체할 파이썬 패키지 매니저</li>
+<li>드랍박스에 마크다운으로 된 블로그 포스트들을 저장해두면, 자동으로 버전관리가 된다.</li>
+<li>PC든 모바일이든 드랍박스와 연동되는 수많은 마크다운 에디터가 널렸다.</li>
+<li>결정적으로 이미 비슷한 웹서비스가 존재한다.</li>
 </ul>
-<pre><code>curl http://python-distribute.org/distribute_setup.py | sudo python
-curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | sudo python
-</code></pre>
-
-<ul>
-<li><a href="http://www.virtualenv.org/en/latest/index.html">virtualenv virtualenvwrapper</a> : 파이썬 개발 환경(파이썬 버전 및 각종 라이브러리)을 가상화할 수 있게 해주는 도구</li>
-</ul>
-<pre><code>sudo pip install virtualenv virtualenvwrapper
-</code></pre>
-
-<h2>virtualenv 설정</h2>
-<p>집과 회사를 오가며 개발하다보면, 파이썬 버전과 각종 라이브러리의 설치 및 충돌 문제 때문에 괴로울 때가 많다. 파이썬 라이브러리들은 파이썬 버전별로 site-packages 에 복사되기 때문에, 개발 환경이 살짝만 바뀌어도 관리자 권한으로 재설치를 해야 한다. virtualenv 는 node 의 nvm, ruby의 rvm처럼 각 개인의 홈에 가상적인 파이썬 환경을 만들고 라이브러리를 설치해서 사용할 수 있게 해주며, virtualenvwrapper 는 좀더 간편한 명령들을 제공해준다. (왜 pvm이라고 안하는지 모르겠다..)</p>
-<p>일단 ~/.bash_profile 에 아래 내용을 추가해서 로그인할 때마다 실행되도록 하자.</p>
-<pre><code>export WORKON_HOME=~/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
-</code></pre>
-
-<p>이제 저장한 후 source ~/.bash_profile 하면, 관련 명령을 실행할 준비가 된 셈이다.</p>
-<pre><code>mkdir -p $WORKON_HOME
-mkvirtualenv warcloud
-echo 'cd ~/Documents/Works/warclouds' &gt;&gt; $WORKON_HOME/warcloud/bin/postactivate
-</code></pre>
-
-<p>가상환경을 저장할 폴더를 만들고, warcloud 라는 개발환경과 이 명령을 실행할 때 자동으로 실행할 명령도 추가하자.</p>
-<pre><code>workon warcloud
-</code></pre>
-
-<p>이걸 실행하면, 이제 관련 폴더로 자동 이동이 된다.</p>
-<p>virtualenvwrapper 에서 제공하는 명령을 간단히 살펴보자.</p>
-<ul>
-<li>workon {env} : 특정 가상 환경을 실행한다.</li>
-<li>deactivate : 가상환경을 빠져나간다.</li>
-<li>mkvirtualenv {env}</li>
-<li>rmvirtualenv {env}</li>
-<li>lsvirtualenv</li>
-<li>showvirtualenv {env}</li>
-<li>cpvirtualenv {src} {dest}</li>
-<li>lssitepackages</li>
-<li>add2virtualenv {dir} : PYTHONPATH 에 경로를 추가하기.</li>
-</ul>
-<pre><code>add2virtualenv /Users/reiot/Documents/Works/warclouds
+<p>는 점에서 착안, 마크다운을 HTML으로 변환하고 github 페이지로 배포하는 단순 스크립트를 목표로 했다. 그런데 지금은 사실 드랍박스 없이도 전혀 문제가 없다. :)</p>
+<p>대충 다음과 같은 라이브러리들을 짜집기해서 만들었다. 개발은 서브라임 텍스트2가 도와줬다.</p>
+<table>
+<thead>
+<tr>
+<th>라이브러리</th>
+<th>적용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://twitter.github.com/bootstrap">twitter bootstrap</a></td>
+<td>HTML 레이아웃 및 웹 디자인. 진짜 열심히 사용했다.</td>
+</tr>
+<tr>
+<td><a href="http://bootswatch.com">bootstwatch</a></td>
+<td>부트스트랩의 무료 테마. 현재 <a href="http://bootswatch.com/readable">readable</a> 테마를 사용중이다.</td>
+</tr>
+<tr>
+<td>python-markdown</td>
+<td>마크다운 변환. 테이블을 지원하는 플러그인도 존재한다. :)</td>
+</tr>
+<tr>
+<td>jinja2</td>
+<td>HTML 템플릿</td>
+</tr>
+<tr>
+<td>yaml</td>
+<td>설정 파일 및 글의 헤더 포맷</td>
+</tr>
+<tr>
+<td>feedgenerator</td>
+<td>atom.xml 생성용</td>
+</tr>
+<tr>
+<td>google-code-prettifier</td>
+<td>자바스크립트 코드 하일라이팅</td>
+</tr>
+</tbody>
+</table>
+<p>각 포스트 파일에는 Octopress와 동일한 YAML 헤더가 붙어 있다. 가령 이 글의 헤더는 다음과 같다.</p>
+<pre><code>---
+layout: post
+title: &quot;DropPress&quot;
+date: 2012-09-16 08:19:35
+link: http://github.com/Reiot/droppress
+categories:
+- programming
+tags:
+- droppress
+- python
+- github
+- bootstrap
+- markdown
+- dropbox
+published: true
+comments: true
+---
 </code></pre></div>
 	<br />
 	<p>
@@ -122,9 +134,17 @@ echo 'cd ~/Documents/Works/warclouds' &gt;&gt; $WORKON_HOME/warcloud/bin/postact
 		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
 	
 	
+		<a href="/tag/droppress/"><span class="label"><span class="icon icon-tag"></span> droppress</span></a>
+	
 		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
 	
-		<a href="/tag/virtualenv/"><span class="label"><span class="icon icon-tag"></span> virtualenv</span></a>
+		<a href="/tag/github/"><span class="label"><span class="icon icon-tag"></span> github</span></a>
+	
+		<a href="/tag/bootstrap/"><span class="label"><span class="icon icon-tag"></span> bootstrap</span></a>
+	
+		<a href="/tag/markdown/"><span class="label"><span class="icon icon-tag"></span> markdown</span></a>
+	
+		<a href="/tag/dropbox/"><span class="label"><span class="icon icon-tag"></span> dropbox</span></a>
 	
 	</p>
 </div>
@@ -163,8 +183,9 @@ echo 'cd ~/Documents/Works/warclouds' &gt;&gt; $WORKON_HOME/warcloud/bin/postact
     <!-- Placed at the end of the document so the pages load faster -->
 	
     <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/google-code-prettify/prettify.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/title_search.js"></script>
+    <script src="/assets/js/droppress.js"></script>
 	
 
   
