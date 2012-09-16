@@ -79,15 +79,16 @@
 		<h1><a href="/2012/09/16/droppress/">DropPress</a> <small>2012-09-16</small></h1>
 	</div>
 	<div><p><a href="http://github.com/Reiot/droppress">DropPress</a>는 내가 파이썬으로 직접 구현한 간단한 정적 사이트 생성기다.</p>
-<p>처음엔 <a href="http://ace.org">ACE 에디터</a>로 직접 드랍박스의 글을 편집하고 배포하는 웹서비스였다.</p>
+<p>왜 이름이 DropPress이냐 하면, 드랍박스에 저장된 마크다운 포맷의 글을 <a href="http://ace.org">ACE 에디터</a>로 편집하고 github로 배포하는 웹서비스를 구상했기 때문이다. 드랍박스에 글을 저장해두면, 버전관리를 안해도 되고, 드랍박스와 연동되는 수많은 마크다운 에디터가 널려 있으니, 나는 변환과 배포를 구현하기만 하면 된다고 생각했다. 그런데, 비슷한 웹 에디터나 호스팅 서비스도 이미 존재했고, 또 ACE 에디터가 손대기 애매해서 포기하고, 스크립트만 만들기로 마음을 바꿨다.</p>
+<h2>기능 소개</h2>
 <ul>
-<li>드랍박스에 마크다운으로 된 블로그 포스트들을 저장해두면, 자동으로 버전관리가 된다.</li>
-<li>PC든 모바일이든 드랍박스와 연동되는 수많은 마크다운 에디터가 널렸다.</li>
-<li>결정적으로 이미 비슷한 웹서비스가 존재한다.</li>
+<li>페이지 네비게이션, 아카이브, 카테고리, 태그, RSS, 최근 글목록 등 블로그의 기본 기능</li>
+<li>disqus &amp; google analytics 연동</li>
+<li>글 제목 검색</li>
+<li>쉘 명령 지원: Octopress처럼 init, generate, clean, deploy, new_post 같은 쉘 명령을 지원한다. new_post 의 경우 새 파일을 만든 후 서브라임 텍스트2에 띄워준다. 원래는 Makefile을 쓰려다가 파일 갯수를 줄인다는(?) 취지에서 그냥 파이썬으로 모두 구현해 버렸다.</li>
 </ul>
-<p>는 점에서 착안, 마크다운을 HTML으로 변환하고 github 페이지로 배포하는 단순 스크립트를 목표로 했다. 그런데 지금은 사실 드랍박스 없이도 전혀 문제가 없다. :)</p>
 <h2>구현</h2>
-<p>대충 다음과 같은 라이브러리들을 짜집기해서 만들었다.</p>
+<p>파이썬 스크립트 하나와 몇 개의 HTML 템플릿을 다음과 같은 라이브러리들을 짜집기해서 만들었다. 즉, 트위터 부트스트랩 덕분에 그나마 봐줄만한게 나온 셈이다.</p>
 <table>
 <thead>
 <tr>
@@ -98,7 +99,7 @@
 <tbody>
 <tr>
 <td><a href="http://twitter.github.com/bootstrap">twitter bootstrap</a></td>
-<td>HTML 레이아웃 및 웹 디자인. 진짜 열심히 사용했다.</td>
+<td>HTML 레이아웃 및 웹 디자인. 페이지 곳곳마다 진짜 열심히 사용했다.</td>
 </tr>
 <tr>
 <td><a href="http://bootswatch.com">bootstwatch</a></td>
@@ -110,7 +111,7 @@
 </tr>
 <tr>
 <td>jinja2</td>
-<td>HTML 템플릿</td>
+<td>파이썬용 HTML 템플릿 라이브러리</td>
 </tr>
 <tr>
 <td>yaml</td>
@@ -124,36 +125,11 @@
 <td>google-code-prettifier</td>
 <td>자바스크립트 코드 하일라이팅</td>
 </tr>
-<tr>
-<td>google analytics</td>
-<td>구글 통계 분석</td>
-</tr>
-<tr>
-<td>disqus</td>
-<td>소셜 코멘트</td>
-</tr>
 </tbody>
 </table>
-<p>Octopress에서 영감을 받아서, 폴더 구조라든지, 포스트 파일명과 YAML 헤더 형식은 거의 동일하다. 가령 이 글의 헤더는 다음과 같다.</p>
-<pre><code>---
-title: &quot;DropPress&quot;
-date: 2012-09-16 08:19:35
-link: http://github.com/Reiot/droppress
-categories:
-- programming
-tags:
-- droppress
-- python
-- github
-- bootstrap
-- markdown
-- dropbox
-published: true
-comments: true
----
-</code></pre>
-
-<p>역시 Octopress처럼 init, generate, clean, deploy, new_post 같은 쉘 명령을 지원한다. Makefile을 쓰려다가 파일 갯수를 줄인다는(?) 취지에서 그냥 파이썬으로 모두 구현해 버렸다.</p></div>
+<p>locally                | 테스트용 로컬 웹서버(node.js 필요)</p>
+<h2>향후 계획</h2>
+<p>웬만한 기능은 이미 다 구현했지만,</p></div>
 	<br />
 	<p>
 	

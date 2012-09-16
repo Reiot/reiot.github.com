@@ -257,17 +257,11 @@ $(function(){
     });
 
     $("a[rel=tooltip]")
-        .tooltip()
-        .click(function(e) {
-            e.preventDefault()
-        });
+        .tooltip();
 
     $("a[rel=popover]")
         .popover({
             trigger: 'hover'
-        })
-        .click(function(e) {
-            e.preventDefault()
         });
 
     $('table')
