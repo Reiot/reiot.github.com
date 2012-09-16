@@ -65,6 +65,34 @@
 			
 				<div>
 	<div class="page-header">
+		<h1><a href="/2007/10/26/msbuild-with-cruise-control-net-2/">MSBuild with Cruise Control .Net (2)</a> <small>2007-10-26</small></h1>
+	</div>
+	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG" /></a></p>
+<p><a href="http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/">며칠 동안의 삽질</a> 끝에 오늘 드디어 MSBuild + CC.NET으로 웹브라우저에서 빌드할 수 있도록 설정하는 것을 대략 마무리 지었다. 그 과정에서 알아낸 사실을 정리해보면 (틀린 정보도 있을 수 있으니 주의 바란다)</p>
+<pre><code>- 대상 시스템은 Windows Server 2003 R2 Standard Kor 이다.
+- 가장 먼저 IIS 를 설치해야 한다. 상세한 내용은[ KAISTIZEN 님의 Visual C++을 위한 지속적인 통합 빌드 서버](http://kaistizen.net/EE/index.php/weblog/comments/continuous_integration_for_visual_c/)라는 글을 참고하면 간단하다.
+- MSBuild는 C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727 아래에 있다. 미리 SVN에서 소스 코드를 다운받은 후 MSBuild 로 VC++ 솔루션을 빌드해봤다. 그런데 vcbuild 뭐뭐가 없다면서 빌드에 실패했다. C# 이나 VB.NET  프로젝트라면 몰라도 MSBuild 혼자만으로 VC++ 프로젝트를 빌드할 수는 없는 모양이다. 결국 Visual Studio 를 설치해야 했다.
+- 돈을 아끼기 위해서 Visual Studio 2005 Express와 Platform SDK를 설치했는데, 알고보니 devenv.com 가 들어 있지 않았다. 이 말은 Visual Studio Task (devenv)를 사용할 수는 없다는 뜻이 된다.
+- 다시 프로젝트를 빌드해보니 windows.h 라든지 winsock2.h 를 찾을 수 없다고 나왔다. 이건 단순히 include 의 문제이므로 쉽다고 생각했는데, 아무리 IncludeDirectories 를 설정하려고 노력해봤지만 모두 실패했다. (환경변수,  vcvar32.bat, /property: 모두 시도해봤지만 허사였다) 결국 Visual Studio 2005 Express 와 Platform SDK 모두 제거하고 울며 겨자먹기로 Visual Studio 2005 를 설치해야 했다. 이 문제를 해결하신 분이 있다면 좀 알려주세요~
+- [WebDashBoard](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)에서 IE를 통해 빌드 로그를 봤을때 한글이 깨지는 현상이 있었다. (반면 FireFox에서는 한글이 잘 보였다.) CC.NET 콘솔에서는 잘 출력되는 걸로 봐서 인코딩 문제인 듯하다. 또한 로그가 너무 긴 경우 끝부분이 짤리는 현상이 있었는데, HTML 소스를 보면 모든 로그가 다 있는 걸로 봐서 브라우저의 문제이거나 HTML 태그가 깨진 모양이다.
+- [CCTray](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)에서 강제 빌드를 하려면 HTTP 가 아닌 .NET Remoting 으로 연결해야 하는데, 어떤 주소를 써야 하지는 잘 모르겠다. 이게 아무래도 CC.NET 콘솔 맨 처음에 나오는 tcp://server:port 인 듯도 한데... -_-
+- Project Configuration 메뉴에서 ccnet.config 파일을 열람할 수 있는데 SVN 패스워드가 노출되는 문제가 있다. 결국 check out 만 되는 계정을 만들고, 웹 권한 설정을 꼭 해줘야 한다는 의미. (물론 URL을 지우는게 제일 속이 편하겠지만)
+
+- &lt;font color="#ff0000"&gt;dashboard.config 에서 viewConfigurationProjectPlugin 를 제거하면 해결된다.&lt;/font&gt;
+</code></pre>
+<p>관련 글 보기</p>
+<pre><code>- [MSBuild with Cruise Control .NET](http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/)
+- [WebDashBoard &amp; CCTray](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)
+</code></pre></div>
+	<br />
+	<p>
+	
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
 		<h1><a href="/2007/10/10/webdashboard-cctray/">WebDashboard & CCTray</a> <small>2007-10-10</small></h1>
 	</div>
 	<div><p><a href="http://farm3.static.flickr.com/2400/1531958729_78072a6f59_o.jpg"><img alt="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" src="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" /></a></p>
@@ -192,26 +220,6 @@ OST에서 다뤄졌던 이야기들은 <a href="http://agileconsulting.kr/kbsost
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2007/09/16/syntax-highlighter-on-wordpress-com/">SyntaxHighlighter on Wordpress</a> <small>2007-09-16</small></h1>
-	</div>
-	<div><p>드디어 wordpress.com 에서 공식적으로 syntax highlighter 를 지원하는 모양이다.</p>
-<pre><code>
-otl_stream stmt(1,&quot;{CALL get_multi_resultset(:p&lt;int,in&gt;)}&quot;,conn,otl_implicit_select);
-stmt &lt;&lt; (int)1;
-otl_cur &amp;amp; s = (**stmt.ss).cursor_struct;
-SQLRETURN result = SQLMoreResults( s.cda );
-</code></pre>
-
-<p>지원하는 언어 및 사용법은 <a href="http://faq.wordpress.com/2007/09/03/how-do-i-post-source-code/">how-do-i-post-source-code</a>를 참조하기 바란다. 다만 아직 몇 가지 HTML entity 들의 변환에 문제가 있는 듯하다.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
-</div>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -241,6 +249,10 @@ SQLRETURN result = SQLMoreResults( s.cda );
 	</li>
 	
 	<li>
+		<a href="/2007/10/26/msbuild-with-cruise-control-net-2/">MSBuild with Cruise Control .Net (2)</a>
+	</li>
+	
+	<li>
 		<a href="/2007/10/10/webdashboard-cctray/">WebDashboard & CCTray</a>
 	</li>
 	
@@ -254,10 +266,6 @@ SQLRETURN result = SQLMoreResults( s.cda );
 	
 	<li>
 		<a href="/2007/09/28/ideal-build-system/">Ideal Build System</a>
-	</li>
-	
-	<li>
-		<a href="/2007/09/16/syntax-highlighter-on-wordpress-com/">SyntaxHighlighter on Wordpress</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

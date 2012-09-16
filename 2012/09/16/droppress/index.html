@@ -70,7 +70,8 @@
 <li>결정적으로 이미 비슷한 웹서비스가 존재한다.</li>
 </ul>
 <p>는 점에서 착안, 마크다운을 HTML으로 변환하고 github 페이지로 배포하는 단순 스크립트를 목표로 했다. 그런데 지금은 사실 드랍박스 없이도 전혀 문제가 없다. :)</p>
-<p>대충 다음과 같은 라이브러리들을 짜집기해서 만들었다. 개발은 서브라임 텍스트2가 도와줬다.</p>
+<h2>구현</h2>
+<p>대충 다음과 같은 라이브러리들을 짜집기해서 만들었다.</p>
 <table>
 <thead>
 <tr>
@@ -107,11 +108,18 @@
 <td>google-code-prettifier</td>
 <td>자바스크립트 코드 하일라이팅</td>
 </tr>
+<tr>
+<td>google analytics</td>
+<td>구글 통계 분석</td>
+</tr>
+<tr>
+<td>disqus</td>
+<td>소셜 코멘트</td>
+</tr>
 </tbody>
 </table>
-<p>각 포스트 파일에는 Octopress와 동일한 YAML 헤더가 붙어 있다. 가령 이 글의 헤더는 다음과 같다.</p>
+<p>Octopress에서 영감을 받아서, 폴더 구조라든지, 포스트 파일명과 YAML 헤더 형식은 거의 동일하다. 가령 이 글의 헤더는 다음과 같다.</p>
 <pre><code>---
-layout: post
 title: &quot;DropPress&quot;
 date: 2012-09-16 08:19:35
 link: http://github.com/Reiot/droppress
@@ -127,7 +135,9 @@ tags:
 published: true
 comments: true
 ---
-</code></pre></div>
+</code></pre>
+
+<p>역시 Octopress처럼 init, generate, clean, deploy, new_post 같은 쉘 명령을 지원한다. Makefile을 쓰려다가 파일 갯수를 줄인다는(?) 취지에서 그냥 파이썬으로 모두 구현해 버렸다.</p></div>
 	<br />
 	<p>
 	

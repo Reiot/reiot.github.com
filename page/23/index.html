@@ -65,6 +65,26 @@
 			
 				<div>
 	<div class="page-header">
+		<h1><a href="/2008/01/19/punk-buster/">Punk Buster</a> <small>2008-01-19</small></h1>
+	</div>
+	<div><p><img alt="http://www.evenbalance.com/art/pblogo.gif" src="http://www.evenbalance.com/art/pblogo.gif" /></p>
+<p><a href="http://www.evenbalance.com">Punk Buster </a>는 <a href="http://www.evenbalance.com/index.php?page=support.php">퀘이크, 둠, 콜 오브 듀티, 배틀 필드, 그리고 크라이시스등 유수 FPS 게임들이 채택</a>한 안티 해킹 툴이다. 국산 게임으로는 워락이 유일한 듯하다.</p>
+<p>국산 G모 프로그램과의 그렇게 현격한 차이가 있어 보이지 않지만, <a href="http://www.evenbalance.com/index.php?page=info.php">몇 가지 독특한 기능들</a>이 들어 있는 것 같다.</p>
+<pre><code>- dedicated server 의 관리자는 [PBBAN](http://www.pbbans.com) 이라는 사이트로 찌질이 목록을 내보내거나 받아올 수 있는 것 같다.  XBOX Live 를 연상케하는 이런 시스템을, 국산 온라인 게임들이 채택하고 서로 공유한다면 꽤 유용할 법도 하다.
+- 사용자 클라이언트의 스크린샷을 캡처하거나, 키바인딩 정보를 서버로 전송시킬수 있다.  가만히 생각해보면 별거 아닌 기능이지만, 각종 불법적인 행위를 준비하고 있는 증거를 입수한다면 ban을 항의하는 사용자들에게 증거로 보여줄 수도 있을것 같다. 다만 이게 혹시나 프라이버시 침해로 이어지는건 아닌지 궁금해진다.
+- 욕설이나 험담 등으로 구성된 이름을 체크해주기도 한단다. 서버 프로그래머의 짐을 덜어주는 소소하지만 좋은 기능인 듯?
+</code></pre>
+<p>PB의 핵심적인 특장점을 꼽아보라면, 다른 것보다는 아무래도 유연한 결제 방식이 아닐까 한다. 그것은 바로 년단위 갱신이 아니라 월단위로 고정액을 지불할 수 있다는 점인데, 게임의 흥망성쇠가 불분명한 소규모 게임 업체들에게 적합한 방식이 아닐까 한다. 이런 아름다운 모습은 국산 보안 업체들이 꼭 본받았으면 한다. 단점이라면 아무래도 영어라는 것 정도? (이게 생각보다 큰 짐으로 다가오지만;;;)</p>
+<p>ps. <a href="http://www.google.co.kr/search?aq=f&amp;complete=1&amp;hl=ko&amp;newwindow=1&amp;client=firefox-a&amp;rls=org.mozilla%3Ako%3Aofficial&amp;hs=3lZ&amp;q=%EC%9B%8C%EB%A1%9D+%ED%95%B5&amp;btnG=%EA%B2%80%EC%83%89&amp;lr=">워록 핵</a>으로 검색해보고 대략 좌절했다.</p></div>
+	<br />
+	<p>
+	
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
 		<h1><a href="/2008/01/19/cheat-engine/">Cheat Engine</a> <small>2008-01-19</small></h1>
 	</div>
 	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/cheatenginecokr.png" title="cheatenginecokr.png"><img alt="cheatenginecokr.png" src="http://boxcatstudio.files.wordpress.com/2009/07/cheatenginecokr.png" /></a></p>
@@ -233,34 +253,6 @@
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2007/10/26/msbuild-with-cruise-control-net-2/">MSBuild with Cruise Control .Net (2)</a> <small>2007-10-26</small></h1>
-	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG" /></a></p>
-<p><a href="http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/">며칠 동안의 삽질</a> 끝에 오늘 드디어 MSBuild + CC.NET으로 웹브라우저에서 빌드할 수 있도록 설정하는 것을 대략 마무리 지었다. 그 과정에서 알아낸 사실을 정리해보면 (틀린 정보도 있을 수 있으니 주의 바란다)</p>
-<pre><code>- 대상 시스템은 Windows Server 2003 R2 Standard Kor 이다.
-- 가장 먼저 IIS 를 설치해야 한다. 상세한 내용은[ KAISTIZEN 님의 Visual C++을 위한 지속적인 통합 빌드 서버](http://kaistizen.net/EE/index.php/weblog/comments/continuous_integration_for_visual_c/)라는 글을 참고하면 간단하다.
-- MSBuild는 C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727 아래에 있다. 미리 SVN에서 소스 코드를 다운받은 후 MSBuild 로 VC++ 솔루션을 빌드해봤다. 그런데 vcbuild 뭐뭐가 없다면서 빌드에 실패했다. C# 이나 VB.NET  프로젝트라면 몰라도 MSBuild 혼자만으로 VC++ 프로젝트를 빌드할 수는 없는 모양이다. 결국 Visual Studio 를 설치해야 했다.
-- 돈을 아끼기 위해서 Visual Studio 2005 Express와 Platform SDK를 설치했는데, 알고보니 devenv.com 가 들어 있지 않았다. 이 말은 Visual Studio Task (devenv)를 사용할 수는 없다는 뜻이 된다.
-- 다시 프로젝트를 빌드해보니 windows.h 라든지 winsock2.h 를 찾을 수 없다고 나왔다. 이건 단순히 include 의 문제이므로 쉽다고 생각했는데, 아무리 IncludeDirectories 를 설정하려고 노력해봤지만 모두 실패했다. (환경변수,  vcvar32.bat, /property: 모두 시도해봤지만 허사였다) 결국 Visual Studio 2005 Express 와 Platform SDK 모두 제거하고 울며 겨자먹기로 Visual Studio 2005 를 설치해야 했다. 이 문제를 해결하신 분이 있다면 좀 알려주세요~
-- [WebDashBoard](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)에서 IE를 통해 빌드 로그를 봤을때 한글이 깨지는 현상이 있었다. (반면 FireFox에서는 한글이 잘 보였다.) CC.NET 콘솔에서는 잘 출력되는 걸로 봐서 인코딩 문제인 듯하다. 또한 로그가 너무 긴 경우 끝부분이 짤리는 현상이 있었는데, HTML 소스를 보면 모든 로그가 다 있는 걸로 봐서 브라우저의 문제이거나 HTML 태그가 깨진 모양이다.
-- [CCTray](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)에서 강제 빌드를 하려면 HTTP 가 아닌 .NET Remoting 으로 연결해야 하는데, 어떤 주소를 써야 하지는 잘 모르겠다. 이게 아무래도 CC.NET 콘솔 맨 처음에 나오는 tcp://server:port 인 듯도 한데... -_-
-- Project Configuration 메뉴에서 ccnet.config 파일을 열람할 수 있는데 SVN 패스워드가 노출되는 문제가 있다. 결국 check out 만 되는 계정을 만들고, 웹 권한 설정을 꼭 해줘야 한다는 의미. (물론 URL을 지우는게 제일 속이 편하겠지만)
-
-- &lt;font color="#ff0000"&gt;dashboard.config 에서 viewConfigurationProjectPlugin 를 제거하면 해결된다.&lt;/font&gt;
-</code></pre>
-<p>관련 글 보기</p>
-<pre><code>- [MSBuild with Cruise Control .NET](http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/)
-- [WebDashBoard &amp; CCTray](http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/)
-</code></pre></div>
-	<br />
-	<p>
-	
-	
-	</p>
-</div>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -290,6 +282,10 @@
 	</li>
 	
 	<li>
+		<a href="/2008/01/19/punk-buster/">Punk Buster</a>
+	</li>
+	
+	<li>
 		<a href="/2008/01/19/cheat-engine/">Cheat Engine</a>
 	</li>
 	
@@ -303,10 +299,6 @@
 	
 	<li>
 		<a href="/2007/11/08/kgc-2007-1st-day/">KGC 2007 1st Day</a>
-	</li>
-	
-	<li>
-		<a href="/2007/10/26/msbuild-with-cruise-control-net-2/">MSBuild with Cruise Control .Net (2)</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

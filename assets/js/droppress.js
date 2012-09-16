@@ -206,6 +206,7 @@ var all_posts = {
   "<% raw %> custom tag": "/2010/11/02/custom-tag/", 
   "jquery removeClass \ub97c \uc774\uc6a9\ud574\uc11c css sprite \uad50\uccb4\ud558...": "/2010/08/10/jquery-removeclass-css-sprite/", 
   "\ub9ac\uc2a4\ud2b8\ub97c \uc5ed\uc21c\uc73c\ub85c \uc21c\ud68c\ud558\ub294 \ubc29\ubc95 a = [1,2,3,4,5] for i ...": "/2010/04/29/a-12345-for-i/", 
+  "Asrock P67 Extreme4 Gen3 \uc5d0 \uc0b0\uc0ac\uc790 \uc124\uce58\ud558\uae30": "/2012/08/05/install-mountain-lion-on-asrock-p67-extreme4-gen3/", 
   "boost::asio iostream": "/2008/02/09/boost_asio_iostream/", 
   "libUV \ubd84\uc11d": "/2012/02/26/libuv/", 
   "\uc544\uba54\ub9ac\uce78 \uc2a4\ucf00\uc77c": "/2006/08/29/\u110b\u1161\u1106\u1166\u1105\u1175\u110f\u1161\u11ab-\u1109\u1173\u110f\u1166\u110b\u1175\u11af/", 

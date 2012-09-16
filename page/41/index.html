@@ -65,6 +65,38 @@
 			
 				<div>
 	<div class="page-header">
+		<h1><a href="/2006/02/01/computed-column-divide-by-zero/">computed column & divide by zero</a> <small>2006-02-01</small></h1>
+	</div>
+	<div><blockquote>
+<p>A = ( C != 0 ? B/C : 0 )</p>
+</blockquote>
+<p>이러한 수식으로 구성된 계산 컬럼은 TSQL에서는 아래와 같이 표현할 수 있다.</p>
+<blockquote>
+<p>[A] AS ( case when [C] = 0 then 0 else [B]/[C] end )</p>
+</blockquote>
+<p>문제는 B 나 C 가 여러 컬럼으로 이루어지거나 또 다른 계산 컬럼일 경우이다. TSQL에서는 계산 컬럼이 다른 계산 컬럼을 내포할 수도 없고, 사용자 정의 함수를 포함할 수도 없기 때문에, 울며 겨자먹기로 중복 코드를 허용해야만 한다. 덕분에 오늘 현업에 들어온 이래, 가장 긴 계산 컬럼을 만들어볼 수 있었다.</p>
+<blockquote>
+<p>(case when ([AB] + [BB] + [HBP] + [SF] = 0) then 0.0 else (convert(numeric(9,3),([H] + [BB] + [HBP])) / ([AB] + [BB] + [HBP] + [SF])) end + case when ([AB] = 0) then 0.0 else (convert(numeric(9,3),([H] + [B2] * 2 + [B3] * 3 + [HR] * 4)) / [AB]) end)</p>
+</blockquote>
+<p>계산 컬럼의 내포가 되었다면 단순히 A+B 정도로 끝날 수도 있었고, 사용자 정의 함수만 지원했어도 SafeDiv(...,...)+SafeDiv(...,...) 정도로 줄일 수 있었는데.. 쩝.</p>
+<p>그런데 아래의 SET 옵션을 잘 이용하면 divide by zero를 우회함으로써 수식을 간단하게 표현할 수 있다. 어차피 계산 컬럼은 SELECT 에서만 사용되기 때문에 관련 SELECT 쿼리 앞뒤에 잘 지정하면 될 듯하지만, 이런 것도 된다는 것이며 추천하지는 않는다.</p>
+<blockquote>
+<p>SET ARITHIGNORE ON -- 에러 메시지 출력 안함</p>
+<p>SET ARITHABORT OFF -- 종료하는 대신 NULL 삽입</p>
+<p>[A] AS (ISNULL(A/B,0.0))</p>
+</blockquote>
+<p>상황에 따라서는 SET ANSI_WARNING OFF 도 함께 지정해줘야 하는 경우도 있으므로 유의하기 바란다. 관련 사항을 테스트해준 floyd, icebreak 님께 감사를~</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+	
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
 		<h1><a href="/2005/12/28/os-재설치후-소스세이프가-바보가-될-때/">OS 재설치후 소스세이프가 바보가 될 때</a> <small>2005-12-28</small></h1>
 	</div>
 	<div><p>파일을 체크아웃 받은 상태에서 OS 를 새로 설치할 때, 컴퓨터 이름을 이전과 같이 해야 한다. 소스세이프는 체크아웃된 위치를 컴퓨터 이름과 working folder 를 조합해서 사용하기 때문에, 컴퓨터 이름이 다르다면 다른 곳에 체크아웃을 했다고만 나온다.</p>
@@ -192,59 +224,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2005/12/11/유니코드-팁/">유니코드 팁</a> <small>2005-12-11</small></h1>
-	</div>
-	<div><h2>Generic Text Mapping</h2>
-<p>프로그램을 유니코드에 대응하기 위해서는 모든 single byte char 관련 타입들을 generic macro 를 사용하도록 수정해야 한다.</p>
-<ul>
-<li>모든 스트링 리터럴에는 _T 또는 _TEXT 를 붙일 것. 그러나, 특별히 wide string 을 사용할 경우 L"abc" 처럼 L 을 붙일 것</li>
-<li>모든 문자 배열에 대해서는 TCHAR 를 사용할 것. 그러나, 특별히 wide char 를 사용할 경우 wchar_t 를 사용할 것.</li>
-<li>모든 스트링 포인터에 대해서 LPCTSTR 혹은 LPTSTR 을 붙일 것</li>
-<li>스트링 관련 C 함수들에 대한 T 시리즈들을 사용할 것.</li>
-</ul>
-<h2>XML 과 유니코드</h2>
-<p>유니코드로 인코딩된 XML 에 한글 엘리먼트 이름을 사용한 경우, 중문 혹은 영문 OS 에서 XPath 검색이 안되는 경우가 있다. 이는 프로그램 자체가 Non Unicode 이기 때문이며, 프로그램 자체를 유니코드로 만들면 문제가 없다.</p>
-<p>그러나, 그것이 힘들 경우, Windows XP 이상부터 설정 가능한 Non Unicode Program 의 디폴트 언어를 한글로 지정하면 된다. 단 98 과 같은 오래된 언어에서는 이것이 안되는데, 이를 위해서는 프로그램 코드 자체에 유니코드로 XPath 스트링을 지정하면 된다.</p>
-<blockquote>
-<p>pNode = pXMLDom-&gt;selectNodes( L"//캐릭터정보/*" );</p>
-</blockquote>
-<h2>STL 과 유니코드</h2>
-<p>STL은 OS independent 이어야 하므로 vc 전용 매크로인 <em>UNICODE 에 대응되는 어떤 정책도 가지고 있지 않다. 따라서, 개발자가 아래와 같이 자체적으로 typedef 를 해줘야 한다. 단 전자와 같이 새로운 typedef 를 하는 것보다는 이미 존재하는 타입을 사용한 #ifdef 방식이 더 좋다고 한다. (그러고보니 좋은 거 같다.. -</em>-)</p>
-<pre><code>
-// ok but not recommended
-typedef basic_string〈TCHAR,  char_traits〈TCHAR〉,  allocator〈TCHAR〉〉 tstring;
-
-// better, recommended
-#ifdef _UNICODE
-#define tstring wstring
-#else
-#define tstring string
-#endif
-</code></pre>
-
-<p>see also:</p>
-<ul>
-<li><a href="http://msdn.microsoft.com/msdnmag/issues/04/08/CQA/">http://msdn.microsoft.com/msdnmag/issues/04/08/CQA/</a></li>
-</ul>
-<h2>스트링 길이 문제</h2>
-<ul>
-<li>문자의 개수 : sizeof(szBuffer) / sizeof(TCHAR)</li>
-<li>문자열의 길이 : sizeof(szBuffer) * sizeof(TCHAR)</li>
-<li>적절한 매크로를 만들어 사용하면 고민에서 해방될까?</li>
-</ul>
-<h2>%s 와 %S</h2>
-<p>만약 UNICODE 어플리케이션일 경우 %s 는 유니코드 문자열이며 %S 는 ANSI 문자열 포맷팅시 사용된다. 물론 MBCS 일 경우라면 반대가 된다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
-</div>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -274,6 +253,10 @@ typedef basic_string〈TCHAR,  char_traits〈TCHAR〉,  allocator〈TCHAR〉〉 
 	</li>
 	
 	<li>
+		<a href="/2006/02/01/computed-column-divide-by-zero/">computed column & divide by zero</a>
+	</li>
+	
+	<li>
 		<a href="/2005/12/28/os-재설치후-소스세이프가-바보가-될-때/">OS 재설치후 소스세이프가 바보가 될 때</a>
 	</li>
 	
@@ -287,10 +270,6 @@ typedef basic_string〈TCHAR,  char_traits〈TCHAR〉,  allocator〈TCHAR〉〉 
 	
 	<li>
 		<a href="/2005/12/11/정렬-알고리즘-비교/">정렬 알고리즘 비교</a>
-	</li>
-	
-	<li>
-		<a href="/2005/12/11/유니코드-팁/">유니코드 팁</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

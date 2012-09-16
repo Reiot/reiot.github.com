@@ -65,6 +65,34 @@
 			
 				<div>
 	<div class="page-header">
+		<h1><a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a> <small>2011-04-14</small></h1>
+	</div>
+	<div><p>구글 앱엔진은 데이터스토어의 내용을 로컬 파일로 내려받거나 올리는 벌크로딩을 지원한다. 그런데 막상 기획 데이터와 실시간 연동하려면, 스프레드시트를 편집한 후 CSV로 '하나씩' 다운받아서 다시 콘솔창에서 appcfg.py 로 '한 종류씩' 올려야 하는, 상당히 피곤한 과정을 거쳐야 한다.</p>
+<p>만약 구글 스프레드시트의 데이터를 바로 데이터스토어로 올리고 내릴 수 있다면 얼마나 편할까? 해서 스프레드시트 API 를 써서 직접 만들어봤는데, Model 당 import/export/create 코드를 각각 작성해야 하는 단점이 있었다. 그런데, 이미 bulkloader.yaml 를 만들어서 관리중이라면, 아래 커넥터를 써서 간단하게 구현할 수 있다.</p>
+<p><a href="http://code.google.com/p/bulkloader-gdata-connector/">http://code.google.com/p/bulkloader-gdata-connector/</a></p>
+<p>기본적인 사항들은 <a href="http://code.google.com/p/bulkloader-gdata-connector/wiki/GettingStarted">가이드 문서</a>를 읽어보면 되고, 아래 다음 사항들을 참고하면 된다.</p>
+<ul>
+<li>django 1.2 를 사용할 경우, 코드 맨 위에     use_library('django', '1.2')를 추가할 것. 그렇지 않으면 무서운 0.96.4 is already in use 에러를 맛보리라.</li>
+<li>구글앱스 도메인을 사용할 경우 GenerateAuthSubURL(..., domain='yourapps.com') 을 추가할 것.</li>
+<li>컬럼 이름에는 공백, underscore(_), 대문자를 사용하면 안된다.</li>
+<li>내보내기는 제법 오랜 시간이 걸리지만, 불러오는 건 꽤 빠르다. 즉 최초에 한번 내보내고 그 다음부터는 금방 금방 불러올 수 있다는 뜻이다. :)</li>
+<li>단점이라면, 데이터를 불러오려면 콘솔 즉 프로그래머의 개입(==패스워드 입력)이 필요하다는 점이다. 웹 기반 UI 에서 Connector를 어찌어찌 잘 부를 수 있으면 좋겠는데, 워낙 코드가 복잡해서;;</li>
+</ul></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/bulkload/"><span class="label"><span class="icon icon-tag"></span> bulkload</span></a>
+	
+		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
 		<h1><a href="/2011/04/14/ant-cookbook/">Ant Cookbook</a> <small>2011-04-14</small></h1>
 	</div>
 	<div><h2>Property vs. Var</h2>
@@ -405,56 +433,6 @@ git rm --cached -r {DIR}</p>
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a> <small>2010-12-14</small></h1>
-	</div>
-	<div><p>jQuery UI widget 은 기본적으로 한번에 여러 개의 옵션을 설정할 수 있다.</p>
-<pre><code>$('...').somewidget('option',{aa:bb, cc:dd});
-</code></pre>
-
-<p>하나의 옵션을 설정할 때의 추가적인 로직을 넣으려면  _setOption() 을 재정의하면 된다.</p>
-<pre><code>_setOption: function(key,value){
-  if(key=='some'){...do something...}
-}
-</code></pre>
-
-<p>가끔은 여러 개의 옵션을 한번에 설정할 때, 그 중 몇몇 옵션이 바뀔 경우에 대한 추가적인 로직을 넣으려면  _setOptions 를 재정의하면 된다. jQuery UI Dialog 의 코드가 가장 좋은 예제일 것이다. 다만 1.8.6 부터 지원하니까 버전에 주의하길.</p>
-<pre><code>_setOptions: function( options ) {
-  var self = this,
-  resizableOptions = {},
-  resize = false;
-
-  $.each( options, function( key, value ) {
-  self._setOption( key, value );
-
-  if ( key in sizeRelatedOptions ) {
-  resize = true;
-  }
-  if ( key in resizableRelatedOptions ) {
-  resizableOptions[ key ] = value;
-  }
-  });
-
-  if ( resize ) {
-  this._size();
-  }
-  if ( this.uiDialog.is( &quot;:data(resizable)&quot; ) ) {
-  this.uiDialog.resizable( &quot;option&quot;, resizableOptions );
-  }
-},
-</code></pre></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/jQueryUI/"><span class="label"><span class="icon icon-tag"></span> jQueryUI</span></a>
-	
-	</p>
-</div>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -484,6 +462,10 @@ git rm --cached -r {DIR}</p>
 	</li>
 	
 	<li>
+		<a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
+	</li>
+	
+	<li>
 		<a href="/2011/04/14/ant-cookbook/">Ant Cookbook</a>
 	</li>
 	
@@ -497,10 +479,6 @@ git rm --cached -r {DIR}</p>
 	
 	<li>
 		<a href="/2011/01/04/git-tips/">Git Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

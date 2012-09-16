@@ -65,6 +65,48 @@
 			
 				<div>
 	<div class="page-header">
+		<h1><a href="/2004/11/26/python-service/">Python Service</a> <small>2004-11-26</small></h1>
+	</div>
+	<div><p>win32serviceutil.ServiceFramework를 상속받아서 SvcStop(), SvcDoRun() 을 override 하면 가장 기본적인 서비스를 구현할 수 있다. 아래의 예제는 Python Programming on Win32 에서 발췌한 것이다.</p>
+<h1>!python</h1>
+<p>import win32serviceutil, win32service, win32event<br />
+class MyService(win32serviceutil.ServiceFramework):<br />
+<em>svc_name</em> = "MyService"<br />
+<em>svc_display_name</em> = "My First Service"<br />
+  def <strong>init</strong>(self,args):<br />
+  win32serviceutil.ServiceFramework.<strong>init</strong>(self,args)<br />
+  self.event = win32event.CreateEvent(None,0,0,None)<br />
+  def SvcStop(self):<br />
+  self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)<br />
+  win32event.SetEvent(self.event)<br />
+  def SvcDoRun(self):<br />
+  win32event.WaitForSingleObject(self.event,win32event.INFINITE)</p>
+<p>if <strong>name</strong>=='<strong>main</strong>':<br />
+  win32serviceutil.HandleCommandLine(MyService)</p>
+<p>이렇듯 간단한 서비스를 실행하기 위해서는 우선 Win32 Python 모듈과 함께 배포되는 PythonService.exe를 레지스트리에 등록해야 한다. 다음과 같이 하라. (그런데, 아마도 win32 모듈을 설치하면 자동으로 이 넘이 등록되는 듯하다. 확인 요망)</p>
+<blockquote>
+<p>PythonService.exe /register</p>
+</blockquote>
+<p>이제 서비스를 실행해보자. win32serviceutil.HandleCommandLine()이 이미 모든 것을 구현해뒀기 때문에, 그냥 다음과 같이 하면 된다.</p>
+<blockquote>
+<p>python MyService.py install | start | stop | remove</p>
+</blockquote>
+<p>물론 net start | stop MyService 라고 해도 서비스를 시작/종료할 수 있다.</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
+	
+		<a href="/tag/service/"><span class="label"><span class="icon icon-tag"></span> service</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
 		<h1><a href="/2004/11/26/moniwiki-tips/">MoniWiki Tips</a> <small>2004-11-26</small></h1>
 	</div>
 	<div><h2>Security</h2>
@@ -231,26 +273,6 @@
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2004/11/24/xml-rpc/">XML RPC</a> <small>2004-11-24</small></h1>
-	</div>
-	<div><p>XML RPC는 HTTP 프로토콜 위에 XML 로 RPC(Remote Procedure Call. 원격지의 어플리케이션에 정의된 함수를 로컬인 것처럼 호출할 수 있게 해주는 기법)을 구현한 것이다. 특히 Python을 이용하면 정말 쉽게 XML RPC 를 사용할 수 있다. 레이옷은 MoinMoin 위키의 매크로에서 XML RPC 로 원격지의 시스템에 설치된 게임 서버 WindowsService를 제어하는 에이전트를 구현중이다</p>
-<p>see also:</p>
-<ul>
-<li><a href="http://sandbox.rulemaker.net/ngps/m2/">M2Crypto - Python + OpenSsl + SWIG</a></li>
-</ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/xml/"><span class="label"><span class="icon icon-tag"></span> xml</span></a>
-	
-	</p>
-</div>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -280,6 +302,10 @@
 	</li>
 	
 	<li>
+		<a href="/2004/11/26/python-service/">Python Service</a>
+	</li>
+	
+	<li>
 		<a href="/2004/11/26/moniwiki-tips/">MoniWiki Tips</a>
 	</li>
 	
@@ -293,10 +319,6 @@
 	
 	<li>
 		<a href="/2004/11/24/xml-tips/">XML tips</a>
-	</li>
-	
-	<li>
-		<a href="/2004/11/24/xml-rpc/">XML RPC</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

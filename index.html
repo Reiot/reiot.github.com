@@ -86,7 +86,8 @@
 <li>결정적으로 이미 비슷한 웹서비스가 존재한다.</li>
 </ul>
 <p>는 점에서 착안, 마크다운을 HTML으로 변환하고 github 페이지로 배포하는 단순 스크립트를 목표로 했다. 그런데 지금은 사실 드랍박스 없이도 전혀 문제가 없다. :)</p>
-<p>대충 다음과 같은 라이브러리들을 짜집기해서 만들었다. 개발은 서브라임 텍스트2가 도와줬다.</p>
+<h2>구현</h2>
+<p>대충 다음과 같은 라이브러리들을 짜집기해서 만들었다.</p>
 <table>
 <thead>
 <tr>
@@ -123,11 +124,18 @@
 <td>google-code-prettifier</td>
 <td>자바스크립트 코드 하일라이팅</td>
 </tr>
+<tr>
+<td>google analytics</td>
+<td>구글 통계 분석</td>
+</tr>
+<tr>
+<td>disqus</td>
+<td>소셜 코멘트</td>
+</tr>
 </tbody>
 </table>
-<p>각 포스트 파일에는 Octopress와 동일한 YAML 헤더가 붙어 있다. 가령 이 글의 헤더는 다음과 같다.</p>
+<p>Octopress에서 영감을 받아서, 폴더 구조라든지, 포스트 파일명과 YAML 헤더 형식은 거의 동일하다. 가령 이 글의 헤더는 다음과 같다.</p>
 <pre><code>---
-layout: post
 title: &quot;DropPress&quot;
 date: 2012-09-16 08:19:35
 link: http://github.com/Reiot/droppress
@@ -143,7 +151,9 @@ tags:
 published: true
 comments: true
 ---
-</code></pre></div>
+</code></pre>
+
+<p>역시 Octopress처럼 init, generate, clean, deploy, new_post 같은 쉘 명령을 지원한다. Makefile을 쓰려다가 파일 갯수를 줄인다는(?) 취지에서 그냥 파이썬으로 모두 구현해 버렸다.</p></div>
 	<br />
 	<p>
 	
@@ -161,6 +171,47 @@ comments: true
 		<a href="/tag/markdown/"><span class="label"><span class="icon icon-tag"></span> markdown</span></a>
 	
 		<a href="/tag/dropbox/"><span class="label"><span class="icon icon-tag"></span> dropbox</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2012/08/05/install-mountain-lion-on-asrock-p67-extreme4-gen3/">Asrock P67 Extreme4 Gen3 에 산사자 설치하기</a> <small>2012-08-05</small></h1>
+	</div>
+	<div><p>며칠간의 삽질 끝에 집에 있는 데스크탑에 산사자를 설치했다. 이놈의 사양은</p>
+<ul>
+<li>M/B: Asrock P67 Extreme4 Gen3</li>
+<li>Audio: Onboard ALC892</li>
+<li>Lan: Onboard Realtek Gigabit Ethernet</li>
+<li>VGA: NVidia Geforce GTX 560 Ti</li>
+<li>RAM: 8G</li>
+</ul>
+<p>이다. 요즘 대세인 tonymacx86의 Unibeast를 사용하면 아주 간단하게 설치할 수 있다. 까먹을까봐 정리해본다.</p>
+<ol>
+<li>Unibeast 1.5.2에 정품 산사자를 설치. Legacy USB 옵션은 지정하지 않았다.</li>
+<li>기본적인 Unibeast 바이오스 설정(ACPI 등)만 해서 설치를 하니, 인스톨러 화면도 못보고 그냥 리붓되었다. 이 경우 <code>CPU Configuration - No-Execute Memory Protect: Enable</code>를 설정해서 해결했다.</li>
+<li>부팅 옵션은 <code>PCIRootUID=0</code> 하나만으로 충분했다.</li>
+<li>무사히 산사자 설치가 완료되면 이제 멀티비스트로 네트워크와 오디오 드라이버를 잡아야 한다. <a href="http://legacy.tonymacx86.com/viewtopic.php?f=81&amp;t=66901&amp;start=0">이 자료</a>가 많은 도움이 되었다.</li>
+<li>오디오는 <code>ALC8XXHDA</code>, <code>AppleHDA Rollback</code>, <code>Non-DSDT HDA Enabler for ALC892</code>를 선택할 것.</li>
+<li>네트워크 설정시, 위 글에서는 <code>Lnx2Mac's RealtekRTL81xx Ethernet Driver</code>를 하라고 했는데, 그냥 <code>Realtek Gigabit Ethernet</code> 을 지정해도 잘 설정되었다. (사실 최초 부팅시 네트워크는 인식되지만, 멀티비스트를 돌리고 나면 사라지기 때문에 꼭 지정해줘야 한다)</li>
+</ol>
+<p>가끔 다운되는 현상이 있긴 해서 백점 만점을 주진 못하겠지만, 어쨌든 성공이다.</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/stuff/"><span class="label label-info"><span class="icon icon-folder-open"></span> stuff</span></a>
+	
+	
+		<a href="/tag/hacintosh/"><span class="label"><span class="icon icon-tag"></span> hacintosh</span></a>
+	
+		<a href="/tag/mountain lion/"><span class="label"><span class="icon icon-tag"></span> mountain lion</span></a>
+	
+		<a href="/tag/asrock/"><span class="label"><span class="icon icon-tag"></span> asrock</span></a>
+	
+		<a href="/tag/multibeast/"><span class="label"><span class="icon icon-tag"></span> multibeast</span></a>
+	
+		<a href="/tag/unibeast/"><span class="label"><span class="icon icon-tag"></span> unibeast</span></a>
 	
 	</p>
 </div>
@@ -452,70 +503,6 @@ comments: true
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2012/04/21/250k-node-connections/">Node.js로 25만 동접 만들기</a> <small>2012-04-21</small></h1>
-	</div>
-	<div><p>via <a href="http://blog.caustik.com/">caustik's blog</a></p>
-<h2><a href="http://blog.caustik.com/2012/04/08/scaling-node-js-to-100k-concurrent-connections/">node.js 를 10만 동접으로 스케일링하기</a></h2>
-<ul>
-<li>10만 동접을 처리하는데 CPU 점유율 40%, (virtual) 메모리 1.4G 를 차지함. 이 정도면 rackspace 2G 클라우드 서버일 경우 시간당 0.1$ 로 가능함.</li>
-<li>각 연결은 5초에 한번 메시지를 보냄. 대략 초당 4만개의 JSON 패킷이 보내짐. 응답성도 좋음. </li>
-</ul>
-<p>이런 성능을 위한 설정은:</p>
-<ul>
-<li>Nagle 알고리즘을 사용안함: 빠른 응답성을 위해 커널 내부에 네트워크 버퍼링을 사용하지 않고 즉시 보내지도록 함. socket.setNoDelay().</li>
-<li>v8의 idle 가비지 컬렉션을 끄기 위해 --nouse-idle-notification 옵션 사용: JS 객체가 2백만개 정도 되면 몇 초마다 가비지 컬렉션 때문에 1초 가까이 랙이 걸림. 실제로 객체들을 순회하는 데만 이 정도의 시간이 소모됨. <br />
-[역주] 소스 코드를 보면 --expose_gc 옵션으로 실행해서 gc()를 실행할 수 있게 한 다음, /debug/gc 메시지를 보내서 가비지 컬렉션을 하게 되는데, 이걸 실행하는 순간 랙은 뭘 해도 피할 수 없음. ㅠㅠ </li>
-</ul>
-<h2><a href="http://blog.caustik.com/2012/04/10/node-js-w250k-concurrent-connections/">node.js 로 25만 동접 만들기</a></h2>
-<ol>
-<li>
-<p>가장 최근 태그된 v8 리비전의 성능이 그나마 낫다.</p>
-</li>
-<li>
-<p>25만 연결은 v8의 1.4기가 힙 메모리 제한 하에서의 최대치. 이 상황에서도 CPU 사용량이나 메모리 사용량이 낮은 걸 본다면, 충분히 더 나아질 수 있을 듯.</p>
-</li>
-<li>
-<p>여러 번 테스트해본 결과, SVN의 가장 최근에 태그된 리비전이 그나마 제일 안정적이었음</p>
-</li>
-<li>
-<p>클러스터 모듈의 워커들을 이용</p>
-</li>
-<li>
-<p>100개의 아마존 EC2 서버들로부터 초당 10만개의 JSON HTTP GET 요청을 보냄. </p>
-</li>
-<li>클러스터 모듈을 사용해서 일시적인 요청(?) 처리의 오버헤드를 줄임. (35만 연결 중 10만개 정도가 일시적이었다) [역주] 자식 프로세스로 어떻게 뭘 분산하는지는 현재 미확인 </li>
-<li>마스터는 이전과 동일. 워커는 CPU 당 하나씩 생성하고, 마스터와는 다른 포트를 사용해서 요청을 받아서 마스터로 포워딩함. 이렇게 한 이유는 오직 1.4기가 힙 제한 때문.</li>
-</ol>
-<h2><a href="http://blog.caustik.com/2012/04/11/escape-the-1-4gb-v8-heap-limit-in-node-js/">V8의 1.4GB 힙제한 벗어나기</a></h2>
-<ul>
-<li><code>ulimit -n 999999</code>: 소켓 오픈 개수 제한을 증가. 기본 1024.</li>
-<li><code>--nouse-idle-notification</code>: 가바지 컬렉터가 자동적으로 실행되는 걸 막음. 30초마다 4초짜리 랙이 걸리고 싶지 않으면 사용해야 함. --expose-gc 로 gc() 함수를 자바스크립트에서 직접 호출. </li>
-<li><code>--max-old-space-size=8192</code> : 메모리 제한 최대값을 임의로 설정. </li>
-<li>최신 v8 소스를 약간 고쳐서 빌드: 메모리 관련 설정이나 가비지 컬렉터 실행 부분을 수정. </li>
-</ul>
-<p>최근엔 1.4G 제한을 넘어서 2.2G 까지도 사용할 수 있었음. :)</p>
-<p>[역주] node.js 서버 실행시 넘기는 파라미터:</p>
-<blockquote>
-<p>node --trace-gc --expose-gc --nouse-idle-notification --max-new-space-size=2048 --max-old-space-size=8192 sprites.js</p>
-</blockquote>
-<h2>총평</h2>
-<ul>
-<li>게임 서버를 개발시 이슈가 되는, 응답성, 동접 처리 등의 문제를 node.js 개발자들도 만나기 시작함. 의외로 메모리 제한이 문제가 된다는 게 특이했음. node.js 개발진은 메모리 제약은 클러스터 모듈로 분산해서 해결하는 걸 추천하는 듯. </li>
-<li>가비지 컬렉팅 문제는 응답성이 중요한 액션 게임을 개발할 경우 심각할 수 있음. (4초나 랙이 걸린다니! 그것도 30초마다!) 그래도 소셜 게임 수준은 걱정하지 않아도 될 듯. </li>
-</ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/node.js/"><span class="label"><span class="icon icon-tag"></span> node.js</span></a>
-	
-	</p>
-</div>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -545,6 +532,10 @@ comments: true
 	</li>
 	
 	<li>
+		<a href="/2012/08/05/install-mountain-lion-on-asrock-p67-extreme4-gen3/">Asrock P67 Extreme4 Gen3 에 산사자 설치하기</a>
+	</li>
+	
+	<li>
 		<a href="/2012/05/22/appscale/">AppScale</a>
 	</li>
 	
@@ -554,10 +545,6 @@ comments: true
 	
 	<li>
 		<a href="/2012/04/24/building-a-team-to-ship-a-great-product/">성공하는 제품을 만들기 위한 팀 구축</a>
-	</li>
-	
-	<li>
-		<a href="/2012/04/21/250k-node-connections/">Node.js로 25만 동접 만들기</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

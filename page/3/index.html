@@ -65,6 +65,111 @@
 			
 				<div>
 	<div class="page-header">
+		<h1><a href="/2011/11/15/ndb-tips/">NDB Tips</a> <small>2011-11-15</small></h1>
+	</div>
+	<div><p>구글 앱엔진의 새로운 데이터베이스 라이브러리인 ndb의 사용법과 팁을 소개한다.</p>
+<h2>@tasklets.tasklet</h2>
+<p>이 데코레이터를 사용하면, 함수를 내부에 yield 구문을 사용할 수 있는, generator 함수로 바꿀 수 있다. 대신 맨 끝에는 <code>raise tasklets.Return(x,y,z)</code> 의 형태로 리턴을 해야 한다. (그냥 리턴을 하면 에러로 간주된다)</p>
+<p>이 데코레이터로 둘러싼 함수를 호출하려면</p>
+<pre><code>x, y, z = my_func_async().get_result()
+</code></pre>
+
+<p>또는</p>
+<pre><code>x, y, z = yield my_func_async()
+</code></pre>
+
+<p>와 같이 사용할 수 있다. 다만 yield 를 사용하려면 호출하는 쪽도 tasklet 이 되어야 한다는 단점이 있다.</p>
+<p>여기까지는 매뉴얼에 설명된 부분이고, 기본적인 단어의 의미를 살펴보자.</p>
+<ul>
+<li>tasklet : 비동기적으로 실행되는 단위 함수(coroutine)</li>
+<li>yield : 비동기 함수의 결과를 받을 때까지 대기하면서, 다른 tasklet 에게 스케줄링을 양보한다. 결과가 도착하면 get_result() 와 동일하다.</li>
+<li>future : 비동기 함수의 실행 상황을 저장해두는 객체. jQuery 의 promise 와 같다.</li>
+<li>eventloop : 내부 큐에 쌓여있는 tasklet 들을 잘 실행해주는 스케줄러다. <code>@context.top_level</code> 의 소스를 보면 큐에 쌓여있는 모든 작업들을 끝낼 때까지 무한루프(eventloop.run())를 돌리는 걸 볼 수 있다.</li>
+</ul>
+<p>이제 실제 사용예를 살펴보자.</p>
+<p><strong>여러 개의 비동기 함수를 기다리기</strong></p>
+<pre><code>futures = []
+f1 = A.get_async()
+futures.append(f1)
+f2 = B.get_async()
+futures.append(f2)
+x, y = yield futures
+# or
+x, y = yield A.get_async(), B.get_async()
+</code></pre>
+
+<p>이 경우 2개의 쿼리는 동시에 실행되며, 둘 다 끝날 때까지 대기하는 배리어(Barrier) 패턴을 사용할 수 있다. 주의할 점은 동시에 실행하는 함수들은 서로 서로 관계가 없어야 된다는 점이다.</p>
+<pre><code>@tasklets.tasklet
+def load_async(v):
+    x = yield X.get_async()
+    v.x = x
+    raise taskets.Return(x)
+
+yield load_async(A), A.put_async()
+</code></pre>
+
+<p>위 예제처럼 하나의 tasklet에서 객체를 변형하는데, 동시에 그 객체를 저장하는 함수를 실행할 경우, 완료 순서가 다름으로 인해서 A의 값이 저장될 수도 있고 되지 않을 수도 있다. 예제가 너무 극단적이지만 실제 프로젝트에서 비동기 함수들이 간접적으로 재귀 호출이 되는 상황에 처하다 보면, 헷갈릴 때가 많으니 주의 바란다.</p>
+<p><strong>Map Query</strong></p>
+<p>쿼리로 읽어온 객체의 참조 속성(reference property)을 다시 읽어와야 할 경우라든지, 읽어온 값을 이용해서 또다른 쿼리를 해야 할 때 사용한다.</p>
+<pre><code>@tasklets.tasklet
+def prefetch(x):
+    ref = yield x.ref_prop
+    raise tasklets.tasklet(x, ref)
+
+values = X.query().filter().map(prefetch)
+values = yield X.query().filter().map_async(prefetch)
+</code></pre>
+
+<p>map/map_async는 파이썬 기본 함수인 map()처럼, 개별 쿼리 결과에 대해서 동기/비동기로 콜백을 실행해주는 함수다. 참고로, 위 예제를 아무리 병렬로 실행해본들, 첫번째 쿼리의 결과가 끝나야 그다음 결과를 읽어올 수 있다는 점에 주의할 것.</p>
+<p>어쨌거나 내부적으로 AutoBatcher 가 2개의 쿼리로 만들어준다고 하니 믿고 써보자. 운좋게 컨텍스트 캐시에 적중하면 좀 더 빠르겠지…</p>
+<p>위 예제를 yield 없이 구현하면 명백한 2개의 쿼리로 만들 수는 있다. 아주 직관적이지만 코드는 좀 더럽다.</p>
+<pre><code>futures = []
+v1 = []
+for x in X.query().filter().fetch():
+   futuers.append(x.ref.get_async())
+   v1.append(x)
+values = zip(v1, yield futures)
+</code></pre>
+
+<p>여기까지는 그럭저럭 손코딩이 빠를 수 있지만, 여기에 서브 쿼리가 들어가고 리턴되는 양도 많아지면, 오히려 AutoBatcher가 더 빠르다고 한다.</p>
+<pre><code>@tasklets.tasklet
+def prefetch_subquery(x):
+    ref, subquery = yield x.ref_prop, Y.query().fetch_async()
+    raise tasklets.tasklet(x, ref, subquery)
+values = X.query().filter().map(prefetch)
+</code></pre>
+
+<p>잘 생각해보면, 이걸 아무리 손으로 최적화해본들 쿼리의 절대 숫자(1+첫번째 쿼리 결과 갯수)는 줄일 수가 없다. 따라서 첫번째 쿼리 결과가 많아지면 손으로 최적화하기 보다는 자동으로 처리하고 Guido에게 비는게 가장 좋은 방법이다.</p>
+<h2>@tasklets.synctasklet</h2>
+<p>이 데코레이터는 generator 함수를 일반 함수로 바꿔준다. 예를 들면</p>
+<pre><code>@tasklets.synctasklet
+def func_async(k):
+    v = yield some_async(k)
+    raise tasklets.Return(v)
+
+v = func_async(k)
+</code></pre>
+
+<p>위와 같이 평범한 함수 호출처럼 사용할 수 있다. 그냥 일반 tasklet 에서 get_result() 를 한번 더 호출해주는 걸로 구현되었다.</p>
+<h2>@context.top_level</h2>
+<p>이 데코레이터는 내부적인 모든 비동기 루틴들이 완료될 때까지 기다린다. 소스 코드를 살펴보면 eventloop 로 무한루프를 돌리는 걸 확인할 수 있다. django view 라든지 webapp view 에 사용하면 된다.</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
+	
+		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
+	
+		<a href="/tag/ndb/"><span class="label"><span class="icon icon-tag"></span> ndb</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
 		<h1><a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a> <small>2011-09-21</small></h1>
 	</div>
 	<div><p><img alt="해커 전용 블로깅 프레임워크?" src="http://octopress.org/images/logo.png" /></p>
@@ -213,34 +318,6 @@
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a> <small>2011-04-14</small></h1>
-	</div>
-	<div><p>구글 앱엔진은 데이터스토어의 내용을 로컬 파일로 내려받거나 올리는 벌크로딩을 지원한다. 그런데 막상 기획 데이터와 실시간 연동하려면, 스프레드시트를 편집한 후 CSV로 '하나씩' 다운받아서 다시 콘솔창에서 appcfg.py 로 '한 종류씩' 올려야 하는, 상당히 피곤한 과정을 거쳐야 한다.</p>
-<p>만약 구글 스프레드시트의 데이터를 바로 데이터스토어로 올리고 내릴 수 있다면 얼마나 편할까? 해서 스프레드시트 API 를 써서 직접 만들어봤는데, Model 당 import/export/create 코드를 각각 작성해야 하는 단점이 있었다. 그런데, 이미 bulkloader.yaml 를 만들어서 관리중이라면, 아래 커넥터를 써서 간단하게 구현할 수 있다.</p>
-<p><a href="http://code.google.com/p/bulkloader-gdata-connector/">http://code.google.com/p/bulkloader-gdata-connector/</a></p>
-<p>기본적인 사항들은 <a href="http://code.google.com/p/bulkloader-gdata-connector/wiki/GettingStarted">가이드 문서</a>를 읽어보면 되고, 아래 다음 사항들을 참고하면 된다.</p>
-<ul>
-<li>django 1.2 를 사용할 경우, 코드 맨 위에     use_library('django', '1.2')를 추가할 것. 그렇지 않으면 무서운 0.96.4 is already in use 에러를 맛보리라.</li>
-<li>구글앱스 도메인을 사용할 경우 GenerateAuthSubURL(..., domain='yourapps.com') 을 추가할 것.</li>
-<li>컬럼 이름에는 공백, underscore(_), 대문자를 사용하면 안된다.</li>
-<li>내보내기는 제법 오랜 시간이 걸리지만, 불러오는 건 꽤 빠르다. 즉 최초에 한번 내보내고 그 다음부터는 금방 금방 불러올 수 있다는 뜻이다. :)</li>
-<li>단점이라면, 데이터를 불러오려면 콘솔 즉 프로그래머의 개입(==패스워드 입력)이 필요하다는 점이다. 웹 기반 UI 에서 Connector를 어찌어찌 잘 부를 수 있으면 좋겠는데, 워낙 코드가 복잡해서;;</li>
-</ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/bulkload/"><span class="label"><span class="icon icon-tag"></span> bulkload</span></a>
-	
-		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-	
-	</p>
-</div>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -270,6 +347,10 @@
 	</li>
 	
 	<li>
+		<a href="/2011/11/15/ndb-tips/">NDB Tips</a>
+	</li>
+	
+	<li>
 		<a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
 	</li>
 	
@@ -283,10 +364,6 @@
 	
 	<li>
 		<a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
-	</li>
-	
-	<li>
-		<a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

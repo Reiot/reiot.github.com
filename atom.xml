@@ -7,7 +7,8 @@
 &lt;li&gt;결정적으로 이미 비슷한 웹서비스가 존재한다.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;는 점에서 착안, 마크다운을 HTML으로 변환하고 github 페이지로 배포하는 단순 스크립트를 목표로 했다. 그런데 지금은 사실 드랍박스 없이도 전혀 문제가 없다. :)&lt;/p&gt;
-&lt;p&gt;대충 다음과 같은 라이브러리들을 짜집기해서 만들었다. 개발은 서브라임 텍스트2가 도와줬다.&lt;/p&gt;
+&lt;h2&gt;구현&lt;/h2&gt;
+&lt;p&gt;대충 다음과 같은 라이브러리들을 짜집기해서 만들었다.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -44,11 +45,18 @@
 &lt;td&gt;google-code-prettifier&lt;/td&gt;
 &lt;td&gt;자바스크립트 코드 하일라이팅&lt;/td&gt;
 &lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;google analytics&lt;/td&gt;
+&lt;td&gt;구글 통계 분석&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;disqus&lt;/td&gt;
+&lt;td&gt;소셜 코멘트&lt;/td&gt;
+&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;각 포스트 파일에는 Octopress와 동일한 YAML 헤더가 붙어 있다. 가령 이 글의 헤더는 다음과 같다.&lt;/p&gt;
+&lt;p&gt;Octopress에서 영감을 받아서, 폴더 구조라든지, 포스트 파일명과 YAML 헤더 형식은 거의 동일하다. 가령 이 글의 헤더는 다음과 같다.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;---
-layout: post
 title: &amp;quot;DropPress&amp;quot;
 date: 2012-09-16 08:19:35
 link: http://github.com/Reiot/droppress
@@ -64,7 +72,26 @@ tags:
 published: true
 comments: true
 ---
-&lt;/code&gt;&lt;/pre&gt;</summary></entry><entry><title>AppScale</title><link href="/2012/05/22/appscale/" rel="alternate"></link><updated>2012-05-22T11:04:00Z</updated><id>tag:None,2012-05-22:/2012/05/22/appscale//</id><summary type="html">&lt;h2&gt;개요&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;역시 Octopress처럼 init, generate, clean, deploy, new_post 같은 쉘 명령을 지원한다. Makefile을 쓰려다가 파일 갯수를 줄인다는(?) 취지에서 그냥 파이썬으로 모두 구현해 버렸다.&lt;/p&gt;</summary></entry><entry><title>Asrock P67 Extreme4 Gen3 에 산사자 설치하기</title><link href="/2012/08/05/install-mountain-lion-on-asrock-p67-extreme4-gen3/" rel="alternate"></link><updated>2012-08-05T21:27:28Z</updated><id>tag:None,2012-08-05:/2012/08/05/install-mountain-lion-on-asrock-p67-extreme4-gen3//</id><summary type="html">&lt;p&gt;며칠간의 삽질 끝에 집에 있는 데스크탑에 산사자를 설치했다. 이놈의 사양은&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;M/B: Asrock P67 Extreme4 Gen3&lt;/li&gt;
+&lt;li&gt;Audio: Onboard ALC892&lt;/li&gt;
+&lt;li&gt;Lan: Onboard Realtek Gigabit Ethernet&lt;/li&gt;
+&lt;li&gt;VGA: NVidia Geforce GTX 560 Ti&lt;/li&gt;
+&lt;li&gt;RAM: 8G&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;이다. 요즘 대세인 tonymacx86의 Unibeast를 사용하면 아주 간단하게 설치할 수 있다. 까먹을까봐 정리해본다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Unibeast 1.5.2에 정품 산사자를 설치. Legacy USB 옵션은 지정하지 않았다.&lt;/li&gt;
+&lt;li&gt;기본적인 Unibeast 바이오스 설정(ACPI 등)만 해서 설치를 하니, 인스톨러 화면도 못보고 그냥 리붓되었다. 이 경우 &lt;code&gt;CPU Configuration - No-Execute Memory Protect: Enable&lt;/code&gt;를 설정해서 해결했다.&lt;/li&gt;
+&lt;li&gt;부팅 옵션은 &lt;code&gt;PCIRootUID=0&lt;/code&gt; 하나만으로 충분했다.&lt;/li&gt;
+&lt;li&gt;무사히 산사자 설치가 완료되면 이제 멀티비스트로 네트워크와 오디오 드라이버를 잡아야 한다. &lt;a href="http://legacy.tonymacx86.com/viewtopic.php?f=81&amp;amp;t=66901&amp;amp;start=0"&gt;이 자료&lt;/a&gt;가 많은 도움이 되었다.&lt;/li&gt;
+&lt;li&gt;오디오는 &lt;code&gt;ALC8XXHDA&lt;/code&gt;, &lt;code&gt;AppleHDA Rollback&lt;/code&gt;, &lt;code&gt;Non-DSDT HDA Enabler for ALC892&lt;/code&gt;를 선택할 것.&lt;/li&gt;
+&lt;li&gt;네트워크 설정시, 위 글에서는 &lt;code&gt;Lnx2Mac's RealtekRTL81xx Ethernet Driver&lt;/code&gt;를 하라고 했는데, 그냥 &lt;code&gt;Realtek Gigabit Ethernet&lt;/code&gt; 을 지정해도 잘 설정되었다. (사실 최초 부팅시 네트워크는 인식되지만, 멀티비스트를 돌리고 나면 사라지기 때문에 꼭 지정해줘야 한다)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;가끔 다운되는 현상이 있긴 해서 백점 만점을 주진 못하겠지만, 어쨌든 성공이다.&lt;/p&gt;</summary></entry><entry><title>AppScale</title><link href="/2012/05/22/appscale/" rel="alternate"></link><updated>2012-05-22T11:04:00Z</updated><id>tag:None,2012-05-22:/2012/05/22/appscale//</id><summary type="html">&lt;h2&gt;개요&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://appscale.cs.ucsb.edu/"&gt;AppScale&lt;/a&gt;은 구글 앱엔진 플랫폼을 &lt;a href="http://code.google.com/p/appscale/"&gt;오픈 소스&lt;/a&gt;화하는 프로젝트이다. 아래와 같이 구글 앱엔진의 주요 모듈들을 오픈 소스 서비스들로 교체했다고 보면 정답이다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;big table =&amp;gt; mysql, MongoDB, Cassandra 등 입맛대로 선택.&lt;/li&gt;
@@ -649,89 +676,4 @@ do {
 &lt;ul&gt;
 &lt;li&gt;적당한 데이터베이스/캐시 미들웨어: membase?&lt;/li&gt;
 &lt;li&gt;node 프로세스 관리 도구 및 모니터링&lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>NDB Tips</title><link href="/2011/11/15/ndb-tips/" rel="alternate"></link><updated>2011-11-15T10:52:00Z</updated><id>tag:None,2011-11-15:/2011/11/15/ndb-tips//</id><summary type="html">&lt;p&gt;구글 앱엔진의 새로운 데이터베이스 라이브러리인 ndb의 사용법과 팁을 소개한다.&lt;/p&gt;
-&lt;h2&gt;@tasklets.tasklet&lt;/h2&gt;
-&lt;p&gt;이 데코레이터를 사용하면, 함수를 내부에 yield 구문을 사용할 수 있는, generator 함수로 바꿀 수 있다. 대신 맨 끝에는 &lt;code&gt;raise tasklets.Return(x,y,z)&lt;/code&gt; 의 형태로 리턴을 해야 한다. (그냥 리턴을 하면 에러로 간주된다)&lt;/p&gt;
-&lt;p&gt;이 데코레이터로 둘러싼 함수를 호출하려면&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;x, y, z = my_func_async().get_result()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;또는&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;x, y, z = yield my_func_async()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;와 같이 사용할 수 있다. 다만 yield 를 사용하려면 호출하는 쪽도 tasklet 이 되어야 한다는 단점이 있다.&lt;/p&gt;
-&lt;p&gt;여기까지는 매뉴얼에 설명된 부분이고, 기본적인 단어의 의미를 살펴보자.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;tasklet : 비동기적으로 실행되는 단위 함수(coroutine)&lt;/li&gt;
-&lt;li&gt;yield : 비동기 함수의 결과를 받을 때까지 대기하면서, 다른 tasklet 에게 스케줄링을 양보한다. 결과가 도착하면 get_result() 와 동일하다.&lt;/li&gt;
-&lt;li&gt;future : 비동기 함수의 실행 상황을 저장해두는 객체. jQuery 의 promise 와 같다.&lt;/li&gt;
-&lt;li&gt;eventloop : 내부 큐에 쌓여있는 tasklet 들을 잘 실행해주는 스케줄러다. &lt;code&gt;@context.top_level&lt;/code&gt; 의 소스를 보면 큐에 쌓여있는 모든 작업들을 끝낼 때까지 무한루프(eventloop.run())를 돌리는 걸 볼 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;이제 실제 사용예를 살펴보자.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;여러 개의 비동기 함수를 기다리기&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;futures = []
-f1 = A.get_async()
-futures.append(f1)
-f2 = B.get_async()
-futures.append(f2)
-x, y = yield futures
-# or
-x, y = yield A.get_async(), B.get_async()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;이 경우 2개의 쿼리는 동시에 실행되며, 둘 다 끝날 때까지 대기하는 배리어(Barrier) 패턴을 사용할 수 있다. 주의할 점은 동시에 실행하는 함수들은 서로 서로 관계가 없어야 된다는 점이다.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@tasklets.tasklet
-def load_async(v):
-    x = yield X.get_async()
-    v.x = x
-    raise taskets.Return(x)
-
-yield load_async(A), A.put_async()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;위 예제처럼 하나의 tasklet에서 객체를 변형하는데, 동시에 그 객체를 저장하는 함수를 실행할 경우, 완료 순서가 다름으로 인해서 A의 값이 저장될 수도 있고 되지 않을 수도 있다. 예제가 너무 극단적이지만 실제 프로젝트에서 비동기 함수들이 간접적으로 재귀 호출이 되는 상황에 처하다 보면, 헷갈릴 때가 많으니 주의 바란다.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Map Query&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;쿼리로 읽어온 객체의 참조 속성(reference property)을 다시 읽어와야 할 경우라든지, 읽어온 값을 이용해서 또다른 쿼리를 해야 할 때 사용한다.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@tasklets.tasklet
-def prefetch(x):
-    ref = yield x.ref_prop
-    raise tasklets.tasklet(x, ref)
-
-values = X.query().filter().map(prefetch)
-values = yield X.query().filter().map_async(prefetch)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;map/map_async는 파이썬 기본 함수인 map()처럼, 개별 쿼리 결과에 대해서 동기/비동기로 콜백을 실행해주는 함수다. 참고로, 위 예제를 아무리 병렬로 실행해본들, 첫번째 쿼리의 결과가 끝나야 그다음 결과를 읽어올 수 있다는 점에 주의할 것.&lt;/p&gt;
-&lt;p&gt;어쨌거나 내부적으로 AutoBatcher 가 2개의 쿼리로 만들어준다고 하니 믿고 써보자. 운좋게 컨텍스트 캐시에 적중하면 좀 더 빠르겠지…&lt;/p&gt;
-&lt;p&gt;위 예제를 yield 없이 구현하면 명백한 2개의 쿼리로 만들 수는 있다. 아주 직관적이지만 코드는 좀 더럽다.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;futures = []
-v1 = []
-for x in X.query().filter().fetch():
-   futuers.append(x.ref.get_async())
-   v1.append(x)
-values = zip(v1, yield futures)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;여기까지는 그럭저럭 손코딩이 빠를 수 있지만, 여기에 서브 쿼리가 들어가고 리턴되는 양도 많아지면, 오히려 AutoBatcher가 더 빠르다고 한다.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@tasklets.tasklet
-def prefetch_subquery(x):
-    ref, subquery = yield x.ref_prop, Y.query().fetch_async()
-    raise tasklets.tasklet(x, ref, subquery)
-values = X.query().filter().map(prefetch)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;잘 생각해보면, 이걸 아무리 손으로 최적화해본들 쿼리의 절대 숫자(1+첫번째 쿼리 결과 갯수)는 줄일 수가 없다. 따라서 첫번째 쿼리 결과가 많아지면 손으로 최적화하기 보다는 자동으로 처리하고 Guido에게 비는게 가장 좋은 방법이다.&lt;/p&gt;
-&lt;h2&gt;@tasklets.synctasklet&lt;/h2&gt;
-&lt;p&gt;이 데코레이터는 generator 함수를 일반 함수로 바꿔준다. 예를 들면&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@tasklets.synctasklet
-def func_async(k):
-    v = yield some_async(k)
-    raise tasklets.Return(v)
-
-v = func_async(k)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;위와 같이 평범한 함수 호출처럼 사용할 수 있다. 그냥 일반 tasklet 에서 get_result() 를 한번 더 호출해주는 걸로 구현되었다.&lt;/p&gt;
-&lt;h2&gt;@context.top_level&lt;/h2&gt;
-&lt;p&gt;이 데코레이터는 내부적인 모든 비동기 루틴들이 완료될 때까지 기다린다. 소스 코드를 살펴보면 eventloop 로 무한루프를 돌리는 걸 확인할 수 있다. django view 라든지 webapp view 에 사용하면 된다.&lt;/p&gt;</summary></entry></feed>
+&lt;/ul&gt;</summary></entry></feed>

@@ -65,6 +65,26 @@
 			
 				<div>
 	<div class="page-header">
+		<h1><a href="/2004/11/24/xml-rpc/">XML RPC</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>XML RPC는 HTTP 프로토콜 위에 XML 로 RPC(Remote Procedure Call. 원격지의 어플리케이션에 정의된 함수를 로컬인 것처럼 호출할 수 있게 해주는 기법)을 구현한 것이다. 특히 Python을 이용하면 정말 쉽게 XML RPC 를 사용할 수 있다. 레이옷은 MoinMoin 위키의 매크로에서 XML RPC 로 원격지의 시스템에 설치된 게임 서버 WindowsService를 제어하는 에이전트를 구현중이다</p>
+<p>see also:</p>
+<ul>
+<li><a href="http://sandbox.rulemaker.net/ngps/m2/">M2Crypto - Python + OpenSsl + SWIG</a></li>
+</ul></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/xml/"><span class="label"><span class="icon icon-tag"></span> xml</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
 		<h1><a href="/2004/11/24/using-xerces-c/">Using Xerces C++</a> <small>2004-11-24</small></h1>
 	</div>
 	<div><p>Xerces는 XML 파싱을 위한 C++/Java 공개 라이브러리다. 기존의 Microsoft XML SDK를 이용한 XML 파싱 라이브러리가 있음에도 불구하고, Xerces를 이용한 파서를 새로 만들게 된 것은 Microsoft XML SDK가 Visual C++에서만 컴파일이 정상적으로 되었기 때문이다. Borland C++ Builder를 이용해서 기존의 라이브러리를 컴파일하기 위해 몇가지 시도를 해보았지만, 정상적으로 되지가 않았다. 결국 포기하고 다른 방편으로 Xerces를 이용하게 되었다.</p>
@@ -198,46 +218,6 @@
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2004/11/24/code-review-tips/">Code Review Tips</a> <small>2004-11-24</small></h1>
-	</div>
-	<div><p>당신의 프로그램이 다운된다면, 혹은 메모리 누수가 심하다면 다음과 같은 룰을 기반으로 코드를 리뷰하라. 이때, 코드 작성자가 아닌 다른 프로그래머를 항상 옆에 대동하면 버그를 찾을 확률은 200% 증가할 것이다. (사실 이건 내부 자료인데 몰래 공개하는 것이다. 헤헤)</p>
-<ul>
-<li>상속 관계의 베이스 클래스에 virtual destructor 를 선언했는가?</li>
-<li>배열 포인터를 delete[] 로 삭제하는가?</li>
-<li>delete:Wh*[]으로 정규식 검색을 하면 편하다.</li>
-<li>배열이 아닌 포인터를 delete[] 로 삭제하는가?</li>
-<li>memcpy(), memset(), memmove(), strcpy() 메모리 관련 함수들의 BoundCheck가 잘 되어 있는가?</li>
-<li>배열을 인덱싱할 때 파라미터의 BoundCheck 가 잘 되어 있는가?</li>
-<li>다른 peer 로 부터 넘어온 모든 정수형 파라미터에 대한 BoundCheck가 잘 되어 있는가? (특히 문자열 길이에 유의)</li>
-<li>STL string 을 사용한다면, %s 포맷팅할 때 c_str() 을 사용하는가?</li>
-<li>Singleton 이나 STL 컨테이너에 대해서 2개 이상의 쓰레드가 동시에 읽기/쓰기 모드로 접근하는 경우 lock 을 걸고 있는가?</li>
-<li>사용하지 않는 copy constructor, assignment operator 가 private 로 선언되어 있는가?</li>
-<li>포인터 멤버를 가진 객체를 복사할 때 assignment operator 를 재정의했는가?</li>
-<li>Warning Level 을 4 로 높인 다음 컴파일해봤는가?</li>
-<li>초기화하지 않고 사용하는 변수(또는 클래스 데이터 멤버)가 가장 위험하다.</li>
-<li>try ~ catch( ... )은 절대 사용하지 말라. SEH Exception 까지도 캐치해버린다.버그를 숨겨서 더 큰 버그를 만들 뿐이다.</li>
-<li>set_se_translator() 를 쓰지 마라. 쓰레드 로컬이라, 매 쓰레드마다 해줘야 한다. SetUnhandledExceptionFilter()는 프로세스 글로벌이다.</li>
-</ul>
-<p>see also:</p>
-<ul>
-<li><a href="http://imays.pe.kr:41414/moin/iwiki/moin.cgi/_bc_ad_b9_f6_20_c7_c1_b7_ce_b1_d7_b7_a5_20_c4_da_b5_f9_c0_c7_20_c1_d6_c0_c7_bb_e7_c7_d7">서버 프로그래밍시 주의사항</a> by imays님</li>
-<li><a href="http://www.myevan.net/phpBB/viewtopic.php?t=1484">서버 프로그래밍시 주의사항</a> by 빗자루님</li>
-<li><a href="http://www.macadamian.com/codereview.htm">Code Review Checklist</a></li>
-<li><a href="http://www.macadamian.com/column/completeBreakfast.html">Part of Your Complete Breakfast</a></li>
-</ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/columns/"><span class="label label-info"><span class="icon icon-folder-open"></span> columns</span></a>
-	
-	
-		<a href="/tag/code review/"><span class="label"><span class="icon icon-tag"></span> code review</span></a>
-	
-	</p>
-</div>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -267,6 +247,10 @@
 	</li>
 	
 	<li>
+		<a href="/2004/11/24/xml-rpc/">XML RPC</a>
+	</li>
+	
+	<li>
 		<a href="/2004/11/24/using-xerces-c/">Using Xerces C++</a>
 	</li>
 	
@@ -280,10 +264,6 @@
 	
 	<li>
 		<a href="/2004/11/24/cpb/">CPB</a>
-	</li>
-	
-	<li>
-		<a href="/2004/11/24/code-review-tips/">Code Review Tips</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

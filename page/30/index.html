@@ -65,6 +65,23 @@
 			
 				<div>
 	<div class="page-header">
+		<h1><a href="/2006/09/01/xp팀의-작업실/">XP팀의 작업실</a> <small>2006-09-01</small></h1>
+	</div>
+	<div><p><img alt="http://www.scissor.com/resources/teamroom/main_room.jpg" src="http://www.scissor.com/resources/teamroom/main_room.jpg" /><br />
+우리도 빨리 이런 <a href="http://blog.naver.com/yuzico/130007299724">XP팀의 작업실</a>을 꾸며야 할텐데... 미국처럼 땅도 넓은 동네에서는 이런 게 가능하겠지만, 우리 나라에서는 회사의 전폭적인 지지 없이는 불가능할 듯.</p>
+<ul>
+<li>원문 보기 : <a href="http://www.scissor.com/resources/teamroom/">An XP Team Room</a></li>
+<li>번역본 보기 : <a href="http://blog.naver.com/yuzico/130007299724">XP팀의 작업실</a></li>
+</ul></div>
+	<br />
+	<p>
+	
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
 		<h1><a href="/2006/08/29/아메리칸-스케일/">아메리칸 스케일</a> <small>2006-08-29</small></h1>
 	</div>
 	<div><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/228179028"><img alt="http://static.flickr.com/75/228179028_c06dbabfbf_s.jpg" src="http://static.flickr.com/75/228179028_c06dbabfbf_s.jpg" /></a></p>
@@ -209,51 +226,6 @@
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2006/07/06/visual-assist-x의-리팩토링-기능을-활용해보자/">Visual Assist X의 리팩토링 기능을 활용해보자</a> <small>2006-07-06</small></h1>
-	</div>
-	<div><p>WholeTomato의 <a href="http://www.wholetomato.com/products/matrixRefactoring.html">Visual Assist X 베타 버전</a>을 아직도 안 써보셨다면 지금 <a href="http://www.wholetomato.com/support/history.html">당장 다운받은 후 설치</a>하기 바란다. 최근 추가된 환상적인 C++ 리팩토링 기능 덕분에 최근 몇 주간 정말 행복했다. 그래서 드디어 오늘 몇 카피 사달라고 상부에 보고를 해서 내일 결제할 예정이다. 후훗.</p>
-<p><img alt="http://www.wholetomato.com/products/features/images/addMemberMenu.png" src="http://www.wholetomato.com/products/features/images/addMemberMenu.png" /></p>
-<p>기본적으로 VAX의 리팩토링은 위 그림처럼 심볼에 마우스를 갖다대면 나오는 버튼을 몇 번 누르는 것만으로 끝이 난다. 가장 짭짤하게 재미를 본 기능 위주로 한번 설명해본다면...</p>
-<h2><a href="http://www.wholetomato.com/products/features/moveImplementation.html?more=yes">Move Implementation to Source File</a></h2>
-<p>UnitTest 를 기반으로 작업을 해보면, 일단 헤더 파일에 빈 함수를 만들고 컴파일을 시킨 후에야 실제 내용을 채워넣게 된다. 그러다보면 헤더 파일에 inline 으로 구현된 함수의 바디를 .cpp 로 손수 옮겨야 할 때가 많다. 지금까지는 이 작업이 귀찮다는 생각을 해 본적이 없는데, 가만히 분석해보니</p>
-<ol>
-<li>멤버 함수 전체를 Copy</li>
-<li>함수 바디를 삭제하고 맨 끝에 세미콜론 붙이기</li>
-<li>.cpp 로 이동해서 적당한 위치에 Paste</li>
-<li>클래스명:: 을 긁어 붙이거나 타이핑한 후 코드를 적당히 꾸미기</li>
-<li>(옵션) 디폴트 파라미터가 있을 경우 삭제하기</li>
-</ol>
-<p>의 순서로 마우스와 키보드를 휘둘러야 했다는 것을 알 수 있었다. 단 지금부터는 클릭 두 번만으로 끝.</p>
-<h2><a href="http://www.wholetomato.com/products/features/rename.html?more=yes">Rename</a></h2>
-<p><img alt="http://www.wholetomato.com/support/images/renameTempDialog.gif" src="http://www.wholetomato.com/support/images/renameTempDialog.gif" /></p>
-<p>예전에는 클래스나 함수, 데이터 멤버의 이름을 짓는 데 많은 시간을 투자했다. 그 당시만 해도 이름의 메타포 기능을 매우 중시했기에, 시간이 걸리더라도 한번 정하면 끝까지 바꾸지 않을 정도로 좋은 이름을 붙여야 한다는 게 업계의 표준이었기 때문이다. 그러나, agile을 배우고 난 지금은 먼저 컴파일부터 시켜 놓고 천천히 좋은 이름을 찾아서 그때 그때 바꿔나가면 된다는 생각이 강해졌다.</p>
-<p>문제는 그 이름이 코드에 얼마나 많이 퍼져 있는가인데, 물론 정규식을 이용한 global replace를 써도 되지만 아무래도 불안한 게 사실. 결국에는 손수 하나씩 찾아서 고쳐나가다가 포기하고, 그냥 마음에 들지 않은 채로 내버려두는 경우가 많았다.</p>
-<p>VAX의 rename 기능은 대체로 잘 동작하지만, 불안할 때에는 Find References로 체크해보기에도 좋다. 더 바라는 게 있다면 클래스 이름을 바꿀 경우 파일명도 바꿔줬으면 좋겠다. :P</p>
-<h2><a href="http://www.wholetomato.com/products/features/changeSignature.html?more=yes">Change Signature</a></h2>
-<p><img alt="http://www.wholetomato.com/products/features/images/changeSignatureDialog.gif" src="http://www.wholetomato.com/products/features/images/changeSignatureDialog.gif" /></p>
-<p>멤버 함수의 파라미터 추가 삭제 및 이름을 바꿀 때 사용한다. 굳이 더 설명하지 않아도 명명백백한 기능이다. 단, virtual 함수일 경우 하위 클래스에서 재정의한 멤버 함수도 바꿔주면 좋겠지만, 당연히 안된다. :)</p>
-<h2><a href="http://www.wholetomato.com/products/features/encapsulateField.html?more=yes">Encapsulate Field</a></h2>
-<p><img alt="http://www.wholetomato.com/products/features/images/encapsulateFieldDone.gif" src="http://www.wholetomato.com/products/features/images/encapsulateFieldDone.gif" /></p>
-<p>데이터 멤버에 대고 실행하면 accessor(일명 Get/Set 함수)을 자동으로 만들어준다. 헝가리안 표기법도 잘 찾아서 이름만 똑똑하게 뽑아주는데, AutoText를 편집해두면 입맛대로 이름을 수정할 수 있다. 더이상 __PROPERTY 매크로로 Get/Set을 정의할 필요가 없어진 것이다. 만쉐~</p>
-<h2>기타</h2>
-<p>이 외에도 몇 가지 좋은 기능들이 많다.</p>
-<ul>
-<li>Extract Method : 긴 코드를 함수로 한번만에 묶어내준다. 그런데 생각보다 많이 사용해보지는 못했다.</li>
-<li>Create Implementation : 함수 선언에 대고 클릭하면 .cpp 에 구현부를 자동으로 만들어준다. 그 편리함은 이루 말할 수 없다. ㅠ_ㅠ</li>
-<li>Create Declaration : 위 기능과 반대로 구현부부터 만들고 나서 헤더 파일에 선언문을 자동으로 추가해주는 기능이다. 보통은 extern 문을 생성할 때 가장 많이 사용된다.</li>
-</ul>
-<p>프로젝트가 커질수록 느려진다는 쑥갓군의 보고도 있지만, 작은 프로젝트에서는 속도 문제가 거슬리지는 않는 수준이다. 사소한 버그들만 고쳐진다면 정말 위대한 도구가 될 것 같다. 단돈 125$면 정말 편리한 개발이 가능해지니, 어서 어서 팀장/실장을 졸라서 결제하시기 바란다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
-</div>
-			
 			<ul class="pager">
 			
 			  	<li class="previous">
@@ -283,6 +255,10 @@
 	</li>
 	
 	<li>
+		<a href="/2006/09/01/xp팀의-작업실/">XP팀의 작업실</a>
+	</li>
+	
+	<li>
 		<a href="/2006/08/29/아메리칸-스케일/">아메리칸 스케일</a>
 	</li>
 	
@@ -296,10 +272,6 @@
 	
 	<li>
 		<a href="/2006/07/22/radrails-tips/">RadRails Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/07/06/visual-assist-x의-리팩토링-기능을-활용해보자/">Visual Assist X의 리팩토링 기능을 활용해보자</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">
