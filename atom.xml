@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-09-16T08:19:35Z</updated><author><name>Ray Yun</name></author><entry><title>DropPress</title><link href="/2012/09/16/droppress/" rel="alternate"></link><updated>2012-09-16T08:19:35Z</updated><id>tag:None,2012-09-16:/2012/09/16/droppress//</id><summary type="html">&lt;p&gt;&lt;a href="http://github.com/Reiot/droppress"&gt;DropPress&lt;/a&gt;는 내가 파이썬으로 직접 구현한 간단한 정적 사이트 생성기다.&lt;/p&gt;
-&lt;p&gt;왜 이름이 DropPress이냐 하면, 드랍박스에 저장된 마크다운 포맷의 글을 &lt;a href="http://ace.org"&gt;ACE 에디터&lt;/a&gt;로 편집하고 github로 배포하는 웹서비스를 구상했기 때문이다. 드랍박스에 글을 저장해두면, 버전관리를 안해도 되고, 드랍박스와 연동되는 수많은 마크다운 에디터가 널려 있으니, 나는 변환과 배포를 구현하기만 하면 된다고 생각했다. 그런데, 비슷한 웹 에디터나 호스팅 서비스도 이미 존재했고, 또 ACE 에디터가 손대기 애매해서 포기하고, 스크립트만 만들기로 마음을 바꿨다.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-09-16T08:19:35Z</updated><author><name>Ray Yun</name></author><entry><title>DropPress</title><link href="/2012/09/16/droppress/" rel="alternate"></link><updated>2012-09-16T08:19:35Z</updated><id>tag:None,2012-09-16:/2012/09/16/droppress//</id><summary type="html">&lt;p&gt;이번 블로그 리뉴얼을 위해서 직접 정적 사이트를 생성해주는 &lt;a href="http://github.com/Reiot/droppress"&gt;DropPress&lt;/a&gt;를 만들었다.&lt;/p&gt;
+&lt;p&gt;왜 이름이 DropPress이냐 하면, 처음엔 드랍박스에 저장된 마크다운 텍스트를 &lt;a href="http://ace.org"&gt;ACE 에디터&lt;/a&gt;로 편집하고 github로 배포해주는 웹서비스를 구상했기 때문이다. 드랍박스에 글을 저장해두면, 버전관리를 안해도 되고, 드랍박스와 연동되는 수많은 마크다운 에디터가 널려 있으니, 나는 변환과 배포를 구현하기만 하면 된다고 생각했다. 그런데, 비슷한 웹 에디터나 호스팅 서비스도 이미 존재했고, 또 ACE 에디터가 손대기 애매해서 포기하고, 스크립트만 만들기로 마음을 바꿨다.&lt;/p&gt;
 &lt;h2&gt;기능 소개&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;페이지 네비게이션, 아카이브, 카테고리, 태그, RSS, 최근 글목록 등 블로그의 기본 기능&lt;/li&gt;
@@ -46,11 +46,22 @@
 &lt;td&gt;google-code-prettifier&lt;/td&gt;
 &lt;td&gt;자바스크립트 코드 하일라이팅&lt;/td&gt;
 &lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;locally&lt;/td&gt;
+&lt;td&gt;테스트용 로컬 웹서버(node.js 필요)&lt;/td&gt;
+&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;locally                | 테스트용 로컬 웹서버(node.js 필요)&lt;/p&gt;
 &lt;h2&gt;향후 계획&lt;/h2&gt;
-&lt;p&gt;웬만한 기능은 이미 다 구현했지만,&lt;/p&gt;</summary></entry><entry><title>Asrock P67 Extreme4 Gen3 에 산사자 설치하기</title><link href="/2012/08/05/install-mountain-lion-on-asrock-p67-extreme4-gen3/" rel="alternate"></link><updated>2012-08-05T21:27:28Z</updated><id>tag:None,2012-08-05:/2012/08/05/install-mountain-lion-on-asrock-p67-extreme4-gen3//</id><summary type="html">&lt;p&gt;며칠간의 삽질 끝에 집에 있는 데스크탑에 산사자를 설치했다. 이놈의 사양은&lt;/p&gt;
+&lt;p&gt;위에서도 밝혔지만 이제 블로그 생성기로서의 웬만한 기능은 이미 다 구현했고, 뭔가를 더 추가한다면&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;더 많은 설치 및 배포 테스트: 아직 제대로 안해봤다.&lt;/li&gt;
+&lt;li&gt;트위터 위젯 연동&lt;/li&gt;
+&lt;li&gt;ACE 에디터로 드랍박스 API연동해서 웹 편집하기&lt;/li&gt;
+&lt;li&gt;최종적으로는 웹 서비스 기반의 배포 시스템&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;정도가 남은 셈이다. 근데 과연 거기까지 갈지가 의문이다.&lt;/p&gt;
+&lt;p&gt;그나저나, 실컷 끝내고 나니 왠지 바퀴만 재발명한 거 같은 생각이 든다. 좀 더 컨텐츠에 집중해야 되는데..&lt;/p&gt;</summary></entry><entry><title>Asrock P67 Extreme4 Gen3 에 산사자 설치하기</title><link href="/2012/08/05/install-mountain-lion-on-asrock-p67-extreme4-gen3/" rel="alternate"></link><updated>2012-08-05T21:27:28Z</updated><id>tag:None,2012-08-05:/2012/08/05/install-mountain-lion-on-asrock-p67-extreme4-gen3//</id><summary type="html">&lt;p&gt;며칠간의 삽질 끝에 집에 있는 데스크탑에 산사자를 설치했다. 이놈의 사양은&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;M/B: Asrock P67 Extreme4 Gen3&lt;/li&gt;
 &lt;li&gt;Audio: Onboard ALC892&lt;/li&gt;
