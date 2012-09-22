@@ -174,7 +174,6 @@ var all_posts = {
   "Python Tips": "/2006/04/26/python-tips/", 
   "UDT : UDP-based Data Transfer Library": "/2006/04/25/udt-udp-based-data-transfer-library/", 
   "VB.NET \ud301": "/2005/12/11/vbnet-\u1110\u1175\u11b8/", 
-  "C++11": "/2012/09/20/c++11/", 
   "jQuery Mobile Tip": "/2011/06/18/jquery-mobile-tip/", 
   "\ud478\ucf13 \ub2e4\ub140\uc654\uc2b5\ub2c8\ub2e4.": "/2006/11/08/\u1111\u116e\u110f\u1166\u11ba-\u1103\u1161\u1102\u1167\u110b\u116a\u11bb\u1109\u1173\u11b8\u1102\u1175\u1103\u1161/", 
   "Back to Wordpress.com": "/2009/07/27/back-to-wordpress-com/", 

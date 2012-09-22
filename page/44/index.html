@@ -69,25 +69,6 @@
 			
 				<div>
 	<div class="page-header">
-		<h1><a href="/2005/09/23/client-network-utility/">Client Network Utility</a> <small>2005-09-23</small></h1>
-	</div>
-	<div><p>Enterprise Manager 로 접속해야 할 DB 가 custom port 를 사용하거나 VPN, 공유기 등의 문제로 name 기반의 접근이 안될 경우,<br />
-이 툴에서 TCP/IP 기반의 alias 를 만들어 두면 EM에 등록해서 연결할 수 있다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
-	
-		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
-	
-	
-		<a href="/tag/db/"><span class="label"><span class="icon icon-tag"></span> db</span></a>
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
 		<h1><a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a> <small>2005-09-06</small></h1>
 	</div>
 	<div><h2>Overview</h2>
@@ -757,12 +738,47 @@ test_suite * test_MMSocket()
 	</p>
 </div>
 			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2005/03/21/tortoisesvn/">TortoiseSvn</a> <small>2005-03-21</small></h1>
+	</div>
+	<div><p>탐색기에서의 버전 관리라니... 아무래도 IDE 에 연동되는 것에 비해서는 좀 불편하지 않을까? 하는 것이 나의 첫 느낌이었다. 물론 Visual Studio .NET 에 연동되는 넘이 있긴 하지만, 아직까지 안정화되어 있지 않다는 소문 때문에, 결국 거북이SVN 으로 오게 되었다. 그런데 이틀 정도 써보니까 어째 예전에 비해서 심리적인 면에서 더 편해졌다는 느낌이 들었다.</p>
+<p>우선, '체크아웃하시겠습니까? 라는 창이 안떠서 좋았다.' 사실 이건 VSS 옵션을 끄면 되는 것이지만, 웬지 새로운 소스를 고치기 전 경건한 마음을 가지자는 의미에서 그냥 켜두곤 했는데, 실제로는 꽤나 심리적인 불편함과 강박 관념(너는 소스를 더럽히고 있다..)을 개발자에게 주고 있다는 생각이 들었다. 좀더 코드에 편하게 접근할 수 있게 되었다고나 할까? (만약 아직 VSS를 사용하고 있다면 이 옵션을 끄고 작업해 보기 바란다.)</p>
+<p>두번째는 IDE에서 작업하고 탐색기에서 커밋할 때의 심리적인 해방감이 들게 되었다는 점. 가장 비슷한 예라면 회사에서 양복을 입다가 집에서 평상복을 입을 때의 느낌이리라. 딱딱한 IDE에서 비교적 화려한 탐색기 + 바탕화면으로 전환되면서 내가 이제 커밋을 하게 된다는 마음 자세로 바뀌더라는, 실로 억지스러운 주장이다. :)</p>
+<p>세번째로는 로컬 워킹 카피에 있는 삭제된 파일들을 손쉽게 관리할 수 있게 되었다는 점이다. VSS를 쓸 경우 버전 관리되던 파일을 삭제하려면 로컬 카피도 지우고 저장소에서도 지워 줘야 한다. IDE에서 삭제하는 것까지 감안하면 세 군데에서 지워줘야 한다. 역시나 이것도 저장소에서 삭제시 로컬 파일도 삭제한다는 VSS 옵션이 있긴 하지만 좀 위험한 감이 있어서 실제로 쓰기는 곤란했었는데, SubVersion 에서는 아예 파일 관리를 탐색기에서 다 할 수 있어서 괜찮은 듯 했다.</p>
+<p>난감한 점이라면, 아무 생각없이 그냥 파일을 삭제하다가는 피를 본다는 점(물론 재빨리 업데이트해서 파일을 받아와야 한다.), 그리고  작업중인 .svn 폴더를 삭제하면 버전 관리 정보가 날아가서 다시 add 를 해야 한다는 점 등이다. 그리고 '''거북이CVS와 함께 사용할 경우 탐색기의 오른쪽클릭 메뉴가 너무 길어진다'''는 사소한 단점도 있다. :(</p>
+<p>사실 아직까지 태그, 브랜치, 머지를 해보지 않아서 이 부분에서 얼마나 더 매력적인 모습을 보여줄런지는 의문이다. 유니코드 비교시 문자열을 잘 표현해주는지도 미확인. 빨리 이 부분에 대해서도 테스트를 해봐야 겠다.</p>
+<h2>Ignore List</h2>
+<p>글로벌 ignore 리스트는 TortoiseSvn - 설정 메뉴에서 지정하며, 이 값은 레지스트리의 HKEY_LOCAL_MACHINE\Software\Tigris.org\Subversion\Config\Miscellany\global-ignores에 들어있다.</p>
+<p>반면 로컬 ignore 리스트는 해당 파일의 상위 폴더의 .svn/dir-props 에 들어있다. 이 값을 지우려면 그냥 탐색기에서 속성 메뉴에서 TortoiseSvn 메뉴에서 지우면 된다. TortoiseSvn 의 CHM 도움말에서 4.9. Get/Set Information About Files/Directories 항목을 참조하도록.</p>
+<p>see also:<br />
+<em> <a href="http://tortoisesvn.tigris.org">거북이SVN 공식 홈페이지</a><br />
+</em> SubVersion<br />
+<em> SeriousCode:Subversion<br />
+</em> <a href="http://wiki.kldp.org/wiki.php/DocbookSgml/Subversion-HOWTO">KLDP:SubVersion</a></p></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/subversion/"><span class="label"><span class="icon icon-tag"></span> subversion</span></a>
+	
+	</p>
+</div>
+			
 			<div class="pagination pagination-centered">
 				<ul>
 				
-					<li><a href="/page/42/">&laquo;</a></li>
+					<li><a href="/page/41/">&laquo;</a></li>
 				
 				
+				  	<li >
+				  	
+				    	<a href="/page/42/">42</a>
+				    
+				  	</li>
+		  		
 				  	<li >
 				  	
 				    	<a href="/page/43/">43</a>
@@ -793,14 +809,8 @@ test_suite * test_MMSocket()
 				    
 				  	</li>
 		  		
-				  	<li >
-				  	
-				    	<a href="/page/48/">48</a>
-				    
-				  	</li>
-		  		
 				
-					<li><a href="/page/49/">&raquo;</a></li>
+					<li><a href="/page/48/">&raquo;</a></li>
 				
 		  		</ul>
 			</div>
@@ -821,10 +831,6 @@ test_suite * test_MMSocket()
 	</li>
 	
 	<li>
-		<a href="/2005/09/23/client-network-utility/">Client Network Utility</a>
-	</li>
-	
-	<li>
 		<a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a>
 	</li>
 	
@@ -838,6 +844,10 @@ test_suite * test_MMSocket()
 	
 	<li>
 		<a href="/2005/06/02/boosttest/">boost::test</a>
+	</li>
+	
+	<li>
+		<a href="/2005/03/21/tortoisesvn/">TortoiseSvn</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

@@ -69,93 +69,6 @@
 			
 				<div>
 	<div class="page-header">
-		<h1><a href="/2009/01/27/google-app-engine-overview/">Google App Engine Overview</a> <small>2009-01-27</small></h1>
-	</div>
-	<div><p>google app engine 은 파이썬 2.5 기반의 웹 개발 프레임워크이다. 사실 수많은 웹 개발환경이 많고 많은데 유독 이놈이 눈에 띄는 건, 기본적으로 구글에서 제공하는 다양한 분산 기반의 서비스들을 손쉽게 사용할 수 있기 때문이다.</p>
-<p>아마도 구글 앱스를 사용중인 회사에서 인트라넷이나 백오피스 웹서비스를 만들어야 한다면 이놈을 쓰면 편해질 것 같다. 대충 훝어본 <a href="http://code.google.com/intl/ko-KR/appengine/docs/python/apis.html">Service API</a> 들을 요약해보겠다.</p>
-<h3>Datastore</h3>
-<p>구글 데이터 저장 인프라(?)에 정보를 저장하고 읽어오는 API.  객체 기반 쿼리와 SQL을 닮은 GQL 기반 쿼리를 제공한다. yaml 로 인덱스도 정의할 수 있고, FK와 트랜잭션도 지원한다.</p>
-<pre><code>class Person(db.Model):
-    first_name = db.StringProperty()
-    last_name = db.StringProperty()
-    city = db.StringProperty()
-    birth_year = db.IntegerProperty()
-    height = db.IntegerProperty()
-
-q = Person.all()
-q.filter(&quot;last_name =&quot;, &quot;Smith&quot;)
-q.filter(&quot;height &lt;&quot;, 72)
-q.order(&quot;-height&quot;)
-
-# The GqlQuery interface prepares a query using a GQL query string.
-q = db.GqlQuery(&quot;SELECT * FROM Person &quot; +
-    &quot;WHERE last_name = :1 AND height &lt; :2 &quot; +
-    &quot;ORDER BY height DESC&quot;,
-    &quot;Smith&quot;, 72)
-</code></pre>
-
-<h3>Memcache</h3>
-<p>매번마다 DB에서 읽어오면 성능이 떨어지니까, 어느 정도 변화가 적은 애들은 DB에서 읽어온 다음 Key-Value 기반의 메모리 캐시에다가 저장했다가 필요할 때마다 재빨리 읽어온다. 별거 아닌 것처럼 보이지만, 이게 분산 서버에서 모두 참조가 가능하다.. 어쨌거나 문자열키로 특정 객체를 꺼내오는 이런 패턴은 게임 서버에도 자주 써야 할 것 같다. (요즘은 변수 선언하는게 어찌나 귀찮은지..)</p>
-<pre><code>def get_data():
-    data = memcache.get(&quot;key&quot;)
-    if data is not None:
-        return data
-    else:
-        data = self.query_for_data()
-        memcache.add(&quot;key&quot;, data, 60)
-        return data
-</code></pre>
-
-<h3>URL Fetch</h3>
-<p>다른 웹서버에다가 URL 기반 요청을 해서 결과를 읽어올 수 있다. 즉, 다른 웹서비스들과의 연동이 가능하다는 이야기. </p>
-<pre><code>url = &quot;http://www.google.com/&quot;
-result = urlfetch.fetch(url)
-if result.status_code == 200:
-    doSomethingWithResult(result.content)
-</code></pre>
-
-<h3>Mail</h3>
-<p>손쉽게 메일을 보낼 수 있다. 파일 첨부도 가능하다고는 하나, 단순하니까 예제는 생략.</p>
-<h3>Images</h3>
-<p>업로드된 이미지의 크기 변경, 회전, 상하좌우 뒤집기, 자르기, 컨트라스트/색상 보정 등의 조작이 가능하다. 이것도 있어보이는 기능이지만 일단 생략.</p>
-<h3>Google Accounts</h3>
-<p>구글 계정과의 연동 지원. 별명, 이메일 주소 등을 얻어오는 기능이다.</p>
-<h3>기타 구글 Data API 연동</h3>
-<p>이게 가장 핵심적인 기능인데, 대충 아래와 같은 API 들을 연동할 수 있다. (그런데 이걸 갖고 뭘 어떻게 할 것인가가 사실은 제일 중요하겠지..)</p>
-<ul>
-<li><a href="http://code.google.com/apis/gdata/auth.html#AuthSub">Authentication</a></li>
-<li><a href="http://code.google.com/apis/base/pythondevguide.html">Google Base</a></li>
-<li><a href="http://code.google.com/apis/calendar/developers_guide_python.html">Calendar</a></li>
-<li><a href="http://code.google.com/apis/contacts/developers_guide_python.html">Contacts</a></li>
-<li><a href="http://code.google.com/apis/documents/developers_guide_python.html">Documents</a></li>
-<li><a href="http://code.google.com/apis/picasaweb/developers_guide_python.html">Picasa Web Albums</a></li>
-<li><a href="http://code.google.com/apis/spreadsheets/developers_guide_python.html">Spreadsheets</a></li>
-<li><a href="http://code.google.com/apis/youtube/developers_guide_python.html">YouTube</a></li>
-</ul>
-<p>레일즈 등 다른 웹 프레임워크에 비해서 좀 부족한 점이 많지만,  구글의 다양한 서비스들과의 연동과 분산에 강한 웹 서비스를 만들어야 한다면 좋은 선택이 될 것 같다. 사실 웹 시뮬레이션 게임을 만들때 좋을 것 같아서 살펴봤는데, 역시 GUI 표현이 걸림돌이 될 것 같다. <a href="http://code.google.com/intl/ko-KR/apis/chart/">차트 API</a> 정도라면 비지니스 관련 웹서비스는 어째 될 것 같은데, 게임은 좀...  </p>
-<p>API 목록을 보다 보니 특이한 서비스가 좀 많다. 다들 한번쯤 구경해보면 좋을지도?</p>
-<ul>
-<li><a href="http://code.google.com/intl/ko-KR/apis/health/">Google Health API</a></li>
-<li><a href="http://code.google.com/intl/ko-KR/apis/gra/">Google Radio Automation API</a></li>
-<li><a href="http://code.google.com/intl/ko-KR/apis/visualization/documentation/gallery.html">Google Visualization API</a></li>
-</ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/google/"><span class="label"><span class="icon icon-tag"></span> google</span></a>
-	
-		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-	
-		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
 		<h1><a href="/2009/01/27/erlide/">Erlide</a> <small>2009-01-27</small></h1>
 	</div>
 	<div><p><img alt="Eclipse logo" src="http://erlide.sourceforge.net/img/rea_eclipse_pos_logo_fc_sm.jpg" /></p>
@@ -434,6 +347,34 @@ code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
 	</p>
 </div>
 			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2009/01/12/teamcide/">Teamcide</a> <small>2009-01-12</small></h1>
+	</div>
+	<div><p><img alt="Micromanagement" src="http://conveniencebits.com/pics/micromanage.jpg" /></a></p>
+<p>Teamcide는 최근에 구독을 시작한 <a href="http://www.codinghorror.com/">코딩 호러</a>의 <a href="http://www.codinghorror.com/blog/archives/001205.html">마이크로매니지먼트 좀비</a>라는 글에서 발견한 7가지 팀관리의 안티 패턴이다. 알고 보니 피플웨어에서 소개된 이야기라고 해서 책을 찾아보려고 했는데, 어딘가에 쳐박혀 있는지 책이 보이지 않아, <a href="http://translate.google.com/translate?prev=&amp;hl=ko&amp;ie=UTF-8&amp;u=http://yuuntim.fc2web.com/chapter20.html&amp;sl=auto&amp;tl=ko&amp;history_state0=">일본어 웹문서 번역</a>을 통해서 짤막하게만 정리해본다.</p>
+<ul>
+<li>자기 방어적인 관리(Defensive Management)</li>
+<li>관료주의(Bureaucracy)</li>
+<li>팀원들을 여기 저기로 흩어 놓아서, 이동 거리를 멀게 하기(Physical Separation)</li>
+<li>한 명에게 여러 가지 작업을 시키기(Fragmentation of People's Time)</li>
+<li>납기일을 위해 품질을 희생하기(Quality Reduction of the Product)</li>
+<li>무의미한, 또는 가짜 데드라인(Phony Deadlines)</li>
+<li>파벌이 무서워서 프로젝트 종료 후 팀을 해체하기(Clique Control)</li>
+</ul>
+<p>거리 이야기는 이제 상식 수준이고, 마지막 파벌 이야기는 좀 비현실적이긴 한데, 가짜 데드라인 같은 이야기는 나도 종종 유혹을 느꼈기에, 이 시간을 빌어 씁쓸한 반성을 해본다.</p>
+<p>때로는 빠른 의사 결정과 그에 따른 무한한 책임을 지는 <a href="http://seoworld.net/tt/261">잡스 같은 카리스마적인 독재자</a>와 일해보고 싶기도 하다. 다만, 거의 무개념 폭군이라는 이미지가 강한 초기의 잡스보다는, 이제 필 쉴러 아저씨에게 키노트 진행을 양보(?)한 최근의 잡스가 더 나을 것 같다.</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
+	
+	
+		<a href="/tag/management/"><span class="label"><span class="icon icon-tag"></span> management</span></a>
+	
+	</p>
+</div>
+			
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -498,10 +439,6 @@ code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
 	</li>
 	
 	<li>
-		<a href="/2009/01/27/google-app-engine-overview/">Google App Engine Overview</a>
-	</li>
-	
-	<li>
 		<a href="/2009/01/27/erlide/">Erlide</a>
 	</li>
 	
@@ -515,6 +452,10 @@ code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
 	
 	<li>
 		<a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a>
+	</li>
+	
+	<li>
+		<a href="/2009/01/12/teamcide/">Teamcide</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

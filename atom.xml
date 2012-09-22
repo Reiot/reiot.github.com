@@ -1,898 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-09-20T09:19:57Z</updated><author><name>Ray Yun</name></author><entry><title>C++11</title><link href="/2012/09/20/c++11/" rel="alternate"></link><updated>2012-09-20T09:19:57Z</updated><id>tag:None,2012-09-20:/2012/09/20/c++11//</id><summary type="html">&lt;p&gt;C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11이니 하는 것들이 추가되었다고 하는데, 한눈에 알아볼 수 있는 한글 사이트가 없기에 한번 정리해본다. 위키피디아 문서를 샘플 코드를 기준으로 발번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다.&lt;/p&gt;
-&lt;h2&gt;rvalue 레퍼런스&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;class A {
-    char* buf;
-    int size;
-    // move constructor
-    A(A&amp;amp;&amp;amp; a): buf(a.buf), size(a.size) { a.buf=0; a.size=0; }
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;push_back(const T&amp;amp;)&lt;/code&gt;에서는 넘겨진 문자열의 복사본이 내부에 저장된다. 그런데, &lt;code&gt;move(T&amp;amp;&amp;amp;)&lt;/code&gt; 함수를 이용하면 복사 없이 rvalue 자체를 함수 안으로 &lt;em&gt;이동&lt;/em&gt;시킬 수 있다. 대신, 원래 스코프의 rvalue는 이미 옮겨졌으므로, 더이상 접근해서는 안된다. 주된 용도는 임시 객체가 암묵적으로 만들어질 때 메모리 할당이나 복사로 인한 성능 저하를 막을 수 있다.&lt;/p&gt;
-&lt;p&gt;http://msdn.microsoft.com/en-us/library/dd293665.aspx&lt;/p&gt;
-&lt;h3&gt;constexpr&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;constexpr int get_five() {return 5;}
-
-int some_value[get_five() + 7]; // Create an array of 12 integers. Legal C++11
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;constexpr&lt;/code&gt;을 붙이면 일반 변수나 함수도 컴파일 타임 상수로 쓸 수 있다. 단 함수일 경우 내부에 리턴문만 있어야 한다.&lt;/p&gt;
-&lt;h3&gt;trivial &amp;amp; standard-layout&lt;/h3&gt;
-&lt;p&gt;POD가 trivial과 standard-layout 2가지로 나뉘어졌다.&lt;/p&gt;
-&lt;p&gt;trivial은 정적으로 초기화되고 memcpy로 복사가 가능하다. 생성자가 호출되지 않아도 저장소가 정의되는 순간 수명이 결정된다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;기본 생성자, 복사 생성자, 이동 생성자, 복사/이동 연산자, virtual 이 아닌 소멸자가 필요&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Constructors are trivial only if there are no virtual member functions of the class and no virtual base classes. Copy/move operations also require that all of the non-static data members be trivial.&lt;/p&gt;
-&lt;p&gt;A type that is ''standard-layout'' means that it orders and packs its members in a way that is compatible with C. A class or struct is standard-layout, by definition, provided:&lt;/p&gt;
-&lt;h1&gt;It has no virtual functions&lt;/h1&gt;
-&lt;h1&gt;It has no virtual base classes&lt;/h1&gt;
-&lt;h1&gt;All its non-static data members have the same access control (public, private, protected)&lt;/h1&gt;
-&lt;h1&gt;All its non-static data members, including any in its base classes, are in the same one class in the hierarchy&lt;/h1&gt;
-&lt;h1&gt;The above rules also apply to all the base classes and to all non-static data members in the class hierarchy&lt;/h1&gt;
-&lt;h1&gt;It has no base classes of the same type as the first defined non-static data member&lt;/h1&gt;
-&lt;p&gt;A class/struct/union is considered &lt;abbr title="Plain Old Data (Structures)"&gt;POD&lt;/abbr&gt; if it is trivial, standard-layout, and all of its non-static data members and base classes are PODs.&lt;/p&gt;
-&lt;p&gt;By separating these concepts, it becomes possible to give up one without losing the other. A class with complex move and copy constructors may not be trivial, but it could be standard-layout and thus interop with C. Similarly, a class with public and private non-static data members would not be standard-layout, but it would be trivial and thus &lt;code&gt;memcpy&lt;/code&gt;-able.&lt;/p&gt;
-&lt;h2&gt;Core language build time performance enhancements&lt;/h2&gt;
-&lt;h3&gt;Extern template&lt;/h3&gt;
-&lt;p&gt;In C++03, the compiler must instantiate a template whenever a fully specified template is encountered in a translation unit. If the template is instantiated with the same types in many translation units, this can dramatically increase compile times.  There is no way to prevent this in C++03, so C++11 introduced extern template declarations, analogous to extern data declarations.&lt;/p&gt;
-&lt;p&gt;C++03 has this syntax to oblige the compiler to instantiate a template:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;template class std::vector&amp;lt;MyClass&amp;gt;;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;C++11 now provides this syntax:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;extern template class std::vector&amp;lt;MyClass&amp;gt;;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;which tells the compiler ''not'' to instantiate the template in this translation unit.&lt;/p&gt;
-&lt;h2&gt;Core language usability enhancements&lt;/h2&gt;
-&lt;p&gt;These features exist for the primary purpose of making the language easier to use. These can improve type safety, minimize code repetition, make erroneous code less likely, etc.&lt;/p&gt;
-&lt;h3&gt;Initializer lists&lt;/h3&gt;
-&lt;p&gt;C++03 inherited the initializer-list feature from C. A struct or array is given a list of arguments in curly brackets, in the order of the members' definitions in the struct. These initializer-lists are recursive, so an array of structs or struct containing other structs can use them.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct Object
-{
-    float first;
-    int second;
-};
-
-Object scalar = {0.43f, 10}; //One Object, with first=0.43f and second=10
-Object anArray[] = {{13.4f, 3}, {43.28f, 29}, {5.934f, 17}}; //An array of three Objects
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is very useful for static lists or just for initializing a struct to a particular value. C++ also provides constructors to initialize an object, but they are often not as convenient as the initializer list. However C++03 allows initializer-lists only on structs and classes that conform to the Plain Old Data (&lt;abbr title="Plain Old Data (Structures)"&gt;POD&lt;/abbr&gt;) definition; C++11 extends initializer-lists, so they can be used for all classes including standard containers like &lt;code&gt;std::vector&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;C++11 binds the concept to a template, called &lt;code&gt;std::initializer_list&lt;/code&gt;. This allows constructors and other functions to take initializer-lists as parameters. For example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class SequenceClass {
-public:
-    SequenceClass(std::initializer_list&amp;lt;int&amp;gt; list);
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This allows &lt;code&gt;SequenceClass&lt;/code&gt; to be constructed from a sequence of integers, as such:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;SequenceClass some_var = {1, 4, 5, 6};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This constructor is a special kind of constructor, called an initializer-list-constructor. Classes with such a constructor are treated specially during uniform initialization (see [[#Uniform_initialization|below]])&lt;/p&gt;
-&lt;p&gt;The class &lt;code&gt;std::initializer_list&amp;lt;&amp;gt;&lt;/code&gt; is a first-class C++11 standard library type. However, they can be initially constructed statically by the C++11 compiler only through the use of the {} syntax. The list can be copied once constructed, though this is only a copy-by-reference. An initializer list is constant; its members cannot be changed once the initializer list is created, nor can the data in those members be changed.&lt;/p&gt;
-&lt;p&gt;Because initializer_list is a real type, it can be used in other places besides class constructors. Regular functions can take typed initializer lists as arguments. For example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;void function_name(std::initializer_list&amp;lt;float&amp;gt; list);
-
-function_name({1.0f, -3.45f, -0.4f});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Standard containers can also be initialized in the following ways:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;std::vector&amp;lt;std::string&amp;gt; v = { &amp;quot;xyzzy&amp;quot;, &amp;quot;plugh&amp;quot;, &amp;quot;abracadabra&amp;quot; };
-std::vector&amp;lt;std::string&amp;gt; v({ &amp;quot;xyzzy&amp;quot;, &amp;quot;plugh&amp;quot;, &amp;quot;abracadabra&amp;quot; });
-std::vector&amp;lt;std::string&amp;gt; v{ &amp;quot;xyzzy&amp;quot;, &amp;quot;plugh&amp;quot;, &amp;quot;abracadabra&amp;quot; }; // see &amp;quot;Uniform initialization&amp;quot; below
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Uniform initialization&lt;/h3&gt;
-&lt;p&gt;C++03 has a number of problems with initializing types. There are several ways to initialize types, and they do not all produce the same results when interchanged. The traditional constructor syntax, for example, can look like a function declaration, and steps must be taken to ensure that the compiler's [[most vexing parse]] rule will not mistake it for such. Only aggregates and &lt;abbr title="Plain Old Data (Structures)"&gt;POD&lt;/abbr&gt; types can be initialized with aggregate initializers (using &lt;code&gt;SomeType var = {/*stuff*/};&lt;/code&gt;).&lt;/p&gt;
-&lt;p&gt;C++11 provides a syntax that allows for fully uniform type initialization that works on any object. It expands on the initializer list syntax:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct BasicStruct {
-    int x;
-    double y;
-};
-
-struct AltStruct {
-    AltStruct(int x, double y) : x_{x}, y_{y} {}
-
-private:
-    int x_;
-    double y_;
-};
-
-BasicStruct var1{5, 3.2};
-AltStruct var2{2, 4.3};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The initialization of &lt;code&gt;var1&lt;/code&gt; behaves exactly as though it were aggregate-initialization. That is, each data member of an object, in turn, will be copy-initialized with the corresponding value from the initializer-list. Implicit type conversion will be used where necessary. If no conversion exists, or only a narrowing conversion exists, the program is ill-formed. The initialization of &lt;code&gt;var2&lt;/code&gt; invokes the constructor.&lt;/p&gt;
-&lt;p&gt;One is also able to do the following:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;
-struct IdString {
-    std::string name;
-    int identifier;
-};
-
-IdString get_string()
-{
-    return {&amp;quot;foo&amp;quot;, 42}; //Note the lack of explicit type.
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Uniform initialization does not replace constructor syntax. There are still times when constructor syntax is required. If a class has an initializer list constructor (&lt;code&gt;TypeName(initializer_list&amp;lt;SomeType&amp;gt;);&lt;/code&gt;), then it takes priority over other forms of construction, provided that the initializer list conforms to the sequence constructor's type. The C++11 version of &lt;code&gt;std::vector&lt;/code&gt; has an initializer list constructor for its template type. This means that the following code:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;std::vector&amp;lt;int&amp;gt; the_vec{4};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;will call the initializer list constructor, not the constructor of &lt;code&gt;std::vector&lt;/code&gt; that takes a single size parameter and creates the vector with that size. To access the latter constructor, the user will need to use the standard constructor syntax directly.&lt;/p&gt;
-&lt;h3&gt;Type inference&lt;/h3&gt;
-&lt;p&gt;In C++03 (and C), the type of a variable must be explicitly specified in order to use it. However, with the advent of template types and template metaprogramming techniques, the type of something, particularly the well-defined return value of a function, may not be easily expressed. Therefore, storing intermediates in variables is difficult, possibly requiring knowledge of the internals of a particular metaprogramming library.&lt;/p&gt;
-&lt;p&gt;C++11 allows this to be mitigated in two ways. First, the definition of a variable with an explicit initialization can use the &lt;code&gt;auto&lt;/code&gt; keyword. This creates a variable of the specific type of the initializer:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;auto some_strange_callable_type = boost::bind(&amp;amp;some_function, _2, _1, some_object);
-auto other_variable = 5;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The type of &lt;code&gt;some_strange_callable_type&lt;/code&gt; is simply whatever the particular template function override of &lt;code&gt;boost::bind&lt;/code&gt; returns for those particular arguments. This type is easily determined procedurally by the compiler as part of its semantic analysis duties, but is not easy for the user to determine upon inspection.&lt;/p&gt;
-&lt;p&gt;The type of &lt;code&gt;other_variable&lt;/code&gt; is also well-defined, but it is easier for the user to determine. It is an &lt;code&gt;int&lt;/code&gt;, which is the same type as the integer literal.&lt;/p&gt;
-&lt;p&gt;Additionally, the keyword &lt;code&gt;[[decltype]]&lt;/code&gt; can be used to determine the type of an expression at compile-time. For example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;int some_int;
-decltype(some_int) other_integer_variable = 5;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is more useful in conjunction with &lt;code&gt;auto&lt;/code&gt;, since the type of an auto variable is known only to the compiler. However, &lt;code&gt;decltype&lt;/code&gt; can also be very useful for expressions in code that makes heavy use of operator overloading and specialized types.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;auto&lt;/code&gt; is also useful for reducing the verbosity of the code. For instance, instead of writing&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;for (std::vector&amp;lt;int&amp;gt;::const_iterator itr = myvec.cbegin(); itr != myvec.cend(); ++itr)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;the programmer can use the shorter&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;for (auto itr = myvec.cbegin(); itr != myvec.cend(); ++itr)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This difference grows as the programmer begins to nest containers, though in such cases &lt;code&gt;typedef&lt;/code&gt;s are a good way to decrease the amount of code.&lt;/p&gt;
-&lt;p&gt;The type denoted by &lt;code&gt;decltype&lt;/code&gt; can be different from the type deduced by &lt;code&gt;auto&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#include &amp;lt;vector&amp;gt;
-int main()
-{
-    const std::vector&amp;lt;int&amp;gt; v(1);
-    auto a = v[0];        // a has type int
-    decltype(v[0]) b = 1; // b has type const int&amp;amp;, the return type of
-                        // std::vector&amp;lt;int&amp;gt;::operator[](size_type) const
-    auto c = 0;           // c has type int
-    auto d = c;           // d has type int
-    decltype(c) e;        // e has type int, the type of the entity named by c
-    decltype((c)) f = c;  // f has type int&amp;amp;, because (c) is an lvalue
-    decltype(0) g;        // g has type int, because 0 is an rvalue
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Range-based for-loop&lt;/h3&gt;
-&lt;p&gt;In C++03, iterating over the elements of a list requires a lot of code. Other languages have implemented support for [[syntactic sugar]] that allow the programmer to write a simple “foreach” statement that automatically traverses items in a list.&lt;br /&gt;
-One of those languages is the [[Java (programming language)|Java]] programming language, which received support for what has been defined as enhanced for loops in [[Java version history#J2SE 5.0 .28September_30.2C_2004.29|Java 5.0]].&lt;ref&gt;{{cite web|url=http://docs.oracle.com/javase/1.5.0/docs/guide/language/index.html |title=Java Programming Language: Enhancements in JDK 5 |publisher=Oracle.com}}&lt;/ref&gt;&lt;/p&gt;
-&lt;p&gt;C++11 added a similar feature. The statement &lt;code&gt;for&lt;/code&gt; allows for easy iteration over a list of elements:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;int my_array[5] = {1, 2, 3, 4, 5};
-for (int &amp;amp;x : my_array) {
-    x *= 2;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This form of &lt;code&gt;for&lt;/code&gt;, called the “range-based for”, will iterate over each element in the list. It will work for C-style arrays, initializer lists, and any type that has &lt;code&gt;begin()&lt;/code&gt; and &lt;code&gt;end()&lt;/code&gt; functions defined for it that return iterators. All of the standard library containers that have begin/end pairs will work with the range-based for statement.&lt;/p&gt;
-&lt;h3&gt;Lambda functions and expressions&lt;/h3&gt;
-&lt;p&gt;{{main|Anonymous function#C++}}&lt;/p&gt;
-&lt;p&gt;C++11 provides the ability to create [[anonymous function]]s, called lambda functions.&lt;ref&gt;&lt;br /&gt;
-{{cite web&lt;br /&gt;
-|url=http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1968.pdf&lt;br /&gt;
-|title=Document no: N1968=06-0038- Lambda expressions and closures for C++&lt;br /&gt;
-|publisher=Open Standards&lt;br /&gt;
-}}&lt;/ref&gt;&lt;br /&gt;
-These are defined as follows:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[](int x, int y) { return x + y; }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The return type is implicit; it returns the type of the return expression (&lt;code&gt;decltype(x+y)&lt;/code&gt;). The return type of a lambda can be omitted as long as all &lt;code&gt;return&lt;/code&gt; expressions return the same type.&lt;br /&gt;
-A lambda can optionally be a [[Closure (computer science)|closure]].&lt;/p&gt;
-&lt;h3&gt;Alternative function syntax&lt;/h3&gt;
-&lt;p&gt;[[C (programming language)|Standard C]] function declaration syntax was perfectly adequate for the feature set of the C language. As C++ evolved from C, it kept the basic syntax and extended it where necessary. However, as C++ became more complicated, it exposed a number of limitations, particularly with regard to template function declarations. The following, for example, is not allowed in C++03:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;template&amp;lt;class Lhs, class Rhs&amp;gt;
-  Ret adding_func(const Lhs &amp;amp;lhs, const Rhs &amp;amp;rhs) {return lhs + rhs;} //Ret must be the type of lhs+rhs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The type &lt;code&gt;Ret&lt;/code&gt; is whatever the addition of types &lt;code&gt;Lhs&lt;/code&gt; and &lt;code&gt;Rhs&lt;/code&gt; will produce. Even with the aforementioned C++11 functionality of &lt;code&gt;decltype&lt;/code&gt;, this is not possible:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;template&amp;lt;class Lhs, class Rhs&amp;gt;
-  decltype(lhs+rhs) adding_func(const Lhs &amp;amp;lhs, const Rhs &amp;amp;rhs) {return lhs + rhs;} //Not legal C++11
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is not legal C++ because &lt;code&gt;lhs&lt;/code&gt; and &lt;code&gt;rhs&lt;/code&gt; have not yet been defined; they will not be valid identifiers until after the parser has parsed the rest of the function prototype.&lt;/p&gt;
-&lt;p&gt;To work around this, C++11 introduced a new function declaration syntax, with a ''trailing-return-type'':&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;template&amp;lt;class Lhs, class Rhs&amp;gt;
-  auto adding_func(const Lhs &amp;amp;lhs, const Rhs &amp;amp;rhs) -&amp;gt; decltype(lhs+rhs) {return lhs + rhs;}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This syntax can be used for more mundane function declarations and definitions:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct SomeStruct  {
-    auto func_name(int x, int y) -&amp;gt; int;
-};
-
-auto SomeStruct::func_name(int x, int y) -&amp;gt; int {
-    return x + y;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The use of the keyword “auto” in this case means something different from its use in automatic type deduction.&lt;/p&gt;
-&lt;h3&gt;Object construction improvement&lt;/h3&gt;
-&lt;p&gt;In C++03, constructors of a class are not allowed to call other constructors of that class; each constructor must construct all of its class members itself or call a common member function, like these,&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class SomeType  {
-    int number;
-
-public:
-    SomeType(int new_number) : number(new_number) {}
-    SomeType() : number(42) {}
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;class SomeType  {
-    int number;
-
-private:
-    void Construct(int new_number) { number = new_number; }
-public:
-    SomeType(int new_number) { Construct(new_number); }
-    SomeType() { Construct(42); }
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Constructors for base classes cannot be directly exposed to derived classes; each derived class must implement constructors even if a base class constructor would be appropriate. Non-constant data members of classes cannot be initialized at the site of the declaration of those members. They can be initialized only in a constructor.&lt;/p&gt;
-&lt;p&gt;C++11 provides solutions to all of these problems.&lt;/p&gt;
-&lt;p&gt;C++11 allows constructors to call other peer constructors (known as [[Delegation (programming)|delegation]]).  This allows constructors to utilize another constructor's behavior with a minimum of added code. Examples of other languages similar to C++ that provide delegation are [[Java (programming language)|Java]], [[C Sharp (programming language)|C#]], and [[D (programming language)|D]].&lt;/p&gt;
-&lt;p&gt;This syntax is as follows:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class SomeType  {
-    int number;
-
-public:
-    SomeType(int new_number) : number(new_number) {}
-    SomeType() : SomeType(42) {}
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Notice that, in this case, the same effect could have been achieved by making new_number a defaulting parameter.  The new syntax, however, allows the default value (42) to be expressed in the implementation rather than the interface &amp;mdash; a benefit to maintainers of library code since default values for function parameters are “baked in” to call sites, whereas constructor delegation allows the value to be changed without recompilation of the code using the library.&lt;/p&gt;
-&lt;p&gt;This comes with a caveat: C++03 considers an object to be constructed when its constructor finishes executing, but C++11 considers an object constructed once ''any'' constructor finishes execution. Since multiple constructors will be allowed to execute, this will mean that each delegate constructor will be executing on a fully constructed object of its own type. Derived class constructors will execute after all delegation in their base classes is complete.&lt;/p&gt;
-&lt;p&gt;For base-class constructors, C++11 allows a class to specify that base class constructors will be inherited. This means that the C++11 compiler will generate code to perform the inheritance, the forwarding of the derived class to the base class. Note that this is an all-or-nothing feature; either all of that base class's constructors are forwarded or none of them are. Also, note that there are restrictions for multiple inheritance, such that class constructors cannot be inherited from two classes that use constructors with the same signature. Nor can a constructor in the derived class exist that matches a signature in the inherited base class.&lt;/p&gt;
-&lt;p&gt;The syntax is as follows:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class BaseClass {
-public:
-    BaseClass(int value);
-};
-
-class DerivedClass : public BaseClass {
-public:
-    using BaseClass::BaseClass;
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For member initialization, C++11 allows the following syntax:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class SomeClass {
-public:
-    SomeClass() {}
-    explicit SomeClass(int new_value) : value(new_value) {}
-
-private:
-    int value = 5;
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Any constructor of the class will initialize &lt;code&gt;value&lt;/code&gt; with 5, if the constructor does not override the initialization with its own. So the above empty constructor will initialize &lt;code&gt;value&lt;/code&gt; as the class definition states, but the constructor that takes an int will initialize it to the given parameter.&lt;/p&gt;
-&lt;p&gt;It can also use constructor or uniform initialization, instead of the equality initialization shown above.&lt;/p&gt;
-&lt;h3&gt;Explicit overrides and final&lt;/h3&gt;
-&lt;p&gt;In C++03, it is possible to accidentally create a new virtual function, when one intended to override a base class function. For example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct Base {
-    virtual void some_func(float);
-};
-
-struct Derived : Base {
-    virtual void some_func(int);
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;Derived::some_func&lt;/code&gt; is intended to replace the base class version. But because it has a different interface, it creates a second virtual function. This is a common problem, particularly when a user goes to modify the base class.&lt;/p&gt;
-&lt;p&gt;C++11 provides syntax to solve this problem.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct Base {
-    virtual void some_func(float);
-};
-
-struct Derived : Base {
-    virtual void some_func(int) override; // ill-formed because it doesn't override a base class method
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;override&lt;/code&gt; special identifier means that the compiler will check the base class(es) to see if there is a virtual function with this exact signature. And if there is not, the compiler will error out.&lt;/p&gt;
-&lt;p&gt;C++11 also adds the ability to prevent inheriting from classes or simply preventing overriding methods in derived classes. This is done with the special identifier &lt;code&gt;final&lt;/code&gt;. For example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct Base1 final { };
-
-struct Derived1 : Base1 { }; // ill-formed because the class Base1 has been marked final
-
-struct Base2 {
-    virtual void f() final;
-};
-
-struct Derived2 : Base2 {
-    void f(); // ill-formed because the virtual function Base2::f has been marked final
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In this example, the &lt;code&gt;virtual void f() final;&lt;/code&gt; statement declares a new virtual function, but it also prevents derived classes from overriding it. It also has the effect of preventing derived classes from using that particular function name and parameter combination.&lt;/p&gt;
-&lt;p&gt;Note that neither &lt;code&gt;override&lt;/code&gt; nor &lt;code&gt;final&lt;/code&gt; are language keywords. They are technically identifiers; they gain special meaning only when used in those specific contexts. In any other location, they can be valid identifiers.&lt;/p&gt;
-&lt;h3&gt;Null pointer constant&lt;/h3&gt;
-&lt;p&gt;For the purposes of this section and this section alone, every occurrence of “&lt;code&gt;0&lt;/code&gt;” is meant as “a constant expression which evaluates to &lt;code&gt;0&lt;/code&gt;, which is of type int”. In reality, the constant expression can be of any integral type.&lt;/p&gt;
-&lt;p&gt;Since the dawn of C in 1972, the constant &lt;code&gt;[[0 (number)|0]]&lt;/code&gt; has had the double role of constant integer and null pointer constant. The ambiguity inherent in the double meaning of &lt;code&gt;0&lt;/code&gt; was dealt with in C by the use of the preprocessor macro &lt;code&gt;NULL&lt;/code&gt;, which commonly expands to either &lt;code&gt;((void*)0)&lt;/code&gt; or &lt;code&gt;0&lt;/code&gt;. C++ didn't adopt the same behavior, allowing only &lt;code&gt;0&lt;/code&gt; as a null pointer constant. This interacts poorly with function overloading:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;void foo(char *);
-void foo(int);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If &lt;code&gt;NULL&lt;/code&gt; is defined as &lt;code&gt;0&lt;/code&gt; (which is usually the case in C++), the statement &lt;code&gt;foo(NULL);&lt;/code&gt; will call &lt;code&gt;foo(int)&lt;/code&gt;, which is almost certainly not what the programmer intended, and not what a superficial reading of the code suggests.&lt;/p&gt;
-&lt;p&gt;C++11 corrects this by introducing a new keyword to serve as a distinguished null pointer constant: &lt;code&gt;nullptr&lt;/code&gt;. It is of type &lt;code&gt;nullptr_t&lt;/code&gt;, which is implicitly convertible and comparable to any pointer type or pointer-to-member type. It is not implicitly convertible or comparable to integral types, except for &lt;code&gt;bool&lt;/code&gt;. While the original proposal specified that an rvalue of type &lt;code&gt;nullptr&lt;/code&gt; should not be convertible to &lt;code&gt;bool&lt;/code&gt;, the core language working group decided that such a conversion would be desirable, for consistency with regular pointer types. The proposed wording changes were unanimously voted into the Working Paper in June 2008.{{Ref|n2697}}&lt;/p&gt;
-&lt;p&gt;For backwards compatibility reasons, &lt;code&gt;0&lt;/code&gt; remains a valid null pointer constant.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;char *pc = nullptr;     // OK
-int  *pi = nullptr;     // OK
-bool   b = nullptr;     // OK. b is false.
-int    i = nullptr;     // error
-
-foo(nullptr);           // calls foo(char *), not foo(int);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Strongly typed enumerations&lt;/h3&gt;
-&lt;p&gt;In C++03, enumerations are not type-safe. They are effectively integers, even when the enumeration types are distinct. This allows the comparison between two enum values of different enumeration types. The only safety that C++03 provides is that an integer or a value of one enum type does not convert implicitly to another enum type. Additionally, the underlying integral type is implementation-defined; code that depends on the size of the enumeration is therefore non-portable. Lastly, enumeration values are scoped to the enclosing scope. Thus, it is not possible for two separate enumerations to have matching member names.&lt;/p&gt;
-&lt;p&gt;C++11 allows a special classification of enumeration that has none of these issues. This is expressed using the &lt;code&gt;enum class&lt;/code&gt; (&lt;code&gt;enum struct&lt;/code&gt; is also accepted as a synonym) declaration:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;enum class Enumeration {
-    Val1,
-    Val2,
-    Val3 = 100,
-    Val4 // = 101
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This enumeration is type-safe. Enum class values are not implicitly converted to integers; therefore, they cannot be compared to integers either (the expression &lt;code&gt;Enumeration::Val4 == 101&lt;/code&gt; gives a compiler error).&lt;/p&gt;
-&lt;p&gt;The underlying type of enum classes is always known. The default type is &lt;code&gt;int&lt;/code&gt;, this can be overridden to a different integral type as can be seen in the following example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;enum class Enum2 : unsigned int {Val1, Val2};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The scoping of the enumeration is also defined as the enumeration name's scope. Using the enumerator names requires explicitly scoping. &lt;code&gt;Val1&lt;/code&gt; is undefined, but &lt;code&gt;Enum2::Val1&lt;/code&gt; is defined.&lt;/p&gt;
-&lt;p&gt;Additionally, C++11 will allow old-style enumerations to provide explicit scoping as well as the definition of the underlying type:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;enum Enum3 : unsigned long {Val1 = 1, Val2};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The enumerator names are defined in the enumeration's scope (&lt;code&gt;Enum3::Val1&lt;/code&gt;), but for backwards compatibility, enumerator names are also placed in the enclosing scope.&lt;/p&gt;
-&lt;p&gt;Forward-declaring enums is also possible in C++11. Previously, enum types could not be forward-declared because the size of the enumeration depends on the definition of its members. As long as the size of the enumeration is specified either implicitly or explicitly, it can be forward-declared:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;enum Enum1;                      // Illegal in C++03 and C++11; the underlying type cannot be determined.
-enum Enum2 : unsigned int;       // Legal in C++11, the underlying type is explicitly specified.
-enum class Enum3;                // Legal in C++11, the underlying type is int.
-enum class Enum4 : unsigned int; // Legal in C++11.
-enum Enum2 : unsigned short;     // Illegal in C++11, because Enum2 was previously declared with a different underlying type.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Right angle bracket&lt;/h3&gt;
-&lt;p&gt;C++03's parser defines “&lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt;” as the right shift operator in all cases. However, with nested template declarations, there is a tendency for the programmer to neglect to place a space between the two right angle brackets, thus causing a compiler syntax error.&lt;/p&gt;
-&lt;p&gt;C++11 improves the specification of the parser so that multiple right angle brackets will be interpreted as closing the template argument list where it is reasonable. This can be overridden by using parentheses:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;template&amp;lt;bool Test&amp;gt; class SomeType;
-std::vector&amp;lt;SomeType&amp;lt;1&amp;gt;2&amp;gt;&amp;gt; x1;  // Interpreted as a std::vector of SomeType&amp;lt;true&amp;gt; 2&amp;gt;,
-// which is not legal syntax. 1 is true.
-std::vector&amp;lt;SomeType&amp;lt;(1&amp;gt;2)&amp;gt;&amp;gt; x1;  // Interpreted as std::vector of SomeType&amp;lt;false&amp;gt;,
-// which is legal C++11 syntax. (1&amp;gt;2) is false.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Explicit conversion operators&lt;/h3&gt;
-&lt;p&gt;C++98 added the &lt;code&gt;explicit&lt;/code&gt; keyword as a modifier on constructors to prevent single-argument constructors from being used as implicit type conversion operators. However, this does nothing for actual conversion operators. For example, a smart pointer class may have an &lt;code&gt;operator bool()&lt;/code&gt; to allow it to act more like a primitive pointer: if it includes this conversion, it can be tested with &lt;code&gt;if (smart_ptr_variable)&lt;/code&gt; (which would be true if the pointer was non-null and false otherwise). However, this allows other, unintended conversions as well. Because C++ &lt;code&gt;bool&lt;/code&gt; is defined as an arithmetic type, it can be implicitly converted to integral or even floating-point types, which allows for mathematical operations that are not intended by the user.&lt;/p&gt;
-&lt;p&gt;In C++11, the &lt;code&gt;explicit&lt;/code&gt; keyword can now be applied to conversion operators. As with constructors, it prevents the use of those conversion functions in implicit conversions. However, language contexts that specifically require a boolean value (the conditions of if-statements and loops, as well as operands to the logical operators) count as explicit conversions and can thus use a bool conversion operator.&lt;/p&gt;
-&lt;h3&gt;Alias templates&lt;/h3&gt;
-&lt;p&gt;In C++03, it is possible to define a typedef only as a synonym for another type, including a synonym for a template specialization with all actual template arguments specified. It is not possible to create a typedef template. For example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;template &amp;lt;typename First, typename Second, int Third&amp;gt;
-class SomeType;
-
-template &amp;lt;typename Second&amp;gt;
-typedef SomeType&amp;lt;OtherType, Second, 5&amp;gt; TypedefName; //Illegal in C++03
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This will not compile.&lt;/p&gt;
-&lt;p&gt;C++11 adds this ability with the following syntax:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;template &amp;lt;typename First, typename Second, int Third&amp;gt;
-class SomeType;
-
-template &amp;lt;typename Second&amp;gt;
-using TypedefName = SomeType&amp;lt;OtherType, Second, 5&amp;gt;;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;using&lt;/code&gt; syntax can be also used as type aliasing in C++11:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;typedef void (*Type)(double);       // Old style
-using OtherType = void (*)(double);     // New introduced syntax
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Unrestricted unions&lt;/h3&gt;
-&lt;p&gt;In C++03, there are restrictions on what types of objects can be members of a &lt;code&gt;union&lt;/code&gt;. For example, unions cannot contain any objects that define a non-trivial constructor. C++11 lifts some of these restrictions.{{Ref|n2544}}&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Unions can now contain objects that have a non-trivial constructor.&lt;/li&gt;
-&lt;li&gt;If so, the implicit default constructor of the union is deleted, forcing a manual definition.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;This is a simple example of a union permitted in C++11:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#include &amp;lt;new&amp;gt; // Required for placement 'new'.
-//
-struct Point {
-    Point() {}
-    Point(int x, int y): x_(x), y_(y) {}
-    int x_, y_;
-};
-//
-union U {
-    int z;
-    double w;
-    Point p; // Illegal in C++03; legal in C++11.
-    //
-    // Due to the Point member, a constructor definition is now required.
-    //
-    U() {new(&amp;amp;p) Point();}
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The changes will not break any existing code since they only relax current rules.&lt;/p&gt;
-&lt;h2&gt;Core language functionality improvements&lt;/h2&gt;
-&lt;p&gt;These features allow the language to do things that were previously impossible, exceedingly verbose, or required non-portable libraries.&lt;/p&gt;
-&lt;h3&gt;Variadic templates&lt;/h3&gt;
-&lt;p&gt;{{main|variadic templates}}&lt;/p&gt;
-&lt;p&gt;In C++11, templates can take variable numbers of template parameters. This also allows the definition of type-safe [[variadic function]]s.&lt;/p&gt;
-&lt;h3&gt;New string literals&lt;/h3&gt;
-&lt;p&gt;C++03 offers two kinds of string literals. The first kind, contained within double quotes, produces a null-terminated array of type &lt;code&gt;const char&lt;/code&gt;. The second kind, defined as &lt;code&gt;L""&lt;/code&gt;, produces a null-terminated array of type &lt;code&gt;const wchar_t&lt;/code&gt;, where &lt;code&gt;wchar_t&lt;/code&gt; is a wide-character. Neither literal type offers support for string literals with [[UTF-8]], [[UTF-16]], or any other kind of [[Unicode]] [[Comparison of Unicode encodings|encodings]].&lt;/p&gt;
-&lt;p&gt;For the purpose of enhancing support for Unicode in C++ compilers, the definition of the type &lt;code&gt;char&lt;/code&gt; has been modified to be both at least the size necessary to store an eight-bit coding of [[UTF-8]] and large enough to contain any member of the compiler's basic execution character set. It was previously defined as only the latter.&lt;/p&gt;
-&lt;p&gt;There are three Unicode encodings that C++11 will support: [[UTF-8]], [[UTF-16]], and [[UTF-32]]. In addition to the previously noted changes to the definition of &lt;code&gt;char&lt;/code&gt;, C++11 adds two new character types: &lt;code&gt;char16_t&lt;/code&gt; and &lt;code&gt;char32_t&lt;/code&gt;. These are designed to store UTF-16 and UTF-32 respectively.&lt;/p&gt;
-&lt;p&gt;The following shows how to create string literals for each of these encodings:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;u8&amp;quot;I'm a UTF-8 string.&amp;quot;
-u&amp;quot;This is a UTF-16 string.&amp;quot;
-U&amp;quot;This is a UTF-32 string.&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The type of the first string is the usual &lt;code&gt;const char[]&lt;/code&gt;. The type of the second string is &lt;code&gt;const char16_t[]&lt;/code&gt;. The type of the third string is &lt;code&gt;const char32_t[]&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;When building Unicode string literals, it is often useful to insert Unicode codepoints directly into the string. To do this, C++11 allows the following syntax:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;u8&amp;quot;This is a Unicode Character: \u2018.&amp;quot;
-u&amp;quot;This is a bigger Unicode Character: \u2018.&amp;quot;
-U&amp;quot;This is a Unicode Character: \u2018.&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The number after the &lt;code&gt;\u&lt;/code&gt; is a hexadecimal number; it does not need the usual &lt;code&gt;0x&lt;/code&gt; prefix. The identifier &lt;code&gt;\u&lt;/code&gt; represents a 16-bit Unicode codepoint; to enter a 32-bit codepoint, use &lt;code&gt;\U&lt;/code&gt; and a 32-bit hexadecimal number. Only valid Unicode codepoints can be entered. For example, codepoints on the range U+D800–U+DFFF are forbidden, as they are reserved for surrogate pairs in UTF-16 encodings.&lt;/p&gt;
-&lt;p&gt;It is also sometimes useful to avoid escaping strings manually, particularly for using literals of [[XML]] files, scripting languages, or regular expressions. C++11 provides a raw string literal:&lt;/p&gt;
-&lt;pre&gt;
-R"(The String Data \ Stuff " )"
-R"delimiter(The String Data \ Stuff " )delimiter"
-&lt;/pre&gt;
-
-&lt;p&gt;In the first case, everything between the &lt;code&gt;"(&lt;/code&gt; and the &lt;code&gt;)"&lt;/code&gt; is part of the string. The &lt;code&gt;"&lt;/code&gt; and &lt;code&gt;\&lt;/code&gt; characters do not need to be escaped. In the second case, the &lt;code&gt;"delimiter(&lt;/code&gt; starts the string, and it ends only when &lt;code&gt;)delimiter"&lt;/code&gt; is reached. The string &lt;code&gt;delimiter&lt;/code&gt; can be any string up to 16 characters in length, including the empty string. This string cannot contain spaces, control characters, '&lt;code&gt;(&lt;/code&gt;', '&lt;code&gt;)&lt;/code&gt;', or the '&lt;code&gt;\&lt;/code&gt;' character. The use of this delimiter string allows the user to have "&lt;code&gt;)&lt;/code&gt;" characters within raw string literals. For example, &lt;code&gt;R"delimiter((a-z))delimiter"&lt;/code&gt; is equivalent to &lt;code&gt;"(a-z)"&lt;/code&gt;.{{Ref|n3000}}&lt;/p&gt;
-&lt;p&gt;Raw string literals can be combined with the wide literal or any of the Unicode literal prefixes:&lt;/p&gt;
-&lt;pre&gt;
-u8R"XXX(I'm a "raw UTF-8" string.)XXX"
-uR"*(This is a "raw UTF-16" string.)*"
-UR"(This is a "raw UTF-32" string.)"
-&lt;/pre&gt;
-
-&lt;h3&gt;User-defined literals&lt;/h3&gt;
-&lt;p&gt;C++03 provides a number of literals. The characters “&lt;code&gt;12.5&lt;/code&gt;” are a literal that is resolved by the compiler as a type &lt;code&gt;double&lt;/code&gt; with the value of 12.5. However, the addition of the suffix “&lt;code&gt;f&lt;/code&gt;”, as in “&lt;code&gt;12.5f&lt;/code&gt;”, creates a value of type &lt;code&gt;float&lt;/code&gt; that contains the value 12.5. The suffix modifiers for literals are fixed by the C++ specification, and C++ code cannot create new literal modifiers.&lt;/p&gt;
-&lt;p&gt;C++11 also includes the ability for the user to define new kinds of literal modifiers that will construct objects based on the string of characters that the literal modifies.&lt;/p&gt;
-&lt;p&gt;Literals transformation is redefined into two distinct phases: raw and cooked. A raw literal is a sequence of characters of some specific type, while the cooked literal is of a separate type. The C++ literal &lt;code&gt;1234&lt;/code&gt;, as a raw literal, is this sequence of characters &lt;code&gt;'1'&lt;/code&gt;, &lt;code&gt;'2'&lt;/code&gt;, &lt;code&gt;'3'&lt;/code&gt;, &lt;code&gt;'4'&lt;/code&gt;. As a cooked literal, it is the integer 1234. The C++ literal &lt;code&gt;0xA&lt;/code&gt; in raw form is &lt;code&gt;'0'&lt;/code&gt;, &lt;code&gt;'x'&lt;/code&gt;, &lt;code&gt;'A'&lt;/code&gt;, while in cooked form it is the integer 10.&lt;/p&gt;
-&lt;p&gt;Literals can be extended in both raw and cooked forms, with the exception of string literals, which can be processed only in cooked form. This exception is due to the fact that strings have prefixes that affect the specific meaning and type of the characters in question.&lt;/p&gt;
-&lt;p&gt;All user-defined literals are suffixes; defining prefix literals is not possible.&lt;/p&gt;
-&lt;p&gt;User-defined literals processing the raw form of the literal are defined as follows:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;OutputType operator &amp;quot;&amp;quot; _suffix(const char * literal_string);
-
-OutputType some_variable = 1234_suffix;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The second statement executes the code defined by the user-defined literal function. This function is passed &lt;code&gt;"1234"&lt;/code&gt; as a C-style string, so it has a null terminator.&lt;/p&gt;
-&lt;p&gt;An alternative mechanism for processing integer and floating point raw literals is through a [[variadic template]]:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;template&amp;lt;char...&amp;gt; OutputType operator &amp;quot;&amp;quot; _suffix();
-
-OutputType some_variable = 1234_suffix;
-OutputType another_variable = 2.17_suffix;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This instantiates the literal processing function as &lt;code&gt;operator "" _suffix&amp;lt;'1', '2', '3', '4'&amp;gt;()&lt;/code&gt;. In this form, there is no terminating null character to the string. The main purpose to doing this is to use C++11's &lt;code&gt;constexpr&lt;/code&gt; keyword and the compiler to allow the literal to be transformed entirely at compile time, assuming &lt;code&gt;OutputType&lt;/code&gt; is a constexpr-constructable and copyable type, and the literal processing function is a &lt;code&gt;constexpr&lt;/code&gt; function.&lt;/p&gt;
-&lt;p&gt;For numeric literals, the type of the cooked literal is either &lt;code&gt;unsigned long long&lt;/code&gt; for integral literals or &lt;code&gt;long double&lt;/code&gt; for floating point literals. (Note: There is no need for signed integral types because a sign-prefixed literal is parsed as expression containing the sign as unary prefix operator and the unsigned number.) There is no alternative template form:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;OutputType operator &amp;quot;&amp;quot; _suffix(unsigned long long);
-OutputType operator &amp;quot;&amp;quot; _suffix(long double);
-
-OutputType some_variable = 1234_suffix; // Uses the 'unsigned long long' overload.
-OutputType another_variable = 3.1416_suffix; // Uses the 'long double' overload.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For string literals, the following are used, in accordance with the previously mentioned new string prefixes:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;OutputType operator &amp;quot;&amp;quot; _suffix(const char * string_values, size_t num_chars);
-OutputType operator &amp;quot;&amp;quot; _suffix(const wchar_t * string_values, size_t num_chars);
-OutputType operator &amp;quot;&amp;quot; _suffix(const char16_t * string_values, size_t num_chars);
-OutputType operator &amp;quot;&amp;quot; _suffix(const char32_t * string_values, size_t num_chars);
-
-OutputType some_variable = &amp;quot;1234&amp;quot;_suffix; // Uses the 'const char *' overload.
-OutputType some_variable = u8&amp;quot;1234&amp;quot;_suffix; // Uses the 'const char *' overload.
-OutputType some_variable = L&amp;quot;1234&amp;quot;_suffix; // Uses the 'const wchar_t *' overload.
-OutputType some_variable = u&amp;quot;1234&amp;quot;_suffix; // Uses the 'const char16_t *' overload.
-OutputType some_variable = U&amp;quot;1234&amp;quot;_suffix; // Uses the 'const char32_t *' overload.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There is no alternative template form. Character literals are defined similarly.&lt;/p&gt;
-&lt;h3&gt;Multithreading memory model&lt;/h3&gt;
-&lt;p&gt;{{See also|Memory model (computing)}}&lt;br /&gt;
-The C++11 standardizes support for [[Thread (computer science)|multithreaded programming]].&lt;/p&gt;
-&lt;p&gt;There are two parts involved: a memory model which allows multiple threads to co-exist in a program and library support for interaction between threads. (See this article's section on [[#Threading facilities|threading facilities]].)&lt;/p&gt;
-&lt;p&gt;The memory model defines when multiple threads may access the same memory location, and specifies when updates by one thread become visible to other threads.&lt;/p&gt;
-&lt;h3&gt;Thread-local storage&lt;/h3&gt;
-&lt;p&gt;In a multi-threaded environment, it is common for every thread to have some unique [[Variable (programming)|variables]]. This already happens for the local variables of a function, but it does not happen for global and static variables.&lt;/p&gt;
-&lt;p&gt;A new [[Thread-Local Storage|''thread-local'']] storage duration (in addition to the existing ''static'', ''dynamic'' and ''automatic'') is indicated by the storage specifier &lt;code&gt;thread_local&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Any object which could have static storage duration (i.e., lifetime spanning the entire execution of the program) may be given thread-local duration instead. The intent is that like any other static-duration variable, a thread-local object can be initialized using a constructor and destroyed using a destructor.&lt;/p&gt;
-&lt;h3&gt;Explicitly defaulted and deleted special member functions&lt;/h3&gt;
-&lt;p&gt;In C++03, the compiler provides, for classes that do not provide them for themselves, a default constructor, a copy constructor, a copy assignment operator (&lt;code&gt;operator=&lt;/code&gt;), and a destructor. The programmer can override these defaults by defining custom versions. C++ also defines several global operators (such as &lt;code&gt;operator=&lt;/code&gt; and &lt;code&gt;operator new&lt;/code&gt;) that work on all classes, which the programmer can override.&lt;/p&gt;
-&lt;p&gt;However, there is very little control over the creation of these defaults. Making a class inherently non-copyable, for example, requires declaring a private copy constructor and copy assignment operator and not defining them. Attempting to use these functions is a violation of the [[One Definition Rule]] (ODR). While a diagnostic message is not required,&lt;ref name="C++03 3.2/3"&gt;[[ISO]]/[[International Electrotechnical Commission|IEC]] (2003). ''[[ISO/IEC 14882|ISO/IEC 14882:2003(E): Programming Languages - C++]] §3.2 One definition rule [basic.def.odr]'' para. 3&lt;/ref&gt; this typically results in a linker error.{{Citation needed|date=June 2009}}&lt;/p&gt;
-&lt;p&gt;In the case of the default constructor, the compiler will not generate a default constructor if a class is defined with ''any'' constructors. This is useful in many cases, but it is also useful to be able to have both specialized constructors and the compiler-generated default.&lt;/p&gt;
-&lt;p&gt;C++11 allows the explicit defaulting and deleting of these special member functions. For example, the following type explicitly declares that it is using the default constructor:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct SomeType {
-    SomeType() = default; //The default constructor is explicitly stated.
-    SomeType(OtherType value);
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Alternatively, certain features can be explicitly disabled. For example, the following type is non-copyable:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct NonCopyable {
-    NonCopyable &amp;amp; operator=(const NonCopyable&amp;amp;) = delete;
-    NonCopyable(const NonCopyable&amp;amp;) = delete;
-    NonCopyable() = default;
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;= delete&lt;/code&gt; specifier can be used to prohibit calling any function, which can be used to disallow calling a member function with particular parameters. For example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct NoInt {
-    void f(double i);
-    void f(int) = delete;
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;An attempt to call &lt;code&gt;f()&lt;/code&gt; with an &lt;code&gt;int&lt;/code&gt; will be rejected by the compiler, instead of performing a silent conversion to &lt;code&gt;double&lt;/code&gt;. This can be generalized to disallow calling the function with any type other than &lt;code&gt;double&lt;/code&gt; as follows:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct OnlyDouble {
-    void f(double d);
-    template&amp;lt;class T&amp;gt; void f(T) = delete;
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Type &lt;code&gt;long long int&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;In C++03, the largest integer type is &lt;code&gt;long int&lt;/code&gt;. It is guaranteed to have at least as many usable bits as &lt;code&gt;int&lt;/code&gt;. This resulted in &lt;code&gt;long int&lt;/code&gt; having size of 64 bits on some popular implementations and 32 bits on others. C++11 adds a new integer type &lt;code&gt;long long int&lt;/code&gt; to address this issue. It is guaranteed to be at least as large as a &lt;code&gt;long int&lt;/code&gt;, and have no fewer than 64 bits. The type was originally introduced by [[C99]] to the standard C, and most C++ compilers support it as an extension already.&lt;ref&gt;http://gcc.gnu.org/onlinedocs/gcc/Long-Long.html&lt;/ref&gt;&lt;ref&gt;http://msdn.microsoft.com/en-us/library/s3f49ktz(VS.80).aspx&lt;/ref&gt;&lt;/p&gt;
-&lt;h3&gt;Static assertions&lt;/h3&gt;
-&lt;p&gt;C++03 provides two methods to test [[Assertion (computing)|assertions]]: the macro &lt;code&gt;assert&lt;/code&gt; and the preprocessor directive &lt;code&gt;#error&lt;/code&gt;. However, neither is appropriate for use in templates: the macro tests the assertion at execution-time, while the preprocessor directive tests the assertion during preprocessing, which happens before instantiation of templates. Neither is appropriate for testing properties that are dependent on template parameters.&lt;/p&gt;
-&lt;p&gt;The new utility introduces a new way to test assertions at compile-time, using the new keyword &lt;code&gt;static_assert&lt;/code&gt;.&lt;br /&gt;
-The declaration assumes the following form:&lt;br /&gt;
- static_assert (''constant-expression'', ''error-message'');&lt;/p&gt;
-&lt;p&gt;Here are some examples of how &lt;code&gt;static_assert&lt;/code&gt; can be used:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;static_assert((GREEKPI &amp;gt; 3.14) &amp;amp;&amp;amp; (GREEKPI &amp;lt; 3.15), &amp;quot;GREEKPI is inaccurate!&amp;quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;template&amp;lt;class T&amp;gt;
-struct Check  {
-    static_assert(sizeof(int) &amp;lt;= sizeof(T), &amp;quot;T is not big enough!&amp;quot;);
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;template&amp;lt;class Integral&amp;gt;
-Integral foo(Integral x, Integral y) {
-    static_assert(std::is_integral&amp;lt;Integral&amp;gt;::value, &amp;quot;foo() parameter must be an integral type.&amp;quot;);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When the constant expression is &lt;code&gt;false&lt;/code&gt; the compiler produces an error message. The first example represents an alternative to the preprocessor directive &lt;code&gt;#error&lt;/code&gt;, in contrast in the second example the assertion is checked at every instantiation of the template class &lt;code&gt;Check&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Static assertions are useful outside of templates as well. For instance, a particular implementation of an algorithm might depend on the size of a &lt;code&gt;long long&lt;/code&gt; being larger than an &lt;code&gt;int&lt;/code&gt;, something the standard does not guarantee. Such an assumption is valid on most systems and compilers, but not all.&lt;/p&gt;
-&lt;h3&gt;Allow &lt;code&gt;sizeof&lt;/code&gt; to work on members of classes without an explicit object&lt;/h3&gt;
-&lt;p&gt;In C++03, the &lt;code&gt;sizeof&lt;/code&gt; operator can be used on types and objects. But it cannot be used to do the following:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct SomeType { OtherType member; };
-
-sizeof(SomeType::member); //Does not work with C++03. Okay with C++11
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This should return the size of &lt;code&gt;OtherType&lt;/code&gt;. C++03 does not allow this, so it is a compile error. C++11 does allow it.&lt;/p&gt;
-&lt;h3&gt;Control and query object alignment&lt;/h3&gt;
-&lt;p&gt;C++11 allows variable alignment to be queried and controlled with &lt;code&gt;alignof&lt;/code&gt; and &lt;code&gt;alignas&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;alignof&lt;/code&gt; operator takes a type and returns the power of 2 byte boundary on which the type instances must be allocated (as a &lt;code&gt;std::size_t&lt;/code&gt;).  When given a reference type &lt;code&gt;alignof&lt;/code&gt; returns the referenced type's alignment; for arrays it returns the element type's alignment.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;alignas&lt;/code&gt; specifier controls the memory alignment for a variable. The specifier takes a constant or a type; when supplied a type &lt;code&gt;alignas(T)&lt;/code&gt; is short hand for &lt;code&gt;alignas(alignof(T))&lt;/code&gt;.  For example, to specify that a char array should be properly aligned to hold a float:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;alignas(float) unsigned char c[sizeof(float)]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Allow garbage collected implementations&lt;/h3&gt;
-&lt;p&gt;It is implementation-defined whether unreachable dynamically allocated objects are automatically reclaimed. However C++11 adds a few restrictions to implementations so that some behavior that would prevent garbage collection to work is now disallowed. This includes in particular common ways to "hide" pointers from a possible garbage collector, like applying XOR to it. {{citation needed|date=August 2012}}&lt;/p&gt;
-&lt;h2&gt;C++ standard library changes&lt;/h2&gt;
-&lt;p&gt;A number of new features were introduced in the C++11 standard library. Many of these could have been implemented under the old standard, but some rely (to a greater or lesser extent) on new C++11 core features.&lt;/p&gt;
-&lt;p&gt;A large part of the new [[Library (computer science)|libraries]] was defined in the document ''[[Technical Report 1|C++ Standards Committee's Library Technical Report]]'' (called TR1), which was published in 2005. Various full and partial implementations of TR1 are currently available using the namespace &lt;code&gt;std::tr1&lt;/code&gt;. For C++11 they were moved to namespace &lt;code&gt;std&lt;/code&gt;. However, as TR1 features were brought into the C++11 standard library, they were upgraded where appropriate with C++11 language features that were not available in the initial TR1 version. Also, they may have been enhanced with features that were possible under C++03, but were not part of the original TR1 specification.&lt;/p&gt;
-&lt;p&gt;The committee intends to create a second technical report (called TR2) now that standardization of C++11 is complete. Library proposals which were not ready in time for C++11 will be put into TR2 or further technical reports.&lt;/p&gt;
-&lt;h3&gt;Upgrades to standard library components&lt;/h3&gt;
-&lt;p&gt;C++11 offers a number of new language features that the currently existing standard library components can benefit from. For example, most standard library containers can benefit from Rvalue reference based move constructor support, both for quickly moving heavy containers around and for moving the contents of those containers to new memory locations. The standard library components were upgraded with new C++11 language features where appropriate. These include, but are not necessarily limited to:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Rvalue references and the associated move support&lt;/li&gt;
-&lt;li&gt;Support for the UTF-16 encoding unit, and UTF-32 encoding unit Unicode character types&lt;/li&gt;
-&lt;li&gt;[[Variadic templates]] (coupled with Rvalue references to allow for perfect forwarding)&lt;/li&gt;
-&lt;li&gt;Compile-time constant expressions&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;[[decltype]]&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;explicit&lt;/code&gt; conversion operators&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;default&lt;/code&gt;/&lt;code&gt;delete&lt;/code&gt;d functions&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Additionally, much time has passed since the previous C++ standard. A great deal of code using the standard library has been written; this has revealed portions of the standard libraries that could use some improvement. Among the many areas of improvement considered were standard library [[Allocator (C++)|allocator]]s. A new scope-based model of allocators was included in C++11 to supplement the previous model.&lt;/p&gt;
-&lt;h3&gt;Threading facilities&lt;/h3&gt;
-&lt;p&gt;While the C++11 language provides a memory model that supports threading, the primary support for actually using threading comes with the C++11 standard library.&lt;/p&gt;
-&lt;p&gt;A thread class (&lt;code&gt;std::thread&lt;/code&gt;) is provided which takes a [[function object]] — and an optional series of arguments to pass to it — to run in the new thread. It is possible to cause a thread to halt until another executing thread completes, providing thread joining support through the &lt;code&gt;std::thread::join()&lt;/code&gt; member function. Access is provided, where feasible, to the underlying native thread object(s) for [[Platform (computing)|platform]] specific operations by the &lt;code&gt;std::thread::native_handle()&lt;/code&gt; member function.&lt;/p&gt;
-&lt;p&gt;For synchronization between threads, appropriate [[Mutual exclusion|mutexes]] (&lt;code&gt;std::mutex&lt;/code&gt;, &lt;code&gt;std::recursive_mutex&lt;/code&gt;, etc.) and [[Monitor (synchronization)|condition variables]] (&lt;code&gt;std::condition_variable&lt;/code&gt; and &lt;code&gt;std::condition_variable_any&lt;/code&gt;) are added to the library. These are accessible through [[Resource Acquisition Is Initialization|RAII]] locks (&lt;code&gt;std::lock_guard&lt;/code&gt; and &lt;code&gt;std::unique_lock&lt;/code&gt;) and locking algorithms for easy use.&lt;/p&gt;
-&lt;p&gt;For high-performance, low-level work, it is sometimes necessary to communicate between threads without the overhead of mutexes. This is achieved using [[atomic operation]]s on memory locations.  These can optionally specify the minimum memory visibility constraints required for an operation.  Explicit [[memory barrier]]s may also be used for this purpose.&lt;/p&gt;
-&lt;p&gt;The C++11 thread library also includes [[futures and promises]] for passing asynchronous results between threads, and &lt;code&gt;std::packaged_task&lt;/code&gt; for wrapping up a function call that can generate such an asynchronous result. The futures proposal was criticized because it lacks a way to combine futures and check for the completion of one promise inside a set of promises.&lt;/p&gt;
-&lt;p&gt;Further high-level threading facilities such as  [[thread pool]]s have been remanded to a future C++ [[Technical Report 1|technical report]]. They are not part of C++11, but their eventual implementation is expected to be built entirely on top of the thread library features.&lt;/p&gt;
-&lt;p&gt;The new &lt;code&gt;std::async&lt;/code&gt; facility provides a convenient method of running tasks and tying them to a &lt;code&gt;std::future&lt;/code&gt;. The user can choose whether the task is to be run asynchronously on a separate thread or synchronously on a thread that waits for the value. By default, the implementation can choose, which provides an easy way to take advantage of hardware concurrency without oversubscription, and provides some of the advantages of a thread pool for simple usages.&lt;/p&gt;
-&lt;h3&gt;Tuple types&lt;/h3&gt;
-&lt;p&gt;[[Tuples]] are collections composed of heterogeneous objects of pre-arranged dimensions. A tuple can be considered a generalization of a struct's member variables.&lt;/p&gt;
-&lt;p&gt;The C++11 version of the TR1 tuple type benefited from C++11 features like [[#Variadic templates|variadic templates]]. The TR1 version required an implementation-defined maximum number of contained types, and required substantial macro trickery to implement reasonably. By contrast, the implementation of the C++11 version requires no explicit implementation-defined maximum number of types. Though compilers will have an internal maximum recursion depth for template instantiation (which is normal), the C++11 version of tuples will not expose this value to the user.&lt;/p&gt;
-&lt;p&gt;Using [[variadic templates]], the declaration of the tuple class looks as follows:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;template &amp;lt;class ...Types&amp;gt; class tuple;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;An example of definition and use of the tuple type:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;typedef std::tuple &amp;lt;int, double, long &amp;amp;, const char *&amp;gt; test_tuple;
-long lengthy = 12;
-test_tuple proof (18, 6.5, lengthy, &amp;quot;Ciao!&amp;quot;);
-
-lengthy = std::get&amp;lt;0&amp;gt;(proof);  // Assign to 'lengthy' the value 18.
-std::get&amp;lt;3&amp;gt;(proof) = &amp;quot; Beautiful!&amp;quot;;  // Modify the tuple’s fourth element.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It’s possible to create the tuple &lt;code&gt;proof&lt;/code&gt; without defining its contents, but only if the tuple elements' types possess default constructors.  Moreover, it’s possible to assign a tuple to another tuple: if the two tuples’ types are the same, it is necessary that each element type possesses a copy constructor; otherwise, it is necessary that each element type of the right-side tuple is convertible to that of the corresponding element type of the left-side tuple or that the corresponding element type of the left-side tuple has a suitable constructor.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;typedef std::tuple &amp;lt;int , double, string       &amp;gt; tuple_1 t1;
-typedef std::tuple &amp;lt;char, short , const char * &amp;gt; tuple_2 t2 ('X', 2, &amp;quot;Hola!&amp;quot;);
-t1 = t2 ;  // Ok, first two elements can be converted,
-           // the third one can be constructed from a 'const char *'.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Relational operators are available (among tuples with the same number of elements), and two expressions are available to check a tuple’s characteristics (only during compilation):&lt;br /&gt;
-&lt;em&gt;&lt;code&gt;std::tuple_size&amp;lt;nowiki&amp;gt;&amp;lt;T&amp;gt;&amp;lt;/nowiki&amp;gt;::value&lt;/code&gt; returns the number of elements in the tuple &lt;code&gt;T&lt;/code&gt;,&lt;br /&gt;
-&lt;/em&gt;&lt;code&gt;std::tuple_element&amp;lt;nowiki&amp;gt;&amp;lt;I, T&amp;gt;&amp;lt;/nowiki&amp;gt;::type&lt;/code&gt; returns the type of the object number &lt;code&gt;I&lt;/code&gt; of the tuple &lt;code&gt;T&lt;/code&gt;.&lt;/p&gt;
-&lt;h3&gt;Hash tables&lt;/h3&gt;
-&lt;p&gt;Including [[hash tables]] (unordered associative containers) in the C++ standard library is one of the most recurring requests. It was not adopted in C++03 due to time constraints only. Although hash tables are less efficient than a balanced tree in the worst case (in the presence of many collisions), they perform better in many real applications.&lt;/p&gt;
-&lt;p&gt;Collisions are managed only through ''[[Hash tables#Separate chaining|linear chaining]]'' because the committee didn't consider opportune to standardize solutions of ''[[open addressing]]'' that introduce quite a lot of intrinsic problems (above all when erasure of elements is admitted). To avoid name clashes with non-standard libraries that developed their own hash table implementations, the prefix “unordered” was used instead of “hash”.&lt;/p&gt;
-&lt;p&gt;The new library has four types of hash tables, differentiated by whether or not they accept elements with the same key (unique keys or equivalent keys), and whether they map each key to an associated value. They correspond to the four existing binary-search-tree-based associative containers, with an &lt;tt&gt;unordered_&lt;/tt&gt; prefix.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Type of hash table&lt;/th&gt;
-&lt;th&gt;Associated values&lt;/th&gt;
-&lt;th&gt;Equivalent keys&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;std::unordered_set&lt;/td&gt;
-&lt;td&gt;no&lt;/td&gt;
-&lt;td&gt;no&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;std::unordered_multiset&lt;/td&gt;
-&lt;td&gt;no&lt;/td&gt;
-&lt;td&gt;yes&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;std::unordered_map&lt;/td&gt;
-&lt;td&gt;yes&lt;/td&gt;
-&lt;td&gt;no&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;std::unordered_multimap&lt;/td&gt;
-&lt;td&gt;yes&lt;/td&gt;
-&lt;td&gt;yes&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;New classes fulfill all the requirements of a [[Standard Template Library#Containers|container class]], and have all the methods necessary to access elements: &lt;code&gt;insert&lt;/code&gt;, &lt;code&gt;erase&lt;/code&gt;, &lt;code&gt;begin&lt;/code&gt;, &lt;code&gt;end&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;This new feature didn't need any C++ language core extensions (though implementations will take advantage of various C++11 language features), only a small extension of the header &lt;code&gt;&amp;lt;nowiki&amp;gt;&amp;lt;functional&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt; and the introduction of headers &lt;code&gt;&amp;lt;nowiki&amp;gt;&amp;lt;unordered_set&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;nowiki&amp;gt;&amp;lt;unordered_map&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt;. No other changes to any existing standard classes were needed, and it doesn’t depend on any other extensions of the standard library.&lt;/p&gt;
-&lt;h3&gt;Regular expressions&lt;/h3&gt;
-&lt;p&gt;The new library, defined in the new header &lt;code&gt;&amp;lt;nowiki&amp;gt;&amp;lt;regex&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt;, is made of a couple of new classes:&lt;br /&gt;
-&lt;em&gt;[[regular expressions]] are represented by instance of the template class &lt;code&gt;std::regex&lt;/code&gt;;&lt;br /&gt;
-&lt;/em&gt;occurrences are represented by instance of the template class &lt;code&gt;std::match_results&lt;/code&gt;.&lt;br /&gt;
-The function &lt;code&gt;std::regex_search&lt;/code&gt; is used for searching, while for ‘search and replace’ the function &lt;code&gt;std::regex_replace&lt;/code&gt; is used which returns a new string.&lt;br /&gt;
-The algorithms &lt;code&gt;std::regex_search&lt;/code&gt; and &lt;code&gt;std::regex_replace&lt;/code&gt; take a regular expression and a string and write the occurrences found in the struct &lt;code&gt;std::match_results&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Here is an example of the use of &lt;code&gt;std::match_results&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;const char *reg_esp = &amp;quot;[ ,.\\t\\n;:]&amp;quot;;  // List of separator characters.
-
-// this can be done using raw string literals:
-// const char *reg_esp = R&amp;quot;([ ,.\t\n;:])&amp;quot;;
-
-std::regex rgx(reg_esp);  // 'regex' is an instance of the template class
-                      // 'basic_regex' with argument of type 'char'.
-std::cmatch match;  // 'cmatch' is an instance of the template class
-                // 'match_results' with argument of type 'const char *'.
-const char *target = &amp;quot;Unseen University - Ankh-Morpork&amp;quot;;
-
-// Identifies all words of 'target' separated by characters of 'reg_esp'.
-if( std::regex_search( target, match, rgx ) ) {
-    // If words separated by specified characters are present.
-
-    const size_t n = match.size();
-    for( size_t a = 0; a &amp;lt; n; a++ ) {
-        std::string str( match[a].first, match[a].second );
-        std::cout &amp;lt;&amp;lt; str &amp;lt;&amp;lt; &amp;quot;\n&amp;quot;;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Note the use of double [[backslash]]es, because C++ uses backslash as an escape character. The C++11 [[#New_string_literals|raw string]] feature could be used to avoid the problem.&lt;/p&gt;
-&lt;p&gt;The library &lt;code&gt;&amp;lt;nowiki&amp;gt;&amp;lt;regex&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt; requires neither alteration of any existing header (though it will use them where appropriate) nor an extension of the core language.&lt;/p&gt;
-&lt;h3&gt;General-purpose smart pointers&lt;/h3&gt;
-&lt;p&gt;{{main|Smart_pointer|l1=C++ Smart Pointers}}&lt;br /&gt;
-C++11 provides {{code|std::unique_ptr}}, as well as improvements to {{code|std::shared_ptr}} and {{code|std::weak_ptr}} from TR1. {{code|std::auto_ptr}} is deprecated.&lt;/p&gt;
-&lt;h3&gt;Extensible random number facility&lt;/h3&gt;
-&lt;p&gt;The C standard library provides the ability to generate [[pseudorandom numbers]] through the function &lt;code&gt;rand&lt;/code&gt;. However, the algorithm is delegated entirely to the library vendor. C++ inherited this functionality with no changes, but C++11 will provide a new method for generating pseudorandom numbers.&lt;/p&gt;
-&lt;p&gt;C++11's random number functionality is split into two parts: a generator engine that contains the random number generator's state and produces the pseudorandom numbers; and a distribution, which determines the range and [[Distribution (mathematics)|mathematical distribution]] of the outcome. These two are combined to form a random number generator object.&lt;/p&gt;
-&lt;p&gt;Unlike the C standard &lt;code&gt;rand&lt;/code&gt;, the C++11 mechanism will come with three base generator engine algorithms:&lt;br /&gt;
-&lt;em&gt; &lt;code&gt;[[Linear congruential generator|linear_congruential_engine]]&lt;/code&gt;,&lt;br /&gt;
-&lt;/em&gt; &lt;code&gt;[[Subtract with carry|subtract_with_carry_engine]]&lt;/code&gt;, and&lt;br /&gt;
-* &lt;code&gt;[[Mersenne twister|mersenne_twister_engine]]&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;C++11 will also provide a number of standard distributions:&lt;br /&gt;
-&lt;em&gt; &lt;code&gt;[[Uniform distribution (discrete)|uniform_int_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;/em&gt; &lt;code&gt;[[Uniform distribution (continuous)|uniform_real_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;em&gt; &lt;code&gt;[[Bernoulli distribution|bernoulli_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;/em&gt; &lt;code&gt;[[Binomial distribution|binomial_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;em&gt; &lt;code&gt;[[Geometric distribution|geometric_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;/em&gt; &lt;code&gt;[[Negative binomial distribution|negative_binomial_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;em&gt; &lt;code&gt;[[Poisson distribution|poisson_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;/em&gt; &lt;code&gt;[[Exponential distribution|exponential_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;em&gt; &lt;code&gt;[[Gamma distribution|gamma_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;/em&gt; &lt;code&gt;[[Weibull distribution|weibull_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;em&gt; &lt;code&gt;[[Generalized extreme value distribution|extreme_value_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;/em&gt; &lt;code&gt;[[Normal distribution|normal_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;em&gt; &lt;code&gt;[[Lognormal distribution|lognormal_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;/em&gt; &lt;code&gt;[[Chi squared distribution|chi_squared_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;em&gt; &lt;code&gt;[[Cauchy distribution|cauchy_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;/em&gt; &lt;code&gt;[[F-distribution|fisher_f_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;em&gt; &lt;code&gt;[[Student's t-distribution|student_t_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;/em&gt; &lt;code&gt;[[Discrete_distribution#Discrete_probability_distribution|discrete_distribution]]&lt;/code&gt;,&lt;br /&gt;
-&lt;em&gt; &lt;code&gt;[[Step function|piecewise_constant_distribution]]&lt;/code&gt; and&lt;br /&gt;
-&lt;/em&gt; &lt;code&gt;[[Piecewise linear function|piecewise_linear_distribution]]&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;The generator and distributions are combined as in the following example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#include &amp;lt;random&amp;gt;
-#include &amp;lt;functional&amp;gt;
-
-std::uniform_int_distribution&amp;lt;int&amp;gt; distribution(0, 99);
-std::mt19937 engine; // Mersenne twister MT19937
-auto generator = std::bind(distribution, engine);
-int random = generator();  // Generate a uniform integral variate between 0 and 99.
-int random2 = distribution(engine); // Generate another sample directly using the distribution and the engine objects.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Wrapper reference&lt;/h3&gt;
-&lt;p&gt;A [[Adapter pattern|wrapper]] reference is obtained from an instance of the template class &lt;code&gt;reference_wrapper&lt;/code&gt;. Wrapper references are similar to normal references (‘&lt;code&gt;&amp;amp;&lt;/code&gt;’) of the C++ language. To obtain a wrapper reference from any object the function template &lt;code&gt;ref&lt;/code&gt; is used (for a constant reference &lt;code&gt;cref&lt;/code&gt; is used).&lt;/p&gt;
-&lt;p&gt;Wrapper references are useful above all for function templates, where references to parameters rather than copies are needed:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;// This function will obtain a reference to the parameter 'r' and increment it.
-void func (int &amp;amp;r)  { r++; }
-
-// Template function.
-template&amp;lt;class F, class P&amp;gt; void g (F f, P t)  { f(t); }
-
-int main()
-{
-    int i = 0 ;
-    g (func, i) ;  // 'g&amp;lt;void (int &amp;amp;r), int&amp;gt;' is instantiated
-               // then 'i' will not be modified.
-    std::cout &amp;lt;&amp;lt; i &amp;lt;&amp;lt; std::endl;  // Output -&amp;gt; 0
-
-    g (func, std::ref(i));  // 'g&amp;lt;void(int &amp;amp;r),reference_wrapper&amp;lt;int&amp;gt;&amp;gt;' is instantiated
-                    // then 'i' will be modified.
-    std::cout &amp;lt;&amp;lt; i &amp;lt;&amp;lt; std::endl;  // Output -&amp;gt; 1
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This new utility was added to the existing  &lt;code&gt;&amp;lt;nowiki&amp;gt;&amp;lt;utility&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt; header and didn't need further extensions of the C++ language.&lt;/p&gt;
-&lt;h3&gt;Polymorphic wrappers for function objects&lt;/h3&gt;
-&lt;p&gt;[[Type polymorphism|Polymorphic]] [[Adapter pattern|wrappers]] for [[function objects]] are similar to [[function pointers]] in semantics and syntax, but are less tightly bound and can indiscriminately refer to anything which can be called (function pointers, member function pointers, or functors) whose arguments are compatible with those of the wrapper.&lt;/p&gt;
-&lt;p&gt;Through the example it is possible to understand its characteristics:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;std::function&amp;lt;int (int, int)&amp;gt; func;  // Wrapper creation using
-                                 // template class 'function'.
-std::plus&amp;lt;int&amp;gt; add;  // 'plus' is declared as 'template&amp;lt;class T&amp;gt; T plus( T, T ) ;'
-                 // then 'add' is type 'int add( int x, int y )'.
-func = add;  // OK - Parameters and return types are the same.
-
-int a = func (1, 2);  // NOTE: if the wrapper 'func' does not refer to any function,
-                      // the exception 'std::bad_function_call' is thrown.
-
-std::function&amp;lt;bool (short, short)&amp;gt; func2 ;
-if(!func2) { // True because 'func2' has not yet been assigned a function.
-
-    bool adjacent(long x, long y);
-    func2 = &amp;amp;adjacent ;  // OK - Parameters and return types are convertible.
-
-    struct Test {
-        bool operator()(short x, short y);
-    };
-    Test car;
-    func = std::ref(car);  // 'std::ref' is a template function that returns the wrapper
-                     // of member function 'operator()' of struct 'car'.
-}
-func = func2;  // OK - Parameters and return types are convertible.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The template class &lt;code&gt;function&lt;/code&gt; was defined inside the header &lt;code&gt;&amp;lt;nowiki&amp;gt;&amp;lt;functional&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt;, and didn't require any changes to the C++ language.&lt;/p&gt;
-&lt;h3&gt;Type traits for metaprogramming&lt;/h3&gt;
-&lt;p&gt;[[Metaprogramming]] consists of creating a program that creates or modifies another program (or itself). This can happen during compilation or during execution. The [[C++ Standards Committee]] has decided to introduce a library that allows metaprogramming during compilation through templates.&lt;/p&gt;
-&lt;p&gt;Here is an example of a meta-program, using the current C++03 standard: a [[recursion]] of template instances for calculating integer exponents:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;template&amp;lt;int B, int N&amp;gt;
-struct Pow {
-    // recursive call and recombination.
-    enum{ value = B*Pow&amp;lt;B, N-1&amp;gt;::value };
-};
-
-template&amp;lt; int B &amp;gt;
-struct Pow&amp;lt;B, 0&amp;gt; {
-    // ''N == 0'' condition of termination.
-    enum{ value = 1 };
-};
-int quartic_of_three = Pow&amp;lt;3, 4&amp;gt;::value;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Many algorithms can operate on different types of data; C++'s [[Template (programming)|template]]s support [[generic programming]] and make code more compact and useful. Nevertheless it is common for algorithms to need information on the data types being used. This information can be extracted during instantiation of a template class using '''type traits'''.&lt;/p&gt;
-&lt;p&gt;'''Type traits''' can identify the category of an object and all the characteristics of a class (or of a struct). They are defined in the new header &lt;code&gt;&amp;lt;nowiki&amp;gt;&amp;lt;type_traits&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;In the next example there is the template function ‘elaborate’ that, depending on the given data types, will instantiate one of the two proposed algorithms (&lt;code&gt;algorithm.do_it&lt;/code&gt;).&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;// First way of operating.
-template&amp;lt; bool B &amp;gt; struct Algorithm {
-    template&amp;lt;class T1, class T2&amp;gt; static int do_it (T1 &amp;amp;, T2 &amp;amp;)  { /*...*/ }
-};
-
-// Second way of operating.
-template&amp;lt;&amp;gt; struct Algorithm&amp;lt;true&amp;gt; {
-    template&amp;lt;class T1, class T2&amp;gt; static int do_it (T1, T2)  { /*...*/ }
-};
-
-// Instantiating 'elaborate' will automatically instantiate the correct way to operate.
-template&amp;lt;class T1, class T2&amp;gt;
-int elaborate (T1 A, T2 B)
-{
-    // Use the second way only if 'T1' is an integer and if 'T2' is
-    // in floating point, otherwise use the first way.
-    return Algorithm&amp;lt;std::is_integral&amp;lt;T1&amp;gt;::value &amp;amp;&amp;amp; std::is_floating_point&amp;lt;T2&amp;gt;::value&amp;gt;::do_it( A, B ) ;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Through '''type traits''', defined in header &lt;code&gt;&amp;lt;nowiki&amp;gt;&amp;lt;type_transform&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt;, it’s also possible to create type transformation operations (&lt;code&gt;static_cast&lt;/code&gt; and &lt;code&gt;const_cast&lt;/code&gt; are insufficient inside a template).&lt;/p&gt;
-&lt;p&gt;This type of programming produces elegant and concise code; however the weak point of these techniques is the debugging: uncomfortable during compilation and very difficult during program execution.&lt;/p&gt;
-&lt;h3&gt;Uniform method for computing the return type of function objects&lt;/h3&gt;
-&lt;p&gt;Determining the return type of a template function object at compile-time is not intuitive, particularly if the return value depends on the parameters of the function. As an example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct Clear {
-    int    operator()(int) const;  // The parameter type is
-    double operator()(double) const;  // equal to the return type.
-};
-
-template &amp;lt;class Obj&amp;gt;
-class Calculus {
-public:
-    template&amp;lt;class Arg&amp;gt; Arg operator()(Arg&amp;amp; a) const
-    {
-        return member(a);
-    }
-private:
-    Obj member;
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Instantiating the class template &lt;code&gt;Calculus&amp;lt;nowiki&amp;gt;&amp;lt;Clear&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt;, the function object of &lt;code&gt;calculus&lt;/code&gt; will have always the same return type as the function object of &lt;code&gt;Clear&lt;/code&gt;. However, given class &lt;code&gt;Confused&lt;/code&gt; below:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;struct Confused {
-    double operator()(int) const;     // The parameter type is not
-    int    operator()(double) const;  // equal to the return type.
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Attempting to instantiate &lt;code&gt;Calculus&amp;lt;nowiki&amp;gt;&amp;lt;Confused&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt; will cause the return type of &lt;code&gt;Calculus&lt;/code&gt; to not be the same as that of class &lt;code&gt;Confused&lt;/code&gt;. The compiler may generate warnings about the conversion from &lt;code&gt;int&lt;/code&gt; to &lt;code&gt;double&lt;/code&gt; and vice-versa.&lt;/p&gt;
-&lt;p&gt;TR1 introduces, and C++11 adopts, the template class &lt;code&gt;std::result_of&lt;/code&gt; that allows one to determine and use the return type of a function object for every declaration. The object &lt;code&gt;CalculusVer2&lt;/code&gt; uses the &lt;code&gt;std::result_of&lt;/code&gt; object to derive the return type of the function object:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;template&amp;lt; class Obj &amp;gt;
-class CalculusVer2 {
-public:
-    template&amp;lt;class Arg&amp;gt;
-    typename std::result_of&amp;lt;Obj(Arg)&amp;gt;::type operator()(Arg&amp;amp; a) const
-    {
-        return member(a);
-    }
-private:
-    Obj member;
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In this way in instances of function object of &lt;code&gt;CalculusVer2&amp;lt;nowiki&amp;gt;&amp;lt;Confused&amp;gt;&amp;lt;/nowiki&amp;gt;&lt;/code&gt; there are no conversions, warnings, or errors.&lt;/p&gt;
-&lt;p&gt;The only change from the TR1 version of &lt;code&gt;std::result_of&lt;/code&gt; is that the TR1 version allowed an implementation to fail to be able to determine the result type of a function call. Due to changes to C++ for supporting &lt;code&gt;[[#Type inference|decltype]]&lt;/code&gt;, the C++11 version of &lt;code&gt;std::result_of&lt;/code&gt; no longer needs these special cases; implementations are required to compute a type in all cases.&lt;/p&gt;</summary></entry><entry><title>DropPress</title><link href="/2012/09/16/droppress/" rel="alternate"></link><updated>2012-09-16T08:19:35Z</updated><id>tag:None,2012-09-16:/2012/09/16/droppress//</id><summary type="html">&lt;p&gt;&lt;a href="http://github.com/Reiot/droppress"&gt;DropPress&lt;/a&gt;는 이번에 다 죽어있던 블로그를 개편하면서 만든 정적 사이트 생성 스크립트다.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-09-16T08:19:35Z</updated><author><name>Ray Yun</name></author><entry><title>DropPress</title><link href="/2012/09/16/droppress/" rel="alternate"></link><updated>2012-09-16T08:19:35Z</updated><id>tag:None,2012-09-16:/2012/09/16/droppress//</id><summary type="html">&lt;p&gt;&lt;a href="http://github.com/Reiot/droppress"&gt;DropPress&lt;/a&gt;는 이번에 다 죽어있던 블로그를 개편하면서 만든 정적 사이트 생성 스크립트다.&lt;/p&gt;
 &lt;p&gt;왜 이름이 DropPress 이냐면, 이 프로젝트의 시작은 드랍박스를 연동하는 웹서비스였기 때문이다. 드랍박스에 마크다운 포맷의 글을 저장해두면, 버전관리를 안해도 되고, 드랍박스와 연동되는 훌륭한 편집기가 널려 있으니, 나는 마크다운 변환과 github 배포를 구현하기만 하면 된다고 생각했다. 그런데, 비슷한 웹 에디터나 호스팅 서비스도 이미 존재하길래, 목표를 간단한 스크립트로 바꿨다. :)&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://github.com/Reiot/droppress"&gt;소스코드&lt;/a&gt;는 github에 공개되어 있다.&lt;/p&gt;
 &lt;h2&gt;기능 소개&lt;/h2&gt;
@@ -1467,4 +574,98 @@ self.fill(self.outputs.bb, 'bbbbb')
 &lt;li&gt;cassandra: 자바 기반&lt;/li&gt;
 &lt;li&gt;riak: 머임..&lt;/li&gt;
 &lt;li&gt;hbase: 즐..&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>libUV 분석</title><link href="/2012/02/26/libuv/" rel="alternate"></link><updated>2011-01-04T13:07:54Z</updated><id>tag:None,2011-01-04:/2012/02/26/libuv//</id><summary type="html">&lt;h2&gt;개요&lt;/h2&gt;
+&lt;p&gt;node.js의 플랫폼 레이어로 여러 플랫폼에서의 비동기 입출력을 추상화하고, 완료될 때 콜백을 실행할 수 있게 해준다.&lt;/p&gt;
+&lt;p&gt;see also &lt;a href="https://github.com/joyent/libuv"&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;입출력 타입&lt;/h2&gt;
+&lt;p&gt;include/uv.h 에 보면 다음과 같은 입출력 타입이 지원된다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TCP, UDP 소켓&lt;/li&gt;
+&lt;li&gt;IPC, named Pipe(부모-자식 프로세스간 통신)&lt;/li&gt;
+&lt;li&gt;타이머, 고해상도 타이머, idle 이벤트&lt;/li&gt;
+&lt;li&gt;쓰레드풀링(QueueUserWorkItem)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;이 정도면 능히 게임 서버를 만들 수 있는 수준이다?&lt;/p&gt;
+&lt;h2&gt;입출력 핸들과 처리 함수들&lt;/h2&gt;
+&lt;p&gt;일단, 비동기 입출력 타입들은 전용 핸들과 초기화/소멸 함수를 가진다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;uv_tcp_t: uv_tcp_init(), uv_tcp_endgame()&lt;/li&gt;
+&lt;li&gt;uv_udp_t: uv_udp_init(), uv_udp_endgame()&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;또한 각종 이벤트에 대해서 요청/완료 함수가 존재한다. 예를 들어 TCP 소켓 입출력에 대해서는 Accept/Connect/Read/Write 이벤트가 존재하는데 아래와 같은 함수들이 대응되어 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;uv_tcp_accept =&amp;gt; uv_process_tcp_accept_req&lt;/li&gt;
+&lt;li&gt;uv_tcp_read_start =&amp;gt; uv_process_tcp_read_req&lt;/li&gt;
+&lt;li&gt;uv_tcp_write =&amp;gt; uv_process_tcp_write_req&lt;/li&gt;
+&lt;li&gt;uv_tcp_connect =&amp;gt; uv_process_tcp_connect_req&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;특이한 것은 Loop Watcher 로 분류되는, idle/prepare/check 이벤트들이다. idle은 서버에 아무런 입출력이 없을 때 호출된다. prepare/check 는 이벤트 루프를 커스터마이징하기 위한 함수인데 거의 쓸 일은 없을 듯.&lt;/p&gt;
+&lt;h2&gt;메인 이벤트 루프&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;// src/core.cc
+do {
+     // 현재 시간 설정
+   uv_update_time((loop));
+
+   // 완료된 타이머 이벤트 실행
+   uv_process_timers((loop));
+
+   // 요청도 없고 타이머도 없으면 idle 이벤트 실행
+    if ((loop)-&amp;gt;pending_reqs_tail == NULL &amp;amp;&amp;amp; (loop)-&amp;gt;endgame_handles == NULL){
+      uv_idle_invoke((loop));
+   }
+
+   // 완료된 입출력을 정리하고 지정된 콜백을 실행
+   uv_process_reqs((loop));
+
+   // 끊긴 연결 등의 핸들을 정리
+   uv_process_endgames((loop));
+
+   // pre-poll 콜백들을 호출
+   uv_prepare_invoke((loop));
+
+   // GetQueuedCompletionStatus 를 실행해서 입출력 완료를 대기
+   // 현재 처리할 이벤트가 없으면 계속 대기
+   poll((loop), (loop)-&amp;gt;idle_handles == NULL &amp;amp;&amp;amp;
+                 (loop)-&amp;gt;pending_reqs_tail == NULL &amp;amp;&amp;amp;
+                 (loop)-&amp;gt;endgame_handles == NULL &amp;amp;&amp;amp;
+                 (loop)-&amp;gt;refs &amp;gt; 0);
+
+    // post-poll 콜백들을 호출
+    uv_check_invoke((loop));
+  } while (0);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;메모리 관리&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;TCP read : &lt;a href="http://stackoverflow.com/questions/4988168/wsarecv-and-wsabuf-questions"&gt;zero byte receive&lt;/a&gt;라는 기법을 이용한다. WSARecv 에 길이가 0인 빈 버퍼를 넘기고, 실제로 뭔가 오면 WSARecv 로 다시 읽는 방식이다. locked page 를 줄일 수 있어서 I/O 가 많은 서버들이 자주 쓴다고 한다. 참고로 WSARecv/WSASend 에 넘긴 메모리는 커널 드라이버가 접근해야 하므로 lock 이 걸리게 되는데 물리적인 최대값이 있다.(램의 1/8??)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;전통적인 게임 서버들은 하나에 프로세스가 여러 개의 쓰레드를 가지고, 세션당 1개의 입력 버퍼를 두는 1-recv 기법을 사용한다. 반면 node.js 는 클러스터링을 염두에 둔 탓인지, 메모리를 최소하는 전략을 채택한 듯하다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TCP write: N-send 를 사용한다. 즉 보낼 게 있을 때마다 버퍼가 만들어지거나 이미 존재하는 객체의 포인터를 이용한다는 뜻이다. 구조적으로는 gather write 가 가능할 거 같은데 코드에서는 없는 듯하다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;대신 브로드캐스팅을 해도 복사는 없으므로 한편으론 괜찮을지도.&lt;/p&gt;
+&lt;h2&gt;평가&lt;/h2&gt;
+&lt;p&gt;게임 서버 프로그래머로서 발견할 수 있는 문제는,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CPU 연산이 많은 경우 모든 실행이 멈춘다. 해결책은&lt;ul&gt;
+&lt;li&gt;process.nextTick() 으로 잘게 자른다. (또는 코루틴이 도입될 때까지 기다린다 ㅋㅋ) yield 같은 게 있으면 좋을텐데...&lt;/li&gt;
+&lt;li&gt;그래도 크다면 pipe 나 소켓을 통해 다른 프로세스로 task 를 넘기고 받을 것. 게임의 핵심 로직은 별도 프로세스로 분리하는 게 더 좋을 듯.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;캐릭터 이동이나 대규모 전투 같이 크기는 작지만 I/O의 절대 갯수가 많을 경우, 성능 저하가 좀 있을 것 같다.&lt;ul&gt;
+&lt;li&gt;왜냐하면 I/O 갯수만큼 GQCS를 호출해야 하니까. 이건 nv_run 코드를 패치하는 방법도 있지만..&lt;/li&gt;
+&lt;li&gt;어쨌거나 기본적으로 작게 분산해서 하나하나를 가볍게 가져가는 형태가 될 것이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;만약 node.js 만으로 리얼타임 MMO 게임 서버군을 구성한다면…&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;frontend servers: 클라이언트와의 인증, 입출력을 전담. 메시지가 도달하면 backend 의 적당한 서버로 IPC(pipe or socket)를 통해 보낸다.&lt;/li&gt;
+&lt;li&gt;backend servers: game server(sharding), AI, chat, guild, shop 등 역할별로 분산해서 지연을 최소화한다.&lt;/li&gt;
+&lt;li&gt;CPU 를 많이 사용해야 한다면 C++ native 로 전환해가는 방법도 좋다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;그 외에 고민해야 될 것들이라면&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;적당한 데이터베이스/캐시 미들웨어: membase?&lt;/li&gt;
+&lt;li&gt;node 프로세스 관리 도구 및 모니터링&lt;/li&gt;
 &lt;/ul&gt;</summary></entry></feed>

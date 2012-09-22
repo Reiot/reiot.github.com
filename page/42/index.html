@@ -69,64 +69,6 @@
 			
 				<div>
 	<div class="page-header">
-		<h1><a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a> <small>2005-12-11</small></h1>
-	</div>
-	<div><h2>키 바인딩</h2>
-<p>가능하면 Visual Studio 랑 비슷하게 맞추려면 다음과 같이 하라.</p>
-<table>
-<thead>
-<tr>
-<th>Category</th>
-<th>Command</th>
-<th>Key</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Window</td>
-<td>Next Editor</td>
-<td>Ctrl + Tab</td>
-</tr>
-<tr>
-<td>Text Editing</td>
-<td>Delete Line</td>
-<td>Ctrl + L</td>
-</tr>
-<tr>
-<td>PyDev - Editor</td>
-<td>Python Comment</td>
-<td>Ctrl + K, Ctrl + C</td>
-</tr>
-<tr>
-<td>PyDev - Editor</td>
-<td>Python Uncomment</td>
-<td>Ctrl + K, Ctrl + U</td>
-</tr>
-<tr>
-<td>Run/Debug</td>
-<td>Run Last Launched</td>
-<td>Ctrl + F5</td>
-</tr>
-<tr>
-<td>Run/Debug</td>
-<td>Debug Last Launched</td>
-<td>F5</td>
-</tr>
-</tbody>
-</table>
-<h2>SubVersion 연동하기</h2>
-<p>eclipse 용 subversion 플러그인인 subclipse 를 이용하면 손쉽게 버전 관리가 가능하다. <a href="http://openframework.or.kr/JSPWiki/Wiki.jsp?page=Subversion">다음 글</a>을 참고할 것.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
 		<h1><a href="/2005/12/11/adonet-팁/">ADO.NET 팁</a> <small>2005-12-11</small></h1>
 	</div>
 	<div><p>ADO.NET + VB.NET 으로 게임 상점 관리툴을 개발하면서 얻은 팁들을 정리해보았다.</p>
@@ -440,24 +382,29 @@ If e.X
 	</p>
 </div>
 			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2005/10/31/inet_ntoa-의-위험성/">inet_ntoa 의 위험성</a> <small>2005-10-31</small></h1>
+	</div>
+	<div><p>아래와 같이 내부 버퍼를 리턴하는 함수를 연속적으로 사용할 경우에는 주의해야 한다. 그냥 string 으로 감싸서 사용하는 것이 정신건강에 좋다. (단 타이핑 횟수는 .c_str() 때문에 꽤 증가한다)</p>
+<p>printf( "external_address=%s internal_address=%s",<br />
+  inet_ntoa(exaddr),<br />
+  inet_ntoa(inaddr));</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+	
+	
+	</p>
+</div>
+			
 			<div class="pagination pagination-centered">
 				<ul>
 				
-					<li><a href="/page/39/">&laquo;</a></li>
+					<li><a href="/page/41/">&laquo;</a></li>
 				
 				
-				  	<li >
-				  	
-				    	<a href="/page/40/">40</a>
-				    
-				  	</li>
-		  		
-				  	<li >
-				  	
-				    	<a href="/page/41/">41</a>
-				    
-				  	</li>
-		  		
 				  	<li class="active">
 				  	
 				    	<a href="/page/42/">42</a>
@@ -482,8 +429,20 @@ If e.X
 				    
 				  	</li>
 		  		
+				  	<li >
+				  	
+				    	<a href="/page/46/">46</a>
+				    
+				  	</li>
+		  		
+				  	<li >
+				  	
+				    	<a href="/page/47/">47</a>
+				    
+				  	</li>
+		  		
 				
-					<li><a href="/page/46/">&raquo;</a></li>
+					<li><a href="/page/48/">&raquo;</a></li>
 				
 		  		</ul>
 			</div>
@@ -504,10 +463,6 @@ If e.X
 	</li>
 	
 	<li>
-		<a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a>
-	</li>
-	
-	<li>
 		<a href="/2005/12/11/adonet-팁/">ADO.NET 팁</a>
 	</li>
 	
@@ -521,6 +476,10 @@ If e.X
 	
 	<li>
 		<a href="/2005/11/23/vb를-이용한-선분과-원의-충돌체크/">VB를 이용한 선분과 원의 충돌체크</a>
+	</li>
+	
+	<li>
+		<a href="/2005/10/31/inet_ntoa-의-위험성/">inet_ntoa 의 위험성</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

@@ -69,26 +69,6 @@
 			
 				<div>
 	<div class="page-header">
-		<h1><a href="/2006/11/15/online-sql-beautifier/">Online SQL beautifier</a> <small>2006-11-15</small></h1>
-	</div>
-	<div><p><img alt="sqlpponline" src="http://www.wangz.net/gsqlparser/sqlpp/sqlpponline.gif" /></p>
-<p>어제 갑자기 DB에 문제가 생겨서 여러 사람이 손댄 프로시저를 읽다가 도저히 적응이 안되어서 <a href="http://www.google.co.kr/search?q=SQL+beautifier">구글로 SQL Beautifier를 검색</a>해 보았다. 그 중에서 무료이면서 가장 쓸만한 웹 기반의 SQL beautifier가 바로 <a href="http://www.wangz.net/cgi-bin/pp/gsqlparser/sqlpp/sqlformat.tpl">Instant SQL Formatter</a> 이었다. 물론 Visual Studio 나 Query Analyzer에 연동하려면 클라이언트 버전도 있지만, 40 달러 정도 돈을 내야 한다.</p>
-<p>혹시나 이 보다 더 좋은 넘이 있다면 리플을 달아주시기 바란다. MS는 왜 이런 걸 기본으로 내장하지 않나 몰라.</p>
-<ul>
-<li>빈태님이 <a href="http://www.red-gate.com/products/SQL_Refactor/index.htm">SQL refactor</a>를 추천해주셨다. 감사..</li>
-<li>오늘 어떤 프로시저에서 또다른 프로시저를 호출하다가 @@transcount 가 0 -&gt; 1 로 변하는 에러를 처음 발견했다. 아직 정확한 이유는 모르지만, 이런 에러 처음이야~</li>
-</ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
 		<h1><a href="/2006/11/08/푸켓-다녀왔습니다/">푸켓 다녀왔습니다.</a> <small>2006-11-08</small></h1>
 	</div>
 	<div><p><a href="http://www.flickr.com/photos/reiot/291900834/" title="Photo Sharing"><img alt="http://static.flickr.com/116/291900834_99c491a692_o.jpg" src="http://static.flickr.com/116/291900834_99c491a692_o.jpg" /></a></p>
@@ -341,6 +321,29 @@ return false;
 	</p>
 </div>
 			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2006/09/09/log4cxx/">Log4cxx</a> <small>2006-09-09</small></h1>
+	</div>
+	<div><p><img alt="http://logging.apache.org/images/ls-logo.jpg" src="http://logging.apache.org/images/ls-logo.jpg" /></p>
+<p>서버 프로그래머라면 빠르고 간편한 로그와 트레이스에 대해서 한번쯤은 고민해봤을 것이다. 파일 로그 또는 윈도우의 이벤트 로그를 보통 쓰고 있겠지만, 생각보다 편하지 않은게 사실이다. 그런 의미에서 이번 기회에 <a href="http://logging.apache.org/log4cxx/index.html">Log4j을 C++로 포팅한 Log4cxx</a>의 특징에 대해서 알아보는 시간을 가져봤다.</p>
+<p>다음 내용은 <a href="http://logging.apache.org/log4cxx/manual/Introduction.html">Log4cxx의 개요 문서</a>를 축약한 것이므로, 가능하면 본문을 읽어보기를 권장한다.</p>
+<ul>
+<li>이름 기반으로 계층화(hierarchical)된 로그 지원 : 종류별 로그 객체를 만들어둘 필요가 없이, 필요할 때마다 이름을 키값으로 로그 객체에 접근하면 된다. 가령 system.net 은 system.net.packet 의 상위 계층이 된다.</li>
+<li>상속 지원 : 하위 계층에 속한 로그들은 상위 계층의 로그에게 종속된다. 윈도우의 이벤트 로그과 비슷하게 로그 레벨(DEBUG-INFO-WARN-ERROR-FATAL)을 지원하며, 이 역시 상속 기반으로 동작한다.</li>
+<li>복수의 Appender 지원 : 하나의 로그 객체에 콘솔, 파일, 이벤트로그, 소켓 등 여러 가지 종류의 출력 스트림(Appender)을 2개 이상 붙일 수 있다. 당연히 비동기적으로 동작한다.</li>
+<li>XML 기반의 외부 환경 설정 파일 지원 : 각 로그 객체의 on/off 부터 레이아웃(==포맷팅)까지 모두 외부 환경 파일에서 설정 가능하다.</li>
+<li>고성능 : 굳이 #ifdef … #endif 로 지우지 않고 그냥 off 만 해둬도 함수 호출 하나 + 정수 연산 정도의 부하만 준다.</li>
+</ul>
+<p>잘 찾아보면 <a href="http://www.codeproject.com/csharp/TraceTool.asp?df=100&amp;forumid=28124&amp;exp=0&amp;select=1261034&amp;fr=26">log4j/log4net 등의 출력을 GUI로 이쁘게 보여주는 유틸리티</a>도 없지 않으므로, 굳이 까만 콘솔 화면을 뚫어지게 쳐다보기 보다는 저런 툴을 활용해보는 건 어떨까 싶다. 물론 라이브 로그도 지원해줘야 하고, 손쉬운 필터링과 검색 기능이 들어가야 하겠지만…</p>
+<p>가장 좋은 건, 데몬을 띄워두면 패널에 아이콘화되어 있다가, 에러가 발생하면 깜빡거리며 툴팁이 뜨고, 이를 클릭하면 어플리케이션 이름-시간-내용 메시지를 보여주는 모니터링 어플리케이션을 만들어 두는 것이다. 마찬가지로 필터링 기능이 들어가야 하겠지만.</p></div>
+	<br />
+	<p>
+	
+	
+	</p>
+</div>
+			
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -405,10 +408,6 @@ return false;
 	</li>
 	
 	<li>
-		<a href="/2006/11/15/online-sql-beautifier/">Online SQL beautifier</a>
-	</li>
-	
-	<li>
 		<a href="/2006/11/08/푸켓-다녀왔습니다/">푸켓 다녀왔습니다.</a>
 	</li>
 	
@@ -422,6 +421,10 @@ return false;
 	
 	<li>
 		<a href="/2006/09/20/otl-tips/">OTL Tips</a>
+	</li>
+	
+	<li>
+		<a href="/2006/09/09/log4cxx/">Log4cxx</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

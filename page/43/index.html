@@ -69,23 +69,6 @@
 			
 				<div>
 	<div class="page-header">
-		<h1><a href="/2005/10/31/inet_ntoa-의-위험성/">inet_ntoa 의 위험성</a> <small>2005-10-31</small></h1>
-	</div>
-	<div><p>아래와 같이 내부 버퍼를 리턴하는 함수를 연속적으로 사용할 경우에는 주의해야 한다. 그냥 string 으로 감싸서 사용하는 것이 정신건강에 좋다. (단 타이핑 횟수는 .c_str() 때문에 꽤 증가한다)</p>
-<p>printf( "external_address=%s internal_address=%s",<br />
-  inet_ntoa(exaddr),<br />
-  inet_ntoa(inaddr));</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
 		<h1><a href="/2005/10/22/find_if-와-boostlambda/">find_if 와 boost::lambda</a> <small>2005-10-22</small></h1>
 	</div>
 	<div><p>STL 컨테이너를 만지작거리다보면 종종 algorithm 을 써서 코드를 간략하게 표현하고픈 충동이 든다. 그런데 STL에서 제공하는 각종 function template 의 파워는 생각보다 약하다. 가령 다음과 같이 컨테이너 내부 객체의 멤버 함수의 실행 결과를 기준으토 무언가를 하고 싶은 경우...</p>
@@ -221,12 +204,37 @@ cout GetValue() GetValue()
 	</p>
 </div>
 			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2005/09/23/client-network-utility/">Client Network Utility</a> <small>2005-09-23</small></h1>
+	</div>
+	<div><p>Enterprise Manager 로 접속해야 할 DB 가 custom port 를 사용하거나 VPN, 공유기 등의 문제로 name 기반의 접근이 안될 경우,<br />
+이 툴에서 TCP/IP 기반의 alias 를 만들어 두면 EM에 등록해서 연결할 수 있다.</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
+	
+		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+	
+	
+		<a href="/tag/db/"><span class="label"><span class="icon icon-tag"></span> db</span></a>
+	
+	</p>
+</div>
+			
 			<div class="pagination pagination-centered">
 				<ul>
 				
-					<li><a href="/page/42/">&laquo;</a></li>
+					<li><a href="/page/41/">&laquo;</a></li>
 				
 				
+				  	<li >
+				  	
+				    	<a href="/page/42/">42</a>
+				    
+				  	</li>
+		  		
 				  	<li class="active">
 				  	
 				    	<a href="/page/43/">43</a>
@@ -257,14 +265,8 @@ cout GetValue() GetValue()
 				    
 				  	</li>
 		  		
-				  	<li >
-				  	
-				    	<a href="/page/48/">48</a>
-				    
-				  	</li>
-		  		
 				
-					<li><a href="/page/49/">&raquo;</a></li>
+					<li><a href="/page/48/">&raquo;</a></li>
 				
 		  		</ul>
 			</div>
@@ -285,10 +287,6 @@ cout GetValue() GetValue()
 	</li>
 	
 	<li>
-		<a href="/2005/10/31/inet_ntoa-의-위험성/">inet_ntoa 의 위험성</a>
-	</li>
-	
-	<li>
 		<a href="/2005/10/22/find_if-와-boostlambda/">find_if 와 boost::lambda</a>
 	</li>
 	
@@ -302,6 +300,10 @@ cout GetValue() GetValue()
 	
 	<li>
 		<a href="/2005/10/11/remove-windows-service/">Remove Windows Service</a>
+	</li>
+	
+	<li>
+		<a href="/2005/09/23/client-network-utility/">Client Network Utility</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

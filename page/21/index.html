@@ -69,27 +69,6 @@
 			
 				<div>
 	<div class="page-header">
-		<h1><a href="/2008/02/18/getting-real/">Getting Real</a> <small>2008-02-18</small></h1>
-	</div>
-	<div><p><a href="http://gettingreal.37signals.com/GR_kor.php">Getting Real</a>은 단지 웹개발에 대한 지침이기도 하지만, 쌓여 있는 버그와 뒤죽박죽한 요구 사항 속에서 고민하는 게임 개발자에게도 꽤 유익한 내용이다. 가끔씩 길을 잘못 들고 있지 않을까 하는 불안감이 들 때마다 읽어봐야겠다.<br />
-```<br />
-<strong>"혁신은 '아니오' 에서 시작된다."</strong></p>
-<p>[혁신]은 1000가지 일에 대해서 '아니오'라고 말하므로써 잘못된 길을 가거나 불필요하게 너무 많은 일을 하지 않도록 하는 것에서 시작됩니다. 우리는 항상 새롭게 진입가능한 시장에 대해서 고민합니다. 하지만 그것은 과감히 '아니오'라고 말하므로써 실질적으로 중요한 일들에 대해서만 집중할 수 있을 때 가능합니다.<br />
-<cite>—Steve Jobs, CEO, <a href="http://www.apple.com/">Apple</a> (from <a href="http://www.businessweek.com/bwdaily/dnflash/oct2004/nf20041012_4018_db083.htm">The Seed of Apple's Innovation</a>)<br />
-</cite></p>
-<p><strong>"천 개의 기능은 필요하지 않습니다."</strong></p>
-<p>스티브 잡스가 아이튠즈에 대해서 독립음반회사 사람들을 모아놓고 조그만 발표를 했습니다. 그 날 많은 사람들은 쉴 새없이 손을 들면서 어떤 기능이 제공되는 지, 혹은 어떤 기능을 추가할 계획이 있는 지 물었습니다. 마침내 쟙스가 말했습니다. "잠깐만요. 손을 잠시 내리고 제 말을 들어보시죠. 저는 여러분이 아이튠즈에 있으면 좋을 만한 아이디어를 수 천개 가지고 있다는 것을 잘압니다. 하지만 우리는 수 천개의 기능을 원하지 않습니다. 그렇게 하면 엉망이 될 겁니다. 혁신은 모든 것에 대해서 '예'라고 말하는 것이 아닙니다. 혁신은 정말 중요한 것을 제외한 나머지에 대해서는 '아니오'라고 말하는 것입니다."</p>
-<p><cite>—Derek Sivers, 대표 및 프로그래머, <a href="http://www.cdbaby.com/">CD Baby</a>  and <a href="http://www.hostbaby.com/">HostBaby</a></cite><cite>(from <a href="http://www.oreillynet.com/onlamp/blog/2004/08/say_no_by_default.html">Say NO by default</a>)</cite>```<br />
-그러고 보면  헛똑똑이질을 하다가 매번 revert를 하다가 저런 글을 보고 뉘우치곤 하는 나보다, 이런 류의 글따위는 한번도 읽어보진 않아도 뭐가 중요한지 몸으로 깨닫고 있는 모군이 2g 정도 대견스럽긴 하다. ㅋㅋ</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
 		<h1><a href="/2008/02/10/boost-serialization/">boost::serialization</a> <small>2008-02-10</small></h1>
 	</div>
 	<div><p>boost::serialization 은, 템플릿 멤버 함수 하나 또는 free function 하나만 정의하면, 해당 클래스를 다양한 스트림으로 직렬화할 수 있게 해준다. 특히 list - vector - map - set 등의 다양한 STL 컨테이너들을 지원한다는 것이 장점이다.</p>
@@ -676,6 +655,272 @@ BOOST_AUTO_TEST_CASE( test_async_resolver )
 	</p>
 </div>
 			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2008/02/04/anticheatengine/">AntiCheatEngine</a> <small>2008-02-04</small></h1>
+	</div>
+	<div><p>원래는 Cheat Engine 으로도 freeze 를 걸 수 없는 안전한 변수를 만들기 위해서 만든 클래스다. 여기에 CRC라든지 XOR도 넣고, 또 값이 바뀔 때마다 위치도 바꾸고 할려고 했는데, 가만히 생각해보니 속도도 제법 느리고 막상 함수 내에 아래와 같이 로컬 캐시가 있다면 그걸 바꿔버리면 전혀 쓸모 없어져서 그냥 포기버렸다.</p>
+<pre><code>
+float speed = ac.Get&lt;float&gt;(&quot;speed&quot;);
+// -- inject code here --
+check_next_pos(pos,speed);
+</code></pre>
+
+<p><a href="http://reiot.cafe24.com/2008/02/03/ai-game-programming-wisdom-3/">어제 주문한 책들</a>이 도착하면 다시 한번 도전해볼까 싶기도 하지만, assembly 쪽 지식이 전무해서...</p>
+<!--more-->
+
+<pre><code>
+// AntiCheatEngine.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.
+//
+
+#include &quot;stdafx.h&quot;
+#include &lt;string&gt;
+#include &lt;set&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;hash_map&gt;
+
+#pragma warning(disable:4819)
+#define BOOST_TEST_MAIN
+#include &lt;boost/format.hpp&gt;
+#include &lt;boost/test/unit_test.hpp&gt;
+
+using std::string;
+
+size_t GenerateIndex()
+{
+static size_t key = 0;
+return key++;
+}
+
+class AntiCheat
+{
+typedef std::vector&lt;size_t&gt; INDEX_LIST;
+typedef stdext::hash_map&lt;string, INDEX_LIST &gt; KEY_MAP;
+
+public :
+
+AntiCheat( size_t N = 1024*64 )
+{
+m_Buffer.assign(N,0);
+m_UnusedIndex.assign(N,0);
+std::generate(m_UnusedIndex.begin(),m_UnusedIndex.end(),GenerateIndex);
+std::random_shuffle(m_UnusedIndex.begin(),m_UnusedIndex.end());
+}
+
+bool IsValid() const { return true; }
+
+unsigned int GetCRC() { return m_CRC; }
+
+// FIXME use ASSERT, dont check return value
+template&lt;class T&gt;
+bool Set( const string &amp; name , const T &amp; valueIn )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+INDEX_LIST idxList;
+for ( size_t i = 0 ; i &lt; sizeof(valueIn); i ++ )
+{
+if ( m_UnusedIndex.empty() )
+return false;
+size_t idx = m_UnusedIndex.back();
+m_UnusedIndex.pop_back();
+idxList.push_back(idx);
+}
+
+itr = m_Keys.insert(make_pair(name,idxList)).first;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+m_Buffer[idx] = reinterpret_cast&lt;const char*&gt;(&amp;valueIn)[i];
+}
+
+return true;
+}
+
+template&lt;typename T&gt;
+bool Get( const string &amp; name, T &amp; valueOut )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+return false;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+reinterpret_cast&lt;char*&gt;(&amp;valueOut)[i] = m_Buffer[idx];
+}
+return true;
+}
+
+size_t GetUnusedIndexCount() const { return m_UnusedIndex.size(); }
+
+unsigned int m_CRC;
+
+INDEX_LIST m_UnusedIndex;
+std::vector&lt;unsigned char&gt; m_Buffer;
+KEY_MAP m_Keys;
+};
+
+//////////////////////////////////////////////////////////////////////////
+template&lt;&gt;
+bool AntiCheat::Set&lt;string&gt;( const string &amp; name, const string &amp; valueIn )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+INDEX_LIST idxList;
+for ( size_t i = 0 ; i &lt; valueIn.size(); i ++ )
+{
+if ( m_UnusedIndex.empty() )
+return false;
+size_t idx = m_UnusedIndex.back();
+m_UnusedIndex.pop_back();
+idxList.push_back(idx);
+}
+
+itr = m_Keys.insert(make_pair(name,idxList)).first;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+m_Buffer[idx] = valueIn[i];
+}
+
+return true;
+}
+
+template&lt;&gt;
+bool AntiCheat::Get&lt;string&gt;( const string &amp; name, string &amp; valueOut )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+return false;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+// FIXME 최초 크기 보다 작은 사이즈는 저장할 수 없다?
+valueOut.assign(indexList.size(),0);
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+valueOut[i] = m_Buffer[idx];
+}
+return true;
+}
+
+BOOST_AUTO_TEST_CASE( test1 )
+{
+AntiCheat ac(100);
+
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100 );
+
+BOOST_CHECK( ac.IsValid() );
+
+string strIn = &quot;World&quot;, strOut;
+
+{
+ac.Set(&quot;string&quot;,strIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;string&gt;(&quot;string&quot;,strOut) );
+BOOST_CHECK_EQUAL( strIn, strOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size());
+}
+
+{
+int intIn, intOut;
+
+intIn = 1;
+ac.Set(&quot;int&quot;,intIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;int&gt;(&quot;int&quot;,intOut) );
+BOOST_CHECK_EQUAL( intIn, intIn );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int));
+
+intIn = -1;
+ac.Set(&quot;int&quot;,intIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;int&gt;(&quot;int&quot;,intOut) );
+BOOST_CHECK_EQUAL( intIn, intIn );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int));
+}
+
+{
+bool boolIn, boolOut;
+
+boolIn = true;
+ac.Set(&quot;bool&quot;,boolIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;bool&gt;(&quot;bool&quot;,boolOut) );
+BOOST_CHECK_EQUAL( boolIn, boolOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool));
+
+boolIn = true;
+ac.Set(&quot;bool&quot;,boolIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;bool&gt;(&quot;bool&quot;,boolOut) );
+BOOST_CHECK_EQUAL( boolIn, boolOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool));
+}
+
+{
+float floatIn, floatOut;
+
+floatIn = 1.234f;
+ac.Set(&quot;float&quot;,floatIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;float&gt;(&quot;float&quot;,floatOut) );
+BOOST_CHECK_EQUAL( floatIn, floatOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool)-sizeof(float));
+
+floatIn = -56.78f;
+ac.Set(&quot;float&quot;,floatIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;float&gt;(&quot;float&quot;,floatOut) );
+BOOST_CHECK_EQUAL( floatIn, floatOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool)-sizeof(float));
+}
+
+}
+
+/*
+
+값을 바꾸면 Key 및 CRC 가 바뀐다
+멤버 함수가 아닌 다른 경로로 값을 바꾸면 CRC 체크가 깨져야 한다.
+AntiCheat 는 하나의 큰 버퍼를 가진다. (ex: 32k)
+여기에 변수를 키값을 이용해서 저장하고 읽어낸다.
+이때 각 변수들은 바이트 단위로 흩어진다. 이때 흩어지는 인덱스는 저장하는 순간 랜덤하게, 중복되지 않게 결정된다.
+(이때문에 unused index set 이 필요함)
+또한 각 변수들은 Verifier 라는 range-checker 와 연동될 수 있다.
+키값 역시 다이나믹하게 결정된다. (가령 player.hp 의 경우 매크로에 의해서 __K(PlayerHP) -&gt; 세션키와의 XOR 등등 )
+Verify()를 호출하면 각 키에 대해서 Verify 한 다음,
+특정 영역 마다 0xEF 등 boundry checker 를 넣어두고, 바뀌었는지 체크한다.
+
+문자열일 경우 (길이 2바이트,본문) 이렇게 저장해야 한다. 만약 길이가 달라질 경우 인덱스를 새로 얻어 오거나 반납해야 한다.
+
+*/
+</code></pre></div>
+	<br />
+	<p>
+	
+	
+	</p>
+</div>
+			
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -740,10 +985,6 @@ BOOST_AUTO_TEST_CASE( test_async_resolver )
 	</li>
 	
 	<li>
-		<a href="/2008/02/18/getting-real/">Getting Real</a>
-	</li>
-	
-	<li>
 		<a href="/2008/02/10/boost-serialization/">boost::serialization</a>
 	</li>
 	
@@ -757,6 +998,10 @@ BOOST_AUTO_TEST_CASE( test_async_resolver )
 	
 	<li>
 		<a href="/2008/02/04/boostasio-tcp-resolver/">boost::asio TCP resolver</a>
+	</li>
+	
+	<li>
+		<a href="/2008/02/04/anticheatengine/">AntiCheatEngine</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

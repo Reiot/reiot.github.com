@@ -69,29 +69,6 @@
 			
 				<div>
 	<div class="page-header">
-		<h1><a href="/2006/03/22/half-sync-half-async-pattern/">Half Sync Half Async Pattern</a> <small>2006-03-22</small></h1>
-	</div>
-	<div><p>IOCP의 경우 입출력 요청은 비동기적으로 이루어지지만 커널 내부에서 존재하는 큐를 통해 GQCS()를 호출하는 쓰레드들에게는 동기적으로 할당하게 된다. 이처럼 비동기 레이어와 동기 레이어, 그리고 이를 연결시켜주는 메시지큐로 구성되는 패턴을 Half Sync Half Async Pattern 이라고 부른다. 이 패턴은 다음과 같은 곳에 적용되었다.</p>
-<ul>
-<li>select() (UNIX/Linux) - 커널에서 입출력 처리는 비동기적으로 이루어지지만, 이들은 유저 프로세스에서 순차적으로 받아서 처리한다.</li>
-<li>IOCP &amp; ThreadPooling (Windows)</li>
-<li>ACE_Task (ACE)</li>
-</ul>
-<p>see also :</p>
-<ul>
-<li><a href="http://www.cs.wustl.edu/~schmidt/PDF/PLoP-95.pdf">http://www.cs.wustl.edu/~schmidt/PDF/PLoP-95.pdf</a></li>
-</ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
 		<h1><a href="/2006/03/22/active-object-pattern/">Active Object Pattern</a> <small>2006-03-22</small></h1>
 	</div>
 	<div><p>Active Object Pattern, 일명 능동 객체 패턴은 ACE_Task (ACE), ActiveObject (JAVA), LuaTask (LUA) 등에 적용된 패턴으로, 쓰레드간의 비동기적인 함수 호출을 '''객체지향적으로''' 구현한 패턴이다.</p>
@@ -257,6 +234,23 @@ m_pLogger-&gt;SafeLog(m_Message);
 	</p>
 </div>
 			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2006/02/15/zero-ping/">Zero Ping</a> <small>2006-02-15</small></h1>
+	</div>
+	<div><p>Zero Ping 은 상당히 다양한 의미를 가지고 있다.</p>
+<ul>
+<li><strong>0-ping</strong> : FPS 게임의 랜파티에서 이루어지는 빠르고 쾌적한 게임들을 의미한다.</li>
+<li><strong>nick name</strong> : 많은 수의 FPS 팬들이 이 이름을 클랜 이름 또는 별명으로 사용하고 있었다.</li>
+<li><strong><a href="http://www.planetquake.com/rocketland/haqsau/hl1100.shtml">client-side hitscan</a> </strong>: FPS 게임들의 모드(MOD) 중 무기를 발사하는 순간 클라이언트에서 판정 여부를 결정, 서버로 보내는 방식의 게임을 의미한다. 퀘이크3의 레일건처럼 즉각적인 판정이 필요한 무기들이 랙에 취약하다는 점 때문에 만들어진 것으로 보인다. 그렇지만 보안 문제로 인해서 정식 게임에는 거의 채택되지 않으며, 팬들이 만든 모드로만 존재한다. server-side <a href="http://reiot.cafe24.com/archives/303">lag compensation</a> 으로 보안 문제를 해결할 수는 있지만 랙 자체를 해결할 수는 없다.</li>
+</ul></div>
+	<br />
+	<p>
+	
+	
+	</p>
+</div>
+			
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -321,10 +315,6 @@ m_pLogger-&gt;SafeLog(m_Message);
 	</li>
 	
 	<li>
-		<a href="/2006/03/22/half-sync-half-async-pattern/">Half Sync Half Async Pattern</a>
-	</li>
-	
-	<li>
 		<a href="/2006/03/22/active-object-pattern/">Active Object Pattern</a>
 	</li>
 	
@@ -338,6 +328,10 @@ m_pLogger-&gt;SafeLog(m_Message);
 	
 	<li>
 		<a href="/2006/02/18/네트워크-액션-게임의-분류/">네트워크 액션 게임의 분류</a>
+	</li>
+	
+	<li>
+		<a href="/2006/02/15/zero-ping/">Zero Ping</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">
