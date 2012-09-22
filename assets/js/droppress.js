@@ -37,7 +37,6 @@ var all_posts = {
   "CPB": "/2004/11/24/cpb/", 
   "Cheat Engine": "/2008/01/19/cheat-engine/", 
   "\uc81c\uac00 \ucc38\uac00\ud588\ub358 \ud504\ub85c\uc81d\ud2b8\uac00 CNN\uc744 \ud0d4\uc2b5\ub2c8\ub2e4": "/2008/03/01/rbo-on-cnn/", 
-  "Z-Net": "/2006/03/08/z-net/", 
   "Unity3D Serialization": "/2012/04/27/unity3d-serialization/", 
   "boost 1.35": "/2008/04/05/boost-135/", 
   "basecamp, trac, xampp": "/2007/06/20/basecamp-trac-xampp/", 
@@ -159,7 +158,6 @@ var all_posts = {
   "Most Valuable Asset": "/2009/07/22/most-valuable-asset/", 
   "\ub77c\uc2a4\ubca0\uac00\uc2a4 & \uadf8\ub79c\ub4dc\uce90\ub144 \uc0ac\uc9c4\uc804": "/2006/09/07/\u1105\u1161\u1109\u1173\u1107\u1166\u1100\u1161\u1109\u1173-\u1100\u1173\u1105\u1162\u11ab\u1103\u1173\u110f\u1162\u1102\u1167\u11ab-\u1109\u1161\u110c\u1175\u11ab\u110c\u1165\u11ab/", 
   "boost::is_base_of": "/2006/05/28/boostis_base_of/", 
-  "Don\u2019t reinvent the ACE": "/2006/03/15/dont-reinvent-the-ace/", 
   "AgileOST2007": "/2007/10/01/agile-ost-2007/", 
   "Getting Real": "/2008/02/18/getting-real/", 
   "Company Capitalism": "/2009/10/08/company-capitalism/", 
@@ -176,6 +174,7 @@ var all_posts = {
   "Python Tips": "/2006/04/26/python-tips/", 
   "UDT : UDP-based Data Transfer Library": "/2006/04/25/udt-udp-based-data-transfer-library/", 
   "VB.NET \ud301": "/2005/12/11/vbnet-\u1110\u1175\u11b8/", 
+  "C++11": "/2012/09/20/c++11/", 
   "jQuery Mobile Tip": "/2011/06/18/jquery-mobile-tip/", 
   "\ud478\ucf13 \ub2e4\ub140\uc654\uc2b5\ub2c8\ub2e4.": "/2006/11/08/\u1111\u116e\u110f\u1166\u11ba-\u1103\u1161\u1102\u1167\u110b\u116a\u11bb\u1109\u1173\u11b8\u1102\u1175\u1103\u1161/", 
   "Back to Wordpress.com": "/2009/07/27/back-to-wordpress-com/", 
@@ -217,7 +216,6 @@ var all_posts = {
   "Eclipse \ud301": "/2005/12/11/eclipse-\u1110\u1175\u11b8/", 
   "Earl Grey": "/2009/02/08/earl-grey/", 
   "boost::serialization": "/2008/02/10/boost-serialization/", 
-  "Steam War : \ud568\ub300\uc804 MMOFPS": "/2006/10/19/steam-war-\u1112\u1161\u11b7\u1103\u1162\u110c\u1165\u11ab-mmofps/", 
   "DB datafile \uc62e\uae30\uae30": "/2005/12/15/db-datafile-\u110b\u1169\u11b1\u1100\u1175\u1100\u1175/", 
   "XML RPC": "/2004/11/24/xml-rpc/", 
   "ADO.NET \uc774\ub780?": "/2005/12/11/adonet-\u110b\u1175\u1105\u1161\u11ab/", 
@@ -245,6 +243,12 @@ for(var title in all_posts){
 $(function(){
 
     var $window = $(window);
+
+    $('#random-post').click(function(){
+        var title = titles[Math.floor(Math.random()*titles.length)]
+        var permlink = all_posts[title];
+        $(this).attr('href', permlink);
+    });
 
     $('.search-query').typeahead({
         source: titles

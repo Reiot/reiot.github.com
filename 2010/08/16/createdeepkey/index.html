@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -64,9 +67,10 @@
 		<h1><a href="/2010/08/16/createdeepkey/">create_deep_key</a> <small>2010-08-16</small></h1>
 	</div>
 	<div><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
-<pre><code>- 부모 키 : AAABBBCCCDDD
-- 자식 키 : AAABBBCCCDDDEEEFFF
-</code></pre>
+<ul>
+<li>부모 키 : AAABBBCCCDDD</li>
+<li>자식 키 : AAABBBCCCDDDEEEFFF</li>
+</ul>
 <p>따라서,  부모의 키값과 자식의 키 아이디 또는 이름을 별도의 컬럼으로 내보내고, 반대로 가져올 때에는 하나로 합쳐서 원래의 키값을 복구해야 한다.</p>
 <pre><code>property_map:
   - property: __key__

@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,14 +66,15 @@
 	<div class="page-header">
 		<h1><a href="/2008/02/22/wow-warden-as-spyware/">WOW Warden as Spyware</a> <small>2008-02-22</small></h1>
 	</div>
-	<div><p><a href="http://www.amazon.com/exec/obidos/ASIN/0132271915/ref=nosim/learreio-20"><img alt="Exploiting Online Games: Cheating Massively Distributed Systems" src="http://ecx.images-amazon.com/images/I/311RgaO6v4L.jpg" /></a></p>
+	<div><p><img alt="Exploiting Online Games: Cheating Massively Distributed Systems" src="http://ecx.images-amazon.com/images/I/311RgaO6v4L.jpg" /></p>
 <p><a href="http://www.amazon.com/exec/obidos/ASIN/0132271915/ref=nosim/learreio-20">Exploiting Online Games</a>에 와우의 보안 프로그램인 <a href="http://en.wikipedia.org/wiki/Warden_%28software%29">Warden</a>이 어떻게 동작하는지에 대한 간략한 설명이 나와 있다.</p>
-<pre><code>- 서버로부터 실시간으로 전송받는 듯하다. (스크립트일지도?)
-- 15초에 한번씩 사용자의 컴퓨터를 검색한다.
-- 와우 클라이언트의 주소 공간에 로딩된 모든 DLL 의 정보를 읽어들인다. (ToolHelp API)
-- 모든 윈도우 타이틀의 텍스트를 GetWindowTextA 로 읽어들인 다음, 해싱을 거쳐서 미리 등록된 금지 어플리케이션 목록과 비교한다.
-- 모든 프로세스의 코드 영역(0x004**** 이나 0x0041****)의 10-20바이트를 읽어서, 역시 해싱을 거쳐 미리 등록된 금지 어플리케이션 목록과 비교한다.
-</code></pre>
+<ul>
+<li>서버로부터 실시간으로 전송받는 듯하다. (스크립트일지도?)</li>
+<li>15초에 한번씩 사용자의 컴퓨터를 검색한다.</li>
+<li>와우 클라이언트의 주소 공간에 로딩된 모든 DLL 의 정보를 읽어들인다. (ToolHelp API)</li>
+<li>모든 윈도우 타이틀의 텍스트를 GetWindowTextA 로 읽어들인 다음, 해싱을 거쳐서 미리 등록된 금지 어플리케이션 목록과 비교한다.</li>
+<li>모든 프로세스의 코드 영역(0x004<strong><em>* 이나 0x0041</em></strong>*)의 10-20바이트를 읽어서, 역시 해싱을 거쳐 미리 등록된 금지 어플리케이션 목록과 비교한다.</li>
+</ul>
 <p><a href="http://www.rootkit.com/">이 책의 저자는</a>, 윈도우 타이틀에 SSN이나 카드 번호, URL, 이메일 등의 개인 정보가 블리자드로 빠져나갈 수 있고, 또한 내가 실행하고 있는 프로세스의 기밀 정보가 유출될 수 있기에, Warden이 안티해킹툴이라기 보다는 스파이웨어라고 주장하고 있다.</p>
 <p>한 명의 게이머의 입장에서는 저자의 주장에 수긍이 가지만, 이런 저런 해킹에 시달리는 게임 개발자의 관점에서 보면 이런 통계 기반의 해킹 체크도 한번 도입해보면 재미있지 않을까 하는 호기심도 솟아오른다. 우헷.</p></div>
 	<br />

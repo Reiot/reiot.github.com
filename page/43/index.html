@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,104 +66,6 @@
 
 	<div class="row">
 		<div class="span9">
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2005/12/07/나쁜-아이디어를-위한-좋은-방법/">나쁜 아이디어를 위한 좋은 방법</a> <small>2005-12-07</small></h1>
-	</div>
-	<div><blockquote>
-<p>지금 하고 있는 이런 하찮은 일은 대충 빨리 끝낼 예정이다. 난 멋진 프로젝트를 언젠가 해야할 몸이기 때문이다.</p>
-</blockquote>
-<p>당연히 <a href="http://www.extra-project.com/bbs/view.php?id=keeping01&amp;page=1&amp;sn1=&amp;divpage=1&amp;sn=off&amp;ss=on&amp;sc=on&amp;select_arrange=headnum&amp;desc=asc&amp;no=82">웹 디자인에만 적용되는 이야기</a>는 아니며, 특히 legacy code 를 다루는 프로그래머들이 쉽게 빠지는 길이기도 하다. 사실 나를 포함한 우리 팀원들 대다수가 이런 마음가짐으로 일하고 있기에 더욱 가슴이 시리다. 물론 지금으로서는 빨리 끝내는 것만이 유일한 해결책이지만...</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2005/11/23/vb를-이용한-선분과-원의-충돌체크/">VB를 이용한 선분과 원의 충돌체크</a> <small>2005-11-23</small></h1>
-	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/collide.JPG" title="collide" target="_top"><img alt="collide" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_collide.JPG" /></a></p>
-<p>고등학교때까지만 해도 기하쪽은 상당히 자신있었는데 나이가 들어갈수록 3D 쪽에는 상당히 취약해서 가고 있다. 몇 달 전 관련 서적을 쭈욱 질러주고 조금 보다가 때려쳤었다. 그러다 이번에 유지 보수 중인 legacy code 에서 brute force 충돌 체크 코드를 좀 더 깔끔하게 해보고자 선분과 원의 충돌 체크를 구현해보게 되었다. 역시나 이럴 때에는 MFC 보다는 .NET winform 이 제일 손쉽기에 재빨리 VB.NET 을 띄워 줬다.</p>
-<p>우선 Matrix 나 Vector 류의 함수는 .NET framework 에서 지원하지 않기 때문에 DirectX 쪽의 참조를 갖고 와야 한다. 그다음 리얼타임렌더링 625 페이지를 펼쳐서 그대로 코딩하면 된다.  실제로 타이핑은 금방 끝났는데 웬걸 제대로 동작하지 않아서 이 사람 저 사람 붙잡고 물어보다가 잠이 들고, 오늘 회사에 와서 차분히 책을 읽어보니 그 중 한 넘이 normalized vector 여야 한다는 걸 찾아냈다. 뿌듯.. -_-+</p>
-<p>책은 반직선과 구의 충돌이라서 선분 충돌을 구하려면 교차 좌표 중 가까운 넘을 찾아내서 그 길이가 원래 반직선 길이보다 짧아야 진짜 충돌이 된다. 사실 3D 를 쭉 하던 사람들이야 너무 쉬운 것일테지만 수학책을 한동안 놓고 살았던 본인에게는 꽤나 막중한 과제였다. 역시나 해내고 나니 성취감 보다는 허탈감이 든다. 흑.</p>
-<pre><code>
-Imports Microsoft.DirectX
-
-Public Class Form1
-Inherits System.Windows.Forms.Form
-
-Dim bCollided As Boolean = False
-
-Dim circleRect As Rectangle
-Dim PenWidth As Integer = 1
-
-Dim o As Vector2 = New Vector2
-Dim o2 As Vector2 = New Vector2
-Dim c As Vector2 = New Vector2
-Dim r As Single = New Single
-Dim d As Vector2 = New Vector2
-Dim l As Vector2 = New Vector2
-Dim s As Single = New Single
-
-Dim l2 As Single = New Single
-Dim m2 As Single = New Single
-Dim world As Matrix = New Matrix
-Dim t As Single = New Single
-
-Private Function CheckCollide() As Boolean
-
-r = circleRect.Width / 2
-c.X = circleRect.X + r
-c.Y = circleRect.Y + r
-
-Dim P As Vector2 = Vector2.Subtract(o2, o)
-d = Vector2.Normalize(P)
-
-l = Vector2.Subtract(c, o)  ' l = c - o
-s = Vector2.Dot(l, d)  ' s = l dot d
-l2 = Vector2.Dot(l, l)  ' l^2 = l dot l
-Dim r2 As Single = r * r
-
-If (s  r2) Then  ' if ( s  r^2 ) return reject
-Return False
-End If
-
-m2 = l2 - s * s  ' m^2 = l^2 - s^2
-
-If (m2 &gt; r2) Then  ' if ( m^2 &gt; r^2 ) return reject
-Return False
-End If
-
-' 이제 선분이 교차하고 있다. 교차하는 두 점을 구한 후 가장 가까운 넘과의 거리가 선분의 길이보다 작아야 한다.
-
-Dim q As Single = Math.Sqrt(r2 - m2)
-If (l2 &gt; r2) Then
-t = s - q
-Else
-t = s + q
-End If
-
-Return P.Length &gt;= t
-
-End Function
-
-Private Sub setupCircle(ByVal e As Point)
-If e.X
-</code></pre></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
-</div>
 			
 				<div>
 	<div class="page-header">
@@ -283,6 +188,39 @@ cout GetValue() GetValue()
 	</p>
 </div>
 			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2005/10/18/mmo를-위한-커뮤니티-서비스-구현하기/">MMO를 위한 커뮤니티 서비스 구현하기</a> <small>2005-10-18</small></h1>
+	</div>
+	<div><p>MMO 를 위한 커뮤니티 서비스가 가장 잘 구현된 곳은 World Of Warcraft 이다. 물론 채팅과 귓말이야 별거 아닌 것처럼 느껴지지만, 친구 관리나 편지, 길드 채팅 같은  커뮤니티 서비스를 다중 서버에서도 투명하게 구현한다는 것은 생각보다 귀찮은 일이다. 오늘 어디에서 줏어 들기로 와우에서는 내부 채팅을 위해서 IRC 를 쓰고 있다고 하고(미확인 정보), 역시 게임을 개발하는 한 후배는 <a href="http://www.jabber.org/">jabber </a>를 고려중이라고 했다.</p>
+<p>올해 초 <a href="http://www.spread.org/">spread </a>를 기반으로 서버간 채팅을 구현하려고 했는데, 이미 이 놈을 기반으로 만들어본 후배의 불만을 접수하고 바로 계획을 폐기해야만 했다. 어차피 관련 기능을 새로 만들어야 한다면 이미 검증된 놈을 갖다 쓰는 최고니깐 말이다. (그나저나 와우에서는 DB의 계정과 irc 의 데이터간의 연동은 과연 어떻게 할 것인지가 궁금하다. 탈퇴하거나 삭제할 경우 irc 쪽의 데이터도 변경해줘야 할텐데...헐헐)</p>
+<p>언제 나도 저런 걸 만지면서 놀까 생각하니... 깜깜하다.. 이힝~</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+	
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2005/10/11/remove-windows-service/">Remove Windows Service</a> <small>2005-10-11</small></h1>
+	</div>
+	<div><p>"sc delete service name" 을 이용해서 서비스를 삭제할 때 만약 다른 어플리케이션이 참조를 하고 있으면 바로 삭제하지 않고 레지스트리에 <del datetime="2005-10-11T04:42:55+00:00">delete flag </del>가 추가된다. 이때 레지스트리 키값을 수동으로 삭제하더라도 "[SC] DeleteService FAILED 1072:" 라는 에러를 발생시키고 삭제가 되지 않는다.</p>
+<p>대체로 이런 경우에 관리 도구 - 서비스 관리자를 띄워둔 상태인데, 이 놈을 끈 상태에서 다시 삭제해보면 바로 사라진다. 요는, 서비스를 제거할 때에는 관리자를 끈 상태에서 하라는 것.</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+	
+	
+		<a href="/tag/service/"><span class="label"><span class="icon icon-tag"></span> service</span></a>
+	
+	</p>
+</div>
+			
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -347,14 +285,6 @@ cout GetValue() GetValue()
 	</li>
 	
 	<li>
-		<a href="/2005/12/07/나쁜-아이디어를-위한-좋은-방법/">나쁜 아이디어를 위한 좋은 방법</a>
-	</li>
-	
-	<li>
-		<a href="/2005/11/23/vb를-이용한-선분과-원의-충돌체크/">VB를 이용한 선분과 원의 충돌체크</a>
-	</li>
-	
-	<li>
 		<a href="/2005/10/31/inet_ntoa-의-위험성/">inet_ntoa 의 위험성</a>
 	</li>
 	
@@ -364,6 +294,14 @@ cout GetValue() GetValue()
 	
 	<li>
 		<a href="/2005/10/21/sourceanywhere-remote-vss-tools/">SourceAnyWhere - Remote VSS tools</a>
+	</li>
+	
+	<li>
+		<a href="/2005/10/18/mmo를-위한-커뮤니티-서비스-구현하기/">MMO를 위한 커뮤니티 서비스 구현하기</a>
+	</li>
+	
+	<li>
+		<a href="/2005/10/11/remove-windows-service/">Remove Windows Service</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

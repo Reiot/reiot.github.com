@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -64,136 +67,119 @@
 		<h1><a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a> <small>2009-01-20</small></h1>
 	</div>
 	<div><p>boost serialization를 사용하려면 이모저모로 귀찮은 점이 많아서, 생각해본 것이 <a href="http://docs.python.org/library/struct.html?highlight=pack">파이썬의 struct 라이브러리</a>와 같은 느낌으로 프로토콜 포맷을 정의하고, 이걸 boost tuple 코드로 뽑아낸다는 아이디어이다.</p>
-<p>대강의 포맷은<br />
-<table border="1" cellspacing="0" cellpadding="1"><br />
-<tbody></tbody><br />
-<thead><br />
-<tr><br />
-<th class="head">Format</th><br />
-<th class="head">C Type</th><br />
-<th class="head">Python</th><br />
-<th class="head">Notes</th><br />
-</tr><br />
-</thead><br />
-<tbody><br />
-<tr><br />
-<td><tt class="docutils literal">x</tt></td><br />
-<td>pad byte</td><br />
-<td>no value</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">c</tt></td><br />
-<td><tt class="xref docutils literal">char</tt></td><br />
-<td>string of length 1</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">b</tt></td><br />
-<td><tt class="xref docutils literal">signed char</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">B</tt></td><br />
-<td><tt class="xref docutils literal">unsigned char</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">?</tt></td><br />
-<td><tt class="xref docutils literal">_Bool</tt></td><br />
-<td>bool</td><br />
-<td>(1)</td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">h</tt></td><br />
-<td><tt class="xref docutils literal">short</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">H</tt></td><br />
-<td><tt class="xref docutils literal">unsigned short</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">i</tt></td><br />
-<td><tt class="xref docutils literal">int</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">I</tt></td><br />
-<td><tt class="xref docutils literal">unsigned int</tt></td><br />
-<td>integer or long</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">l</tt></td><br />
-<td><tt class="xref docutils literal">long</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">L</tt></td><br />
-<td><tt class="xref docutils literal">unsigned long</tt></td><br />
-<td>long</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">q</tt></td><br />
-<td><tt class="xref docutils literal">long long</tt></td><br />
-<td>long</td><br />
-<td>(2)</td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">Q</tt></td><br />
-<td><tt class="xref docutils literal">unsigned long<br />
-long</tt></td><br />
-<td>long</td><br />
-<td>(2)</td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">f</tt></td><br />
-<td><tt class="xref docutils literal">float</tt></td><br />
-<td>float</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">d</tt></td><br />
-<td><tt class="xref docutils literal">double</tt></td><br />
-<td>float</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">s</tt></td><br />
-<td><tt class="xref docutils literal">char[]</tt></td><br />
-<td>string</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">p</tt></td><br />
-<td><tt class="xref docutils literal">char[]</tt></td><br />
-<td>string</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">P</tt></td><br />
-<td><tt class="xref docutils literal">void *</tt></td><br />
-<td>long</td><br />
-<td> </td><br />
-</tr><br />
-</tbody></table><br />
-가령 로그인 메시지를 "ppl" 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
-<p>typedef boost::tuple<string,string,long> msgLogin;</p>
-<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
-<pre><code>- 64 bit integer
-- datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)
-- STL 지원 : list, vector, map, set
-- 비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.
+<p>대강의 포맷은</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>C Type</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>pad byte</td>
+<td>no value</td>
+</tr>
+<tr>
+<td>c</td>
+<td>char</td>
+<td>string of length 1</td>
+</tr>
+<tr>
+<td>b</td>
+<td>signed char</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>B</td>
+<td>unsigned char</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>?</td>
+<td>_Bool</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>h</td>
+<td>short</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>H</td>
+<td>unsigned short</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>i</td>
+<td>int</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>I</td>
+<td>unsigned int</td>
+<td>integer or long</td>
+</tr>
+<tr>
+<td>l</td>
+<td>long</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>L</td>
+<td>unsigned long</td>
+<td>long</td>
+</tr>
+<tr>
+<td>q</td>
+<td>long long</td>
+<td>long</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>unsigned long</td>
+<td>long long</td>
+</tr>
+<tr>
+<td>f</td>
+<td>float</td>
+<td>float</td>
+</tr>
+<tr>
+<td>d</td>
+<td>double</td>
+<td>float</td>
+</tr>
+<tr>
+<td>s</td>
+<td>char[]</td>
+<td>string</td>
+</tr>
+<tr>
+<td>p</td>
+<td>char[]</td>
+<td>string</td>
+</tr>
+<tr>
+<td>P</td>
+<td>void *</td>
+<td>long</td>
+</tr>
+</tbody>
+</table>
+<p>가령 로그인 메시지를 "ppl" 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
+<pre><code>typedef boost::tuple&lt;string,string,long&gt; msgLogin;
 </code></pre>
+
+<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
+<ul>
+<li>64 bit integer</li>
+<li>datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)</li>
+<li>STL 지원 : list, vector, map, set</li>
+<li>비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.</li>
+</ul>
 <p>단점이라면 내부 멤버 접근을 userid, passwd 같은 이름 기반이 아니라 get&lt;1&gt;, get&lt;2&gt; 처럼 해야 한다는 점인데, 이건 좀 심하게 귀찮긴 하겠다. 역시 이름 기반 접근이 그나마 컴파일러가 검증해주니 제일 좋은 방법인가.</p>
 <p>자. 만들어주세요.</p></div>
 	<br />

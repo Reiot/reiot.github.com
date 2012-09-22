@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -66,138 +69,34 @@
 			
 				<div>
 	<div class="page-header">
-		<h1><a href="/2004/11/26/python-service/">Python Service</a> <small>2004-11-26</small></h1>
-	</div>
-	<div><p>win32serviceutil.ServiceFramework를 상속받아서 SvcStop(), SvcDoRun() 을 override 하면 가장 기본적인 서비스를 구현할 수 있다. 아래의 예제는 Python Programming on Win32 에서 발췌한 것이다.</p>
-<h1>!python</h1>
-<p>import win32serviceutil, win32service, win32event<br />
-class MyService(win32serviceutil.ServiceFramework):<br />
-<em>svc_name</em> = "MyService"<br />
-<em>svc_display_name</em> = "My First Service"<br />
-  def <strong>init</strong>(self,args):<br />
-  win32serviceutil.ServiceFramework.<strong>init</strong>(self,args)<br />
-  self.event = win32event.CreateEvent(None,0,0,None)<br />
-  def SvcStop(self):<br />
-  self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)<br />
-  win32event.SetEvent(self.event)<br />
-  def SvcDoRun(self):<br />
-  win32event.WaitForSingleObject(self.event,win32event.INFINITE)</p>
-<p>if <strong>name</strong>=='<strong>main</strong>':<br />
-  win32serviceutil.HandleCommandLine(MyService)</p>
-<p>이렇듯 간단한 서비스를 실행하기 위해서는 우선 Win32 Python 모듈과 함께 배포되는 PythonService.exe를 레지스트리에 등록해야 한다. 다음과 같이 하라. (그런데, 아마도 win32 모듈을 설치하면 자동으로 이 넘이 등록되는 듯하다. 확인 요망)</p>
-<blockquote>
-<p>PythonService.exe /register</p>
-</blockquote>
-<p>이제 서비스를 실행해보자. win32serviceutil.HandleCommandLine()이 이미 모든 것을 구현해뒀기 때문에, 그냥 다음과 같이 하면 된다.</p>
-<blockquote>
-<p>python MyService.py install | start | stop | remove</p>
-</blockquote>
-<p>물론 net start | stop MyService 라고 해도 서비스를 시작/종료할 수 있다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
-	
-		<a href="/tag/service/"><span class="label"><span class="icon icon-tag"></span> service</span></a>
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2004/11/26/moniwiki-tips/">MoniWiki Tips</a> <small>2004-11-26</small></h1>
-	</div>
-	<div><h2>Security</h2>
-<blockquote>
-<p>$security_class="needtologin";</p>
-</blockquote>
-<h2>RcsLite</h2>
-<blockquote>
-<p>$version_class='RcsLite';</p>
-</blockquote>
-<h2>Disable Theme</h2>
-<p>테마와 CSS 모두 강제 지정하려면 아래와 같이 할 것.</p>
-<blockquote>
-<p>$theme='...';</p>
-<p>$theme_css=1;</p>
-</blockquote>
-<h2>MoinMoin Migration(?)</h2>
-<p>MoinMoin 위키에서 MoniWiki 로 이전한 경우, 구글 등의 검색 엔진이나 지인들의 링크가 이전 주소로 되어 있는 경우, fake moin.cgi 를 만들어서 링크를 계속 유지시킬 필요가 있다.  특히 apache 환경에서는 .htaccess 설정을 이용해서 손쉽게 fake moin.cgi 를 만들 수 있다.  일단 아래와 같이 moin.cgi 를 만든다. 특별히 실행권한을 주지 않아도 무방하다.</p>
-<blockquote>
-<p>&lt;?php</p>
-<p>chdir("/path/to/moniwiki");</p>
-<p>include("wiki.php");</p>
-<p>?&gt;</p>
-</blockquote>
-<ul>
-<li>.htaccess 에 moin.cgi 를 php 가 핸들링하도록 다음과 같이 추가한다.</li>
-</ul>
-<blockquote>
-<p><Files moin.cgi></p>
-<p>SetHandler application/x-httpd-php</p>
-<p></Files></p>
-</blockquote>
-<h2>파일 업로드 크기 제한</h2>
-<p>이것은 모니위키의 문제가 아닌 php 의 문제이다. php.ini 에서 업로드 및 POST 크기 제한을 적절하게 수정해야 한다.</p>
-<h2>xls 파일 업로드</h2>
-<p>UploadFiles.php 에서 기본적으로 정의된 확장자가 아닐 경우 업로드가 금지된다. 따라서, 여기에 xls 확장자를 추가할 것.</p>
-<blockquote>
-<p>// plugin/UploadFile.php:71</p>
-<p>$pds_exts="png|jpg|jpeg|gif|mp3|zip|tgz|gz|txt|css|exe|hwp|xls";</p>
-</blockquote>
-<h2>external link 제거</h2>
-<p>한글로 된 외부 링크의 경우 URL 이 너무 길어져서 화면 크기를 넘어서는 경우가 있다. 아예 URL 표시를 제거하는 편이 더 좋을 듯?</p>
-<blockquote>
-<p>// wiki.php:1440</p>
-<p>$external=$this-&gt;ex_bra.$url.$this-&gt;ex_ket;</p>
-<p>$external=''; //  <link rel="icon" href="/reiot.png" type="image/png" /></p>
-</blockquote>
-<p>see also:</p>
-<ul>
-<li>http://en.wikipedia.org/wiki/Favicon</li>
-</ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
-	
-	
-		<a href="/tag/wiki/"><span class="label"><span class="icon icon-tag"></span> wiki</span></a>
-	
-		<a href="/tag/moniwiki/"><span class="label"><span class="icon icon-tag"></span> moniwiki</span></a>
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
 		<h1><a href="/2004/11/24/어떻게-우리-팀의-xp가-실패했는가/">어떻게 우리 팀의 XP가 실패했는가?</a> <small>2004-11-24</small></h1>
 	</div>
 	<div><p>붐붐차차 프로젝트는 처음부터 "XP를 한번 연습해본다"라는 기치를 내걸고 시작했다. 개발 초기 3-4개월동안은 별 문제없이 흘러갔지만, 7-8 개월이 지난 이후부터 지금까지, 테스트 코드는 더이상 유지보수되지 않고 있다. 과연 무엇이 문제였을까? 그리고 다음번 프로젝트에서도 XP 를 성공적으로 도입할 수 있을까?</p>
 <p><strong>잘못된 테스트 프로젝트 설정</strong></p>
-<pre><code>- 요약 : unittest 의 링킹 시간이 너무 길었다.
-- 해결책 : DLL(?)
-</code></pre>
+<ul>
+<li>요약 : unittest 의 링킹 시간이 너무 길었다.</li>
+<li>해결책 : DLL(?)</li>
+</ul>
 <p>unittest 라는 프로젝트에서 다른 모든 라이브러리를 테스팅하도록 프로젝트를 구성했다. 테스팅 코드가 적을 때에는 unittest 만 통과하면 OK 이었기 때문에 편리했지만, 점차 테스팅 코드가 많아지면서 링킹해야 할 라이브러리의 개수와 크기가 늘어나게 되었고, 결국 컴퓨터가 버벅거리며 링킹할 동안 인터넷 서핑하는 습관이 생겨버렸다. 작업 효율이 떨어진 것은 당연지사.</p>
 <p><strong>중복 코드의 미제거</strong></p>
-<pre><code>- 요약 : TestingCode 의 중복이 너무 심해서 컴파일 시간이 너무 길어졌고, 리팩토링을 할 때에는 죽어났다
-- 해결책 : 중복 코드가 제거되기 전까지는 테스트가 완료된 것이 아니다.
-</code></pre>
+<ul>
+<li>요약 : TestingCode 의 중복이 너무 심해서 컴파일 시간이 너무 길어졌고, 리팩토링을 할 때에는 죽어났다</li>
+<li>해결책 : 중복 코드가 제거되기 전까지는 테스트가 완료된 것이 아니다.</li>
+</ul>
 <p>어느 날 소스를 조사해보니, (2만라인이 채 안되는) ProductionCode 보다 TestingCode 가 8배 정도 더 많다는 사실을 발견했다. 물론 이게 문제라는 것은 깨달았지만 아무도 이 부분을 고치지 않고 그냥 지나가버렸다. 시간이 나면 고치겠다는 프로그래머의 전형적인 회피술과 함께. 그리고, 언젠가부터 ''시스템 사양이 좀 떨어지는'' 한 개발자가 점점 UnitTest 를 회피하기 시작했으며, 그다음 체크아웃을 한 개발자가 깨진 UnitTest 를 복구해야 하는 일이 종종 발생하게 되었다. 덕분에 서로가 서로에게 짜증을 내게 되었는데... 그 개발자는 시스템 업그레이드 타령과 함께, 굳이 간단한 건 하지 않아도 무방하지 않느냐..라고 하고, UnitTest 를 복구해야 했던 개발자는 왜 자신이 그걸 대신 복구해야 되느냐고 화를 냈기 때문이다. (물론 이때가 팀웍이 흐트러지고 사기가 저하된 타이밍이기도 했다)</p>
 <p>그러다가 대규모 리팩토링이 필요해진 시점이 있었다. 그러나, 이미 테스트 코드들이 더이상 손쓸수 없이 거대해졌기 때문에, ProductionCode 를 수정을 하는 시간에 비해 TestingCode 를 리팩토링해나가는 시간이 훨씬 더 많이 들게 되었다. 리팩토링을 완료하고 나자, 다들 UnitTest 라면 손사래를 치며 도망가버렸다.</p>
 <p>웃긴 것은, Kent Beck 의 TestDrivenDevelopmentByExample 책에서는 '''중복 코드의 제거'''가 Iteration 의 필수 요소로 자리잡고 있었다. 왜 ExtremeProgrammingInstalled 번역서에서는, 이걸 더 강조해주지 않았을까? 쳇!</p>
 <p><strong>UnitTest 라이브러리의 기능 부족</strong></p>
-<pre><code>- 요약 : 특정 테스트를 선택하기 위해서는 항상 재컴파일이 필요했다. 결국, 테스트 시간을 더 길어졌고, 개발자들은 UnitTest 와 더 멀어졌다.
-- 해결책 : 선택적인 테스트가 편리한 라이브러리를 사용할 것
-</code></pre>
+<ul>
+<li>요약 : 특정 테스트를 선택하기 위해서는 항상 재컴파일이 필요했다. 결국, 테스트 시간을 더 길어졌고, 개발자들은 UnitTest 와 더 멀어졌다.</li>
+<li>해결책 : 선택적인 테스트가 편리한 라이브러리를 사용할 것</li>
+</ul>
 <p>CppUnit 과 BoostTest 중, BoostTest 를 선택한 이유는 Visual Studio 7.1 과의 호환성 문제였다. (당시 CppUnit 의 경우 VC 7.1 과 호환되지 않았다) 그러나, 이넘은 내가 원하는 코드만을 테스트한다는 것을, 즉 GUI 방식의 테스트를 지원하지 않았기 때문에, 결국 매 테스트마다 코드를 수정해야 했다. 문제는 특정 테스트를 수동으로 추가/삭제하는 파일이 다른 헤더 파일을 모두 include 하는 main 이라서, 약간만 수정하더라도 컴파일 -&gt; 링킹을 다시 해야 했다는 데 있다.</p>
 <p><strong>PairProgramming 의 실패</strong></p>
-<pre><code>- 요약 : 관용의 부족으로 인한 불화(?)
-- 해결책 : 정신을 뜯어고쳐야지!
-</code></pre>
+<ul>
+<li>요약 : 관용의 부족으로 인한 불화(?)</li>
+<li>해결책 : 정신을 뜯어고쳐야지!</li>
+</ul>
 <p>이 부분은 솔직히 [레이옷]에게 원인이 있다. [레이옷]의 후배이자 동료인 프로그래머와 Pair를 할 때마다 티격태격 했던 것 때문이다. 조금씩 서로의 코드에 대한 관용의 마인드를 키워나가기도 했고, 관계 개선 - 후배에서 동료로 생각을 고쳐먹기 - 을 해보려고 했지만, 잘 되지 않았다. 여전히 지금도 반말 90% 존대말 10% 에다가 틈만 나면 큰소리치고 강압적으로 밀어붙이기를 해대고 있다. ㅡㅡ;</p>
 <p><strong>귀차니즘</strong></p>
 <ul>
@@ -233,9 +132,10 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 <p>즉, 불필요한 확장성과 최신 기술로 고민하는 시간을 부족한 게임성을 높이는데 주력하라는 말씀! 근데 말은 이렇게 해도 나 역시 언행일치가 잘 안될 때가 많다.</p>
 <h2>헤일로2 개발자들에게 배우는 상위 법칙</h2>
 <p>아직도 헤일로2 보너스 DVD 를 보지 않았다면, 꼭 동료들을 불러서 함께 봐라. 30% 정도의 과장과 연출을 무시하더라도 그들은 정말 강하다. 팀원 개개인이 게임 개발의 주체가 되어 더 나은 게임성을 만들어나가는 모습은 정말 감동적이다. 그들에게서 배울 수 있는 2가지 핵심 법칙은 다음과 같다.</p>
-<pre><code>- 30초 플레이의 법칙 : 30초의 게임 플레이가 즐거우면, 모든 것이 즐겁다. (이 플레이를 계속 유지시키면 되니까...)
-- 5분 플레이의 법칙 : 플레이어는 5분 동안 플레이해서 재미가 없으면 접는다. 즉, 5분 동안 플레이어를 잡아 둘 수 있다면 성공!!
-</code></pre>
+<ul>
+<li>30초 플레이의 법칙 : 30초의 게임 플레이가 즐거우면, 모든 것이 즐겁다. (이 플레이를 계속 유지시키면 되니까...)</li>
+<li>5분 플레이의 법칙 : 플레이어는 5분 동안 플레이해서 재미가 없으면 접는다. 즉, 5분 동안 플레이어를 잡아 둘 수 있다면 성공!!</li>
+</ul>
 <h2>잦은 릴리즈</h2>
 <p>적정 기간의 마일스톤은 개발팀이 하나의 목표를 향해 흔들리지 않고 달릴 수 있게 해준다. 또한 투자자들에게 일이 잘 흘러간다는 것, 내 돈이 제대로 쓰이고 있다는 것을 알게 해준다.</p>
 <p>매 2-3개월마다 개발된 내용을 릴리즈하고 사내에서 시연하라. 시연은 잘못된 과거를 반성할 수 있게 해주며, 부족한 시간과 자금, 맨파워를 느낄 수 있게 해준다. 잘 되든 잘못되든 시연은 좋은 것이다. 아무리 적어도 일년에 4-6회의 내부 시연을 가져야 한다. 결과가 좋을 경우 개발팀에게 보너스를 지급하라. 나쁠 경우에는 왜 잘못되었는지에 대해서 보고서를 쓰게 하고, 보너스는 다음번 시연으로 연기하라.</p>
@@ -270,6 +170,67 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 	
 	
 		<a href="/tag/xml/"><span class="label"><span class="icon icon-tag"></span> xml</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/xml-rpc/">XML RPC</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>XML RPC는 HTTP 프로토콜 위에 XML 로 RPC(Remote Procedure Call. 원격지의 어플리케이션에 정의된 함수를 로컬인 것처럼 호출할 수 있게 해주는 기법)을 구현한 것이다. 특히 Python을 이용하면 정말 쉽게 XML RPC 를 사용할 수 있다. 레이옷은 MoinMoin 위키의 매크로에서 XML RPC 로 원격지의 시스템에 설치된 게임 서버 WindowsService를 제어하는 에이전트를 구현중이다</p>
+<p>see also:</p>
+<ul>
+<li><a href="http://sandbox.rulemaker.net/ngps/m2/">M2Crypto - Python + OpenSsl + SWIG</a></li>
+</ul></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/xml/"><span class="label"><span class="icon icon-tag"></span> xml</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2004/11/24/using-xerces-c/">Using Xerces C++</a> <small>2004-11-24</small></h1>
+	</div>
+	<div><p>Xerces는 XML 파싱을 위한 C++/Java 공개 라이브러리다. 기존의 Microsoft XML SDK를 이용한 XML 파싱 라이브러리가 있음에도 불구하고, Xerces를 이용한 파서를 새로 만들게 된 것은 Microsoft XML SDK가 Visual C++에서만 컴파일이 정상적으로 되었기 때문이다. Borland C++ Builder를 이용해서 기존의 라이브러리를 컴파일하기 위해 몇가지 시도를 해보았지만, 정상적으로 되지가 않았다. 결국 포기하고 다른 방편으로 Xerces를 이용하게 되었다.</p>
+<p>파싱 클래스나 함수 등은 W3C에서 이미 규정한 것이기 때문에 Xerces나 Microsoft나 별반 다르지 않다. 차이점은 함수의 프로토타입이나, 내부적으로 사용하는 유틸리티 클래스들인데, 이는 쉽게 넘어갈 수 있는 문제였다. 게다가 나중에 유닉스 계열로 가도 이 라이브러리를 그대로 이용할 수 있으니 이 어찌 즐겁지 않으리요.</p>
+<h2>Install For Microsoft Visual C++</h2>
+<ul>
+<li>http://xml.apache.org 에서 Xerces 바이너리를 다운받는다. 소스를 다운받아도 상관없으나 컴파일하는 수고를 덜려면 바이너리를 받는 게 낫다.</li>
+<li>인스톨하고, Visual C++에서 PATH를 잡아준다.</li>
+<li>프로젝트 링크 탭에다가 xerces-c_2.lib 또는 xerces-c_2D.lib 라이브러리를 집어넣는다.</li>
+<li>xerces-c_2.lib라면 xerces-c_2_2_0.dll을, xerces-c_2D.lib라면 xerces-c_2_2_0D.dll을 PATH로 잡혀있는 디렉토리 어디엔가 복사해둔다.</li>
+<li>컴파일하고 실행한다.</li>
+</ul>
+<h2>주의해야할 점</h2>
+<p>Xerces를 사용해서 XML 문서를 다룰 때, 한글을 사용하기 위해서는</p>
+<pre><code>&lt; ?xml version=&quot;1.0&quot; encoding=&quot;Windows-1252&quot;?&gt;
+</code></pre>
+
+<p>과 같은 헤더를 붙여줘야한다. 인터넷 익스플로러에서 보면 한글이 깨져서 보이지만, 실제로 프로그램에서 돌릴 때는 괜찮다.</p>
+<pre><code>&lt; ?xml version=&quot;1.0&quot; encoding=&quot;euc-kr&quot;?&gt;
+</code></pre>
+
+<p>로 하는 경우에는 인터넷 익스플로러에서는 보면 괜찮지만, 프로그램 돌릴 때는 한글 문자가 깨지게 된다.</p>
+<p>see also:</p>
+<ul>
+<li><a href="http://xml.apache.org/">http://xml.apache.org</a></li>
+</ul></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/xml/"><span class="label"><span class="icon icon-tag"></span> xml</span></a>
+	
+		<a href="/tag/xerces/"><span class="label"><span class="icon icon-tag"></span> xerces</span></a>
 	
 	</p>
 </div>
@@ -338,14 +299,6 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 	</li>
 	
 	<li>
-		<a href="/2004/11/26/python-service/">Python Service</a>
-	</li>
-	
-	<li>
-		<a href="/2004/11/26/moniwiki-tips/">MoniWiki Tips</a>
-	</li>
-	
-	<li>
 		<a href="/2004/11/24/어떻게-우리-팀의-xp가-실패했는가/">어떻게 우리 팀의 XP가 실패했는가?</a>
 	</li>
 	
@@ -355,6 +308,14 @@ class MyService(win32serviceutil.ServiceFramework):<br />
 	
 	<li>
 		<a href="/2004/11/24/xml-tips/">XML tips</a>
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/xml-rpc/">XML RPC</a>
+	</li>
+	
+	<li>
+		<a href="/2004/11/24/using-xerces-c/">Using Xerces C++</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

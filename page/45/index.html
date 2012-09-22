@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,602 +66,6 @@
 
 	<div class="row">
 		<div class="span9">
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a> <small>2005-07-12</small></h1>
-	</div>
-	<div><p><img alt="mantis" src="http://manual.mantisbt.org/mantis_logo.gif" /></p>
-<p>오래전부터 맨티스에다가 중요도나 우선순위 상수를 추가해달라는 요청이 있었으나, 소스를 고쳐야 하기 때문에 방법이 없다고 모른 척 했었다가, 이번에 잠시 짬을 내어 추가를 해 보았다. 관련 자료를 아래에 정리했으니 심심할 때 한번 읽어보시길. :)</p>
-<p>see also : <a href="http://reiot.cafe24.com/wiki/MantisCustomize">MantisCustomize </a></p></div>
-	<br />
-	<p>
-	
-		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
-	
-	
-		<a href="/tag/mantis/"><span class="label"><span class="icon icon-tag"></span> mantis</span></a>
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2005/06/02/boosttest/">boost::test</a> <small>2005-06-02</small></h1>
-	</div>
-	<div><p>레이옷은 종전까지 <a href="http://sourceforge.net/projects/cppunit">CppUnit</a>를 애용해왔다. 그러나 이넘은 VC7 에서는 컴파일조차 되지 않았다.  그리하여, 새로운 UnitTest 툴을 찾다가 발견한 것이 바로 이 Boost Library 에 포함된 BoostTest 이다. 이하 설명은 모두 VC7 을 사용한다고 가정하고 설명하겠다.</p>
-<h2>사용법</h2>
-<p>BoostTest 에는 아래와 같은 모듈이 포함되어 있다.</p>
-<table>
-<thead>
-<tr>
-<th>모듈</th>
-<th>설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Execution Monitor</td>
-<td>실행 모니터, 아래 프로그램 실행 모니터 및 테스트 실행 모니터의 베이스 모듈</td>
-</tr>
-<tr>
-<td>Program Execution Mointor</td>
-<td>배포되는 실행 프로그램의 테스트를 위해</td>
-</tr>
-<tr>
-<td>Test Execution Mointor</td>
-<td>개발중인 실행 프로그램의 테스트를 위해</td>
-</tr>
-<tr>
-<td>Unit Test Framework</td>
-<td>유닛 테스트.. 우리가 사용할 것이 이거다</td>
-</tr>
-<tr>
-<td>Test Tools</td>
-<td>위에 4개 모듈에서 사용하는 각종 테스트 루틴 및 매크로들</td>
-</tr>
-</tbody>
-</table>
-<p>이 중에서 레이옷이 사용하는 것은 Unit Test Framework ( + Test Tools ) 이다. 우선 상세한 내용은 같이 배포되는 문서를 참고하기 바란다. 여기서는 실제 프로젝트와 어떻게 연관지을 것인가만을 고민한다.</p>
-<ul>
-<li>테스트할 모듈의 프로젝트 이름이 XXX 라고 하자.</li>
-<li>그러면 이 프로젝트를 테스트할 프로젝트인 test_XXX 를 솔루션에 새로 추가한다.</li>
-<li>이 프로젝트를 LibXXX 프로젝트에 종속되도록 설정한다.</li>
-<li>Build Event 의 '''Custom Build''' 에 다음과 같은 내용을 추가하라.</li>
-<li>"$(TargetPath)" --report_level=detailed --log_level=all</li>
-<li>참고로 --log_level 은 BOOST_MESSAGE, BOOST_WARN_MESSAGE, BOOST_CHECKPOINT 등의 매크로들의 출력을 화면에 나타낸다.</li>
-<li>나중에 메시지들이 귀찮아지면 모두 끄도록 한다. 이에 대한 내용 역시 문서를 참고할 것</li>
-</ul>
-<h2>BoostTest with wstring</h2>
-<p>UniCode 기반의 어플리케이션을 테스트할 때, BOOST_XXX 매크로에서 wide string 이 포함될 경우, 변환할 수 없다는 에러가 발생한다. 그럴 경우 아래의 코드를 해당 테스트 상단에 넣어주면 임시방편으로 수정이 가능하다. 물론 wstring  string 컨버팅 함수는 직접 작성해야 한다. :)</p>
-<pre><code>
-namespace boost { namespace test_tools { namespace tt_detail {
-    template
-    struct print_log_value
-    {
-        void  operator()( std::ostream&amp; ostr, std::wstring t )
-        {
-            std::string s = convert_wstring_to_string(t);
-            ostr
-
-</code></pre>
-
-<pre><code>
-// testLibCore.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.
-//
-
-#include &quot;stdafx.h&quot;
-
-#include
-using namespace boost::unit_test_framework;
-
-#include &quot;MMSocket.h&quot;
-
-void test_winsock()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    MMSocket::EndWinsock();
-}
-
-void test_socket_ctor()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    MMSocket client;
-        BOOST_CHECK( !client.IsAlive() );
-        BOOST_CHECK( client.GetErrorCode() == 0 );
-        BOOST_CHECK( client.GetHost() == MMString(TEXT(&quot;Unknown&quot;)) );
-        BOOST_CHECK( client.GetPort() == 0 );
-
-    BOOST_CHECK( client.Create() );
-        BOOST_CHECK( client.IsAlive() );
-
-    client.Close();
-        BOOST_CHECK( !client.IsAlive() );
-
-    MMSocket::EndWinsock();
-}
-
-void test_serversocket_create_with_port()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    WORD wPort = 8888;
-
-    MMServerSocket server;
-        BOOST_CHECK( server.IsAlive() );
-        BOOST_CHECK( server.GetErrorCode() == 0 );
-        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;Unknown&quot;)) );
-        BOOST_CHECK( server.GetPort() == 0 );
-
-    BOOST_CHECK( server.Bind(wPort) );
-        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;localhost&quot;)) );
-        // default host = localhost
-        BOOST_CHECK( server.GetPort() == wPort );
-
-    server.Close();
-        BOOST_CHECK( !server.IsAlive() );
-
-    MMSocket::EndWinsock();
-}
-
-void test_serversocket_create_with_addr()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    MMString strHost = TEXT(&quot;localhost&quot;);
-    WORD wPort = 8888;
-
-    MMServerSocket server;
-        BOOST_CHECK( server.IsAlive() );
-
-    BOOST_CHECK( server.Bind(wPort) );
-        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;localhost&quot;)) );
-        BOOST_CHECK( server.GetPort() == wPort );
-
-    server.Close();
-
-    MMSocket::EndWinsock();
-}
-
-void test_serversocket_create_with_public_ip()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    MMString strHost = TEXT(&quot;61.74.134.38&quot;);
-    WORD wPort = 8888;
-
-    MMServerSocket server;
-        BOOST_CHECK( server.IsAlive() );
-
-    BOOST_CHECK( server.Bind(strHost,wPort) );
-        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;61.74.134.38&quot;)) );
-        BOOST_CHECK( server.GetPort() == wPort );
-
-    server.Close();
-
-    MMSocket::EndWinsock();
-}
-
-void test_serversocket_create_with_private_ip()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    MMString strHost = TEXT(&quot;192.168.0.1&quot;);
-    WORD wPort = 8888;
-
-    MMServerSocket server;
-        BOOST_CHECK( server.IsAlive() );
-
-    BOOST_CHECK( server.Bind(strHost,wPort) );
-        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;192.168.0.1&quot;)) );
-        BOOST_CHECK( server.GetPort() == wPort );
-
-    server.Close();
-
-    MMSocket::EndWinsock();
-}
-
-void test_serversocket_listen()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    PTCHAR szHost = TEXT(&quot;192.168.0.1&quot;);
-    WORD wPort = 8888;
-
-    MMServerSocket server;
-
-    BOOST_CHECK( server.Bind(szHost,wPort) );
-    BOOST_CHECK( server.Listen() );
-
-    MMSocket::EndWinsock();
-}
-
-void test_socket_connect()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
-    WORD wPort = 8888;
-
-    MMServerSocket server;
-
-    BOOST_CHECK( server.Bind(szHost,wPort) );
-    BOOST_CHECK( server.Listen() );
-        BOOST_CHECK( server.IsAlive() );
-
-    MMSocket client;
-    client.Create();
-        BOOST_CHECK( client.IsAlive() );
-    BOOST_CHECK( client.Connect(szHost,wPort) );
-
-    client.Close();
-    server.Close();
-
-    MMSocket::EndWinsock();
-}
-
-void test_socket_connect_fail()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
-    WORD wPort = 8888;
-
-    MMServerSocket server;
-
-    BOOST_CHECK( server.Bind(szHost,wPort) );
-    BOOST_CHECK( server.Listen() );
-        BOOST_CHECK( server.IsAlive() );
-
-    MMSocket client;
-    client.Create();
-        BOOST_CHECK( client.IsAlive() );
-    BOOST_CHECK( !client.Connect(szHost,wPort-1) ); // must be failed
-
-    client.Close();
-    server.Close();
-
-    MMSocket::EndWinsock();
-}
-
-void test_serversocket_accept()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
-    WORD wPort = 8888;
-
-    MMServerSocket server;
-
-    BOOST_CHECK( server.Bind(szHost,wPort) );
-    BOOST_CHECK( server.Listen() );
-        BOOST_CHECK( server.IsAlive() );
-
-    MMSocket client;
-    client.Create();
-        BOOST_CHECK( client.IsAlive() );
-    BOOST_CHECK( client.Connect(szHost,wPort) );
-
-    MMSocket * pClient = server.Accept();
-        BOOST_CHECK( pClient != NULL );
-        BOOST_CHECK( pClient-&gt;IsAlive() );
-        //BOOST_CHECK( pClient-&gt;GetHost() == client.GetHost() );
-        //BOOST_CHECK( pClient-&gt;GetPort() == client.GetPort() );
-
-    client.Close();
-    server.Close();
-
-    MMSocket::EndWinsock();
-}
-
-/*
- *  accept 전에 닫아도 accept 된다.. 음냐..
- */
-void test_serversocket_accept_failed()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
-    WORD wPort = 8888;
-
-    MMServerSocket server;
-
-    BOOST_CHECK( server.Bind(szHost,wPort) );
-    BOOST_CHECK( server.Listen() );
-        BOOST_CHECK( server.IsAlive() );
-
-    MMSocket client;
-    client.Create();
-        BOOST_CHECK( client.IsAlive() );
-    BOOST_CHECK( client.Connect(szHost,wPort) );
-    client.Close();     // close before accept
-
-    Sleep(100);
-
-    MMSocket * pClient = server.Accept();
-        BOOST_WARN_MESSAGE( pClient == NULL, &quot;헹.. 널이어야 할텐데..&quot; );
-
-    server.Close();
-
-    MMSocket::EndWinsock();
-}
-
-/*
- *  정말 nonblocking 인지 확인해봐야 하지 않나?? 그걸 알아내는 방법은?
- */
-void test_socket_blocking()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    MMSocket client;
-    client.Create();
-    BOOST_CHECK( client.EnableNonblock() );
-    BOOST_CHECK( client.DisableNonblock() );
-    client.Close();
-
-    MMSocket::EndWinsock();
-}
-
-void test_socket_linger()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    MMSocket client;
-    client.Create();
-
-    BOOST_CHECK( !client.IsEnabledLinger() );           // no linger at default
-        BOOST_CHECK( client.GetLingerTime() == 0 );
-
-    BOOST_CHECK( client.EnableLinger(100) );
-        BOOST_CHECK( client.IsEnabledLinger() );
-        BOOST_CHECK( client.GetLingerTime() == 100 );
-
-    BOOST_CHECK( client.DisableLinger() );
-        BOOST_CHECK( !client.IsEnabledLinger() );
-        BOOST_CHECK( client.GetLingerTime() == 100 );   // do not cleared
-
-    client.Close();
-
-    MMSocket::EndWinsock();
-}
-
-void test_socket_recv_buffer()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    MMSocket client;
-    client.Create();
-
-    BOOST_CHECK( client.GetRecvBufferSize() == 8192 );  // default buffer size
-
-    BOOST_CHECK( client.SetRecvBufferSize(10000) );
-    BOOST_CHECK( client.GetRecvBufferSize() == 10000 );
-
-    BOOST_CHECK( client.SetRecvBufferSize(65535) );
-    BOOST_CHECK( client.GetRecvBufferSize() == 65535 );
-
-    BOOST_CHECK( client.SetRecvBufferSize(65535*2) );
-    BOOST_CHECK( client.GetRecvBufferSize() == 65535*2 );
-
-    client.Close();
-
-    MMSocket::EndWinsock();
-}
-
-void test_socket_send_buffer()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    MMSocket client;
-    client.Create();
-
-    BOOST_CHECK( client.GetSendBufferSize() == 8192 );  // default buffer size
-
-    BOOST_CHECK( client.SetSendBufferSize(10000) );
-    BOOST_CHECK( client.GetSendBufferSize() == 10000 );
-
-    BOOST_CHECK( client.SetSendBufferSize(65535) );
-    BOOST_CHECK( client.GetSendBufferSize() == 65535 );
-
-    BOOST_CHECK( client.SetSendBufferSize(65535*2) );
-    BOOST_CHECK( client.GetSendBufferSize() == 65535*2 );
-
-    BOOST_CHECK( client.SetSendBufferSize(-1) );
-    BOOST_CHECK( client.GetSendBufferSize() == -1 );
-
-    client.Close();
-
-    MMSocket::EndWinsock();
-}
-
-void test_socket_nagle()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    MMSocket client;
-    client.Create();
-
-    BOOST_CHECK( client.IsEnabledNagle() );     // enabled at default
-
-    BOOST_CHECK( client.DisableNagle() );
-        BOOST_CHECK( !client.IsEnabledNagle() );
-    BOOST_CHECK( client.EnableNagle() );
-        BOOST_CHECK( client.IsEnabledNagle() );
-
-    client.Close();
-
-    MMSocket::EndWinsock();
-}
-
-void test_serversocket_reuseaddr()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    MMServerSocket server;
-    BOOST_CHECK( server.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
-
-    MMServerSocket server2;
-    BOOST_CHECK( !server2.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
-    server2.Close();
-
-    MMServerSocket server3;
-    BOOST_CHECK( server3.EnableReuseAddr() );
-    BOOST_CHECK( server3.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
-    server3.Close();
-
-    MMServerSocket server4;
-    BOOST_CHECK( server4.EnableReuseAddr() );
-    BOOST_CHECK( server4.DisableReuseAddr() );
-    BOOST_CHECK( !server4.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
-    server4.Close();
-
-    server.Close();
-
-    MMSocket::EndWinsock();
-}
-
-void test_socket_gethostbyname()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    PTCHAR szHost = TEXT(&quot;comeng.ce.knu.ac.kr&quot;);
-    BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(TEXT(&quot;155.230.29.10&quot;)) );
-
-    szHost = TEXT(&quot;mudmania.org&quot;);
-    BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(TEXT(&quot;61.74.134.38&quot;)) );
-
-    //szHost = TEXT(&quot;reiot.cafe24.com&quot;);
-    //BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(TEXT(&quot;61.74.134.38&quot;)) );
-
-    szHost = TEXT(&quot;mudmania2.org&quot;);
-    BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(&quot;&quot;) );
-
-    MMSocket::EndWinsock();
-}
-
-void test_socket_send()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
-    WORD wPort = 9999;
-
-        MMServerSocket server;
-        BOOST_CHECK( server.Bind(szHost,wPort) );
-        BOOST_CHECK( server.Listen() );
-
-    MMSocket client;
-    client.Create();
-    BOOST_CHECK( client.Connect(szHost,wPort) );
-
-        MMSocket * pClient = server.Accept();
-        BOOST_CHECK( pClient != NULL );
-
-    PTCHAR szSendMsg = TEXT(&quot;Hello World!&quot;);
-    int iSendMsgLen = lstrlen(szSendMsg);
-
-    BOOST_CHECK( iSendMsgLen == client.Send(szSendMsg,iSendMsgLen) );
-
-        TCHAR szRecvMsg[1024];
-        int iRecvMsgLen = pClient-&gt;Receive(szRecvMsg,1024);
-        if ( iRecvMsgLen &gt; 0 )
-        {
-            szRecvMsg[iRecvMsgLen] = 0;
-        }
-        BOOST_CHECK_MESSAGE( iRecvMsgLen == iSendMsgLen, &quot;Received Msg : &quot; Receive(szRecvMsg,1024);
-        BOOST_CHECK_MESSAGE( iRecvMsgLen == 0 ,
-        &quot;second recv = &quot; GetErrorCode() );
-
-        pClient-&gt;Close();
-        SAFE_DELETE(pClient);
-
-    server.Close();
-
-    MMSocket::EndWinsock();
-}
-
-/* just receive (guess socket is nonblocking) */
-void test_socket_nonblocked_recv()
-{
-    BOOST_CHECK( MMSocket::BeginWinsock() );
-
-    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
-    WORD wPort = 80;
-
-    MMSocket client;
-    client.Create(true);
-
-    BOOST_CHECK( client.Connect(szHost,wPort) );
-
-    client.EnableNonblock();
-
-    TCHAR szRecvMsg[1024];
-    int iRecvMsgLen = client.Receive(szRecvMsg,1024);
-    BOOST_CHECK( iRecvMsgLen == -1 );
-    BOOST_CHECK( client.GetErrorCode() == WSAEWOULDBLOCK );
-    client.Close();
-
-    MMSocket::EndWinsock();
-}
-
-/*
-
-*TODO*
-
-- connect
-- socket constructor
-- error code checking
-- invalid address
-- socket buffer
-- socket blocking
-- 연결 실패
-
-*/
-
-test_suite * test_MMSocket()
-{
-    test_suite * test = BOOST_TEST_SUITE( &quot;MMSocket Test&quot; );
-
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_winsock ) , 0 );
-  test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_ctor ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_port ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_addr ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_public_ip ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_private_ip ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_listen ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_gethostbyname ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_connect ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_connect_fail ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_accept ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_accept_failed ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_blocking ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_linger ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_recv_buffer ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_send_buffer ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_nagle ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_reuseaddr ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_send ) , 0 );
-    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_nonblocked_recv ) , 0 );
-
-  return test;
-}
-</code></pre></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/test/"><span class="label"><span class="icon icon-tag"></span> test</span></a>
-	
-		<a href="/tag/boost/"><span class="label"><span class="icon icon-tag"></span> boost</span></a>
-	
-		<a href="/tag/TDD/"><span class="label"><span class="icon icon-tag"></span> TDD</span></a>
-	
-	</p>
-</div>
 			
 				<div>
 	<div class="page-header">
@@ -736,24 +143,24 @@ test_suite * test_MMSocket()
 		<h1><a href="/2004/11/26/visual-studio-tips/">Visual Studio Tips</a> <small>2004-11-26</small></h1>
 	</div>
 	<div><h2>.h &lt;-&gt; .cpp 단축키</h2>
-<p>Visual Assist 를 사용하시는 분은, [도구]-[옵션]-[환경]-[키보드] 에서 VAOpenOpposite를 Ctrl+Q등으로 단축키를 지정하면 파일 전환을 보다 쉽게 할 수 있다.</p>
+<p>Visual Assist 를 사용하시는 분은, <code>[도구]-[옵션]-[환경]-[키보드]</code> 에서 VAOpenOpposite를 Ctrl+Q등으로 단축키를 지정하면 파일 전환을 보다 쉽게 할 수 있다.</p>
 <h2>Alt + F7</h2>
-<p>[도구]-[옵션]-[환경]-[키보드]에서  빌드.선택영역빌드를 Alt+F7로 단축키 지정하면, 현재 프로젝트를 키보드만으로 빌드할 수 있다.</p>
+<p><code>[도구]-[옵션]-[환경]-[키보드]</code>에서  빌드.선택영역빌드를 Alt+F7로 단축키 지정하면, 현재 프로젝트를 키보드만으로 빌드할 수 있다.</p>
 <h2>외부 도구</h2>
 <p>레이옷은 현재 솔루션의 각 프로젝트의 산출물(exe,pdb,xml 등)들을 서버에 배포하기 위해서 Python 으로 배포 스크립트를 제작했다. 문제는 이 넘을 실행하기 위해서 꼭 탐색기를 띄워서 찾아가서 실행하는게 너무 귀찮았다는 점. 그러나 [도구]-[외부도구]-[외부명령] 으로 새 명령을 등록할 수 있다. 아래와 같이 등록하면, 이제 파이썬 스크립트를 메뉴에서 실행할 수 있게 된다. 특히 출력창 사용을 선택하면 스크립트의 표준 출력을 Visual Studio 에서 살펴볼 수 있다.</p>
-<p><img alt="external_tool.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/external_tool.JPG" /><br />
-</p>
+<p><img alt="external_tool.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/external_tool.JPG" /></p>
 <p>또한 이 명령을 도구모음에 등록하면 더욱 편하다. [도구]-[사용자지정]-[새로만들기]에서 도구바를 하나 만든 다음, [명령] 탭을 눌러 아까 등록한 넘을 [범주]-[도구]-[외부명령N]에서 찾아 드래그 앤 드랍으로 새 도구바로 옮겨 주면 끝. 그나저나, 아이콘을 새로 등록하고 싶지만 어떻게 하는지 모르겠다.</p>
 <h2>한글폴더/파일</h2>
 <p>가능하면 사용하지 말라. 레이옷은 빈태군의 권유를 듣고 한쪽귀로 흘리다가 다음과 같은 고생을 하게 되었다.</p>
-<pre><code>- xerces c++ 라이브러리 사용시, XML 파일의 절대 경로를 파싱할 때 한글 폴더가 포함될 경우 [Unicode] 로 경로 문자열을 넘겨야 한다.
-- DevPartner 사용시 디버깅 정보가 찾아지지 않는다.
-- 이 외에도, 프로젝트 폴더명 중에 space 가 포함될 경우에도 항상 $(InputDir) 등의 매크로들을 " " 으로 둘러싸줘야 한다.
-</code></pre>
+<ul>
+<li>xerces c++ 라이브러리 사용시, XML 파일의 절대 경로를 파싱할 때 한글 폴더가 포함될 경우 [Unicode] 로 경로 문자열을 넘겨야 한다.</li>
+<li>DevPartner 사용시 디버깅 정보가 찾아지지 않는다.</li>
+<li>이 외에도, 프로젝트 폴더명 중에 space 가 포함될 경우에도 항상 $(InputDir) 등의 매크로들을 " " 으로 둘러싸줘야 한다.</li>
+</ul>
 <h2>정규식</h2>
 <p>global replace 할 때, 정규식을 사용하면 매우 편리하다. 다음 예를 살펴보자</p>
 <p>string strValue = __NODE_TEXT(pStrNode);           // ----&gt; string strValue = pStrNode.ToString();<br />
-int iValue = __NODE_INT(pIntNode);                 // ----&gt; int iValue = pIntNode.ToInt(); </p>
+int iValue = __NODE_INT(pIntNode);                 // ----&gt; int iValue = pIntNode.ToInt();</p>
 <p>MSXML 에서 xerces 로 XML 라이브러리를 교체할 때, 위와 같은 코드가 이곳 저곳에 수두룩 했다. 이를 고치기 위해 다음 정규식을 사용했다.<br />
 <table><br />
 <thead><br />
@@ -770,42 +177,47 @@ int iValue = __NODE_INT(pIntNode);                 // ----&gt; int iVal
 </tr>
 
 <p></thead></table></p>
-<pre><code>- () 의 경우 backslash escape 를 해줘야 한다
-- .+ 는 설명안해도 알 듯?? ㅋㅋ
-- 특정 패턴을 replace 에서 사용하려면 {패턴}으로 검색하고, (발견순서대로) \N 으로 사용하면 된다
-- replace 는 정규식이 아니니깐 막 써도 된다
-</code></pre>
-<p>일반 문자열 "xxx" 를 _T("xxx") 로 바꾸는 정규식<br />
-<table><br />
-<thead><br />
-<th>필드</th><br />
-<th>입력</th></p>
+<ul>
+<li>() 의 경우 backslash escape 를 해줘야 한다</li>
+<li>.+ 는 설명안해도 알 듯?? ㅋㅋ</li>
+<li>특정 패턴을 replace 에서 사용하려면 {패턴}으로 검색하고, (발견순서대로) \N 으로 사용하면 된다</li>
+<li>replace 는 정규식이 아니니깐 막 써도 된다</li>
+</ul>
+<p>일반 문자열 "xxx" 를 _T("xxx") 로 바꾸는 정규식</p>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>입력</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td>Find</td>
-<td>\"{:Al@}\" || 문자열 가운데 ' ' 또는 '_' 가 있을 경우 인식이 안된다.</td>
+<td><code>\"{:Al@}\"</code> (단, 문자열 가운데 ' ' 또는 '_' 가 있을 경우 인식이 안된다.)</td>
 </tr>
-
 <tr>
 <td>Replace</td>
-<td>_T("\1")</td>
+<td><code>_T("\1")</code></td>
 </tr>
-
-<p></thead></table></p>
+</tbody>
+</table>
 <h2>빌드 이벤트</h2>
 <p>UnitTest나 EventLog 를 위한 Message DLL 등을 만들 때 사용되는 사용자 지정 빌드 단계에 대해서 알아보자. 우선, MSDN 에 나오는 Visual Studio 빌드 이벤트 및 사용자 지정 빌드 단계의 순서는 다음과 같다.</p>
-<pre><code>- '''빌드 전 이벤트'''
-- 개별 파일에 대한 사용자 지정 빌드 단계
-- 프록시 생성기
-- MIDL
-- 리소스 컴파일러
-- C/C++ 컴파일러
-- '''링크 전 이벤트'''
-- 링커 또는 라이브러리 관리자(해당되는 경우)
-- BSCMake
-- 프로젝트에 대한 사용자 지정 빌드 단계
-- 웹 배포 도구
-- '''빌드 후 이벤트'''
-</code></pre>
+<ul>
+<li>'''빌드 전 이벤트'''</li>
+<li>개별 파일에 대한 사용자 지정 빌드 단계</li>
+<li>프록시 생성기</li>
+<li>MIDL</li>
+<li>리소스 컴파일러</li>
+<li>C/C++ 컴파일러</li>
+<li>'''링크 전 이벤트'''</li>
+<li>링커 또는 라이브러리 관리자(해당되는 경우)</li>
+<li>BSCMake</li>
+<li>프로젝트에 대한 사용자 지정 빌드 단계</li>
+<li>웹 배포 도구</li>
+<li>'''빌드 후 이벤트'''</li>
+</ul>
 <p>UnitTest를 자동으로 실행하게 하려면, '''프로젝트 사용자 지정 빌드 단계''' 또는 '''빌드 후 이벤트'''가 적절하다.</p>
 <h2>Command Line Build</h2>
 <p>특이하게도 한 순간에 한가지 프로젝트, 한가지 빌드 타겟만이 가능하다. 결국 여러 개의 프로젝트를 함께 빌드하려면 각각을 따로 명시해야 할 듯. /out 의 경우 이전 파일에 로그를 append 한다.</p>
@@ -819,6 +231,114 @@ int iValue = __NODE_INT(pIntNode);                 // ----&gt; int iVal
 		<a href="/tag/visual studio/"><span class="label"><span class="icon icon-tag"></span> visual studio</span></a>
 	
 		<a href="/tag/tip/"><span class="label"><span class="icon icon-tag"></span> tip</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2004/11/26/python-service/">Python Service</a> <small>2004-11-26</small></h1>
+	</div>
+	<div><p>win32serviceutil.ServiceFramework를 상속받아서 SvcStop(), SvcDoRun() 을 override 하면 가장 기본적인 서비스를 구현할 수 있다. 아래의 예제는 Python Programming on Win32 에서 발췌한 것이다.</p>
+<h1>!python</h1>
+<p>import win32serviceutil, win32service, win32event<br />
+class MyService(win32serviceutil.ServiceFramework):<br />
+<em>svc_name</em> = "MyService"<br />
+<em>svc_display_name</em> = "My First Service"<br />
+  def <strong>init</strong>(self,args):<br />
+  win32serviceutil.ServiceFramework.<strong>init</strong>(self,args)<br />
+  self.event = win32event.CreateEvent(None,0,0,None)<br />
+  def SvcStop(self):<br />
+  self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)<br />
+  win32event.SetEvent(self.event)<br />
+  def SvcDoRun(self):<br />
+  win32event.WaitForSingleObject(self.event,win32event.INFINITE)</p>
+<p>if <strong>name</strong>=='<strong>main</strong>':<br />
+  win32serviceutil.HandleCommandLine(MyService)</p>
+<p>이렇듯 간단한 서비스를 실행하기 위해서는 우선 Win32 Python 모듈과 함께 배포되는 PythonService.exe를 레지스트리에 등록해야 한다. 다음과 같이 하라. (그런데, 아마도 win32 모듈을 설치하면 자동으로 이 넘이 등록되는 듯하다. 확인 요망)</p>
+<blockquote>
+<p>PythonService.exe /register</p>
+</blockquote>
+<p>이제 서비스를 실행해보자. win32serviceutil.HandleCommandLine()이 이미 모든 것을 구현해뒀기 때문에, 그냥 다음과 같이 하면 된다.</p>
+<blockquote>
+<p>python MyService.py install | start | stop | remove</p>
+</blockquote>
+<p>물론 net start | stop MyService 라고 해도 서비스를 시작/종료할 수 있다.</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
+	
+		<a href="/tag/service/"><span class="label"><span class="icon icon-tag"></span> service</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2004/11/26/moniwiki-tips/">MoniWiki Tips</a> <small>2004-11-26</small></h1>
+	</div>
+	<div><h2>Security</h2>
+<blockquote>
+<p>$security_class="needtologin";</p>
+</blockquote>
+<h2>RcsLite</h2>
+<blockquote>
+<p>$version_class='RcsLite';</p>
+</blockquote>
+<h2>Disable Theme</h2>
+<p>테마와 CSS 모두 강제 지정하려면 아래와 같이 할 것.</p>
+<blockquote>
+<p>$theme='...';</p>
+<p>$theme_css=1;</p>
+</blockquote>
+<h2>MoinMoin Migration(?)</h2>
+<p>MoinMoin 위키에서 MoniWiki 로 이전한 경우, 구글 등의 검색 엔진이나 지인들의 링크가 이전 주소로 되어 있는 경우, fake moin.cgi 를 만들어서 링크를 계속 유지시킬 필요가 있다.  특히 apache 환경에서는 .htaccess 설정을 이용해서 손쉽게 fake moin.cgi 를 만들 수 있다.  일단 아래와 같이 moin.cgi 를 만든다. 특별히 실행권한을 주지 않아도 무방하다.</p>
+<blockquote>
+<p>&lt;?php</p>
+<p>chdir("/path/to/moniwiki");</p>
+<p>include("wiki.php");</p>
+<p>?&gt;</p>
+</blockquote>
+<ul>
+<li>.htaccess 에 moin.cgi 를 php 가 핸들링하도록 다음과 같이 추가한다.</li>
+</ul>
+<blockquote>
+<p><Files moin.cgi></p>
+<p>SetHandler application/x-httpd-php</p>
+<p></Files></p>
+</blockquote>
+<h2>파일 업로드 크기 제한</h2>
+<p>이것은 모니위키의 문제가 아닌 php 의 문제이다. php.ini 에서 업로드 및 POST 크기 제한을 적절하게 수정해야 한다.</p>
+<h2>xls 파일 업로드</h2>
+<p>UploadFiles.php 에서 기본적으로 정의된 확장자가 아닐 경우 업로드가 금지된다. 따라서, 여기에 xls 확장자를 추가할 것.</p>
+<blockquote>
+<p>// plugin/UploadFile.php:71</p>
+<p>$pds_exts="png|jpg|jpeg|gif|mp3|zip|tgz|gz|txt|css|exe|hwp|xls";</p>
+</blockquote>
+<h2>external link 제거</h2>
+<p>한글로 된 외부 링크의 경우 URL 이 너무 길어져서 화면 크기를 넘어서는 경우가 있다. 아예 URL 표시를 제거하는 편이 더 좋을 듯?</p>
+<blockquote>
+<p>// wiki.php:1440</p>
+<p>$external=$this-&gt;ex_bra.$url.$this-&gt;ex_ket;</p>
+<p>$external=''; //  <link rel="icon" href="/reiot.png" type="image/png" /></p>
+</blockquote>
+<p>see also:</p>
+<ul>
+<li>http://en.wikipedia.org/wiki/Favicon</li>
+</ul></div>
+	<br />
+	<p>
+	
+		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
+	
+	
+		<a href="/tag/wiki/"><span class="label"><span class="icon icon-tag"></span> wiki</span></a>
+	
+		<a href="/tag/moniwiki/"><span class="label"><span class="icon icon-tag"></span> moniwiki</span></a>
 	
 	</p>
 </div>
@@ -887,14 +407,6 @@ int iValue = __NODE_INT(pIntNode);                 // ----&gt; int iVal
 	</li>
 	
 	<li>
-		<a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a>
-	</li>
-	
-	<li>
-		<a href="/2005/06/02/boosttest/">boost::test</a>
-	</li>
-	
-	<li>
 		<a href="/2005/03/21/tortoisesvn/">TortoiseSvn</a>
 	</li>
 	
@@ -904,6 +416,14 @@ int iValue = __NODE_INT(pIntNode);                 // ----&gt; int iVal
 	
 	<li>
 		<a href="/2004/11/26/visual-studio-tips/">Visual Studio Tips</a>
+	</li>
+	
+	<li>
+		<a href="/2004/11/26/python-service/">Python Service</a>
+	</li>
+	
+	<li>
+		<a href="/2004/11/26/moniwiki-tips/">MoniWiki Tips</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

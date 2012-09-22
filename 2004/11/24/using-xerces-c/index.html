@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -66,23 +69,27 @@
 	<div><p>Xerces는 XML 파싱을 위한 C++/Java 공개 라이브러리다. 기존의 Microsoft XML SDK를 이용한 XML 파싱 라이브러리가 있음에도 불구하고, Xerces를 이용한 파서를 새로 만들게 된 것은 Microsoft XML SDK가 Visual C++에서만 컴파일이 정상적으로 되었기 때문이다. Borland C++ Builder를 이용해서 기존의 라이브러리를 컴파일하기 위해 몇가지 시도를 해보았지만, 정상적으로 되지가 않았다. 결국 포기하고 다른 방편으로 Xerces를 이용하게 되었다.</p>
 <p>파싱 클래스나 함수 등은 W3C에서 이미 규정한 것이기 때문에 Xerces나 Microsoft나 별반 다르지 않다. 차이점은 함수의 프로토타입이나, 내부적으로 사용하는 유틸리티 클래스들인데, 이는 쉽게 넘어갈 수 있는 문제였다. 게다가 나중에 유닉스 계열로 가도 이 라이브러리를 그대로 이용할 수 있으니 이 어찌 즐겁지 않으리요.</p>
 <h2>Install For Microsoft Visual C++</h2>
-<pre><code>- http://xml.apache.org 에서 Xerces 바이너리를 다운받는다. 소스를 다운받아도 상관없으나 컴파일하는 수고를 덜려면 바이너리를 받는 게 낫다.
-- 인스톨하고, Visual C++에서 PATH를 잡아준다.
-- 프로젝트 링크 탭에다가 xerces-c_2.lib 또는 xerces-c_2D.lib 라이브러리를 집어넣는다.
-- xerces-c_2.lib라면 xerces-c_2_2_0.dll을, xerces-c_2D.lib라면 xerces-c_2_2_0D.dll을 PATH로 잡혀있는 디렉토리 어디엔가 복사해둔다.
-- 컴파일하고 실행한다.
-</code></pre>
+<ul>
+<li>http://xml.apache.org 에서 Xerces 바이너리를 다운받는다. 소스를 다운받아도 상관없으나 컴파일하는 수고를 덜려면 바이너리를 받는 게 낫다.</li>
+<li>인스톨하고, Visual C++에서 PATH를 잡아준다.</li>
+<li>프로젝트 링크 탭에다가 xerces-c_2.lib 또는 xerces-c_2D.lib 라이브러리를 집어넣는다.</li>
+<li>xerces-c_2.lib라면 xerces-c_2_2_0.dll을, xerces-c_2D.lib라면 xerces-c_2_2_0D.dll을 PATH로 잡혀있는 디렉토리 어디엔가 복사해둔다.</li>
+<li>컴파일하고 실행한다.</li>
+</ul>
 <h2>주의해야할 점</h2>
 <p>Xerces를 사용해서 XML 문서를 다룰 때, 한글을 사용하기 위해서는</p>
-<pre><code>  &lt; ?xml version=&quot;1.0&quot; encoding=&quot;Windows-1252&quot;?&gt;```
-과 같은 헤더를 붙여줘야한다. 인터넷 익스플로러에서 보면 한글이 깨져서 보이지만, 실제로 프로그램에서 돌릴 때는 괜찮다.
+<pre><code>&lt; ?xml version=&quot;1.0&quot; encoding=&quot;Windows-1252&quot;?&gt;
 </code></pre>
 
-<p>&lt; ?xml version="1.0" encoding="euc-kr"?&gt;```<br />
-로 하는 경우에는 인터넷 익스플로러에서는 보면 괜찮지만, 프로그램 돌릴 때는 한글 문자가 깨지게 된다.</p>
+<p>과 같은 헤더를 붙여줘야한다. 인터넷 익스플로러에서 보면 한글이 깨져서 보이지만, 실제로 프로그램에서 돌릴 때는 괜찮다.</p>
+<pre><code>&lt; ?xml version=&quot;1.0&quot; encoding=&quot;euc-kr&quot;?&gt;
+</code></pre>
+
+<p>로 하는 경우에는 인터넷 익스플로러에서는 보면 괜찮지만, 프로그램 돌릴 때는 한글 문자가 깨지게 된다.</p>
 <p>see also:</p>
-<pre><code>- [http://xml.apache.org](http://xml.apache.org/)
-</code></pre></div>
+<ul>
+<li><a href="http://xml.apache.org/">http://xml.apache.org</a></li>
+</ul></div>
 	<br />
 	<p>
 	

@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,42 +66,6 @@
 
 	<div class="row">
 		<div class="span9">
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2006/02/13/console-vs-service/">Console vs. Service</a> <small>2006-02-13</small></h1>
-	</div>
-	<div><p>지금까지는 command line 파라미터로 콘솔로 실행할 것인지 아니면 서비스로 실행할 것인지를 결정했다. 그러지 말고 아예 ConsoleRunner 와 ServiceRunner 를 외부 실행 파일로 만들어버리고 나머지 코드는 dll 로 만들어버리는건 어떨까?</p>
-<pre><code>- 컨텐트 코드가 dll 이므로, TestRunner 에게 넘기기도 용이하다
-- ServiceRunner 를 아예 서비스로 만들 수 있다.
-- 서버 모듈을 자동으로 다운받아서 지정된 넘을 실행하는 수준의 서비스 관리가 가능해진다.
-</code></pre>
-<p>특히 3번처럼 호스트-서비스의 결집도가 너무 높은 상황(서비스를 다른 머신으로 옮기려면 해당 머신에 실행 파일을 복사하고 서비스를 설치하는 등의 과정을 거쳐야 한다는 점)을 해소할 수 있다는 점에서 왠지 괜찮을 것 같다는 생각을 해본다.</p>
-<p>시간이 나면 WYSIWYG 방식의 서버-서비스 배치툴을 만들어서 그 결과를 XML로 추출해내어 배포하면 알아서 적당한 서비스 모듈을 다운받아 실행하는 그런 멋쥔 환경을 구축해보고 싶다. (그렇다. 서비스 설치 및 설정이 너무 귀찮아서 망상에 젖은 것 뿐이다. 그보다는 빨리 서버간 패치 시스템을 구축해야 할텐데... rsync가 제일 나은 툴일까나..)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2006/02/10/오늘의-버그/">오늘의 버그</a> <small>2006-02-10</small></h1>
-	</div>
-	<div><p>김학규님의 <a href="http://www.lameproof.com/zboard/zboard.php?id=bbs2&amp;no=381">스트레스 테스트 삽질기</a>에 비하면 아무 것도 아니지만, 오늘 미국 테스트 서버에서 특이한 버그를 만나게 되어서 한번 써본다.</p>
-<p>며칠 전부터 토너먼트 관련 UDP 버그가 발생한다는 보고를 받았다. 지정된 토너먼트 시각이 되면 자동적으로 방이 생성되고 사람들이 들어가는데, 유독 첫번째 방에서만 플레이가 되고 나머지 방에서는 100% UDP failed 가 생긴다는 것이었다. 도저히 소프트웨어 문제라고는 여겨지지 않아서 사내 테스트 환경에서는 테스트를 해봤지만 재현이 되지 않았다. 안되면 다 안되고 되면 다 되어야지 왜 딱 하나만 되는 것이며, 그것도 가장 첫번째 방만 되는 것인지 아무리 생각해도 믿어지지 않았지만 직접 눈으로 보게 되자 디버깅할 수 밖에 없었다. 30분정도 디버깅을 하다보니 아예 서버로부터 UDP 패킷이 오지 않는 걸 확인했고 그때 떠오른 게 바로 방화벽 설정이었다.</p>
-<p>알고보니 방화벽의 허용 범위의 맨 끝에 첫번째 방에서 사용하는 UDP 포트만이 운좋게 걸려 있었고 나머지는 out of bound 여서 생기는 문제였다. 미국은 거의 대부분 방화벽을 필수로 사용하고 있으며, 지난 번에도 역시 방화벽 때문에 한달 정도 고생을 한 적이 있어서 다행히 금방 문제를 찾을 수 있었다. 덕분에 미국 테스터들과 출장간 동료들이 좀 갈굼을 당했지만, 빨리 찾게 되었으니 그나마 다행이 아닐까 한다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-	</p>
-</div>
 			
 				<div>
 	<div class="page-header">
@@ -141,11 +108,12 @@
 	</div>
 	<div><p>총 15개의 통계 테이블의 리팩토링이 드디어 오늘 끝났고, 내일 테스트만 무사히 통과하면 다음 작업으로 넘어갈 수 있을 것 같다. arithmetic overflow 로 인해 모든 numeric 관련 로직을 계산 컬럼으로 추출해내고 하나씩 검증하는데 이틀이나 날려 먹었던 것이다. 실제로 이백라인에 가까웠던 프로시저가 거의 30% 정도로 분량이 줄었고 각 쿼리문들 역시 간단한 DDL 로 바뀌게 되었는데, 솔직히 너무 허탈하다. :(  </p>
 <p>테스트가 성공리에 끝이 나면, 이제 남은 이슈는 본섭 패치를 얼마나 손쉽게 자동화할 것인가? 이다. 변경된 프로시저의 경우 drop - create 로 해결할 수 있지만, 계산 컬럼으로 바꾸는 것은 녹녹치 않았다. 문제는 한번도 관리되지 않았던 DEFAULT constraint 들 때문인데...</p>
-<pre><code>- ALTER TABLE ALTER COLUMN 으로 일반 컬럼을 계산 컬럼으로 바꿀 수 없다
-- 결국 DROP COLUMN + ADD COLUMN 으로 해결해야 한다
-- DROP COLUMN 을 하려면 의존 관계가 없어야 한다
-- 그런데 바꿔야할 모든 컬럼들이 DEFAULT 제약조건을 가지고 있었고, 얘네들의 이름이 모두 랜덤이다. -_-
-</code></pre>
+<ul>
+<li>ALTER TABLE ALTER COLUMN 으로 일반 컬럼을 계산 컬럼으로 바꿀 수 없다</li>
+<li>결국 DROP COLUMN + ADD COLUMN 으로 해결해야 한다</li>
+<li>DROP COLUMN 을 하려면 의존 관계가 없어야 한다</li>
+<li>그런데 바꿔야할 모든 컬럼들이 DEFAULT 제약조건을 가지고 있었고, 얘네들의 이름이 모두 랜덤이다. -_-</li>
+</ul>
 <p>일단 DBA 와 상의해봐야 되겠지만 어째 해결책은 없을 듯하다. 따라서 오늘의 결론은</p>
 <blockquote>
 <p>"모든 DEFAULT 제약 조건에 이름을 붙여라"</p>
@@ -154,6 +122,53 @@
 	<p>
 	
 		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+	
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2006/02/01/computed-column-divide-by-zero/">computed column & divide by zero</a> <small>2006-02-01</small></h1>
+	</div>
+	<div><blockquote>
+<p>A = ( C != 0 ? B/C : 0 )</p>
+</blockquote>
+<p>이러한 수식으로 구성된 계산 컬럼은 TSQL에서는 아래와 같이 표현할 수 있다.</p>
+<blockquote>
+<p>[A] AS ( case when [C] = 0 then 0 else [B]/[C] end )</p>
+</blockquote>
+<p>문제는 B 나 C 가 여러 컬럼으로 이루어지거나 또 다른 계산 컬럼일 경우이다. TSQL에서는 계산 컬럼이 다른 계산 컬럼을 내포할 수도 없고, 사용자 정의 함수를 포함할 수도 없기 때문에, 울며 겨자먹기로 중복 코드를 허용해야만 한다. 덕분에 오늘 현업에 들어온 이래, 가장 긴 계산 컬럼을 만들어볼 수 있었다.</p>
+<blockquote>
+<p>(case when ([AB] + [BB] + [HBP] + [SF] = 0) then 0.0 else (convert(numeric(9,3),([H] + [BB] + [HBP])) / ([AB] + [BB] + [HBP] + [SF])) end + case when ([AB] = 0) then 0.0 else (convert(numeric(9,3),([H] + [B2] * 2 + [B3] * 3 + [HR] * 4)) / [AB]) end)</p>
+</blockquote>
+<p>계산 컬럼의 내포가 되었다면 단순히 A+B 정도로 끝날 수도 있었고, 사용자 정의 함수만 지원했어도 SafeDiv(...,...)+SafeDiv(...,...) 정도로 줄일 수 있었는데.. 쩝.</p>
+<p>그런데 아래의 SET 옵션을 잘 이용하면 divide by zero를 우회함으로써 수식을 간단하게 표현할 수 있다. 어차피 계산 컬럼은 SELECT 에서만 사용되기 때문에 관련 SELECT 쿼리 앞뒤에 잘 지정하면 될 듯하지만, 이런 것도 된다는 것이며 추천하지는 않는다.</p>
+<blockquote>
+<p>SET ARITHIGNORE ON -- 에러 메시지 출력 안함</p>
+<p>SET ARITHABORT OFF -- 종료하는 대신 NULL 삽입</p>
+<p>[A] AS (ISNULL(A/B,0.0))</p>
+</blockquote>
+<p>상황에 따라서는 SET ANSI_WARNING OFF 도 함께 지정해줘야 하는 경우도 있으므로 유의하기 바란다. 관련 사항을 테스트해준 floyd, icebreak 님께 감사를~</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+	
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2005/12/28/os-재설치후-소스세이프가-바보가-될-때/">OS 재설치후 소스세이프가 바보가 될 때</a> <small>2005-12-28</small></h1>
+	</div>
+	<div><p>파일을 체크아웃 받은 상태에서 OS 를 새로 설치할 때, 컴퓨터 이름을 이전과 같이 해야 한다. 소스세이프는 체크아웃된 위치를 컴퓨터 이름과 working folder 를 조합해서 사용하기 때문에, 컴퓨터 이름이 다르다면 다른 곳에 체크아웃을 했다고만 나온다.</p>
+<p>*괜히 삼성카드 홈페이지에서 연말정산 서류 플러그인을 설치하다가 애꿎은 OS만 날려먹었다. 소송해버릴까.. *</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
 	
 	
 	</p>
@@ -223,14 +238,6 @@
 	</li>
 	
 	<li>
-		<a href="/2006/02/13/console-vs-service/">Console vs. Service</a>
-	</li>
-	
-	<li>
-		<a href="/2006/02/10/오늘의-버그/">오늘의 버그</a>
-	</li>
-	
-	<li>
 		<a href="/2006/02/10/pilot-movie/">파일럿 무비</a>
 	</li>
 	
@@ -240,6 +247,14 @@
 	
 	<li>
 		<a href="/2006/02/02/alter-table-alter-column/">ALTER TABLE ALTER COLUMN</a>
+	</li>
+	
+	<li>
+		<a href="/2006/02/01/computed-column-divide-by-zero/">computed column & divide by zero</a>
+	</li>
+	
+	<li>
+		<a href="/2005/12/28/os-재설치후-소스세이프가-바보가-될-때/">OS 재설치후 소스세이프가 바보가 될 때</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

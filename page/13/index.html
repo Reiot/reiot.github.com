@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,6 +66,34 @@
 
 	<div class="row">
 		<div class="span9">
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2009/01/12/teamcide/">Teamcide</a> <small>2009-01-12</small></h1>
+	</div>
+	<div><p><img alt="Micromanagement" src="http://conveniencebits.com/pics/micromanage.jpg" /></a></p>
+<p>Teamcide는 최근에 구독을 시작한 <a href="http://www.codinghorror.com/">코딩 호러</a>의 <a href="http://www.codinghorror.com/blog/archives/001205.html">마이크로매니지먼트 좀비</a>라는 글에서 발견한 7가지 팀관리의 안티 패턴이다. 알고 보니 피플웨어에서 소개된 이야기라고 해서 책을 찾아보려고 했는데, 어딘가에 쳐박혀 있는지 책이 보이지 않아, <a href="http://translate.google.com/translate?prev=&amp;hl=ko&amp;ie=UTF-8&amp;u=http://yuuntim.fc2web.com/chapter20.html&amp;sl=auto&amp;tl=ko&amp;history_state0=">일본어 웹문서 번역</a>을 통해서 짤막하게만 정리해본다.</p>
+<ul>
+<li>자기 방어적인 관리(Defensive Management)</li>
+<li>관료주의(Bureaucracy)</li>
+<li>팀원들을 여기 저기로 흩어 놓아서, 이동 거리를 멀게 하기(Physical Separation)</li>
+<li>한 명에게 여러 가지 작업을 시키기(Fragmentation of People's Time)</li>
+<li>납기일을 위해 품질을 희생하기(Quality Reduction of the Product)</li>
+<li>무의미한, 또는 가짜 데드라인(Phony Deadlines)</li>
+<li>파벌이 무서워서 프로젝트 종료 후 팀을 해체하기(Clique Control)</li>
+</ul>
+<p>거리 이야기는 이제 상식 수준이고, 마지막 파벌 이야기는 좀 비현실적이긴 한데, 가짜 데드라인 같은 이야기는 나도 종종 유혹을 느꼈기에, 이 시간을 빌어 씁쓸한 반성을 해본다.</p>
+<p>때로는 빠른 의사 결정과 그에 따른 무한한 책임을 지는 <a href="http://seoworld.net/tt/261">잡스 같은 카리스마적인 독재자</a>와 일해보고 싶기도 하다. 다만, 거의 무개념 폭군이라는 이미지가 강한 초기의 잡스보다는, 이제 필 쉴러 아저씨에게 키노트 진행을 양보(?)한 최근의 잡스가 더 나을 것 같다.</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
+	
+	
+		<a href="/tag/management/"><span class="label"><span class="icon icon-tag"></span> management</span></a>
+	
+	</p>
+</div>
 			
 				<div>
 	<div class="page-header">
@@ -89,26 +120,25 @@
 		<h1><a href="/2009/01/02/fault-tolerant-system/">Fault Tolerant System</a> <small>2009-01-02</small></h1>
 	</div>
 	<div><p>얼랭스터디에서 얼랭/OTP 의 무정지성(Fault Tolerance)에 대해서 소개하자,</p>
-<pre><code>&quot;문제가 생긴 서버를 되살리는 것도 좋은데, 메모리상의 중요한 데이터들을 어떻게 다른 서버로 안전하게 전송할 수 있는가?&quot;```
-라는 질문이 나왔다. 여기에 대해서 가장 먼저 떠오른 생각은
-</code></pre>
-
-<p>"클라이언트와의 연결은 어차피 날아가는 거고, 과연 그 서버 안에 있는 데이터까지 살릴 만한 가치가 있는 것일까?"```<br />
-라는 것이었다. 일반적인 C++ 서버의 경우 오류로 인한 서버의 크래시가 발생했을 때 당연히 SEH 를 이용해서 그 순간을 캡처해낼 수는 있다. 그러나 문제는 그때의 메모리가 정말 DB에 저장하거나 다른 머신으로 보낼 만큼 신뢰성이 있는가? 하는 것이다. 치명적인 오류가 발생한지 시간이 좀 지나서, 이미 많은 데이터가 오염되었을 수도 있기 때문에, 보통은 그냥 데이터는 버리고 서버를 내려버리는 것이 정상이다.</p>
+<blockquote>
+<p>"문제가 생긴 서버를 되살리는 것도 좋은데, 메모리상의 중요한 데이터들을 어떻게 다른 서버로 안전하게 전송할 수 있는가?"</p>
+</blockquote>
+<p>라는 질문이 나왔다. 여기에 대해서 가장 먼저 떠오른 생각은</p>
+<blockquote>
+<p>"클라이언트와의 연결은 어차피 날아가는 거고, 과연 그 서버 안에 있는 데이터까지 살릴 만한 가치가 있는 것일까?"</p>
+</blockquote>
+<p>라는 것이었다. 일반적인 C++ 서버의 경우 오류로 인한 서버의 크래시가 발생했을 때 당연히 SEH 를 이용해서 그 순간을 캡처해낼 수는 있다. 그러나 문제는 그때의 메모리가 정말 DB에 저장하거나 다른 머신으로 보낼 만큼 신뢰성이 있는가? 하는 것이다. 치명적인 오류가 발생한지 시간이 좀 지나서, 이미 많은 데이터가 오염되었을 수도 있기 때문에, 보통은 그냥 데이터는 버리고 서버를 내려버리는 것이 정상이다.</p>
 <p>그러다보니 무정지성이라는 의미에 대해서 다시금 생각하게 되었다. 그래서, 위키피디아에서 <a href="http://en.wikipedia.org/wiki/Fault-tolerant_system">Fault Tolerant System</a>을 검색해보니 다음과 같이 나와 있었다.</p>
-<pre><code>
-    - No single point of failure
-    - No single point of repair
-    - Fault isolation to the failing component
-    - Fault containment to prevent propagation of the failure
-    - Availability of reversion modes
-
-</code></pre>
-
+<ul>
+<li>No single point of failure</li>
+<li>No single point of repair</li>
+<li>Fault isolation to the failing component</li>
+<li>Fault containment to prevent propagation of the failure</li>
+<li>Availability of reversion modes</li>
+</ul>
 <p>즉, 하나 죽었다고 전체 시스템이 마비된다든지, 복구하다가 바보가 된다든지, 실패한 모듈 때문에 나머지 시스템이 동작하지 않는 등의 현상이 없어야 된다는, Five Nine(99.999%) 수준의 가용성(Availability)에 대한 이야기이지 완벽하게 모든 것이 재가동되어야 한다는 이야기는 아니었다. DB에도 오류가 생기면 롤백을 하듯이, MMO의 서버 시스템 역시 어느 수준으로 롤백을 하더라도 나머지 사용자들이 모를 정도로만 감춰줘도 사장님한테 이쁨받기에 충분한 수준인 것이다.</p>
 <p>그런데, "<strong>진정한 변수</strong>"가 없는 얼랭에서는 - <em>정말 에러가 발생한 직후라는 확신이 든다면 </em>- 아래와 같은 코드를 이용해서, 오류를 다른 모듈로 확산시키지 않고도 로컬 코드 레벨에서 롤백이 가능하긴 하다.</p>
-<pre><code>
-loop( OldState ) -&gt;
+<pre><code>loop( OldState ) -&gt;
 try handle_something(msg,OldState) of
 { ok, NewState } -&gt;
 loop(NewState)
@@ -127,6 +157,8 @@ end.
 	
 	
 		<a href="/tag/erlang/"><span class="label"><span class="icon icon-tag"></span> erlang</span></a>
+	
+		<a href="/tag/fault tolerant system/"><span class="label"><span class="icon icon-tag"></span> fault tolerant system</span></a>
 	
 	</p>
 </div>
@@ -179,26 +211,6 @@ end.
 	
 	
 		<a href="/tag/multicore/"><span class="label"><span class="icon icon-tag"></span> multicore</span></a>
-	
-		<a href="/tag/erlang/"><span class="label"><span class="icon icon-tag"></span> erlang</span></a>
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2008/12/08/smart-people/">Smart People</a> <small>2008-12-08</small></h1>
-	</div>
-	<div><p><img alt="http://pds9.egloos.com/logo/200804/01/93/f0025793.jpg" src="http://pds9.egloos.com/logo/200804/01/93/f0025793.jpg" /></p>
-<pre><code>- [열심히 하는 사람 보다는, 잘하는 사람이 되어라.(Don't Work Hard, Work Well)](http://agile.egloos.com/2897508)
-- 전문 직장인이 되기 보단, 전문 직업인이 되어라.
-</code></pre>
-<p>예전에 모시던 분들이 즐겨 하시던 말들이다. 과거의 무능하고 나태했던 내 모습을 곳곳에서 찾아낼 때마다, 혹시나 나도 곧 그렇게 무뎌질까 두렵다.</p>
-<p>칼날을 더욱 날카롭게 세우기 위해서, 이번 달부터 새벽 영어 회화를 다시 시작했다. 영어 강사에게 리만 브라더스가 왜 나쁜지를, 왜 미국산 소고기가 나쁜지를 설명하기가 여간 힘들지 않았다. 역시나 함께 듣는 이십대 중반의 젊은 친구들은 정치에 관심이 없었다는 것도 확인했다. 덕분에 의도하지 않게 근무 시간이 한 시간 넘게 늘어나 버렸는데, 나보다 항상 더 일찍 나와서 일하는 사람도 있어서 깜짝 놀랬다. 역시 출근 순서가 회사의 실질적 직급 순라는 이야기가 맞는 걸까 하핫 :)</p>
-<p>그리고, 스마트한 회사 친구들과 얼랭 대결(?) 프로젝트도 바야흐로 가동되었다. 주사위를 굴려 2:2 로 짝을 지어 모종의 코딩 대결을 펼치려고 하는 중인데, 역시나 한 마디만으로 열길 사람 속도 알아듣는 친구들이라서 기대가 된다. 반짝이는 후학들의 걸림돌이 되지 않기 위해서라도, 집에서 열심히 예습복습을 해야것다. 클클.</p></div>
-	<br />
-	<p>
-	
 	
 		<a href="/tag/erlang/"><span class="label"><span class="icon icon-tag"></span> erlang</span></a>
 	
@@ -269,6 +281,10 @@ end.
 	</li>
 	
 	<li>
+		<a href="/2009/01/12/teamcide/">Teamcide</a>
+	</li>
+	
+	<li>
 		<a href="/2009/01/07/redmine/">Redmine</a>
 	</li>
 	
@@ -282,10 +298,6 @@ end.
 	
 	<li>
 		<a href="/2008/12/21/memory-wall/">Memory Wall</a>
-	</li>
-	
-	<li>
-		<a href="/2008/12/08/smart-people/">Smart People</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

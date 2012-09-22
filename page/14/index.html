@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,6 +66,27 @@
 
 	<div class="row">
 		<div class="span9">
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2008/12/08/smart-people/">Smart People</a> <small>2008-12-08</small></h1>
+	</div>
+	<div><p><img alt="http://pds9.egloos.com/logo/200804/01/93/f0025793.jpg" src="http://pds9.egloos.com/logo/200804/01/93/f0025793.jpg" /></p>
+<blockquote>
+<p><a href="http://agile.egloos.com/2897508">열심히 하는 사람 보다는, 잘하는 사람이 되어라.(Don't Work Hard, Work Well)</a><br />
+전문 직장인이 되기 보단, 전문 직업인이 되어라.</p>
+</blockquote>
+<p>예전에 모시던 분들이 즐겨 하시던 말들이다. 과거의 무능하고 나태했던 내 모습을 곳곳에서 찾아낼 때마다, 혹시나 나도 곧 그렇게 무뎌질까 두렵다.</p>
+<p>칼날을 더욱 날카롭게 세우기 위해서, 이번 달부터 새벽 영어 회화를 다시 시작했다. 영어 강사에게 리만 브라더스가 왜 나쁜지를, 왜 미국산 소고기가 나쁜지를 설명하기가 여간 힘들지 않았다. 역시나 함께 듣는 이십대 중반의 젊은 친구들은 정치에 관심이 없었다는 것도 확인했다. 덕분에 의도하지 않게 근무 시간이 한 시간 넘게 늘어나 버렸는데, 나보다 항상 더 일찍 나와서 일하는 사람도 있어서 깜짝 놀랬다. 역시 출근 순서가 회사의 실질적 직급 순라는 이야기가 맞는 걸까 하핫 :)</p>
+<p>그리고, 스마트한 회사 친구들과 얼랭 대결(?) 프로젝트도 바야흐로 가동되었다. 주사위를 굴려 2:2 로 짝을 지어 모종의 코딩 대결을 펼치려고 하는 중인데, 역시나 한 마디만으로 열길 사람 속도 알아듣는 친구들이라서 기대가 된다. 반짝이는 후학들의 걸림돌이 되지 않기 위해서라도, 집에서 열심히 예습복습을 해야것다. 클클.</p></div>
+	<br />
+	<p>
+	
+	
+		<a href="/tag/erlang/"><span class="label"><span class="icon icon-tag"></span> erlang</span></a>
+	
+	</p>
+</div>
 			
 				<div>
 	<div class="page-header">
@@ -91,8 +115,8 @@
 	<div class="page-header">
 		<h1><a href="/2008/11/15/three-rules-for-database-work/">Three Rules for Database Work</a> <small>2008-11-15</small></h1>
 	</div>
-	<div><p><a href="http://www.openmaru.com/273"><img alt="http://www.openmaru.com/attach/1/1046597520.jpg" src="http://www.openmaru.com/attach/1/1046597520.jpg" /></a><br />
-<em><a href="http://www.openmaru.com/273">하루에 10만을 채우는 게임</a>은 이런 게 이벤트가 되는구나.</em></p>
+	<div><p><img alt="http://www.openmaru.com/attach/1/1046597520.jpg" src="http://www.openmaru.com/attach/1/1046597520.jpg" /></p>
+<p><em><a href="http://www.openmaru.com/273">하루에 10만을 채우는 게임</a>은 이런 게 이벤트가 되는구나.</em></p>
 <p>오늘자 코드 프로젝트에 올라온 <a href="http://www.codeproject.com/KB/architecture/DBTool.aspx">DBTool</a>의 근간이 된, <a href="http://odetocode.com/Blogs/scott/archive/2008/01/30/11702.aspx">데이터베이스를 갖고 놀 때의 세가지 룰</a>은 생각보다 간단했다.</p>
 <h3>Never use a shared database server for development work.</h3>
 <p>예전에는 (rails 스타일의) development-test-production 의 3단계 구분법을 사용했다. DBA와 서버 프로그래머는 dev DB에서 열심히 뒤집어 엎어도, test DB에 연결된 다른 프로그래머들이나 테스터들은 안정적으로 사용할 수 있고, 실제 서비스는 production 데이터베이스를 쓰게 된다는 거다.</p>
@@ -103,8 +127,9 @@
 <p>보통은 Config 테이블에다가 문자열로 데이터베이스 스키마 최종 변경일을 넣어두는 걸로 해결하고 있다. 그런데 아직 뭔가 변경이 잘 되었는지를 체크할 만한 테스트를 만들 능력은 안된다. 대체로 alter 든 drop 이든 서버가 뜰 때까지는 잘 모를것 같아서.. :)</p>
 <p>이 외에도 무시무시하게 긴 <a href="http://www.ssw.com.au/ssw/Standards/Rules/RulesToBetterSQLServerDatabases.aspx">Better SQL Server Databases</a> 라는 규칙도 있는데 이건 좀 귀찮구나....</p>
 <p>추가:</p>
-<pre><code>- 다른 글을 찾아 보니, 프로시저나 테이블 각각을 서로 다른 파일에 저장해서 관리하라는 말도 있다. 은근히 그럴듯한데?
-</code></pre></div>
+<ul>
+<li>다른 글을 찾아 보니, 프로시저나 테이블 각각을 서로 다른 파일에 저장해서 관리하라는 말도 있다. 은근히 그럴듯한데?</li>
+</ul></div>
 	<br />
 	<p>
 	
@@ -161,64 +186,6 @@
 	
 	
 		<a href="/tag/kgc/"><span class="label"><span class="icon icon-tag"></span> kgc</span></a>
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2008/11/02/weekends-idle-thoughts/">Weekends Idle Thoughts</a> <small>2008-11-02</small></h1>
-	</div>
-	<div><div id="photoImgDiv2108199423" class="photoImgDiv" style="width:502px;">![회원님이 촬영한 AQUA, Anantara, Maldives.](http://farm3.static.flickr.com/2212/2108199423_a3fac43d56.jpg?v=0)</div>
-
-<p>오랜만에 사건 사고 없는 한가한 주말이다.</p>
-<p>먼저 boost asio 를 이용해서 이상적인 아름다운 윈도우 서버 코어를 만든다면? 이라는 상상의 나래를 펴봤다. 누가 봐도 멋진 서버 코어가 되려면 어떤 특성을 가져야 할까?</p>
-<pre><code>- 손쉬운 확장성 : 한대의 머신에서 하나의 프로세스로 1천명에서 최대 1만 명을 처리할 수 있도록 확장하는데 무리가 없어야 한다. 즉, IOCP 핸들와 Non I/O Worker 쓰레드를 M:N 으로 조합할 수 있는 구조가 되어야 한다.
-- 이벤트 기반 : 사용자가 늘어나면 폴링은 최대한 피해야 한다. 즉 주기적으로 체크해야 하는 Idle Check 같은 코드들은 타이머 쓰레드에서 Post 시켜야 한다.
-- 메모리 풀 기반의 버퍼 관리 : 입출력 버퍼를 세션이나 소켓과 1:1 정적으로 매핑시키기 보다는, 메모리풀에서 필요할 때마다 주고 받는 구조를 쓰자. Gathering &amp; Scattering 을 위해서는 필수적이다.
-- 버퍼 복사의 최소화 : 어차피 1-recv 는 대세다. 즉, WSABUF를 개별 세션에 연관짓기보다는 메모리 풀에서 관리하고, I/O 쓰레드에서 입력이 완료되었을 때 메시지가 온전치 않으면 버퍼를 재사용해서 다시 요청에 들어가고, 아니면 새로운 버퍼를 게임 쓰레드로 넘기자. 브로드캐스팅할 때에도 버퍼 복사 없이 하나를 사용할 것! 출력의 경우라면 N-Send 를 쓸 수 밖에 없겠다.
-- 동기화의 최소화 : 쓰레드간 통신은 [lock free queue](http://www.codeproject.com/KB/cpp/lockfreeq.aspx) 를 사용해야 한다. 
-- 쓰레드의 최소화 : 서버간 통신, UDP, 추가적인 listen 소켓이 생겨도 쓰레드를 더 만들지 않을 수 있게, IOCP 를 최대한 활용해야 한다.
-- 멀티 코어 대응 : 단지 쓰레드를 많이 만들어서 적당히 잘 돌아가려니..하기 보다는 멀티 코어를 효율적으로 활용하는 방법을 고민해보자.
-- 서비스 기반 아키텍처 : ACE의 그것처럼 서비스를 하나의 프로세스에서 돌리다가 필요하면 다른 서버로 옮기더라도 무리없는 구조가 되어야 한다.
-</code></pre>
-<p>광고성 글이지만 일전에 <a href="http://code.google.com/p/c10k">c10k 라고 서버 코어를 괴롭히는 스트레스 테스트 클라이언트 프레임워크</a>를 구글 코드에 만들어뒀는데 boost asio 테스트만 하다가 중단된 상태다. 대충 아래 그림과 같은 건데...</p>
-<pre><code></code></pre>
-
-<p><img alt="http://farm2.static.flickr.com/1106/1248922047_20af4a2d8c_o.jpg" src="http://farm2.static.flickr.com/1106/1248922047_20af4a2d8c_o.jpg" /></p>
-<p>이런 걸 <a href="http://code.google.com/appengine/">구글 app engine</a> 으로 만들고 웹으로 요청하면 쓰레드 1만개 정도 만들어서 서버에 패킷을 보내면 괜찮을 거 같은데... 과연 구글에서 허용할까? (아마 SDK 레벨에서 쓰레드 생성이 막혀 있을 것 같다.) 만약 가능하다고 하면 대충 웹페이지에다가 서버 IP/Port 를 입력하고 테스트 시작을 누르면, 각 테스트 케이스들을 실행하고 성공/실패 여부를 화면에 출력해주는 느낌일 것 같다. (emule 에서 웹 기반으로 TCP 포트 체크하는 거랑 비슷한 거다) 헉. 역시나 찾아보니 안된단다.</p>
-<pre><code>An App Engine application cannot:
-&lt;ul class=&quot;doublespace&quot;&gt;
-    - write to the filesystem. Applications must use [the App Engine datastore](http://code.google.com/appengine/docs/datastore/) for storing persistent data. Reading from the filesystem is allowed, and all application files uploaded with the application are available. (Files uploaded as &quot;static&quot; files are not kept on the filesystem.)
-    - open a socket or access another host directly. An application can use [the App Engine URL fetch service](http://code.google.com/appengine/docs/urlfetch/) to make HTTP and HTTPS requests to other hosts on ports 80 and 443, respectively.
-    - spawn a sub-process or thread. A web request to an application must be handled in a single process within a few seconds. Processes that take a very long time to respond are terminated to avoid overloading the web server.
-
-    - make other kinds of system calls, such as [signals](http://www.python.org/doc/2.5/lib/module-signal.html).
-</code></pre>
-
-<p>그나저나 Windows Server 2008 에는 CreateThreadpoolIo() 라든지 GetCurrentProcessorNumber() 같은 해괴한 API 들이 많이 추가된 모양이다. 어디 새로 추가된 API 목록  정리된 페이지 같은 게 없을까?</p>
-<p><img alt="구글 막대 그래프 예제" src="http://www.ibm.com/developerworks/kr/library/wa-googlecode1/chart.jpg" /></p>
-<p>다음 잡상은 <a href="http://www.ibm.com/developerworks/kr/library/wa-googlecode1/">구글 가젯, 구글 스프레드시트 API, 구글 차트 API로 야구 핵을 만들어보자</a> 라는 글을 보고 떠올린 생각.</p>
-<p>서버 개발을 하다 보면 효율적인 리포팅에 대해서 한두번쯤 고민해본다. 수없이 쌓이는 개발자 로그라든지, 동시 접속자나 아이템 판매량 등등의 통계 그래프라든지, GM들에게 노출할 다양한 사용자 액션 추적 기능 같은 것들이 있을텐데, 이런 걸 구글 apps 기반에 통합해버리면 어떨까 하는 생각이다.</p>
-<p>요즘의 추세는 온라인으로 이 모든 정보를 확인할 수 있는 웹 기반 솔루션을 만드는 것일텐데, 그렇다면 가젯으로 만들어서 구글 시작 페이지에 넣고 권한 관리를 해버리면 되지 않을까? 자자. 이건 상상이니까 안되는 이유에 대해서는 고민하지 말자.</p>
-<p>전사적으로 수많은 서버들의 상황을 한번에 모니터링하기에는 꽤 괜찮은 솔루션일 듯하다.  (물론 MS의 리포팅 서비스가 더 멋지긴 하겠다만..)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/ASIO/"><span class="label"><span class="icon icon-tag"></span> ASIO</span></a>
-	
-		<a href="/tag/google/"><span class="label"><span class="icon icon-tag"></span> google</span></a>
-	
-		<a href="/tag/spreadsheet/"><span class="label"><span class="icon icon-tag"></span> spreadsheet</span></a>
-	
-		<a href="/tag/chart/"><span class="label"><span class="icon icon-tag"></span> chart</span></a>
-	
-		<a href="/tag/gardget/"><span class="label"><span class="icon icon-tag"></span> gardget</span></a>
-	
-		<a href="/tag/boost/"><span class="label"><span class="icon icon-tag"></span> boost</span></a>
 	
 	</p>
 </div>
@@ -287,6 +254,10 @@
 	</li>
 	
 	<li>
+		<a href="/2008/12/08/smart-people/">Smart People</a>
+	</li>
+	
+	<li>
 		<a href="/2008/11/16/prepare-the-battle/">Prepare the battle</a>
 	</li>
 	
@@ -300,10 +271,6 @@
 	
 	<li>
 		<a href="/2008/11/13/kgc2008/">KGC2008</a>
-	</li>
-	
-	<li>
-		<a href="/2008/11/02/weekends-idle-thoughts/">Weekends Idle Thoughts</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

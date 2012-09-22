@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,18 +66,19 @@
 	<div class="page-header">
 		<h1><a href="/2007/05/07/_has_iterator_debugging/">_HAS_ITERATOR_DEBUGGING</a> <small>2007-05-07</small></h1>
 	</div>
-	<div><p>디버그 버전에서 STL (특히 collection iterating) 로 인해서 무지막지하게 느려지는 경우가 종종 있다. 이때<br />
-<code>***#define _HAS_ITERATOR_DEBUGGING 0***</code><br />
-만으로 두 배 가량의 속도 향상을 얻을 수 있다. <a href="http://reiot.springnote.com/pages/87168">STL팁 페이지</a>에 정리된 예제를 통해서 얻은 결과를 살펴보면,</p>
-<pre><code>- **end() 를 for 안에 포함할 경우 : 234ms**
-- end() 를 for 바깥쪽에 둘 경우 : 172ms
-- **accumulate : 31ms**
-</code></pre>
+	<div><p>디버그 버전에서 STL (특히 collection iterating) 로 인해서 무지막지하게 느려지는 경우가 종종 있다. 이때</p>
+<p><code>#define _HAS_ITERATOR_DEBUGGING 0</code>만으로 두 배 가량의 속도 향상을 얻을 수 있다. <a href="http://reiot.springnote.com/pages/87168">STL팁 페이지</a>에 정리된 예제를 통해서 얻은 결과를 살펴보면,</p>
+<ul>
+<li><strong>end() 를 for 안에 포함할 경우 : 234ms</strong></li>
+<li>end() 를 for 바깥쪽에 둘 경우 : 172ms</li>
+<li><strong>accumulate : 31ms</strong></li>
+</ul>
 <p>반면 _HAS_ITERATOR_DEBUGGING을 끌 경우,</p>
-<pre><code>- end() 를 for 안에 포함할 경우 : 125ms
-- ***end() 를 for 바깥쪽에 둘 경우 : 94ms***
-- **accumulate : 31ms**
-</code></pre>
+<ul>
+<li>end() 를 for 안에 포함할 경우 : 125ms</li>
+<li><strong><em>end() 를 for 바깥쪽에 둘 경우 : 94ms</em></strong></li>
+<li><strong>accumulate : 31ms</strong></li>
+</ul>
 <p>이 결과로만 본다면 디버그 버전에서, 거대한 컨테이너에 한해,  200% 정도의 속도 향상을 얻은 셈이다. 그러나 가장 빠른 것은 STL 알고리즘을 사용하는 것이라는 것도 잊지 말기 바란다.</p></div>
 	<br />
 	<p>

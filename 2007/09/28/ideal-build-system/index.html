@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -64,13 +67,14 @@
 		<h1><a href="/2007/09/28/ideal-build-system/">Ideal Build System</a> <small>2007-09-28</small></h1>
 	</div>
 	<div><p><a href="http://alt-tag.com/blog/archives/2006/11/integrating-mantis-and-subversion/">integrating-mantis-and-subversion</a>을  보고, 이상적인 통합 개발 지원 시스템에 대해서 생각해봤다. 일단 맨티스에서 버그는 물론 new feature (or issue, whatever)를 관리한다고 가정하면,</p>
-<pre><code>- SVN에서 커밋할때 특정한 패턴의 로그를 남기면, SVN의 post-commit 훅과 맨티스의 commit 스크립트를 이용해서, 특정 버그 리포트의 상태를 변경하거나 코멘트를 달 수 있다. (다만 SVN과 맨티스가 동일한 머신이어야만 하며, 다른 머신일 경우 좀더 많은 설정을 해줘야 한다)
-- 빌드 머신에서 [자동으로 빌드 넘버를 증가](http://support.microsoft.com/kb/q237870/)시키고, 동시에 맨티스에다가도 동일한 빌드 넘버(버전)를 등록한다.
-- 당연히 MSBuild를 이용해서 원클릭 만으로 빌드가 가능해야 한다.
-- 나아가서 post-commit를 이용해서 커밋하면 처음부터 체크아웃받아서 빌드하고 패치까지 하는 스크립트도 제작한다. (또는 [SVN Notifier](http://reiot.cafe24.com/2007/09/15/svn-notifier/)와 같이 주기적으로 체크하다가 틈틈히 빌드해도 무방하다)
-- 맨티스의 ChangeLog 를 패치 노트 파일로 추출해서 보여준다. 맨티스로의 하이퍼링크까지 제공하면 금상첨화!
-- 이 모든 과정을 웹에서 제어할 수 있으면 좋겠다. 빌드 결과(Build.htm)도 웹으로 업로드해서 볼 수 있으면 더욱 좋다. (특히나 빌드 시간 변화량 같은 것을 그래프로 보여주면 좋을 것 같다)
-</code></pre>
+<ul>
+<li>SVN에서 커밋할때 특정한 패턴의 로그를 남기면, SVN의 post-commit 훅과 맨티스의 commit 스크립트를 이용해서, 특정 버그 리포트의 상태를 변경하거나 코멘트를 달 수 있다. (다만 SVN과 맨티스가 동일한 머신이어야만 하며, 다른 머신일 경우 좀더 많은 설정을 해줘야 한다)</li>
+<li>빌드 머신에서 <a href="http://support.microsoft.com/kb/q237870/">자동으로 빌드 넘버를 증가</a>시키고, 동시에 맨티스에다가도 동일한 빌드 넘버(버전)를 등록한다.</li>
+<li>당연히 MSBuild를 이용해서 원클릭 만으로 빌드가 가능해야 한다.</li>
+<li>나아가서 post-commit를 이용해서 커밋하면 처음부터 체크아웃받아서 빌드하고 패치까지 하는 스크립트도 제작한다. (또는 <a href="http://reiot.cafe24.com/2007/09/15/svn-notifier/">SVN Notifier</a>와 같이 주기적으로 체크하다가 틈틈히 빌드해도 무방하다)</li>
+<li>맨티스의 ChangeLog 를 패치 노트 파일로 추출해서 보여준다. 맨티스로의 하이퍼링크까지 제공하면 금상첨화!</li>
+<li>이 모든 과정을 웹에서 제어할 수 있으면 좋겠다. 빌드 결과(Build.htm)도 웹으로 업로드해서 볼 수 있으면 더욱 좋다. (특히나 빌드 시간 변화량 같은 것을 그래프로 보여주면 좋을 것 같다)</li>
+</ul>
 <p>자. 만들어주세요. -_-;;</p></div>
 	<br />
 	<p>

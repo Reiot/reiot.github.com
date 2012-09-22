@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,9 +66,8 @@
 	<div class="page-header">
 		<h1><a href="/2008/08/13/default-key-binding-dict/">DefaultKeyBinding.dict</a> <small>2008-08-13</small></h1>
 	</div>
-	<div><p>OSX 에서 윈도우와 같은 키조합을 사용하려면 <strong>~/Library/KeyBindings/DefaultKeyBinding.dict </strong>파일을 아래와 같이 만든 후, 키바인딩을 적용하려는 어플리케이션을 재시작하면 된다.</p>
-<pre><code>
-{
+	<div><p>OSX 에서 윈도우와 같은 키조합을 사용하려면 <code>~/Library/KeyBindings/DefaultKeyBinding.dict</code>파일을 아래와 같이 만든 후, 키바인딩을 적용하려는 어플리케이션을 재시작하면 된다.</p>
+<pre><code>{
     &quot;$\Uf700&quot; = &quot;moveUpAndModifySelection:&quot;;
     &quot;$\Uf701&quot; = &quot;moveDownAndModifySelection:&quot;;
     &quot;$\Uf702&quot; = &quot;moveLeftAndModifySelection:&quot;;
@@ -94,13 +96,13 @@
     &quot;\Uf72c&quot; = &quot;pageUp:&quot;;
     &quot;\Uf72d&quot; = &quot;pageDown:&quot;;
 }
-
 </code></pre>
 
 <p>Ctrl+D 같은 손에 익은 키조합들을 적용하려면 아래의 문서들을 참고하기 바란다.</p>
-<pre><code>- [Cocoa Text System](http://www.hcs.harvard.edu/~jrus/Site/System%20Bindings.html)
-- [Customizing Cocoa Text System](http://www.hcs.harvard.edu/~jrus/site/cocoa-text.html)
-</code></pre></div>
+<ul>
+<li><a href="http://www.hcs.harvard.edu/~jrus/Site/System%20Bindings.html">Cocoa Text System</a></li>
+<li><a href="http://www.hcs.harvard.edu/~jrus/site/cocoa-text.html">Customizing Cocoa Text System</a></li>
+</ul></div>
 	<br />
 	<p>
 	

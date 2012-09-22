@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -115,24 +118,25 @@
 	</div>
 	<div><p><strong>무엇을 PCH에 포함시킬 것인가?</strong></p>
 <p>Noel Llopis의 <a href="http://www.gamesfromwithin.com/articles/0504/000086.html">The Care and Feeding of Pre-Compiled Headers</a>에 의하면, 다음과 같은 파일들만이 stdafx.h 에 들어갈 수 있다고 한다.</p>
-<pre><code>- 크기가 큰 시스템 헤더 파일 : windows.h, stdio.h, time.h, ...
-- 가장 많이 포함된 헤더 파일 : string, list, vector, map 같은 STL 헤더와 boost 헤더들
-- **자체 헤더 파일 : 그 어떤 자체 헤더 파일도 stdafx.h 에 들어가서는 안된다.**
-</code></pre>
+<ul>
+<li>크기가 큰 시스템 헤더 파일 : windows.h, stdio.h, time.h, ...</li>
+<li>가장 많이 포함된 헤더 파일 : string, list, vector, map 같은 STL 헤더와 boost 헤더들</li>
+<li><strong>자체 헤더 파일 : 그 어떤 자체 헤더 파일도 stdafx.h 에 들어가서는 안된다.</strong></li>
+</ul>
 <p>문제는 이런 헤더를 찾아내는 게 참 애매하다는 점인데, <a href="http://www.gamesfromwithin.com/bin/list_precomp.py">이 스크립트</a>를 사용하면 stdafx.h 에 들어가기에 적합한 헤더들을 찾아준다. 빌드 시간이 오래 걸려서 고생하시는 분들에게 추천한다. 단 주의할 점은</p>
-<pre><code>-
-</code></pre>
 <p><strong>수동으로 PCH 추가하기</strong></p>
-<pre><code>- PCH 로 사용할 MyStdAfx.h 와 MyStdAfx.cpp 파일을 프로젝트에 추가한다.
-- 우선 프로젝트 설정(C/C++ - 미리 컴파일된 헤더)에서 *PCH 사용하기*를 선택하고 MyStdAfx.cpp 의 속성 메뉴에서 '''PCH 만들기'''로 지정한다.
-- 모든 .cpp 파일의 맨 위에 #include "MyStdAfx.h" 를 추가한다.
-</code></pre>
+<ul>
+<li>PCH 로 사용할 MyStdAfx.h 와 MyStdAfx.cpp 파일을 프로젝트에 추가한다.</li>
+<li>우선 프로젝트 설정(C/C++ - 미리 컴파일된 헤더)에서 <em>PCH 사용하기</em>를 선택하고 MyStdAfx.cpp 의 속성 메뉴에서 '''PCH 만들기'''로 지정한다.</li>
+<li>모든 .cpp 파일의 맨 위에 #include "MyStdAfx.h" 를 추가한다.</li>
+</ul>
 <p><strong>외부 파일 따로 지정</strong></p>
 <p>PCH를 사용하지 않는 외부 라이브러리의 .cpp를 현재 프로젝트에 추가해서 빌드해야 할 때가 있다. 이 경우 해당 파일의 속성 메뉴에서 "PCH 사용하기 - 사용하지 않음"을 선택하면 된다.</p>
 <p>see also:</p>
-<pre><code>- [SeriousCode.Net:PCH](http://serious-code.net/moin.cgi?VisualCppBuildTimeSpeedup)
-- [GPGStudy:PCH](http://www.gpgstudy.com/forum/viewtopic.php?topic=5914)
-</code></pre></div>
+<ul>
+<li><a href="http://serious-code.net/moin.cgi?VisualCppBuildTimeSpeedup">SeriousCode.Net:PCH</a></li>
+<li><a href="http://www.gpgstudy.com/forum/viewtopic.php?topic=5914">GPGStudy:PCH</a></li>
+</ul></div>
 	<br />
 	<p>
 	

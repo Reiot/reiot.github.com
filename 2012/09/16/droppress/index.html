@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,17 +66,22 @@
 	<div class="page-header">
 		<h1><a href="/2012/09/16/droppress/">DropPress</a> <small>2012-09-16</small></h1>
 	</div>
-	<div><p>이번 블로그 리뉴얼을 위해서 직접 정적 사이트를 생성해주는 <a href="http://github.com/Reiot/droppress">DropPress</a>를 만들었다.</p>
-<p>왜 이름이 DropPress이냐 하면, 처음엔 드랍박스에 저장된 마크다운 텍스트를 <a href="http://ace.org">ACE 에디터</a>로 편집하고 github로 배포해주는 웹서비스를 구상했기 때문이다. 드랍박스에 글을 저장해두면, 버전관리를 안해도 되고, 드랍박스와 연동되는 수많은 마크다운 에디터가 널려 있으니, 나는 변환과 배포를 구현하기만 하면 된다고 생각했다. 그런데, 비슷한 웹 에디터나 호스팅 서비스도 이미 존재했고, 또 ACE 에디터가 손대기 애매해서 포기하고, 스크립트만 만들기로 마음을 바꿨다.</p>
+	<div><p><a href="http://github.com/Reiot/droppress">DropPress</a>는 이번에 다 죽어있던 블로그를 개편하면서 만든 정적 사이트 생성 스크립트다.</p>
+<p>왜 이름이 DropPress 이냐면, 이 프로젝트의 시작은 드랍박스를 연동하는 웹서비스였기 때문이다. 드랍박스에 마크다운 포맷의 글을 저장해두면, 버전관리를 안해도 되고, 드랍박스와 연동되는 훌륭한 편집기가 널려 있으니, 나는 마크다운 변환과 github 배포를 구현하기만 하면 된다고 생각했다. 그런데, 비슷한 웹 에디터나 호스팅 서비스도 이미 존재하길래, 목표를 간단한 스크립트로 바꿨다. :)</p>
+<p><a href="https://github.com/Reiot/droppress">소스코드</a>는 github에 공개되어 있다.</p>
 <h2>기능 소개</h2>
+<p>웬만한 블로그에 있는 기본적인 기능(이라고 하면 부끄럽지만)은 대충 다 구현했다.</p>
 <ul>
-<li>페이지 네비게이션, 아카이브, 카테고리, 태그, RSS, 최근 글목록 등 블로그의 기본 기능</li>
-<li>disqus &amp; google analytics 연동</li>
+<li>페이지 네비게이션, 아카이브, 카테고리, 태그, RSS, 최근 글목록</li>
+<li>disqus 기반의 코멘트</li>
+<li>google analytics 연동</li>
 <li>글 제목 검색</li>
 <li>쉘 명령 지원: Octopress처럼 init, generate, clean, deploy, new_post 같은 쉘 명령을 지원한다. new_post 의 경우 새 파일을 만든 후 서브라임 텍스트2에 띄워준다. 원래는 Makefile을 쓰려다가 파일 갯수를 줄인다는(?) 취지에서 그냥 파이썬으로 모두 구현해 버렸다.</li>
+<li>wordpress 변환기</li>
 </ul>
 <h2>구현</h2>
-<p>파이썬 스크립트 하나와 몇 개의 HTML 템플릿을 다음과 같은 라이브러리들을 짜집기해서 만들었다. 즉, 트위터 부트스트랩 덕분에 그나마 봐줄만한게 나온 셈이다.</p>
+<p>파이썬 스크립트 자체는 몇 줄 안되는데도 봐줄만하게 나온 이유는 트위터 부트스트랩 덕분이다. 이런 라이브러리가 <a href="http://www.quora.com/Twitter-Bootstrap/Do-Mark-Otto-and-Jacob-Thornton-work-on-Bootstrap-full-time-at-Twitter">전업이 아니라 주말 작업만으로 나왔다</a>니, 진짜 대단한 친구들이다.</p>
+<p><a href="http://octopress.org">octopress</a>에서 영감을 많이 받아서 글 헤더의 포맷이나 형태, 구조, 쉘 명령 등을 많이 참조했다. 얘들이 업데이트만 자주 했더라도 내가 안만들었을텐데..</p>
 <table>
 <thead>
 <tr>

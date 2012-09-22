@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -65,9 +68,11 @@
 	</div>
 	<div><p>MS-SQL SERVER + Transact SQL Tip</p>
 <h2>IP 문자열에서 a.b.c 추출하기</h2>
-<p>declare @ip varchar(20)<br />
-SET @ip = '111.22.33.22'<br />
-SELECT LEFT(@ip,len(@ip)-patindex('%.%',reverse(@ip)))</p>
+<pre><code>declare @ip varchar(20)
+SET @ip = '111.22.33.22'
+SELECT LEFT(@ip,len(@ip)-patindex('%.%',reverse(@ip)))
+</code></pre>
+
 <h2>리포팅 서비스</h2>
 <p><a href="http://network.hanbitbook.co.kr/view.php?bi_id=1048">IIS + ASP + VisualStudio.NET 을 이용한 리포트 서비스 제작</a></p>
 <h2>FTP 파일 업로드</h2>
@@ -78,173 +83,161 @@ SELECT LEFT(@ip,len(@ip)-patindex('%.%',reverse(@ip)))</p>
 <p>유지 관리 계획 등 주기적인 작업을 실행하려면 기본적으로 꺼져있는 SqlServerAgent 를 켜야 한다.</p>
 <h2>테이블 스키마 복사</h2>
 <p>스크립트로 추출해서 다른 DB 에 설치할 경우 디폴트값이 지정되지 않는 경우가 있다. 이때 DEFAULT 등 제약조건 스크립팅에 꼭 체크를 해야 한다. 아니면 그냥 데이터 내보내기를 사용하길.</p>
-<h2>노트북에 SQL Server 설치하기</h2>
-<p>SQL Server 상위 버전들은 기본적으로 서버급 OS 에서만 설치된다. 그러나 노트북은 대체로 XP Professional or Home Edition 을 사용하는 법. 이를 지원하는 SQL Server 버전들을 살펴보자.<br />
-<table><br />
-<thead><br />
-<th></th><br />
-<th>XP Home</th><br />
-<th>XP Pro</th><br />
-<th>comment</th></p>
-<tr>
-<td>MSDE</td>
-<td>O</td>
-<td>O</td>
-<td> </td>
-</tr>
-
-<tr>
-<td>Evaluation Edition</td>
-<td>O</td>
-<td>O</td>
-<td>120 일 평가판</td>
-</tr>
-
-<tr>
-<td>Persional Edition</td>
-<td>X</td>
-<td>O</td>
-<td> </td>
-</tr>
-
-<tr>
-<td>Developer Edition</td>
-<td>X</td>
-<td>O</td>
-<td> </td>
-</tr>
-
-<p></thead></table><br />
-결국 XP Home Edition 을 사용하는 경우에는 평가판 또는 MSDE 를 사용해야 한다. 이참에 MSDE 의 새 버전인 SQL Server Express 2005 를 사용해보는 것도... <img alt="(" src="http://boxcatstudio.files.wordpress.com/2009/07/icon_sad.gif" /></p>
-<p>see also: * [http://www.microsoft.com/sql/evaluation/overview/default.asp SQL Server Overview] - 여기에 버전별 비교표가 들어있다 * [http://go.microsoft.com/?linkid=2534867 120일 평가판 다운로드]</p>
 <h2>NULL 비교</h2>
 <p>NULL 에 대한 비교는 is 로 하라!</p>
-<p>declare @a int<br />
-SET @a = NULL</p>
-<p>IF @a = NULL<br />
-print '@a=NULL'<br />
-IF @a IS NULL<br />
-print '@a is NULL'</p>
-<p>declare @b int<br />
-SET @b = 1</p>
-<p>IF @b &lt;&gt; NULL<br />
-print '@b &lt;&gt; NULL'<br />
-IF @b IS NOT NULL<br />
-print '@b is not NULL'</p>
-<p>-- 실행 결과<br />
-@a IS NULL<br />
-@b IS NOT NULL</p>
+<pre><code>declare @a int
+SET @a = NULL
+
+IF @a = NULL
+print '@a=NULL'
+IF @a IS NULL
+print '@a is NULL'
+
+declare @b int
+SET @b = 1
+
+IF @b &lt;&gt; NULL
+print '@b &lt;&gt; NULL'
+IF @b IS NOT NULL
+print '@b is not NULL'
+
+-- 실행 결과
+@a IS NULL
+@b IS NOT NULL
+</code></pre>
+
 <h2>constraint 관리</h2>
 <p>디폴트 constraint 를 삭제하고 다시 추가하는 법...</p>
-<p>-- 삭제<br />
-ALTER TABLE [dbo].[테이블] DROP<br />
-CONSTRAINT [DF_테이블_컬럼]</p>
-<p>-- 추가<br />
-ALTER TABLE [dbo].[테이블] WITH NOCHECK ADD<br />
-CONSTRAINT [DF_테이블_컬럼] DEFAULT (디폴트값) FOR [관련컬럼]</p>
+<pre><code>-- 삭제
+ALTER TABLE [dbo].[테이블] DROP
+CONSTRAINT [DF_테이블_컬럼]
+
+-- 추가
+ALTER TABLE [dbo].[테이블] WITH NOCHECK ADD
+CONSTRAINT [DF_테이블_컬럼] DEFAULT (디폴트값) FOR [관련컬럼]
+</code></pre>
+
 <h2>CASE WHEN...</h2>
 <p>다음은 승률을 나타내는 컬럼을 계산해오는 방식이다.</p>
-<p>SELECT<br />
-....<br />
-CASE<br />
-WHEN (WinCount + LoseCount + DrawCount) = 0 THEN 0.00<br />
-ELSE round((WinCount * 1.0) / (WinCount + LoseCount + DrawCount) , 2)<br />
-END AS WinRate,<br />
-....</p>
+<pre><code>SELECT
+....
+CASE
+WHEN (WinCount + LoseCount + DrawCount) = 0 THEN 0.00
+ELSE round((WinCount * 1.0) / (WinCount + LoseCount + DrawCount) , 2)
+END AS WinRate,
+....
+</code></pre>
+
 <h2>SELECT...INTO...</h2>
 <p>INSERT INTO...SELECT...가 존재하는 테이블에 데이터를 넣을 때 사용한다면, SELECT...INTO...는 새로운 테이블을 만들어 넣을 때 사용한다. 특히 통계 테이블에 데이터를 넣을 때, TRUNCATE TABLE xxx; INSERT INTO...SELECT를 하게 되면, 문제가 생길 수 있으므로 아예 DROP 한 다음 SELECT...INTO... 를 사용하도록 한다. (우리 DBA의 말씀~)</p>
 <p>SELECT.. INTO는 MS-SQL의 기능! . 일반적인 ANSI-SQL에서는 CREATE TABLE ... SELECT 를 사용함.</p>
 <h2>대용량 데이터 빨리 넣기</h2>
-<pre><code>- 관련 데이터베이스의 로그 타입 변경 : EM에서 데이터베이스 등록정보를 선택, 복구 모델을 단순 또는 대량 로그로 임시 변경해준다.
-- ALTER TABLE ... 로 관련 테이블의 PK 제거하기. 그러나, FK 관계에 있을 경우에도 제거를 해야 하므로 EM 또는 VS 의 DB 다이어그램에서 삭제하는게 제일 간편하다. 단. 복구는 수동 -_-;
-- DROP INDEX ...로 관련 테이블의 인덱스 제거하기. 그러나, 다시 복구해야 하므로... 수작업 필수
-- BULK INSERT : DB 스트레스 테스트를 위해 백만건 이상의 데이터를 넣어야 할 때 사용하면 간편하다. 단 샘플 데이터 파일을 제공해줘야 한다.
-- INSERT INTO xxx () SELECT ...로 자기 자신 혹은 관련 테이블을 활용할 것. while + insert 1 보다 훨씬 빠르다. 테스트해본 결과 한줄씩 insert 할 경우 10만건에 40초, 그러나 위의 방법을 쓰면 2초로 해결 가능. 단, 용량이 너무 커질 경우 실행이 안되므로, 범위를 나눠야 할 듯. 300만건에서는 대충 됨.
-- PK/FK/Index/Trigger 복구하기. 800만건이 들어있는 테이블의 PK 를 복구하는데 Xeon Dual 0.8G 에서 무려 '''5분'''이나 걸렸다.
+<ul>
+<li>관련 데이터베이스의 로그 타입 변경 : EM에서 데이터베이스 등록정보를 선택, 복구 모델을 단순 또는 대량 로그로 임시 변경해준다.</li>
+<li>ALTER TABLE ... 로 관련 테이블의 PK 제거하기. 그러나, FK 관계에 있을 경우에도 제거를 해야 하므로 EM 또는 VS 의 DB 다이어그램에서 삭제하는게 제일 간편하다. 단. 복구는 수동 -_-;</li>
+<li>DROP INDEX ...로 관련 테이블의 인덱스 제거하기. 그러나, 다시 복구해야 하므로... 수작업 필수</li>
+<li>BULK INSERT : DB 스트레스 테스트를 위해 백만건 이상의 데이터를 넣어야 할 때 사용하면 간편하다. 단 샘플 데이터 파일을 제공해줘야 한다.</li>
+<li>INSERT INTO xxx () SELECT ...로 자기 자신 혹은 관련 테이블을 활용할 것. while + insert 1 보다 훨씬 빠르다. 테스트해본 결과 한줄씩 insert 할 경우 10만건에 40초, 그러나 위의 방법을 쓰면 2초로 해결 가능. 단, 용량이 너무 커질 경우 실행이 안되므로, 범위를 나눠야 할 듯. 300만건에서는 대충 됨.</li>
+<li>PK/FK/Index/Trigger 복구하기. 800만건이 들어있는 테이블의 PK 를 복구하는데 Xeon Dual 0.8G 에서 무려 '''5분'''이나 걸렸다.</li>
+</ul>
+<pre><code>ALTER TABLE xxx ADD CONSTRAINT PK_xxx_yyy PRIMARY KEY(yyy)
+ALTER TABLE xxx ADD CONSTRAINT FK_xxx_yyy FORENGN KEY REFERENCES zzz(yyy) ON DELETE CASCADE
+CREATE [UNIQUE] INDEX IX_xxx_yyy ON xxx(yyy)
 </code></pre>
-<p>ALTER TABLE xxx ADD CONSTRAINT PK_xxx_yyy PRIMARY KEY(yyy)<br />
-ALTER TABLE xxx ADD CONSTRAINT FK_xxx_yyy FORENGN KEY REFERENCES zzz(yyy) ON DELETE CASCADE<br />
-CREATE [UNIQUE] INDEX IX_xxx_yyy ON xxx(yyy)</p>
+
 <h2>데드락 해결하기</h2>
-<p>sp_who2<br />
-sp_lock pid<br />
-KILL pid</p>
-<h2>like 와 인덱스</h2>
-<pre><code>- col like 'userid%'
-- col like '%userid%'
-- col like '%userid'
+<pre><code>sp_who2
+sp_lock pid
+KILL pid
 </code></pre>
+
+<h2>like 와 인덱스</h2>
+<ul>
+<li>col like 'userid%'</li>
+<li>col like '%userid%'</li>
+<li>col like '%userid'</li>
+</ul>
 <p>오직 1번만이 인덱스를 타게 된다. Index는 Binary Tree로 구성되어 있기 때문에 처음부터 찾아서 들어가는 것임. 당연히 첫자를 알 수 없다면 index를 경유하지 못함!!!</p>
 <h2>Update Trigger</h2>
 <p>특정 컬럼이 변경된 경우 로그 테이블에 row 를 추가해야할 경우 Update Trigger 를 사용하면 간편하다. 가령, 플레이어 레벨이 바뀌었을 때 레벨 테이블에 insert 를 해야 한다고 가정하면 트리거는 대략 다음과 같다.</p>
-<p>CREATE TRIGGER trigger_name ON src_tbl FOR UPDATE<br />
-AS<br />
-IF UPDATE(level)<br />
-begin<br />
-declare @old_level smallint, @new_level smallint<br />
-SELECT @new_level = [Level] FROM inserted<br />
-SELECT @old_level = [Level] FROM deleted<br />
-IF @old_level &lt;&gt; @new_level<br />
-begin<br />
-INSERT INTO log_tbl (....) VALUES (...,@old_level,@new_level,...)<br />
-end<br />
-RETURN<br />
-end</p>
+<pre><code>CREATE TRIGGER trigger_name ON src_tbl FOR UPDATE
+AS
+IF UPDATE(level)
+begin
+declare @old_level smallint, @new_level smallint
+SELECT @new_level = [Level] FROM inserted
+SELECT @old_level = [Level] FROM deleted
+IF @old_level &lt;&gt; @new_level
+begin
+INSERT INTO log_tbl (....) VALUES (...,@old_level,@new_level,...)
+end
+RETURN
+end
+</code></pre>
+
 <h2>@@IDENTITY vs. SCOPE_IDENTITY()</h2>
 <p>전자의 경우, 현재 세션에서의 최종적인 IDENTITY 컬럼의 값을 리턴해준다. 단, 트리거에 의해서 다른 테이블에서 IDENTITY 가 바뀐 경우 그 값을 리턴해준다. 따라서, 최종적으로 직접 만진 테이블의 IDENTITY 값을 알아오려면 SCOPE_IDENTITY() 를 사용하는 것이 안전하다.</p>
 <h2>UPDLOCK</h2>
-<p>쿼리 분석기에서 좌측 쿼리를 먼저 실행한 후 우측 쿼리를 실행할 때, 첫번째 예제의 경우 그냥 실행이 되지만 두번째 예제는 block 된다. 오라클에는 select for update 라는 게 있다나...<br />
-<table><br />
-<tr><br />
-<td>nonblocked query</td><br />
-</tr><br />
-<tr><br />
-<td>begin trans</td><br />
-<td rowspan="2">select * from users</td><br />
-</tr><br />
-<tr><br />
-<td>select * from users with (updlock)</td><br />
-</tr><br />
-<tr><br />
-<td>blocked query</td><br />
-</tr><br />
-<tr><br />
-<td>begin trans</td><br />
-<td rowspan="2">select * from users with (updlock)</td><br />
-</tr><br />
-<tr><br />
-<td>select * from users with (updlock)</td><br />
-</tr><br />
-</table><br />
-DB레벨에서 중복로그인을 처리할 경우, DB 컬럼에 LogOn flag 를 둬야 한다. LOGOFF - LOGON - GAME 이런 식의 상태 변화가 있다고 가정하면, 로그인시 LOGOFF -&gt; LOGON 으로 바꿔주고 로그아웃시 LOGON -&gt; LOGOFF 로 설정하게 될 것이다. 문제는 이걸 언제 어떻게 체크해서 바꾸느냐인데...</p>
-<p>-- simplified login procedure<br />
-declare @logon<br />
-SELECT @logon=LogOn FROM users WHERE ...<br />
-IF ( @logon &lt;&gt; LOGOFF )<br />
-begin<br />
-handle_error...<br />
-end<br />
-UPDATE users SET @logon = LOGON WHERE ...</p>
+<p>쿼리 분석기에서 좌측 쿼리를 먼저 실행한 후 우측 쿼리를 실행할 때, 첫번째 예제의 경우 그냥 실행이 되지만 두번째 예제는 block 된다. 오라클에는 select for update 라는 게 있다나...</p>
+<table>
+<tr>
+<td>nonblocked query</td>
+</tr>
+<tr>
+<td>begin trans</td>
+<td rowspan="2">select * from users</td>
+</tr>
+<tr>
+<td>select * from users with (updlock)</td>
+</tr>
+<tr>
+<td>blocked query</td>
+</tr>
+<tr>
+<td>begin trans</td>
+<td rowspan="2">select * from users with (updlock)</td>
+</tr>
+<tr>
+<td>select * from users with (updlock)</td>
+</tr>
+</table>
+
+<p>DB레벨에서 중복로그인을 처리할 경우, DB 컬럼에 LogOn flag 를 둬야 한다. LOGOFF - LOGON - GAME 이런 식의 상태 변화가 있다고 가정하면, 로그인시 LOGOFF -&gt; LOGON 으로 바꿔주고 로그아웃시 LOGON -&gt; LOGOFF 로 설정하게 될 것이다. 문제는 이걸 언제 어떻게 체크해서 바꾸느냐인데...</p>
+<pre><code>-- simplified login procedure
+declare @logon
+SELECT @logon=LogOn FROM users WHERE ...
+IF ( @logon &lt;&gt; LOGOFF )
+begin
+handle_error...
+end
+UPDATE users SET @logon = LOGON WHERE ...
+</code></pre>
+
 <p>이런 식으로 처리할 경우, abuser 에 의해서 동일 유저에 대한 로그온 프로시저가 DB에서 동시에 일어난다고 가정하면 중복로그인이 충분히 발생할 수 있게 된다. (아주 낮은 확률이지만...) 이를 손쉽게 막으려면 select with updlock를 사용하면 된다. (단, 이때 (Page,IU), (KEY,U), (Table,IX) 의 3가지의 락이 걸린다)</p>
 <p>웬지 불필요한 lock 을 피하기 위해서는, update 의 where 절에서 다시 한번 LogOn 필드를 체크(즉 select 해온 뒤 누가 바꿨는지 다시 확인) 해주면 될 거 같다.</p>
-<p>-- simplified login procedure<br />
-declare @logon<br />
-SELECT @logon=LogOn FROM users WHERE ...<br />
-IF ( @logon &lt;&gt; LOGOFF )<br />
-begin<br />
-handle_error...<br />
-end<br />
-UPDATE users SET @logon = LOGON WHERE ... AND logon = LOGOFF<br />
-IF ( @@rowcount &lt;&gt; 1 )<br />
-begin<br />
-handle_error...<br />
-end</p>
-<p>테스트 해 본 결과 양 쪽에서 select 한 후 한쪽에서 update 를 하면, 다른 쪽의 update 는 트랜잭션에 의해 block 되며 상대 트랜잭션이 끝나면 실패를 리턴하게 된다. (만약 where 절의 체크가 없다면 둘 다 로그인 성공으로 간주되므로 주의할 것)<br />
-<code>이게 consistent non-blocking read을 지원하기 때문인데, 간혹 조금 이해하기 힘든 현상이 일어날 때도 있지. 하지만 Query 하나 들어갈때마다 table에 lock을 걸어버리는 방법은 너무 위험부담이 크기 때문에. consistent read에 대한 설명이 필요하다면 다음 기회에..</code></p>
-<h2>sp_lock, sp_who2</h2>
-<pre><code>- sp_lock : 현재 시스템에 존재하는 lock 을 보여준다.
-- sp_who2 : 현재 시스템에서 실행되는 프로세스, 소유주, 접속지, 실행내용 등을 보여준다.
+<pre><code>-- simplified login procedure
+declare @logon
+SELECT @logon=LogOn FROM users WHERE ...
+IF ( @logon &lt;&gt; LOGOFF )
+begin
+handle_error...
+end
+UPDATE users SET @logon = LOGON WHERE ... AND logon = LOGOFF
+IF ( @@rowcount &lt;&gt; 1 )
+begin
+handle_error...
+end
 </code></pre>
+
+<p>테스트 해 본 결과 양 쪽에서 select 한 후 한쪽에서 update 를 하면, 다른 쪽의 update 는 트랜잭션에 의해 block 되며 상대 트랜잭션이 끝나면 실패를 리턴하게 된다. (만약 where 절의 체크가 없다면 둘 다 로그인 성공으로 간주되므로 주의할 것)</p>
+<blockquote>
+<p>이게 consistent non-blocking read을 지원하기 때문인데, 간혹 조금 이해하기 힘든 현상이 일어날 때도 있지. 하지만 Query 하나 들어갈때마다 table에 lock을 걸어버리는 방법은 너무 위험부담이 크기 때문에. consistent read에 대한 설명이 필요하다면 다음 기회에..</p>
+</blockquote>
+<h2>sp_lock, sp_who2</h2>
+<ul>
+<li>sp_lock : 현재 시스템에 존재하는 lock 을 보여준다.</li>
+<li>sp_who2 : 현재 시스템에서 실행되는 프로세스, 소유주, 접속지, 실행내용 등을 보여준다.</li>
+</ul>
 <p>이 내용은 Enterprise Manager 의 관리에서 찾아볼 수 있다.</p>
 <h2>GOTO</h2>
 <p>어릴 적(?)부터 항상 GOTO 는 쓰지 말라는 이야기를 들어 왔지만, 프로시저에서 또 쓰게 될 줄은... 그러나, 트랜잭션이 존재할 경우 GOTO 를 쓰지 않으면 자꾸 if-else-if-else 로 indent 해들어가는 바람에 읽기가 힘들어져서...</p>

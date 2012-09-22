@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -66,6 +69,39 @@
 			
 				<div>
 	<div class="page-header">
+		<h1><a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a> <small>2011-06-18</small></h1>
+	</div>
+	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" src="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" /></p>
+<p>와이프가 아이패드에서 클리앙을 보시는게 너무 불편해 보여서, jQuery Mobile 공부 삼아 간단히 웹앱을 만들어봤습니다. 소스 코드는 GitHub 에 공개해두었습니다.</p>
+<ul>
+<li>주소: <a href="http://clienpad.appspot.com">http://clienpad.appspot.com </a></li>
+<li>소스코드: <a href="http://github.com/Reiot/clienpad">https://github.com/Reiot/clienpad</a></li>
+</ul>
+<p>Google App Engine 으로 프록시 서버를 만들었고, jQuery Mobile을 이용해서 모바일 브라우저에서 JSON 으로 받아서 보여주는 방식입니다. 가능하면 프록시 서버 없이 하고 싶었는데 iOS 에서 돌아가도록 할려다 보니 방법이 없더군요.</p>
+<p>구현에 관련해서 간단히 정리해보자면,</p>
+<ul>
+<li>template 의 최신 기능 때문에 django 1.2 를 이용했는데, 코드 레벨에서는 거의 webapp 만 사용했습니다;;;</li>
+<li>memcache 에 각 URL 을 파싱한 dict를 저장하는데, 60초 정도만 살아남도록 했습니다. 그래서 그런지 처음 접속하는 사람은 제법 느린 편입니다. 반응 속도가 4-5초 정도가 나오는 바람에 와이프가 많이 실망하네요. ㅠㅠ 다시 생각해보니 그냥 JSON 이나 렌더링된 문자열 자체를 저장하는게 나을 수 있겠네요.</li>
+<li><a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a> 으로 HTML DOM 파싱을 했습니다. 클리앙의 HTML 구조가 old-school 같아서 (ㅎㅎ) 시간이 좀 걸렸습니다;;;</li>
+</ul>
+<p>조만간 jQuery Mobile 팁에 관한 글을 좀 써보겠습니다.</p></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/jquerymobile/"><span class="label"><span class="icon icon-tag"></span> jquerymobile</span></a>
+	
+		<a href="/tag/clien/"><span class="label"><span class="icon icon-tag"></span> clien</span></a>
+	
+		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
 		<h1><a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a> <small>2011-04-14</small></h1>
 	</div>
 	<div><p>구글 앱엔진은 데이터스토어의 내용을 로컬 파일로 내려받거나 올리는 벌크로딩을 지원한다. 그런데 막상 기획 데이터와 실시간 연동하려면, 스프레드시트를 편집한 후 CSV로 '하나씩' 다운받아서 다시 콘솔창에서 appcfg.py 로 '한 종류씩' 올려야 하는, 상당히 피곤한 과정을 거쳐야 한다.</p>
@@ -73,7 +109,7 @@
 <p><a href="http://code.google.com/p/bulkloader-gdata-connector/">http://code.google.com/p/bulkloader-gdata-connector/</a></p>
 <p>기본적인 사항들은 <a href="http://code.google.com/p/bulkloader-gdata-connector/wiki/GettingStarted">가이드 문서</a>를 읽어보면 되고, 아래 다음 사항들을 참고하면 된다.</p>
 <ul>
-<li>django 1.2 를 사용할 경우, 코드 맨 위에     use_library('django', '1.2')를 추가할 것. 그렇지 않으면 무서운 0.96.4 is already in use 에러를 맛보리라.</li>
+<li>django 1.2 를 사용할 경우, 코드 맨 위에  use_library('django', '1.2')를 추가할 것. 그렇지 않으면 무서운 0.96.4 is already in use 에러를 맛보리라.</li>
 <li>구글앱스 도메인을 사용할 경우 GenerateAuthSubURL(..., domain='yourapps.com') 을 추가할 것.</li>
 <li>컬럼 이름에는 공백, underscore(_), 대문자를 사용하면 안된다.</li>
 <li>내보내기는 제법 오랜 시간이 걸리지만, 불러오는 건 꽤 빠르다. 즉 최초에 한번 내보내고 그 다음부터는 금방 금방 불러올 수 있다는 뜻이다. :)</li>
@@ -340,100 +376,6 @@ on_production_server = have_appserver and \
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2011/01/04/git-tips/">Git Tips</a> <small>2011-01-04</small></h1>
-	</div>
-	<div><h3>git ignore</h3>
-<p><a href="http://github.com/guides/ignore-for-git">http://github.com/guides/ignore-for-git</a></p>
-<p>pull 할 때 다음 에러가 뜰 경우</p>
-<pre><code>You asked me to pull without telling me which branch you
-want to merge with, and ‘branch.master.merge’ in
-your configuration file does not tell me either. Please
-specify which branch you want to merge on the command line and
-try again (e.g. ‘git pull ‘).
-See git-pull(1) for details.
-
-If you often merge with the same branch, you may want to
-configure the following variables in your configuration
-file:
-
-branch.master.remote =
-branch.master.merge =
-remote..url =
-remote..fetch =
-
-See git-config(1) for details.
-</code></pre>
-
-<p>git config -l 로 살펴보면 이미 remote 들은 등록이 되어 있다. 여기서 할 일은 branch master 를 설정하는 거다.</p>
-<pre><code>git config branch.master.remote origin
-git config branch.master.merge refs/heads/master
-</code></pre>
-
-<p>이걸 해주면 된다. via <a href="http://stackoverflow.com/questions/2335343/how-to-tell-git-to-always-pull-the-master-branch">http://stackoverflow.com/questions/2335343/how-to-tell-git-to-always-pull-the-master-branch</a></p>
-<h3>작업한 모든 파일을 버리고 이전 버전으로 되돌리고 싶을 때</h3>
-<blockquote>
-<p>git reset --hard HEAD</p>
-</blockquote>
-<p>변경된 모든 파일을 HEAD 버전으로 복구한다. </p>
-<blockquote>
-<p>git clean -f</p>
-</blockquote>
-<p>새로 만들어졌지만 아직 stage 상태가 아닌 파일들을 삭제한다.</p>
-<h3>이미 커밋한 내용을 수정하고 싶은 경우</h3>
-<blockquote>
-<p>git commit --amend</p>
-</blockquote>
-<p>이전 커밋 로그를 변경하거나, 이번에 바꾼 파일을 이전 커밋으로 합쳐버릴 때 사용한다. </p>
-<blockquote>
-<p>git revert HEAD</p>
-</blockquote>
-<p>가장 마지막 커밋(HEAD)을 취소하고 되돌린다. HEAD^2, HEAD~3 </p>
-<blockquote>
-<p>git revert HEAD^</p>
-</blockquote>
-<p>마지막 커밋의 바로 이전 커밋(즉 HEAD+1)으로 되돌린다.</p>
-<blockquote>
-<p>git revert -m 1 {commit}</p>
-</blockquote>
-<h3>파일이나 폴더를 버전관리하고 싶지 않을 때</h3>
-<p>.gitignore 에 파일 이름을 등록한다. </p>
-<pre><code>#exclude folder
-TEMP/*
-#include file in exclude folder
-!TEMP/include_me
-</code></pre>
-
-<p>이미 추가된 파일이나 폴더를 빼고 싶은 경우</p>
-<blockquote>
-<p>git rm --cached {FILE}<br />
-git rm --cached -r {DIR}</p>
-</blockquote>
-<p>특정 폴더를 실제로 지우진 않고, 버전관리에서만 삭제한다. 이때 .gitignore 에 추가해둬야만 다른 사람이 하위 파일을 수정한 경우에 또다시 추가되는 걸 막을 수 있다.</p>
-<h3>파일이 너무 많아서 무엇을 커밋할 지 알기 힘들 때</h3>
-<blockquote>
-<p>git add -i</p>
-</blockquote>
-<p>인터랙티브 모드를 이용해서 변경된 파일을 stage 상태로 만든다.</p>
-<h3>최근 N 개의 커밋을 하나로 만들려면</h3>
-<p>git rebase -i HEAD~N</p>
-<p>으로 하면 커밋 편집기가 뜬다. 이때 삭제하고픈 커밋 앞에 pick 대신 squash (또는 s)를 써 넣으면, 최종적으로 커밋 로그 입력모드로 들어간다. 단,</p>
-<ul>
-<li>rebase 를 취소하고 싶으면 q! 대신 모든 라인을 지워야 된다. </li>
-<li>이미 외부 서버로 push 되었을 경우엔 rebase 하면 인생이 꼬인다.</li>
-</ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/tip & tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> tip & tricks</span></a>
-	
-	
-		<a href="/tag/git/"><span class="label"><span class="icon icon-tag"></span> git</span></a>
-	
-	</p>
-</div>
-			
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -498,6 +440,10 @@ git rm --cached -r {DIR}</p>
 	</li>
 	
 	<li>
+		<a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a>
+	</li>
+	
+	<li>
 		<a href="/2011/04/14/bulkloader-gdata-connector/">Bulkloader GData Connector</a>
 	</li>
 	
@@ -511,10 +457,6 @@ git rm --cached -r {DIR}</p>
 	
 	<li>
 		<a href="/2011/01/12/haveappserver-vs-onproductionserver/">have_app_server vs. on_production_server</a>
-	</li>
-	
-	<li>
-		<a href="/2011/01/04/git-tips/">Git Tips</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

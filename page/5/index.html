@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,6 +66,100 @@
 
 	<div class="row">
 		<div class="span9">
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2011/01/04/git-tips/">Git Tips</a> <small>2011-01-04</small></h1>
+	</div>
+	<div><h3>git ignore</h3>
+<p><a href="http://github.com/guides/ignore-for-git">http://github.com/guides/ignore-for-git</a></p>
+<p>pull 할 때 다음 에러가 뜰 경우</p>
+<pre><code>You asked me to pull without telling me which branch you
+want to merge with, and ‘branch.master.merge’ in
+your configuration file does not tell me either. Please
+specify which branch you want to merge on the command line and
+try again (e.g. ‘git pull ‘).
+See git-pull(1) for details.
+
+If you often merge with the same branch, you may want to
+configure the following variables in your configuration
+file:
+
+branch.master.remote =
+branch.master.merge =
+remote..url =
+remote..fetch =
+
+See git-config(1) for details.
+</code></pre>
+
+<p>git config -l 로 살펴보면 이미 remote 들은 등록이 되어 있다. 여기서 할 일은 branch master 를 설정하는 거다.</p>
+<pre><code>git config branch.master.remote origin
+git config branch.master.merge refs/heads/master
+</code></pre>
+
+<p>이걸 해주면 된다. via <a href="http://stackoverflow.com/questions/2335343/how-to-tell-git-to-always-pull-the-master-branch">http://stackoverflow.com/questions/2335343/how-to-tell-git-to-always-pull-the-master-branch</a></p>
+<h3>작업한 모든 파일을 버리고 이전 버전으로 되돌리고 싶을 때</h3>
+<blockquote>
+<p>git reset --hard HEAD</p>
+</blockquote>
+<p>변경된 모든 파일을 HEAD 버전으로 복구한다. </p>
+<blockquote>
+<p>git clean -f</p>
+</blockquote>
+<p>새로 만들어졌지만 아직 stage 상태가 아닌 파일들을 삭제한다.</p>
+<h3>이미 커밋한 내용을 수정하고 싶은 경우</h3>
+<blockquote>
+<p>git commit --amend</p>
+</blockquote>
+<p>이전 커밋 로그를 변경하거나, 이번에 바꾼 파일을 이전 커밋으로 합쳐버릴 때 사용한다. </p>
+<blockquote>
+<p>git revert HEAD</p>
+</blockquote>
+<p>가장 마지막 커밋(HEAD)을 취소하고 되돌린다. HEAD^2, HEAD~3 </p>
+<blockquote>
+<p>git revert HEAD^</p>
+</blockquote>
+<p>마지막 커밋의 바로 이전 커밋(즉 HEAD+1)으로 되돌린다.</p>
+<blockquote>
+<p>git revert -m 1 {commit}</p>
+</blockquote>
+<h3>파일이나 폴더를 버전관리하고 싶지 않을 때</h3>
+<p>.gitignore 에 파일 이름을 등록한다. </p>
+<pre><code>#exclude folder
+TEMP/*
+#include file in exclude folder
+!TEMP/include_me
+</code></pre>
+
+<p>이미 추가된 파일이나 폴더를 빼고 싶은 경우</p>
+<blockquote>
+<p>git rm --cached {FILE}<br />
+git rm --cached -r {DIR}</p>
+</blockquote>
+<p>특정 폴더를 실제로 지우진 않고, 버전관리에서만 삭제한다. 이때 .gitignore 에 추가해둬야만 다른 사람이 하위 파일을 수정한 경우에 또다시 추가되는 걸 막을 수 있다.</p>
+<h3>파일이 너무 많아서 무엇을 커밋할 지 알기 힘들 때</h3>
+<blockquote>
+<p>git add -i</p>
+</blockquote>
+<p>인터랙티브 모드를 이용해서 변경된 파일을 stage 상태로 만든다.</p>
+<h3>최근 N 개의 커밋을 하나로 만들려면</h3>
+<p>git rebase -i HEAD~N</p>
+<p>으로 하면 커밋 편집기가 뜬다. 이때 삭제하고픈 커밋 앞에 pick 대신 squash (또는 s)를 써 넣으면, 최종적으로 커밋 로그 입력모드로 들어간다. 단,</p>
+<ul>
+<li>rebase 를 취소하고 싶으면 q! 대신 모든 라인을 지워야 된다. </li>
+<li>이미 외부 서버로 push 되었을 경우엔 rebase 하면 인생이 꼬인다.</li>
+</ul></div>
+	<br />
+	<p>
+	
+		<a href="/category/tip & tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> tip & tricks</span></a>
+	
+	
+		<a href="/tag/git/"><span class="label"><span class="icon icon-tag"></span> git</span></a>
+	
+	</p>
+</div>
 			
 				<div>
 	<div class="page-header">
@@ -280,69 +377,6 @@ $(function() {
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2010/11/09/setup-npm-socketio/">Setup npm & socket.io</a> <small>2010-11-09</small></h1>
-	</div>
-	<div><p>EDIT: npm 은 이제 기본적으로 설치가 되므로 설치 방법은 생략한다.</p>
-<pre><code>npm install express 
-npm install socket.io
-</code></pre>
-
-<p>참고로, 모든 npm 소스는 ~/.node_libraries/.npm 아래에 저장되어 있다.</p>
-<p>가장 간단한 express 서버는 다음과 같다. curl 로 로컬 서버에 접속해볼 수 있지만, 먼저 테스트를 위해서 아마존 EC2 콘솔에 접속해서 방화벽의 8080 포트를 열어둬야 한다.</p>
-<pre><code>var app = require('express').createServer();
-app.get('/', function(req, res){
-  res.send('hello world');
-});
-app.listen(8080);
-</code></pre>
-
-<p>가장 간단한 socket.io 서버와 클라이언트는 github 에 존재한다. (이상하게도 제대로된 매뉴얼을 찾기가 힘드니, 그냥 <a href="https://github.com/LearnBoost/Socket.IO-node/blob/0.6.1/example/server.js">샘플 코드</a>를 보기를 권한다) </p>
-<pre><code>git clone git://github.com/LearnBoost/Socket.IO-node.git socket.io
-cd socket.io/example/
-sudo node server.js
-</code></pre>
-
-<p>서버와 클라이언트간의 통신은 순전히 JSON 으로 구현된다. 보내는 쪽에서</p>
-<pre><code>socket.send({ id:chat, type:whisper, target:reiot, message:Hello World! })
-</code></pre>
-
-<p>라고 보내고, 받는 쪽에서는</p>
-<pre><code>socket.on('message',function(data){
-  if('id' in data){
-  if(data.id=='chat'){
-  show_message(data.message);
-  }
-  }
-});
-</code></pre>
-
-<p>이런 식의 전통적인 소켓 프로그래밍이 이루어진다. 브로드캐스팅은 그냥 소켓에 대고</p>
-<pre><code>socket.broadcast({something:special})
-</code></pre>
-
-<p>이라고 하면 끝. </p>
-<p>첫 소감은 </p>
-<ul>
-<li>아 쉽다. 처음 소켓 프로그래밍을 배울 때의 느낌이야. 왜 지금까지 이런게 안되었을까..</li>
-<li>소스가 노출될테니 게임 서버에서 해야 하는 모든 것 - 스니핑, 스피드핵, 프로토콜 해킹, 암호화, 한방핵 - 등을 다 구현해야겠지. 클라이언트에게 많은 권한을 줘서는 안될 것 같아..</li>
-<li>이걸로 HTML5 캔버스에서 멀티플레이 가능한 로그라이크를 만들 수 있을까? ㅎㅎ</li>
-</ul>
-<p>정도 되겠다. 한마디로 꽤 재미있는 장난감이 될 것 같다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/node.js/"><span class="label"><span class="icon icon-tag"></span> node.js</span></a>
-	
-		<a href="/tag/socket.io/"><span class="label"><span class="icon icon-tag"></span> socket.io</span></a>
-	
-	</p>
-</div>
-			
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -407,6 +441,10 @@ sudo node server.js
 	</li>
 	
 	<li>
+		<a href="/2011/01/04/git-tips/">Git Tips</a>
+	</li>
+	
+	<li>
 		<a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a>
 	</li>
 	
@@ -420,10 +458,6 @@ sudo node server.js
 	
 	<li>
 		<a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a>
-	</li>
-	
-	<li>
-		<a href="/2010/11/09/setup-npm-socketio/">Setup npm & socket.io</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

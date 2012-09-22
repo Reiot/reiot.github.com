@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,31 +66,31 @@
 	<div class="page-header">
 		<h1><a href="/2008/11/02/weekends-idle-thoughts/">Weekends Idle Thoughts</a> <small>2008-11-02</small></h1>
 	</div>
-	<div><div id="photoImgDiv2108199423" class="photoImgDiv" style="width:502px;">![회원님이 촬영한 AQUA, Anantara, Maldives.](http://farm3.static.flickr.com/2212/2108199423_a3fac43d56.jpg?v=0)</div>
-
+	<div><p><img alt="AQUA, Anantara, Maldives." src="http://farm3.static.flickr.com/2212/2108199423_a3fac43d56.jpg?v=0" /></p>
 <p>오랜만에 사건 사고 없는 한가한 주말이다.</p>
 <p>먼저 boost asio 를 이용해서 이상적인 아름다운 윈도우 서버 코어를 만든다면? 이라는 상상의 나래를 펴봤다. 누가 봐도 멋진 서버 코어가 되려면 어떤 특성을 가져야 할까?</p>
-<pre><code>- 손쉬운 확장성 : 한대의 머신에서 하나의 프로세스로 1천명에서 최대 1만 명을 처리할 수 있도록 확장하는데 무리가 없어야 한다. 즉, IOCP 핸들와 Non I/O Worker 쓰레드를 M:N 으로 조합할 수 있는 구조가 되어야 한다.
-- 이벤트 기반 : 사용자가 늘어나면 폴링은 최대한 피해야 한다. 즉 주기적으로 체크해야 하는 Idle Check 같은 코드들은 타이머 쓰레드에서 Post 시켜야 한다.
-- 메모리 풀 기반의 버퍼 관리 : 입출력 버퍼를 세션이나 소켓과 1:1 정적으로 매핑시키기 보다는, 메모리풀에서 필요할 때마다 주고 받는 구조를 쓰자. Gathering &amp; Scattering 을 위해서는 필수적이다.
-- 버퍼 복사의 최소화 : 어차피 1-recv 는 대세다. 즉, WSABUF를 개별 세션에 연관짓기보다는 메모리 풀에서 관리하고, I/O 쓰레드에서 입력이 완료되었을 때 메시지가 온전치 않으면 버퍼를 재사용해서 다시 요청에 들어가고, 아니면 새로운 버퍼를 게임 쓰레드로 넘기자. 브로드캐스팅할 때에도 버퍼 복사 없이 하나를 사용할 것! 출력의 경우라면 N-Send 를 쓸 수 밖에 없겠다.
-- 동기화의 최소화 : 쓰레드간 통신은 [lock free queue](http://www.codeproject.com/KB/cpp/lockfreeq.aspx) 를 사용해야 한다. 
-- 쓰레드의 최소화 : 서버간 통신, UDP, 추가적인 listen 소켓이 생겨도 쓰레드를 더 만들지 않을 수 있게, IOCP 를 최대한 활용해야 한다.
-- 멀티 코어 대응 : 단지 쓰레드를 많이 만들어서 적당히 잘 돌아가려니..하기 보다는 멀티 코어를 효율적으로 활용하는 방법을 고민해보자.
-- 서비스 기반 아키텍처 : ACE의 그것처럼 서비스를 하나의 프로세스에서 돌리다가 필요하면 다른 서버로 옮기더라도 무리없는 구조가 되어야 한다.
-</code></pre>
+<ul>
+<li>손쉬운 확장성 : 한대의 머신에서 하나의 프로세스로 1천명에서 최대 1만 명을 처리할 수 있도록 확장하는데 무리가 없어야 한다. 즉, IOCP 핸들와 Non I/O Worker 쓰레드를 M:N 으로 조합할 수 있는 구조가 되어야 한다.</li>
+<li>이벤트 기반 : 사용자가 늘어나면 폴링은 최대한 피해야 한다. 즉 주기적으로 체크해야 하는 Idle Check 같은 코드들은 타이머 쓰레드에서 Post 시켜야 한다.</li>
+<li>메모리 풀 기반의 버퍼 관리 : 입출력 버퍼를 세션이나 소켓과 1:1 정적으로 매핑시키기 보다는, 메모리풀에서 필요할 때마다 주고 받는 구조를 쓰자. Gathering &amp; Scattering 을 위해서는 필수적이다.</li>
+<li>버퍼 복사의 최소화 : 어차피 1-recv 는 대세다. 즉, WSABUF를 개별 세션에 연관짓기보다는 메모리 풀에서 관리하고, I/O 쓰레드에서 입력이 완료되었을 때 메시지가 온전치 않으면 버퍼를 재사용해서 다시 요청에 들어가고, 아니면 새로운 버퍼를 게임 쓰레드로 넘기자. 브로드캐스팅할 때에도 버퍼 복사 없이 하나를 사용할 것! 출력의 경우라면 N-Send 를 쓸 수 밖에 없겠다.</li>
+<li>동기화의 최소화 : 쓰레드간 통신은 <a href="http://www.codeproject.com/KB/cpp/lockfreeq.aspx">lock free queue</a> 를 사용해야 한다. </li>
+<li>쓰레드의 최소화 : 서버간 통신, UDP, 추가적인 listen 소켓이 생겨도 쓰레드를 더 만들지 않을 수 있게, IOCP 를 최대한 활용해야 한다.</li>
+<li>멀티 코어 대응 : 단지 쓰레드를 많이 만들어서 적당히 잘 돌아가려니..하기 보다는 멀티 코어를 효율적으로 활용하는 방법을 고민해보자.</li>
+<li>서비스 기반 아키텍처 : ACE의 그것처럼 서비스를 하나의 프로세스에서 돌리다가 필요하면 다른 서버로 옮기더라도 무리없는 구조가 되어야 한다.</li>
+</ul>
 <p>광고성 글이지만 일전에 <a href="http://code.google.com/p/c10k">c10k 라고 서버 코어를 괴롭히는 스트레스 테스트 클라이언트 프레임워크</a>를 구글 코드에 만들어뒀는데 boost asio 테스트만 하다가 중단된 상태다. 대충 아래 그림과 같은 건데...</p>
 <pre><code></code></pre>
 
 <p><img alt="http://farm2.static.flickr.com/1106/1248922047_20af4a2d8c_o.jpg" src="http://farm2.static.flickr.com/1106/1248922047_20af4a2d8c_o.jpg" /></p>
 <p>이런 걸 <a href="http://code.google.com/appengine/">구글 app engine</a> 으로 만들고 웹으로 요청하면 쓰레드 1만개 정도 만들어서 서버에 패킷을 보내면 괜찮을 거 같은데... 과연 구글에서 허용할까? (아마 SDK 레벨에서 쓰레드 생성이 막혀 있을 것 같다.) 만약 가능하다고 하면 대충 웹페이지에다가 서버 IP/Port 를 입력하고 테스트 시작을 누르면, 각 테스트 케이스들을 실행하고 성공/실패 여부를 화면에 출력해주는 느낌일 것 같다. (emule 에서 웹 기반으로 TCP 포트 체크하는 거랑 비슷한 거다) 헉. 역시나 찾아보니 안된단다.</p>
 <pre><code>An App Engine application cannot:
-&lt;ul class=&quot;doublespace&quot;&gt;
-    - write to the filesystem. Applications must use [the App Engine datastore](http://code.google.com/appengine/docs/datastore/) for storing persistent data. Reading from the filesystem is allowed, and all application files uploaded with the application are available. (Files uploaded as &quot;static&quot; files are not kept on the filesystem.)
-    - open a socket or access another host directly. An application can use [the App Engine URL fetch service](http://code.google.com/appengine/docs/urlfetch/) to make HTTP and HTTPS requests to other hosts on ports 80 and 443, respectively.
-    - spawn a sub-process or thread. A web request to an application must be handled in a single process within a few seconds. Processes that take a very long time to respond are terminated to avoid overloading the web server.
 
-    - make other kinds of system calls, such as [signals](http://www.python.org/doc/2.5/lib/module-signal.html).
+ - write to the filesystem. Applications must use [the App Engine datastore](http://code.google.com/appengine/docs/datastore/) for storing persistent data. Reading from the filesystem is allowed, and all application files uploaded with the application are available. (Files uploaded as &quot;static&quot; files are not kept on the filesystem.)
+ - open a socket or access another host directly. An application can use [the App Engine URL fetch service](http://code.google.com/appengine/docs/urlfetch/) to make HTTP and HTTPS requests to other hosts on ports 80 and 443, respectively.
+ - spawn a sub-process or thread. A web request to an application must be handled in a single process within a few seconds. Processes that take a very long time to respond are terminated to avoid overloading the web server.
+
+ - make other kinds of system calls, such as [signals](http://www.python.org/doc/2.5/lib/module-signal.html).
 </code></pre>
 
 <p>그나저나 Windows Server 2008 에는 CreateThreadpoolIo() 라든지 GetCurrentProcessorNumber() 같은 해괴한 API 들이 많이 추가된 모양이다. 어디 새로 추가된 API 목록  정리된 페이지 같은 게 없을까?</p>

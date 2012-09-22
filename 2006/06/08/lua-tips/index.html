@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,24 +66,27 @@
 	<div class="page-header">
 		<h1><a href="/2006/06/08/lua-tips/">Lua Tips</a> <small>2006-06-08</small></h1>
 	</div>
-	<div><p><strong><em>이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87244">http://reiot.springnote.com/pages/87244</a> 에서 읽으실 수 있습니다.</em></strong></p>
-<p>LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.</p>
+	<div><p>LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.</p>
 <h2>LuaPack</h2>
 <p>바이너리 데이터를 pack/unpack 하는 라이브러리. 일단 require 해주면 string.pack, string.unpack 의 2개 함수가 추가된다. 레이옷은 '''순수 루아 테스트 클라이언트'''를 만들기 위해서 LuaSocket 과 함께 사용했다. 단, 리눅스에서 사용하던 놈이라, 윈도우 환경에서 dll 로 사용하기 위해서는 약간의 수고가 필요하다.</p>
-<pre><code>- 기존 루아 프로젝트를 dll 기반으로 수정해줘야 한다. 또한, 같이 배포되는 pack.lua 은 동작하지 않으며, LuaSocket 의 compat-5.1.lua 에서 제공하는 LUA_CPATH 및 새 require() 를 이용해야 한다.
-- lpack.c 의 luaopen_pack() 앞에 __declspec(dllexport) 달아줄 것
-- dll 이름과 luaopen_xxx() 을 동일하게 해줄 것. pack.dll &amp; luaopen_pack() 또는 lpack.dll &amp; luaopen_lpack()을 권장함
-- 다음과 같은 배치 파일 및 테스트용 루아를 실행, 2개 함수가 function:xxxxx 이라고 나오면 성공~
+<ul>
+<li>기존 루아 프로젝트를 dll 기반으로 수정해줘야 한다. 또한, 같이 배포되는 pack.lua 은 동작하지 않으며, LuaSocket 의 compat-5.1.lua 에서 제공하는 LUA_CPATH 및 새 require() 를 이용해야 한다.</li>
+<li>lpack.c 의 luaopen_pack() 앞에 __declspec(dllexport) 달아줄 것</li>
+<li>dll 이름과 luaopen_xxx() 을 동일하게 해줄 것. pack.dll &amp; luaopen_pack() 또는 lpack.dll &amp; luaopen_lpack()을 권장함</li>
+<li>다음과 같은 배치 파일 및 테스트용 루아를 실행, 2개 함수가 function:xxxxx 이라고 나오면 성공~</li>
+</ul>
+<pre><code># test_luapack.bat
+set LUA_CPATH=?.dll
+lua test_luapack.lua
+pause
+
+-- test_luapack.lua
+dofile('compat-5.1.lua')
+require(&quot;lpack&quot;)
+print(string.pack)
+print(string.unpack)
 </code></pre>
-<h1>test_luapack.bat</h1>
-<p>set LUA_CPATH=?.dll<br />
-lua test_luapack.lua<br />
-pause</p>
-<p>-- test_luapack.lua<br />
-dofile('compat-5.1.lua')<br />
-require("lpack")<br />
-print(string.pack)<br />
-print(string.unpack)</p>
+
 <p>변환표<br />
 <table><br />
 <thead><br />
@@ -177,8 +183,9 @@ print(string.unpack)</p>
 
 <p></thead></table><br />
 see also:</p>
-<pre><code>- [Official LuaPack Homepage](http://www.tecgraf.puc-rio.br/%7Elhf/ftp/lua/)
-</code></pre>
+<ul>
+<li><a href="http://www.tecgraf.puc-rio.br/%7Elhf/ftp/lua/">Official LuaPack Homepage</a></li>
+</ul>
 <h2>ipairs()</h2>
 <p>lua table 을 array 로 쓰는 경우, 정수 인덱스 기반의 iterating 을 할 때 사용한다. 정수 인덱스에 관련된 값이 nil 일 때까지 루프를 돌게 된다. 반면에 lua table 을 map 으로 사용할 경우, 즉 key 와 value 를 명시해서 사용할 경우에는 pairs() 를 사용해야 한다.</p>
 <blockquote>
@@ -300,16 +307,17 @@ print(l.value)<br />
 l = l.next<br />
 end</p>
 <p>see also:</p>
-<pre><code>- [http://www.lua.org 루아 공식 홈페이지]
-- [http://www.redwiki.net/wiki/wiki.php/Lua 레드픽셀님의 루아 페이지]
-- [http://lua-users.org/wiki/] - 루아 위키
-- [http://www.workspacewhiz.com/LuaPlus/index.html LuaPlus] - 가장 OO 스러운 루아 확장 라이브러리
-- [http://sourceforge.net/projects/lua-users/ lua-users.org at SF] - 윈도우용 루아 바이너리 및 매뉴얼 등등을 배포하는 곳.
-- [http://www.sjbrown.co.uk/lualite.html LuaLite] - Lua Syntax Highlight plugin for VS.NET. 단, 이것을 띄워 놓은 상태에서 검색을 하면 먹통이 되므로 조심할 것
-- [http://luaforge.net/ LuaForge]
-- [http://www.icynorth.com/forums/index.php LuaForum]
-- http://www.thomasandamy.com/projects/CPB/
-</code></pre></div>
+<ul>
+<li>[http://www.lua.org 루아 공식 홈페이지]</li>
+<li>[http://www.redwiki.net/wiki/wiki.php/Lua 레드픽셀님의 루아 페이지]</li>
+<li>[http://lua-users.org/wiki/] - 루아 위키</li>
+<li>[http://www.workspacewhiz.com/LuaPlus/index.html LuaPlus] - 가장 OO 스러운 루아 확장 라이브러리</li>
+<li>[http://sourceforge.net/projects/lua-users/ lua-users.org at SF] - 윈도우용 루아 바이너리 및 매뉴얼 등등을 배포하는 곳.</li>
+<li>[http://www.sjbrown.co.uk/lualite.html LuaLite] - Lua Syntax Highlight plugin for VS.NET. 단, 이것을 띄워 놓은 상태에서 검색을 하면 먹통이 되므로 조심할 것</li>
+<li>[http://luaforge.net/ LuaForge]</li>
+<li>[http://www.icynorth.com/forums/index.php LuaForum]</li>
+<li>http://www.thomasandamy.com/projects/CPB/</li>
+</ul></div>
 	<br />
 	<p>
 	

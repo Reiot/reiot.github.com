@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -70,61 +73,36 @@
 <h2>Unconnected Ping</h2>
 <p>동일한 NAT아래에 있는 peer와 통신할 때에는 public보다는 private를 사용하는 것이 좋다. 이런 주소 선택 과정은 RakPeer::Connect()를 호출하기 전에 이루어져야 하는데, RakPeer::Ping(host,port,acceptOnly)을 이용해서 양쪽 주소 모두에게 Ping을 쏴서 확인할 수 있다. 기본적으로 ID_PING 을 보내고 ID_PONG을 받는데, 마지막 파라미터를 true로 할 경우 ID_PING_OPEN_CONNECTIONS을 보내며 상대방은 이미 연결되어 있을 경우에만 ID_PONG 으로 응답한다. FullyConnectedMesh처럼 플러그인 인터페이스를 이용해서 깔끔하게 구현할 수 있을 것 같은데, 플러그인에게 직접 뭔가를 보낼 수 있는지는 미확인.</p>
 <p>주의사항 : Unconnected Ping을 보낸 직후 Connect()를 하게 되면 3-way handshake 흐름이 꼬일 수 있다. 원인은 연결되기 전후의 프로토콜이 다르긴 하나 확률적으로 같게 될 수 있어서, 연결하는 동안 핑/퐁을 하다 보면 가끔 패킷을 잘못 처리하기 때문이다. 라크넷의 메인 개발자 Rak’kar는 가능하면 핑을 보낸 후 일정 시간 동안 기다린 다음 연결하는 것을 권장한다고 한다. 레이옷은 이 버그로 인해서 1개월 가량을 고생했다. -_-;;</p>
-<h2>ReliabilityLayer</h2>
-<p>패킷 전송 보장, 순서 보장을 구현하는 레이어</p>
-<dl><dt>Unreliable</dt><dd>Unreliable packets are sent by straight UDP. They may arrive out of order, or not at all. This is best for data that is unimportant, or data that you send very frequently so even if some packets are missed newer packets will compensate.</dd></dl>
-
-<pre><code>- Advantages - These packets don’t need to be acknowledged by the network, saving the size of a UDP header in acknowlegement (about 50 bytes or so). The savings can really add up.
-- Disadvantages - No packet ordering, packets may never arrive, these packets are the first to get dropped if the send buffer is full.
-</code></pre>
-<dl><dt>Unreliable sequenced</dt><dd>Unreliable sequenced packets are the same as unreliable packets, except that only the newest packet is ever accepted. Older packets are ignored.</dd></dl>
-
-<pre><code>- Advantages - Same low overhead as unreliable packets, and you don’t have to worry about older packets changing your data to old values.
-- Disadvantages - A LOT of packets will be dropped since they may never arrive because of UDP and may be dropped even when they do arrive. These packets are the first to get dropped if the send buffer is full. The last packet sent may never arrive, which can be a problem if you stop sending packets at some particular point.
-</code></pre>
-<p>Note that the transmission of one of the three reliable packets types is required for the detection of lost connections. If you never send reliable packets you need to implement lost connection detection manually.</p>
-<dl><dt>Reliable</dt><dd>Reliable packets are UDP packets monitored by a reliablilty layer to ensure they arrive at the destination.</dd></dl>
-
-<pre><code>- Advantages - You know the packet will get there. Eventually…
-- Disadvantages - Retransmissions and acknowlegements can add significant bandwidth requirements. Packets may arrive very late if the network is busy. No packet ordering.
-</code></pre>
-<dl><dt>Reliable ordered</dt><dd>Reliable ordered packets are UDP packets monitored by a reliability layer to ensure they arrive at the destination and are ordered at the destination.</dd></dl>
-
-<pre><code>- Advantages - The packet will get there and in the order it was sent. These are by far the easiest to program for because you don’t have to worry about strange behavior due to out of order or lost packets.
-- Disadvantages - Retransmissions and acknowlegements can add significant bandwidth requirements. Packets may arrive very late if the network is busy. One late packet can delay many packets that arrived sooner, resulting in significant lag spikes. However, this disadvantage can be mitigated by the clever use of ordering streams .
-</code></pre>
-<dl><dt>Reliable sequenced</dt><dd>Reliable ordered packets are UDP packets monitored by a reliability layer to ensure they arrive at the destination and are sequenced at the destination.</dd></dl>
-
-<pre><code>- Advantages - You get the reliability of UDP packets, the ordering of ordered packets, yet don’t have to wait for old packets. More packets will arrive with this method than with the unreliable sequenced method, and they will be distributed more evenly. The most important advantage however is that the latest packet sent will arrive, where with unreliable sequenced the latest packet sent may not arrive.
-- Disadvantages - Wasteful of bandwidth because it uses the overhead of reliable UDP packets to ensure late packets arrive that just get ignored anyway.
-</code></pre>
 <h3>전송 보장의 구현</h3>
 <p>전송 보장(packet reliability)은 말 그대로 어떤 패킷이 Peer 에 잘 도착했다는 것을 의미한다.</p>
-<pre><code>- 전송시 RELIABLE_XXX 플래그를 지정한다.
-- 보내는 쪽에서는 재전송큐에 패킷을 넣어둔다.
-- 받는 쪽에서는 RELIABLE 패킷이 도착하면 ACK(num)를 전송한다.
-- 보내는 쪽에서는 ACK(num)를 받으면 재전송큐에서 삭제한다.
-- ACK 손실에 대비, 모든 ACK들은 ACK큐에 저장된다.
-- 주기적으로 실행되는 ReliabilityLayer::Update()에서 그동안 쌓인 ACK큐와 재전송큐를 한꺼번에 모아서 Peer에게 전송한다. (물론 손실이 가정되는 넘에 대해서만)
-- 모든 user defined message 앞에 위와 같은 InternalPacket 이 1개 이상 붙어 나갈 수 있다.
-</code></pre>
+<ul>
+<li>전송시 RELIABLE_XXX 플래그를 지정한다.</li>
+<li>보내는 쪽에서는 재전송큐에 패킷을 넣어둔다.</li>
+<li>받는 쪽에서는 RELIABLE 패킷이 도착하면 ACK(num)를 전송한다.</li>
+<li>보내는 쪽에서는 ACK(num)를 받으면 재전송큐에서 삭제한다.</li>
+<li>ACK 손실에 대비, 모든 ACK들은 ACK큐에 저장된다.</li>
+<li>주기적으로 실행되는 ReliabilityLayer::Update()에서 그동안 쌓인 ACK큐와 재전송큐를 한꺼번에 모아서 Peer에게 전송한다. (물론 손실이 가정되는 넘에 대해서만)</li>
+<li>모든 user defined message 앞에 위와 같은 InternalPacket 이 1개 이상 붙어 나갈 수 있다.</li>
+</ul>
 <p>결국, 모든 RELIABLE 메시지에 대해서 ACK 가 왔다갔다 하는 셈이다.</p>
 <h3>순서 보장의 구현</h3>
 <p>모든 데이터가 순서 보장이 필요하지 않으며, 오직 몇몇 종류의 패킷들만이 순서 보장이 필요하다. 따라서, 이런 류들을 위한 채널(ordering channel)을 구현해서 각각의 채널마다의 순서를 보장해줘야 한다.</p>
-<pre><code>- 각 채널마다 waitingForOrderedPacketReadIndex 가 존재한다.
-- 순서 보장 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패
-- 만약 orderingIndex == waitingForOrderedPacketReadIndex 이면, 대기 인덱스를 증가시키고, 대기 리스트(orderingList)에 들어있는 넘들을 처리해준다.
-- 그렇지 않으면 중간에 누락된 것이므로 대기 리스트에 넣어둔다.
-- orderingIndex 는 BYTE 로 구현된다. 255 로 해서 wrap 시키면 충분한 듯.
-- 그렇지만 아주 오래전의 패킷이 도착했다면 순서가 꼬일 수 있을 법 하다. 이런 것들은 상대편의 전송 시간을 이용해서 체크한다.
-</code></pre>
+<ul>
+<li>각 채널마다 waitingForOrderedPacketReadIndex 가 존재한다.</li>
+<li>순서 보장 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패</li>
+<li>만약 orderingIndex == waitingForOrderedPacketReadIndex 이면, 대기 인덱스를 증가시키고, 대기 리스트(orderingList)에 들어있는 넘들을 처리해준다.</li>
+<li>그렇지 않으면 중간에 누락된 것이므로 대기 리스트에 넣어둔다.</li>
+<li>orderingIndex 는 BYTE 로 구현된다. 255 로 해서 wrap 시키면 충분한 듯.</li>
+<li>그렇지만 아주 오래전의 패킷이 도착했다면 순서가 꼬일 수 있을 법 하다. 이런 것들은 상대편의 전송 시간을 이용해서 체크한다.</li>
+</ul>
 <h3>패킷 시퀀스의 구현</h3>
 <p>순서 보장(packet ordering)과는 달리 패킷 시퀀스(packet sequence)는 최신의 패킷이 도착하면, 그 전에 도착한 동일한 패킷은 모두 무시하는 것을 의미한다. 가령, xyz 좌표가 10개가 쌓여 있다면 가장 최신의 좌표만을 보여주면 되므로 시퀀스 플래그를 사용하면 된다. 패킷 시퀀스 역시 ordering channel + ordering index 로 구현된다.</p>
-<pre><code>- 각 채널마다 waitingForSequencedPacketReadIndex 가 존재한다.
-- 시퀀스 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패
-- 만약 orderingIndex &gt;= waitingForSequencedPacketReadIndex 이면, 시퀀스  인덱스를 증가시킨다.
-- 그렇지 않으면 이미 최신 데이터가 먼저 와 있으므로, 무시해버린다.
-</code></pre>
+<ul>
+<li>각 채널마다 waitingForSequencedPacketReadIndex 가 존재한다.</li>
+<li>시퀀스 패킷이 도착하면, 채널과 인덱스(orderingIndex)를 읽는다. 채널이 없으면 낭패</li>
+<li>만약 orderingIndex &gt;= waitingForSequencedPacketReadIndex 이면, 시퀀스  인덱스를 증가시킨다.</li>
+<li>그렇지 않으면 이미 최신 데이터가 먼저 와 있으므로, 무시해버린다.</li>
+</ul>
 <h3>긴 메시지의 구현</h3>
 <p>MTU 크기를 넘어선 긴 데이터는, 여러 개의 작은 패킷에 나눠져서(split) 전송될 수 밖에 없다.</p>
 <p>더 많은 팁들은 레이옷의 <a href="http://del.icio.us/reiot/raknet">RakNet 링크모음</a>을 참고할 것.</p></div>

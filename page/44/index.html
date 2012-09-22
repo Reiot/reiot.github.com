@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,39 +66,6 @@
 
 	<div class="row">
 		<div class="span9">
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2005/10/18/mmo를-위한-커뮤니티-서비스-구현하기/">MMO를 위한 커뮤니티 서비스 구현하기</a> <small>2005-10-18</small></h1>
-	</div>
-	<div><p>MMO 를 위한 커뮤니티 서비스가 가장 잘 구현된 곳은 World Of Warcraft 이다. 물론 채팅과 귓말이야 별거 아닌 것처럼 느껴지지만, 친구 관리나 편지, 길드 채팅 같은  커뮤니티 서비스를 다중 서버에서도 투명하게 구현한다는 것은 생각보다 귀찮은 일이다. 오늘 어디에서 줏어 들기로 와우에서는 내부 채팅을 위해서 IRC 를 쓰고 있다고 하고(미확인 정보), 역시 게임을 개발하는 한 후배는 <a href="http://www.jabber.org/">jabber </a>를 고려중이라고 했다.</p>
-<p>올해 초 <a href="http://www.spread.org/">spread </a>를 기반으로 서버간 채팅을 구현하려고 했는데, 이미 이 놈을 기반으로 만들어본 후배의 불만을 접수하고 바로 계획을 폐기해야만 했다. 어차피 관련 기능을 새로 만들어야 한다면 이미 검증된 놈을 갖다 쓰는 최고니깐 말이다. (그나저나 와우에서는 DB의 계정과 irc 의 데이터간의 연동은 과연 어떻게 할 것인지가 궁금하다. 탈퇴하거나 삭제할 경우 irc 쪽의 데이터도 변경해줘야 할텐데...헐헐)</p>
-<p>언제 나도 저런 걸 만지면서 놀까 생각하니... 깜깜하다.. 이힝~</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2005/10/11/remove-windows-service/">Remove Windows Service</a> <small>2005-10-11</small></h1>
-	</div>
-	<div><p>"sc delete service name" 을 이용해서 서비스를 삭제할 때 만약 다른 어플리케이션이 참조를 하고 있으면 바로 삭제하지 않고 레지스트리에 <del datetime="2005-10-11T04:42:55+00:00">delete flag </del>가 추가된다. 이때 레지스트리 키값을 수동으로 삭제하더라도 "[SC] DeleteService FAILED 1072:" 라는 에러를 발생시키고 삭제가 되지 않는다.</p>
-<p>대체로 이런 경우에 관리 도구 - 서비스 관리자를 띄워둔 상태인데, 이 놈을 끈 상태에서 다시 삭제해보면 바로 사라진다. 요는, 서비스를 제거할 때에는 관리자를 끈 상태에서 하라는 것.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-		<a href="/tag/service/"><span class="label"><span class="icon icon-tag"></span> service</span></a>
-	
-	</p>
-</div>
 			
 				<div>
 	<div class="page-header">
@@ -191,6 +161,602 @@ transfer logging = yes</p>
 	</p>
 </div>
 			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a> <small>2005-07-12</small></h1>
+	</div>
+	<div><p><img alt="mantis" src="http://manual.mantisbt.org/mantis_logo.gif" /></p>
+<p>오래전부터 맨티스에다가 중요도나 우선순위 상수를 추가해달라는 요청이 있었으나, 소스를 고쳐야 하기 때문에 방법이 없다고 모른 척 했었다가, 이번에 잠시 짬을 내어 추가를 해 보았다. 관련 자료를 아래에 정리했으니 심심할 때 한번 읽어보시길. :)</p>
+<p>see also : <a href="http://reiot.cafe24.com/wiki/MantisCustomize">MantisCustomize </a></p></div>
+	<br />
+	<p>
+	
+		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
+	
+	
+		<a href="/tag/mantis/"><span class="label"><span class="icon icon-tag"></span> mantis</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2005/06/02/boosttest/">boost::test</a> <small>2005-06-02</small></h1>
+	</div>
+	<div><p>레이옷은 종전까지 <a href="http://sourceforge.net/projects/cppunit">CppUnit</a>를 애용해왔다. 그러나 이넘은 VC7 에서는 컴파일조차 되지 않았다.  그리하여, 새로운 UnitTest 툴을 찾다가 발견한 것이 바로 이 Boost Library 에 포함된 BoostTest 이다. 이하 설명은 모두 VC7 을 사용한다고 가정하고 설명하겠다.</p>
+<h2>사용법</h2>
+<p>BoostTest 에는 아래와 같은 모듈이 포함되어 있다.</p>
+<table>
+<thead>
+<tr>
+<th>모듈</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Execution Monitor</td>
+<td>실행 모니터, 아래 프로그램 실행 모니터 및 테스트 실행 모니터의 베이스 모듈</td>
+</tr>
+<tr>
+<td>Program Execution Mointor</td>
+<td>배포되는 실행 프로그램의 테스트를 위해</td>
+</tr>
+<tr>
+<td>Test Execution Mointor</td>
+<td>개발중인 실행 프로그램의 테스트를 위해</td>
+</tr>
+<tr>
+<td>Unit Test Framework</td>
+<td>유닛 테스트.. 우리가 사용할 것이 이거다</td>
+</tr>
+<tr>
+<td>Test Tools</td>
+<td>위에 4개 모듈에서 사용하는 각종 테스트 루틴 및 매크로들</td>
+</tr>
+</tbody>
+</table>
+<p>이 중에서 레이옷이 사용하는 것은 Unit Test Framework ( + Test Tools ) 이다. 우선 상세한 내용은 같이 배포되는 문서를 참고하기 바란다. 여기서는 실제 프로젝트와 어떻게 연관지을 것인가만을 고민한다.</p>
+<ul>
+<li>테스트할 모듈의 프로젝트 이름이 XXX 라고 하자.</li>
+<li>그러면 이 프로젝트를 테스트할 프로젝트인 test_XXX 를 솔루션에 새로 추가한다.</li>
+<li>이 프로젝트를 LibXXX 프로젝트에 종속되도록 설정한다.</li>
+<li>Build Event 의 '''Custom Build''' 에 다음과 같은 내용을 추가하라.</li>
+<li>"$(TargetPath)" --report_level=detailed --log_level=all</li>
+<li>참고로 --log_level 은 BOOST_MESSAGE, BOOST_WARN_MESSAGE, BOOST_CHECKPOINT 등의 매크로들의 출력을 화면에 나타낸다.</li>
+<li>나중에 메시지들이 귀찮아지면 모두 끄도록 한다. 이에 대한 내용 역시 문서를 참고할 것</li>
+</ul>
+<h2>BoostTest with wstring</h2>
+<p>UniCode 기반의 어플리케이션을 테스트할 때, BOOST_XXX 매크로에서 wide string 이 포함될 경우, 변환할 수 없다는 에러가 발생한다. 그럴 경우 아래의 코드를 해당 테스트 상단에 넣어주면 임시방편으로 수정이 가능하다. 물론 wstring  string 컨버팅 함수는 직접 작성해야 한다. :)</p>
+<pre><code>
+namespace boost { namespace test_tools { namespace tt_detail {
+    template
+    struct print_log_value
+    {
+        void  operator()( std::ostream&amp; ostr, std::wstring t )
+        {
+            std::string s = convert_wstring_to_string(t);
+            ostr
+
+</code></pre>
+
+<pre><code>
+// testLibCore.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.
+//
+
+#include &quot;stdafx.h&quot;
+
+#include
+using namespace boost::unit_test_framework;
+
+#include &quot;MMSocket.h&quot;
+
+void test_winsock()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMSocket::EndWinsock();
+}
+
+void test_socket_ctor()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMSocket client;
+        BOOST_CHECK( !client.IsAlive() );
+        BOOST_CHECK( client.GetErrorCode() == 0 );
+        BOOST_CHECK( client.GetHost() == MMString(TEXT(&quot;Unknown&quot;)) );
+        BOOST_CHECK( client.GetPort() == 0 );
+
+    BOOST_CHECK( client.Create() );
+        BOOST_CHECK( client.IsAlive() );
+
+    client.Close();
+        BOOST_CHECK( !client.IsAlive() );
+
+    MMSocket::EndWinsock();
+}
+
+void test_serversocket_create_with_port()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    WORD wPort = 8888;
+
+    MMServerSocket server;
+        BOOST_CHECK( server.IsAlive() );
+        BOOST_CHECK( server.GetErrorCode() == 0 );
+        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;Unknown&quot;)) );
+        BOOST_CHECK( server.GetPort() == 0 );
+
+    BOOST_CHECK( server.Bind(wPort) );
+        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;localhost&quot;)) );
+        // default host = localhost
+        BOOST_CHECK( server.GetPort() == wPort );
+
+    server.Close();
+        BOOST_CHECK( !server.IsAlive() );
+
+    MMSocket::EndWinsock();
+}
+
+void test_serversocket_create_with_addr()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMString strHost = TEXT(&quot;localhost&quot;);
+    WORD wPort = 8888;
+
+    MMServerSocket server;
+        BOOST_CHECK( server.IsAlive() );
+
+    BOOST_CHECK( server.Bind(wPort) );
+        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;localhost&quot;)) );
+        BOOST_CHECK( server.GetPort() == wPort );
+
+    server.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_serversocket_create_with_public_ip()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMString strHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 8888;
+
+    MMServerSocket server;
+        BOOST_CHECK( server.IsAlive() );
+
+    BOOST_CHECK( server.Bind(strHost,wPort) );
+        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;61.74.134.38&quot;)) );
+        BOOST_CHECK( server.GetPort() == wPort );
+
+    server.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_serversocket_create_with_private_ip()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMString strHost = TEXT(&quot;192.168.0.1&quot;);
+    WORD wPort = 8888;
+
+    MMServerSocket server;
+        BOOST_CHECK( server.IsAlive() );
+
+    BOOST_CHECK( server.Bind(strHost,wPort) );
+        BOOST_CHECK( server.GetHost() == MMString(TEXT(&quot;192.168.0.1&quot;)) );
+        BOOST_CHECK( server.GetPort() == wPort );
+
+    server.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_serversocket_listen()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    PTCHAR szHost = TEXT(&quot;192.168.0.1&quot;);
+    WORD wPort = 8888;
+
+    MMServerSocket server;
+
+    BOOST_CHECK( server.Bind(szHost,wPort) );
+    BOOST_CHECK( server.Listen() );
+
+    MMSocket::EndWinsock();
+}
+
+void test_socket_connect()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 8888;
+
+    MMServerSocket server;
+
+    BOOST_CHECK( server.Bind(szHost,wPort) );
+    BOOST_CHECK( server.Listen() );
+        BOOST_CHECK( server.IsAlive() );
+
+    MMSocket client;
+    client.Create();
+        BOOST_CHECK( client.IsAlive() );
+    BOOST_CHECK( client.Connect(szHost,wPort) );
+
+    client.Close();
+    server.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_socket_connect_fail()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 8888;
+
+    MMServerSocket server;
+
+    BOOST_CHECK( server.Bind(szHost,wPort) );
+    BOOST_CHECK( server.Listen() );
+        BOOST_CHECK( server.IsAlive() );
+
+    MMSocket client;
+    client.Create();
+        BOOST_CHECK( client.IsAlive() );
+    BOOST_CHECK( !client.Connect(szHost,wPort-1) ); // must be failed
+
+    client.Close();
+    server.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_serversocket_accept()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 8888;
+
+    MMServerSocket server;
+
+    BOOST_CHECK( server.Bind(szHost,wPort) );
+    BOOST_CHECK( server.Listen() );
+        BOOST_CHECK( server.IsAlive() );
+
+    MMSocket client;
+    client.Create();
+        BOOST_CHECK( client.IsAlive() );
+    BOOST_CHECK( client.Connect(szHost,wPort) );
+
+    MMSocket * pClient = server.Accept();
+        BOOST_CHECK( pClient != NULL );
+        BOOST_CHECK( pClient-&gt;IsAlive() );
+        //BOOST_CHECK( pClient-&gt;GetHost() == client.GetHost() );
+        //BOOST_CHECK( pClient-&gt;GetPort() == client.GetPort() );
+
+    client.Close();
+    server.Close();
+
+    MMSocket::EndWinsock();
+}
+
+/*
+ *  accept 전에 닫아도 accept 된다.. 음냐..
+ */
+void test_serversocket_accept_failed()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 8888;
+
+    MMServerSocket server;
+
+    BOOST_CHECK( server.Bind(szHost,wPort) );
+    BOOST_CHECK( server.Listen() );
+        BOOST_CHECK( server.IsAlive() );
+
+    MMSocket client;
+    client.Create();
+        BOOST_CHECK( client.IsAlive() );
+    BOOST_CHECK( client.Connect(szHost,wPort) );
+    client.Close();     // close before accept
+
+    Sleep(100);
+
+    MMSocket * pClient = server.Accept();
+        BOOST_WARN_MESSAGE( pClient == NULL, &quot;헹.. 널이어야 할텐데..&quot; );
+
+    server.Close();
+
+    MMSocket::EndWinsock();
+}
+
+/*
+ *  정말 nonblocking 인지 확인해봐야 하지 않나?? 그걸 알아내는 방법은?
+ */
+void test_socket_blocking()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMSocket client;
+    client.Create();
+    BOOST_CHECK( client.EnableNonblock() );
+    BOOST_CHECK( client.DisableNonblock() );
+    client.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_socket_linger()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMSocket client;
+    client.Create();
+
+    BOOST_CHECK( !client.IsEnabledLinger() );           // no linger at default
+        BOOST_CHECK( client.GetLingerTime() == 0 );
+
+    BOOST_CHECK( client.EnableLinger(100) );
+        BOOST_CHECK( client.IsEnabledLinger() );
+        BOOST_CHECK( client.GetLingerTime() == 100 );
+
+    BOOST_CHECK( client.DisableLinger() );
+        BOOST_CHECK( !client.IsEnabledLinger() );
+        BOOST_CHECK( client.GetLingerTime() == 100 );   // do not cleared
+
+    client.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_socket_recv_buffer()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMSocket client;
+    client.Create();
+
+    BOOST_CHECK( client.GetRecvBufferSize() == 8192 );  // default buffer size
+
+    BOOST_CHECK( client.SetRecvBufferSize(10000) );
+    BOOST_CHECK( client.GetRecvBufferSize() == 10000 );
+
+    BOOST_CHECK( client.SetRecvBufferSize(65535) );
+    BOOST_CHECK( client.GetRecvBufferSize() == 65535 );
+
+    BOOST_CHECK( client.SetRecvBufferSize(65535*2) );
+    BOOST_CHECK( client.GetRecvBufferSize() == 65535*2 );
+
+    client.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_socket_send_buffer()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMSocket client;
+    client.Create();
+
+    BOOST_CHECK( client.GetSendBufferSize() == 8192 );  // default buffer size
+
+    BOOST_CHECK( client.SetSendBufferSize(10000) );
+    BOOST_CHECK( client.GetSendBufferSize() == 10000 );
+
+    BOOST_CHECK( client.SetSendBufferSize(65535) );
+    BOOST_CHECK( client.GetSendBufferSize() == 65535 );
+
+    BOOST_CHECK( client.SetSendBufferSize(65535*2) );
+    BOOST_CHECK( client.GetSendBufferSize() == 65535*2 );
+
+    BOOST_CHECK( client.SetSendBufferSize(-1) );
+    BOOST_CHECK( client.GetSendBufferSize() == -1 );
+
+    client.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_socket_nagle()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMSocket client;
+    client.Create();
+
+    BOOST_CHECK( client.IsEnabledNagle() );     // enabled at default
+
+    BOOST_CHECK( client.DisableNagle() );
+        BOOST_CHECK( !client.IsEnabledNagle() );
+    BOOST_CHECK( client.EnableNagle() );
+        BOOST_CHECK( client.IsEnabledNagle() );
+
+    client.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_serversocket_reuseaddr()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    MMServerSocket server;
+    BOOST_CHECK( server.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
+
+    MMServerSocket server2;
+    BOOST_CHECK( !server2.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
+    server2.Close();
+
+    MMServerSocket server3;
+    BOOST_CHECK( server3.EnableReuseAddr() );
+    BOOST_CHECK( server3.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
+    server3.Close();
+
+    MMServerSocket server4;
+    BOOST_CHECK( server4.EnableReuseAddr() );
+    BOOST_CHECK( server4.DisableReuseAddr() );
+    BOOST_CHECK( !server4.Bind( TEXT(&quot;61.74.134.38&quot;) ,9999) );
+    server4.Close();
+
+    server.Close();
+
+    MMSocket::EndWinsock();
+}
+
+void test_socket_gethostbyname()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    PTCHAR szHost = TEXT(&quot;comeng.ce.knu.ac.kr&quot;);
+    BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(TEXT(&quot;155.230.29.10&quot;)) );
+
+    szHost = TEXT(&quot;mudmania.org&quot;);
+    BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(TEXT(&quot;61.74.134.38&quot;)) );
+
+    //szHost = TEXT(&quot;reiot.cafe24.com&quot;);
+    //BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(TEXT(&quot;61.74.134.38&quot;)) );
+
+    szHost = TEXT(&quot;mudmania2.org&quot;);
+    BOOST_CHECK( MMSocket::GetHostByName(szHost) == MMString(&quot;&quot;) );
+
+    MMSocket::EndWinsock();
+}
+
+void test_socket_send()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 9999;
+
+        MMServerSocket server;
+        BOOST_CHECK( server.Bind(szHost,wPort) );
+        BOOST_CHECK( server.Listen() );
+
+    MMSocket client;
+    client.Create();
+    BOOST_CHECK( client.Connect(szHost,wPort) );
+
+        MMSocket * pClient = server.Accept();
+        BOOST_CHECK( pClient != NULL );
+
+    PTCHAR szSendMsg = TEXT(&quot;Hello World!&quot;);
+    int iSendMsgLen = lstrlen(szSendMsg);
+
+    BOOST_CHECK( iSendMsgLen == client.Send(szSendMsg,iSendMsgLen) );
+
+        TCHAR szRecvMsg[1024];
+        int iRecvMsgLen = pClient-&gt;Receive(szRecvMsg,1024);
+        if ( iRecvMsgLen &gt; 0 )
+        {
+            szRecvMsg[iRecvMsgLen] = 0;
+        }
+        BOOST_CHECK_MESSAGE( iRecvMsgLen == iSendMsgLen, &quot;Received Msg : &quot; Receive(szRecvMsg,1024);
+        BOOST_CHECK_MESSAGE( iRecvMsgLen == 0 ,
+        &quot;second recv = &quot; GetErrorCode() );
+
+        pClient-&gt;Close();
+        SAFE_DELETE(pClient);
+
+    server.Close();
+
+    MMSocket::EndWinsock();
+}
+
+/* just receive (guess socket is nonblocking) */
+void test_socket_nonblocked_recv()
+{
+    BOOST_CHECK( MMSocket::BeginWinsock() );
+
+    PTCHAR szHost = TEXT(&quot;61.74.134.38&quot;);
+    WORD wPort = 80;
+
+    MMSocket client;
+    client.Create(true);
+
+    BOOST_CHECK( client.Connect(szHost,wPort) );
+
+    client.EnableNonblock();
+
+    TCHAR szRecvMsg[1024];
+    int iRecvMsgLen = client.Receive(szRecvMsg,1024);
+    BOOST_CHECK( iRecvMsgLen == -1 );
+    BOOST_CHECK( client.GetErrorCode() == WSAEWOULDBLOCK );
+    client.Close();
+
+    MMSocket::EndWinsock();
+}
+
+/*
+
+*TODO*
+
+- connect
+- socket constructor
+- error code checking
+- invalid address
+- socket buffer
+- socket blocking
+- 연결 실패
+
+*/
+
+test_suite * test_MMSocket()
+{
+    test_suite * test = BOOST_TEST_SUITE( &quot;MMSocket Test&quot; );
+
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_winsock ) , 0 );
+  test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_ctor ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_port ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_addr ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_public_ip ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_create_with_private_ip ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_listen ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_gethostbyname ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_connect ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_connect_fail ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_accept ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_accept_failed ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_blocking ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_linger ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_recv_buffer ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_send_buffer ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_nagle ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_serversocket_reuseaddr ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_send ) , 0 );
+    test-&gt;add( BOOST_TEST_CASE( &amp;test_socket_nonblocked_recv ) , 0 );
+
+  return test;
+}
+</code></pre></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/test/"><span class="label"><span class="icon icon-tag"></span> test</span></a>
+	
+		<a href="/tag/boost/"><span class="label"><span class="icon icon-tag"></span> boost</span></a>
+	
+		<a href="/tag/TDD/"><span class="label"><span class="icon icon-tag"></span> TDD</span></a>
+	
+	</p>
+</div>
+			
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -255,14 +821,6 @@ transfer logging = yes</p>
 	</li>
 	
 	<li>
-		<a href="/2005/10/18/mmo를-위한-커뮤니티-서비스-구현하기/">MMO를 위한 커뮤니티 서비스 구현하기</a>
-	</li>
-	
-	<li>
-		<a href="/2005/10/11/remove-windows-service/">Remove Windows Service</a>
-	</li>
-	
-	<li>
 		<a href="/2005/09/23/client-network-utility/">Client Network Utility</a>
 	</li>
 	
@@ -272,6 +830,14 @@ transfer logging = yes</p>
 	
 	<li>
 		<a href="/2005/08/10/cpb-2/">CPB 맛보기</a>
+	</li>
+	
+	<li>
+		<a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a>
+	</li>
+	
+	<li>
+		<a href="/2005/06/02/boosttest/">boost::test</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

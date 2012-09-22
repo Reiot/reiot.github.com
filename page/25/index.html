@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,6 +66,27 @@
 
 	<div class="row">
 		<div class="span9">
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2007/09/28/ideal-build-system/">Ideal Build System</a> <small>2007-09-28</small></h1>
+	</div>
+	<div><p><a href="http://alt-tag.com/blog/archives/2006/11/integrating-mantis-and-subversion/">integrating-mantis-and-subversion</a>을  보고, 이상적인 통합 개발 지원 시스템에 대해서 생각해봤다. 일단 맨티스에서 버그는 물론 new feature (or issue, whatever)를 관리한다고 가정하면,</p>
+<ul>
+<li>SVN에서 커밋할때 특정한 패턴의 로그를 남기면, SVN의 post-commit 훅과 맨티스의 commit 스크립트를 이용해서, 특정 버그 리포트의 상태를 변경하거나 코멘트를 달 수 있다. (다만 SVN과 맨티스가 동일한 머신이어야만 하며, 다른 머신일 경우 좀더 많은 설정을 해줘야 한다)</li>
+<li>빌드 머신에서 <a href="http://support.microsoft.com/kb/q237870/">자동으로 빌드 넘버를 증가</a>시키고, 동시에 맨티스에다가도 동일한 빌드 넘버(버전)를 등록한다.</li>
+<li>당연히 MSBuild를 이용해서 원클릭 만으로 빌드가 가능해야 한다.</li>
+<li>나아가서 post-commit를 이용해서 커밋하면 처음부터 체크아웃받아서 빌드하고 패치까지 하는 스크립트도 제작한다. (또는 <a href="http://reiot.cafe24.com/2007/09/15/svn-notifier/">SVN Notifier</a>와 같이 주기적으로 체크하다가 틈틈히 빌드해도 무방하다)</li>
+<li>맨티스의 ChangeLog 를 패치 노트 파일로 추출해서 보여준다. 맨티스로의 하이퍼링크까지 제공하면 금상첨화!</li>
+<li>이 모든 과정을 웹에서 제어할 수 있으면 좋겠다. 빌드 결과(Build.htm)도 웹으로 업로드해서 볼 수 있으면 더욱 좋다. (특히나 빌드 시간 변화량 같은 것을 그래프로 보여주면 좋을 것 같다)</li>
+</ul>
+<p>자. 만들어주세요. -_-;;</p></div>
+	<br />
+	<p>
+	
+	
+	</p>
+</div>
 			
 				<div>
 	<div class="page-header">
@@ -108,11 +132,12 @@ SQLRETURN result = SQLMoreResults( s.cda );
 	<div><p>연휴동안 정말 할 일이 없어서 <a href="http://asio.sourceforge.net/">ASIO </a>코드를 살펴보고 있다. 몇 달전에 깔아둔 VC++ express 를 띄워서 예제 코드를 빌드하니 winsock2.h 가 없다는 에러가 뜨는게 아닌가? 찾아보니 <a href="http://msdn.microsoft.com/vstudio/express/visualc/usingpsdk/">Platform SDK를 설치한 후, 몇 가지 설정을 손봐줘야 한다</a>는 내용을 발견할수 있었다. 열심히 다운로드를 받다가, 문득 professional 이나 standard 보다이 놈이 못한게 무엇무엇이 있는지 궁금했다. 구글링해본 결과 다음과 같은 내용을 발견할 수 있었다.</p>
 <p><a href="http://msdn2.microsoft.com/ko-kr/vstudio/aa700921.aspx">Visual Studio 2005 Product Line Overview</a></p>
 <p>간단히 요약해보면,</p>
-<pre><code>- 생산성에 가장 지대한 영향을 미치는 제약 조건은, 바로 매크로라든지 Visual Assist 같은 외부 애드인들을 지원하지 않는다는 것이다.
-- 소스세이프와의 연동을 지원하지 않지만, svn 같은 다른 툴을 사용하고 있다면 그다지 심각하지는 않다.
-- 리모트 디버깅을 지원하지 않지만, 사실상 회사 내부 외에는 이 기능을 사용할 확률이 적으므로 충분히 극복할수 있다.
-- Data Access Designer 는 로컬에서만 지원한다든지, SQL 2005 통합 기능을 미지원하는 것도 아쉽다.
-</code></pre>
+<ul>
+<li>생산성에 가장 지대한 영향을 미치는 제약 조건은, 바로 매크로라든지 Visual Assist 같은 외부 애드인들을 지원하지 않는다는 것이다.</li>
+<li>소스세이프와의 연동을 지원하지 않지만, svn 같은 다른 툴을 사용하고 있다면 그다지 심각하지는 않다.</li>
+<li>리모트 디버깅을 지원하지 않지만, 사실상 회사 내부 외에는 이 기능을 사용할 확률이 적으므로 충분히 극복할수 있다.</li>
+<li>Data Access Designer 는 로컬에서만 지원한다든지, SQL 2005 통합 기능을 미지원하는 것도 아쉽다.</li>
+</ul>
 <p>이 정도의 제약 조건이라면 사실상 제약이 거의 없다고 봐도 무방하다.  최악의 경우 express 만으로도 헝그리하게 개발할 수도 있을 정도이니 말이다. (<a href="http://msdn.microsoft.com/vstudio/express/support/faq/">FAQ</a> 4번에 의하면 상업적 용도로 사용해도 된다고 나온다) 가까이로는, 빌드 머신 같은 데 설치해두면 VC의 카피수를 줄이는데 많은 도움이 될 듯하다. 여력이 되면 전 사원들의 컴퓨터에 깔아두고 테스트하다가 크래시될 때 자동으로 뜨도록 해두는 것도 괜찮을것 같다.</p>
 <p>그나저나, Team System 에서 Code Profiling - Static Analysis - Code Coverage - DB refactoring - DB schema compare 같은 기능을 지원한다는 것은 이번에 처음 알았다. 흐음. 써볼만 하겠는걸? 이라고 생각하는 순간 Visual Studio 2008 이 조만간(?) 출시된다는 걸 보고 슬그머니 귀찮아졌다. :)</p></div>
 	<br />
@@ -138,32 +163,6 @@ SQLRETURN result = SQLMoreResults( s.cda );
 <p><a href="http://www.xplanner.org/">xplanner</a> 는 설치 매뉴얼이 너무 무성의해서 포기했다.  JDK도 설치하고 tomcat 도 xampp 에서 배포하는 넘을 깔았지만, 그 다음 무엇을 어떻게 해야 할지를 이해할 수 없었다.</p></div>
 	<br />
 	<p>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2007/05/07/_has_iterator_debugging/">_HAS_ITERATOR_DEBUGGING</a> <small>2007-05-07</small></h1>
-	</div>
-	<div><p>디버그 버전에서 STL (특히 collection iterating) 로 인해서 무지막지하게 느려지는 경우가 종종 있다. 이때<br />
-<code>***#define _HAS_ITERATOR_DEBUGGING 0***</code><br />
-만으로 두 배 가량의 속도 향상을 얻을 수 있다. <a href="http://reiot.springnote.com/pages/87168">STL팁 페이지</a>에 정리된 예제를 통해서 얻은 결과를 살펴보면,</p>
-<pre><code>- **end() 를 for 안에 포함할 경우 : 234ms**
-- end() 를 for 바깥쪽에 둘 경우 : 172ms
-- **accumulate : 31ms**
-</code></pre>
-<p>반면 _HAS_ITERATOR_DEBUGGING을 끌 경우,</p>
-<pre><code>- end() 를 for 안에 포함할 경우 : 125ms
-- ***end() 를 for 바깥쪽에 둘 경우 : 94ms***
-- **accumulate : 31ms**
-</code></pre>
-<p>이 결과로만 본다면 디버그 버전에서, 거대한 컨테이너에 한해,  200% 정도의 속도 향상을 얻은 셈이다. 그러나 가장 빠른 것은 STL 알고리즘을 사용하는 것이라는 것도 잊지 말기 바란다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
 	
 	
 	</p>
@@ -233,6 +232,10 @@ SQLRETURN result = SQLMoreResults( s.cda );
 	</li>
 	
 	<li>
+		<a href="/2007/09/28/ideal-build-system/">Ideal Build System</a>
+	</li>
+	
+	<li>
 		<a href="/2007/09/16/syntax-highlighter-on-wordpress-com/">SyntaxHighlighter on Wordpress</a>
 	</li>
 	
@@ -246,10 +249,6 @@ SQLRETURN result = SQLMoreResults( s.cda );
 	
 	<li>
 		<a href="/2007/06/20/basecamp-trac-xampp/">basecamp, trac, xampp</a>
-	</li>
-	
-	<li>
-		<a href="/2007/05/07/_has_iterator_debugging/">_HAS_ITERATOR_DEBUGGING</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,8 +66,8 @@
 	<div class="page-header">
 		<h1><a href="/2008/11/15/three-rules-for-database-work/">Three Rules for Database Work</a> <small>2008-11-15</small></h1>
 	</div>
-	<div><p><a href="http://www.openmaru.com/273"><img alt="http://www.openmaru.com/attach/1/1046597520.jpg" src="http://www.openmaru.com/attach/1/1046597520.jpg" /></a><br />
-<em><a href="http://www.openmaru.com/273">하루에 10만을 채우는 게임</a>은 이런 게 이벤트가 되는구나.</em></p>
+	<div><p><img alt="http://www.openmaru.com/attach/1/1046597520.jpg" src="http://www.openmaru.com/attach/1/1046597520.jpg" /></p>
+<p><em><a href="http://www.openmaru.com/273">하루에 10만을 채우는 게임</a>은 이런 게 이벤트가 되는구나.</em></p>
 <p>오늘자 코드 프로젝트에 올라온 <a href="http://www.codeproject.com/KB/architecture/DBTool.aspx">DBTool</a>의 근간이 된, <a href="http://odetocode.com/Blogs/scott/archive/2008/01/30/11702.aspx">데이터베이스를 갖고 놀 때의 세가지 룰</a>은 생각보다 간단했다.</p>
 <h3>Never use a shared database server for development work.</h3>
 <p>예전에는 (rails 스타일의) development-test-production 의 3단계 구분법을 사용했다. DBA와 서버 프로그래머는 dev DB에서 열심히 뒤집어 엎어도, test DB에 연결된 다른 프로그래머들이나 테스터들은 안정적으로 사용할 수 있고, 실제 서비스는 production 데이터베이스를 쓰게 된다는 거다.</p>
@@ -75,8 +78,9 @@
 <p>보통은 Config 테이블에다가 문자열로 데이터베이스 스키마 최종 변경일을 넣어두는 걸로 해결하고 있다. 그런데 아직 뭔가 변경이 잘 되었는지를 체크할 만한 테스트를 만들 능력은 안된다. 대체로 alter 든 drop 이든 서버가 뜰 때까지는 잘 모를것 같아서.. :)</p>
 <p>이 외에도 무시무시하게 긴 <a href="http://www.ssw.com.au/ssw/Standards/Rules/RulesToBetterSQLServerDatabases.aspx">Better SQL Server Databases</a> 라는 규칙도 있는데 이건 좀 귀찮구나....</p>
 <p>추가:</p>
-<pre><code>- 다른 글을 찾아 보니, 프로시저나 테이블 각각을 서로 다른 파일에 저장해서 관리하라는 말도 있다. 은근히 그럴듯한데?
-</code></pre></div>
+<ul>
+<li>다른 글을 찾아 보니, 프로시저나 테이블 각각을 서로 다른 파일에 저장해서 관리하라는 말도 있다. 은근히 그럴듯한데?</li>
+</ul></div>
 	<br />
 	<p>
 	

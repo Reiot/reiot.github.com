@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -65,8 +68,7 @@
 	</div>
 	<div><p><strong>Timestamp -&gt; C</strong></p>
 <p>TIMESTAMP 값을 C 에서 받는 방법은 다양하다. 단순 SELECT 를 통해 날짜 스트링으로 받던가, SQL 문으로 적절히 CONVERT 한 변형된 스트링을 받던가, 아예 아래처럼 구조체로 바로 받을 수 있다.</p>
-<pre><code>
-// SQL_C_TYPE_DATE
+<pre><code>// SQL_C_TYPE_DATE
 struct tagDATE_STRUCT {
 SQLSMALLINT year;
 SQLUSMALLINT month;
@@ -93,9 +95,9 @@ SQLUINTEGER fraction;[b]
 </code></pre>
 
 <p>see also:</p>
-<pre><code>- [ODBC  C
-</code></pre>
-<p>](http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/odbcc_data_types.asp)</p></div>
+<ul>
+<li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/odbcc_data_types.asp">ODBC C</a></li>
+</ul></div>
 	<br />
 	<p>
 	

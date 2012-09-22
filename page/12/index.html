@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -66,20 +69,108 @@
 			
 				<div>
 	<div class="page-header">
+		<h1><a href="/2009/01/27/google-app-engine-overview/">Google App Engine Overview</a> <small>2009-01-27</small></h1>
+	</div>
+	<div><p>google app engine 은 파이썬 2.5 기반의 웹 개발 프레임워크이다. 사실 수많은 웹 개발환경이 많고 많은데 유독 이놈이 눈에 띄는 건, 기본적으로 구글에서 제공하는 다양한 분산 기반의 서비스들을 손쉽게 사용할 수 있기 때문이다.</p>
+<p>아마도 구글 앱스를 사용중인 회사에서 인트라넷이나 백오피스 웹서비스를 만들어야 한다면 이놈을 쓰면 편해질 것 같다. 대충 훝어본 <a href="http://code.google.com/intl/ko-KR/appengine/docs/python/apis.html">Service API</a> 들을 요약해보겠다.</p>
+<h3>Datastore</h3>
+<p>구글 데이터 저장 인프라(?)에 정보를 저장하고 읽어오는 API.  객체 기반 쿼리와 SQL을 닮은 GQL 기반 쿼리를 제공한다. yaml 로 인덱스도 정의할 수 있고, FK와 트랜잭션도 지원한다.</p>
+<pre><code>class Person(db.Model):
+    first_name = db.StringProperty()
+    last_name = db.StringProperty()
+    city = db.StringProperty()
+    birth_year = db.IntegerProperty()
+    height = db.IntegerProperty()
+
+q = Person.all()
+q.filter(&quot;last_name =&quot;, &quot;Smith&quot;)
+q.filter(&quot;height &lt;&quot;, 72)
+q.order(&quot;-height&quot;)
+
+# The GqlQuery interface prepares a query using a GQL query string.
+q = db.GqlQuery(&quot;SELECT * FROM Person &quot; +
+    &quot;WHERE last_name = :1 AND height &lt; :2 &quot; +
+    &quot;ORDER BY height DESC&quot;,
+    &quot;Smith&quot;, 72)
+</code></pre>
+
+<h3>Memcache</h3>
+<p>매번마다 DB에서 읽어오면 성능이 떨어지니까, 어느 정도 변화가 적은 애들은 DB에서 읽어온 다음 Key-Value 기반의 메모리 캐시에다가 저장했다가 필요할 때마다 재빨리 읽어온다. 별거 아닌 것처럼 보이지만, 이게 분산 서버에서 모두 참조가 가능하다.. 어쨌거나 문자열키로 특정 객체를 꺼내오는 이런 패턴은 게임 서버에도 자주 써야 할 것 같다. (요즘은 변수 선언하는게 어찌나 귀찮은지..)</p>
+<pre><code>def get_data():
+    data = memcache.get(&quot;key&quot;)
+    if data is not None:
+        return data
+    else:
+        data = self.query_for_data()
+        memcache.add(&quot;key&quot;, data, 60)
+        return data
+</code></pre>
+
+<h3>URL Fetch</h3>
+<p>다른 웹서버에다가 URL 기반 요청을 해서 결과를 읽어올 수 있다. 즉, 다른 웹서비스들과의 연동이 가능하다는 이야기. </p>
+<pre><code>url = &quot;http://www.google.com/&quot;
+result = urlfetch.fetch(url)
+if result.status_code == 200:
+    doSomethingWithResult(result.content)
+</code></pre>
+
+<h3>Mail</h3>
+<p>손쉽게 메일을 보낼 수 있다. 파일 첨부도 가능하다고는 하나, 단순하니까 예제는 생략.</p>
+<h3>Images</h3>
+<p>업로드된 이미지의 크기 변경, 회전, 상하좌우 뒤집기, 자르기, 컨트라스트/색상 보정 등의 조작이 가능하다. 이것도 있어보이는 기능이지만 일단 생략.</p>
+<h3>Google Accounts</h3>
+<p>구글 계정과의 연동 지원. 별명, 이메일 주소 등을 얻어오는 기능이다.</p>
+<h3>기타 구글 Data API 연동</h3>
+<p>이게 가장 핵심적인 기능인데, 대충 아래와 같은 API 들을 연동할 수 있다. (그런데 이걸 갖고 뭘 어떻게 할 것인가가 사실은 제일 중요하겠지..)</p>
+<ul>
+<li><a href="http://code.google.com/apis/gdata/auth.html#AuthSub">Authentication</a></li>
+<li><a href="http://code.google.com/apis/base/pythondevguide.html">Google Base</a></li>
+<li><a href="http://code.google.com/apis/calendar/developers_guide_python.html">Calendar</a></li>
+<li><a href="http://code.google.com/apis/contacts/developers_guide_python.html">Contacts</a></li>
+<li><a href="http://code.google.com/apis/documents/developers_guide_python.html">Documents</a></li>
+<li><a href="http://code.google.com/apis/picasaweb/developers_guide_python.html">Picasa Web Albums</a></li>
+<li><a href="http://code.google.com/apis/spreadsheets/developers_guide_python.html">Spreadsheets</a></li>
+<li><a href="http://code.google.com/apis/youtube/developers_guide_python.html">YouTube</a></li>
+</ul>
+<p>레일즈 등 다른 웹 프레임워크에 비해서 좀 부족한 점이 많지만,  구글의 다양한 서비스들과의 연동과 분산에 강한 웹 서비스를 만들어야 한다면 좋은 선택이 될 것 같다. 사실 웹 시뮬레이션 게임을 만들때 좋을 것 같아서 살펴봤는데, 역시 GUI 표현이 걸림돌이 될 것 같다. <a href="http://code.google.com/intl/ko-KR/apis/chart/">차트 API</a> 정도라면 비지니스 관련 웹서비스는 어째 될 것 같은데, 게임은 좀...  </p>
+<p>API 목록을 보다 보니 특이한 서비스가 좀 많다. 다들 한번쯤 구경해보면 좋을지도?</p>
+<ul>
+<li><a href="http://code.google.com/intl/ko-KR/apis/health/">Google Health API</a></li>
+<li><a href="http://code.google.com/intl/ko-KR/apis/gra/">Google Radio Automation API</a></li>
+<li><a href="http://code.google.com/intl/ko-KR/apis/visualization/documentation/gallery.html">Google Visualization API</a></li>
+</ul></div>
+	<br />
+	<p>
+	
+		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+	
+	
+		<a href="/tag/google/"><span class="label"><span class="icon icon-tag"></span> google</span></a>
+	
+		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
+	
+		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
+	
+	</p>
+</div>
+			
+				<div>
+	<div class="page-header">
 		<h1><a href="/2009/01/27/erlide/">Erlide</a> <small>2009-01-27</small></h1>
 	</div>
-	<div><p><a href="http://www.eclipse.org/"> </a><a href="http://www.eclipse.org/"><img alt="Eclipse logo" src="http://erlide.sourceforge.net/img/rea_eclipse_pos_logo_fc_sm.jpg" /></a></p>
+	<div><p><img alt="Eclipse logo" src="http://erlide.sourceforge.net/img/rea_eclipse_pos_logo_fc_sm.jpg" /></p>
 <p><a href="http://www.eclipse.org/">이클립스</a>의 얼랭 개발환경(perspective)인 <a href="http://erlide.sourceforge.net/">erlide</a>를 사용하면, 매번마다 c(module) 로 컴파일하는 번거로움에서 벗어날 수 있다. 그<strong>냥 Save 만 하면, 알아서 코드를 컴파일하고 경고나 오류를 보여주기 때문이다. </strong>일단 <a href="http://erlide.sourceforge.net/erlide.html">매뉴얼</a>에 써 있는 대로 설정하고 나면, 이클립스 IDE의 기능들을 간단히 쓸 수 있으므로, 얼랭 초보라면 반드시 eclipse 부터 설치하기를 권장한다.</p>
 <p>어차피 매뉴얼에 다 나오는 내용인데, 핵심 기능들만 간단하게만 소개하자면</p>
-<pre><code>- gen_server, gen_fsm 등 OTP 기본 템플릿 제공
-- F3 - 함수 정의/선언으로 바로가기
-- Ctrl + I - 자동 들여쓰기
-- Ctrl + Space - 자동 완성
-- Alt + O - 개요 보기
-- Ctrl + Up/Down - 콘솔창에서 히스토리 기능
-- 브레이크 포인트는 라인 맨 앞을 더블클릭
-- 디버깅 끝낼 때에는 perspective 를 다시 얼랭으로 전환할 것
-</code></pre>
+<ul>
+<li>gen_server, gen_fsm 등 OTP 기본 템플릿 제공</li>
+<li>F3 - 함수 정의/선언으로 바로가기</li>
+<li>Ctrl + I - 자동 들여쓰기</li>
+<li>Ctrl + Space - 자동 완성</li>
+<li>Alt + O - 개요 보기</li>
+<li>Ctrl + Up/Down - 콘솔창에서 히스토리 기능</li>
+<li>브레이크 포인트는 라인 맨 앞을 더블클릭</li>
+<li>디버깅 끝낼 때에는 perspective 를 다시 얼랭으로 전환할 것</li>
+</ul>
 <p>특히 놀라운 것은, (사실 erl 콘솔에서도 볼 수 있지만) Process List View 에서 보면 무려 36개의 얼랭 프로세스들이 떠 있다는 점이다. 루아나 파이썬처럼 그냥 달랑 스크립트만 실행되는 게 아니라는 건 짐작하고 있었지만, 조금은 부하가 걱정될 정도로많이 떠 있긴 하다.</p></div>
 	<br />
 	<p>
@@ -99,12 +190,13 @@
 	<div><p>MS, Google, Intel, IBM, Adobe, Dell, Sony, Sanyo... <a href="http://itviewpoint.com/98855">놀라운 감원 쯔나미</a>는 겨우 시작일 뿐이다.</p>
 <p>성장 동력이 없거나 멈춘 국내 게임 회사들이, 직원 월급을 못주고 있다는 첩보가 속속 입수되고 있다.  정말 <a href="http://reiot.cafe24.com/2008/11/16/prepare-the-battle/">대충 예상해본 것</a>들이 슬슬 현실로 다가 오고 있다는 이야기다. 그나마 반가운 소식은 <a href="http://qu2ik.tistory.com/297">게임이 불황에도 웃음지을 수 있는 몇 안되는 산업이라는 뉴스 </a>정도다.  </p>
 <p>혹자는 힘들 때일수록 몸집을 줄이고 직원 교육에 투자하라고 조언하지만, 내가 사장이라도 그건 쉽지 않은 일이다.  마구 사람을 잘라내고 있는 서구 기업들은 과연 바보라서 그러는 걸까. 그럼 우리는 이 추운 겨울을 어떻게 견디어내야 할까? 개인적으로도 <a href="http://blog.daum.net/tudler/15659618">선 거두절미 후 줄탁동시</a>를 시행해야 한다고 본다. 즉,</p>
-<pre><code>- 무엇보다도 가장 먼저 바보 C급 인재들을 내보낸다. 기회 비용을 고려해 봤을 때, 무작정 열심히 일하는 C급 인재야말로 회사의 최대 적이다. 덤으로 불만분자들도 함께 처분하면 더욱 좋다. (뜨끔!!)
-- A급 리더들은 쓰다듬어주기만 해도 알아서 잘 할테니, 웅크리고 있는 B급 인재들에게는 인센티브 강화 같은 당근과 **** 등의 채찍을 제공한다. 개인적으로 테라의 공개된 영상에 많은 감명을 받았는데, 외부의 공격(?)이 내부의 결속을 강화시킨 좋은 예가 아닐까 한다. 
-- 돈, 지식, 노하우, 그리고 열정적인 핵심 인재들 등 축적할 수 있는 모든 리소스들을 아껴서, 더욱 더 길어질 겨울에 대비한다. 아무리 생각해도, 이번 겨울은 10년짜리다. 
-- 부동산 난개발과 같은 불필요한 중복 개발을 자제하고, 제대로된 게임을 최대한 빨리 출시할 수 있는 프로세스를 다진다. 이걸 갖춘 회사만이 10년을 살아남을 게다. 결과적으로 개발을 투명하게 바라볼 수 있게 해주는, 애자일 프로세스의 전사적 도입도 좋은 방법이 되겠지만, 준비되지 않은 상태에서는 오히려 반감만 불러일으킬 확률이 99.999% 되겠다.
-- 무엇보다도 전장 플랫폼을 바꾼다. 살아남는 자가 강한 것처럼, 하고 싶어 하는 것보다는 잘하는 분야를 계속 파나가고, 그걸 다른 플랫폼으로 옮겨가는 전략은 어떨까. 돈먹는 하마인 MMO, 다 비슷비슷한 캐주얼, 횡스크롤 액션..  새로운 성장 동력 찾기가 쉽지 않은 건 알고 있는데, 너무 멀리서 찾다가 피같은 돈을 다 날려먹으면 곤란하다. 물론 와우를 능가하는 MMO를 만들어서 년간 1조씩 벌어들여도 되겠지만.
-</code></pre>
+<ul>
+<li>무엇보다도 가장 먼저 바보 C급 인재들을 내보낸다. 기회 비용을 고려해 봤을 때, 무작정 열심히 일하는 C급 인재야말로 회사의 최대 적이다. 덤으로 불만분자들도 함께 처분하면 더욱 좋다. (뜨끔!!)</li>
+<li>A급 리더들은 쓰다듬어주기만 해도 알아서 잘 할테니, 웅크리고 있는 B급 인재들에게는 인센티브 강화 같은 당근과 **** 등의 채찍을 제공한다. 개인적으로 테라의 공개된 영상에 많은 감명을 받았는데, 외부의 공격(?)이 내부의 결속을 강화시킨 좋은 예가 아닐까 한다. </li>
+<li>돈, 지식, 노하우, 그리고 열정적인 핵심 인재들 등 축적할 수 있는 모든 리소스들을 아껴서, 더욱 더 길어질 겨울에 대비한다. 아무리 생각해도, 이번 겨울은 10년짜리다. </li>
+<li>부동산 난개발과 같은 불필요한 중복 개발을 자제하고, 제대로된 게임을 최대한 빨리 출시할 수 있는 프로세스를 다진다. 이걸 갖춘 회사만이 10년을 살아남을 게다. 결과적으로 개발을 투명하게 바라볼 수 있게 해주는, 애자일 프로세스의 전사적 도입도 좋은 방법이 되겠지만, 준비되지 않은 상태에서는 오히려 반감만 불러일으킬 확률이 99.999% 되겠다.</li>
+<li>무엇보다도 전장 플랫폼을 바꾼다. 살아남는 자가 강한 것처럼, 하고 싶어 하는 것보다는 잘하는 분야를 계속 파나가고, 그걸 다른 플랫폼으로 옮겨가는 전략은 어떨까. 돈먹는 하마인 MMO, 다 비슷비슷한 캐주얼, 횡스크롤 액션..  새로운 성장 동력 찾기가 쉽지 않은 건 알고 있는데, 너무 멀리서 찾다가 피같은 돈을 다 날려먹으면 곤란하다. 물론 와우를 능가하는 MMO를 만들어서 년간 1조씩 벌어들여도 되겠지만. </li>
+</ul>
 <p>뻔한 이야기를 시니컬하게 쓰면 다들 우러러 보는 게 요즘 트렌드이길래, 나도 덩달아서 비스무리하게 써 봤다. 그러나 요즘은 불유쾌한 예언을 하는 자가 잡혀 들어가는 세상인지라, 또 쓸데없이 오해 크리나 받지나 않을까 해서 고이 모셔뒀었는데, 오늘 또<a href="http://news.bbc.co.uk/2/hi/business/7851481.stm"> ING 7천, 필립스 6천, GM 2천 등 총 7만명짜리 GLOBAL JOB CUTS</a> 이 있었다길래 어째 으스스해서 공개해본다.</p></div>
 	<br />
 	<p>
@@ -118,136 +210,119 @@
 		<h1><a href="/2009/01/20/boost-tuple-based-serialization/">boost tuple based serialization</a> <small>2009-01-20</small></h1>
 	</div>
 	<div><p>boost serialization를 사용하려면 이모저모로 귀찮은 점이 많아서, 생각해본 것이 <a href="http://docs.python.org/library/struct.html?highlight=pack">파이썬의 struct 라이브러리</a>와 같은 느낌으로 프로토콜 포맷을 정의하고, 이걸 boost tuple 코드로 뽑아낸다는 아이디어이다.</p>
-<p>대강의 포맷은<br />
-<table border="1" cellspacing="0" cellpadding="1"><br />
-<tbody></tbody><br />
-<thead><br />
-<tr><br />
-<th class="head">Format</th><br />
-<th class="head">C Type</th><br />
-<th class="head">Python</th><br />
-<th class="head">Notes</th><br />
-</tr><br />
-</thead><br />
-<tbody><br />
-<tr><br />
-<td><tt class="docutils literal">x</tt></td><br />
-<td>pad byte</td><br />
-<td>no value</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">c</tt></td><br />
-<td><tt class="xref docutils literal">char</tt></td><br />
-<td>string of length 1</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">b</tt></td><br />
-<td><tt class="xref docutils literal">signed char</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">B</tt></td><br />
-<td><tt class="xref docutils literal">unsigned char</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">?</tt></td><br />
-<td><tt class="xref docutils literal">_Bool</tt></td><br />
-<td>bool</td><br />
-<td>(1)</td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">h</tt></td><br />
-<td><tt class="xref docutils literal">short</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">H</tt></td><br />
-<td><tt class="xref docutils literal">unsigned short</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">i</tt></td><br />
-<td><tt class="xref docutils literal">int</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">I</tt></td><br />
-<td><tt class="xref docutils literal">unsigned int</tt></td><br />
-<td>integer or long</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">l</tt></td><br />
-<td><tt class="xref docutils literal">long</tt></td><br />
-<td>integer</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">L</tt></td><br />
-<td><tt class="xref docutils literal">unsigned long</tt></td><br />
-<td>long</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">q</tt></td><br />
-<td><tt class="xref docutils literal">long long</tt></td><br />
-<td>long</td><br />
-<td>(2)</td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">Q</tt></td><br />
-<td><tt class="xref docutils literal">unsigned long<br />
-long</tt></td><br />
-<td>long</td><br />
-<td>(2)</td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">f</tt></td><br />
-<td><tt class="xref docutils literal">float</tt></td><br />
-<td>float</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">d</tt></td><br />
-<td><tt class="xref docutils literal">double</tt></td><br />
-<td>float</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">s</tt></td><br />
-<td><tt class="xref docutils literal">char[]</tt></td><br />
-<td>string</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">p</tt></td><br />
-<td><tt class="xref docutils literal">char[]</tt></td><br />
-<td>string</td><br />
-<td> </td><br />
-</tr><br />
-<tr><br />
-<td><tt class="docutils literal">P</tt></td><br />
-<td><tt class="xref docutils literal">void *</tt></td><br />
-<td>long</td><br />
-<td> </td><br />
-</tr><br />
-</tbody></table><br />
-가령 로그인 메시지를 "ppl" 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
-<p>typedef boost::tuple<string,string,long> msgLogin;</p>
-<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
-<pre><code>- 64 bit integer
-- datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)
-- STL 지원 : list, vector, map, set
-- 비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.
+<p>대강의 포맷은</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>C Type</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>pad byte</td>
+<td>no value</td>
+</tr>
+<tr>
+<td>c</td>
+<td>char</td>
+<td>string of length 1</td>
+</tr>
+<tr>
+<td>b</td>
+<td>signed char</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>B</td>
+<td>unsigned char</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>?</td>
+<td>_Bool</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>h</td>
+<td>short</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>H</td>
+<td>unsigned short</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>i</td>
+<td>int</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>I</td>
+<td>unsigned int</td>
+<td>integer or long</td>
+</tr>
+<tr>
+<td>l</td>
+<td>long</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>L</td>
+<td>unsigned long</td>
+<td>long</td>
+</tr>
+<tr>
+<td>q</td>
+<td>long long</td>
+<td>long</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>unsigned long</td>
+<td>long long</td>
+</tr>
+<tr>
+<td>f</td>
+<td>float</td>
+<td>float</td>
+</tr>
+<tr>
+<td>d</td>
+<td>double</td>
+<td>float</td>
+</tr>
+<tr>
+<td>s</td>
+<td>char[]</td>
+<td>string</td>
+</tr>
+<tr>
+<td>p</td>
+<td>char[]</td>
+<td>string</td>
+</tr>
+<tr>
+<td>P</td>
+<td>void *</td>
+<td>long</td>
+</tr>
+</tbody>
+</table>
+<p>가령 로그인 메시지를 "ppl" 이라는 포맷으로 정의하면, 파서는 이걸 읽고</p>
+<pre><code>typedef boost::tuple&lt;string,string,long&gt; msgLogin;
 </code></pre>
+
+<p>이라는 클래스를 정의한다는 거다. 요기에 좀 더 기능을 첨부하자면,</p>
+<ul>
+<li>64 bit integer</li>
+<li>datetime, smalldatetime 등 T-SQL 타입 지원(또는 매핑)</li>
+<li>STL 지원 : list, vector, map, set</li>
+<li>비트 연산 지원 : B3은 바이트 타입인데 3비트만 읽고 쓴다는 뜻이 된다.</li>
+</ul>
 <p>단점이라면 내부 멤버 접근을 userid, passwd 같은 이름 기반이 아니라 get&lt;1&gt;, get&lt;2&gt; 처럼 해야 한다는 점인데, 이건 좀 심하게 귀찮긴 하겠다. 역시 이름 기반 접근이 그나마 컴파일러가 검증해주니 제일 좋은 방법인가.</p>
 <p>자. 만들어주세요.</p></div>
 	<br />
@@ -359,43 +434,6 @@ code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2009/01/12/teamcide/">Teamcide</a> <small>2009-01-12</small></h1>
-	</div>
-	<div><div>
-
-[caption id="" align="alignnone" width="478" caption="Micro management (from conveniencebits.com)"]<a href="http://conveniencebits.com/2008/07/25/micromanaging-is-positive/">![Micromanagement](http://conveniencebits.com/pics/micromanage.jpg)</a>[/caption]
-
-</div>
-
-<div>Teamcide는 최근에 구독을 시작한 [코딩 호러](http://www.codinghorror.com/)의 [마이크로매니지먼트 좀비](http://www.codinghorror.com/blog/archives/001205.html)라는 글에서 발견한 7가지 팀관리의 안티 패턴이다. 알고 보니 피플웨어에서 소개된 이야기라고 해서 책을 찾아보려고 했는데, 어딘가에 쳐박혀 있는지 책이 보이지 않아, [일본어 웹문서 번역](http://translate.google.com/translate?prev=&hl=ko&ie=UTF-8&u=http://yuuntim.fc2web.com/chapter20.html&sl=auto&tl=ko&history_state0=)을 통해서 짤막하게만 정리해본다.</div>
-
-<div>
-
-    - 자기 방어적인 관리(Defensive Management)
-    - 관료주의(Bureaucracy)
-    - 팀원들을 여기 저기로 흩어 놓아서, 이동 거리를 멀게 하기(Physical Separation)
-    - 한 명에게 여러 가지 작업을 시키기(Fragmentation of People's Time)
-    - 납기일을 위해 품질을 희생하기(Quality Reduction of the Product)
-    - 무의미한, 또는 가짜 데드라인(Phony Deadlines)
-    - 파벌이 무서워서 프로젝트 종료 후 팀을 해체하기(Clique Control)
-
-</div>
-
-<p>거리 이야기는 이제 상식 수준이고, 마지막 파벌 이야기는 좀 비현실적이긴 한데, 가짜 데드라인 같은 이야기는 나도 종종 유혹을 느꼈기에, 이 시간을 빌어 씁쓸한 반성을 해본다.</p>
-<p>때로는 빠른 의사 결정과 그에 따른 무한한 책임을 지는 <a href="http://seoworld.net/tt/261">잡스 같은 카리스마적인 독재자</a>와 일해보고 싶기도 하다. 다만, 거의 무개념 폭군이라는 이미지가 강한 초기의 잡스보다는, 이제 필 쉴러 아저씨에게 키노트 진행을 양보(?)한 최근의 잡스가 더 나을 것 같다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-		<a href="/tag/management/"><span class="label"><span class="icon icon-tag"></span> management</span></a>
-	
-	</p>
-</div>
-			
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -460,6 +498,10 @@ code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
 	</li>
 	
 	<li>
+		<a href="/2009/01/27/google-app-engine-overview/">Google App Engine Overview</a>
+	</li>
+	
+	<li>
 		<a href="/2009/01/27/erlide/">Erlide</a>
 	</li>
 	
@@ -473,10 +515,6 @@ code_change(_OldVsn,N, _Extra) -&gt; {ok,N}.
 	
 	<li>
 		<a href="/2009/01/18/erlangotp-udp-server/">Erlang/OTP UDP Server</a>
-	</li>
-	
-	<li>
-		<a href="/2009/01/12/teamcide/">Teamcide</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">

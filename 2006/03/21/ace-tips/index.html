@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -64,50 +67,60 @@
 		<h1><a href="/2006/03/21/ace-tips/">ACE Tips</a> <small>2006-03-21</small></h1>
 	</div>
 	<div><p><strong>ACE_Message_Block</strong></p>
-<pre><code>- duplicate()는 recursive 로 동작한다. 따라서 메시지 블럭 리스트를 순회하면서 선택적으로 duplicate() 할 수는 없다.
-- release() 역시 recursive 로 동작한다.
-- release()는 new 로 생성한 객체에 대해서만 호출해야 한다. 권고에 따르면 가능한한 메시지 블럭은 힙에 생성해서 사용하는게 좋다고 한다.
-- 실제 쌓여 있는 데이터의 크기를 알려면 size() 대신 length() 를 써야 한다.
-- 생성자에 버퍼와 크기를 넘겨주더라도 이것이 내부적으로 복사되지는 않으며 단지 포인터만을 가지게 된다. 이때 wr_ptr() 을 수동으로 늘려줘야 한다.
-- copy()는 append()로 동작하지만 버퍼를 자동적으로 늘리지는 않는다.
-- copy(char*)의 경우 널문자도 함께 버퍼에 쓰게 된다. 따라서 copy(str.c_str(),str.size())로 하는 것이 안전하다.
-- reset() 은 rd_ptr 과 wr_ptr 을 초기화한다. 단 base 로 가기보다는 0 으로 초기화된다는데 주의.
-- data_block() 을 이용해서 내부 데이터 블럭을 교체할 경우 rd_ptr 과 wr_ptr 을 수동으로 설정해줘야 한다.
-- ACE_Message_Block(char*,int) 생성자는 겉보기에는 copy()가 발생하는 것 같지만 실제로는 단지 데이터 블럭이 포인터만을 갖게 되므로 복사가 발생하지 않는다. 가령 ACE_Message_Block("abcde",5) 의 경우 내부 데이터 블럭은 문자열 상수의 주소값을 가지게 된다. 또한 wr_ptr() 역시 수동으로 설정해줘야 하는 것으로 미루어 보건데, 아무래도 read only 용으로만 사용해야 할 것 같다.
-</code></pre>
+<ul>
+<li>duplicate()는 recursive 로 동작한다. 따라서 메시지 블럭 리스트를 순회하면서 선택적으로 duplicate() 할 수는 없다.</li>
+<li>release() 역시 recursive 로 동작한다.</li>
+<li>release()는 new 로 생성한 객체에 대해서만 호출해야 한다. 권고에 따르면 가능한한 메시지 블럭은 힙에 생성해서 사용하는게 좋다고 한다.</li>
+<li>실제 쌓여 있는 데이터의 크기를 알려면 size() 대신 length() 를 써야 한다.</li>
+<li>생성자에 버퍼와 크기를 넘겨주더라도 이것이 내부적으로 복사되지는 않으며 단지 포인터만을 가지게 된다. 이때 wr_ptr() 을 수동으로 늘려줘야 한다.</li>
+<li>copy()는 append()로 동작하지만 버퍼를 자동적으로 늘리지는 않는다.</li>
+<li>copy(char*)의 경우 널문자도 함께 버퍼에 쓰게 된다. 따라서 copy(str.c_str(),str.size())로 하는 것이 안전하다.</li>
+<li>reset() 은 rd_ptr 과 wr_ptr 을 초기화한다. 단 base 로 가기보다는 0 으로 초기화된다는데 주의.</li>
+<li>data_block() 을 이용해서 내부 데이터 블럭을 교체할 경우 rd_ptr 과 wr_ptr 을 수동으로 설정해줘야 한다.</li>
+<li>ACE_Message_Block(char*,int) 생성자는 겉보기에는 copy()가 발생하는 것 같지만 실제로는 단지 데이터 블럭이 포인터만을 갖게 되므로 복사가 발생하지 않는다. 가령 ACE_Message_Block("abcde",5) 의 경우 내부 데이터 블럭은 문자열 상수의 주소값을 가지게 된다. 또한 wr_ptr() 역시 수동으로 설정해줘야 하는 것으로 미루어 보건데, 아무래도 read only 용으로만 사용해야 할 것 같다.</li>
+</ul>
 <p><strong>ACE_Asynch_Acceptor/Connector</strong></p>
-<pre><code>- ACE_Asynch_Acceptor 와 ACE_Asynch_Connector 의 make_handler 는 기본적으로 new 를 해서 리턴한다. 만약 활성화된 연결들을 관리하려면 이 함수를 오버라이드해야 한다.
-- 비동기 accept 를 여러 개 준비하려면 단지 ACE_Asynch_Acceptor::open()의 파라미터만을 많이 주면 된다. 굳이 핸들러 여러 개를 먼저 만들어놓을 필요는 없다. (내부적으로 여러 개의 ACE_HANDLE 을 많이 만든 다음 연결이 이루어진 직후에 핸들러를 만들어서 넘겨준다)
-</code></pre>
+<ul>
+<li>ACE_Asynch_Acceptor 와 ACE_Asynch_Connector 의 make_handler 는 기본적으로 new 를 해서 리턴한다. 만약 활성화된 연결들을 관리하려면 이 함수를 오버라이드해야 한다.</li>
+<li>비동기 accept 를 여러 개 준비하려면 단지 ACE_Asynch_Acceptor::open()의 파라미터만을 많이 주면 된다. 굳이 핸들러 여러 개를 먼저 만들어놓을 필요는 없다. (내부적으로 여러 개의 ACE_HANDLE 을 많이 만든 다음 연결이 이루어진 직후에 핸들러를 만들어서 넘겨준다)</li>
+</ul>
 <p><strong>ACE_Task</strong></p>
-<pre><code>- ACE_Task_Base + ACE_Message_Queue = ACE_Task
-- ACE_Activation_Queue 와 ACE_Method_Request 를 이용하면 [Active Object Pattern](http://reiot.cafe24.com/archives/414)(함수의 호출과 실행을 분리시키는 패턴)을 적용할 수 있다.
-- ACE_Activation_Queue::dequeue() 등 timeout 을 지정할 수 있는 wait 함수의 경우 대체로 [상대 시간이 아닌 절대 시간](http://groups.google.co.kr/group/comp.soft-sys.ace/browse_thread/thread/bbe91c5ae17bce4b/35bdddf72c32e413?q=absolute+time&amp;rnum=1#35bdddf72c32e413)을 사용한다. 따라서 ACE_OS::gettimeofday() 등으로 현재 시간을 어디에선가 얻어온 다음 시간을 계산해줘야 하는 귀차니즘이 있다.
-</code></pre>
+<ul>
+<li>ACE_Task_Base + ACE_Message_Queue = ACE_Task</li>
+<li>ACE_Activation_Queue 와 ACE_Method_Request 를 이용하면 <a href="http://reiot.cafe24.com/archives/414">Active Object Pattern</a>(함수의 호출과 실행을 분리시키는 패턴)을 적용할 수 있다.</li>
+<li>ACE_Activation_Queue::dequeue() 등 timeout 을 지정할 수 있는 wait 함수의 경우 대체로 <a href="http://groups.google.co.kr/group/comp.soft-sys.ace/browse_thread/thread/bbe91c5ae17bce4b/35bdddf72c32e413?q=absolute+time&amp;rnum=1#35bdddf72c32e413">상대 시간이 아닌 절대 시간</a>을 사용한다. 따라서 ACE_OS::gettimeofday() 등으로 현재 시간을 어디에선가 얻어온 다음 시간을 계산해줘야 하는 귀차니즘이 있다.</li>
+</ul>
 <p><strong>Reactor</strong></p>
-<pre><code>- ACE_Reactor_Notification_Strategy 는 Reactor::notify(handler,mask)를 호출해주는 strategy 패턴 클래스이다. ACE_Message_Queue 의 경우, 모든 enqueue 멤버 함수의 끝에 notify() 를 호출하는데 이를 통해서 reactor 로 하여금 특정 핸들러의 특정 콜백을 호출토록 할 수 있다.
-- ACE_WFMO_Reactor 의 경우 62개 핸들 제한이 존재하므로, 수백-수천개의 연결을 관리하려면 ACE_Select_Reactor 와 ACE_TP_Reactor 를 사용해야 한다. 단 윈도우에서 성능은 그다지 좋지 않으므로 proactor 로 만드는 편이 좋을 것이다.
-</code></pre>
+<ul>
+<li>ACE_Reactor_Notification_Strategy 는 Reactor::notify(handler,mask)를 호출해주는 strategy 패턴 클래스이다. ACE_Message_Queue 의 경우, 모든 enqueue 멤버 함수의 끝에 notify() 를 호출하는데 이를 통해서 reactor 로 하여금 특정 핸들러의 특정 콜백을 호출토록 할 수 있다.</li>
+<li>ACE_WFMO_Reactor 의 경우 62개 핸들 제한이 존재하므로, 수백-수천개의 연결을 관리하려면 ACE_Select_Reactor 와 ACE_TP_Reactor 를 사용해야 한다. 단 윈도우에서 성능은 그다지 좋지 않으므로 proactor 로 만드는 편이 좋을 것이다.</li>
+</ul>
 <p><strong>ACE_Acceptor/Connector</strong></p>
-<pre><code>- ACE_Event_Handler 와 함께 사용될 수 없다. 오직 ACE_Svc_Handler 와만 가능
-</code></pre>
+<ul>
+<li>ACE_Event_Handler 와 함께 사용될 수 없다. 오직 ACE_Svc_Handler 와만 가능</li>
+</ul>
 <p><strong>CDR</strong></p>
-<pre><code>- 모든 primitive type 의 경우 구조체처럼 바이트 정렬이 된다. { char, int } 와 { char, short, int } 모두 8 byte 를 차지한다. ACE_LACKS_CDR_ALIGNMENT 를 이용하면 정렬을 하지 않을 수 있다.
-- string 의 경우 [길이]+[바디]로 직렬화되는데 이때 길이를 위해서 unsigned long 를 사용한다. 내부적으로 스트링의 길이를 측정하기 위해 strlen 이 호출된다. (뜨아)
-- from_string() 과 to_string()의 경우 최대 길이를 넘겨 줘야 한다.
-- 배열이나 문자열을 위한 버퍼는 내부적으로 new 를 통해서 할당된다.
-- write_string() 의 경우 (바이트 크기+1)만큼 전송되는 반면, write_wstring() 은 그냥 전송된다. 즉 "hello" 는 (4+5+1)=10 바이트로 전송되지만 L"hello" 는 (4+5*2)=14 바이트로 전송된다.
-- 이미 존재하는 메시지 블럭을 ACE_InputCDR로 읽되 메시지 복사를 피하고 싶다면 ACE_InputCDR(data_block,flag,rd_pos,wr_pos) 생성자를 사용해야 한다. ACE_InputCDR(msg_block)의 경우 내부 메시지 블럭으로 복사가 일어난다는 점에 유의할 것.
-- 이미 존재하는 메시지 블럭에 ACE_OutputCDR로 쓰려면 ACE_OuptutCDR(mb) 를 사용하면 된다. 내부적으로 duplicate()가 호출된다.
-</code></pre>
+<ul>
+<li>모든 primitive type 의 경우 구조체처럼 바이트 정렬이 된다. { char, int } 와 { char, short, int } 모두 8 byte 를 차지한다. ACE_LACKS_CDR_ALIGNMENT 를 이용하면 정렬을 하지 않을 수 있다.</li>
+<li>string 의 경우 [길이]+[바디]로 직렬화되는데 이때 길이를 위해서 unsigned long 를 사용한다. 내부적으로 스트링의 길이를 측정하기 위해 strlen 이 호출된다. (뜨아)</li>
+<li>from_string() 과 to_string()의 경우 최대 길이를 넘겨 줘야 한다.</li>
+<li>배열이나 문자열을 위한 버퍼는 내부적으로 new 를 통해서 할당된다.</li>
+<li>write_string() 의 경우 (바이트 크기+1)만큼 전송되는 반면, write_wstring() 은 그냥 전송된다. 즉 "hello" 는 (4+5+1)=10 바이트로 전송되지만 L"hello" 는 (4+5*2)=14 바이트로 전송된다.</li>
+<li>이미 존재하는 메시지 블럭을 ACE_InputCDR로 읽되 메시지 복사를 피하고 싶다면 ACE_InputCDR(data_block,flag,rd_pos,wr_pos) 생성자를 사용해야 한다. ACE_InputCDR(msg_block)의 경우 내부 메시지 블럭으로 복사가 일어난다는 점에 유의할 것.</li>
+<li>이미 존재하는 메시지 블럭에 ACE_OutputCDR로 쓰려면 ACE_OuptutCDR(mb) 를 사용하면 된다. 내부적으로 duplicate()가 호출된다.</li>
+</ul>
 <p>ACE_Get_Opt/ACE_ARGV</p>
-<pre><code>- ACE_Get_Opt 는 UNIX 스타일의 command line parameter 의 파싱을 도와준다. 이때 옵션 문자열의 포맷이 중요한데, "h:kl:" 은 *-h param1 -k -l param2 *형식을 의미한다.
-- ACE_ARGV 는 어떤 문자열을 argc, argv 로 바꿔주며, 그 결과를 ACE_Get_Opt 에게 넘겨서 커맨드라인 파라미터를 파싱하는 것처럼 해결할 수 있다. 특히 환경파일에 저장된 옵션 스트링을 파싱할 때 사용하면 좋다.
-</code></pre>
+<ul>
+<li>ACE_Get_Opt 는 UNIX 스타일의 command line parameter 의 파싱을 도와준다. 이때 옵션 문자열의 포맷이 중요한데, "h:kl:" 은 <em>-h param1 -k -l param2 </em>형식을 의미한다.</li>
+<li>ACE_ARGV 는 어떤 문자열을 argc, argv 로 바꿔주며, 그 결과를 ACE_Get_Opt 에게 넘겨서 커맨드라인 파라미터를 파싱하는 것처럼 해결할 수 있다. 특히 환경파일에 저장된 옵션 스트링을 파싱할 때 사용하면 좋다.</li>
+</ul>
 <p><strong>misc</strong></p>
-<pre><code>- #define ACE_NTRACE 0 를 켜면 해당 파일에서 참조하는 ACE 프레임워크에 대해 트레이스가 남는다. 만약 전역으로 켜고 싶다면 stdafx.h 에다 넣을 것.
-- ACE_TMAIN 을 쓸 수 없는 경우 ACE::init() 와 ACE::fini() 를 수동으로 불러줘야 한다.
-</code></pre></div>
+<ul>
+<li>
+<h1>define ACE_NTRACE 0 를 켜면 해당 파일에서 참조하는 ACE 프레임워크에 대해 트레이스가 남는다. 만약 전역으로 켜고 싶다면 stdafx.h 에다 넣을 것.</h1>
+</li>
+<li>ACE_TMAIN 을 쓸 수 없는 경우 ACE::init() 와 ACE::fini() 를 수동으로 불러줘야 한다.</li>
+</ul></div>
 	<br />
 	<p>
 	

@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,14 +66,14 @@
 	<div class="page-header">
 		<h1><a href="/2009/05/21/idogame/">Idogame</a> <small>2009-05-21</small></h1>
 	</div>
-	<div><p>[caption id="" align="aligncenter" width="404" caption="동접 1천명 == 3백만원"]<img alt="http://images.hangame.co.kr/hangame/idogame/img/promotion/img_benefit01.gif" src="http://images.hangame.co.kr/hangame/idogame/img/promotion/img_benefit01.gif" />[/caption]</p>
-<p>매출 1조짜리 기업 NHN에서 출시한 <a href="http://idogame.hangame.com/">아이두 게임</a>과 게임 오븐에 대한 짧은 생각:</p>
-<pre><code>- 하루 최고 동접 1000명을 찍으면 한달에 300만원을 지급한다? 한게임 유입자수 풀을 키우려는 전략이겠지만, 너무 짜다. 돈은 현재의 2배 정도로 늘리되, in game ad를 무조건 탑재하도록 하면 윈윈이 되지 않을까.
-- 정말 이걸로 돈을 벌려면, 접속 시간을 최대한 늘이는 게임 또는 특정 시간의 접속 비율을 높이는 방향으로 게임을 디자인해야 할 것이다. (자꾸만 동접 늘리는 트릭만 구상하는 레이옷..)
-- 게임오븐 IDE은 &lt;del datetime="2009-07-26T20:47:43+00:00"&gt;.NET이 아니라&lt;/del&gt; Native C++으로 만들어졌고, 루아(luabind)로 서버 및 클라이언트를 개발한다. 놀라운 점은 IDE 자체적으로 스크립트 디버깅이 가능한데, 브레이크 포인트라든지 콜스택, watch를 모두 지원한다는 것. ([dev.naver.com/opensource](http://dev.naver.com/opensource/)에다가 이것만 따로 무료로 공개해주면 좋으련만!!!)
-- 네트워킹 역시 루아로 이루어지는데, key-value로 된 메시지를 보내거나 SyncObject라고 해서 자동적으로 테이블을 상대편으로 복제할 수 있다. 얘들도 __newindex 로 루아 테이블 내부 값의 생성, 삭제 및 변동을 추적했을까나~
-- 사실 게임 오븐으로 만든 서버를 어떻게 호스팅하는가? 가 가장 궁금하다. 그냥 서버 exe 를 적당한 서버로 배포해서 실행하지는 않을테니, 여기에 설마 클라우드 개념이 들어갔을까? 흐흠..
-</code></pre></div>
+	<div><p>매출 1조짜리 기업 NHN에서 출시한 <a href="http://idogame.hangame.com/">아이두 게임</a>과 게임 오븐에 대한 짧은 생각:</p>
+<ul>
+<li>하루 최고 동접 1000명을 찍으면 한달에 300만원을 지급한다? 한게임 유입자수 풀을 키우려는 전략이겠지만, 너무 짜다. 돈은 현재의 2배 정도로 늘리되, in game ad를 무조건 탑재하도록 하면 윈윈이 되지 않을까.</li>
+<li>정말 이걸로 돈을 벌려면, 접속 시간을 최대한 늘이는 게임 또는 특정 시간의 접속 비율을 높이는 방향으로 게임을 디자인해야 할 것이다. (자꾸만 동접 늘리는 트릭만 구상하는 레이옷..)</li>
+<li>게임오븐 IDE은 <del datetime="2009-07-26T20:47:43+00:00">.NET이 아니라</del> Native C++으로 만들어졌고, 루아(luabind)로 서버 및 클라이언트를 개발한다. 놀라운 점은 IDE 자체적으로 스크립트 디버깅이 가능한데, 브레이크 포인트라든지 콜스택, watch를 모두 지원한다는 것. (<a href="http://dev.naver.com/opensource/">dev.naver.com/opensource</a>에다가 이것만 따로 무료로 공개해주면 좋으련만!!!)</li>
+<li>네트워킹 역시 루아로 이루어지는데, key-value로 된 메시지를 보내거나 SyncObject라고 해서 자동적으로 테이블을 상대편으로 복제할 수 있다. 얘들도 __newindex 로 루아 테이블 내부 값의 생성, 삭제 및 변동을 추적했을까나~</li>
+<li>사실 게임 오븐으로 만든 서버를 어떻게 호스팅하는가? 가 가장 궁금하다. 그냥 서버 exe 를 적당한 서버로 배포해서 실행하지는 않을테니, 여기에 설마 클라우드 개념이 들어갔을까? 흐흠..</li>
+</ul></div>
 	<br />
 	<p>
 	

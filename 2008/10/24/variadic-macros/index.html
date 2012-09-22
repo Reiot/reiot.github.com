@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -64,28 +67,28 @@
 		<h1><a href="/2008/10/24/variadic-macros/">Variadic Macros</a> <small>2008-10-24</small></h1>
 	</div>
 	<div><p>GCC 3.0 과 Visual Studio 2005 에서부터 지원하는 <a href="http://en.wikipedia.org/wiki/Variadic_macro">가변인자 매크로</a>는 <strong>VA_ARGS</strong> 로 치환된다. 알고보니 이게 1999년도에 제정된 <a href="http://en.wikipedia.org/wiki/C99">C99 표준안중 하나</a>였다는데, <a href="http://www.swallowstudio.com/wiki/doku.php?id=technicalarticles:variadicmacros">GCC에서는 약간 다른 방식도 지원</a>했던 모양이다.</p>
-<p>[code language="cpp"]</p>
-<h1>define MY_LINUX_LOG(fmt,args...) printf(fmt,##args)</h1>
-<h1>define MY_WIN_LOG(fmt,...) printf(fmt,<strong>VA_ARGS</strong>)</h1>
-<p>```</p>
-<p>뭔가 있었던거 같은데 도저히 기억도 안나고 오후 무렵에는 인터넷도 안되어서 그냥 __noop 로 고쳤는데, 집에 와서 찾아보니 MSDN 전처리기 섹션에 버젓히 자리잡고 있었다. 쩝. (늙은건가!) 이 외에도 오늘 마이그레이션 과정에서 겪었던 내용을 조금 정리해보면...</p>
-<pre><code>- __func__ / __PRETTY_FUNCTION__ 과 __FUNCTION__ : 이런건 #define 으로 해결 가능하다.
-- sleep() 과 Sleep() : 초단위 계산 잘못하면 CPU를 99% 잡아먹는다. 헤헤.
-- gettimeofday() 는 리눅스에서만 지원한다. [윈도우에서는 직접 구현](http://alones.kr/blog/654?TSSESSIONaloneskrblog=2182012b6093486515612f823d0561d8)해야 한다.
-- random() 과 rand()
-- 매크로를 이용해서 모든 .cpp 에다가 #stdafx.h 붙이기 -_-;
-- buffer overflow 가 자주 발생하는 패턴을 정규식으로 찾아내서 일괄적으로 버퍼 크기 증가시키기
+<pre><code>#define MY_LINUX_LOG(fmt,args...) printf(fmt,##args)
+
+#define MY_WIN_LOG(fmt,...) printf(fmt,__VA_ARGS__)
 </code></pre>
+
+<p>뭔가 있었던거 같은데 도저히 기억도 안나고 오후 무렵에는 인터넷도 안되어서 그냥 __noop 로 고쳤는데, 집에 와서 찾아보니 MSDN 전처리기 섹션에 버젓히 자리잡고 있었다. 쩝. (늙은건가!) 이 외에도 오늘 마이그레이션 과정에서 겪었던 내용을 조금 정리해보면...</p>
+<ul>
+<li><strong>func</strong> / <strong>PRETTY_FUNCTION</strong> 과 <strong>FUNCTION</strong> : 이런건 #define 으로 해결 가능하다.</li>
+<li>sleep() 과 Sleep() : 초단위 계산 잘못하면 CPU를 99% 잡아먹는다. 헤헤.</li>
+<li>gettimeofday() 는 리눅스에서만 지원한다. <a href="http://alones.kr/blog/654?TSSESSIONaloneskrblog=2182012b6093486515612f823d0561d8">윈도우에서는 직접 구현</a>해야 한다.</li>
+<li>random() 과 rand()</li>
+<li>매크로를 이용해서 모든 .cpp 에다가 #stdafx.h 붙이기 -_-;</li>
+<li>buffer overflow 가 자주 발생하는 패턴을 정규식으로 찾아내서 일괄적으로 버퍼 크기 증가시키기</li>
+</ul>
 <p>그 중에서도 압권은 바로 <a href="http://en.wikipedia.org/wiki/Variable-length_array">variable length array</a> 일 것이다. 물론 이건 GCC 에서만 가능한 일인데, 내일 출근해서 std::vector 로 고치고, 경고 레벨4로 다시 컴파일해봐야겠다. </p>
-<p>[code language="cpp"]<br />
-void func(int n)<br />
-{<br />
-    float  vals[n];<br />
-    //....<br />
-}<br />
- ```</p>
+<p><code>void func(int n)
+{
+    float  vals[n];
+    //....
+}</code></p>
 <p>그나저나, 일본에는 40살이 넘어도 리눅스에서 서버 프로그래밍을 한다던데... 웬지 그런 사회 풍조가 부러울 따름이다. 분명히 그 아저씨의 책상 옆에는 콜라 캔들이 정리되어 있고, vi 로 코딩하다가 make 걸어놓고 네트핵을 즐길 것 같은데 말이다.</p>
-<p>[caption id="" align="aligncenter" width="500" caption="요즘 네트핵은 이정도다!"]<a href="http://cfs2.tistory.com/upload_control/download.blog?fhandle=YmxvZzM4NjMxQGZzMi50aXN0b3J5LmNvbTovYXR0YWNoLzAvMS5qcGc=" target="_blank"><img alt="요즘 네트핵은 이정도다!" src="http://cfs2.tistory.com/upload_control/download.blog?fhandle=YmxvZzM4NjMxQGZzMi50aXN0b3J5LmNvbTovYXR0YWNoLzAvMS5qcGc=" /></a>[/caption]</p>
+<p><img alt="요즘 네트핵은 이정도다!" src="http://cfs2.tistory.com/upload_control/download.blog?fhandle=YmxvZzM4NjMxQGZzMi50aXN0b3J5LmNvbTovYXR0YWNoLzAvMS5qcGc=" /></p>
 <p>어쨌든, 이로서 오늘 시작한 리눅스에서 윈도우로의 마이그레이션은 내일중으로는 완료될 듯!!</p>
 <p>ps. 오늘 드디어 변태군의 야심작 <a href="http://game4.netmarble.net/prius/main.asp">프리우스 온라인</a>이 대망의 오픈 베타에 들어갔다. 회사에서 누가 해보길래 은근슬쩍 "제 후배가 이거 만들었어요" 라고 자랑을 하긴 했는데... ㅋㅋ 초반 다운 안되고 무사히 서비스되기를 기원해본다.</p></div>
 	<br />

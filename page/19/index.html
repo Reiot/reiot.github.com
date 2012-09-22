@@ -51,6 +51,9 @@
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
+            <ul class="nav">
+              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,6 +66,21 @@
 
 	<div class="row">
 		<div class="span9">
+			
+				<div>
+	<div class="page-header">
+		<h1><a href="/2008/05/22/teamwork-talent/">Teamwork > Talent</a> <small>2008-05-22</small></h1>
+	</div>
+	<div><p>```<br />
+<em>"Talent wins games, but teamwork and intelligence wins championships."</em> <strong><a class="extiw" title="Wikipedia:Michael Jordan" href="http://en.wikipedia.org/wiki/Michael_Jordan"></a></strong></p>
+<p><strong><a href="http://en.wikipedia.org/wiki/Michael_Jordan">Michael Jordan</a></strong>```<br />
+from <a href="http://developer.valvesoftware.com/wiki/Successful_Mod_Team_Tips">valve wiki</a></p></div>
+	<br />
+	<p>
+	
+	
+	</p>
+</div>
 			
 				<div>
 	<div class="page-header">
@@ -146,23 +164,6 @@ echo &quot;&lt;a href='&quot; . $links[0] . &quot;'&gt;&lt;img src='/blog/wp-con
 	</p>
 </div>
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2008/03/21/svn-mkactivity-403-forbidden/">SVN MKACTIVITY 403 Forbidden</a> <small>2008-03-21</small></h1>
-	</div>
-	<div><p>회사에서 <a href="http://www.subversionary.org/sspidomainauth">Collabnet Subversion 에 SSPI 를 연동</a>해서 별 문제없이 사용하던 어느 날, 저장소에 Boost 1.34.1 트리를 넣고 난 다음부터 update/commit 이 무지막지하게 느려졌었다. 혹시나 신 버전에서는 해결된 문제가 아닐까 해서 Collabnet 을 업그레이드했으나, 역시나 파일 개수가 많아서 생긴 문제였고, 날 잡아서 사용하지 않는 서드파티 라이브러리들을 모조리 삭제하고 난 후에야 그럭저럭 제 속도를 얻을 수 있었다.</p>
-<p>그러나, 이게 끝이 아니었으니,  갑자기 미국에 출장간 일부 개발자들이 update는 되는데 commit이 안된다는 보고를 해왔다. 아파치 로그를 살펴보니</p>
-<p>Access denied: '<username>' MKACTIVITY <repository-name>:</p>
-<p>라는 메시지가 나왔다. 그렇다고 모두 안되면 다시 롤백이라도 하겠는데, 특정 사용자만 안되었고, 새로 만든 아이디를 만들어서 권한을 부여해도 안되고, 그런데 또 관리자 계정을 사용하면 되는 기묘한 현상이었다.</p>
-<p>3-4 시간 정도 구글링해본 결과 도무지 해답을 찾을 수가 없어서, 포기하고 Collabnet Enterprise Subversion 을 구매하려다가 놀랄만한 가격 때문에 좌절해있던 찰라, 문제를 보고한 개발자가 <a href="http://www.alagad.com/go/blog-entry/subversion-mkactivity-and-403-forbidden-headaches">한방에 구글에서 해답</a>을 찾아내었다.  정답은 subversion 서버의 버전이 올라가면서 레파지토리 이름의 대소문자를 타이트하게 구분하게 되면서 생긴 문제였다. 결국 relocating만 하면 해결되는 것이었다는 슬픈 전설이 전해진다.</p>
-<p>이 이야기의 교훈은, 구글 검색어를 어떻게 조합하냐에 따라 O(N^2)으로 해결할 문제도 O(1)로 해결할  수 있다..일까?</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
-</div>
-			
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -227,6 +228,10 @@ echo &quot;&lt;a href='&quot; . $links[0] . &quot;'&gt;&lt;img src='/blog/wp-con
 	</li>
 	
 	<li>
+		<a href="/2008/05/22/teamwork-talent/">Teamwork > Talent</a>
+	</li>
+	
+	<li>
 		<a href="/2008/05/02/libjingle/">libjingle</a>
 	</li>
 	
@@ -240,10 +245,6 @@ echo &quot;&lt;a href='&quot; . $links[0] . &quot;'&gt;&lt;img src='/blog/wp-con
 	
 	<li>
 		<a href="/2008/04/05/boost-135/">boost 1.35</a>
-	</li>
-	
-	<li>
-		<a href="/2008/03/21/svn-mkactivity-403-forbidden/">SVN MKACTIVITY 403 Forbidden</a>
 	</li>
 	
 	<li class="nav-header dsq-widget-title">
