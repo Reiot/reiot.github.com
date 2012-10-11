@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/04/23/oblivion-story/">오블리비언 스토리</a> <small>2006-04-23</small></h1>
 	</div>
-	<div><p><img alt="umbraplusskooma.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/umbraplusskooma.jpg" /></p>
+	<div class="post-content"><p><img alt="umbraplusskooma.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/umbraplusskooma.jpg" /></p>
 <p>오블리비언을 하면서 감동받았거나 놀라웠던 장면들, 재미있는 퀘스트들을 모아봤다. (단, 이 옆 장면과 <a href="http://img.photobucket.com/albums/v284/c00lizz/OblivionLewd.jpg">요 장면</a>은 본인이 연출한게 아니다. XBOX360은 캡처 불가라는 점을 이해 바람.)</p>
 <p><strong>Atronach</strong></p>
 <p>연휴동안 Breton 여자 마법사를 키우고 있다. 마나 재생이 없는 대신 +150 마나 보너스, 마법 흡수 50%의 별자리인 Atronach 를 선택했기 때문에, 어떻게든 물약빨로 마나를 대신해야 하는 상황이다. 결국 모든 마법사 길드를 돌면서 책과 연금술 도구, 심지어는 은수저와 은그릇까지 주워다가 팔아서 물약값을 벌어야 했다. 또한 연금술을 빨리 올려야만 물약 자체 조달이 가능하기 때문에, 상점에 있는 모든 시약들도다 사거나 훔쳐서 물약으로 만들어서 돈을 긁어모으고 있다. 하루 빨리 이 헝그리한 삶에서 벗어나야 할텐데..</p>
@@ -88,11 +94,13 @@
 <p><strong>The Elven Maiden</strong></p>
 <p>도둑 길드에 가입해서 받는 두 번째 퀘스트는 성당 지하에서 작은 반신상을 훔쳐오는 것이다. 경비병이 왔다 갔다 하는 와중에 몰래 훔쳐오면 되는 간단한 퀘스트인데 성사금을 받으려고 다시 수도로 돌아와보니 난리가 나버렸다. 사실 바로 직전의 퀘스트가 Hieronymus Lex라는 경비대장의 방에 숨어 들어가 수도의 재개발지구(?)에 사는 거지들과 가난한 자들에게 뺏어간 세금과 인명부를 훔쳐오는 것이었는데, Lex가 열받아서 비상을 선포한 것이었다. 평소에는 점잖게 걸어다니던 경비병들이 계속 여기 저기 뛰어다니질 않나, 나를 보면 그넘 어디갔냐고 묻질 않나... 그러다가 또다른 길드원이 찾아와서 길드에 Lex가 심어둔 스파이가 있으니 훔쳐온 반신상을 스파이 집에다가 숨긴 다음 Lex에게 알려주라고 하는데, 결국은 Lex 가 스파이를 연행해 가는 것으로 끝나게 된다.</p>
 <p>과연 AI가 어디까지 구현되어 있나 싶어서 Lex를 끝까지 따라가봤는데, 예상대로 Warterfront 에서 감옥까지 맵을 4개나 넘어서까지 연행해가는 것이 아닌가? 그러나, 감옥 안에 도착하니 감옥 문과 감방문이 모두 잠겨 있어서 최종 수감 장면은 볼 수가 없었다. 간수에게 이야기해서 감옥 문은 친절하게 열었지만 감방 문을 여는 프로시저는 없는 듯했다. :P</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/04/23/oblivion-story/">http://boxcatstudio.wordpress.com/2006/04/23/oblivion-story/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -117,7 +125,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

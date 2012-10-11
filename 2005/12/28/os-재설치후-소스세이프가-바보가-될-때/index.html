@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,19 +68,25 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/12/28/os-재설치후-소스세이프가-바보가-될-때/">OS 재설치후 소스세이프가 바보가 될 때</a> <small>2005-12-28</small></h1>
 	</div>
-	<div><p>파일을 체크아웃 받은 상태에서 OS 를 새로 설치할 때, 컴퓨터 이름을 이전과 같이 해야 한다. 소스세이프는 체크아웃된 위치를 컴퓨터 이름과 working folder 를 조합해서 사용하기 때문에, 컴퓨터 이름이 다르다면 다른 곳에 체크아웃을 했다고만 나온다.</p>
+	<div class="post-content"><p>파일을 체크아웃 받은 상태에서 OS 를 새로 설치할 때, 컴퓨터 이름을 이전과 같이 해야 한다. 소스세이프는 체크아웃된 위치를 컴퓨터 이름과 working folder 를 조합해서 사용하기 때문에, 컴퓨터 이름이 다르다면 다른 곳에 체크아웃을 했다고만 나온다.</p>
 <p>*괜히 삼성카드 홈페이지에서 연말정산 서류 플러그인을 설치하다가 애꿎은 OS만 날려먹었다. 소송해버릴까.. *</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/12/28/os-%ec%9e%ac%ec%84%a4%ec%b9%98%ed%9b%84-%ec%86%8c%ec%8a%a4%ec%84%b8%ec%9d%b4%ed%94%84%ea%b0%80-%eb%b0%94%eb%b3%b4%ea%b0%80-%eb%90%a0-%eb%95%8c/">http://boxcatstudio.wordpress.com/2005/12/28/os-%ec%9e%ac%ec%84%a4%ec%b9%98%ed%9b%84-%ec%86%8c%ec%8a%a4%ec%84%b8%ec%9d%b4%ed%94%84%ea%b0%80-%eb%b0%94%eb%b3%b4%ea%b0%80-%eb%90%a0-%eb%95%8c/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -99,7 +111,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

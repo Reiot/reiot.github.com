@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/03/01/trac/">Trac</a> <small>2005-03-01</small></h1>
 	</div>
-	<div><p>TRAC = 위키 + 이슈 트래킹 + 버그 트래킹 + 이벤트 트래킹 + 소스 브라우징 &amp; diff + 리포팅....</p>
+	<div class="post-content"><p>TRAC = 위키 + 이슈 트래킹 + 버그 트래킹 + 이벤트 트래킹 + 소스 브라우징 &amp; diff + 리포팅....</p>
 <p>더군다나, 파이썬으로 구현되었고, SQLLite 를 쓰며, SubVersion 연동이라니... 이 정도라면, 새 회사에서 KMS 로 쓰려고 했던 모니위키와는 무조건 이별을 해야 할 듯 하다.. 만티스도 안녕... phpBB도 안녕...</p>
 <p>그렇잖아도, 동료 개발자들의 check-in 여부를 확인하려고 모인모인 위키에서 파이썬으로 VSS 히스토리 뷰어 매크로를 작성하다가 이상한 이유로 포기한 전적이 있었기에... 더욱 기대가 된다. :)</p>
 <p>위키에서 디자인, 구현, 테스트의 전 개발과정을 진행하고 싶은 사람에게 권장한다. 단 과도한 욕심은 금물... ;)</p>
@@ -93,15 +99,25 @@
 <em> Trac:TracInstall - TRAC 설치 매뉴얼(영문)<br />
 </em> Trac:TracOnWindows - TRAC on 윈도우즈 설치 매뉴얼(영문)<br />
 * [http://synergy.kaist.ac.kr/~paraon/tt/index.php?pl=59 Trac 0.8 On WindowsXP] - 한글 관련 설치 팁</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-		<a href="/tag/trac/"><span class="label"><span class="icon icon-tag"></span> trac</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/03/01/trac/">http://boxcatstudio.wordpress.com/2005/03/01/trac/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/trac/"><span class="label"><span class="icon icon-tag"></span> trac</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -126,7 +142,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

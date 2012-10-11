@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2004/11/24/어떻게-우리-팀의-xp가-실패했는가/">어떻게 우리 팀의 XP가 실패했는가?</a> <small>2004-11-24</small></h1>
 	</div>
-	<div><p>붐붐차차 프로젝트는 처음부터 "XP를 한번 연습해본다"라는 기치를 내걸고 시작했다. 개발 초기 3-4개월동안은 별 문제없이 흘러갔지만, 7-8 개월이 지난 이후부터 지금까지, 테스트 코드는 더이상 유지보수되지 않고 있다. 과연 무엇이 문제였을까? 그리고 다음번 프로젝트에서도 XP 를 성공적으로 도입할 수 있을까?</p>
+	<div class="post-content"><p>붐붐차차 프로젝트는 처음부터 "XP를 한번 연습해본다"라는 기치를 내걸고 시작했다. 개발 초기 3-4개월동안은 별 문제없이 흘러갔지만, 7-8 개월이 지난 이후부터 지금까지, 테스트 코드는 더이상 유지보수되지 않고 있다. 과연 무엇이 문제였을까? 그리고 다음번 프로젝트에서도 XP 를 성공적으로 도입할 수 있을까?</p>
 <p><strong>잘못된 테스트 프로젝트 설정</strong></p>
 <ul>
 <li>요약 : unittest 의 링킹 시간이 너무 길었다.</li>
@@ -103,17 +109,27 @@
 <ul>
 <li><a href="http://xper.org/wiki/xp/_b7_b9_c0_cc_bf_ca">이 글에 대한 김창준씨의 분석</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/columns/"><span class="label label-info"><span class="icon icon-folder-open"></span> columns</span></a>
-	
-	
-		<a href="/tag/agile/"><span class="label"><span class="icon icon-tag"></span> agile</span></a>
-	
-		<a href="/tag/xp/"><span class="label"><span class="icon icon-tag"></span> xp</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2004/11/24/%ec%96%b4%eb%96%bb%ea%b2%8c-%ec%9a%b0%eb%a6%ac-%ed%8c%80%ec%9d%98-xp%ea%b0%80-%ec%8b%a4%ed%8c%a8%ed%96%88%eb%8a%94%ea%b0%80/">http://boxcatstudio.wordpress.com/2004/11/24/%ec%96%b4%eb%96%bb%ea%b2%8c-%ec%9a%b0%eb%a6%ac-%ed%8c%80%ec%9d%98-xp%ea%b0%80-%ec%8b%a4%ed%8c%a8%ed%96%88%eb%8a%94%ea%b0%80/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/columns/"><span class="label label-info"><span class="icon icon-folder-open"></span> columns</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/agile/"><span class="label"><span class="icon icon-tag"></span> agile</span></a>
+		
+			<a href="/tag/xp/"><span class="label"><span class="icon icon-tag"></span> xp</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -138,7 +154,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

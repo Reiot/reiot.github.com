@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/04/15/how-to-test-my-server-frameworks-performance/">How to test my server framework’s performance?</a> <small>2006-04-15</small></h1>
 	</div>
-	<div><p>갓 만들어진 서버 프레임워크의 성능을 제대로 테스트하기란 쉽지 않다. 대체로 (서비스 예정인) 표준 하드웨어 사양 하에서 가상 클라이언트를 1000-2000 개 정도 붙이고 적절한 트래픽을 주었을 때 반응 속도라든지 CPU 점유율, 메모리 사용량 등을 측정하는 것이 일반적인데, 문제는 서버 프레임워크에서 채택한 내부 구조에 따라서, 특히 동기화, 쓰레드 같은 민감한 요소들에 따라 결과가 천차만별이 된다는 것이다.</p>
+	<div class="post-content"><p>갓 만들어진 서버 프레임워크의 성능을 제대로 테스트하기란 쉽지 않다. 대체로 (서비스 예정인) 표준 하드웨어 사양 하에서 가상 클라이언트를 1000-2000 개 정도 붙이고 적절한 트래픽을 주었을 때 반응 속도라든지 CPU 점유율, 메모리 사용량 등을 측정하는 것이 일반적인데, 문제는 서버 프레임워크에서 채택한 내부 구조에 따라서, 특히 동기화, 쓰레드 같은 민감한 요소들에 따라 결과가 천차만별이 된다는 것이다.</p>
 <p>예를 들면 이런 구조에서는 트래픽이 늘어날수록 CPU 사용량이 폭주할 수도 있고, 저런 구조에서는 접속자가 늘어날수록 반응속도가 느려질 수도 있다는 것인데, <a href="http://reiot.cafe24.com/archives/434">이번 마이그레이션</a>에서도 비슷한 현상을 경험했다. 사실 어제 아침까지만 해도 테스트 결과가 좋아서 안심하고 있었는데, 혹시나 해서 트래픽을 2배로 늘린 후 성능 모니터링을 해보니 CPU 점유율이 130%까지 급증하는게 아닌가... 반면 예전에 만들어둔 코드는 동일 조건에서도 CPU 점유율은 40%를 넘지 않았다. 흑흑.</p>
 <p>오늘 Visual Studio .NET 2005 에 내장된 프로파일러로 을사오적(?)들을 찾아내서 모두 제거하고,  최종적으로 6배 트래픽으로 테스트한 결과 debug에서는 120%, release에서는 150% 정도 빨라진 놈을 완성할 수 있었다. 아직 idle 체크를 위한 타이머 처리라든지, 메시지 핸들러 같은 구태의연한 작업이 남아있긴 하지만, 웬지 성공적으로 끝이 날 것 같다는 희망에 차 있는 상태다. :)</p>
 <p>아무튼 이번 삽질을 통해, 가상 클라이언트를 이용한 서버 프레임워크의 테스트 방법론에 대해서 좀 더 체계화를 해야 할 필요성을 느꼈다. 이번 주에 한 일이라고는 고작, 2개의 머신에서 파라미터를 적절히 바꿔가면서 서버와 클라이언트를 수동으로 실행하고, 성능 모니터링 도구를 이용해서 CPU 및 메모리 사용량을 눈으로 살펴보고, 최종적으로 클라이언트측에 남겨진 통계 로그 파일을 위키 페이지로 복사한 후, 성능의 변동을 살펴보는 단순 작업들을 반복해왔기 때문이다. 물론 밀린 일정 덕에 자동화에 투자할 시간은 더이상 없겠지만 대략 다음과 같은 테스트 프레임워크를 구성해 볼 기회가 있었으면 좋겠다.</p>
@@ -118,15 +124,21 @@
 <li>서버의 반응 속도</li>
 </ul>
 <p>웬지 마이크로소프트나 ant 같은 것들이 이런 기능을 제공할 법도 한데 말이다. 혹시나 비슷한 기능을 가진 도구를 아시는 분은 꼭 코멘트 부탁드린다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/04/15/how-to-test-my-server-frameworks-performance/">http://boxcatstudio.wordpress.com/2006/04/15/how-to-test-my-server-frameworks-performance/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -151,7 +163,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

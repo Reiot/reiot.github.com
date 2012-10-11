@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/11/15/three-rules-for-database-work/">Three Rules for Database Work</a> <small>2008-11-15</small></h1>
 	</div>
-	<div><p><img alt="http://www.openmaru.com/attach/1/1046597520.jpg" src="http://www.openmaru.com/attach/1/1046597520.jpg" /></p>
+	<div class="post-content"><p><img alt="http://www.openmaru.com/attach/1/1046597520.jpg" src="http://www.openmaru.com/attach/1/1046597520.jpg" /></p>
 <p><em><a href="http://www.openmaru.com/273">하루에 10만을 채우는 게임</a>은 이런 게 이벤트가 되는구나.</em></p>
 <p>오늘자 코드 프로젝트에 올라온 <a href="http://www.codeproject.com/KB/architecture/DBTool.aspx">DBTool</a>의 근간이 된, <a href="http://odetocode.com/Blogs/scott/archive/2008/01/30/11702.aspx">데이터베이스를 갖고 놀 때의 세가지 룰</a>은 생각보다 간단했다.</p>
 <h3>Never use a shared database server for development work.</h3>
@@ -81,15 +87,25 @@
 <ul>
 <li>다른 글을 찾아 보니, 프로시저나 테이블 각각을 서로 다른 파일에 저장해서 관리하라는 말도 있다. 은근히 그럴듯한데?</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
-	
-	
-		<a href="/tag/database/"><span class="label"><span class="icon icon-tag"></span> database</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/11/15/three-rules-for-database-work/">http://boxcatstudio.wordpress.com/2008/11/15/three-rules-for-database-work/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/database/"><span class="label"><span class="icon icon-tag"></span> database</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -114,7 +130,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

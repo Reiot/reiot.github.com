@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a> <small>2005-09-06</small></h1>
 	</div>
-	<div><h2>Overview</h2>
+	<div class="post-content"><h2>Overview</h2>
 <p>한동안 메신저 + zip 파일 기반의 배포 시스템을 고집하다가 더 이상 참을 수가 없어서 결국 <a href="http://www.itefix.no/cwrsync/">cwRsync </a>라는 툴을 테스트 해보게 되었다. Cygwin + rsync + openssh 를 NullSoft 인스톨러로 깔끔하게 패키징한 이 유틸리티는 약간의 삽질 만으로 간편하면서도 공짜 파일 배포 시스템을 구축할 수 있게 해준다. 당연히 호스트 접근 제어도 가능하고, SSH 를 통해서만 배포할 수도 있다.</p>
 <p>이전 프로젝트에서도 <a href="http://www.dillobits.com/insync.html">InSync </a>를 이용해서 팀 내부에 클라이언트를 배포했었다. 클라이언트 프로그래머가 최신 파일들을 특정 공유 폴더에다가 업데이트하면, 각자가 로컬에 설치된 프로그램을 실행해서 변경된 파일들을 받아오는 방식인데, 가끔 동시에 많은 사람이 업데이트를 받을 경우 문제가 있었고, 무엇보다도 shareware 여서 어둠과자를 사용해야만 했다.</p>
 <h2>Install</h2>
@@ -99,20 +105,30 @@ transfer logging = yes</p>
 <p>필터 파일을 지정하려면 '--exclude-from=필터파일명' 을 지정해주면 된다.</p>
 <h2>마치며</h2>
 <p>사실 내부 테스트를 위해서도 패치 시스템을 구축하는 것이 가장 좋겠지만, 보유중인 패치 시스템의 인터페이스가 간편하지 않다면 오히려 낭패... 차라리 부담없이 GNU 툴들을 도입해 보는 것이 정신 건강상 더 나을 듯하다.</p>
-<p>그리고, 아무래도 안정적으로 파일을 배포하려면, <br />
+<p>그리고, 아무래도 안정적으로 파일을 배포하려면,<br />
 개발 머신 --(rsync)--&gt; 패치 서버 --(rsync)--&gt; 팀 배포<br />
  의 2단계를 거치는 것이 좋은데, 이를 위해서는 서버에 같은 폴더를 나타내는 upload 모듈과 download 모듈을 만들어 둬야 한다. 또한 실행 파일만을 배포할 경우를 위한 배치 파일도 따로 만드는 것을 권장한다. (아무래도 recursive 로 검색을 하면 시간이 좀 걸린다)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
-	
-	
-		<a href="/tag/ci/"><span class="label"><span class="icon icon-tag"></span> ci</span></a>
-	
-		<a href="/tag/cwrsync/"><span class="label"><span class="icon icon-tag"></span> cwrsync</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/09/06/client-distribution-with-cwrsync/">http://boxcatstudio.wordpress.com/2005/09/06/client-distribution-with-cwrsync/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/ci/"><span class="label"><span class="icon icon-tag"></span> ci</span></a>
+		
+			<a href="/tag/cwrsync/"><span class="label"><span class="icon icon-tag"></span> cwrsync</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -137,7 +153,7 @@ transfer logging = yes</p>
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

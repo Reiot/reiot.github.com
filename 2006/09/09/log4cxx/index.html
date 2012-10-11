@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/09/09/log4cxx/">Log4cxx</a> <small>2006-09-09</small></h1>
 	</div>
-	<div><p><img alt="http://logging.apache.org/images/ls-logo.jpg" src="http://logging.apache.org/images/ls-logo.jpg" /></p>
+	<div class="post-content"><p><img alt="http://logging.apache.org/images/ls-logo.jpg" src="http://logging.apache.org/images/ls-logo.jpg" /></p>
 <p>서버 프로그래머라면 빠르고 간편한 로그와 트레이스에 대해서 한번쯤은 고민해봤을 것이다. 파일 로그 또는 윈도우의 이벤트 로그를 보통 쓰고 있겠지만, 생각보다 편하지 않은게 사실이다. 그런 의미에서 이번 기회에 <a href="http://logging.apache.org/log4cxx/index.html">Log4j을 C++로 포팅한 Log4cxx</a>의 특징에 대해서 알아보는 시간을 가져봤다.</p>
 <p>다음 내용은 <a href="http://logging.apache.org/log4cxx/manual/Introduction.html">Log4cxx의 개요 문서</a>를 축약한 것이므로, 가능하면 본문을 읽어보기를 권장한다.</p>
 <ul>
@@ -78,11 +84,13 @@
 </ul>
 <p>잘 찾아보면 <a href="http://www.codeproject.com/csharp/TraceTool.asp?df=100&amp;forumid=28124&amp;exp=0&amp;select=1261034&amp;fr=26">log4j/log4net 등의 출력을 GUI로 이쁘게 보여주는 유틸리티</a>도 없지 않으므로, 굳이 까만 콘솔 화면을 뚫어지게 쳐다보기 보다는 저런 툴을 활용해보는 건 어떨까 싶다. 물론 라이브 로그도 지원해줘야 하고, 손쉬운 필터링과 검색 기능이 들어가야 하겠지만…</p>
 <p>가장 좋은 건, 데몬을 띄워두면 패널에 아이콘화되어 있다가, 에러가 발생하면 깜빡거리며 툴팁이 뜨고, 이를 클릭하면 어플리케이션 이름-시간-내용 메시지를 보여주는 모니터링 어플리케이션을 만들어 두는 것이다. 마찬가지로 필터링 기능이 들어가야 하겠지만.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/09/09/log4cxx/">http://boxcatstudio.wordpress.com/2006/09/09/log4cxx/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -107,7 +115,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

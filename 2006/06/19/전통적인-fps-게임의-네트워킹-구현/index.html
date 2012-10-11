@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a> <small>2006-06-19</small></h1>
 	</div>
-	<div><p>한국 대 프랑스전을 기다리면서 <a href="http://developer.valvesoftware.com/wiki/">하프라이프2 위키</a> 중에서 <a href="http://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking">Source Multiplayer Networking</a> 부분을 요약 정리해보았다.</p>
+	<div class="post-content"><p>한국 대 프랑스전을 기다리면서 <a href="http://developer.valvesoftware.com/wiki/">하프라이프2 위키</a> 중에서 <a href="http://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking">Source Multiplayer Networking</a> 부분을 요약 정리해보았다.</p>
 <p><img alt="하프라이프2 서버와 클라이언트" src="http://developer.valvesoftware.com/w/images/e/ea/Networking1.gif" /></p>
 <p>퀘이크나 하프라이프2(이하 HL2) 같은 클라이언트-서버 기반의 FPS 게임에서, 클라이언트는 기본적으로 렌더링 더미(dummy)라고 봐야 한다. 왜냐하면 클라이언트가 키보드나 마우스 입력을 샘플링해서 서버로 보내면, 서버는 초당 30-40회의 시뮬레이션을 거친 후 그 결과(snapshot)를 주기적으로 브로드캐스트하며, 클라이언트는 스냅샷을 받아서 렌더링을 하는 방식으로 구현되기 때문이다. 대신 서버는 보안적인 이유 때문에 대부분의 이동, 공격, 인증, 보안 체크를 해야 한다. (참고로, HL2 서버는 초당 33회의 시뮬레이션을 거치고 20회의 스냅샷을 브로드캐스트하며, 클라이언트는 초당 20회의 입력샘플링을 한다.)</p>
 <p>문제는 사용자의 입력 결과가 도착해서 실제로 그려지기까지의 시간이 꽤 오래 걸린다는 점이다. 이 랙(lag)을 해결하기 위해서 입력 예측(Input Prediction)이 사용되는데, 이는 내 캐릭터만큼은 서버의 결과를 기다리지 않고 먼저 움직이게 한다는 것이다. 이를 위해서 이동에 관련된 시뮬레이션 로직을 서버와 클라이언트 모두에 탑재해야 하며, 클라이언트는 서버에 입력을 보내자마자 로컬 시뮬레이션을 거쳐 내 캐릭터를 이동시킨 후, 서버에서 도착한 결과가 너무 차이가 많이 날 경우에만 보정을 하게 된다.</p>
@@ -75,11 +81,13 @@
 <p><img alt="Entity Interpolation" src="http://developer.valvesoftware.com/w/images/4/49/Interpolation.gif" /></p>
 <p>이 정도면 정상적인 네트워크에서의 기본적인 이동과 전투 까지는 해결할 수 있지만, 만약 패킷 손실을 고려하지 않으면 불안한 네트워크에서 캐릭터가 마구 점프하는 모습을 보게 될 것이다. 물론 적절한 데드 레커닝으로 해결할 수도 있겠지만, HL2 클라이언트에서는 서버가 보낸 스냅샷을 즉시 처리하는 대신 일정 시간(100ms)동안 버퍼링을 한 후, 내삽(interpolation)과 외삽(extrapolation)을 이용해서 패킷 손실에 우아하게 처리한다. 위 그림을 보면 짐작하겠지만, 최소한 2개의 패킷을 버퍼링함으로써 둘 중 하나가 손실되더라도 나머지 패킷으로 추정이 가능하다.</p>
 <p>결국 전통적인 FPS 게임에서의 서버는, 단순히 패킷을 브로드캐스팅하는 릴레이 서버가 아니라, 이동-공격-판정-충돌 등 대부분의 로직을 처리해해야 하기 때문에, 생각보다 꽤 무거워질 수 밖에 없다. 반면 클라이언트는 자기 캐릭터를 제외한 대부분의 입력을 네트워크로부터 받아들이는 구조로 작성되어야 한다. 만약 여러분이 다른 FPS게임과는 달리 플레이어들에게 dedicated server를 배포할 수 없는 상황이라면, 여러분은 대역폭을 무한히 절약해야 하는 꽤 힘든 싸움을 시작한 것이다. Welcome to the hell, guys.. :)</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/19/%ec%a0%84%ed%86%b5%ec%a0%81%ec%9d%b8-fps-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%82%b9-%ea%b5%ac%ed%98%84/">http://boxcatstudio.wordpress.com/2006/06/19/%ec%a0%84%ed%86%b5%ec%a0%81%ec%9d%b8-fps-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%82%b9-%ea%b5%ac%ed%98%84/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -104,7 +112,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

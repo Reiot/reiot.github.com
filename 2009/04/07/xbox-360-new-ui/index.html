@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,26 +68,36 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2009/04/07/xbox-360-new-ui/">XBOX 360 NEW UI</a> <small>2009-04-07</small></h1>
 	</div>
-	<div><p>[caption id="" align="aligncenter" width="640" caption="XBOX 360 NEW UI"]<a href="http://arstechnica.com/gaming/news/2009/02/mature-games-dominate-most-popular-xbox-360-downloads.ars"><img alt="http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg" src="http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg" /></a>[/caption]</p>
+	<div class="post-content"><p>[caption id="" align="aligncenter" width="640" caption="XBOX 360 NEW UI"]<a href="http://arstechnica.com/gaming/news/2009/02/mature-games-dominate-most-popular-xbox-360-downloads.ars"><img alt="http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg" src="http://static.arstechnica.com/assets/2009/02/640Gearsthemeongamemarketpl-thumb-640xauto-2328.jpg" /></a>[/caption]</p>
 <p>오늘 봄맞이 대청소를 맞아서, 반 년 가량 전기밥을 못먹은 엑박의 봉인을 풀었다. 작년 가을에 바뀐 대시 보드를 이제서야 보게 된 셈인데, 이게 상당히 마음에 들었다. 아바타 서비스야 Wii 보다는 한참 나은 수준이라서 그러려니 하겠는데, 아이튠즈의 커버플로우에서 발전한 네비게이션 인터페이스는 제법 "끌리게" 잘 만들었다. 무엇보다도 웬지 더 사고 싶다는 느낌 - 일명 소장 가치 - 를 불러일으키는 사용자 경험을 마켓플레이스를 돌아다니면서 계속 느꼈으니 말이다.</p>
 <p>다만 작년부터 게임불감증에 빠져서 엑박 타이틀을 제법 사놓고도 엔딩을 못본게 제법 되는지라, 실질적인 구매로는 이어지지 않았다. 만약에 스팀이나 앱스토어처럼 소액결제로 손쉽게 살 수 있는 사회적 분위기(?)가 갖춰졌다면 지갑을 열었을지도.</p>
 <p>끝으로, 제작년부터 쭈욱 주위 사람들에게 강조해오던 건데, 다량의 데이터를 표현해야 하는 인터페이스를 설계할 때 왜 다들 비트맵 기반의 픽셀 고정 스타일 - 이른바 디자이너 의존적인 통짜 인터페이스 - 을 고집하는지 모르겠다. 바야흐로 시대적 대세는 프로그래머 지향적인 벡터 기반 인터페이스이며 (아아 사실 개인적 취향이라는 점, 인정한다), 특히나 데이터를 많이 표현하게 될 경우에는 텍스트를 최대한 활용해야 하는 법이다. 윈도우 가장자리 디자인을 다듬는 시간에 멋진 배경 그림 하나 더 넣고, 더욱 미려한 폰트를 구매하고, 게임 컨텐트에 집중하는게 시간과 돈을 절약하면서도 사용자에게 더 큰 감동을 불러일으킬 수 있다고 믿는다.</p>
 <p>ps. 스케일폼 그동안 돈 많이 벌었겠다. 쳇.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-		<a href="/tag/interface/"><span class="label"><span class="icon icon-tag"></span> interface</span></a>
-	
-		<a href="/tag/xbox/"><span class="label"><span class="icon icon-tag"></span> xbox</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2009/04/07/xbox-360-new-ui/">http://boxcatstudio.wordpress.com/2009/04/07/xbox-360-new-ui/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/interface/"><span class="label"><span class="icon icon-tag"></span> interface</span></a>
+		
+			<a href="/tag/xbox/"><span class="label"><span class="icon icon-tag"></span> xbox</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -106,7 +122,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

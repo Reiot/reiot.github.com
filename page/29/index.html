@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,11 +73,36 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2006/09/09/log4cxx/">Log4cxx</a> <small>2006-09-09</small></h1>
+	</div>
+	<div class="post-content"><p><img alt="http://logging.apache.org/images/ls-logo.jpg" src="http://logging.apache.org/images/ls-logo.jpg" /></p>
+<p>서버 프로그래머라면 빠르고 간편한 로그와 트레이스에 대해서 한번쯤은 고민해봤을 것이다. 파일 로그 또는 윈도우의 이벤트 로그를 보통 쓰고 있겠지만, 생각보다 편하지 않은게 사실이다. 그런 의미에서 이번 기회에 <a href="http://logging.apache.org/log4cxx/index.html">Log4j을 C++로 포팅한 Log4cxx</a>의 특징에 대해서 알아보는 시간을 가져봤다.</p>
+<p>다음 내용은 <a href="http://logging.apache.org/log4cxx/manual/Introduction.html">Log4cxx의 개요 문서</a>를 축약한 것이므로, 가능하면 본문을 읽어보기를 권장한다.</p>
+<ul>
+<li>이름 기반으로 계층화(hierarchical)된 로그 지원 : 종류별 로그 객체를 만들어둘 필요가 없이, 필요할 때마다 이름을 키값으로 로그 객체에 접근하면 된다. 가령 system.net 은 system.net.packet 의 상위 계층이 된다.</li>
+<li>상속 지원 : 하위 계층에 속한 로그들은 상위 계층의 로그에게 종속된다. 윈도우의 이벤트 로그과 비슷하게 로그 레벨(DEBUG-INFO-WARN-ERROR-FATAL)을 지원하며, 이 역시 상속 기반으로 동작한다.</li>
+<li>복수의 Appender 지원 : 하나의 로그 객체에 콘솔, 파일, 이벤트로그, 소켓 등 여러 가지 종류의 출력 스트림(Appender)을 2개 이상 붙일 수 있다. 당연히 비동기적으로 동작한다.</li>
+<li>XML 기반의 외부 환경 설정 파일 지원 : 각 로그 객체의 on/off 부터 레이아웃(==포맷팅)까지 모두 외부 환경 파일에서 설정 가능하다.</li>
+<li>고성능 : 굳이 #ifdef … #endif 로 지우지 않고 그냥 off 만 해둬도 함수 호출 하나 + 정수 연산 정도의 부하만 준다.</li>
+</ul>
+<p>잘 찾아보면 <a href="http://www.codeproject.com/csharp/TraceTool.asp?df=100&amp;forumid=28124&amp;exp=0&amp;select=1261034&amp;fr=26">log4j/log4net 등의 출력을 GUI로 이쁘게 보여주는 유틸리티</a>도 없지 않으므로, 굳이 까만 콘솔 화면을 뚫어지게 쳐다보기 보다는 저런 툴을 활용해보는 건 어떨까 싶다. 물론 라이브 로그도 지원해줘야 하고, 손쉬운 필터링과 검색 기능이 들어가야 하겠지만…</p>
+<p>가장 좋은 건, 데몬을 띄워두면 패널에 아이콘화되어 있다가, 에러가 발생하면 깜빡거리며 툴팁이 뜨고, 이를 클릭하면 어플리케이션 이름-시간-내용 메시지를 보여주는 모니터링 어플리케이션을 만들어 두는 것이다. 마찬가지로 필터링 기능이 들어가야 하겠지만.</p></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/09/09/log4cxx/">http://boxcatstudio.wordpress.com/2006/09/09/log4cxx/</a></p>
+		
+		
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/09/09/activex/">ActiveX</a> <small>2006-09-09</small></h1>
 	</div>
-	<div><p><strong><em>[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87215">http://reiot.springnote.com/pages/87215</a> 에서 읽으실 수 있습니다.</em></strong></p>
+	<div class="post-content"><p><strong><em>[공지사항] 이 페이지는 더이상 업데이트되지 않으며, 최신 버전은 <a href="http://reiot.springnote.com/pages/87215">http://reiot.springnote.com/pages/87215</a> 에서 읽으실 수 있습니다.</em></strong></p>
 <p>어쩌다보니 ActiveX를 이용해서 브라우저에서 클라이언트를 실행하는 작업을 도와주게 되었다. 담당자나 나나 이 쪽으로는 거의 지식이 전무한 상태였는데, 삽질을 반복하면서 여러 가지 유용한 정보들을 알아내었다. 이미 귀국 날짜가 연기된 마당이므로 시간도 널널하고 해서 알아낸 점들을 정리해본다.</p>
 <p>혹시라도 이 분야에 처음 발을 들였다면 <a href="http://www.codeproject.com/com/CompleteActiveX.asp">A Complete ActiveX Web Control Tutorial</a>를 꼭 읽어보기 바란다. 물론 <a href="http://en.wikipedia.org/wiki/ActiveX">위키피디아</a>의 설명도 괜찮다.</p>
 <h2>설치 여부 알아내기</h2>
@@ -102,31 +133,35 @@ End</p>
 <p><a href="http://december.com/html/4/element/script.html">&lt;script</a> language="javascript" for="mycontrol" event="closebrowser"&gt;<br />
 self.close();<br />
 </script></p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/09/09/activex/">http://boxcatstudio.wordpress.com/2006/09/09/activex/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/09/07/라스베가스-그랜드캐년-사진전/">라스베가스 & 그랜드캐년 사진전</a> <small>2006-09-07</small></h1>
 	</div>
-	<div><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236625957"><img alt="http://static.flickr.com/89/236625957_2d160f7cba_s.jpg" src="http://static.flickr.com/89/236625957_2d160f7cba_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236621761"><img alt="http://static.flickr.com/82/236621761_b241158e4d_s.jpg" src="http://static.flickr.com/82/236621761_b241158e4d_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236616922"><img alt="http://static.flickr.com/97/236616922_616cba2587_s.jpg" src="http://static.flickr.com/97/236616922_616cba2587_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236614900"><img alt="http://static.flickr.com/88/236614900_938f823497_s.jpg" src="http://static.flickr.com/88/236614900_938f823497_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236612458"><img alt="http://static.flickr.com/89/236612458_b410c994f0_s.jpg" src="http://static.flickr.com/89/236612458_b410c994f0_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236610619"><img alt="http://static.flickr.com/84/236610619_5ffc59b02c_s.jpg" src="http://static.flickr.com/84/236610619_5ffc59b02c_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235675320"><img alt="http://static.flickr.com/80/235675320_614fb8ff75_s.jpg" src="http://static.flickr.com/80/235675320_614fb8ff75_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235660261"><img alt="http://static.flickr.com/81/235660261_0940dec4f4_s.jpg" src="http://static.flickr.com/81/235660261_0940dec4f4_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235660260"><img alt="http://static.flickr.com/88/235660260_b7d4c9a0b6_s.jpg" src="http://static.flickr.com/88/235660260_b7d4c9a0b6_s.jpg" /></a></p>
+	<div class="post-content"><p><a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236625957"><img alt="http://static.flickr.com/89/236625957_2d160f7cba_s.jpg" src="http://static.flickr.com/89/236625957_2d160f7cba_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236621761"><img alt="http://static.flickr.com/82/236621761_b241158e4d_s.jpg" src="http://static.flickr.com/82/236621761_b241158e4d_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236616922"><img alt="http://static.flickr.com/97/236616922_616cba2587_s.jpg" src="http://static.flickr.com/97/236616922_616cba2587_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236614900"><img alt="http://static.flickr.com/88/236614900_938f823497_s.jpg" src="http://static.flickr.com/88/236614900_938f823497_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236612458"><img alt="http://static.flickr.com/89/236612458_b410c994f0_s.jpg" src="http://static.flickr.com/89/236612458_b410c994f0_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/236610619"><img alt="http://static.flickr.com/84/236610619_5ffc59b02c_s.jpg" src="http://static.flickr.com/84/236610619_5ffc59b02c_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235675320"><img alt="http://static.flickr.com/80/235675320_614fb8ff75_s.jpg" src="http://static.flickr.com/80/235675320_614fb8ff75_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235660261"><img alt="http://static.flickr.com/81/235660261_0940dec4f4_s.jpg" src="http://static.flickr.com/81/235660261_0940dec4f4_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/78725883@N00/235660260"><img alt="http://static.flickr.com/88/235660260_b7d4c9a0b6_s.jpg" src="http://static.flickr.com/88/235660260_b7d4c9a0b6_s.jpg" /></a></p>
 <p>레이옷의 <a href="http://flickr.com/photos/78725883@N00/sets/72157594258890065/detail/">Flicker</a>에 가시면 좀더 최신의 사진들을 보실 수 있습니다. 자자. 저희 회사로 오십시요. 해외 출장 겸 영어 연수 겸 관광의 기회가 주어집니다. 매번 겨울-봄 워크샵은 스키장에서 보내고, 이번 가을 워크샵은 일본으로 갈 예정이라니까요~~</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/09/07/%eb%9d%bc%ec%8a%a4%eb%b2%a0%ea%b0%80%ec%8a%a4-%ea%b7%b8%eb%9e%9c%eb%93%9c%ec%ba%90%eb%85%84-%ec%82%ac%ec%a7%84%ec%a0%84/">http://boxcatstudio.wordpress.com/2006/09/07/%eb%9d%bc%ec%8a%a4%eb%b2%a0%ea%b0%80%ec%8a%a4-%ea%b7%b8%eb%9e%9c%eb%93%9c%ec%ba%90%eb%85%84-%ec%82%ac%ec%a7%84%ec%a0%84/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/09/06/미국이라는-나라는/">미국이라는 나라는…</a> <small>2006-09-06</small></h1>
 	</div>
-	<div><p><img alt="BlackBerry" src="http://ec1.images-amazon.com/images/P/B000FEHG76.01._SS500_SCLZZZZZZZ_V53894984_.jpg" /></p>
+	<div class="post-content"><p><img alt="BlackBerry" src="http://ec1.images-amazon.com/images/P/B000FEHG76.01._SS500_SCLZZZZZZZ_V53894984_.jpg" /></p>
 <ul>
 <li>
 <p>우리 보스는 <a href="http://www.dt.co.kr/contents.htm?article_no=2006030302013231728002">대규모 정전에도 무선 인터넷을 통해서 업무 메일을 받아 볼 수 있다</a>는 블랙 베리폰을 사용한다. 며칠 전 점심때 회사에서 약 20분 정도 떨어진 말레이시아 레스토랑에서 점심을 먹고, 돌아오는 길에 이 폰으로 현재 LA 의 각 도로 사정을 검색하고 어느 도로를 타고 돌아갈 것인지를 검색했다. 그러면서 한달에 겨우 10달러로 무선인터넷을 무제한으로 사용할 수 있다고 자랑하면서, 구글에 접속해서 검색도 하고, 현재 서비스중인 게임의 각 서버 별 MRTG 트래픽 그래프도 확인하는 걸 보여주기도 했다. 저녁 때에도 함께 식사를 마치고 돌아오는 길에는 부하 직원으로부터 메일이 온 것도 보여줬다. (이쯤 되면 짐작하겠지만, 우리 보스 역시 지름신의 가호를 받은 사람 중의 하나다. 오죽했으면 BMW 745의 다음 차로 무엇을 골라야 할지 걱정이라고까지 말할 정도겠는가..)</p>
@@ -144,18 +179,20 @@ self.close();<br />
 <p>미국의 고속 도로도 때로는 막히곤 한다. 이번 주 월요일은 노동절이어서 다들 놀았는데, 덕분에 라스베가스에서 LA까지 오는데 8시간이나 걸렸다. 운전하느라 무리하신 최실장에게 묵념. 잇힝.</p>
 </li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/09/06/%eb%af%b8%ea%b5%ad%ec%9d%b4%eb%9d%bc%eb%8a%94-%eb%82%98%eb%9d%bc%eb%8a%94/">http://boxcatstudio.wordpress.com/2006/09/06/%eb%af%b8%ea%b5%ad%ec%9d%b4%eb%9d%bc%eb%8a%94-%eb%82%98%eb%9d%bc%eb%8a%94/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/09/04/여기는-라스베가스/">여기는 라스베가스</a> <small>2006-09-04</small></h1>
 	</div>
-	<div><div style="float:right;margin-left:10px;margin-bottom:10px;">
+	<div class="post-content"><div style="float:right;margin-left:10px;margin-bottom:10px;">
  <a href="http://www.flickr.com/photos/78725883@N00/233227004/" title="photo sharing">![http://static.flickr.com/87/233227004_bf06a9f33c_m.jpg](http://static.flickr.com/87/233227004_bf06a9f33c_m.jpg)</a>
 
   [Hotel Venetian](http://www.flickr.com/photos/78725883@N00/233227004/)
@@ -165,30 +202,19 @@ self.close();<br />
 </div>
 
 <p>LA에서 수많은 초원과 사막, 황무지를 네시간 넘게 달려서 도착했다. 일단 요 사진은 맛배기. 더 보려면 1달러를 내시오~~</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2006/09/01/xp팀의-작업실/">XP팀의 작업실</a> <small>2006-09-01</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/09/04/%ec%97%ac%ea%b8%b0%eb%8a%94-%eb%9d%bc%ec%8a%a4%eb%b2%a0%ea%b0%80%ec%8a%a4/">http://boxcatstudio.wordpress.com/2006/09/04/%ec%97%ac%ea%b8%b0%eb%8a%94-%eb%9d%bc%ec%8a%a4%eb%b2%a0%ea%b0%80%ec%8a%a4/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
 	</div>
-	<div><p><img alt="http://www.scissor.com/resources/teamroom/main_room.jpg" src="http://www.scissor.com/resources/teamroom/main_room.jpg" /><br />
-우리도 빨리 이런 <a href="http://blog.naver.com/yuzico/130007299724">XP팀의 작업실</a>을 꾸며야 할텐데... 미국처럼 땅도 넓은 동네에서는 이런 게 가능하겠지만, 우리 나라에서는 회사의 전폭적인 지지 없이는 불가능할 듯.</p>
-<ul>
-<li>원문 보기 : <a href="http://www.scissor.com/resources/teamroom/">An XP Team Room</a></li>
-<li>번역본 보기 : <a href="http://blog.naver.com/yuzico/130007299724">XP팀의 작업실</a></li>
-</ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -255,6 +281,10 @@ self.close();<br />
 	</li>
 	
 	<li>
+		<a href="/2006/09/09/log4cxx/">Log4cxx</a>
+	</li>
+	
+	<li>
 		<a href="/2006/09/09/activex/">ActiveX</a>
 	</li>
 	
@@ -270,10 +300,6 @@ self.close();<br />
 		<a href="/2006/09/04/여기는-라스베가스/">여기는 라스베가스</a>
 	</li>
 	
-	<li>
-		<a href="/2006/09/01/xp팀의-작업실/">XP팀의 작업실</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -284,7 +310,7 @@ self.close();<br />
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,24 +68,34 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2004/11/24/xml-rpc/">XML RPC</a> <small>2004-11-24</small></h1>
 	</div>
-	<div><p>XML RPC는 HTTP 프로토콜 위에 XML 로 RPC(Remote Procedure Call. 원격지의 어플리케이션에 정의된 함수를 로컬인 것처럼 호출할 수 있게 해주는 기법)을 구현한 것이다. 특히 Python을 이용하면 정말 쉽게 XML RPC 를 사용할 수 있다. 레이옷은 MoinMoin 위키의 매크로에서 XML RPC 로 원격지의 시스템에 설치된 게임 서버 WindowsService를 제어하는 에이전트를 구현중이다</p>
+	<div class="post-content"><p>XML RPC는 HTTP 프로토콜 위에 XML 로 RPC(Remote Procedure Call. 원격지의 어플리케이션에 정의된 함수를 로컬인 것처럼 호출할 수 있게 해주는 기법)을 구현한 것이다. 특히 Python을 이용하면 정말 쉽게 XML RPC 를 사용할 수 있다. 레이옷은 MoinMoin 위키의 매크로에서 XML RPC 로 원격지의 시스템에 설치된 게임 서버 WindowsService를 제어하는 에이전트를 구현중이다</p>
 <p>see also:</p>
 <ul>
 <li><a href="http://sandbox.rulemaker.net/ngps/m2/">M2Crypto - Python + OpenSsl + SWIG</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/xml/"><span class="label"><span class="icon icon-tag"></span> xml</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2004/11/24/xml-rpc/">http://boxcatstudio.wordpress.com/2004/11/24/xml-rpc/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/xml/"><span class="label"><span class="icon icon-tag"></span> xml</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -104,7 +120,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

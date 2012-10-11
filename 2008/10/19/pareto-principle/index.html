@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,22 +68,28 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/10/19/pareto-principle/">Pareto Principle</a> <small>2008-10-19</small></h1>
 	</div>
-	<div><p><img alt="http://shop.advanceweb.com/images/products/2007/GI/GI_home_garden/05188_TroubleMakerMug_GI/05188_TroubleMMg_GI_med.jpg" src="http://shop.advanceweb.com/images/products/2007/GI/GI_home_garden/05188_TroubleMakerMug_GI/05188_TroubleMMg_GI_med.jpg" /></p>
+	<div class="post-content"><p><img alt="http://shop.advanceweb.com/images/products/2007/GI/GI_home_garden/05188_TroubleMakerMug_GI/05188_TroubleMMg_GI_med.jpg" src="http://shop.advanceweb.com/images/products/2007/GI/GI_home_garden/05188_TroubleMakerMug_GI/05188_TroubleMMg_GI_med.jpg" /></p>
 <p>80:20의 법칙이라는 이름으로 더욱 잘 알려진 <a href="http://en.wikipedia.org/wiki/Pareto_principle">파레토의 법칙</a>을 게임 개발에 적용한 가장 좋은 예는, "20%의 코드가 80%의 부하를 차지하므로 섣부른 최적화는 피하라"는 격언일 것이다. 그리고, 20%의 개발자가 80%의 업무를 처리한다는 일명 개미와 베짱이의 법칙도 유명하다. 그런데 <a href="http://kr.geek2live.org/155">라이프해커님의 최근 글에서 발견한 또다른 재미있는 예</a>가 있는데,<br />
 <code>20%에 불과한 사람들이 회사의 80%의 트러블을 만들어내며 당신과 기타 사람들은  부득불 80%의 시간을 내서 그 문제들을 처리해야 한다.</code><br />
 라는 내용이었다. 이 글을 보고 그저 고개를 끄덕일 수 없었던 이유는, 최근까지도 이런 문제들로 고생을 해봤기 때문이다. 다만 이<a href="http://reiot.cafe24.com/2008/10/09/announcement/">번에 큰 조직으로 옮긴 후부터</a>, 20%에 해당하는 개미 부류의 개발자들을 한 명씩 발견하게 되어 과거의 상처가 서서히 아물어가고 있지만, 이 불타는 분노는 최소 10년동안은 지워지지 않을 것 같다. 덕분에 조직의 암적인 존재들은 조기에 제거해야 한다는 좋은 교훈을 배웠다. 그리고, 그들을 보다 빨리 인식하기 위한 눈썰미를 키워야 한다는 다짐도.</p>
 <p>ps. 그렇다고 또 본인은 지금까지 한번도 트러블이 되어본 적이 없었다고 말하기도 뭣하다는게 조금 가슴 아프기도 하다.</p></div>
-	<br />
-	<p>
-	
-	
-		<a href="/tag/gamedev/"><span class="label"><span class="icon icon-tag"></span> gamedev</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/10/19/pareto-principle/">http://boxcatstudio.wordpress.com/2008/10/19/pareto-principle/</a></p>
+		
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/gamedev/"><span class="label"><span class="icon icon-tag"></span> gamedev</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -102,7 +114,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

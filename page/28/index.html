@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,60 +73,100 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2006/11/08/푸켓-다녀왔습니다/">푸켓 다녀왔습니다.</a> <small>2006-11-08</small></h1>
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2006/11/15/online-sql-beautifier/">Online SQL beautifier</a> <small>2006-11-15</small></h1>
 	</div>
-	<div><p><a href="http://www.flickr.com/photos/reiot/291900834/" title="Photo Sharing"><img alt="http://static.flickr.com/116/291900834_99c491a692_o.jpg" src="http://static.flickr.com/116/291900834_99c491a692_o.jpg" /></a></p>
-<p><a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900836"><img alt="http://static.flickr.com/119/291900836_9fe458d788_s.jpg" src="http://static.flickr.com/119/291900836_9fe458d788_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900838"><img alt="http://static.flickr.com/99/291900838_5653c66acd_s.jpg" src="http://static.flickr.com/99/291900838_5653c66acd_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900843"><img alt="http://static.flickr.com/101/291900843_579c4ae1e2_s.jpg" src="http://static.flickr.com/101/291900843_579c4ae1e2_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291955023"><img alt="http://static.flickr.com/100/291955023_b887855ce2_s.jpg" src="http://static.flickr.com/100/291955023_b887855ce2_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291955035"><img alt="http://static.flickr.com/102/291955035_a4f5d4e072_s.jpg" src="http://static.flickr.com/102/291955035_a4f5d4e072_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291956330"><img alt="http://static.flickr.com/118/291956330_2d4babfa01_s.jpg" src="http://static.flickr.com/118/291956330_2d4babfa01_s.jpg" /></a></p>
-<p>더 많은 사진은 <a href="http://www.flickr.com/photos/reiot/sets/72157594239187109/show/">레이옷의 플릭커</a>를 참고하셔요</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="post-content"><p><img alt="sqlpponline" src="http://www.wangz.net/gsqlparser/sqlpp/sqlpponline.gif" /></p>
+<p>어제 갑자기 DB에 문제가 생겨서 여러 사람이 손댄 프로시저를 읽다가 도저히 적응이 안되어서 <a href="http://www.google.co.kr/search?q=SQL+beautifier">구글로 SQL Beautifier를 검색</a>해 보았다. 그 중에서 무료이면서 가장 쓸만한 웹 기반의 SQL beautifier가 바로 <a href="http://www.wangz.net/cgi-bin/pp/gsqlparser/sqlpp/sqlformat.tpl">Instant SQL Formatter</a> 이었다. 물론 Visual Studio 나 Query Analyzer에 연동하려면 클라이언트 버전도 있지만, 40 달러 정도 돈을 내야 한다.</p>
+<p>혹시나 이 보다 더 좋은 넘이 있다면 리플을 달아주시기 바란다. MS는 왜 이런 걸 기본으로 내장하지 않나 몰라.</p>
+<ul>
+<li>빈태님이 <a href="http://www.red-gate.com/products/SQL_Refactor/index.htm">SQL refactor</a>를 추천해주셨다. 감사..</li>
+<li>오늘 어떤 프로시저에서 또다른 프로시저를 호출하다가 @@transcount 가 0 -&gt; 1 로 변하는 에러를 처음 발견했다. 아직 정확한 이유는 모르지만, 이런 에러 처음이야~</li>
+</ul></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/11/15/online-sql-beautifier/">http://boxcatstudio.wordpress.com/2006/11/15/online-sql-beautifier/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2006/11/08/푸켓-다녀왔습니다/">푸켓 다녀왔습니다.</a> <small>2006-11-08</small></h1>
+	</div>
+	<div class="post-content"><p><a href="http://www.flickr.com/photos/reiot/291900834/" title="Photo Sharing"><img alt="http://static.flickr.com/116/291900834_99c491a692_o.jpg" src="http://static.flickr.com/116/291900834_99c491a692_o.jpg" /></a></p>
+<p><a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900836"><img alt="http://static.flickr.com/119/291900836_9fe458d788_s.jpg" src="http://static.flickr.com/119/291900836_9fe458d788_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900838"><img alt="http://static.flickr.com/99/291900838_5653c66acd_s.jpg" src="http://static.flickr.com/99/291900838_5653c66acd_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291900843"><img alt="http://static.flickr.com/101/291900843_579c4ae1e2_s.jpg" src="http://static.flickr.com/101/291900843_579c4ae1e2_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291955023"><img alt="http://static.flickr.com/100/291955023_b887855ce2_s.jpg" src="http://static.flickr.com/100/291955023_b887855ce2_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291955035"><img alt="http://static.flickr.com/102/291955035_a4f5d4e072_s.jpg" src="http://static.flickr.com/102/291955035_a4f5d4e072_s.jpg" /></a> <a class="tt-flickr" href="http://www.flickr.com/photos/reiot/291956330"><img alt="http://static.flickr.com/118/291956330_2d4babfa01_s.jpg" src="http://static.flickr.com/118/291956330_2d4babfa01_s.jpg" /></a></p>
+<p>더 많은 사진은 <a href="http://www.flickr.com/photos/reiot/sets/72157594239187109/show/">레이옷의 플릭커</a>를 참고하셔요</p></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/11/08/%ed%91%b8%ec%bc%93-%eb%8b%a4%eb%85%80%ec%99%94%ec%8a%b5%eb%8b%88%eb%8b%a4/">http://boxcatstudio.wordpress.com/2006/11/08/%ed%91%b8%ec%bc%93-%eb%8b%a4%eb%85%80%ec%99%94%ec%8a%b5%eb%8b%88%eb%8b%a4/</a></p>
+		
+		
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/10/24/이런-툴이-있었으면-좋겠다/">이런 툴이 있었으면 좋겠다</a> <small>2006-10-24</small></h1>
 	</div>
-	<div><ul>
+	<div class="post-content"><ul>
 <li>ProjectDiff : Visual Studio 프로젝트 속성을 비교하거나 merge해주는 툴</li>
 <li>IntDir, OutDir, 포함/라이브러리 디렉토리 설정, 링킹 라이브러리 등의 프로젝트 속성을 매번마다 세팅하는 것은 너무나되 귀찮은 일이다.</li>
 <li>특정 프로젝트로부터 복사해오거나 비교한 후 그래픽적으로 merge 해주는 기능이 있으면 참 좋겠다.</li>
 <li>DatabaseDiff : 2개의 데이터베이스를 비교해서 그래픽적으로 차이점을 보여주는 툴</li>
 <li>덤으로 패치 스크립트를 만들어주면 금상첨화</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/10/24/%ec%9d%b4%eb%9f%b0-%ed%88%b4%ec%9d%b4-%ec%9e%88%ec%97%88%ec%9c%bc%eb%a9%b4-%ec%a2%8b%ea%b2%a0%eb%8b%a4/">http://boxcatstudio.wordpress.com/2006/10/24/%ec%9d%b4%eb%9f%b0-%ed%88%b4%ec%9d%b4-%ec%9e%88%ec%97%88%ec%9c%bc%eb%a9%b4-%ec%a2%8b%ea%b2%a0%eb%8b%a4/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/10/20/조금은-오래된-재미있는-it-개발자들의-토론/">조금은 오래된, 재미있는 IT 개발자들의 토론</a> <small>2006-10-20</small></h1>
 	</div>
-	<div><p><a href="http://www.javaservice.net/~java/bbs/read.cgi?m=resource&amp;b=chat2&amp;c=r_p&amp;n=1097846224&amp;p=6&amp;s=t#1097846224">2004년 자바서비스넷의 어느 청년의 고민담</a>에 달린 수많은 리플들. IT 개발자라면 한번쯤 읽어봤으면 한다. 내 안에도 찌질이가 살고 있지만, 저렇게 살고 싶지는 않다. 그리고 중간에 일본사는넘이라는 분의 이야기는 꼭 읽어보기를.</p>
+	<div class="post-content"><p><a href="http://www.javaservice.net/~java/bbs/read.cgi?m=resource&amp;b=chat2&amp;c=r_p&amp;n=1097846224&amp;p=6&amp;s=t#1097846224">2004년 자바서비스넷의 어느 청년의 고민담</a>에 달린 수많은 리플들. IT 개발자라면 한번쯤 읽어봤으면 한다. 내 안에도 찌질이가 살고 있지만, 저렇게 살고 싶지는 않다. 그리고 중간에 일본사는넘이라는 분의 이야기는 꼭 읽어보기를.</p>
 <p>그러고보니 내가 스물 다섯일 때는 얼른 10억 벌고 서른살에 은퇴해서 캐나다에서 송어 낚시를 하는게 꿈이었는데... 벌써 서른 둘이 되어 버렸다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/10/20/%ec%a1%b0%ea%b8%88%ec%9d%80-%ec%98%a4%eb%9e%98%eb%90%9c-%ec%9e%ac%eb%af%b8%ec%9e%88%eb%8a%94-it-%ea%b0%9c%eb%b0%9c%ec%9e%90%eb%93%a4%ec%9d%98-%ed%86%a0%eb%a1%a0/">http://boxcatstudio.wordpress.com/2006/10/20/%ec%a1%b0%ea%b8%88%ec%9d%80-%ec%98%a4%eb%9e%98%eb%90%9c-%ec%9e%ac%eb%af%b8%ec%9e%88%eb%8a%94-it-%ea%b0%9c%eb%b0%9c%ec%9e%90%eb%93%a4%ec%9d%98-%ed%86%a0%eb%a1%a0/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/09/20/otl-tips/">OTL Tips</a> <small>2006-09-20</small></h1>
 	</div>
-	<div><p><a href="http://otl.sourceforge.net/">OTL</a>은 ODBC를 잘 래핑한 오픈소스 DB 쿼리 라이브러리이다. 헤더 파일 하나만 있으면, 굳이 ODBC 래퍼 클래스를 만들지 않아도 충분히 안심하고 쓸 수 있으며, MYSQL, MSSQL, ORACLE 모두에 사용될 수 있다. 꽤 여러 곳에서 사용되고 있고, 평판도 좋다고 알려져 있어서 써봤는데, 대략 반년동안 사용해본 경험으로는, 차라리 OLE DB 를 쓰거나, ODBC 래핑 라이브러리를 어딘가에서 갖다 쓰는 게 더 개발기간을 단축시킬 수 있다고 판단된다. OTL 만의 미묘한 버그스러움이 너무 많기에... '''비추천'''이었다. 그러나 최근에 legacy code를 손보면서 raw ODBC 코드를 만지다가 결국 포기하고 다시 OTL을 도입한 적도 있어서, 뭐라고 표현하기는 난감하지만 하나 확실한 건, ODBC를 직접 만지는 것보다는 백만배 정도 나으므로, 한번 써보기를 권한다.</p>
+	<div class="post-content"><p><a href="http://otl.sourceforge.net/">OTL</a>은 ODBC를 잘 래핑한 오픈소스 DB 쿼리 라이브러리이다. 헤더 파일 하나만 있으면, 굳이 ODBC 래퍼 클래스를 만들지 않아도 충분히 안심하고 쓸 수 있으며, MYSQL, MSSQL, ORACLE 모두에 사용될 수 있다. 꽤 여러 곳에서 사용되고 있고, 평판도 좋다고 알려져 있어서 써봤는데, 대략 반년동안 사용해본 경험으로는, 차라리 OLE DB 를 쓰거나, ODBC 래핑 라이브러리를 어딘가에서 갖다 쓰는 게 더 개발기간을 단축시킬 수 있다고 판단된다. OTL 만의 미묘한 버그스러움이 너무 많기에... '''비추천'''이었다. 그러나 최근에 legacy code를 손보면서 raw ODBC 코드를 만지다가 결국 포기하고 다시 OTL을 도입한 적도 있어서, 뭐라고 표현하기는 난감하지만 하나 확실한 건, ODBC를 직접 만지는 것보다는 백만배 정도 나으므로, 한번 써보기를 권한다.</p>
 <h3>data binding</h3>
 <p>OTL type 과 ODBC type 과의 대응표를 잘못 기억했다가는 마감 시간에 낭패를 보는 경우가 있다. 특히 헷갈리는 타입들을 적어본다.</p>
 <table>
@@ -310,38 +356,21 @@ return false;
 <ul>
 <li>http://snaiper80.cafe24.com/wiki/wiki.cgi?OTL</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2006/09/09/log4cxx/">Log4cxx</a> <small>2006-09-09</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/09/20/otl-tips/">http://boxcatstudio.wordpress.com/2006/09/20/otl-tips/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+			<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+		
+		</p>
+		
+		
 	</div>
-	<div><p><img alt="http://logging.apache.org/images/ls-logo.jpg" src="http://logging.apache.org/images/ls-logo.jpg" /></p>
-<p>서버 프로그래머라면 빠르고 간편한 로그와 트레이스에 대해서 한번쯤은 고민해봤을 것이다. 파일 로그 또는 윈도우의 이벤트 로그를 보통 쓰고 있겠지만, 생각보다 편하지 않은게 사실이다. 그런 의미에서 이번 기회에 <a href="http://logging.apache.org/log4cxx/index.html">Log4j을 C++로 포팅한 Log4cxx</a>의 특징에 대해서 알아보는 시간을 가져봤다.</p>
-<p>다음 내용은 <a href="http://logging.apache.org/log4cxx/manual/Introduction.html">Log4cxx의 개요 문서</a>를 축약한 것이므로, 가능하면 본문을 읽어보기를 권장한다.</p>
-<ul>
-<li>이름 기반으로 계층화(hierarchical)된 로그 지원 : 종류별 로그 객체를 만들어둘 필요가 없이, 필요할 때마다 이름을 키값으로 로그 객체에 접근하면 된다. 가령 system.net 은 system.net.packet 의 상위 계층이 된다.</li>
-<li>상속 지원 : 하위 계층에 속한 로그들은 상위 계층의 로그에게 종속된다. 윈도우의 이벤트 로그과 비슷하게 로그 레벨(DEBUG-INFO-WARN-ERROR-FATAL)을 지원하며, 이 역시 상속 기반으로 동작한다.</li>
-<li>복수의 Appender 지원 : 하나의 로그 객체에 콘솔, 파일, 이벤트로그, 소켓 등 여러 가지 종류의 출력 스트림(Appender)을 2개 이상 붙일 수 있다. 당연히 비동기적으로 동작한다.</li>
-<li>XML 기반의 외부 환경 설정 파일 지원 : 각 로그 객체의 on/off 부터 레이아웃(==포맷팅)까지 모두 외부 환경 파일에서 설정 가능하다.</li>
-<li>고성능 : 굳이 #ifdef … #endif 로 지우지 않고 그냥 off 만 해둬도 함수 호출 하나 + 정수 연산 정도의 부하만 준다.</li>
-</ul>
-<p>잘 찾아보면 <a href="http://www.codeproject.com/csharp/TraceTool.asp?df=100&amp;forumid=28124&amp;exp=0&amp;select=1261034&amp;fr=26">log4j/log4net 등의 출력을 GUI로 이쁘게 보여주는 유틸리티</a>도 없지 않으므로, 굳이 까만 콘솔 화면을 뚫어지게 쳐다보기 보다는 저런 툴을 활용해보는 건 어떨까 싶다. 물론 라이브 로그도 지원해줘야 하고, 손쉬운 필터링과 검색 기능이 들어가야 하겠지만…</p>
-<p>가장 좋은 건, 데몬을 띄워두면 패널에 아이콘화되어 있다가, 에러가 발생하면 깜빡거리며 툴팁이 뜨고, 이를 클릭하면 어플리케이션 이름-시간-내용 메시지를 보여주는 모니터링 어플리케이션을 만들어 두는 것이다. 마찬가지로 필터링 기능이 들어가야 하겠지만.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -408,6 +437,10 @@ return false;
 	</li>
 	
 	<li>
+		<a href="/2006/11/15/online-sql-beautifier/">Online SQL beautifier</a>
+	</li>
+	
+	<li>
 		<a href="/2006/11/08/푸켓-다녀왔습니다/">푸켓 다녀왔습니다.</a>
 	</li>
 	
@@ -423,10 +456,6 @@ return false;
 		<a href="/2006/09/20/otl-tips/">OTL Tips</a>
 	</li>
 	
-	<li>
-		<a href="/2006/09/09/log4cxx/">Log4cxx</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -437,7 +466,7 @@ return false;
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

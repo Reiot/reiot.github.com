@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,11 +73,38 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2005/09/23/client-network-utility/">Client Network Utility</a> <small>2005-09-23</small></h1>
+	</div>
+	<div class="post-content"><p>Enterprise Manager 로 접속해야 할 DB 가 custom port 를 사용하거나 VPN, 공유기 등의 문제로 name 기반의 접근이 안될 경우,<br />
+이 툴에서 TCP/IP 기반의 alias 를 만들어 두면 EM에 등록해서 연결할 수 있다.</p></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/09/23/client-network-utility/">http://boxcatstudio.wordpress.com/2005/09/23/client-network-utility/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/db/"><span class="label"><span class="icon icon-tag"></span> db</span></a>
+		
+		</p>
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a> <small>2005-09-06</small></h1>
 	</div>
-	<div><h2>Overview</h2>
+	<div class="post-content"><h2>Overview</h2>
 <p>한동안 메신저 + zip 파일 기반의 배포 시스템을 고집하다가 더 이상 참을 수가 없어서 결국 <a href="http://www.itefix.no/cwrsync/">cwRsync </a>라는 툴을 테스트 해보게 되었다. Cygwin + rsync + openssh 를 NullSoft 인스톨러로 깔끔하게 패키징한 이 유틸리티는 약간의 삽질 만으로 간편하면서도 공짜 파일 배포 시스템을 구축할 수 있게 해준다. 당연히 호스트 접근 제어도 가능하고, SSH 를 통해서만 배포할 수도 있다.</p>
 <p>이전 프로젝트에서도 <a href="http://www.dillobits.com/insync.html">InSync </a>를 이용해서 팀 내부에 클라이언트를 배포했었다. 클라이언트 프로그래머가 최신 파일들을 특정 공유 폴더에다가 업데이트하면, 각자가 로컬에 설치된 프로그램을 실행해서 변경된 파일들을 받아오는 방식인데, 가끔 동시에 많은 사람이 업데이트를 받을 경우 문제가 있었고, 무엇보다도 shareware 여서 어둠과자를 사용해야만 했다.</p>
 <h2>Install</h2>
@@ -104,67 +137,97 @@ transfer logging = yes</p>
 <p>필터 파일을 지정하려면 '--exclude-from=필터파일명' 을 지정해주면 된다.</p>
 <h2>마치며</h2>
 <p>사실 내부 테스트를 위해서도 패치 시스템을 구축하는 것이 가장 좋겠지만, 보유중인 패치 시스템의 인터페이스가 간편하지 않다면 오히려 낭패... 차라리 부담없이 GNU 툴들을 도입해 보는 것이 정신 건강상 더 나을 듯하다.</p>
-<p>그리고, 아무래도 안정적으로 파일을 배포하려면, <br />
+<p>그리고, 아무래도 안정적으로 파일을 배포하려면,<br />
 개발 머신 --(rsync)--&gt; 패치 서버 --(rsync)--&gt; 팀 배포<br />
  의 2단계를 거치는 것이 좋은데, 이를 위해서는 서버에 같은 폴더를 나타내는 upload 모듈과 download 모듈을 만들어 둬야 한다. 또한 실행 파일만을 배포할 경우를 위한 배치 파일도 따로 만드는 것을 권장한다. (아무래도 recursive 로 검색을 하면 시간이 좀 걸린다)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
-	
-	
-		<a href="/tag/ci/"><span class="label"><span class="icon icon-tag"></span> ci</span></a>
-	
-		<a href="/tag/cwrsync/"><span class="label"><span class="icon icon-tag"></span> cwrsync</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/09/06/client-distribution-with-cwrsync/">http://boxcatstudio.wordpress.com/2005/09/06/client-distribution-with-cwrsync/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/ci/"><span class="label"><span class="icon icon-tag"></span> ci</span></a>
+		
+			<a href="/tag/cwrsync/"><span class="label"><span class="icon icon-tag"></span> cwrsync</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/08/10/cpb-2/">CPB 맛보기</a> <small>2005-08-10</small></h1>
 	</div>
-	<div><p>지금까지는 애용해왔던 XML 기반의 tweaking 방식이 너무 귀찮아서, 이번에 <a href="http://www.thomasandamy.com/projects/CPB/">CPB</a> 를 써보기로 마음을 먹었다. 근무 시간에 삽질을 하기엔 힘든 상황이라 집에 와서 해야만 했다. :(</p>
+	<div class="post-content"><p>지금까지는 애용해왔던 XML 기반의 tweaking 방식이 너무 귀찮아서, 이번에 <a href="http://www.thomasandamy.com/projects/CPB/">CPB</a> 를 써보기로 마음을 먹었다. 근무 시간에 삽질을 하기엔 힘든 상황이라 집에 와서 해야만 했다. :(</p>
 <p>소스와 함께 배포되는 솔루션을 열고 적당한 루아 라이브러리와 링킹해서 실행해보면 별 문제가 없지만, 이걸 실제로 쓰기 위해 라이브러리와 샘플 프로젝트로 분리해서 해보면 잘 되지 않는다.  바로 test.lua 안에서 pdb 파일명이 틀려서 생긴 문제이다. 물론 샘플 프로젝트 이름을 CPTest 로 만들었다면 당신은 천재...</p>
 <p>CPB 가 사용하는 것은 <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/diasdk/html/vsoriDebugInterfaceAccessSDK.asp">Debugging Access Interface (DIA) SDK </a>로, Visual Studio .NET 2003 을 설치하면 Visual Studio SDKs/ 아래에 함께 설치가 된다. 물론 CPB 와 함께 배포되는 놈과 완전히 같다. 괜히 본인처럼 Platform SDK를 설치할 필요는 없다.</p>
 <p>pdb 파일을 한번 읽어서 .cpb 파일로 만들어서 배포할 수 있기 때문에 클라이언트 어플리케이션에 사용해도 무방하다. (이걸로 크랙하면 낭패겠지만..과연..) 물론 서버쪽이라면 매번 배포할 때마다 .cpb 파일을 만들기보다는 그냥 pdb 파일을 함께 배포해주는 것이 더 편할 것 같다.</p>
 <p>ps. 테스트 도중 갑자기 실행 파일 크기가 6k 로 줄어들면서 16비트 MS-DOS 프로그램을 CPU 에서 실행할 수 없다는 오류 메시지가 떴다. '아직 안정화가 덜 된 건가..' 하면서 접으려고 했는데, 프로젝트를 새로 만들어보니 문제가 없었다. 사실은 Ctrl+F5 로 실행하기 위해서 dll 과 lua 파일을 사용자 지정 작업에서 복사하도록 했는데, 이때 복사 위치를 $(TargetDir) 대신 $(TargetPath) 로 해서 생긴 문제.. *그 6k 짜리 실행파일은 사실은 test.lua 였었다는 사실.. *</p>
 <p>ps2. 여전히 namespace 지원은 안된다. 즉 어떤 변수나 클래스가 namespace 안에 존재할 경우 바인딩이 불가능하다. 이 말은, std::string 을 바인딩할 수 없다는 뜻이며, char * 변수에 대한 direct assignment 가 지원되지 않기에 이 문제는 조금 귀차니즘을 불러 일으키게 될 듯. :(</p>
 <p>ps3. const char * 를 리턴하는 함수를 호출해서 print 해보려고 했으나, 단지 userdata 로만 인식함. 약간은 서운한;;; (먼가 모르는 듯)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/lua/"><span class="label"><span class="icon icon-tag"></span> lua</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/08/10/cpb-2/">http://boxcatstudio.wordpress.com/2005/08/10/cpb-2/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/lua/"><span class="label"><span class="icon icon-tag"></span> lua</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a> <small>2005-07-12</small></h1>
 	</div>
-	<div><p><img alt="mantis" src="http://manual.mantisbt.org/mantis_logo.gif" /></p>
+	<div class="post-content"><p><img alt="mantis" src="http://manual.mantisbt.org/mantis_logo.gif" /></p>
 <p>오래전부터 맨티스에다가 중요도나 우선순위 상수를 추가해달라는 요청이 있었으나, 소스를 고쳐야 하기 때문에 방법이 없다고 모른 척 했었다가, 이번에 잠시 짬을 내어 추가를 해 보았다. 관련 자료를 아래에 정리했으니 심심할 때 한번 읽어보시길. :)</p>
 <p>see also : <a href="http://reiot.cafe24.com/wiki/MantisCustomize">MantisCustomize </a></p></div>
-	<br />
-	<p>
-	
-		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
-	
-	
-		<a href="/tag/mantis/"><span class="label"><span class="icon icon-tag"></span> mantis</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/07/12/custom-severity-for-mantis-bt/">http://boxcatstudio.wordpress.com/2005/07/12/custom-severity-for-mantis-bt/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/mantis/"><span class="label"><span class="icon icon-tag"></span> mantis</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/06/02/boosttest/">boost::test</a> <small>2005-06-02</small></h1>
 	</div>
-	<div><p>레이옷은 종전까지 <a href="http://sourceforge.net/projects/cppunit">CppUnit</a>를 애용해왔다. 그러나 이넘은 VC7 에서는 컴파일조차 되지 않았다.  그리하여, 새로운 UnitTest 툴을 찾다가 발견한 것이 바로 이 Boost Library 에 포함된 BoostTest 이다. 이하 설명은 모두 VC7 을 사용한다고 가정하고 설명하겠다.</p>
+	<div class="post-content"><p>레이옷은 종전까지 <a href="http://sourceforge.net/projects/cppunit">CppUnit</a>를 애용해왔다. 그러나 이넘은 VC7 에서는 컴파일조차 되지 않았다.  그리하여, 새로운 UnitTest 툴을 찾다가 발견한 것이 바로 이 Boost Library 에 포함된 BoostTest 이다. 이하 설명은 모두 VC7 을 사용한다고 가정하고 설명하겠다.</p>
 <h2>사용법</h2>
 <p>BoostTest 에는 아래와 같은 모듈이 포함되어 있다.</p>
 <table>
@@ -723,48 +786,29 @@ test_suite * test_MMSocket()
   return test;
 }
 </code></pre></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/test/"><span class="label"><span class="icon icon-tag"></span> test</span></a>
-	
-		<a href="/tag/boost/"><span class="label"><span class="icon icon-tag"></span> boost</span></a>
-	
-		<a href="/tag/TDD/"><span class="label"><span class="icon icon-tag"></span> TDD</span></a>
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2005/03/21/tortoisesvn/">TortoiseSvn</a> <small>2005-03-21</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/06/02/boosttest/">http://boxcatstudio.wordpress.com/2005/06/02/boosttest/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/test/"><span class="label"><span class="icon icon-tag"></span> test</span></a>
+		
+			<a href="/tag/boost/"><span class="label"><span class="icon icon-tag"></span> boost</span></a>
+		
+			<a href="/tag/TDD/"><span class="label"><span class="icon icon-tag"></span> TDD</span></a>
+		
+		</p>
+		
 	</div>
-	<div><p>탐색기에서의 버전 관리라니... 아무래도 IDE 에 연동되는 것에 비해서는 좀 불편하지 않을까? 하는 것이 나의 첫 느낌이었다. 물론 Visual Studio .NET 에 연동되는 넘이 있긴 하지만, 아직까지 안정화되어 있지 않다는 소문 때문에, 결국 거북이SVN 으로 오게 되었다. 그런데 이틀 정도 써보니까 어째 예전에 비해서 심리적인 면에서 더 편해졌다는 느낌이 들었다.</p>
-<p>우선, '체크아웃하시겠습니까? 라는 창이 안떠서 좋았다.' 사실 이건 VSS 옵션을 끄면 되는 것이지만, 웬지 새로운 소스를 고치기 전 경건한 마음을 가지자는 의미에서 그냥 켜두곤 했는데, 실제로는 꽤나 심리적인 불편함과 강박 관념(너는 소스를 더럽히고 있다..)을 개발자에게 주고 있다는 생각이 들었다. 좀더 코드에 편하게 접근할 수 있게 되었다고나 할까? (만약 아직 VSS를 사용하고 있다면 이 옵션을 끄고 작업해 보기 바란다.)</p>
-<p>두번째는 IDE에서 작업하고 탐색기에서 커밋할 때의 심리적인 해방감이 들게 되었다는 점. 가장 비슷한 예라면 회사에서 양복을 입다가 집에서 평상복을 입을 때의 느낌이리라. 딱딱한 IDE에서 비교적 화려한 탐색기 + 바탕화면으로 전환되면서 내가 이제 커밋을 하게 된다는 마음 자세로 바뀌더라는, 실로 억지스러운 주장이다. :)</p>
-<p>세번째로는 로컬 워킹 카피에 있는 삭제된 파일들을 손쉽게 관리할 수 있게 되었다는 점이다. VSS를 쓸 경우 버전 관리되던 파일을 삭제하려면 로컬 카피도 지우고 저장소에서도 지워 줘야 한다. IDE에서 삭제하는 것까지 감안하면 세 군데에서 지워줘야 한다. 역시나 이것도 저장소에서 삭제시 로컬 파일도 삭제한다는 VSS 옵션이 있긴 하지만 좀 위험한 감이 있어서 실제로 쓰기는 곤란했었는데, SubVersion 에서는 아예 파일 관리를 탐색기에서 다 할 수 있어서 괜찮은 듯 했다.</p>
-<p>난감한 점이라면, 아무 생각없이 그냥 파일을 삭제하다가는 피를 본다는 점(물론 재빨리 업데이트해서 파일을 받아와야 한다.), 그리고  작업중인 .svn 폴더를 삭제하면 버전 관리 정보가 날아가서 다시 add 를 해야 한다는 점 등이다. 그리고 '''거북이CVS와 함께 사용할 경우 탐색기의 오른쪽클릭 메뉴가 너무 길어진다'''는 사소한 단점도 있다. :(</p>
-<p>사실 아직까지 태그, 브랜치, 머지를 해보지 않아서 이 부분에서 얼마나 더 매력적인 모습을 보여줄런지는 의문이다. 유니코드 비교시 문자열을 잘 표현해주는지도 미확인. 빨리 이 부분에 대해서도 테스트를 해봐야 겠다.</p>
-<h2>Ignore List</h2>
-<p>글로벌 ignore 리스트는 TortoiseSvn - 설정 메뉴에서 지정하며, 이 값은 레지스트리의 HKEY_LOCAL_MACHINE\Software\Tigris.org\Subversion\Config\Miscellany\global-ignores에 들어있다.</p>
-<p>반면 로컬 ignore 리스트는 해당 파일의 상위 폴더의 .svn/dir-props 에 들어있다. 이 값을 지우려면 그냥 탐색기에서 속성 메뉴에서 TortoiseSvn 메뉴에서 지우면 된다. TortoiseSvn 의 CHM 도움말에서 4.9. Get/Set Information About Files/Directories 항목을 참조하도록.</p>
-<p>see also:<br />
-<em> <a href="http://tortoisesvn.tigris.org">거북이SVN 공식 홈페이지</a><br />
-</em> SubVersion<br />
-<em> SeriousCode:Subversion<br />
-</em> <a href="http://wiki.kldp.org/wiki.php/DocbookSgml/Subversion-HOWTO">KLDP:SubVersion</a></p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/subversion/"><span class="label"><span class="icon icon-tag"></span> subversion</span></a>
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -831,6 +875,10 @@ test_suite * test_MMSocket()
 	</li>
 	
 	<li>
+		<a href="/2005/09/23/client-network-utility/">Client Network Utility</a>
+	</li>
+	
+	<li>
 		<a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a>
 	</li>
 	
@@ -846,10 +894,6 @@ test_suite * test_MMSocket()
 		<a href="/2005/06/02/boosttest/">boost::test</a>
 	</li>
 	
-	<li>
-		<a href="/2005/03/21/tortoisesvn/">TortoiseSvn</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -860,7 +904,7 @@ test_suite * test_MMSocket()
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

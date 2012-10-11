@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2012/04/21/250k-node-connections/">Node.js로 25만 동접 만들기</a> <small>2012-04-21</small></h1>
 	</div>
-	<div><p>via <a href="http://blog.caustik.com/">caustik's blog</a></p>
+	<div class="post-content"><p>via <a href="http://blog.caustik.com/">caustik's blog</a></p>
 <h2><a href="http://blog.caustik.com/2012/04/08/scaling-node-js-to-100k-concurrent-connections/">node.js 를 10만 동접으로 스케일링하기</a></h2>
 <ul>
 <li>10만 동접을 처리하는데 CPU 점유율 40%, (virtual) 메모리 1.4G 를 차지함. 이 정도면 rackspace 2G 클라우드 서버일 경우 시간당 0.1$ 로 가능함.</li>
@@ -115,15 +121,23 @@
 <li>게임 서버를 개발시 이슈가 되는, 응답성, 동접 처리 등의 문제를 node.js 개발자들도 만나기 시작함. 의외로 메모리 제한이 문제가 된다는 게 특이했음. node.js 개발진은 메모리 제약은 클러스터 모듈로 분산해서 해결하는 걸 추천하는 듯. </li>
 <li>가비지 컬렉팅 문제는 응답성이 중요한 액션 게임을 개발할 경우 심각할 수 있음. (4초나 랙이 걸린다니! 그것도 30초마다!) 그래도 소셜 게임 수준은 걱정하지 않아도 될 듯. </li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/node.js/"><span class="label"><span class="icon icon-tag"></span> node.js</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/node.js/"><span class="label"><span class="icon icon-tag"></span> node.js</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -148,7 +162,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

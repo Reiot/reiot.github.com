@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/05/25/boostany/">boost::any</a> <small>2006-05-25</small></h1>
 	</div>
-	<div><p>게임 개발을 하다 보면, 가끔 서로 다른 타입의 객체들을 하나의 컨테이너에서 다루어야 할 때가 있다. 만약 이 컨테이너로 하는 일이 간단하다면야 인터페이스 상속을 쓰면 되지만, 상속을 할 수 없을 정도로 타입이 다를 때도 있다. 이럴 때 사용하는 것이 바로 boost::any 클래스이다.</p>
+	<div class="post-content"><p>게임 개발을 하다 보면, 가끔 서로 다른 타입의 객체들을 하나의 컨테이너에서 다루어야 할 때가 있다. 만약 이 컨테이너로 하는 일이 간단하다면야 인터페이스 상속을 쓰면 되지만, 상속을 할 수 없을 정도로 타입이 다를 때도 있다. 이럴 때 사용하는 것이 바로 boost::any 클래스이다.</p>
 <p>boost::any는 이름 그대로 어떤(any) 것도 담을 수 있는 클래스로, void * 와 비슷한 역할을 한다. (더욱 자세한 설명은 <a href="http://boost.org/doc/html/any.html">boost 온라인 매뉴얼</a>을 참고)</p>
 <p>이번에 boost::any 의 코드를 참조해서 작업을 하다 보니 몇 가지 장단점들이 눈에 띄었다.</p>
 <ul>
@@ -75,13 +81,19 @@
 <li>디버깅시 any 내부의 placeholder 에 들어 있는 값을 찾기가 곤란하다.</li>
 </ul>
 <p>이번 주는 영식군이 한 달 동안 쇼핑하면서 작업한 <a href="http://reiot.cafe24.com/archives/395">객체 복제 프레임워크</a>를 이틀 동안 인수인계 받은 후, 복제의 최소 단위인 replication value 클래스를 boost::any 의 코드를 참조해서 고치고 있다. 미리 2000라인 정도의 테스트 코드를 만들어둔 덕택에 <del datetime="2006-05-25T14:14:00+00:00">코드 학습</del> 리팩토링이 겨우 4일 만에 거의 끝낼 수 있었다. 물론 영식군이 계속 지나가면서 어차피 기능이 똑같다면 왜 사서 삽질을 하냐고 갈구고 있지만 그냥 못들은 척하고 중이다. 흐흐.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/05/25/boostany/">http://boxcatstudio.wordpress.com/2006/05/25/boostany/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -106,7 +118,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

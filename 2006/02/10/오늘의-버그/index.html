@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,20 +68,26 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/10/오늘의-버그/">오늘의 버그</a> <small>2006-02-10</small></h1>
 	</div>
-	<div><p>김학규님의 <a href="http://www.lameproof.com/zboard/zboard.php?id=bbs2&amp;no=381">스트레스 테스트 삽질기</a>에 비하면 아무 것도 아니지만, 오늘 미국 테스트 서버에서 특이한 버그를 만나게 되어서 한번 써본다.</p>
+	<div class="post-content"><p>김학규님의 <a href="http://www.lameproof.com/zboard/zboard.php?id=bbs2&amp;no=381">스트레스 테스트 삽질기</a>에 비하면 아무 것도 아니지만, 오늘 미국 테스트 서버에서 특이한 버그를 만나게 되어서 한번 써본다.</p>
 <p>며칠 전부터 토너먼트 관련 UDP 버그가 발생한다는 보고를 받았다. 지정된 토너먼트 시각이 되면 자동적으로 방이 생성되고 사람들이 들어가는데, 유독 첫번째 방에서만 플레이가 되고 나머지 방에서는 100% UDP failed 가 생긴다는 것이었다. 도저히 소프트웨어 문제라고는 여겨지지 않아서 사내 테스트 환경에서는 테스트를 해봤지만 재현이 되지 않았다. 안되면 다 안되고 되면 다 되어야지 왜 딱 하나만 되는 것이며, 그것도 가장 첫번째 방만 되는 것인지 아무리 생각해도 믿어지지 않았지만 직접 눈으로 보게 되자 디버깅할 수 밖에 없었다. 30분정도 디버깅을 하다보니 아예 서버로부터 UDP 패킷이 오지 않는 걸 확인했고 그때 떠오른 게 바로 방화벽 설정이었다.</p>
 <p>알고보니 방화벽의 허용 범위의 맨 끝에 첫번째 방에서 사용하는 UDP 포트만이 운좋게 걸려 있었고 나머지는 out of bound 여서 생기는 문제였다. 미국은 거의 대부분 방화벽을 필수로 사용하고 있으며, 지난 번에도 역시 방화벽 때문에 한달 정도 고생을 한 적이 있어서 다행히 금방 문제를 찾을 수 있었다. 덕분에 미국 테스터들과 출장간 동료들이 좀 갈굼을 당했지만, 빨리 찾게 되었으니 그나마 다행이 아닐까 한다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/10/%ec%98%a4%eb%8a%98%ec%9d%98-%eb%b2%84%ea%b7%b8/">http://boxcatstudio.wordpress.com/2006/02/10/%ec%98%a4%eb%8a%98%ec%9d%98-%eb%b2%84%ea%b7%b8/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -100,7 +112,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

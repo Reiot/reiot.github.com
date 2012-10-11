@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/05/16/iocp-tips/">IOCP Tips</a> <small>2006-05-16</small></h1>
 	</div>
-	<div><p>I/O completion port 를 개발할 때 주의해야 할 사항들.</p>
+	<div class="post-content"><p>I/O completion port 를 개발할 때 주의해야 할 사항들.</p>
 <h2>1-Recv Rule</h2>
 <p>하나의 소켓에 대해서 특정 순간에 1개 이하의 입력만이 요청되어야 한다는 규칙을 <strong>1-recv 규칙</strong>이라고 부른다. 물론 버퍼를 여러 개 준비한 다음 미리 요청해두는 N-recv 방식도 그럴듯하지만, 요청한 순서대로 항상 완료되지는 않는다는 소문(?)에 그다지 많이 사용되고 있지는 않은 듯하다.</p>
 <p>그런데, 입력 재요청은 GQCS()를 호출하는 입출력 쓰레드에서 할 수도 있지만, 로직 처리 쓰레드에서 하는 경우도 많다. MMORPG가 아닌 경우에 한정해서 후자의 방식을 권장하는 편인데, 코드는 약간 복잡하지만 버퍼 복사 및 동기화 부담도 줄어들기 때문이다. 다음 두 예제를 살펴보자.</p>
@@ -140,13 +146,19 @@ The system also allows a waiting thread to process a packet if a running thread 
 <ul>
 <li>http://pl.atyp.us/content/tech/servers.html</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/05/16/iocp-tips/">http://boxcatstudio.wordpress.com/2006/05/16/iocp-tips/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -171,7 +183,7 @@ The system also allows a waiting thread to process a packet if a running thread 
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

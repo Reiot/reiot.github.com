@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,22 +68,28 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/10/21/sourceanywhere-remote-vss-tools/">SourceAnyWhere - Remote VSS tools</a> <small>2005-10-21</small></h1>
 	</div>
-	<div><p>미국 출장가는 쉬귀군을 위해서 테스트를 해봐야겠다. 근데 이거 정품을 살바엔 cvs 나 subversion 을 쓰지..</p>
+	<div class="post-content"><p>미국 출장가는 쉬귀군을 위해서 테스트를 해봐야겠다. 근데 이거 정품을 살바엔 cvs 나 subversion 을 쓰지..</p>
 <ul>
 <li><a href="http://www.dynamsoft.com/SAW_Overview.html">Official SourceAnyWhere Homepage</a></li>
 <li><a href="http://www.perl.or.kr/okbb/okbview.php?cmd=view&amp;lm=list&amp;site=Site&amp;forum=Perl&amp;lang=Corea&amp;p=4&amp;msg_id=2081&amp;sch=&amp;sn=&amp;ss=&amp;st=">Remote VSS tools 비교 분석</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/10/21/sourceanywhere-remote-vss-tools/">http://boxcatstudio.wordpress.com/2005/10/21/sourceanywhere-remote-vss-tools/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -102,7 +114,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

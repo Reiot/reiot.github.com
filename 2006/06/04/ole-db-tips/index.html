@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a> <small>2006-06-04</small></h1>
 	</div>
-	<div><h2>multiple result set + parameter binding</h2>
+	<div class="post-content"><h2>multiple result set + parameter binding</h2>
 <ul>
 <li>캐릭터 정보 로딩과 같이, 하나의 프로시저에서 여러 테이블의 row 들을 select 하면서 파라미터도 바인딩해야 할 경우, static binding 으로는 구현할 수 없으며, CDynamicParameterAccessor::GetParam()를 이용해야 한다.</li>
 <li>파라미터의 경우, select 해온 모든 result set 을 소진한 후, 가장 마지막에 읽어와야 한다. 즉 DB_S_NORESULT == GetNextResult(...); 를 실행한 후에만 유효하다는 뜻이다. 만약, 그 전에 읽게 되면 garbage 가 리턴된다.</li>
@@ -125,13 +131,19 @@
 <ul>
 <li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/vcfaqwhichaccessorshouldiuse.asp">Which accessor should I use?</a> from MSDN</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/04/ole-db-tips/">http://boxcatstudio.wordpress.com/2006/06/04/ole-db-tips/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -156,7 +168,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,30 +73,65 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2005/12/22/boostsingleton_pool-사용법/">boost::singleton_pool 사용법</a> <small>2005-12-22</small></h1>
+	</div>
+	<div class="post-content"><pre><code>
+struct CharArray512 {};
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+    typedef boost::singleton_pool&lt;CharArray512,512&gt; TestPool;
+
+    void * pBuf = TestPool::malloc();
+    assert( pBuf &gt; 0 );
+    TestPool::free(pBuf);
+
+    return 0;
+}
+</code></pre>
+
+<p>singleton_pool 의 첫번째 템플릿 파라미터인 태그는, 동일한 크기의 버퍼에 대해서 각각 풀을 사용해야 할 때 구분자로 사용된다.</p></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/12/22/boostsingleton_pool-%ec%82%ac%ec%9a%a9%eb%b2%95/">http://boxcatstudio.wordpress.com/2005/12/22/boostsingleton_pool-%ec%82%ac%ec%9a%a9%eb%b2%95/</a></p>
+		
+		
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/12/15/db-datafile-옮기기/">DB datafile 옮기기</a> <small>2005-12-15</small></h1>
 	</div>
-	<div><p>그동안 사용했던 SQL Server evaluation 이 6개월만에 기한 만료되어 다른 머신에 똑같은 넘을 설치하게 되었다. 복구 방법은 생각보다 간단했는데...</p>
+	<div class="post-content"><p>그동안 사용했던 SQL Server evaluation 이 6개월만에 기한 만료되어 다른 머신에 똑같은 넘을 설치하게 되었다. 복구 방법은 생각보다 간단했는데...</p>
 <ul>
 <li>.mdf 와 .ldf 파일을 data/ 아래로 복사한다.</li>
 <li>엔터프라이즈 관리자를 띄워서 데이터베이스를 클릭한 후 [모든 작업] - [데이터베이스 연결]에서 mdf 파일을 찾아 추가하면 된다.</li>
 </ul>
 <p>방화벽에 TCP, UDP 1433 포트를 열어 주는 것만 잊지 않으면 30분만에 새 서버를 띄울 수 있게 된다. :)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/12/15/db-datafile-%ec%98%ae%ea%b8%b0%ea%b8%b0/">http://boxcatstudio.wordpress.com/2005/12/15/db-datafile-%ec%98%ae%ea%b8%b0%ea%b8%b0/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/12/11/정렬-알고리즘-비교/">정렬 알고리즘 비교</a> <small>2005-12-11</small></h1>
 	</div>
-	<div><table>
+	<div class="post-content"><table>
 <thead>
 <tr>
 <th>name</th>
@@ -145,20 +186,26 @@
 </tr>
 </tbody>
 </table></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/12/11/%ec%a0%95%eb%a0%ac-%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98-%eb%b9%84%ea%b5%90/">http://boxcatstudio.wordpress.com/2005/12/11/%ec%a0%95%eb%a0%ac-%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98-%eb%b9%84%ea%b5%90/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/12/11/유니코드-팁/">유니코드 팁</a> <small>2005-12-11</small></h1>
 	</div>
-	<div><h2>Generic Text Mapping</h2>
+	<div class="post-content"><h2>Generic Text Mapping</h2>
 <p>프로그램을 유니코드에 대응하기 위해서는 모든 single byte char 관련 타입들을 generic macro 를 사용하도록 수정해야 한다.</p>
 <ul>
 <li>모든 스트링 리터럴에는 _T 또는 _TEXT 를 붙일 것. 그러나, 특별히 wide string 을 사용할 경우 L"abc" 처럼 L 을 붙일 것</li>
@@ -198,20 +245,26 @@ typedef basic_string〈TCHAR,  char_traits〈TCHAR〉,  allocator〈TCHAR〉〉 
 </ul>
 <h2>%s 와 %S</h2>
 <p>만약 UNICODE 어플리케이션일 경우 %s 는 유니코드 문자열이며 %S 는 ANSI 문자열 포맷팅시 사용된다. 물론 MBCS 일 경우라면 반대가 된다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/12/11/%ec%9c%a0%eb%8b%88%ec%bd%94%eb%93%9c-%ed%8c%81/">http://boxcatstudio.wordpress.com/2005/12/11/%ec%9c%a0%eb%8b%88%ec%bd%94%eb%93%9c-%ed%8c%81/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/12/11/vbnet-팁/">VB.NET 팁</a> <small>2005-12-11</small></h1>
 	</div>
-	<div><p>레이옷이 추천하는, 온라인 게임 서버 및 운영을 위한 툴을 만드는데 가장 좋은 언어는 바로 VB.Net 이다. 당신이 클라이언트 프로그래머가 아닌 이상 온라인 게임에서 주로 사용되는 툴은, 대체로 시스템 관리, 제어, 모니터링, 분석, 로그에 관련된 툴이 분명하다. (때로는 스크립트 에디터 같은 툴이 필요할 때도 있지만) 진짜 간단한 것은 Python 을 사용한 콘솔 스크립트로 해결할 수 있지만, 프로그래머가 아닌 GM 이나 QA팀, 모니터링팀들이 계속 사용해야 하는 툴들은 이쁘고, 사용하기 쉽고, 자주 수정되어야 하는 특성을 지니는 것이 보통이다. 이럴때 VB.Net을 사용하면, 빠른 개발속도와 높은 생산성, 그리고 아름다운 GUI 를 쉽게 얻을 수 있다.</p>
+	<div class="post-content"><p>레이옷이 추천하는, 온라인 게임 서버 및 운영을 위한 툴을 만드는데 가장 좋은 언어는 바로 VB.Net 이다. 당신이 클라이언트 프로그래머가 아닌 이상 온라인 게임에서 주로 사용되는 툴은, 대체로 시스템 관리, 제어, 모니터링, 분석, 로그에 관련된 툴이 분명하다. (때로는 스크립트 에디터 같은 툴이 필요할 때도 있지만) 진짜 간단한 것은 Python 을 사용한 콘솔 스크립트로 해결할 수 있지만, 프로그래머가 아닌 GM 이나 QA팀, 모니터링팀들이 계속 사용해야 하는 툴들은 이쁘고, 사용하기 쉽고, 자주 수정되어야 하는 특성을 지니는 것이 보통이다. 이럴때 VB.Net을 사용하면, 빠른 개발속도와 높은 생산성, 그리고 아름다운 GUI 를 쉽게 얻을 수 있다.</p>
 <p>특히 VB.Net은 MsSQL과는 거의 찰떡궁합이라고 할 수 있다. MS 특유의 데이터 공유가 한몫한다고 할 수 있다. 예전에는 Oracle과 문제가 좀 있었다고 하는데 지금은 좋다. 하지만 Oracle을 사용할 예정이라면 Developer가 아직도 짱~이다.</p>
 <!--more-->
 
@@ -294,71 +347,19 @@ date.ToString("yyyy-MM-dd hh:mm:ss")</p>
 <li><a href="http://www.visualbasicforum.com">Xtreme VB Talk</a></li>
 <li><a href="http://www.i-syn.gmxhome.de/devcom/colstyles/intro.htm">Column Styles</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a> <small>2005-12-11</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/12/11/vbnet-%ed%8c%81/">http://boxcatstudio.wordpress.com/2005/12/11/vbnet-%ed%8c%81/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
 	</div>
-	<div><h2>키 바인딩</h2>
-<p>가능하면 Visual Studio 랑 비슷하게 맞추려면 다음과 같이 하라.</p>
-<table>
-<thead>
-<tr>
-<th>Category</th>
-<th>Command</th>
-<th>Key</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Window</td>
-<td>Next Editor</td>
-<td>Ctrl + Tab</td>
-</tr>
-<tr>
-<td>Text Editing</td>
-<td>Delete Line</td>
-<td>Ctrl + L</td>
-</tr>
-<tr>
-<td>PyDev - Editor</td>
-<td>Python Comment</td>
-<td>Ctrl + K, Ctrl + C</td>
-</tr>
-<tr>
-<td>PyDev - Editor</td>
-<td>Python Uncomment</td>
-<td>Ctrl + K, Ctrl + U</td>
-</tr>
-<tr>
-<td>Run/Debug</td>
-<td>Run Last Launched</td>
-<td>Ctrl + F5</td>
-</tr>
-<tr>
-<td>Run/Debug</td>
-<td>Debug Last Launched</td>
-<td>F5</td>
-</tr>
-</tbody>
-</table>
-<h2>SubVersion 연동하기</h2>
-<p>eclipse 용 subversion 플러그인인 subclipse 를 이용하면 손쉽게 버전 관리가 가능하다. <a href="http://openframework.or.kr/JSPWiki/Wiki.jsp?page=Subversion">다음 글</a>을 참고할 것.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -425,6 +426,10 @@ date.ToString("yyyy-MM-dd hh:mm:ss")</p>
 	</li>
 	
 	<li>
+		<a href="/2005/12/22/boostsingleton_pool-사용법/">boost::singleton_pool 사용법</a>
+	</li>
+	
+	<li>
 		<a href="/2005/12/15/db-datafile-옮기기/">DB datafile 옮기기</a>
 	</li>
 	
@@ -440,10 +445,6 @@ date.ToString("yyyy-MM-dd hh:mm:ss")</p>
 		<a href="/2005/12/11/vbnet-팁/">VB.NET 팁</a>
 	</li>
 	
-	<li>
-		<a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -454,7 +455,7 @@ date.ToString("yyyy-MM-dd hh:mm:ss")</p>
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

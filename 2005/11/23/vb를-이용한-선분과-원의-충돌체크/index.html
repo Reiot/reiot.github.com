@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/11/23/vb를-이용한-선분과-원의-충돌체크/">VB를 이용한 선분과 원의 충돌체크</a> <small>2005-11-23</small></h1>
 	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/collide.JPG" title="collide" target="_top"><img alt="collide" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_collide.JPG" /></a></p>
+	<div class="post-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/collide.JPG" title="collide" target="_top"><img alt="collide" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_collide.JPG" /></a></p>
 <p>고등학교때까지만 해도 기하쪽은 상당히 자신있었는데 나이가 들어갈수록 3D 쪽에는 상당히 취약해서 가고 있다. 몇 달 전 관련 서적을 쭈욱 질러주고 조금 보다가 때려쳤었다. 그러다 이번에 유지 보수 중인 legacy code 에서 brute force 충돌 체크 코드를 좀 더 깔끔하게 해보고자 선분과 원의 충돌 체크를 구현해보게 되었다. 역시나 이럴 때에는 MFC 보다는 .NET winform 이 제일 손쉽기에 재빨리 VB.NET 을 띄워 줬다.</p>
 <p>우선 Matrix 나 Vector 류의 함수는 .NET framework 에서 지원하지 않기 때문에 DirectX 쪽의 참조를 갖고 와야 한다. 그다음 리얼타임렌더링 625 페이지를 펼쳐서 그대로 코딩하면 된다.  실제로 타이핑은 금방 끝났는데 웬걸 제대로 동작하지 않아서 이 사람 저 사람 붙잡고 물어보다가 잠이 들고, 오늘 회사에 와서 차분히 책을 읽어보니 그 중 한 넘이 normalized vector 여야 한다는 걸 찾아냈다. 뿌듯.. -_-+</p>
 <p>책은 반직선과 구의 충돌이라서 선분 충돌을 구하려면 교차 좌표 중 가까운 넘을 찾아내서 그 길이가 원래 반직선 길이보다 짧아야 진짜 충돌이 된다. 사실 3D 를 쭉 하던 사람들이야 너무 쉬운 것일테지만 수학책을 한동안 놓고 살았던 본인에게는 꽤나 막중한 과제였다. 역시나 해내고 나니 성취감 보다는 허탈감이 든다. 흑.</p>
@@ -134,13 +140,19 @@ End Function
 Private Sub setupCircle(ByVal e As Point)
 If e.X
 </code></pre></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/11/23/vb%eb%a5%bc-%ec%9d%b4%ec%9a%a9%ed%95%9c-%ec%84%a0%eb%b6%84%ea%b3%bc-%ec%9b%90%ec%9d%98-%ec%b6%a9%eb%8f%8c%ec%b2%b4%ed%81%ac/">http://boxcatstudio.wordpress.com/2005/11/23/vb%eb%a5%bc-%ec%9d%b4%ec%9a%a9%ed%95%9c-%ec%84%a0%eb%b6%84%ea%b3%bc-%ec%9b%90%ec%9d%98-%ec%b6%a9%eb%8f%8c%ec%b2%b4%ed%81%ac/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -165,7 +177,7 @@ If e.X
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

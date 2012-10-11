@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/01/19/punk-buster/">Punk Buster</a> <small>2008-01-19</small></h1>
 	</div>
-	<div><p><img alt="http://www.evenbalance.com/art/pblogo.gif" src="http://www.evenbalance.com/art/pblogo.gif" /></p>
+	<div class="post-content"><p><img alt="http://www.evenbalance.com/art/pblogo.gif" src="http://www.evenbalance.com/art/pblogo.gif" /></p>
 <p><a href="http://www.evenbalance.com">Punk Buster </a>는 <a href="http://www.evenbalance.com/index.php?page=support.php">퀘이크, 둠, 콜 오브 듀티, 배틀 필드, 그리고 크라이시스등 유수 FPS 게임들이 채택</a>한 안티 해킹 툴이다. 국산 게임으로는 워락이 유일한 듯하다.</p>
 <p>국산 G모 프로그램과의 그렇게 현격한 차이가 있어 보이지 않지만, <a href="http://www.evenbalance.com/index.php?page=info.php">몇 가지 독특한 기능들</a>이 들어 있는 것 같다.</p>
 <ul>
@@ -76,11 +82,13 @@
 </ul>
 <p>PB의 핵심적인 특장점을 꼽아보라면, 다른 것보다는 아무래도 유연한 결제 방식이 아닐까 한다. 그것은 바로 년단위 갱신이 아니라 월단위로 고정액을 지불할 수 있다는 점인데, 게임의 흥망성쇠가 불분명한 소규모 게임 업체들에게 적합한 방식이 아닐까 한다. 이런 아름다운 모습은 국산 보안 업체들이 꼭 본받았으면 한다. 단점이라면 아무래도 영어라는 것 정도? (이게 생각보다 큰 짐으로 다가오지만;;;)</p>
 <p>ps. <a href="http://www.google.co.kr/search?aq=f&amp;complete=1&amp;hl=ko&amp;newwindow=1&amp;client=firefox-a&amp;rls=org.mozilla%3Ako%3Aofficial&amp;hs=3lZ&amp;q=%EC%9B%8C%EB%A1%9D+%ED%95%B5&amp;btnG=%EA%B2%80%EC%83%89&amp;lr=">워록 핵</a>으로 검색해보고 대략 좌절했다.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/01/19/punk-buster/">http://boxcatstudio.wordpress.com/2008/01/19/punk-buster/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -105,7 +113,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

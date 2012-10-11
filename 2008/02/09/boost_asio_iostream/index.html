@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/02/09/boost_asio_iostream/">boost::asio iostream</a> <small>2008-02-09</small></h1>
 	</div>
-	<div><p>문자열 기반의 네트워크 입출력 프로그래밍을 해야 한다면, ASIO 의 iostream 을 사용하면 간단히 해결된다.</p>
+	<div class="post-content"><p>문자열 기반의 네트워크 입출력 프로그래밍을 해야 한다면, ASIO 의 iostream 을 사용하면 간단히 해결된다.</p>
 <p>boost::asio::io_service 같이 모호한 객체 선언도 필요없고, 연결 관리나 버퍼링 같은 개념도 적당히 무시할 수 있어서, 예외 처리만 잘 한다면 원격 로그라든지 XML RPC  클라이언트 같은 곳에 써먹을 수 있을 것 같다.</p>
 <p>만약 복잡한 문자열 조작이 필요하다면 boost::string_algo 정도면 충분하고, 정규식이 필요하면 boost::regexp 을 가져다 사용하면 될 듯하다.</p>
 <!--more-->
@@ -166,15 +172,21 @@ BOOST_AUTO_TEST_CASE( test_iostream )
 }
 
 </code></pre></div>
-	<br />
-	<p>
-	
-	
-		<a href="/tag/ASIO/"><span class="label"><span class="icon icon-tag"></span> ASIO</span></a>
-	
-		<a href="/tag/boost/"><span class="label"><span class="icon icon-tag"></span> boost</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/02/09/boost_asio_iostream/">http://boxcatstudio.wordpress.com/2008/02/09/boost_asio_iostream/</a></p>
+		
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/ASIO/"><span class="label"><span class="icon icon-tag"></span> ASIO</span></a>
+		
+			<a href="/tag/boost/"><span class="label"><span class="icon icon-tag"></span> boost</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -199,7 +211,7 @@ BOOST_AUTO_TEST_CASE( test_iostream )
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

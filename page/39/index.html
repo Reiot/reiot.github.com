@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,46 +73,73 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2006/02/15/zero-ping/">Zero Ping</a> <small>2006-02-15</small></h1>
+	</div>
+	<div class="post-content"><p>Zero Ping 은 상당히 다양한 의미를 가지고 있다.</p>
+<ul>
+<li><strong>0-ping</strong> : FPS 게임의 랜파티에서 이루어지는 빠르고 쾌적한 게임들을 의미한다.</li>
+<li><strong>nick name</strong> : 많은 수의 FPS 팬들이 이 이름을 클랜 이름 또는 별명으로 사용하고 있었다.</li>
+<li><strong><a href="http://www.planetquake.com/rocketland/haqsau/hl1100.shtml">client-side hitscan</a> </strong>: FPS 게임들의 모드(MOD) 중 무기를 발사하는 순간 클라이언트에서 판정 여부를 결정, 서버로 보내는 방식의 게임을 의미한다. 퀘이크3의 레일건처럼 즉각적인 판정이 필요한 무기들이 랙에 취약하다는 점 때문에 만들어진 것으로 보인다. 그렇지만 보안 문제로 인해서 정식 게임에는 거의 채택되지 않으며, 팬들이 만든 모드로만 존재한다. server-side <a href="http://reiot.cafe24.com/archives/303">lag compensation</a> 으로 보안 문제를 해결할 수는 있지만 랙 자체를 해결할 수는 없다.</li>
+</ul></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/15/zero-ping/">http://boxcatstudio.wordpress.com/2006/02/15/zero-ping/</a></p>
+		
+		
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/14/lag-compensation/">Lag Compensation</a> <small>2006-02-14</small></h1>
 	</div>
-	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" /></p>
+	<div class="post-content"><p><img alt="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" /></p>
 <p>P2P 게임의 난제는 바로 동기화이다. 이는 내가 지금 보고 있는 것은 다른 사람의 과거이며, 때문에 100% 완벽한 동기화는 불가능하다는 사실에서 출발하게 된다. 보통은 <a href="http://www.g-matrix.pe.kr/feature/multi/deadreckoning.htm">Dead Reckoning</a> 으로 적당히 해결하게 되는데, 모든 사람들이 공 하나만 바라보는 스포츠 게임처럼 동기화가 치명적인 게임에서는 이것만으로는 부족한 감이 있다. 카운터 스트라이크와 같은 Dedicated 방식의 게임에서는 누군가가 총을 쏠 경우 그 사람의 latency 를 감안해서 서버에서 타겟의 과거 위치에 대해서 계산해주는 <a href="http://www.ra.is/unlagged/">랙 보상</a> 기법을 지원해주는데, 이걸 과연 P2P 게임에 도입할 수 있을지가 의문이다.</p>
 <p>완벽한 동기화를 고집한다면야 RTS게임에서 채택하는 synchronous P2P를 채택하면 되지만, 워크래프트3에서도 6:6밖에 안되는데 우리 수준에서 9:9+a 를 지원한다는 것은 사실상 불가능한 일. 그렇다고 디아블로2처럼 IDC수준으로 서버를 세팅해서 트래픽을 모두 감당한다는 건 너무 돈이 많이 들고... 과연 사악한 인터넷 환경에서 동기화도 잘 맞고 속도도 빠른 방식은 무엇일까? 고작 생각난다는 건 걔중에서 제일 빠르고 사양도 제법 좋은 놈의 컴퓨터에다가 서버 역할을 맡긴다는 건데, 이건 너무 구식이란 말이다. 흑.</p>
 <p>이번 기회에 체계적으로 P2P와 동기화에 대해서 제대로 공부 좀 해야 겠다.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/14/lag-compensation/">http://boxcatstudio.wordpress.com/2006/02/14/lag-compensation/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/13/sc-failure/">sc failure…</a> <small>2006-02-13</small></h1>
 	</div>
-	<div><p><a title="scfailure.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" /></a></p>
+	<div class="post-content"><p><a title="scfailure.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" /></a></p>
 <p>sc create 를 이용하면 손쉽게 서비스를 설치할 수 있다는 사실은 잘 알려져 있다. 문제는 서비스가 시작할 때 문제가 발생할 경우 복구 방법에 대한 설정이다. 이 경우 error 파라미터를 잘 조정하면 될 것 같지만 실제로는 <a href="http://www.microsoft.com/technet/prodtechnol/windowsserver2003/ko/library/ServerHelp/0a658e97-51d5-4109-b461-a474c799964e.mspx">sc failure</a> 라는 다른 명령어를 사용해야 한다. (자세한 용법은 내일 삽질 후에 올리도록 하겠다)</p>
 <blockquote>
 <p>sc failure MyServiceName reset= 0 actions= "restart/5000/restart/5000/reboot/5000"</p>
 </blockquote>
 <p>위 명령은 서비스의 시작 실패시 처음과 두번째에는 5초후 서비스 재시작, 세번째까지 실패하면 시스템 리붓을 하라는 이야기다. actions 의 단위는 밀리초라는 점에 유의할 것. reset 파라미터는 일단 서비스가 성공적으로 뜬 경우 몇 초 후에 실패 횟수를 초기화하느냐인데 그냥 0 으로 두는 편이 무난할 것 같다. actions 파라미터에 run 이 들어갈 경우 command 파라미터를 지정해줘야 하며, reboot 이 들어갈 경우 reboot 파라미터에다가 메시지를 넣어주면 훗날 디버깅이 용이할 것이다. (단 actions 을 사용할 경우 항상 reset 을 지정해야 하는 것처럼 필수 사항은 아니다.)</p>
 <p>참고로 이 명령은 오래된 MSDN 에서는 확인할 수 없다. 아무래도 최신 OS에서만 지원되는 것일지도?</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/13/sc-failure/">http://boxcatstudio.wordpress.com/2006/02/13/sc-failure/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/13/console-vs-service/">Console vs. Service</a> <small>2006-02-13</small></h1>
 	</div>
-	<div><p>지금까지는 command line 파라미터로 콘솔로 실행할 것인지 아니면 서비스로 실행할 것인지를 결정했다. 그러지 말고 아예 ConsoleRunner 와 ServiceRunner 를 외부 실행 파일로 만들어버리고 나머지 코드는 dll 로 만들어버리는건 어떨까?</p>
+	<div class="post-content"><p>지금까지는 command line 파라미터로 콘솔로 실행할 것인지 아니면 서비스로 실행할 것인지를 결정했다. 그러지 말고 아예 ConsoleRunner 와 ServiceRunner 를 외부 실행 파일로 만들어버리고 나머지 코드는 dll 로 만들어버리는건 어떨까?</p>
 <ul>
 <li>컨텐트 코드가 dll 이므로, TestRunner 에게 넘기기도 용이하다</li>
 <li>ServiceRunner 를 아예 서비스로 만들 수 있다.</li>
@@ -114,48 +147,41 @@
 </ul>
 <p>특히 3번처럼 호스트-서비스의 결집도가 너무 높은 상황(서비스를 다른 머신으로 옮기려면 해당 머신에 실행 파일을 복사하고 서비스를 설치하는 등의 과정을 거쳐야 한다는 점)을 해소할 수 있다는 점에서 왠지 괜찮을 것 같다는 생각을 해본다.</p>
 <p>시간이 나면 WYSIWYG 방식의 서버-서비스 배치툴을 만들어서 그 결과를 XML로 추출해내어 배포하면 알아서 적당한 서비스 모듈을 다운받아 실행하는 그런 멋쥔 환경을 구축해보고 싶다. (그렇다. 서비스 설치 및 설정이 너무 귀찮아서 망상에 젖은 것 뿐이다. 그보다는 빨리 서버간 패치 시스템을 구축해야 할텐데... rsync가 제일 나은 툴일까나..)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/13/console-vs-service/">http://boxcatstudio.wordpress.com/2006/02/13/console-vs-service/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/10/오늘의-버그/">오늘의 버그</a> <small>2006-02-10</small></h1>
 	</div>
-	<div><p>김학규님의 <a href="http://www.lameproof.com/zboard/zboard.php?id=bbs2&amp;no=381">스트레스 테스트 삽질기</a>에 비하면 아무 것도 아니지만, 오늘 미국 테스트 서버에서 특이한 버그를 만나게 되어서 한번 써본다.</p>
+	<div class="post-content"><p>김학규님의 <a href="http://www.lameproof.com/zboard/zboard.php?id=bbs2&amp;no=381">스트레스 테스트 삽질기</a>에 비하면 아무 것도 아니지만, 오늘 미국 테스트 서버에서 특이한 버그를 만나게 되어서 한번 써본다.</p>
 <p>며칠 전부터 토너먼트 관련 UDP 버그가 발생한다는 보고를 받았다. 지정된 토너먼트 시각이 되면 자동적으로 방이 생성되고 사람들이 들어가는데, 유독 첫번째 방에서만 플레이가 되고 나머지 방에서는 100% UDP failed 가 생긴다는 것이었다. 도저히 소프트웨어 문제라고는 여겨지지 않아서 사내 테스트 환경에서는 테스트를 해봤지만 재현이 되지 않았다. 안되면 다 안되고 되면 다 되어야지 왜 딱 하나만 되는 것이며, 그것도 가장 첫번째 방만 되는 것인지 아무리 생각해도 믿어지지 않았지만 직접 눈으로 보게 되자 디버깅할 수 밖에 없었다. 30분정도 디버깅을 하다보니 아예 서버로부터 UDP 패킷이 오지 않는 걸 확인했고 그때 떠오른 게 바로 방화벽 설정이었다.</p>
 <p>알고보니 방화벽의 허용 범위의 맨 끝에 첫번째 방에서 사용하는 UDP 포트만이 운좋게 걸려 있었고 나머지는 out of bound 여서 생기는 문제였다. 미국은 거의 대부분 방화벽을 필수로 사용하고 있으며, 지난 번에도 역시 방화벽 때문에 한달 정도 고생을 한 적이 있어서 다행히 금방 문제를 찾을 수 있었다. 덕분에 미국 테스터들과 출장간 동료들이 좀 갈굼을 당했지만, 빨리 찾게 되었으니 그나마 다행이 아닐까 한다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2006/02/10/pilot-movie/">파일럿 무비</a> <small>2006-02-10</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/10/%ec%98%a4%eb%8a%98%ec%9d%98-%eb%b2%84%ea%b7%b8/">http://boxcatstudio.wordpress.com/2006/02/10/%ec%98%a4%eb%8a%98%ec%9d%98-%eb%b2%84%ea%b7%b8/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
+		
+		</p>
+		
+		
 	</div>
-	<div><p>오늘 한 달동안 작업한 테크니컬 데모의 중간 버전을 프리젠테이션을 위한 동영상으로 만들어서 (한달동안 두명이서 한 것이라는 코멘트를 잊지 말라는 당부와 함께) 미국에 넘겼다. 화질, 코덱, 용량, 업로드 같은 사소한 문제 때문에 삽질을 조금 했지만 어쨌든 무사히 넘길 수 있었다. 디자이너가 없어서 이전 버전의 리소스를 거의 그대로 사용했고, 카메라 연출 같은 건 신경도 쓰지 못해서 좀 아쉽긴 하다.</p>
-<p>어쨌든 시간이 좀 남았길래 저녁 무렵 사원들을 모아놓고 완다와 거상 예약판의 부록으로 따라온 <a href="http://remains.x-y.net/tt/index.php?pl=83">이코와 완다의 파일럿 무비</a>를 함께 관람하는 시간을 가졌다. 게임을 모르는 사람도 있어서 파일럿 무비와 최종 게임 동영상도 함께 보면서 이야기를 나누었는데, 만족스럽진 않았지만 어쨌든 다음 갈 길에 대한 합의를 볼 수 있었다.</p>
-<p>대체로 기능 구현만을 근근히 마친 프로토타입을 개발하고 이를 실제로 시연하면서 경영진에게 게임의 특징을 하나씩 보여주는 게 보통인데, 파일럿 무비의 경우 처음부터 동영상으로 편집할 것을 감안해서 <strong>목표로 하는 게임성을 선택적으로 구현</strong>할 수 있기에 꽤 매력적인 것 같다. 그리고 보여주고 싶은 것만 보여줄 수 있으므로 게임의 비전에 대한 공유가 프로토타입 시연보다 더욱 효과적일 것이다. (참고로, 시연자가 잘못하면 보는 사람이 뭘 봐야 할지 모르게 될 수도 있다 -_-) 시연하면서 다운될 것도 걱정하지 않아도 되고, 갓 들어온 신참 교육용으로도 무지 좋으며, 나중에 게임이 대박이 나면 부록 DVD에 이 영상을 넣을 수도 있다!!</p>
-<p>앞으로 예상하는 개발 프로세스는 대충 이렇다. 일단 새 엔진을 이용한 테크니컬 데모를 통해서 기술적인 방향을 공유하고, 프로토 타입 대신 파일럿 무비를 제작해서 게임성을 공유한 다음, 실질적인 제작에 들어간다는 것이다. 그때까지는 어쩔 수 없이 하드 코딩을 해야겠지만, 개발 도중 의견 충돌 때문에 엎어버린다든지, 낙하산 때문에 배가 산으로 간다든지 하는 위험을 줄일 수 있을테니 어찌 선택하지 않을 수 있으랴...</p>
-<p>더 관심이 있는 사람은 <a href="http://kwanny.ntreev.net/tt/index.php?pl=133&amp;ct1=-1">서관희님의 관련글</a>을 참고하시길...</p>
-<p>ps. 동영상 편집의 세계는 멀고도 험하다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -222,6 +248,10 @@
 	</li>
 	
 	<li>
+		<a href="/2006/02/15/zero-ping/">Zero Ping</a>
+	</li>
+	
+	<li>
 		<a href="/2006/02/14/lag-compensation/">Lag Compensation</a>
 	</li>
 	
@@ -237,10 +267,6 @@
 		<a href="/2006/02/10/오늘의-버그/">오늘의 버그</a>
 	</li>
 	
-	<li>
-		<a href="/2006/02/10/pilot-movie/">파일럿 무비</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -251,7 +277,7 @@
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

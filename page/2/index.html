@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,11 +73,108 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2012/04/24/building-a-team-to-ship-a-great-product/">성공하는 제품을 만들기 위한 팀 구축</a> <small>2012-04-24</small></h1>
+	</div>
+	<div class="post-content"><p>thanks to 박종천(블리자드)</p>
+<h2>팀의 핵심 요소</h2>
+<ul>
+<li>커뮤니케이션 &lt;== 이게 제일 중요함</li>
+<li>효율</li>
+<li>생산성</li>
+</ul>
+<p>사람을 모아놓고 뭘 하지 고민하지 말라. 좋은 프로젝트를 설정하고, 돈을 모은 후, 적합한 사람을 골라서 배치하는 거다.</p>
+<p>신뢰와 지식</p>
+<p>효율이 떨어지면 커뮤니케이션이 안되고 있는 거다</p>
+<h2>Role</h2>
+<p>누구에게 무엇을 말할 것인가? (무엇을 책임지는가?)</p>
+<p>product owner 는 4-5년을 보고, team lead 는 3-4개월을 보고, 엔지니어는 1-2주 단위를 보는 거다. 롤 마다 뷰가 다르다.</p>
+<h2>낭비(waste)</h2>
+<p>해결책 보다는 원인이 중요하다. </p>
+<ul>
+<li>중요하면서 (내가) 실행할 수 있으면 =&gt; 즉시 한다.</li>
+<li>중요한데 (내가) 실행을 못하면 =&gt; 연기</li>
+<li>중요하진 않지만 실행할 수 있으면 =&gt; 위임</li>
+<li>중요하지도, 할 수도 없으면 =&gt; 무시(잊자)</li>
+</ul>
+<p>이건 zen to done 과 비슷하구나. 핵심은 해결못하면 고민하지도 마라는 점.</p>
+<h2>우선순위</h2>
+<ul>
+<li>중요하고 급하면 =&gt; 너무 명백하니까 오히려 쉽다. 누구나 다 안다.</li>
+<li>중요한데 안급하다 =&gt; 계획을 세운다. 이게 바로 리더가 해야 할 일이다.</li>
+<li>안중요한데 급하다 =&gt; 귀찮네..</li>
+<li>안중요하고 급하지도 않다 =&gt; 아주 사소한 일이다.</li>
+</ul>
+<h2>판단하기(judgement)</h2>
+<ul>
+<li>필요한가(need)/원하는가(want)</li>
+<li>아는가/모르는가</li>
+</ul>
+<p>위 조합으로 나오는 건</p>
+<ul>
+<li>need+known : new feature</li>
+<li>need+unknown : 계획을 세워야 한다. 이게 제일 중요함</li>
+<li>want+known : change ui</li>
+<li>want+unkonwn: 리팩토링</li>
+</ul>
+<p>모르지만 중요한 것부터 도전해야 한다. 나머지는 다 견적 나온다.</p>
+<p>known-want 부터 하면 실패한다.</p>
+<h2>direction</h2>
+<p>팀 간에 충돌은 당연. 오히려 충돌이 없는게 무서운 상황. 뭔가 잘 되어가고 있으면 의심하라. 배가 산으로 가는건 금방이다. </p>
+<p>속도 보다는 디렉션이 훨씬 중요하다. 잠시 멈춰도 정확하게 자주 해야 된다. </p>
+<p>속도가 빠를 수록 주의해야 한다. 속도는 일정해야 한다. 과속 택시 보다는 지하철이 좋은 거다. (예측하기 쉬우므로)</p>
+<h2>기타</h2>
+<ul>
+<li>title : 직급. 성장하는 거다. associate &lt; junier &lt; senior &lt; lead programmer …  &lt; cto</li>
+<li>
+<p>position : 현재의 롤</p>
+</li>
+<li>
+<p>블리자드 HR 팀의 핵심 명제: Attract &lt; Develop &lt; Engage : 꼬셔서 잘 발전시켜서 잘 적응시킨다.</p>
+</li>
+</ul>
+<h2>performance review</h2>
+<ul>
+<li>생산성, 전문성, 팀웍, 지식, 역할, 구현</li>
+<li>각각의 항목을 측정해서 발전시킨다. </li>
+</ul>
+<h2>vision &amp; goal</h2>
+<ul>
+<li>비전은 장기적, 목표은 단기적</li>
+<li>회사, 팀, 개인의 비전과 목표가 일치하는게 좋다.</li>
+<li>회사의 core values == 문화를 핵심 문장으로 표현하기</li>
+</ul>
+<h2>3 가지 룰</h2>
+<ul>
+<li>행복할 것</li>
+<li>목표를 잘 이룰 것</li>
+<li>매일 매일 배울 것</li>
+</ul></div>
+	<div class="well well-small">
+		
+		
+		<p>Category:
+		
+			<a href="/category/management/"><span class="label label-info"><span class="icon icon-folder-open"></span> management</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/team/"><span class="label"><span class="icon icon-tag"></span> team</span></a>
+		
+		</p>
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2012/04/21/250k-node-connections/">Node.js로 25만 동접 만들기</a> <small>2012-04-21</small></h1>
 	</div>
-	<div><p>via <a href="http://blog.caustik.com/">caustik's blog</a></p>
+	<div class="post-content"><p>via <a href="http://blog.caustik.com/">caustik's blog</a></p>
 <h2><a href="http://blog.caustik.com/2012/04/08/scaling-node-js-to-100k-concurrent-connections/">node.js 를 10만 동접으로 스케일링하기</a></h2>
 <ul>
 <li>10만 동접을 처리하는데 CPU 점유율 40%, (virtual) 메모리 1.4G 를 차지함. 이 정도면 rackspace 2G 클라우드 서버일 경우 시간당 0.1$ 로 가능함.</li>
@@ -120,22 +223,30 @@
 <li>게임 서버를 개발시 이슈가 되는, 응답성, 동접 처리 등의 문제를 node.js 개발자들도 만나기 시작함. 의외로 메모리 제한이 문제가 된다는 게 특이했음. node.js 개발진은 메모리 제약은 클러스터 모듈로 분산해서 해결하는 걸 추천하는 듯. </li>
 <li>가비지 컬렉팅 문제는 응답성이 중요한 액션 게임을 개발할 경우 심각할 수 있음. (4초나 랙이 걸린다니! 그것도 30초마다!) 그래도 소셜 게임 수준은 걱정하지 않아도 될 듯. </li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/node.js/"><span class="label"><span class="icon icon-tag"></span> node.js</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/node.js/"><span class="label"><span class="icon icon-tag"></span> node.js</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2012/04/16/python-generator/">Python Iterator vs. Generator</a> <small>2012-04-16</small></h1>
 	</div>
-	<div><h2>iterator</h2>
+	<div class="post-content"><h2>iterator</h2>
 <p>임의의 sequence 를 순회하는데 필요한 정보를 담은 오브젝트.<br />
 iter() 함수를 통해서 생성하고, next() 함수를 이용해서 index 를 증가시켜서 다음 객체를 리턴한다. 맨 끝에 도달하면 StopIteration 예외를 던진다.</p>
 <p>즉 for x in seq 는 내부적으로 아래와 같다.</p>
@@ -165,22 +276,30 @@ while 1:
 <blockquote>
 <p>sum(x for x in seq)</p>
 </blockquote></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2012/04/04/appengine-pipeline/">AppEngine pipeline</a> <small>2012-04-04</small></h1>
 	</div>
-	<div><h3>개요</h3>
+	<div class="post-content"><h3>개요</h3>
 <p>Datastore 에 task 순서를 저장하고 순차적으로 하나씩 실행한다. <br />
 task 1 의 리턴값이 task2 의 출력값이 된다.<br />
 내부적으로 task queue 를 사용한다.</p>
@@ -229,24 +348,32 @@ self.fill(self.outputs.bb, 'bbbbb')
 <p>예외는 위와 같이 넘길 것</p>
 <h3>yield common.Log.info()</h3>
 <p>비동기 로그 남기기</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-	
-		<a href="/tag/pipeline/"><span class="label"><span class="icon icon-tag"></span> pipeline</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
+		
+			<a href="/tag/pipeline/"><span class="label"><span class="icon icon-tag"></span> pipeline</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2012/04/02/nosql-research/">NoSQL 조사</a> <small>2012-04-02</small></h1>
 	</div>
-	<div><p><a href="http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis">NoSQL DB 비교</a>라는 문서를 기준으로 각 데이터베이스의 특성을 간략 조사해봤다.</p>
+	<div class="post-content"><p><a href="http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis">NoSQL DB 비교</a>라는 문서를 기준으로 각 데이터베이스의 특성을 간략 조사해봤다.</p>
 <h3>mongodb</h3>
 <p>10gen 이라는 회사에서 운영. 오픈 소스. 컬럼 그룹 기반.</p>
 <ul>
@@ -378,125 +505,23 @@ self.fill(self.outputs.bb, 'bbbbb')
 <li>riak: 머임..</li>
 <li>hbase: 즐..</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/nosql/"><span class="label"><span class="icon icon-tag"></span> nosql</span></a>
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2012/02/26/libuv/">libUV 분석</a> <small>2012-02-26</small></h1>
+	<div class="well well-small">
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/nosql/"><span class="label"><span class="icon icon-tag"></span> nosql</span></a>
+		
+		</p>
+		
 	</div>
-	<div><h2>개요</h2>
-<p>node.js의 플랫폼 레이어로 여러 플랫폼에서의 비동기 입출력을 추상화하고, 완료될 때 콜백을 실행할 수 있게 해준다.</p>
-<p>see also <a href="https://github.com/joyent/libuv">GitHub</a></p>
-<h2>입출력 타입</h2>
-<p>include/uv.h 에 보면 다음과 같은 입출력 타입이 지원된다.</p>
-<ul>
-<li>TCP, UDP 소켓</li>
-<li>IPC, named Pipe(부모-자식 프로세스간 통신)</li>
-<li>타이머, 고해상도 타이머, idle 이벤트</li>
-<li>쓰레드풀링(QueueUserWorkItem)</li>
-</ul>
-<p>이 정도면 능히 게임 서버를 만들 수 있는 수준이다?</p>
-<h2>입출력 핸들과 처리 함수들</h2>
-<p>일단, 비동기 입출력 타입들은 전용 핸들과 초기화/소멸 함수를 가진다.</p>
-<ul>
-<li>uv_tcp_t: uv_tcp_init(), uv_tcp_endgame()</li>
-<li>uv_udp_t: uv_udp_init(), uv_udp_endgame()</li>
-</ul>
-<p>또한 각종 이벤트에 대해서 요청/완료 함수가 존재한다. 예를 들어 TCP 소켓 입출력에 대해서는 Accept/Connect/Read/Write 이벤트가 존재하는데 아래와 같은 함수들이 대응되어 있다.</p>
-<ul>
-<li>uv_tcp_accept =&gt; uv_process_tcp_accept_req</li>
-<li>uv_tcp_read_start =&gt; uv_process_tcp_read_req</li>
-<li>uv_tcp_write =&gt; uv_process_tcp_write_req</li>
-<li>uv_tcp_connect =&gt; uv_process_tcp_connect_req</li>
-</ul>
-<p>특이한 것은 Loop Watcher 로 분류되는, idle/prepare/check 이벤트들이다. idle은 서버에 아무런 입출력이 없을 때 호출된다. prepare/check 는 이벤트 루프를 커스터마이징하기 위한 함수인데 거의 쓸 일은 없을 듯.</p>
-<h2>메인 이벤트 루프</h2>
-<pre><code>// src/core.cc
-do {
-     // 현재 시간 설정
-   uv_update_time((loop));
-
-   // 완료된 타이머 이벤트 실행
-   uv_process_timers((loop));
-
-   // 요청도 없고 타이머도 없으면 idle 이벤트 실행
-    if ((loop)-&gt;pending_reqs_tail == NULL &amp;&amp; (loop)-&gt;endgame_handles == NULL){
-      uv_idle_invoke((loop));
-   }
-
-   // 완료된 입출력을 정리하고 지정된 콜백을 실행
-   uv_process_reqs((loop));
-
-   // 끊긴 연결 등의 핸들을 정리
-   uv_process_endgames((loop));
-
-   // pre-poll 콜백들을 호출
-   uv_prepare_invoke((loop));
-
-   // GetQueuedCompletionStatus 를 실행해서 입출력 완료를 대기
-   // 현재 처리할 이벤트가 없으면 계속 대기
-   poll((loop), (loop)-&gt;idle_handles == NULL &amp;&amp;
-                 (loop)-&gt;pending_reqs_tail == NULL &amp;&amp;
-                 (loop)-&gt;endgame_handles == NULL &amp;&amp;
-                 (loop)-&gt;refs &gt; 0);
-
-    // post-poll 콜백들을 호출
-    uv_check_invoke((loop));
-  } while (0);
-</code></pre>
-
-<h2>메모리 관리</h2>
-<ul>
-<li>TCP read : <a href="http://stackoverflow.com/questions/4988168/wsarecv-and-wsabuf-questions">zero byte receive</a>라는 기법을 이용한다. WSARecv 에 길이가 0인 빈 버퍼를 넘기고, 실제로 뭔가 오면 WSARecv 로 다시 읽는 방식이다. locked page 를 줄일 수 있어서 I/O 가 많은 서버들이 자주 쓴다고 한다. 참고로 WSARecv/WSASend 에 넘긴 메모리는 커널 드라이버가 접근해야 하므로 lock 이 걸리게 되는데 물리적인 최대값이 있다.(램의 1/8??)</li>
-</ul>
-<p>전통적인 게임 서버들은 하나에 프로세스가 여러 개의 쓰레드를 가지고, 세션당 1개의 입력 버퍼를 두는 1-recv 기법을 사용한다. 반면 node.js 는 클러스터링을 염두에 둔 탓인지, 메모리를 최소하는 전략을 채택한 듯하다.</p>
-<ul>
-<li>TCP write: N-send 를 사용한다. 즉 보낼 게 있을 때마다 버퍼가 만들어지거나 이미 존재하는 객체의 포인터를 이용한다는 뜻이다. 구조적으로는 gather write 가 가능할 거 같은데 코드에서는 없는 듯하다.</li>
-</ul>
-<p>대신 브로드캐스팅을 해도 복사는 없으므로 한편으론 괜찮을지도.</p>
-<h2>평가</h2>
-<p>게임 서버 프로그래머로서 발견할 수 있는 문제는,</p>
-<ul>
-<li>CPU 연산이 많은 경우 모든 실행이 멈춘다. 해결책은<ul>
-<li>process.nextTick() 으로 잘게 자른다. (또는 코루틴이 도입될 때까지 기다린다 ㅋㅋ) yield 같은 게 있으면 좋을텐데...</li>
-<li>그래도 크다면 pipe 나 소켓을 통해 다른 프로세스로 task 를 넘기고 받을 것. 게임의 핵심 로직은 별도 프로세스로 분리하는 게 더 좋을 듯.</li>
-</ul>
-</li>
-<li>캐릭터 이동이나 대규모 전투 같이 크기는 작지만 I/O의 절대 갯수가 많을 경우, 성능 저하가 좀 있을 것 같다.<ul>
-<li>왜냐하면 I/O 갯수만큼 GQCS를 호출해야 하니까. 이건 nv_run 코드를 패치하는 방법도 있지만..</li>
-<li>어쨌거나 기본적으로 작게 분산해서 하나하나를 가볍게 가져가는 형태가 될 것이다.</li>
-</ul>
-</li>
-</ul>
-<p>만약 node.js 만으로 리얼타임 MMO 게임 서버군을 구성한다면…</p>
-<ul>
-<li>frontend servers: 클라이언트와의 인증, 입출력을 전담. 메시지가 도달하면 backend 의 적당한 서버로 IPC(pipe or socket)를 통해 보낸다.</li>
-<li>backend servers: game server(sharding), AI, chat, guild, shop 등 역할별로 분산해서 지연을 최소화한다.</li>
-<li>CPU 를 많이 사용해야 한다면 C++ native 로 전환해가는 방법도 좋다.</li>
-</ul>
-<p>그 외에 고민해야 될 것들이라면</p>
-<ul>
-<li>적당한 데이터베이스/캐시 미들웨어: membase?</li>
-<li>node 프로세스 관리 도구 및 모니터링</li>
-</ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/node.js/"><span class="label"><span class="icon icon-tag"></span> node.js</span></a>
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -563,6 +588,10 @@ do {
 	</li>
 	
 	<li>
+		<a href="/2012/04/24/building-a-team-to-ship-a-great-product/">성공하는 제품을 만들기 위한 팀 구축</a>
+	</li>
+	
+	<li>
 		<a href="/2012/04/21/250k-node-connections/">Node.js로 25만 동접 만들기</a>
 	</li>
 	
@@ -578,10 +607,6 @@ do {
 		<a href="/2012/04/02/nosql-research/">NoSQL 조사</a>
 	</li>
 	
-	<li>
-		<a href="/2012/02/26/libuv/">libUV 분석</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -592,7 +617,7 @@ do {
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

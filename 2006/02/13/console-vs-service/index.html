@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/13/console-vs-service/">Console vs. Service</a> <small>2006-02-13</small></h1>
 	</div>
-	<div><p>지금까지는 command line 파라미터로 콘솔로 실행할 것인지 아니면 서비스로 실행할 것인지를 결정했다. 그러지 말고 아예 ConsoleRunner 와 ServiceRunner 를 외부 실행 파일로 만들어버리고 나머지 코드는 dll 로 만들어버리는건 어떨까?</p>
+	<div class="post-content"><p>지금까지는 command line 파라미터로 콘솔로 실행할 것인지 아니면 서비스로 실행할 것인지를 결정했다. 그러지 말고 아예 ConsoleRunner 와 ServiceRunner 를 외부 실행 파일로 만들어버리고 나머지 코드는 dll 로 만들어버리는건 어떨까?</p>
 <ul>
 <li>컨텐트 코드가 dll 이므로, TestRunner 에게 넘기기도 용이하다</li>
 <li>ServiceRunner 를 아예 서비스로 만들 수 있다.</li>
@@ -74,13 +80,19 @@
 </ul>
 <p>특히 3번처럼 호스트-서비스의 결집도가 너무 높은 상황(서비스를 다른 머신으로 옮기려면 해당 머신에 실행 파일을 복사하고 서비스를 설치하는 등의 과정을 거쳐야 한다는 점)을 해소할 수 있다는 점에서 왠지 괜찮을 것 같다는 생각을 해본다.</p>
 <p>시간이 나면 WYSIWYG 방식의 서버-서비스 배치툴을 만들어서 그 결과를 XML로 추출해내어 배포하면 알아서 적당한 서비스 모듈을 다운받아 실행하는 그런 멋쥔 환경을 구축해보고 싶다. (그렇다. 서비스 설치 및 설정이 너무 귀찮아서 망상에 젖은 것 뿐이다. 그보다는 빨리 서버간 패치 시스템을 구축해야 할텐데... rsync가 제일 나은 툴일까나..)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/13/console-vs-service/">http://boxcatstudio.wordpress.com/2006/02/13/console-vs-service/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -105,7 +117,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

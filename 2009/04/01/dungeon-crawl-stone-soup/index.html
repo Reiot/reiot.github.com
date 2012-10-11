@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,22 +68,32 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2009/04/01/dungeon-crawl-stone-soup/">Dungeon Crawl Stone Soup</a> <small>2009-04-01</small></h1>
 	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/kobold.jpg"><img alt="kobold" src="http://boxcatstudio.files.wordpress.com/2009/07/kobold-300x215.jpg" /></a></p>
+	<div class="post-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/kobold.jpg"><img alt="kobold" src="http://boxcatstudio.files.wordpress.com/2009/07/kobold-300x215.jpg" /></a></p>
 <p>코볼드 떼거지를 앞에 둔 용맹스러운 트롤 버서커 Reiot 의 모습을 담은 스크린샷이다. 요즘 틈틈히 집에서 하고 있는 roguelike 게임인 <a href="http://crawl-ref.sourceforge.net/">Dungeon Crawl : Stone Soup </a>인데, 매크로나 자동 네비게이션, 넓은 맵 등 다양한 편의 기능을 자랑한다. 매번마다 오크 광산 아래에 있는 엘프들의 동네에서 별 해괴한 소환 악마들한테 죽고 있어서, 좀 서럽긴 하다. (사실은 레벨업 좀 하고 천천히 놀러 가야 하는 곳이라고 하지만, 이상한 무한 차원으로 소환당해서 악마들에게 밟히는 건 정말 처참하다. -_-)</p>
 <p>로그매니아들이라면 한번쯤 도전해볼만한 게임이니, 다들 다운받으시기 바란다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/games/"><span class="label label-info"><span class="icon icon-folder-open"></span> games</span></a>
-	
-	
-		<a href="/tag/roguelike/"><span class="label"><span class="icon icon-tag"></span> roguelike</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2009/04/01/dungeon-crawl-stone-soup/">http://boxcatstudio.wordpress.com/2009/04/01/dungeon-crawl-stone-soup/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/games/"><span class="label label-info"><span class="icon icon-folder-open"></span> games</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/roguelike/"><span class="label"><span class="icon icon-tag"></span> roguelike</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -102,7 +118,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

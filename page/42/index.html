@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,11 +73,75 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a> <small>2005-12-11</small></h1>
+	</div>
+	<div class="post-content"><h2>키 바인딩</h2>
+<p>가능하면 Visual Studio 랑 비슷하게 맞추려면 다음과 같이 하라.</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Command</th>
+<th>Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Window</td>
+<td>Next Editor</td>
+<td>Ctrl + Tab</td>
+</tr>
+<tr>
+<td>Text Editing</td>
+<td>Delete Line</td>
+<td>Ctrl + L</td>
+</tr>
+<tr>
+<td>PyDev - Editor</td>
+<td>Python Comment</td>
+<td>Ctrl + K, Ctrl + C</td>
+</tr>
+<tr>
+<td>PyDev - Editor</td>
+<td>Python Uncomment</td>
+<td>Ctrl + K, Ctrl + U</td>
+</tr>
+<tr>
+<td>Run/Debug</td>
+<td>Run Last Launched</td>
+<td>Ctrl + F5</td>
+</tr>
+<tr>
+<td>Run/Debug</td>
+<td>Debug Last Launched</td>
+<td>F5</td>
+</tr>
+</tbody>
+</table>
+<h2>SubVersion 연동하기</h2>
+<p>eclipse 용 subversion 플러그인인 subclipse 를 이용하면 손쉽게 버전 관리가 가능하다. <a href="http://openframework.or.kr/JSPWiki/Wiki.jsp?page=Subversion">다음 글</a>을 참고할 것.</p></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/12/11/eclipse-%ed%8c%81/">http://boxcatstudio.wordpress.com/2005/12/11/eclipse-%ed%8c%81/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/12/11/adonet-팁/">ADO.NET 팁</a> <small>2005-12-11</small></h1>
 	</div>
-	<div><p>ADO.NET + VB.NET 으로 게임 상점 관리툴을 개발하면서 얻은 팁들을 정리해보았다.</p>
+	<div class="post-content"><p>ADO.NET + VB.NET 으로 게임 상점 관리툴을 개발하면서 얻은 팁들을 정리해보았다.</p>
 <!--more-->
 
 <h2>현재 선택된 셀 알아내기</h2>
@@ -189,20 +259,26 @@ reader.Read()<br />
 reader.Close()<br />
 conn.Close()</p>
 <p>TextBox1.Text = cmd.Parameters("@out_param").Value</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/12/11/adonet-%ed%8c%81/">http://boxcatstudio.wordpress.com/2005/12/11/adonet-%ed%8c%81/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/12/11/adonet-이란/">ADO.NET 이란?</a> <small>2005-12-11</small></h1>
 	</div>
-	<div><blockquote>
+	<div class="post-content"><blockquote>
 <p>ADO.NET은 OLE DB 및 XML을 통해 제공되는 데이터 소스뿐 아니라 Microsoft SQL Server와 같은 '''데이터 소스에 대한 일관성 있는 액세스'''를 제공합니다. 데이터 공유 소비자 응용 프로그램은 ADO.NET을 사용해서 이러한 데이터 소스에 연결하여 '''데이터를 검색, 조작 및 업데이트'''할 수 있습니다.<br />
 -- from MSDN</p>
 </blockquote>
@@ -275,37 +351,49 @@ conn.Close()</p>
 <li>수정후 업데이트하기</li>
 <li>끝.</li>
 </ol></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/12/11/adonet-%ec%9d%b4%eb%9e%80/">http://boxcatstudio.wordpress.com/2005/12/11/adonet-%ec%9d%b4%eb%9e%80/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/12/07/나쁜-아이디어를-위한-좋은-방법/">나쁜 아이디어를 위한 좋은 방법</a> <small>2005-12-07</small></h1>
 	</div>
-	<div><blockquote>
+	<div class="post-content"><blockquote>
 <p>지금 하고 있는 이런 하찮은 일은 대충 빨리 끝낼 예정이다. 난 멋진 프로젝트를 언젠가 해야할 몸이기 때문이다.</p>
 </blockquote>
 <p>당연히 <a href="http://www.extra-project.com/bbs/view.php?id=keeping01&amp;page=1&amp;sn1=&amp;divpage=1&amp;sn=off&amp;ss=on&amp;sc=on&amp;select_arrange=headnum&amp;desc=asc&amp;no=82">웹 디자인에만 적용되는 이야기</a>는 아니며, 특히 legacy code 를 다루는 프로그래머들이 쉽게 빠지는 길이기도 하다. 사실 나를 포함한 우리 팀원들 대다수가 이런 마음가짐으로 일하고 있기에 더욱 가슴이 시리다. 물론 지금으로서는 빨리 끝내는 것만이 유일한 해결책이지만...</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/12/07/%eb%82%98%ec%81%9c-%ec%95%84%ec%9d%b4%eb%94%94%ec%96%b4%eb%a5%bc-%ec%9c%84%ed%95%9c-%ec%a2%8b%ec%9d%80-%eb%b0%a9%eb%b2%95/">http://boxcatstudio.wordpress.com/2005/12/07/%eb%82%98%ec%81%9c-%ec%95%84%ec%9d%b4%eb%94%94%ec%96%b4%eb%a5%bc-%ec%9c%84%ed%95%9c-%ec%a2%8b%ec%9d%80-%eb%b0%a9%eb%b2%95/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/11/23/vb를-이용한-선분과-원의-충돌체크/">VB를 이용한 선분과 원의 충돌체크</a> <small>2005-11-23</small></h1>
 	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/collide.JPG" title="collide" target="_top"><img alt="collide" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_collide.JPG" /></a></p>
+	<div class="post-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/collide.JPG" title="collide" target="_top"><img alt="collide" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_collide.JPG" /></a></p>
 <p>고등학교때까지만 해도 기하쪽은 상당히 자신있었는데 나이가 들어갈수록 3D 쪽에는 상당히 취약해서 가고 있다. 몇 달 전 관련 서적을 쭈욱 질러주고 조금 보다가 때려쳤었다. 그러다 이번에 유지 보수 중인 legacy code 에서 brute force 충돌 체크 코드를 좀 더 깔끔하게 해보고자 선분과 원의 충돌 체크를 구현해보게 되었다. 역시나 이럴 때에는 MFC 보다는 .NET winform 이 제일 손쉽기에 재빨리 VB.NET 을 띄워 줬다.</p>
 <p>우선 Matrix 나 Vector 류의 함수는 .NET framework 에서 지원하지 않기 때문에 DirectX 쪽의 참조를 갖고 와야 한다. 그다음 리얼타임렌더링 625 페이지를 펼쳐서 그대로 코딩하면 된다.  실제로 타이핑은 금방 끝났는데 웬걸 제대로 동작하지 않아서 이 사람 저 사람 붙잡고 물어보다가 잠이 들고, 오늘 회사에 와서 차분히 책을 읽어보니 그 중 한 넘이 normalized vector 여야 한다는 걸 찾아냈다. 뿌듯.. -_-+</p>
 <p>책은 반직선과 구의 충돌이라서 선분 충돌을 구하려면 교차 좌표 중 가까운 넘을 찾아내서 그 길이가 원래 반직선 길이보다 짧아야 진짜 충돌이 된다. 사실 3D 를 쭉 하던 사람들이야 너무 쉬운 것일테지만 수학책을 한동안 놓고 살았던 본인에게는 꽤나 막중한 과제였다. 역시나 해내고 나니 성취감 보다는 허탈감이 든다. 흑.</p>
@@ -373,30 +461,19 @@ End Function
 Private Sub setupCircle(ByVal e As Point)
 If e.X
 </code></pre></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2005/10/31/inet_ntoa-의-위험성/">inet_ntoa 의 위험성</a> <small>2005-10-31</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/11/23/vb%eb%a5%bc-%ec%9d%b4%ec%9a%a9%ed%95%9c-%ec%84%a0%eb%b6%84%ea%b3%bc-%ec%9b%90%ec%9d%98-%ec%b6%a9%eb%8f%8c%ec%b2%b4%ed%81%ac/">http://boxcatstudio.wordpress.com/2005/11/23/vb%eb%a5%bc-%ec%9d%b4%ec%9a%a9%ed%95%9c-%ec%84%a0%eb%b6%84%ea%b3%bc-%ec%9b%90%ec%9d%98-%ec%b6%a9%eb%8f%8c%ec%b2%b4%ed%81%ac/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
 	</div>
-	<div><p>아래와 같이 내부 버퍼를 리턴하는 함수를 연속적으로 사용할 경우에는 주의해야 한다. 그냥 string 으로 감싸서 사용하는 것이 정신건강에 좋다. (단 타이핑 횟수는 .c_str() 때문에 꽤 증가한다)</p>
-<p>printf( "external_address=%s internal_address=%s",<br />
-  inet_ntoa(exaddr),<br />
-  inet_ntoa(inaddr));</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -463,6 +540,10 @@ If e.X
 	</li>
 	
 	<li>
+		<a href="/2005/12/11/eclipse-팁/">Eclipse 팁</a>
+	</li>
+	
+	<li>
 		<a href="/2005/12/11/adonet-팁/">ADO.NET 팁</a>
 	</li>
 	
@@ -478,10 +559,6 @@ If e.X
 		<a href="/2005/11/23/vb를-이용한-선분과-원의-충돌체크/">VB를 이용한 선분과 원의 충돌체크</a>
 	</li>
 	
-	<li>
-		<a href="/2005/10/31/inet_ntoa-의-위험성/">inet_ntoa 의 위험성</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -492,7 +569,7 @@ If e.X
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

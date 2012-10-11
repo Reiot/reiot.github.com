@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2012/04/04/appengine-pipeline/">AppEngine pipeline</a> <small>2012-04-04</small></h1>
 	</div>
-	<div><h3>개요</h3>
+	<div class="post-content"><h3>개요</h3>
 <p>Datastore 에 task 순서를 저장하고 순차적으로 하나씩 실행한다. <br />
 task 1 의 리턴값이 task2 의 출력값이 된다.<br />
 내부적으로 task queue 를 사용한다.</p>
@@ -115,17 +121,25 @@ self.fill(self.outputs.bb, 'bbbbb')
 <p>예외는 위와 같이 넘길 것</p>
 <h3>yield common.Log.info()</h3>
 <p>비동기 로그 남기기</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-	
-		<a href="/tag/pipeline/"><span class="label"><span class="icon icon-tag"></span> pipeline</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
+		
+			<a href="/tag/pipeline/"><span class="label"><span class="icon icon-tag"></span> pipeline</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -150,7 +164,7 @@ self.fill(self.outputs.bb, 'bbbbb')
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a> <small>2010-09-24</small></h1>
 	</div>
-	<div><p><strong>스프레드시트 리스트 읽어오기</strong></p>
+	<div class="post-content"><p><strong>스프레드시트 리스트 읽어오기</strong></p>
 <pre><code>client = gdata.spreadsheets.client.SpreadsheetsClient()
 
 feed = client.get_spreadsheets()
@@ -101,15 +107,25 @@ feed = client.get_feed(url, desired_class = gdata.spreadsheets.data.ListsFeed)
 <li>gd_client.get_feed 에 URL 을 넘기고 desired_class 를 잘 지정하면, 적당한 파이썬 객체로 래핑된다.</li>
 <li>어떤 XML 이 리턴되는지만 잘 파악하면 끗.</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/google spreadsheet api/"><span class="label"><span class="icon icon-tag"></span> google spreadsheet api</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/09/24/google-spreadsheet-api-note/">http://boxcatstudio.wordpress.com/2010/09/24/google-spreadsheet-api-note/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/google spreadsheet api/"><span class="label"><span class="icon icon-tag"></span> google spreadsheet api</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -134,7 +150,7 @@ feed = client.get_feed(url, desired_class = gdata.spreadsheets.data.ListsFeed)
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

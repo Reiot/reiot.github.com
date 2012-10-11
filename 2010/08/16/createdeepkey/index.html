@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2010/08/16/createdeepkey/">create_deep_key</a> <small>2010-08-16</small></h1>
 	</div>
-	<div><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
+	<div class="post-content"><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
 <ul>
 <li>부모 키 : AAABBBCCCDDD</li>
 <li>자식 키 : AAABBBCCCDDDEEEFFF</li>
@@ -84,19 +90,29 @@
 </code></pre>
 
 <p>이때 만약 키가 아니라 id/name 을 내보내고 싶다면,  transform.key_id_or_name_as_string_n(N) 을 사용할 것.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/bulkload/"><span class="label"><span class="icon icon-tag"></span> bulkload</span></a>
-	
-		<a href="/tag/datastore/"><span class="label"><span class="icon icon-tag"></span> datastore</span></a>
-	
-		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/08/16/createdeepkey/">http://boxcatstudio.wordpress.com/2010/08/16/createdeepkey/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/bulkload/"><span class="label"><span class="icon icon-tag"></span> bulkload</span></a>
+		
+			<a href="/tag/datastore/"><span class="label"><span class="icon icon-tag"></span> datastore</span></a>
+		
+			<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -121,7 +137,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

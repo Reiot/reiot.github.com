@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,18 +68,20 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/24/mmosg-massive-multiplayer-online-sports-game/">MMOSG - Massive Multiplayer Online Sports Game</a> <small>2006-02-24</small></h1>
 	</div>
-	<div><p>가마수트라에서 검색을 하다가 <a href="http://www.gamasutra.com/php-bin/news_index.php?story=5774">2005년 어떤 회사가 online extreme sports 게임을 만들고 있다</a>는 기사를 읽었다. 자세히는 몰라도 눈덮인 높은 산에서 수 백 여명이 스키나 보드를 타고 내려오면서 온갖 묘기를 한다고 생각하니 꽤 재미있을 듯하다. (왜 내려오는지에 대해서는 아무 생각이 없다)</p>
+	<div class="post-content"><p>가마수트라에서 검색을 하다가 <a href="http://www.gamasutra.com/php-bin/news_index.php?story=5774">2005년 어떤 회사가 online extreme sports 게임을 만들고 있다</a>는 기사를 읽었다. 자세히는 몰라도 눈덮인 높은 산에서 수 백 여명이 스키나 보드를 타고 내려오면서 온갖 묘기를 한다고 생각하니 꽤 재미있을 듯하다. (왜 내려오는지에 대해서는 아무 생각이 없다)</p>
 <p>우리야 팀플레이가 중시되는 스포츠이기에 MMOSG로 만들기엔 좀 무리가 있다만, 심리스 월드를 돌아다니다가 마음 맞는 사람끼리 경기장으로 가서 야구도 하다가 축구도 하고 미식축구도 할 수 있고, 할 일 없으면 그냥 관중이 되어서 구경하다가 빈 물병도 던져보고, 진짜 열받는 날에는 옷을 모두 벗고 축구 경기장으로 뛰어들다가 감옥에 가서 일주일동안 로그인 금지도 당할 수 있는 그런 MMOSG라면 꽤 <strike>매력적</strike>(이라고 쓰고 투자할 사람이 많을것 같다라고 읽는다 -_-)이지 않을까?</p>
 <p>그런 의미에서, 선배 MMOFPS들의 서비스 노하우만 어디서 잘 훔쳐올 수 있다면 정말 좋겠다. 흣흣</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/24/mmosg-massive-multiplayer-online-sports-game/">http://boxcatstudio.wordpress.com/2006/02/24/mmosg-massive-multiplayer-online-sports-game/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -98,7 +106,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

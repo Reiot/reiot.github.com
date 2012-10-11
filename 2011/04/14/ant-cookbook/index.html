@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2011/04/14/ant-cookbook/">Ant Cookbook</a> <small>2011-04-14</small></h1>
 	</div>
-	<div><h2>Property vs. Var</h2>
+	<div class="post-content"><h2>Property vs. Var</h2>
 <p>상수인 Property은 하위 Target 에게 보이지 않지만, 변수인 Var 는 보인다.</p>
 <h2>특정 확장자를 가진 파일만 삭제하기(recursive)</h2>
 <pre><code>&lt;delete&gt;
@@ -198,15 +204,25 @@
   &lt;arg value=&quot;.&quot;/&gt;
   &lt;/exec&gt;
 </code></pre></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/ant/"><span class="label"><span class="icon icon-tag"></span> ant</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2011/04/14/ant-cookbook/">http://boxcatstudio.wordpress.com/2011/04/14/ant-cookbook/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/ant/"><span class="label"><span class="icon icon-tag"></span> ant</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -231,7 +247,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

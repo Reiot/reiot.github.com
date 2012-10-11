@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/10/08/msbuild-with-cruise-control-net/">MSBuild with Cruise Control .Net</a> <small>2007-10-08</small></h1>
 	</div>
-	<div><p><img alt="http://www.codeplex.com/ccstatistics/Project/FileDownload.aspx?DownloadId=19113" src="http://www.codeplex.com/ccstatistics/Project/FileDownload.aspx?DownloadId=19113" /></p>
+	<div class="post-content"><p><img alt="http://www.codeplex.com/ccstatistics/Project/FileDownload.aspx?DownloadId=19113" src="http://www.codeplex.com/ccstatistics/Project/FileDownload.aspx?DownloadId=19113" /></p>
 <p><a href="http://kaistizen.net/EE/index.php/imaso/200605_continuous_integration.html/">지속적인 통합(Continuous Integration)</a>은 최근에 읽고 있는 책마다 항상 등장하는 단어다. 요약하자면 빌드 머신에 적당한 CI도구를 설치해두면 누가 커밋할 때마다 소스를 체크아웃해서 빌드하고 테스트를 실행한다는 것이다. 그러나, 우리 팀처럼 테스트가 거의 없고, 커밋 직전에 항상 최신 버전을 다운받아서 <strong>컴파일이 잘 되는지만</strong> 체크하는 정도의 통합 수준을 갖고 있는 조직에서는 그다지 효용성이 있어 보이지 않을 수 있다. (물론 빌드 안하고 커밋하는 개발자를 보유하고 있다면 이야기가 달라진다)  그런데 Cruise Control.Net을 사용하면 상상만 했던 <a href="http://reiot.cafe24.com/2007/09/28/ideal-build-system/">이상적인 빌드 시스템</a> 그 이상을 손쉽게 구현할 수 있다. 단순 배치 파일 실행에서부터, 소스코드 체크아웃은 물론, 버전 넘버를 붙이고, 빌드가 성공하면 소스 저장소에 태그를 붙이기도 하고, 웹기반의 히스토리 관리에서부터 위 그림에서 보이듯 그래프 기반의 뷰도 제공한다. 나아가서 일전에는 실패했던 MSN 연동도 된다!  시험삼아서 구글코드에 올려둔 <a href="http://code.google.com/p/raknet-wrapper/">raknet_wrapper</a> 프로젝트를 체크아웃받아서 빌드하는 스크립트를 만들어봤다.</p>
 <pre><code>
 &lt;cruisecontrol&gt;
@@ -119,11 +125,13 @@ raknet_wrapper.sln
 <li><a href="http://kaistizen.net/EE/index.php/imaso/200605_continuous_integration.html/">[Step by Step] 지속적인 통합(Continuous Integration)</a> -  마이크로소프트웨어 2006년 5월 컬럼</li>
 <li><a href="http://kaistizen.net/EE/index.php/weblog/comments/continuous_integration_for_visual_c/">Visual C++을 위한 지속적인 통합 빌드 서버</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/10/08/msbuild-with-cruise-control-net/">http://boxcatstudio.wordpress.com/2007/10/08/msbuild-with-cruise-control-net/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -148,7 +156,7 @@ raknet_wrapper.sln
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

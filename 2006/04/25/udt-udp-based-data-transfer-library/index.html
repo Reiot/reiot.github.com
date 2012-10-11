@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,20 +68,26 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a> <small>2006-04-25</small></h1>
 	</div>
-	<div><p><a href="http://udt.sf.net">UDT</a>는 Internet2 혹은 기가비트 이더넷과 같이 빠른 네트워크에서 수십~수백 기가 바이트의 대용량 데이터를 전송할 때 TCP가 매우 느리다는 점때문에 시작된 오픈소스 프로젝트이다. 버클리 소켓 API를 그대로 유지하고 있어서 접근성이 좋고, TCP의 슬라이딩 윈도우 같은 Congestion Control 을 사용자가 상황에 맞게 조정할 수 있다는 장점이 있다. 2.0 버전까지는 UDP 스트림만을 지원했는데 3.0부터는 UDP 다이어그램과 중첩입출력(Overlapped)도 지원하기 시작했다. 현재 3.0 beta 가 나와 있는 상태이다.</p>
+	<div class="post-content"><p><a href="http://udt.sf.net">UDT</a>는 Internet2 혹은 기가비트 이더넷과 같이 빠른 네트워크에서 수십~수백 기가 바이트의 대용량 데이터를 전송할 때 TCP가 매우 느리다는 점때문에 시작된 오픈소스 프로젝트이다. 버클리 소켓 API를 그대로 유지하고 있어서 접근성이 좋고, TCP의 슬라이딩 윈도우 같은 Congestion Control 을 사용자가 상황에 맞게 조정할 수 있다는 장점이 있다. 2.0 버전까지는 UDP 스트림만을 지원했는데 3.0부터는 UDP 다이어그램과 중첩입출력(Overlapped)도 지원하기 시작했다. 현재 3.0 beta 가 나와 있는 상태이다.</p>
 <p>이번에 reliable UDP 라이브러리 조사 도중 탐지망에 걸려 들어서 검토한 결과, 하나의 소켓에 대해서 내부적으로 입력과 출력 쓰레드를 1개씩 사용하는 것을 발견했다. 원래부터 데이터 전송을 목적으로 구현되어서 그런 듯한데, 이를 수정하지 않고는 게임 서버에서 사용하기는 힘들다는 판단을 내렸다. 시간이 난다면 IOCP를 연동할 수 있게 살짝 고쳐 보고 싶지만, 누구 말마따나 게임 회사는 연구소가 아닌 관계로... OTL</p>
 <p>결국 다시 RakNet으로 가야 된단 말인가...</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/04/25/udt-udp-based-data-transfer-library/">http://boxcatstudio.wordpress.com/2006/04/25/udt-udp-based-data-transfer-library/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -100,7 +112,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

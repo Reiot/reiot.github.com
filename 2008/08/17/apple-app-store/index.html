@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/08/17/apple-app-store/">Apple App Store</a> <small>2008-08-17</small></h1>
 	</div>
-	<div><p><img alt="http://filmmakerone.com/blog/wp-content/uploads/2008/03/stevejobspresentation_2.jpg" src="http://filmmakerone.com/blog/wp-content/uploads/2008/03/stevejobspresentation_2.jpg" /></p>
+	<div class="post-content"><p><img alt="http://filmmakerone.com/blog/wp-content/uploads/2008/03/stevejobspresentation_2.jpg" src="http://filmmakerone.com/blog/wp-content/uploads/2008/03/stevejobspresentation_2.jpg" /></p>
 <p>애플 앱 스토어(App Store)는 조만간 초대박이 날 거라는 <a href="http://i-dreaming.com/2511588">드리밍님의 예측</a>에 강력하게 동의한다. 지금껏 이만큼 소프트웨어 또는 게임 개발자들에게 유리한 플랫폼이 전무했기 때문이다. 하긴 다들 플랫폼을 구축하고 엔드 유저들이 컨텐트를 쌓아나가도록 하자는 이야기를 하지만, 잡스 횽아는 (보나다만 성공을 확신하지는 않았을테지만) 이걸 실제로 해냈다. 그것도 애플과 개발자 양자가 서로 윈윈할 수 있는 매력적인 비지니스 모델을 기반으로 해서.</p>
 <p><img alt="http://onten.net/images/blogs/xna_20.jpg" src="http://onten.net/images/blogs/xna_20.jpg" /></p>
 <p>반면 마이크로소프트의 XNA도 점점 접근성을 높여가고 있지만, 수많은 인디 게임 개발자들을 유혹할만한 어떤 지표($)도 보여준 적이 없다. (물론 자기들이 돈을 많이 벌었다는 이야기는 계속 나오고 있긴 하다.) 구글의 안드로이드에 대해서는 소식이 거의 들리지 않아서 생략.</p>
@@ -74,15 +80,21 @@
 <p>뭐 정답은 뻔하다. 오래된 회사들은 하루 빨리 과거의 명작들을 포팅하면 되고, 그렇지 않은 회사들은 오락실 게임들에서 아이디어를 추려내서 온라인으로 옮기는 대신, 아이폰으로 이사를 가면 되겠다. 다만 아이폰의 인터페이스에 걸맞게 게임을 적당히 변화시켜야 한다는 점은 모두 같으니, 어떻게 보면 이건 시간 싸움이 되지 않겠나 싶다.</p>
 <p>위 동영상처럼 화면을 기울여서 운전하는 수준의 게임은 이미 쌓여 있기 때문에, 레이싱은 좀 힘든 싸움이 되겠고.. 퍼즐류는 창작이 아니면 라이센스를 갖고 있으면 얼른 시작하면 될 듯. (그러나 비주얼드나 주마를 따라가려면 꽤 힘들꺼다) 슈팅은 터치 화면으로 총 쏘기가 힘들고, FPS는 조준이 힘들고...</p>
 <p>정답은 스포츠 또는 RPG. iBaldur's Gate 는 힘들겠지만 iWizardary 는 아무래도 될 거 같다!</p></div>
-	<br />
-	<p>
-	
-	
-		<a href="/tag/apple/"><span class="label"><span class="icon icon-tag"></span> apple</span></a>
-	
-		<a href="/tag/iphone/"><span class="label"><span class="icon icon-tag"></span> iphone</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/08/17/apple-app-store/">http://boxcatstudio.wordpress.com/2008/08/17/apple-app-store/</a></p>
+		
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/apple/"><span class="label"><span class="icon icon-tag"></span> apple</span></a>
+		
+			<a href="/tag/iphone/"><span class="label"><span class="icon icon-tag"></span> iphone</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -107,7 +119,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

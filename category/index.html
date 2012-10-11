@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -63,7 +69,7 @@
 <div class="container">
 
 	<div class="page-header">
-		<h1>Categories <span class="badge">15</span></h1>
+		<h1>Categories <span class="badge">14</span></h1>
 	</div>
 	<p class="category-cloud">
 	
@@ -128,7 +134,7 @@
 			
 		
 
-		<a href="/category/programming/" class="btn btn-large btn-warning" rel="tooltip" title="75 posts">programming</a>
+		<a href="/category/programming/" class="btn btn-large btn-warning" rel="tooltip" title="78 posts">programming</a>
 	
 		
 		
@@ -165,18 +171,11 @@
 
 		<a href="/category/tip & tricks/" class="btn btn-mini" rel="tooltip" title="1 posts">tip & tricks</a>
 	
-		
-		
-			
-		
-
-		<a href="/category/Tip &amp; Tricks/" class="btn btn-mini" rel="tooltip" title="4 posts">Tip &amp; Tricks</a>
-	
 	</p>
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

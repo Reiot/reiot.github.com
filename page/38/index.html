@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,11 +73,40 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2006/03/22/half-sync-half-async-pattern/">Half Sync Half Async Pattern</a> <small>2006-03-22</small></h1>
+	</div>
+	<div class="post-content"><p>IOCP의 경우 입출력 요청은 비동기적으로 이루어지지만 커널 내부에서 존재하는 큐를 통해 GQCS()를 호출하는 쓰레드들에게는 동기적으로 할당하게 된다. 이처럼 비동기 레이어와 동기 레이어, 그리고 이를 연결시켜주는 메시지큐로 구성되는 패턴을 Half Sync Half Async Pattern 이라고 부른다. 이 패턴은 다음과 같은 곳에 적용되었다.</p>
+<ul>
+<li>select() (UNIX/Linux) - 커널에서 입출력 처리는 비동기적으로 이루어지지만, 이들은 유저 프로세스에서 순차적으로 받아서 처리한다.</li>
+<li>IOCP &amp; ThreadPooling (Windows)</li>
+<li>ACE_Task (ACE)</li>
+</ul>
+<p>see also :</p>
+<ul>
+<li><a href="http://www.cs.wustl.edu/~schmidt/PDF/PLoP-95.pdf">http://www.cs.wustl.edu/~schmidt/PDF/PLoP-95.pdf</a></li>
+</ul></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/03/22/half-sync-half-async-pattern/">http://boxcatstudio.wordpress.com/2006/03/22/half-sync-half-async-pattern/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/03/22/active-object-pattern/">Active Object Pattern</a> <small>2006-03-22</small></h1>
 	</div>
-	<div><p>Active Object Pattern, 일명 능동 객체 패턴은 ACE_Task (ACE), ActiveObject (JAVA), LuaTask (LUA) 등에 적용된 패턴으로, 쓰레드간의 비동기적인 함수 호출을 '''객체지향적으로''' 구현한 패턴이다.</p>
+	<div class="post-content"><p>Active Object Pattern, 일명 능동 객체 패턴은 ACE_Task (ACE), ActiveObject (JAVA), LuaTask (LUA) 등에 적용된 패턴으로, 쓰레드간의 비동기적인 함수 호출을 '''객체지향적으로''' 구현한 패턴이다.</p>
 <p>로깅을 담당한 쓰레드에게 비동기적으로 로그를 남기는 함수를 구현한다고 가정해보자.</p>
 <pre><code>
 /// async log
@@ -112,20 +147,26 @@ m_pLogger-&gt;SafeLog(m_Message);
 <li><a href="http://www.cs.wustl.edu/~schmidt/PDF/Act-Obj.pdf">http://www.cs.wustl.edu/~schmidt/PDF/Act-Obj.pdf</a></li>
 <li><a href="http://c2.com/cgi/wiki?ActiveObject">Wiki:ActiveObject</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/03/22/active-object-pattern/">http://boxcatstudio.wordpress.com/2006/03/22/active-object-pattern/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/03/21/ace-tips/">ACE Tips</a> <small>2006-03-21</small></h1>
 	</div>
-	<div><p><strong>ACE_Message_Block</strong></p>
+	<div class="post-content"><p><strong>ACE_Message_Block</strong></p>
 <ul>
 <li>duplicate()는 recursive 로 동작한다. 따라서 메시지 블럭 리스트를 순회하면서 선택적으로 duplicate() 할 수는 없다.</li>
 <li>release() 역시 recursive 로 동작한다.</li>
@@ -180,32 +221,36 @@ m_pLogger-&gt;SafeLog(m_Message);
 </li>
 <li>ACE_TMAIN 을 쓸 수 없는 경우 ACE::init() 와 ACE::fini() 를 수동으로 불러줘야 한다.</li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/03/21/ace-tips/">http://boxcatstudio.wordpress.com/2006/03/21/ace-tips/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/24/mmosg-massive-multiplayer-online-sports-game/">MMOSG - Massive Multiplayer Online Sports Game</a> <small>2006-02-24</small></h1>
 	</div>
-	<div><p>가마수트라에서 검색을 하다가 <a href="http://www.gamasutra.com/php-bin/news_index.php?story=5774">2005년 어떤 회사가 online extreme sports 게임을 만들고 있다</a>는 기사를 읽었다. 자세히는 몰라도 눈덮인 높은 산에서 수 백 여명이 스키나 보드를 타고 내려오면서 온갖 묘기를 한다고 생각하니 꽤 재미있을 듯하다. (왜 내려오는지에 대해서는 아무 생각이 없다)</p>
+	<div class="post-content"><p>가마수트라에서 검색을 하다가 <a href="http://www.gamasutra.com/php-bin/news_index.php?story=5774">2005년 어떤 회사가 online extreme sports 게임을 만들고 있다</a>는 기사를 읽었다. 자세히는 몰라도 눈덮인 높은 산에서 수 백 여명이 스키나 보드를 타고 내려오면서 온갖 묘기를 한다고 생각하니 꽤 재미있을 듯하다. (왜 내려오는지에 대해서는 아무 생각이 없다)</p>
 <p>우리야 팀플레이가 중시되는 스포츠이기에 MMOSG로 만들기엔 좀 무리가 있다만, 심리스 월드를 돌아다니다가 마음 맞는 사람끼리 경기장으로 가서 야구도 하다가 축구도 하고 미식축구도 할 수 있고, 할 일 없으면 그냥 관중이 되어서 구경하다가 빈 물병도 던져보고, 진짜 열받는 날에는 옷을 모두 벗고 축구 경기장으로 뛰어들다가 감옥에 가서 일주일동안 로그인 금지도 당할 수 있는 그런 MMOSG라면 꽤 <strike>매력적</strike>(이라고 쓰고 투자할 사람이 많을것 같다라고 읽는다 -_-)이지 않을까?</p>
 <p>그런 의미에서, 선배 MMOFPS들의 서비스 노하우만 어디서 잘 훔쳐올 수 있다면 정말 좋겠다. 흣흣</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/24/mmosg-massive-multiplayer-online-sports-game/">http://boxcatstudio.wordpress.com/2006/02/24/mmosg-massive-multiplayer-online-sports-game/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/18/네트워크-액션-게임의-분류/">네트워크 액션 게임의 분류</a> <small>2006-02-18</small></h1>
 	</div>
-	<div><p>네트워크 액션 게임들을 peer 간 연결, 동기화 처리, 서버 유무 등으로 구분지어보면 대략 다음과 같다.</p>
+	<div class="post-content"><p>네트워크 액션 게임들을 peer 간 연결, 동기화 처리, 서버 유무 등으로 구분지어보면 대략 다음과 같다.</p>
 <ul>
 <li>
 <p><strong>asynchronous P2P</strong> : 모든 peer 들이 1:1로 연결되며, 적당히 정보를 주고 받으며 최신의 정보들만을 적용하는 방식이다. 디아블로1 등 액션 게임에서 주로 사용되며, 속도는 빠르지만 보안성이 떨어진다. 접속자 숫자가 비교적 많은 편. 패킷 손실에도 비교적 안전하다.</p>
@@ -227,28 +272,13 @@ m_pLogger-&gt;SafeLog(m_Message);
 </li>
 <li>그나저나 보이스 채팅은 한때는 vaporware 에 가까웠는데, 요즘은 꽤 많은 게임에서 지원하고 있다.</li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2006/02/15/zero-ping/">Zero Ping</a> <small>2006-02-15</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/18/%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%81%ac-%ec%95%a1%ec%85%98-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%b6%84%eb%a5%98/">http://boxcatstudio.wordpress.com/2006/02/18/%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%81%ac-%ec%95%a1%ec%85%98-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%b6%84%eb%a5%98/</a></p>
+		
+		
+		
 	</div>
-	<div><p>Zero Ping 은 상당히 다양한 의미를 가지고 있다.</p>
-<ul>
-<li><strong>0-ping</strong> : FPS 게임의 랜파티에서 이루어지는 빠르고 쾌적한 게임들을 의미한다.</li>
-<li><strong>nick name</strong> : 많은 수의 FPS 팬들이 이 이름을 클랜 이름 또는 별명으로 사용하고 있었다.</li>
-<li><strong><a href="http://www.planetquake.com/rocketland/haqsau/hl1100.shtml">client-side hitscan</a> </strong>: FPS 게임들의 모드(MOD) 중 무기를 발사하는 순간 클라이언트에서 판정 여부를 결정, 서버로 보내는 방식의 게임을 의미한다. 퀘이크3의 레일건처럼 즉각적인 판정이 필요한 무기들이 랙에 취약하다는 점 때문에 만들어진 것으로 보인다. 그렇지만 보안 문제로 인해서 정식 게임에는 거의 채택되지 않으며, 팬들이 만든 모드로만 존재한다. server-side <a href="http://reiot.cafe24.com/archives/303">lag compensation</a> 으로 보안 문제를 해결할 수는 있지만 랙 자체를 해결할 수는 없다.</li>
-</ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -315,6 +345,10 @@ m_pLogger-&gt;SafeLog(m_Message);
 	</li>
 	
 	<li>
+		<a href="/2006/03/22/half-sync-half-async-pattern/">Half Sync Half Async Pattern</a>
+	</li>
+	
+	<li>
 		<a href="/2006/03/22/active-object-pattern/">Active Object Pattern</a>
 	</li>
 	
@@ -330,10 +364,6 @@ m_pLogger-&gt;SafeLog(m_Message);
 		<a href="/2006/02/18/네트워크-액션-게임의-분류/">네트워크 액션 게임의 분류</a>
 	</li>
 	
-	<li>
-		<a href="/2006/02/15/zero-ping/">Zero Ping</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -344,7 +374,7 @@ m_pLogger-&gt;SafeLog(m_Message);
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

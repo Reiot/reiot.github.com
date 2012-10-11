@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/02/10/boost-serialization/">boost::serialization</a> <small>2008-02-10</small></h1>
 	</div>
-	<div><p>boost::serialization 은, 템플릿 멤버 함수 하나 또는 free function 하나만 정의하면, 해당 클래스를 다양한 스트림으로 직렬화할 수 있게 해준다. 특히 list - vector - map - set 등의 다양한 STL 컨테이너들을 지원한다는 것이 장점이다.</p>
+	<div class="post-content"><p>boost::serialization 은, 템플릿 멤버 함수 하나 또는 free function 하나만 정의하면, 해당 클래스를 다양한 스트림으로 직렬화할 수 있게 해준다. 특히 list - vector - map - set 등의 다양한 STL 컨테이너들을 지원한다는 것이 장점이다.</p>
 <p>이때, 매크로 없이 &amp; 연산자 만으로 읽고 쓰기를 가능하게 했는데, 이건 템플릿 아카이브 파라미터가 알아서 잘 읽거나 쓰도록 책임을 전가했다는 게 상당히 아름답다.. 단, virtual 이 아니라서 하위 클래스는 모두 이걸 정의해줘야 한다. 그리고 아직 hash_map 은 잘 지원하지 않는 모양인데, 뭔가 복잡한 사정이 있는 듯하다.</p>
 <p>주의할 점이라면 아래 예제처럼 쓰려는 객체가 const 여야 한다는 점 정도?</p>
 <pre><code>
@@ -285,11 +291,13 @@ BOOST_AUTO_TEST_CASE(test_serialize)
 
 }
 </code></pre></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/02/10/boost-serialization/">http://boxcatstudio.wordpress.com/2008/02/10/boost-serialization/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -314,7 +322,7 @@ BOOST_AUTO_TEST_CASE(test_serialize)
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

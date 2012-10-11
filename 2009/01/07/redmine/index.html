@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,24 +68,34 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2009/01/07/redmine/">Redmine</a> <small>2009-01-07</small></h1>
 	</div>
-	<div><p><a href="http://www.redmine.org/screenshots/gantt.png"><img alt="http://www.redmine.org/screenshots/gantt_tn.png" src="http://www.redmine.org/screenshots/gantt_tn.png" /></a></p>
+	<div class="post-content"><p><a href="http://www.redmine.org/screenshots/gantt.png"><img alt="http://www.redmine.org/screenshots/gantt_tn.png" src="http://www.redmine.org/screenshots/gantt_tn.png" /></a></p>
 <p><a href="http://bitnami.org/stack/mantis">bitnami mantis</a> 는 한글이 안되고, trac은 뭔가 플러그인 설치가 귀찮아서, 아<a href="http://www.redmine.org/wiki/redmine/Features">름다운 간트 차트</a>도 지원하는  <a href="http://bitnami.org/stack/redmine">bitnami redmine </a>을 써보기로 했다. (<a href="http://twiny.tistory.com/1676">twiny 님</a> 감사~)</p>
 <p>평소대로라면 최신 버전(0.8)을 위해 ruby 와 rails 부터 설치했겠지만, 이런 삽질은 꿈도 못 꿀 정도로 바빠서, 그냥 0.7 버전을 마음 편하게 깔아버렸다. 한글 문제(이슈, 파일 업로드)는 전혀 없었고, SMTP와 https svn 저장소 연결만 남은 상태인데, 각각 한번씩 해보고 연결이 안되길래 과감하게 포기했다. 참고로, <a href="http://www.redmine.org/wiki/redmine/ThemeBasecamp">베이스캠프 테마</a>를 설치하면 mantis 보다 100배 미려한 화면을 볼 수 있다. :)</p>
 <p>아쉬운 점이라면 위키 포맷이 익숙치 않은 textile 이라는 점과, 이미 <a href="http://www.gtdinbox.com/">GTDinbox </a>에 적응해버렸다는 정도. 그러고보니 GTD를 지원하는 이슈 관리 시스템은 없을까나~</p>
 <p>ps. 드디어 SQL 2005 스키마의 개별 객체들을 <a href="http://www.sqlservercentral.com/articles/Administering/2896/">각각 SQL 로 추출해주는 방법</a>을 찾았다. 소스 코드르 다운받아서 약간만 수정해주면 SQL  스키마의 버전 관리는 끝!</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-		<a href="/tag/redmine/"><span class="label"><span class="icon icon-tag"></span> redmine</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2009/01/07/redmine/">http://boxcatstudio.wordpress.com/2009/01/07/redmine/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/redmine/"><span class="label"><span class="icon icon-tag"></span> redmine</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -104,7 +120,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,24 +68,30 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/13/sc-failure/">sc failure…</a> <small>2006-02-13</small></h1>
 	</div>
-	<div><p><a title="scfailure.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" /></a></p>
+	<div class="post-content"><p><a title="scfailure.JPG" class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/scfailure.JPG" /></a></p>
 <p>sc create 를 이용하면 손쉽게 서비스를 설치할 수 있다는 사실은 잘 알려져 있다. 문제는 서비스가 시작할 때 문제가 발생할 경우 복구 방법에 대한 설정이다. 이 경우 error 파라미터를 잘 조정하면 될 것 같지만 실제로는 <a href="http://www.microsoft.com/technet/prodtechnol/windowsserver2003/ko/library/ServerHelp/0a658e97-51d5-4109-b461-a474c799964e.mspx">sc failure</a> 라는 다른 명령어를 사용해야 한다. (자세한 용법은 내일 삽질 후에 올리도록 하겠다)</p>
 <blockquote>
 <p>sc failure MyServiceName reset= 0 actions= "restart/5000/restart/5000/reboot/5000"</p>
 </blockquote>
 <p>위 명령은 서비스의 시작 실패시 처음과 두번째에는 5초후 서비스 재시작, 세번째까지 실패하면 시스템 리붓을 하라는 이야기다. actions 의 단위는 밀리초라는 점에 유의할 것. reset 파라미터는 일단 서비스가 성공적으로 뜬 경우 몇 초 후에 실패 횟수를 초기화하느냐인데 그냥 0 으로 두는 편이 무난할 것 같다. actions 파라미터에 run 이 들어갈 경우 command 파라미터를 지정해줘야 하며, reboot 이 들어갈 경우 reboot 파라미터에다가 메시지를 넣어주면 훗날 디버깅이 용이할 것이다. (단 actions 을 사용할 경우 항상 reset 을 지정해야 하는 것처럼 필수 사항은 아니다.)</p>
 <p>참고로 이 명령은 오래된 MSDN 에서는 확인할 수 없다. 아무래도 최신 OS에서만 지원되는 것일지도?</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/13/sc-failure/">http://boxcatstudio.wordpress.com/2006/02/13/sc-failure/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -104,7 +116,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

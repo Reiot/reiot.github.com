@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/07/16/visual-cpp-express/">Visual C++ 2005 express 의 한계</a> <small>2007-07-16</small></h1>
 	</div>
-	<div><p>연휴동안 정말 할 일이 없어서 <a href="http://asio.sourceforge.net/">ASIO </a>코드를 살펴보고 있다. 몇 달전에 깔아둔 VC++ express 를 띄워서 예제 코드를 빌드하니 winsock2.h 가 없다는 에러가 뜨는게 아닌가? 찾아보니 <a href="http://msdn.microsoft.com/vstudio/express/visualc/usingpsdk/">Platform SDK를 설치한 후, 몇 가지 설정을 손봐줘야 한다</a>는 내용을 발견할수 있었다. 열심히 다운로드를 받다가, 문득 professional 이나 standard 보다이 놈이 못한게 무엇무엇이 있는지 궁금했다. 구글링해본 결과 다음과 같은 내용을 발견할 수 있었다.</p>
+	<div class="post-content"><p>연휴동안 정말 할 일이 없어서 <a href="http://asio.sourceforge.net/">ASIO </a>코드를 살펴보고 있다. 몇 달전에 깔아둔 VC++ express 를 띄워서 예제 코드를 빌드하니 winsock2.h 가 없다는 에러가 뜨는게 아닌가? 찾아보니 <a href="http://msdn.microsoft.com/vstudio/express/visualc/usingpsdk/">Platform SDK를 설치한 후, 몇 가지 설정을 손봐줘야 한다</a>는 내용을 발견할수 있었다. 열심히 다운로드를 받다가, 문득 professional 이나 standard 보다이 놈이 못한게 무엇무엇이 있는지 궁금했다. 구글링해본 결과 다음과 같은 내용을 발견할 수 있었다.</p>
 <p><a href="http://msdn2.microsoft.com/ko-kr/vstudio/aa700921.aspx">Visual Studio 2005 Product Line Overview</a></p>
 <p>간단히 요약해보면,</p>
 <ul>
@@ -77,11 +83,13 @@
 </ul>
 <p>이 정도의 제약 조건이라면 사실상 제약이 거의 없다고 봐도 무방하다.  최악의 경우 express 만으로도 헝그리하게 개발할 수도 있을 정도이니 말이다. (<a href="http://msdn.microsoft.com/vstudio/express/support/faq/">FAQ</a> 4번에 의하면 상업적 용도로 사용해도 된다고 나온다) 가까이로는, 빌드 머신 같은 데 설치해두면 VC의 카피수를 줄이는데 많은 도움이 될 듯하다. 여력이 되면 전 사원들의 컴퓨터에 깔아두고 테스트하다가 크래시될 때 자동으로 뜨도록 해두는 것도 괜찮을것 같다.</p>
 <p>그나저나, Team System 에서 Code Profiling - Static Analysis - Code Coverage - DB refactoring - DB schema compare 같은 기능을 지원한다는 것은 이번에 처음 알았다. 흐음. 써볼만 하겠는걸? 이라고 생각하는 순간 Visual Studio 2008 이 조만간(?) 출시된다는 걸 보고 슬그머니 귀찮아졌다. :)</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/07/16/visual-cpp-express/">http://boxcatstudio.wordpress.com/2007/07/16/visual-cpp-express/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -106,7 +114,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

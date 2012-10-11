@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,32 +68,42 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2009/07/22/most-valuable-asset/">Most Valuable Asset</a> <small>2009-07-22</small></h1>
 	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a></p>
+	<div class="post-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a></p>
 <p><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a><br />
 <div class="mceTemp mceIEcenter"><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a> <dl class="wp-caption  aligncenter"><a href="http://boxcatstudio.files.wordpress.com/2009/07/SANY0089.JPG"></a> <dt class="wp-caption-dt"><a href="http://boxcatstudio.files.wordpress.com/2009/07/sany0089.jpg"><img alt="우유 먹는 그레이" src="http://boxcatstudio.files.wordpress.com/2009/07/sany0089.jpg?w=225" /></a></dt> <dd class="wp-caption-dd">우유 먹는 그레이</dd> </dl></div><br />
 건강을 잃으면 모든 것을 잃는다고 누가 그랬나. 그 말이 정답. 일단 체력 회복을 최고 우선 순위에 올려 두고 살고 있으니, 너무 걱정마시길.</p>
 <p>시간 여유가 좀 생기면서 나의 관심은 아이폰에서 트위터 및 SNS 웹게임들로 옮겨 가고 있다. 며칠 전부터는 다시 구글 app engine 을 뒤적거리면서 트위터 기반의 <a href="http://www.zynga.com/games/index.php?game=mafiawars">zynga</a> clone를 구상해보고 있는 중이다.  task queue 가 생겨났으니 이제 slow turn 게임들은 클라우드로 옮겨 가는 것이 가능해진 셈이다.</p>
 <p>웹 동네의 구조들을 보면 <a href="http://danga.com:80/memcached/">memcached</a> 같은 미들웨어들을 적극 활용하고 있다. 게임에서도 <a href="http://dev.naver.com/projects/coord">coord</a> 같은 것들은 마련해두면 서버간 통신이라든지 DB 장비 구매 비용을  꽤나 줄일 수 있을 것 같다. 이런거나 만들면서 놀면 재미있을텐데..</p>
 <p>2009년은 정말 다이나믹한 해로 기억될 것 같다. 개인적으로도, 사회 생활에서도, 국가적으로도 더 이상 슬픈 일은 없었으면 한다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-		<a href="/tag/twitter/"><span class="label"><span class="icon icon-tag"></span> twitter</span></a>
-	
-		<a href="/tag/memcached/"><span class="label"><span class="icon icon-tag"></span> memcached</span></a>
-	
-		<a href="/tag/sns/"><span class="label"><span class="icon icon-tag"></span> sns</span></a>
-	
-		<a href="/tag/coord/"><span class="label"><span class="icon icon-tag"></span> coord</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2009/07/22/most-valuable-asset/">http://boxcatstudio.wordpress.com/2009/07/22/most-valuable-asset/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/twitter/"><span class="label"><span class="icon icon-tag"></span> twitter</span></a>
+		
+			<a href="/tag/memcached/"><span class="label"><span class="icon icon-tag"></span> memcached</span></a>
+		
+			<a href="/tag/sns/"><span class="label"><span class="icon icon-tag"></span> sns</span></a>
+		
+			<a href="/tag/coord/"><span class="label"><span class="icon icon-tag"></span> coord</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -112,7 +128,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

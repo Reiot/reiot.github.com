@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2009/02/17/tasklist-taskkill/">Tasklist/Taskkill</a> <small>2009-02-17</small></h1>
 	</div>
-	<div><p><img alt="tasklist" src="http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg" /></p>
+	<div class="post-content"><p><img alt="tasklist" src="http://seer.entsupport.symantec.com/docs/images/253904/tasklist.jpg" /></p>
 <p>터미널에서 프로세스 관리자가 뜨지 않을 경우, 다른 터미날에서 띄운 프로세스를 죽이기가 참 난감할 때가 있다. 다행스럽게도 유닉스의 ps/kill 조합을 윈도우에서도 지원한다.</p>
 <ul>
 <li>tasklist</li>
@@ -79,17 +85,27 @@
 
 taskkill /S &lt;server&gt; /U &lt;username&gt; /P &lt;password&gt; /IM &lt;process name&gt;
 </code></pre></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/process/"><span class="label"><span class="icon icon-tag"></span> process</span></a>
-	
-		<a href="/tag/console/"><span class="label"><span class="icon icon-tag"></span> console</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2009/02/17/tasklist-taskkill/">http://boxcatstudio.wordpress.com/2009/02/17/tasklist-taskkill/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/process/"><span class="label"><span class="icon icon-tag"></span> process</span></a>
+		
+			<a href="/tag/console/"><span class="label"><span class="icon icon-tag"></span> console</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -114,7 +130,7 @@ taskkill /S &lt;server&gt; /U &lt;username&gt; /P &lt;password&gt; /IM &lt;proc
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

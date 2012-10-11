@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/01/23/upgrade-mantis-111/">Upgrade Mantis 1.1.1</a> <small>2008-01-23</small></h1>
 	</div>
-	<div><p><a href="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&h=&cache=cache"><img alt="mantis roadmap" src="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&amp;h=&amp;cache=cache" /></a></p>
+	<div class="post-content"><p><a href="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&h=&cache=cache"><img alt="mantis roadmap" src="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&amp;h=&amp;cache=cache" /></a></p>
 <p>회사에서 Mantis 1.0.8 을 몇 개월 동안 잘 쓰고 있다가, 최근 (Trac에서는 이미 지원하고 있는) <a href="http://www.mantisbt.org/wiki/doku.php/mantisbt:features:roadmap">Roadmap</a> 기능이 들어간 1.1 버전이 나왔다는 소식을 듣고, 역시나 업그레이드에 도전했다가 한글 문제 때문에 계속 포기해야만 했다. 그러던 오늘 오후, 이번에야말로 기필코 성공하리라고 마음먹고 4시간 넘게 삽질을 했지만 또다시 실패하고 "Fail to upgrade Mantis"라는 제목으로 글을 쓰다가 우연히도 성공해버렸다. 원래는 구차한 실패 과정을 낱낱히 써놨지만, 모두 생략하고 바로 결론으로 넘어가겠다.</p>
 <pre><code>OS : Windows Server 2003 R2
 
@@ -85,11 +91,13 @@ Encoding : latin1 + latin1_general_ci```
 <p>mysql -u username -p --execute="create database bugtracker2 default character set utf8;"</p>
 <p>mysql -u username -p bugtracker2 --default-character-set=utf8 &lt; dump.sql```<br />
 업그레이드에 성공한 것도 무지 기쁘지만, <a href="http://kldp.org/node/32987">vim 에서 utf-8 포맷의 문서를 자동으로 읽어 들이고 변환할 수 있다</a>는 것을 알게 되어서 더욱 기쁘다. enc, tenc, fenc, fencs 옵션을 잊지 말자.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/01/23/upgrade-mantis-111/">http://boxcatstudio.wordpress.com/2008/01/23/upgrade-mantis-111/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -114,7 +122,7 @@ Encoding : latin1 + latin1_general_ci```
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

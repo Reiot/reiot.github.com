@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/12/11/adonet-이란/">ADO.NET 이란?</a> <small>2005-12-11</small></h1>
 	</div>
-	<div><blockquote>
+	<div class="post-content"><blockquote>
 <p>ADO.NET은 OLE DB 및 XML을 통해 제공되는 데이터 소스뿐 아니라 Microsoft SQL Server와 같은 '''데이터 소스에 대한 일관성 있는 액세스'''를 제공합니다. 데이터 공유 소비자 응용 프로그램은 ADO.NET을 사용해서 이러한 데이터 소스에 연결하여 '''데이터를 검색, 조작 및 업데이트'''할 수 있습니다.<br />
 -- from MSDN</p>
 </blockquote>
@@ -139,13 +145,19 @@
 <li>수정후 업데이트하기</li>
 <li>끝.</li>
 </ol></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/12/11/adonet-%ec%9d%b4%eb%9e%80/">http://boxcatstudio.wordpress.com/2005/12/11/adonet-%ec%9d%b4%eb%9e%80/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -170,7 +182,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

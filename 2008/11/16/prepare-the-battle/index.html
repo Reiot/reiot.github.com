@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/11/16/prepare-the-battle/">Prepare the battle</a> <small>2008-11-16</small></h1>
 	</div>
-	<div><p><a href="http://minjang.egloos.com/2137737"><img alt="http://www.tesionline.com/intl/img/focus/asian-crisis.jpg" src="http://www.tesionline.com/intl/img/focus/asian-crisis.jpg" /></a></p>
+	<div class="post-content"><p><a href="http://minjang.egloos.com/2137737"><img alt="http://www.tesionline.com/intl/img/focus/asian-crisis.jpg" src="http://www.tesionline.com/intl/img/focus/asian-crisis.jpg" /></a></p>
 <p><a href="http://minjang.egloos.com/2137737">DHL도 미국에서 철수하고, SUN, 구글, HP, 이베이, 아마존 같은 유수 기업들이 감원을 하고 있고,</a> 실리콘밸리에는 <a href="http://mushman.co.kr/2690827">총격 사고</a>까지 나고 있는데, 펀더멘탈이 그렇게나 튼튼하다는 바이 코리아의 게임 회사들은 어떨게 될까? 최대한 네가티브하게 예측해서 그게 운좋게 맞아 떨어지면 나중에 1g 정도 우쭐하려나 싶어, 최악의 경우만을 가정해 보겠다.</p>
 <p>조만간 닥쳐온다는 10년짜리 세계적 불황에 대해 조금이라도 고려하고 있는 회사라면, 슬슬 군살을 빼기 시작할 것이다. 가장 간단한 전기 절약 운동에서부터 연봉 동결, 유휴 인력 정리 해고, 싹수 없는 프로젝트의 조기 캔슬에 이르기까지 다양한 방식의 근검절약을 시행할 것이다. 최근의 중대형 회사들은 개발자들을 싹쓸이한 후, 동시에 5-10개의 프로젝트를 돌리는 것이 대세인데, 게임이란 것이 50% 의 성공률 완성율도 보장할 수 없는게 현실이다. 즉 인건비만 년간 50-100억 정도 까먹는다는 걸 감안해보면, 어떤 CEO도 이런 유혹을 이겨낼 수 없을 게다. 만약 이게 현실이 된다면 조만간 인력 시장에 고급 인력들이 가득하게 되고, 그러면 <a href="http://reiot.cafe24.com/2008/10/19/pareto-principle/">회사에서 어울렁 더울렁 웹서핑하면서 버티던 베짱이들</a>의 목은 더욱 위태로워질 것이다. :P</p>
 <p>또, 부분 유료화라는 비지니스 모델이 기나긴 불황의 터널 속에서는 오히려 악재가 될 수도 있다. 내수 침체로 청소년들의 지갑이 얇아지면 그냥 무료 상태로만 게임을 즐길 가능성도 배제할 수 없으니까 말이다. 혹자는 IMF 시절을 예로 들면서, 경기가 침체될 수록 사람들이 값싼 놀이 수단을 찾기 때문에 게임 쪽은 괜찮을 거라고 하고, 나도 그렇게 믿고 싶지만.. 마찬가지로 이유로 해외 수출에 의존하는 모델도 힘들어질 수 있다. 이미 불황을 겪고 있는 일본이나, 중국 같은 이머징 마켓을 제외하면, 다들 배고픈데 비싼 돈을 주고 우리 나라 게임을 수입해와서 서비스 할 이유도 없지 않을까. 단 쥐새끼가 계속 삽질을 해대면 계속 원화 가치가 떨어져서 그때쯤이면 비싼 돈이 아닐 수도 있으니, 어째 고마워해야 할지도 모르겠다.</p>
@@ -74,15 +80,25 @@
 <p>또 불황이 길어지면 사람들이 더이상 컴퓨터를 업그레이드하지 않을 수도 있다. 즉 차세대 콘솔 수준의 높은 퀄리티의 그래픽 때문에 개발비를 투입하는 것보다는, 아이폰 게임이나 닌텐도의 Wii처럼 게임성에 올인하는 게 더 현명한 전략일 수도 있겠다. 이런 걸 감안해보면 저사양에서도 잘 돌아가면서, 전세계 글로벌하게 광고를 수주해서 게임 내에서 보여주는 방식으로 (게이머들에게 금전적인 부담없이) 수익을 벌어들이는 모델이 가장 좋지 않을까 싶기도 하다. 광고 한번 보면 한 시간 플레이가 가능해요! 아이템도 하나 드려요! 뭐 이런 방식이 될까나..</p>
 <p>그렇다면 대한민국만큼 공돌이들이 하류 인생인 나라도 드물테니, 해외로 나가서 새로운 미래를 개척해보면 어떨까?  아마 그때 쯤이면 환급받을 국민 연금도 똥값이 되고, 그나마 현금 보유한 걸 달러로 환전하면 50% 로 줄어들어 버릴 것 같다. 그나마 내수가 튼튼한 나라로 이민가서 후딱 적응하는 게 나을 수도 있겠지만, 이 불황이란 게 전지구적인 규모라서 그 나라의 게임 회사들이라고 영향을 받지 않으리란 보장이 없으니... 지금 후딱 나가서 신입으로 입사해도 시원찮을 판이다. (<a href="http://criburn.net/blog/jongs/entry/%EB%B8%94%EB%A6%AC%EC%9E%90%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90-Jeff-Kang%EA%B0%95%ED%98%95%EC%9B%90%EC%94%A8%EA%B0%80-%EB%A7%90%ED%95%98%EB%8A%94-%EA%B0%9C%EB%B0%9C-%ED%8F%AC%EC%9D%B8%ED%8A%B8%EC%99%80-%EB%82%B4-%EC%83%9D%EA%B0%81">블리자드는 56살짜리 신입 디자이너도 뽑는다</a>니, 두려워하지 말지어다)</p>
 <p>이래서, 회사를 옮기려고 하는 지인들에게 무조건 100억 이상의 매출을 가진 회사로 옮기라고 권했는데, 어째 다들 힘든 모양이다. 올해를 넘기면 새 회사에서 실력을 발휘해 보기도 전에 밀려날 지도 모르니 어서 빨리 취업하시기 바라며, 결국 중요한 건 자신의 내공을 재테크 하고, 회사에서 열심히 일해서 낙오 그룹에 끼이지 않는 방법 밖에 없다. 그래도 안되면 핀란드 가서 임업을 하든, 뉴질랜드에서 목축업을 해야 될지도... ㅠ_ㅠ</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-		<a href="/tag/ingamead/"><span class="label"><span class="icon icon-tag"></span> ingamead</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/11/16/prepare-the-battle/">http://boxcatstudio.wordpress.com/2008/11/16/prepare-the-battle/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/ingamead/"><span class="label"><span class="icon icon-tag"></span> ingamead</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -107,7 +123,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

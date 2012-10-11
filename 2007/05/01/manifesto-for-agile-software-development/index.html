@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/05/01/manifesto-for-agile-software-development/">Manifesto for Agile Software Development</a> <small>2007-05-01</small></h1>
 	</div>
-	<div><h2>Manifesto for Agile Software Development</h2>
+	<div class="post-content"><h2>Manifesto for Agile Software Development</h2>
 <p>We are uncovering better ways of developing<br />
 software by doing it and helping others do it.<br />
 Through this work we have come to value:</p>
@@ -78,11 +84,13 @@ Through this work we have come to value:</p>
 the right, we value the items on the left more.</p>
 <p>birdkr님께서 <a href="http://mypage.sarang.net/tt/140">친절하게 번역</a>도 해주시고, <a href="http://mypage.sarang.net/tt/143">현업에서 실제로 어떻게 쓰고 있는지</a>도 잘  소개해 주셨다. 역시나 순수한 XP보다는 <a href="http://en.wikipedia.org/wiki/Scrum_(management)">SCRUM</a>이 게임에는 더 잘 어울린다고 생각했는데, 어쨌거나, 내가 이런 저런 이유로 시도하지 못하고 있는 걸 <a href="http://www.maiet.net/company/">이미 적용중인 팀</a>을 보면 정말 부럽고 자극이 된다. 핫핫.</p>
 <p>생각과 행동, 그 거대한 차이는 무엇일까?</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/05/01/manifesto-for-agile-software-development/">http://boxcatstudio.wordpress.com/2007/05/01/manifesto-for-agile-software-development/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -107,7 +115,7 @@ the right, we value the items on the left more.</p>
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

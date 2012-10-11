@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2010/11/09/setup-npm-socketio/">Setup npm & socket.io</a> <small>2010-11-09</small></h1>
 	</div>
-	<div><p>EDIT: npm 은 이제 기본적으로 설치가 되므로 설치 방법은 생략한다.</p>
+	<div class="post-content"><p>EDIT: npm 은 이제 기본적으로 설치가 되므로 설치 방법은 생략한다.</p>
 <pre><code>npm install express 
 npm install socket.io
 </code></pre>
@@ -112,17 +118,27 @@ sudo node server.js
 <li>이걸로 HTML5 캔버스에서 멀티플레이 가능한 로그라이크를 만들 수 있을까? ㅎㅎ</li>
 </ul>
 <p>정도 되겠다. 한마디로 꽤 재미있는 장난감이 될 것 같다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/node.js/"><span class="label"><span class="icon icon-tag"></span> node.js</span></a>
-	
-		<a href="/tag/socket.io/"><span class="label"><span class="icon icon-tag"></span> socket.io</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/11/09/setup-npm-socketio/">http://boxcatstudio.wordpress.com/2010/11/09/setup-npm-socketio/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/node.js/"><span class="label"><span class="icon icon-tag"></span> node.js</span></a>
+		
+			<a href="/tag/socket.io/"><span class="label"><span class="icon icon-tag"></span> socket.io</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -147,7 +163,7 @@ sudo node server.js
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

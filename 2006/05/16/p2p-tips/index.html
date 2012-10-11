@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/05/16/p2p-tips/">P2P Tips</a> <small>2006-05-16</small></h1>
 	</div>
-	<div><p>P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다)</p>
+	<div class="post-content"><p>P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다)</p>
 <h1>분석 및 검토</h1>
 <h2>게임성 분석</h2>
 <p>만들고자 하는 게임의 다양한 속성들에 대한 분석이 최우선 단계이다. 다음 질문에 자신의 게임이 어떤 쪽인지를 잘 따져보기 바란다.</p>
@@ -140,11 +146,13 @@
 <li>연결 끊김 감지 : 게임 도중 연결이 끊길 경우 얼마나 빨리 감지할 수 있을까?</li>
 <li>데이터 복제, 보안, 통계 수집</li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/05/16/p2p-tips/">http://boxcatstudio.wordpress.com/2006/05/16/p2p-tips/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -169,7 +177,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

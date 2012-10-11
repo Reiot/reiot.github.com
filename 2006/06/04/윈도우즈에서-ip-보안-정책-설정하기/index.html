@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a> <small>2006-06-04</small></h1>
 	</div>
-	<div><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
+	<div class="post-content"><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
 <p><em>그러나 가장 좋은 것은 뭐니뭐니해도 하드웨어 방화벽이다</em>. :)</p>
 <h2>보안 정책</h2>
 <p>보안 정책은 {IP 필터:필터 동작}의 매핑으로 이루어진다.</p>
@@ -167,11 +173,13 @@
 </tr>
 </tbody>
 </table></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/">http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -196,7 +204,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

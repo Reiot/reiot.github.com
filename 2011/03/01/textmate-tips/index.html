@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2011/03/01/textmate-tips/">TextMate Tips</a> <small>2011-03-01</small></h1>
 	</div>
-	<div><h2>깔끔하게 지우기</h2>
+	<div class="post-content"><h2>깔끔하게 지우기</h2>
 <pre><code>rm ~/Library/Preferences/com.macromates.*
 rm -rf /Library/Application Support/TextMate/
 rm -rf ~/Library/Application Support/TextMate/
@@ -124,17 +130,27 @@ Replace: &quot;, &quot;
 <ul>
 <li><a href="http://al3x.net/2008/12/03/how-i-use-textmate.html">http://al3x.net/2008/12/03/how-i-use-textmate</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-		<a href="/tag/Programming/"><span class="label"><span class="icon icon-tag"></span> Programming</span></a>
-	
-		<a href="/tag/textmate/"><span class="label"><span class="icon icon-tag"></span> textmate</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2011/03/01/textmate-tips/">http://boxcatstudio.wordpress.com/2011/03/01/textmate-tips/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/Programming/"><span class="label"><span class="icon icon-tag"></span> Programming</span></a>
+		
+			<a href="/tag/textmate/"><span class="label"><span class="icon icon-tag"></span> textmate</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -159,7 +175,7 @@ Replace: &quot;, &quot;
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

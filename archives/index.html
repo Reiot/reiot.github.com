@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -69,8 +75,21 @@
         
         <div id="2012">
             
-            <h2>2012 <span class="badge">10</span></h2>
+            <h2>2012 <span class="badge">11</span></h2>
             <table class="table table-striped">
+            
+                <tr>
+                    <td class="by_month">
+                        <a href="#" class="btn btn-info">10</a>
+                    </td>
+                    <td>
+                    
+                        
+                            <h4><a href="/2012/10/11/c++11/">C++11</a></h4>
+                        
+                    
+                    </td>
+                </tr>
             
                 <tr>
                     <td class="by_month">
@@ -1526,7 +1545,7 @@
         
         <div id="2004">
             
-            <h2>2004 <span class="badge">13</span></h2>
+            <h2>2004 <span class="badge">12</span></h2>
             <table class="table table-striped">
             
                 <tr>
@@ -1538,9 +1557,9 @@
                         
                             <h4><a href="/2004/11/26/python-service/">Python Service</a></h4>
                         
-                            <h4><a href="/2004/11/26/visual-studio-tips/">Visual Studio Tips</a></h4>
-                        
                             <h4><a href="/2004/11/26/moniwiki-tips/">MoniWiki Tips</a></h4>
+                        
+                            <h4><a href="/2004/11/26/visual-studio-tips/">Visual Studio Tips</a></h4>
                         
                     
                         
@@ -1551,8 +1570,6 @@
                             <h4><a href="/2004/11/24/sax-event-handling/">SAX 이벤트 처리하기</a></h4>
                         
                             <h4><a href="/2004/11/24/xml-rpc/">XML RPC</a></h4>
-                        
-                            <h4><a href="/2004/11/24/xml-tips/">XML tips</a></h4>
                         
                             <h4><a href="/2004/11/24/data-driven-game-system/">데이터 주도적인 게임 설계</a></h4>
                         
@@ -1575,7 +1592,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

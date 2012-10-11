@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2011/06/18/clienpad-appspot-com/">clienpad.appspot.com</a> <small>2011-06-18</small></h1>
 	</div>
-	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" src="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" /></p>
+	<div class="post-content"><p><img alt="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" src="http://boxcatstudio.files.wordpress.com/2011/06/clienpad.png" /></p>
 <p>와이프가 아이패드에서 클리앙을 보시는게 너무 불편해 보여서, jQuery Mobile 공부 삼아 간단히 웹앱을 만들어봤습니다. 소스 코드는 GitHub 에 공개해두었습니다.</p>
 <ul>
 <li>주소: <a href="http://clienpad.appspot.com">http://clienpad.appspot.com </a></li>
@@ -80,19 +86,29 @@
 <li><a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a> 으로 HTML DOM 파싱을 했습니다. 클리앙의 HTML 구조가 old-school 같아서 (ㅎㅎ) 시간이 좀 걸렸습니다;;;</li>
 </ul>
 <p>조만간 jQuery Mobile 팁에 관한 글을 좀 써보겠습니다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/jquerymobile/"><span class="label"><span class="icon icon-tag"></span> jquerymobile</span></a>
-	
-		<a href="/tag/clien/"><span class="label"><span class="icon icon-tag"></span> clien</span></a>
-	
-		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2011/06/18/clienpad-appspot-com/">http://boxcatstudio.wordpress.com/2011/06/18/clienpad-appspot-com/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/jquerymobile/"><span class="label"><span class="icon icon-tag"></span> jquerymobile</span></a>
+		
+			<a href="/tag/clien/"><span class="label"><span class="icon icon-tag"></span> clien</span></a>
+		
+			<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -117,7 +133,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

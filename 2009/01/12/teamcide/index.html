@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2009/01/12/teamcide/">Teamcide</a> <small>2009-01-12</small></h1>
 	</div>
-	<div><p><img alt="Micromanagement" src="http://conveniencebits.com/pics/micromanage.jpg" /></a></p>
+	<div class="post-content"><p><img alt="Micromanagement" src="http://conveniencebits.com/pics/micromanage.jpg" /></a></p>
 <p>Teamcide는 최근에 구독을 시작한 <a href="http://www.codinghorror.com/">코딩 호러</a>의 <a href="http://www.codinghorror.com/blog/archives/001205.html">마이크로매니지먼트 좀비</a>라는 글에서 발견한 7가지 팀관리의 안티 패턴이다. 알고 보니 피플웨어에서 소개된 이야기라고 해서 책을 찾아보려고 했는데, 어딘가에 쳐박혀 있는지 책이 보이지 않아, <a href="http://translate.google.com/translate?prev=&amp;hl=ko&amp;ie=UTF-8&amp;u=http://yuuntim.fc2web.com/chapter20.html&amp;sl=auto&amp;tl=ko&amp;history_state0=">일본어 웹문서 번역</a>을 통해서 짤막하게만 정리해본다.</p>
 <ul>
 <li>자기 방어적인 관리(Defensive Management)</li>
@@ -79,15 +85,25 @@
 </ul>
 <p>거리 이야기는 이제 상식 수준이고, 마지막 파벌 이야기는 좀 비현실적이긴 한데, 가짜 데드라인 같은 이야기는 나도 종종 유혹을 느꼈기에, 이 시간을 빌어 씁쓸한 반성을 해본다.</p>
 <p>때로는 빠른 의사 결정과 그에 따른 무한한 책임을 지는 <a href="http://seoworld.net/tt/261">잡스 같은 카리스마적인 독재자</a>와 일해보고 싶기도 하다. 다만, 거의 무개념 폭군이라는 이미지가 강한 초기의 잡스보다는, 이제 필 쉴러 아저씨에게 키노트 진행을 양보(?)한 최근의 잡스가 더 나을 것 같다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-		<a href="/tag/management/"><span class="label"><span class="icon icon-tag"></span> management</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2009/01/12/teamcide/">http://boxcatstudio.wordpress.com/2009/01/12/teamcide/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/management/"><span class="label"><span class="icon icon-tag"></span> management</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -112,7 +128,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

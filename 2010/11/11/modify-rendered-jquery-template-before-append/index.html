@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a> <small>2010-11-11</small></h1>
 	</div>
-	<div><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
+	<div class="post-content"><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
 <pre><code>&lt;script id=&quot;test&quot; type=&quot;script/x-jquery-tmpl&quot;&gt;
   &lt;div&gt;
   &lt;h1&gt;${name}&lt;/h1&gt;
@@ -98,15 +104,25 @@ $(function() {
 
 <p>위 예제처럼, #test 는 하나의 DIV 로 묶여져 있어서 appendTo 하기 전에 위젯을 만들 수 있지만, #test2 처럼 여러 개의 엘리먼트들이 나눠져 있는 경우에는 .tmpl(data) 로 렌더링을 하면 [h1, p, div.progressbar] 의 배열이 튀어나오는데, 이 배열에다가 대고 find 를 해도 아무 일도 발생하지 않는다. (for 를 돌아도 마찬가지)</p>
 <p>일단은 그냥 마음편하게 하나로 묶는게 유일한 해답일 거 같은데, 그나저나 .tmplItem 은 도대체 어디에 쓰는 물건일까?</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/jquery.tmpl/"><span class="label"><span class="icon icon-tag"></span> jquery.tmpl</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/11/11/modify-rendered-jquery-template-before-append/">http://boxcatstudio.wordpress.com/2010/11/11/modify-rendered-jquery-template-before-append/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/jquery.tmpl/"><span class="label"><span class="icon icon-tag"></span> jquery.tmpl</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -131,7 +147,7 @@ $(function() {
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

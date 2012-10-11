@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/11/02/weekends-idle-thoughts/">Weekends Idle Thoughts</a> <small>2008-11-02</small></h1>
 	</div>
-	<div><p><img alt="AQUA, Anantara, Maldives." src="http://farm3.static.flickr.com/2212/2108199423_a3fac43d56.jpg?v=0" /></p>
+	<div class="post-content"><p><img alt="AQUA, Anantara, Maldives." src="http://farm3.static.flickr.com/2212/2108199423_a3fac43d56.jpg?v=0" /></p>
 <p>오랜만에 사건 사고 없는 한가한 주말이다.</p>
 <p>먼저 boost asio 를 이용해서 이상적인 아름다운 윈도우 서버 코어를 만든다면? 이라는 상상의 나래를 펴봤다. 누가 봐도 멋진 서버 코어가 되려면 어떤 특성을 가져야 할까?</p>
 <ul>
@@ -99,25 +105,35 @@
 <p>서버 개발을 하다 보면 효율적인 리포팅에 대해서 한두번쯤 고민해본다. 수없이 쌓이는 개발자 로그라든지, 동시 접속자나 아이템 판매량 등등의 통계 그래프라든지, GM들에게 노출할 다양한 사용자 액션 추적 기능 같은 것들이 있을텐데, 이런 걸 구글 apps 기반에 통합해버리면 어떨까 하는 생각이다.</p>
 <p>요즘의 추세는 온라인으로 이 모든 정보를 확인할 수 있는 웹 기반 솔루션을 만드는 것일텐데, 그렇다면 가젯으로 만들어서 구글 시작 페이지에 넣고 권한 관리를 해버리면 되지 않을까? 자자. 이건 상상이니까 안되는 이유에 대해서는 고민하지 말자.</p>
 <p>전사적으로 수많은 서버들의 상황을 한번에 모니터링하기에는 꽤 괜찮은 솔루션일 듯하다.  (물론 MS의 리포팅 서비스가 더 멋지긴 하겠다만..)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/ASIO/"><span class="label"><span class="icon icon-tag"></span> ASIO</span></a>
-	
-		<a href="/tag/google/"><span class="label"><span class="icon icon-tag"></span> google</span></a>
-	
-		<a href="/tag/spreadsheet/"><span class="label"><span class="icon icon-tag"></span> spreadsheet</span></a>
-	
-		<a href="/tag/chart/"><span class="label"><span class="icon icon-tag"></span> chart</span></a>
-	
-		<a href="/tag/gardget/"><span class="label"><span class="icon icon-tag"></span> gardget</span></a>
-	
-		<a href="/tag/boost/"><span class="label"><span class="icon icon-tag"></span> boost</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/11/02/weekends-idle-thoughts/">http://boxcatstudio.wordpress.com/2008/11/02/weekends-idle-thoughts/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/ASIO/"><span class="label"><span class="icon icon-tag"></span> ASIO</span></a>
+		
+			<a href="/tag/google/"><span class="label"><span class="icon icon-tag"></span> google</span></a>
+		
+			<a href="/tag/spreadsheet/"><span class="label"><span class="icon icon-tag"></span> spreadsheet</span></a>
+		
+			<a href="/tag/chart/"><span class="label"><span class="icon icon-tag"></span> chart</span></a>
+		
+			<a href="/tag/gardget/"><span class="label"><span class="icon icon-tag"></span> gardget</span></a>
+		
+			<a href="/tag/boost/"><span class="label"><span class="icon icon-tag"></span> boost</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -142,7 +158,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

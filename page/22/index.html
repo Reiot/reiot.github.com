@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,11 +73,279 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2008/02/04/anticheatengine/">AntiCheatEngine</a> <small>2008-02-04</small></h1>
+	</div>
+	<div class="post-content"><p>원래는 Cheat Engine 으로도 freeze 를 걸 수 없는 안전한 변수를 만들기 위해서 만든 클래스다. 여기에 CRC라든지 XOR도 넣고, 또 값이 바뀔 때마다 위치도 바꾸고 할려고 했는데, 가만히 생각해보니 속도도 제법 느리고 막상 함수 내에 아래와 같이 로컬 캐시가 있다면 그걸 바꿔버리면 전혀 쓸모 없어져서 그냥 포기버렸다.</p>
+<pre><code>
+float speed = ac.Get&lt;float&gt;(&quot;speed&quot;);
+// -- inject code here --
+check_next_pos(pos,speed);
+</code></pre>
+
+<p><a href="http://reiot.cafe24.com/2008/02/03/ai-game-programming-wisdom-3/">어제 주문한 책들</a>이 도착하면 다시 한번 도전해볼까 싶기도 하지만, assembly 쪽 지식이 전무해서...</p>
+<!--more-->
+
+<pre><code>
+// AntiCheatEngine.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.
+//
+
+#include &quot;stdafx.h&quot;
+#include &lt;string&gt;
+#include &lt;set&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;hash_map&gt;
+
+#pragma warning(disable:4819)
+#define BOOST_TEST_MAIN
+#include &lt;boost/format.hpp&gt;
+#include &lt;boost/test/unit_test.hpp&gt;
+
+using std::string;
+
+size_t GenerateIndex()
+{
+static size_t key = 0;
+return key++;
+}
+
+class AntiCheat
+{
+typedef std::vector&lt;size_t&gt; INDEX_LIST;
+typedef stdext::hash_map&lt;string, INDEX_LIST &gt; KEY_MAP;
+
+public :
+
+AntiCheat( size_t N = 1024*64 )
+{
+m_Buffer.assign(N,0);
+m_UnusedIndex.assign(N,0);
+std::generate(m_UnusedIndex.begin(),m_UnusedIndex.end(),GenerateIndex);
+std::random_shuffle(m_UnusedIndex.begin(),m_UnusedIndex.end());
+}
+
+bool IsValid() const { return true; }
+
+unsigned int GetCRC() { return m_CRC; }
+
+// FIXME use ASSERT, dont check return value
+template&lt;class T&gt;
+bool Set( const string &amp; name , const T &amp; valueIn )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+INDEX_LIST idxList;
+for ( size_t i = 0 ; i &lt; sizeof(valueIn); i ++ )
+{
+if ( m_UnusedIndex.empty() )
+return false;
+size_t idx = m_UnusedIndex.back();
+m_UnusedIndex.pop_back();
+idxList.push_back(idx);
+}
+
+itr = m_Keys.insert(make_pair(name,idxList)).first;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+m_Buffer[idx] = reinterpret_cast&lt;const char*&gt;(&amp;valueIn)[i];
+}
+
+return true;
+}
+
+template&lt;typename T&gt;
+bool Get( const string &amp; name, T &amp; valueOut )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+return false;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+reinterpret_cast&lt;char*&gt;(&amp;valueOut)[i] = m_Buffer[idx];
+}
+return true;
+}
+
+size_t GetUnusedIndexCount() const { return m_UnusedIndex.size(); }
+
+unsigned int m_CRC;
+
+INDEX_LIST m_UnusedIndex;
+std::vector&lt;unsigned char&gt; m_Buffer;
+KEY_MAP m_Keys;
+};
+
+//////////////////////////////////////////////////////////////////////////
+template&lt;&gt;
+bool AntiCheat::Set&lt;string&gt;( const string &amp; name, const string &amp; valueIn )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+INDEX_LIST idxList;
+for ( size_t i = 0 ; i &lt; valueIn.size(); i ++ )
+{
+if ( m_UnusedIndex.empty() )
+return false;
+size_t idx = m_UnusedIndex.back();
+m_UnusedIndex.pop_back();
+idxList.push_back(idx);
+}
+
+itr = m_Keys.insert(make_pair(name,idxList)).first;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+m_Buffer[idx] = valueIn[i];
+}
+
+return true;
+}
+
+template&lt;&gt;
+bool AntiCheat::Get&lt;string&gt;( const string &amp; name, string &amp; valueOut )
+{
+KEY_MAP::iterator itr = m_Keys.find(name);
+if ( itr == m_Keys.end() )
+{
+return false;
+}
+
+INDEX_LIST &amp; indexList = itr-&gt;second;
+
+// FIXME 최초 크기 보다 작은 사이즈는 저장할 수 없다?
+valueOut.assign(indexList.size(),0);
+for ( size_t i = 0 ; i &lt; indexList.size() ; i ++ )
+{
+size_t idx = indexList[i];
+valueOut[i] = m_Buffer[idx];
+}
+return true;
+}
+
+BOOST_AUTO_TEST_CASE( test1 )
+{
+AntiCheat ac(100);
+
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100 );
+
+BOOST_CHECK( ac.IsValid() );
+
+string strIn = &quot;World&quot;, strOut;
+
+{
+ac.Set(&quot;string&quot;,strIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;string&gt;(&quot;string&quot;,strOut) );
+BOOST_CHECK_EQUAL( strIn, strOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size());
+}
+
+{
+int intIn, intOut;
+
+intIn = 1;
+ac.Set(&quot;int&quot;,intIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;int&gt;(&quot;int&quot;,intOut) );
+BOOST_CHECK_EQUAL( intIn, intIn );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int));
+
+intIn = -1;
+ac.Set(&quot;int&quot;,intIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;int&gt;(&quot;int&quot;,intOut) );
+BOOST_CHECK_EQUAL( intIn, intIn );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int));
+}
+
+{
+bool boolIn, boolOut;
+
+boolIn = true;
+ac.Set(&quot;bool&quot;,boolIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;bool&gt;(&quot;bool&quot;,boolOut) );
+BOOST_CHECK_EQUAL( boolIn, boolOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool));
+
+boolIn = true;
+ac.Set(&quot;bool&quot;,boolIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;bool&gt;(&quot;bool&quot;,boolOut) );
+BOOST_CHECK_EQUAL( boolIn, boolOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool));
+}
+
+{
+float floatIn, floatOut;
+
+floatIn = 1.234f;
+ac.Set(&quot;float&quot;,floatIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;float&gt;(&quot;float&quot;,floatOut) );
+BOOST_CHECK_EQUAL( floatIn, floatOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool)-sizeof(float));
+
+floatIn = -56.78f;
+ac.Set(&quot;float&quot;,floatIn);
+BOOST_CHECK( ac.IsValid() );
+BOOST_CHECK( ac.Get&lt;float&gt;(&quot;float&quot;,floatOut) );
+BOOST_CHECK_EQUAL( floatIn, floatOut );
+BOOST_CHECK_EQUAL( ac.GetUnusedIndexCount(), 100-strIn.size()-sizeof(int)-sizeof(bool)-sizeof(float));
+}
+
+}
+
+/*
+
+값을 바꾸면 Key 및 CRC 가 바뀐다
+멤버 함수가 아닌 다른 경로로 값을 바꾸면 CRC 체크가 깨져야 한다.
+AntiCheat 는 하나의 큰 버퍼를 가진다. (ex: 32k)
+여기에 변수를 키값을 이용해서 저장하고 읽어낸다.
+이때 각 변수들은 바이트 단위로 흩어진다. 이때 흩어지는 인덱스는 저장하는 순간 랜덤하게, 중복되지 않게 결정된다.
+(이때문에 unused index set 이 필요함)
+또한 각 변수들은 Verifier 라는 range-checker 와 연동될 수 있다.
+키값 역시 다이나믹하게 결정된다. (가령 player.hp 의 경우 매크로에 의해서 __K(PlayerHP) -&gt; 세션키와의 XOR 등등 )
+Verify()를 호출하면 각 키에 대해서 Verify 한 다음,
+특정 영역 마다 0xEF 등 boundry checker 를 넣어두고, 바뀌었는지 체크한다.
+
+문자열일 경우 (길이 2바이트,본문) 이렇게 저장해야 한다. 만약 길이가 달라질 경우 인덱스를 새로 얻어 오거나 반납해야 한다.
+
+*/
+</code></pre></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/02/04/anticheatengine/">http://boxcatstudio.wordpress.com/2008/02/04/anticheatengine/</a></p>
+		
+		
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/01/29/solid-compression/">Solid Compression</a> <small>2008-01-29</small></h1>
 	</div>
-	<div><p><img alt="learning_reiot.png" src="http://boxcatstudio.files.wordpress.com/2009/07/learning_reiot.png" /></p>
+	<div class="post-content"><p><img alt="learning_reiot.png" src="http://boxcatstudio.files.wordpress.com/2009/07/learning_reiot.png" /></p>
 <p><a href="http://sonee.com">소니</a>군의 가상 파일 시스템 작업을 배후조종 하면서 알아낸 팁.</p>
 <blockquote>
 <p>여러 파일들을 하나의 스트림으로 압축해버리는 <a href="http://en.wikipedia.org/wiki/Solid_compression">Solid Compression</a> 으로 압축한 파일에서는, 단 하나의 파일을 해제하는데에도 꽤 오랜 시간이 걸린다.</p>
@@ -81,40 +355,52 @@
 <li>위 그림은 <a href="http://www.oreillymaker.com/">O'Reilly 책 표지를 만들어주는 사이트</a>에서 생성해냈다.</li>
 <li><a href="http://www.photoscape.org/ps/main/index.php">Photoscape</a> : 쉬귀 군이 추천해준, 사진 편집 기능이 탁월한 무료 그래픽 에디터</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/01/29/solid-compression/">http://boxcatstudio.wordpress.com/2008/01/29/solid-compression/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/01/26/physfs/">physfs</a> <small>2008-01-26</small></h1>
 	</div>
-	<div><p>지금까지는 압축 포맷 == 압축 알고리즘이라고 믿어 왔다. 무슨 말이냐 하면, zip 포맷은 zip 압축 알고리즘, rar 은 rar 압축 알고리즘을 쓰니까, 따라서 어떤 압축 알고리즘이라 할지라도 다중 파일, 다중 폴더, 암호화 같은 걸 다 지원한다고만 생각했다는 뜻이다.</p>
+	<div class="post-content"><p>지금까지는 압축 포맷 == 압축 알고리즘이라고 믿어 왔다. 무슨 말이냐 하면, zip 포맷은 zip 압축 알고리즘, rar 은 rar 압축 알고리즘을 쓰니까, 따라서 어떤 압축 알고리즘이라 할지라도 다중 파일, 다중 폴더, 암호화 같은 걸 다 지원한다고만 생각했다는 뜻이다.</p>
 <p>그런데, 이번에 소니군이 <a href="http://icculus.org/physfs/">physfs</a> 를 조사하는걸 옆에서 껄떡거리면서 깨달은 것은,</p>
 <ul>
 <li>압축 알고리즘이란 stream -&gt; stream의 변환일 뿐이다.</li>
 <li>즉 파일명이나 폴더명 같은 정보들은 압축 포맷 레벨에서 관리한다.</li>
 </ul>
 <p>physfs 를 처음 알아 봤을 때에는, 라이센스도 <a href="http://www.codeproject.com/KB/files/nfsLibrary.aspx">누구</a>처럼 GPL도 아니고, 다양한 포맷도 지원하고, 여러 개의 압축 파일에서 asset들을 끄집어낼 수 있어서 패치할 때 유리할거 같아서 잠깐 검토를 해봤는데, 소니군이 소스 코드가 컴파일도 안될 정도로 부실하다길래 그냥 포기해버렸다. ㅋㅋ</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/01/26/physfs/">http://boxcatstudio.wordpress.com/2008/01/26/physfs/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/01/26/msbuild-with-cruise-control-net-3/">MSBuild with Cruise Control .Net (3)</a> <small>2008-01-26</small></h1>
 	</div>
-	<div><p><img alt="ccnet3" src="http://farm3.static.flickr.com/2387/2219214645_3e955b9244_o.png" /></p>
+	<div class="post-content"><p><img alt="ccnet3" src="http://farm3.static.flickr.com/2387/2219214645_3e955b9244_o.png" /></p>
 <p>게임 개발에 있어서 지속적인 통합은, 단순하게 보면 커밋-빌드-테스트-패치-인스톨러가 매번 실행되어야 할 것처럼 보이지만, 실제 업무 프로세스를 감안하면 꼭 그렇지만은 않다.</p>
 <blockquote>
 <p>패치는 QA팀을 위한 것이다. 즉 실제로 버그가 수정되는 새로운 feature가 들어가든 무언가 테스트할 수 있는 요소가 완결되어야 한다는 의미다. 그러나 과연 개발팀의 커밋이 그러한 완결성을 보장해줄 것인가? 때로는 여러 번 임시적인 커밋을 거쳐야만 하나의 기능이 완료되는 경우가 많다. 원칙적으로는 이런 것은 피해야 하지만, 가끔은 어쩔 수 없이 밀어넣어야 할 때도 있다. 물론 테스트가 잘 갖추어져 있다면 패치와 인스톨러 단계로 들어가기 전에 막아주겠지만, 과연 게임 클라이언트를 위한 자동화된 테스트 슈트를 100% 갖춘 팀이 있을까...</p>
@@ -141,18 +427,20 @@
 <li><a href="http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/">WebDashboard &amp; CCTray</a></li>
 <li><a href="http://groups.google.co.il/group/ccnet-user">CCNET Google Group </a></li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/01/26/msbuild-with-cruise-control-net-3/">http://boxcatstudio.wordpress.com/2008/01/26/msbuild-with-cruise-control-net-3/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/01/23/upgrade-mantis-111/">Upgrade Mantis 1.1.1</a> <small>2008-01-23</small></h1>
 	</div>
-	<div><p><a href="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&h=&cache=cache"><img alt="mantis roadmap" src="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&amp;h=&amp;cache=cache" /></a></p>
+	<div class="post-content"><p><a href="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&h=&cache=cache"><img alt="mantis roadmap" src="http://www.mantisbt.org/wiki/lib/exe/fetch.php/mantisbt:features:roadmap_screenshot.jpg?w=&amp;h=&amp;cache=cache" /></a></p>
 <p>회사에서 Mantis 1.0.8 을 몇 개월 동안 잘 쓰고 있다가, 최근 (Trac에서는 이미 지원하고 있는) <a href="http://www.mantisbt.org/wiki/doku.php/mantisbt:features:roadmap">Roadmap</a> 기능이 들어간 1.1 버전이 나왔다는 소식을 듣고, 역시나 업그레이드에 도전했다가 한글 문제 때문에 계속 포기해야만 했다. 그러던 오늘 오후, 이번에야말로 기필코 성공하리라고 마음먹고 4시간 넘게 삽질을 했지만 또다시 실패하고 "Fail to upgrade Mantis"라는 제목으로 글을 쓰다가 우연히도 성공해버렸다. 원래는 구차한 실패 과정을 낱낱히 써놨지만, 모두 생략하고 바로 결론으로 넘어가겠다.</p>
 <pre><code>OS : Windows Server 2003 R2
 
@@ -171,33 +459,13 @@ Encoding : latin1 + latin1_general_ci```
 <p>mysql -u username -p --execute="create database bugtracker2 default character set utf8;"</p>
 <p>mysql -u username -p bugtracker2 --default-character-set=utf8 &lt; dump.sql```<br />
 업그레이드에 성공한 것도 무지 기쁘지만, <a href="http://kldp.org/node/32987">vim 에서 utf-8 포맷의 문서를 자동으로 읽어 들이고 변환할 수 있다</a>는 것을 알게 되어서 더욱 기쁘다. enc, tenc, fenc, fencs 옵션을 잊지 말자.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2008/01/21/get-precompiled-boost-library/">Get Precompiled Boost Library</a> <small>2008-01-21</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/01/23/upgrade-mantis-111/">http://boxcatstudio.wordpress.com/2008/01/23/upgrade-mantis-111/</a></p>
+		
+		
+		
 	</div>
-	<div><p><a href="http://www.boost-consulting.com/products/free" title="boost-consulting.PNG"><img alt="boost-consulting.PNG" src="http://boxcatstudio.files.wordpress.com/2009/07/boost-consulting.PNG" /></a></p>
-<p>다들 아는 사실이겠지만, boost-consulting 에 가면<a href="http://www.boost-consulting.com/products/free"> Visual Studio 용으로 컴파일된 바이너리를 다운 받을 수 있는 인스톨러</a>를 제공한다. VS2005용으로 빌드된 라이브러리를 다 다운받을 경우 대략 1.8G 정도의 분량을 다운받아야 한다. 이 기회에 회사 프로젝트의 boost도 슬슬 업그레이드해야 겠다.</p>
-<p>참고 삼아서, 최신 Boost.Test 에서는 단 6줄 만으로 간단한 테스트 프로젝트를 만들 수 있다.</p>
-<pre><code>
-#define BOOST_TEST_MAIN
-#include &lt;boost/test/unit_test.hpp&gt;
-BOOST_AUTO_TEST_CASE( test1 )
-{
-BOOST_CHECK( 2 == 1 );
-}
-</code></pre></div>
-	<br />
-	<p>
-	
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -264,6 +532,10 @@ BOOST_CHECK( 2 == 1 );
 	</li>
 	
 	<li>
+		<a href="/2008/02/04/anticheatengine/">AntiCheatEngine</a>
+	</li>
+	
+	<li>
 		<a href="/2008/01/29/solid-compression/">Solid Compression</a>
 	</li>
 	
@@ -279,10 +551,6 @@ BOOST_CHECK( 2 == 1 );
 		<a href="/2008/01/23/upgrade-mantis-111/">Upgrade Mantis 1.1.1</a>
 	</li>
 	
-	<li>
-		<a href="/2008/01/21/get-precompiled-boost-library/">Get Precompiled Boost Library</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -293,7 +561,7 @@ BOOST_CHECK( 2 == 1 );
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

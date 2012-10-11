@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,28 +68,38 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2010/04/29/a-12345-for-i/">리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...</a> <small>2010-04-29</small></h1>
 	</div>
-	<div><p>리스트를 역순으로 순회하는 방법</p>
+	<div class="post-content"><p>리스트를 역순으로 순회하는 방법</p>
 <pre><code>a = [1,2,3,4,5]
 for i in reversed(xrange(0,len(a)):
     print a[i]
 </code></pre>
 
 <p>list.reverse() 는 inplace 로 뒤집지만 return None 이 되므로 for in list.reverse(): 는 동작하지 않는다.  range() 는 실제로 리스트 값을 리턴하지만, xrange 는 순회를 위한 이터레이터 객체를 리턴한다.  reversed 역시 값 대신 이터레이터 객체를 리턴한다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
-	
-		<a href="/tag/status/"><span class="label"><span class="icon icon-tag"></span> status</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/04/29/a-12345-for-i/">http://boxcatstudio.wordpress.com/2010/04/29/a-12345-for-i/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
+		
+			<a href="/tag/status/"><span class="label"><span class="icon icon-tag"></span> status</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -108,7 +124,7 @@ for i in reversed(xrange(0,len(a)):
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

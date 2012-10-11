@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a> <small>2010-09-26</small></h1>
 	</div>
-	<div><p><a href="http://note.marines.co.kr/135">아이폰/컴퓨터 색상 차이 해결법</a><br />
+	<div class="post-content"><p><a href="http://note.marines.co.kr/135">아이폰/컴퓨터 색상 차이 해결법</a><br />
 <a href="http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/">http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/</a></p>
 <ol>
 <li>
@@ -82,15 +88,25 @@
 <p>Assign Profile -&gt; Working RGB</p>
 </li>
 </ol></div>
-	<br />
-	<p>
-	
-		<a href="/category/link/"><span class="label label-info"><span class="icon icon-folder-open"></span> link</span></a>
-	
-	
-		<a href="/tag/photoshop/"><span class="label"><span class="icon icon-tag"></span> photoshop</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/09/26/%ec%95%84%ec%9d%b4%ed%8f%b0%ec%bb%b4%ed%93%a8%ed%84%b0-%ec%83%89%ec%83%81-%ec%b0%a8%ec%9d%b4-%ed%95%b4%ea%b2%b0%eb%b2%95/">http://boxcatstudio.wordpress.com/2010/09/26/%ec%95%84%ec%9d%b4%ed%8f%b0%ec%bb%b4%ed%93%a8%ed%84%b0-%ec%83%89%ec%83%81-%ec%b0%a8%ec%9d%b4-%ed%95%b4%ea%b2%b0%eb%b2%95/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/link/"><span class="label label-info"><span class="icon icon-folder-open"></span> link</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/photoshop/"><span class="label"><span class="icon icon-tag"></span> photoshop</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -115,7 +131,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

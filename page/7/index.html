@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,11 +73,52 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a> <small>2010-09-26</small></h1>
+	</div>
+	<div class="post-content"><p><a href="http://note.marines.co.kr/135">아이폰/컴퓨터 색상 차이 해결법</a><br />
+<a href="http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/">http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/</a></p>
+<ol>
+<li>
+<p>Working RGB -&gt; Monitor</p>
+</li>
+<li>
+<p>Desaturate RGB -&gt; 20-25%</p>
+</li>
+<li>
+<p>Modify Gamma</p>
+</li>
+<li>
+<p>Assign Profile -&gt; Working RGB</p>
+</li>
+</ol></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/09/26/%ec%95%84%ec%9d%b4%ed%8f%b0%ec%bb%b4%ed%93%a8%ed%84%b0-%ec%83%89%ec%83%81-%ec%b0%a8%ec%9d%b4-%ed%95%b4%ea%b2%b0%eb%b2%95/">http://boxcatstudio.wordpress.com/2010/09/26/%ec%95%84%ec%9d%b4%ed%8f%b0%ec%bb%b4%ed%93%a8%ed%84%b0-%ec%83%89%ec%83%81-%ec%b0%a8%ec%9d%b4-%ed%95%b4%ea%b2%b0%eb%b2%95/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/link/"><span class="label label-info"><span class="icon icon-folder-open"></span> link</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/photoshop/"><span class="label"><span class="icon icon-tag"></span> photoshop</span></a>
+		
+		</p>
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a> <small>2010-09-24</small></h1>
 	</div>
-	<div><p><strong>스프레드시트 리스트 읽어오기</strong></p>
+	<div class="post-content"><p><strong>스프레드시트 리스트 읽어오기</strong></p>
 <pre><code>client = gdata.spreadsheets.client.SpreadsheetsClient()
 
 feed = client.get_spreadsheets()
@@ -106,22 +153,32 @@ feed = client.get_feed(url, desired_class = gdata.spreadsheets.data.ListsFeed)
 <li>gd_client.get_feed 에 URL 을 넘기고 desired_class 를 잘 지정하면, 적당한 파이썬 객체로 래핑된다.</li>
 <li>어떤 XML 이 리턴되는지만 잘 파악하면 끗.</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/google spreadsheet api/"><span class="label"><span class="icon icon-tag"></span> google spreadsheet api</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/09/24/google-spreadsheet-api-note/">http://boxcatstudio.wordpress.com/2010/09/24/google-spreadsheet-api-note/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/google spreadsheet api/"><span class="label"><span class="icon icon-tag"></span> google spreadsheet api</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2010/08/16/createdeepkey/">create_deep_key</a> <small>2010-08-16</small></h1>
 	</div>
-	<div><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
+	<div class="post-content"><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
 <ul>
 <li>부모 키 : AAABBBCCCDDD</li>
 <li>자식 키 : AAABBBCCCDDDEEEFFF</li>
@@ -139,26 +196,36 @@ feed = client.get_feed(url, desired_class = gdata.spreadsheets.data.ListsFeed)
 </code></pre>
 
 <p>이때 만약 키가 아니라 id/name 을 내보내고 싶다면,  transform.key_id_or_name_as_string_n(N) 을 사용할 것.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/bulkload/"><span class="label"><span class="icon icon-tag"></span> bulkload</span></a>
-	
-		<a href="/tag/datastore/"><span class="label"><span class="icon icon-tag"></span> datastore</span></a>
-	
-		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/08/16/createdeepkey/">http://boxcatstudio.wordpress.com/2010/08/16/createdeepkey/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/bulkload/"><span class="label"><span class="icon icon-tag"></span> bulkload</span></a>
+		
+			<a href="/tag/datastore/"><span class="label"><span class="icon icon-tag"></span> datastore</span></a>
+		
+			<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2010/08/12/google-app-engine-tips/">Google App Engine Tips</a> <small>2010-08-12</small></h1>
 	</div>
-	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" src="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" /></p>
+	<div class="post-content"><p><img alt="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" src="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" /></p>
 <p>구글 앱 엔진으로 개발하면서 학습한 내용을 정리합니다. 이론적으로 혹은 실제 서비스할 때 잘못되거나 틀린 부분이 있을 수 있음을 미리 알려 드립니다.</p>
 <h2>개요</h2>
 <h3>검증 및 마이그레이션의 책임은 '프로그래머'가 진다.</h3>
@@ -236,24 +303,34 @@ class Item(db.Model):
 </ul>
 <hr />
 <p>계속 추가할 예정입니다 :)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/tip/"><span class="label label-info"><span class="icon icon-folder-open"></span> tip</span></a>
-	
-	
-		<a href="/tag/datastore/"><span class="label"><span class="icon icon-tag"></span> datastore</span></a>
-	
-		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/08/12/google-app-engine-tips/">http://boxcatstudio.wordpress.com/2010/08/12/google-app-engine-tips/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/tip/"><span class="label label-info"><span class="icon icon-folder-open"></span> tip</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/datastore/"><span class="label"><span class="icon icon-tag"></span> datastore</span></a>
+		
+			<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2010/08/10/jquery-removeclass-css-sprite/">jquery removeClass 를 이용해서 css sprite 교체하...</a> <small>2010-08-10</small></h1>
 	</div>
-	<div><p>css sprite 는 특정 DIV 에 CSS 스프라이트 클래스를 설정해서 배경 이미지를 보여주는 방식인데, 문제는 이전에 어떤 클래스 이름이 들어가 있는지 알 수 없다는 거다. 즉 정규식으로 클래스 이름을 검색해서 스프라이트 클래스만을 찾아서 지우고 새 스프라이트 클래스를 넣어야 한다.</p>
+	<div class="post-content"><p>css sprite 는 특정 DIV 에 CSS 스프라이트 클래스를 설정해서 배경 이미지를 보여주는 방식인데, 문제는 이전에 어떤 클래스 이름이 들어가 있는지 알 수 없다는 거다. 즉 정규식으로 클래스 이름을 검색해서 스프라이트 클래스만을 찾아서 지우고 새 스프라이트 클래스를 넣어야 한다.</p>
 <pre><code>.removeClass(function(index,class_str){
   var class_list = class_str.split(' ');
   for ( var i = 0 ; i &lt; class_list.length ; i ++ ) {
@@ -266,41 +343,27 @@ class Item(db.Model):
 </code></pre>
 
 <p>주의할 점은, 이 콜백 함수가 $.each 처럼 기존 클래스 명 하나하나마다 호출되는게 아니라, 그냥 공백으로 구분된 클래스 이름 문자열을 파라미터로 넘겨서 한번만 실행된다는 점이다. (index 는 왜 있는 거지;;;)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/jquery/"><span class="label"><span class="icon icon-tag"></span> jquery</span></a>
-	
-		<a href="/tag/status/"><span class="label"><span class="icon icon-tag"></span> status</span></a>
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2010/04/29/a-12345-for-i/">리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...</a> <small>2010-04-29</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/08/10/jquery-removeclass-css-sprite/">http://boxcatstudio.wordpress.com/2010/08/10/jquery-removeclass-css-sprite/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/jquery/"><span class="label"><span class="icon icon-tag"></span> jquery</span></a>
+		
+			<a href="/tag/status/"><span class="label"><span class="icon icon-tag"></span> status</span></a>
+		
+		</p>
+		
 	</div>
-	<div><p>리스트를 역순으로 순회하는 방법</p>
-<pre><code>a = [1,2,3,4,5]
-for i in reversed(xrange(0,len(a)):
-    print a[i]
-</code></pre>
-
-<p>list.reverse() 는 inplace 로 뒤집지만 return None 이 되므로 for in list.reverse(): 는 동작하지 않는다.  range() 는 실제로 리스트 값을 리턴하지만, xrange 는 순회를 위한 이터레이터 객체를 리턴한다.  reversed 역시 값 대신 이터레이터 객체를 리턴한다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
-	
-		<a href="/tag/status/"><span class="label"><span class="icon icon-tag"></span> status</span></a>
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -367,6 +430,10 @@ for i in reversed(xrange(0,len(a)):
 	</li>
 	
 	<li>
+		<a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a>
+	</li>
+	
+	<li>
 		<a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a>
 	</li>
 	
@@ -382,10 +449,6 @@ for i in reversed(xrange(0,len(a)):
 		<a href="/2010/08/10/jquery-removeclass-css-sprite/">jquery removeClass 를 이용해서 css sprite 교체하...</a>
 	</li>
 	
-	<li>
-		<a href="/2010/04/29/a-12345-for-i/">리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -396,7 +459,7 @@ for i in reversed(xrange(0,len(a)):
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

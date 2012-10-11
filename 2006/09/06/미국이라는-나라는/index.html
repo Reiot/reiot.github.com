@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/09/06/미국이라는-나라는/">미국이라는 나라는…</a> <small>2006-09-06</small></h1>
 	</div>
-	<div><p><img alt="BlackBerry" src="http://ec1.images-amazon.com/images/P/B000FEHG76.01._SS500_SCLZZZZZZZ_V53894984_.jpg" /></p>
+	<div class="post-content"><p><img alt="BlackBerry" src="http://ec1.images-amazon.com/images/P/B000FEHG76.01._SS500_SCLZZZZZZZ_V53894984_.jpg" /></p>
 <ul>
 <li>
 <p>우리 보스는 <a href="http://www.dt.co.kr/contents.htm?article_no=2006030302013231728002">대규모 정전에도 무선 인터넷을 통해서 업무 메일을 받아 볼 수 있다</a>는 블랙 베리폰을 사용한다. 며칠 전 점심때 회사에서 약 20분 정도 떨어진 말레이시아 레스토랑에서 점심을 먹고, 돌아오는 길에 이 폰으로 현재 LA 의 각 도로 사정을 검색하고 어느 도로를 타고 돌아갈 것인지를 검색했다. 그러면서 한달에 겨우 10달러로 무선인터넷을 무제한으로 사용할 수 있다고 자랑하면서, 구글에 접속해서 검색도 하고, 현재 서비스중인 게임의 각 서버 별 MRTG 트래픽 그래프도 확인하는 걸 보여주기도 했다. 저녁 때에도 함께 식사를 마치고 돌아오는 길에는 부하 직원으로부터 메일이 온 것도 보여줬다. (이쯤 되면 짐작하겠지만, 우리 보스 역시 지름신의 가호를 받은 사람 중의 하나다. 오죽했으면 BMW 745의 다음 차로 무엇을 골라야 할지 걱정이라고까지 말할 정도겠는가..)</p>
@@ -84,11 +90,13 @@
 <p>미국의 고속 도로도 때로는 막히곤 한다. 이번 주 월요일은 노동절이어서 다들 놀았는데, 덕분에 라스베가스에서 LA까지 오는데 8시간이나 걸렸다. 운전하느라 무리하신 최실장에게 묵념. 잇힝.</p>
 </li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/09/06/%eb%af%b8%ea%b5%ad%ec%9d%b4%eb%9d%bc%eb%8a%94-%eb%82%98%eb%9d%bc%eb%8a%94/">http://boxcatstudio.wordpress.com/2006/09/06/%eb%af%b8%ea%b5%ad%ec%9d%b4%eb%9d%bc%eb%8a%94-%eb%82%98%eb%9d%bc%eb%8a%94/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -113,7 +121,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,20 +68,26 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/05/ogre-for-psp/">Ogre for PSP</a> <small>2006-02-05</small></h1>
 	</div>
-	<div><p><img alt="http://www.ogre3d.org/images/M_images/ogrebtn.png" src="http://www.ogre3d.org/images/M_images/ogrebtn.png" /> PSP에서 3D 프로그래밍을 하는 법을 검색하다가 우연히 <a href="http://www.ogre3d.org/phpBB2/viewtopic.php?p=123549">Ogre3D 엔진이 PSP로 포팅된다는 이야기</a>를 Ogre 포럼에서 찾아냈다. PPC 포팅을 담당한 개발자가 하는 김에 PSP포팅도 맡겠다는 이야기인 듯한데... 2월 내에는 나오지 않을까 하는 희망을 품어본다. SDL 특히 pygame이 포팅된다는 소문도 들리는 시점에, Ogre3D까지 포팅이 되면 결국 PSP에서는 python으로도 3D 프로그래밍이 가능해진다는 소리가 되는 셈이다.</p>
+	<div class="post-content"><p><img alt="http://www.ogre3d.org/images/M_images/ogrebtn.png" src="http://www.ogre3d.org/images/M_images/ogrebtn.png" /> PSP에서 3D 프로그래밍을 하는 법을 검색하다가 우연히 <a href="http://www.ogre3d.org/phpBB2/viewtopic.php?p=123549">Ogre3D 엔진이 PSP로 포팅된다는 이야기</a>를 Ogre 포럼에서 찾아냈다. PPC 포팅을 담당한 개발자가 하는 김에 PSP포팅도 맡겠다는 이야기인 듯한데... 2월 내에는 나오지 않을까 하는 희망을 품어본다. SDL 특히 pygame이 포팅된다는 소문도 들리는 시점에, Ogre3D까지 포팅이 되면 결국 PSP에서는 python으로도 3D 프로그래밍이 가능해진다는 소리가 되는 셈이다.</p>
 <p>그나저나 OGRE를 보고도 /오우거/ 대신 글자 그대로 장난삼아 읽던 /오그레/라는 발음이 연상되어 큰일이다;;</p>
 <p>ps. <a href="http://luaplayer.org">LuaPlayer</a>가 <a href="http://www.goop.org/psp/gl/">PSPGL</a> 기반으로 재작성되고 있는 중인데, <a href="http://forums.ps2dev.org/viewtopic.php?t=4591">3D보다는 2D쪽 기능에 한정</a>될 것 같다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/05/ogre-for-psp/">http://boxcatstudio.wordpress.com/2006/02/05/ogre-for-psp/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -100,7 +112,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

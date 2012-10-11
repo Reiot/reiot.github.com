@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,18 +68,20 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/07/09/google-lively/">Google Lively</a> <small>2008-07-09</small></h1>
 	</div>
-	<div><p><img alt="http://www.techcrunch.com/wp-content/uploads/2008/07/livelyimage.png" src="http://www.techcrunch.com/wp-content/uploads/2008/07/livelyimage.png" /><br />
+	<div class="post-content"><p><img alt="http://www.techcrunch.com/wp-content/uploads/2008/07/livelyimage.png" src="http://www.techcrunch.com/wp-content/uploads/2008/07/livelyimage.png" /><br />
 구글의 <a href="http://www.lively.com/">브라우저 기반 3D 아바타 SNS</a>. 또 사고 쳤구나 이놈들. 하지만, 아무리 날고 기는 구글이라도 플러그인은 깔아줘야 하는 모양이다. 헤헷.</p>
 <p>이건 내가 만들어본 방인데, 뭐 그다지 봐줄 건 없다. 디즈니 스타일의 과장된 페이셜 애니메이션이 되는 게 마음에 든다.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/07/09/google-lively/">http://boxcatstudio.wordpress.com/2008/07/09/google-lively/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -98,7 +106,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2004/11/24/data-driven-game-system/">데이터 주도적인 게임 설계</a> <small>2004-11-24</small></h1>
 	</div>
-	<div><p>예전에 이런 일이 있었다</p>
+	<div class="post-content"><p>예전에 이런 일이 있었다</p>
 <p>몬스터마다 Drop 하는 아이템의 종류 및 확률 테이블의 설정을 변경하느라고 프로그래머와 신경전을 벌이고 있었다. 내 불만의 주된 원인은, (사실은 게임내에서 얼마나 잘 떨어지는지 추적도 하지 않는 주제에) 기획서대로 아이템이 떨어지기 위한 게임의 구현이 정확하지 않다는 것이었다. 당시의 구현은 그럭저럭 확률이 기획서와 비슷하지만 정확하지는 않았고, 몬스터마다 다르게 설정하기도 힘들었다. (즉, D&amp;D의 보물 타입과 같이 구현되어 있었다)</p>
 <p>전직 프로그래머(-_-)이었고 그 프로그래머가 친한 학과 후배이다 보니, 생각해오던 구현을 강요하게 되었고, 그러다가 서로의 약점을 건드리는 바람에 폭발 직전에까지 갔다가, 어째어째 양보하여 전투가 끝이 났다.</p>
 <p>웃긴 건, 그 당시 나의 피해의식은 "왜 이렇게 밸런스 수정하기가 어려운거지?"라는 것이었다. 실제로 기획 작업을 해보면서 느낀 점이, 서비스중인 게임의 경우 미세한 조정이 항상 발생하게 되는데, 그때마다 프로그래머들의 눈치를 계속 봐야 한다는 게 정말 불만이었다.</p>
@@ -87,15 +93,25 @@
 <p>주의할 것은, 기획팀에서 아예 손쉽게 수정할 수 있는 툴을 제공하라고 처음부터 전방위 압박 공격을 해야지 개발 후반부가 편해진다는 거다. 너무 이해하다가는 서로서로 피곤해지니, 기획팀과 프로그램팀이 힘을 합해 PM과 경영진에게 툴 개발 스케줄을 따내는 것도 좋은 방책일 듯. ㅋㅋㅋ</p>
 <h2>맺음말</h2>
 <p>구현 신경쓰지 말고, 밸런싱이나 잘해요! 라고 맞받아치던 후배의 한마디를 아직도 잊을 수가 없다. 이 놈의 원죄는 언제쯤 씻겨질 것인가...''</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/columns/"><span class="label label-info"><span class="icon icon-folder-open"></span> columns</span></a>
-	
-	
-		<a href="/tag/agile/"><span class="label"><span class="icon icon-tag"></span> agile</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2004/11/24/data-driven-game-system/">http://boxcatstudio.wordpress.com/2004/11/24/data-driven-game-system/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/columns/"><span class="label label-info"><span class="icon icon-folder-open"></span> columns</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/agile/"><span class="label"><span class="icon icon-tag"></span> agile</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -120,7 +136,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

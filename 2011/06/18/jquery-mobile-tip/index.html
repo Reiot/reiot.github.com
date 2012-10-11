@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a> <small>2011-06-18</small></h1>
 	</div>
-	<div><p>jQuery Mobile(이후 jQM)으로 아이패드용 클리앙 뷰어를 만든 경험을 토대로 팁을 정리했습니다. 이후, 편의상 경어를 사용합니다.</p>
+	<div class="post-content"><p>jQuery Mobile(이후 jQM)으로 아이패드용 클리앙 뷰어를 만든 경험을 토대로 팁을 정리했습니다. 이후, 편의상 경어를 사용합니다.</p>
 <h2>data-xxx</h2>
 <p>jQM의 위젯들은 다른 jQuery 위젯이나 플러그인들과는 달리 자바스크립트로 옵션을 지정하는 대신, HTML 의 data- 속성을 이용해서 모양새와 동작을 지정한다.</p>
 <p>가장 중요한 것은 data-role 속성인데, HTML 태그에 page, header, content, footer 에서부터 listview, navibar, button 등의 "역할"을 지정하면, jQM이 알아서 적당한 렌더링 해준다는 거다. 이를 통해서 자바스크립트 코드는 거의 손대지도 않고 순수 HTML 만으로 깔끔한 모바일 뷰를 만들어낼 수 있게 된다.</p>
@@ -94,15 +100,25 @@
 <li>사용자가 추가한 버튼에 live("click tap") 을 지정하면 이벤트가 2개 발생되는 모양이다. 그냥 tap 만 넣어도 컴퓨터에서는 잘 동작한다.</li>
 <li>자바스크립트로 리스트 아이템을 추가한 후 listview("refresh")를 해도 그 안에 있는 inset listview 는 별도의 쿼리를 통해서 listview 위젯으로 만들어야 한다. 샘플 코드는 여기 <a href="http://jsfiddle.net/Reiot/CpudD/">http://jsfiddle.net/Reiot/CpudD/</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/jquerymobile/"><span class="label"><span class="icon icon-tag"></span> jquerymobile</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2011/06/18/jquery-mobile-tip/">http://boxcatstudio.wordpress.com/2011/06/18/jquery-mobile-tip/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/jquerymobile/"><span class="label"><span class="icon icon-tag"></span> jquerymobile</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -127,7 +143,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

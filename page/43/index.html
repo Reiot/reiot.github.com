@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,11 +73,34 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2005/10/31/inet_ntoa-의-위험성/">inet_ntoa 의 위험성</a> <small>2005-10-31</small></h1>
+	</div>
+	<div class="post-content"><p>아래와 같이 내부 버퍼를 리턴하는 함수를 연속적으로 사용할 경우에는 주의해야 한다. 그냥 string 으로 감싸서 사용하는 것이 정신건강에 좋다. (단 타이핑 횟수는 .c_str() 때문에 꽤 증가한다)</p>
+<p>printf( "external_address=%s internal_address=%s",<br />
+  inet_ntoa(exaddr),<br />
+  inet_ntoa(inaddr));</p></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/10/31/inet_ntoa-%ec%9d%98-%ec%9c%84%ed%97%98%ec%84%b1/">http://boxcatstudio.wordpress.com/2005/10/31/inet_ntoa-%ec%9d%98-%ec%9c%84%ed%97%98%ec%84%b1/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/10/22/find_if-와-boostlambda/">find_if 와 boost::lambda</a> <small>2005-10-22</small></h1>
 	</div>
-	<div><p>STL 컨테이너를 만지작거리다보면 종종 algorithm 을 써서 코드를 간략하게 표현하고픈 충동이 든다. 그런데 STL에서 제공하는 각종 function template 의 파워는 생각보다 약하다. 가령 다음과 같이 컨테이너 내부 객체의 멤버 함수의 실행 결과를 기준으토 무언가를 하고 싶은 경우...</p>
+	<div class="post-content"><p>STL 컨테이너를 만지작거리다보면 종종 algorithm 을 써서 코드를 간략하게 표현하고픈 충동이 든다. 그런데 STL에서 제공하는 각종 function template 의 파워는 생각보다 약하다. 가령 다음과 같이 컨테이너 내부 객체의 멤버 함수의 실행 결과를 기준으토 무언가를 하고 싶은 경우...</p>
 <pre><code>class Focker
 {
 public :
@@ -146,81 +175,86 @@ itr = find_if( fockers.begin(), fockers.end(),
 assert( itr != fockers.end() );
 cout GetValue() GetValue()
 </code></pre></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/10/22/find_if-%ec%99%80-boostlambda/">http://boxcatstudio.wordpress.com/2005/10/22/find_if-%ec%99%80-boostlambda/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/10/21/sourceanywhere-remote-vss-tools/">SourceAnyWhere - Remote VSS tools</a> <small>2005-10-21</small></h1>
 	</div>
-	<div><p>미국 출장가는 쉬귀군을 위해서 테스트를 해봐야겠다. 근데 이거 정품을 살바엔 cvs 나 subversion 을 쓰지..</p>
+	<div class="post-content"><p>미국 출장가는 쉬귀군을 위해서 테스트를 해봐야겠다. 근데 이거 정품을 살바엔 cvs 나 subversion 을 쓰지..</p>
 <ul>
 <li><a href="http://www.dynamsoft.com/SAW_Overview.html">Official SourceAnyWhere Homepage</a></li>
 <li><a href="http://www.perl.or.kr/okbb/okbview.php?cmd=view&amp;lm=list&amp;site=Site&amp;forum=Perl&amp;lang=Corea&amp;p=4&amp;msg_id=2081&amp;sch=&amp;sn=&amp;ss=&amp;st=">Remote VSS tools 비교 분석</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/10/21/sourceanywhere-remote-vss-tools/">http://boxcatstudio.wordpress.com/2005/10/21/sourceanywhere-remote-vss-tools/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/10/18/mmo를-위한-커뮤니티-서비스-구현하기/">MMO를 위한 커뮤니티 서비스 구현하기</a> <small>2005-10-18</small></h1>
 	</div>
-	<div><p>MMO 를 위한 커뮤니티 서비스가 가장 잘 구현된 곳은 World Of Warcraft 이다. 물론 채팅과 귓말이야 별거 아닌 것처럼 느껴지지만, 친구 관리나 편지, 길드 채팅 같은  커뮤니티 서비스를 다중 서버에서도 투명하게 구현한다는 것은 생각보다 귀찮은 일이다. 오늘 어디에서 줏어 들기로 와우에서는 내부 채팅을 위해서 IRC 를 쓰고 있다고 하고(미확인 정보), 역시 게임을 개발하는 한 후배는 <a href="http://www.jabber.org/">jabber </a>를 고려중이라고 했다.</p>
+	<div class="post-content"><p>MMO 를 위한 커뮤니티 서비스가 가장 잘 구현된 곳은 World Of Warcraft 이다. 물론 채팅과 귓말이야 별거 아닌 것처럼 느껴지지만, 친구 관리나 편지, 길드 채팅 같은  커뮤니티 서비스를 다중 서버에서도 투명하게 구현한다는 것은 생각보다 귀찮은 일이다. 오늘 어디에서 줏어 들기로 와우에서는 내부 채팅을 위해서 IRC 를 쓰고 있다고 하고(미확인 정보), 역시 게임을 개발하는 한 후배는 <a href="http://www.jabber.org/">jabber </a>를 고려중이라고 했다.</p>
 <p>올해 초 <a href="http://www.spread.org/">spread </a>를 기반으로 서버간 채팅을 구현하려고 했는데, 이미 이 놈을 기반으로 만들어본 후배의 불만을 접수하고 바로 계획을 폐기해야만 했다. 어차피 관련 기능을 새로 만들어야 한다면 이미 검증된 놈을 갖다 쓰는 최고니깐 말이다. (그나저나 와우에서는 DB의 계정과 irc 의 데이터간의 연동은 과연 어떻게 할 것인지가 궁금하다. 탈퇴하거나 삭제할 경우 irc 쪽의 데이터도 변경해줘야 할텐데...헐헐)</p>
 <p>언제 나도 저런 걸 만지면서 놀까 생각하니... 깜깜하다.. 이힝~</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/10/18/mmo%eb%a5%bc-%ec%9c%84%ed%95%9c-%ec%bb%a4%eb%ae%a4%eb%8b%88%ed%8b%b0-%ec%84%9c%eb%b9%84%ec%8a%a4-%ea%b5%ac%ed%98%84%ed%95%98%ea%b8%b0/">http://boxcatstudio.wordpress.com/2005/10/18/mmo%eb%a5%bc-%ec%9c%84%ed%95%9c-%ec%bb%a4%eb%ae%a4%eb%8b%88%ed%8b%b0-%ec%84%9c%eb%b9%84%ec%8a%a4-%ea%b5%ac%ed%98%84%ed%95%98%ea%b8%b0/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/10/11/remove-windows-service/">Remove Windows Service</a> <small>2005-10-11</small></h1>
 	</div>
-	<div><p>"sc delete service name" 을 이용해서 서비스를 삭제할 때 만약 다른 어플리케이션이 참조를 하고 있으면 바로 삭제하지 않고 레지스트리에 <del datetime="2005-10-11T04:42:55+00:00">delete flag </del>가 추가된다. 이때 레지스트리 키값을 수동으로 삭제하더라도 "[SC] DeleteService FAILED 1072:" 라는 에러를 발생시키고 삭제가 되지 않는다.</p>
+	<div class="post-content"><p>"sc delete service name" 을 이용해서 서비스를 삭제할 때 만약 다른 어플리케이션이 참조를 하고 있으면 바로 삭제하지 않고 레지스트리에 <del datetime="2005-10-11T04:42:55+00:00">delete flag </del>가 추가된다. 이때 레지스트리 키값을 수동으로 삭제하더라도 "[SC] DeleteService FAILED 1072:" 라는 에러를 발생시키고 삭제가 되지 않는다.</p>
 <p>대체로 이런 경우에 관리 도구 - 서비스 관리자를 띄워둔 상태인데, 이 놈을 끈 상태에서 다시 삭제해보면 바로 사라진다. 요는, 서비스를 제거할 때에는 관리자를 끈 상태에서 하라는 것.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-		<a href="/tag/service/"><span class="label"><span class="icon icon-tag"></span> service</span></a>
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2005/09/23/client-network-utility/">Client Network Utility</a> <small>2005-09-23</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/10/11/remove-windows-service/">http://boxcatstudio.wordpress.com/2005/10/11/remove-windows-service/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/service/"><span class="label"><span class="icon icon-tag"></span> service</span></a>
+		
+		</p>
+		
 	</div>
-	<div><p>Enterprise Manager 로 접속해야 할 DB 가 custom port 를 사용하거나 VPN, 공유기 등의 문제로 name 기반의 접근이 안될 경우,<br />
-이 툴에서 TCP/IP 기반의 alias 를 만들어 두면 EM에 등록해서 연결할 수 있다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/Tip &amp; Tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> Tip &amp; Tricks</span></a>
-	
-		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
-	
-	
-		<a href="/tag/db/"><span class="label"><span class="icon icon-tag"></span> db</span></a>
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -287,6 +321,10 @@ cout GetValue() GetValue()
 	</li>
 	
 	<li>
+		<a href="/2005/10/31/inet_ntoa-의-위험성/">inet_ntoa 의 위험성</a>
+	</li>
+	
+	<li>
 		<a href="/2005/10/22/find_if-와-boostlambda/">find_if 와 boost::lambda</a>
 	</li>
 	
@@ -302,10 +340,6 @@ cout GetValue() GetValue()
 		<a href="/2005/10/11/remove-windows-service/">Remove Windows Service</a>
 	</li>
 	
-	<li>
-		<a href="/2005/09/23/client-network-utility/">Client Network Utility</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -316,7 +350,7 @@ cout GetValue() GetValue()
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

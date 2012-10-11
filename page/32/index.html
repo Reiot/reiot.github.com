@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,11 +73,33 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a> <small>2006-06-19</small></h1>
+	</div>
+	<div class="post-content"><p>한국 대 프랑스전을 기다리면서 <a href="http://developer.valvesoftware.com/wiki/">하프라이프2 위키</a> 중에서 <a href="http://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking">Source Multiplayer Networking</a> 부분을 요약 정리해보았다.</p>
+<p><img alt="하프라이프2 서버와 클라이언트" src="http://developer.valvesoftware.com/w/images/e/ea/Networking1.gif" /></p>
+<p>퀘이크나 하프라이프2(이하 HL2) 같은 클라이언트-서버 기반의 FPS 게임에서, 클라이언트는 기본적으로 렌더링 더미(dummy)라고 봐야 한다. 왜냐하면 클라이언트가 키보드나 마우스 입력을 샘플링해서 서버로 보내면, 서버는 초당 30-40회의 시뮬레이션을 거친 후 그 결과(snapshot)를 주기적으로 브로드캐스트하며, 클라이언트는 스냅샷을 받아서 렌더링을 하는 방식으로 구현되기 때문이다. 대신 서버는 보안적인 이유 때문에 대부분의 이동, 공격, 인증, 보안 체크를 해야 한다. (참고로, HL2 서버는 초당 33회의 시뮬레이션을 거치고 20회의 스냅샷을 브로드캐스트하며, 클라이언트는 초당 20회의 입력샘플링을 한다.)</p>
+<p>문제는 사용자의 입력 결과가 도착해서 실제로 그려지기까지의 시간이 꽤 오래 걸린다는 점이다. 이 랙(lag)을 해결하기 위해서 입력 예측(Input Prediction)이 사용되는데, 이는 내 캐릭터만큼은 서버의 결과를 기다리지 않고 먼저 움직이게 한다는 것이다. 이를 위해서 이동에 관련된 시뮬레이션 로직을 서버와 클라이언트 모두에 탑재해야 하며, 클라이언트는 서버에 입력을 보내자마자 로컬 시뮬레이션을 거쳐 내 캐릭터를 이동시킨 후, 서버에서 도착한 결과가 너무 차이가 많이 날 경우에만 보정을 하게 된다.</p>
+<p><img alt="Lag Compensation" src="http://developer.valvesoftware.com/w/images/c/ca/Lag_compensation.jpg" /></p>
+<p>그런데 이것만으로 제대로된 FPS를 구현하기엔 조금 부족하다. 내가 보는 다른 사람의 위치는 언제나 과거이기 때문에, 명중 판정이 매우 곤란해지기 때문이다. (특히 퀘이크 시리즈의 레일건처럼 <a href="http://reiot.cafe24.com/archives/386">발사와 동시에 판정이 일어나야 하는 무기의 명중 판정</a>을 서버에서 해야 한다고 상상해보라.) HL2에서는 이를 <a href="http://reiot.cafe24.com/archives/303">랙 보상(Lag Compensation)</a> 기법으로 해결하는데, 서버에서 클라이언트의 위치 정보의 히스토리를 갖고 있다가 공격 패킷이 도착하면 발사 시간에서의 목표의 과거 위치를 찾아서 명중 체크를 한다는 것이다.</p>
+<p><img alt="Entity Interpolation" src="http://developer.valvesoftware.com/w/images/4/49/Interpolation.gif" /></p>
+<p>이 정도면 정상적인 네트워크에서의 기본적인 이동과 전투 까지는 해결할 수 있지만, 만약 패킷 손실을 고려하지 않으면 불안한 네트워크에서 캐릭터가 마구 점프하는 모습을 보게 될 것이다. 물론 적절한 데드 레커닝으로 해결할 수도 있겠지만, HL2 클라이언트에서는 서버가 보낸 스냅샷을 즉시 처리하는 대신 일정 시간(100ms)동안 버퍼링을 한 후, 내삽(interpolation)과 외삽(extrapolation)을 이용해서 패킷 손실에 우아하게 처리한다. 위 그림을 보면 짐작하겠지만, 최소한 2개의 패킷을 버퍼링함으로써 둘 중 하나가 손실되더라도 나머지 패킷으로 추정이 가능하다.</p>
+<p>결국 전통적인 FPS 게임에서의 서버는, 단순히 패킷을 브로드캐스팅하는 릴레이 서버가 아니라, 이동-공격-판정-충돌 등 대부분의 로직을 처리해해야 하기 때문에, 생각보다 꽤 무거워질 수 밖에 없다. 반면 클라이언트는 자기 캐릭터를 제외한 대부분의 입력을 네트워크로부터 받아들이는 구조로 작성되어야 한다. 만약 여러분이 다른 FPS게임과는 달리 플레이어들에게 dedicated server를 배포할 수 없는 상황이라면, 여러분은 대역폭을 무한히 절약해야 하는 꽤 힘든 싸움을 시작한 것이다. Welcome to the hell, guys.. :)</p></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/19/%ec%a0%84%ed%86%b5%ec%a0%81%ec%9d%b8-fps-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%82%b9-%ea%b5%ac%ed%98%84/">http://boxcatstudio.wordpress.com/2006/06/19/%ec%a0%84%ed%86%b5%ec%a0%81%ec%9d%b8-fps-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%82%b9-%ea%b5%ac%ed%98%84/</a></p>
+		
+		
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/06/08/lua-tips/">Lua Tips</a> <small>2006-06-08</small></h1>
 	</div>
-	<div><p>LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.</p>
+	<div class="post-content"><p>LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.</p>
 <h2>LuaPack</h2>
 <p>바이너리 데이터를 pack/unpack 하는 라이브러리. 일단 require 해주면 string.pack, string.unpack 의 2개 함수가 추가된다. 레이옷은 '''순수 루아 테스트 클라이언트'''를 만들기 위해서 LuaSocket 과 함께 사용했다. 단, 리눅스에서 사용하던 놈이라, 윈도우 환경에서 dll 로 사용하기 위해서는 약간의 수고가 필요하다.</p>
 <ul>
@@ -323,18 +351,20 @@ end</p>
 <li>[http://www.icynorth.com/forums/index.php LuaForum]</li>
 <li>http://www.thomasandamy.com/projects/CPB/</li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/08/lua-tips/">http://boxcatstudio.wordpress.com/2006/06/08/lua-tips/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a> <small>2006-06-04</small></h1>
 	</div>
-	<div><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
+	<div class="post-content"><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
 <p><em>그러나 가장 좋은 것은 뭐니뭐니해도 하드웨어 방화벽이다</em>. :)</p>
 <h2>보안 정책</h2>
 <p>보안 정책은 {IP 필터:필터 동작}의 매핑으로 이루어진다.</p>
@@ -435,18 +465,20 @@ end</p>
 </tr>
 </tbody>
 </table></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/">http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a> <small>2006-06-04</small></h1>
 	</div>
-	<div><h2>multiple result set + parameter binding</h2>
+	<div class="post-content"><h2>multiple result set + parameter binding</h2>
 <ul>
 <li>캐릭터 정보 로딩과 같이, 하나의 프로시저에서 여러 테이블의 row 들을 select 하면서 파라미터도 바인딩해야 할 경우, static binding 으로는 구현할 수 없으며, CDynamicParameterAccessor::GetParam()를 이용해야 한다.</li>
 <li>파라미터의 경우, select 해온 모든 result set 을 소진한 후, 가장 마지막에 읽어와야 한다. 즉 DB_S_NORESULT == GetNextResult(...); 를 실행한 후에만 유효하다는 뜻이다. 만약, 그 전에 읽게 되면 garbage 가 리턴된다.</li>
@@ -505,20 +537,26 @@ end</p>
 <ul>
 <li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/vcfaqwhichaccessorshouldiuse.asp">Which accessor should I use?</a> from MSDN</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/04/ole-db-tips/">http://boxcatstudio.wordpress.com/2006/06/04/ole-db-tips/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/06/01/stl-tips/">STL Tips</a> <small>2006-06-01</small></h1>
 	</div>
-	<div><h2>dll + STL</h2>
+	<div class="post-content"><h2>dll + STL</h2>
 <p>dll 에서 hash_set 을 멤버로 가진 클래스를 만들려다가 nested class 인 _Hash 라든지 hash_compare 등등을 모두 dllexport 하라길래 포기하고 PIMPL 패턴으로 해결해야만 했다.</p>
 <ul>
 <li><a href="http://support.microsoft.com/default.aspx?scid=kb;EN-US;168958">How To Exporting STL Components Inside &amp; Outside of a Class</a></li>
@@ -897,86 +935,19 @@ test_multiset()
 <li>predicate 의 비교문에서 &gt;= 을 사용하면 다른 결과가 나온다!</li>
 <li>predicate 관련 변수(m_TeamPoint)와 같이, 비교 로직에 영향을 주는 무언가를 외부에서 바꾸게 되면 multixxx 내부의 트리가 깨지게 된다. 너무나 당연한 사실이지만, Key 를 바꾸는게 아니라서 안전할 거 같아 보이는 것도 사실이다. 이를 방지하려면 일단 container 에서 해당 값을 erase한 다음 값을 수정하고 다시 insert 하는 것을 권장한다.</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a> <small>2006-06-01</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/01/stl-tips/">http://boxcatstudio.wordpress.com/2006/06/01/stl-tips/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
 	</div>
-	<div><p>Windows 에서 제공하는 ThreadPooling API인 QueueUserWorkItem()에 대해서 알아보자.</p>
-<h2>QueueUserWorkItem()</h2>
-<p>Programming Application for Microsoft Windows 에 의하면 ThreadPooling 시 새로운 쓰레드가 추가되기 위한 factor 에는 아래와 같은 것이 있다.</p>
-<ul>
-<li>쓰레드가 추가된 지 몇 초가 지나면, 한번 고민해본다</li>
-<li>WT_EXECUTELONGFUNCTION 이 사용될 경우, 한번 고민해본다</li>
-<li>큐잉된 작업의 개수가 일정 threadhold 를 넘어설 경우, 한번 고민해본다.</li>
-</ul>
-<p>그러나, 상세한 파라미터는 알려져 있지 않아서.. 테스트를 해 보았다.</p>
-<pre><code>
-const int MAX_WORK = 1000;
-LONG WorkCounter = 0;
-int add_time = 1;
-int work_time = 10;
-int nloop = 1;
-bool bPreQueue = false;
-int pre_queue_time = 1000;
-bool bMiddleSleep = false;
-int middle_sleep_time = 1000;
-
-DWORD WINAPI MyWorkThreadProc(PVOID pParam)
-{
-    MyWork* pWork = (MyWork*)pParam;
-
-    Sleep(pWork-&gt;workTime);
-
-    pWork-&gt;threadID = ::GetCurrentThreadId();
-    pWork-&gt;output = pWork-&gt;input * 2;
-
-    InterlockedIncrement( &amp;WorkCounter );
-
-    return 0;
-}
-
-void
-thread_pool_test_fixture::test_really_pooling()
-{
-    for ( int k = 0 ; k  0 )
-            {
-                Sleep(pre_queue_time);
-            }
-        }
-
-        MyWork works[MAX_WORK];
-        for (int i=0; i 0 )
-            {
-                Sleep(add_time);
-            }
-
-            if ( i == 500 &amp;&amp; bMiddleSleep &amp;&amp; middle_sleep_time &gt; 0 )
-            {
-                Sleep( middle_sleep_time );
-            }
-        }
-
-        while ( WorkCounter  threads;
-        for (int i=0; i::iterator itr = threads.begin() ; itr != threads.end() ; itr ++ )
-        {
-            BOOST_MESSAGE( *itr  처리 시간 |
-| 10 | 10 | 1  | 큐잉되는 시간 == 처리 시간 |
-| 10 | 20 | 3  | 큐잉되는 시간
-</code></pre></div>
-	<br />
-	<p>
-	
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -1043,6 +1014,10 @@ thread_pool_test_fixture::test_really_pooling()
 	</li>
 	
 	<li>
+		<a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a>
+	</li>
+	
+	<li>
 		<a href="/2006/06/08/lua-tips/">Lua Tips</a>
 	</li>
 	
@@ -1058,10 +1033,6 @@ thread_pool_test_fixture::test_really_pooling()
 		<a href="/2006/06/01/stl-tips/">STL Tips</a>
 	</li>
 	
-	<li>
-		<a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -1072,7 +1043,7 @@ thread_pool_test_fixture::test_really_pooling()
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

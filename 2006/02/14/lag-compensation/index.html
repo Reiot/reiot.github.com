@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,19 +68,21 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/02/14/lag-compensation/">Lag Compensation</a> <small>2006-02-14</small></h1>
 	</div>
-	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" /></p>
+	<div class="post-content"><p><img alt="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/thumb_Lag_compensation.jpg" /></p>
 <p>P2P 게임의 난제는 바로 동기화이다. 이는 내가 지금 보고 있는 것은 다른 사람의 과거이며, 때문에 100% 완벽한 동기화는 불가능하다는 사실에서 출발하게 된다. 보통은 <a href="http://www.g-matrix.pe.kr/feature/multi/deadreckoning.htm">Dead Reckoning</a> 으로 적당히 해결하게 되는데, 모든 사람들이 공 하나만 바라보는 스포츠 게임처럼 동기화가 치명적인 게임에서는 이것만으로는 부족한 감이 있다. 카운터 스트라이크와 같은 Dedicated 방식의 게임에서는 누군가가 총을 쏠 경우 그 사람의 latency 를 감안해서 서버에서 타겟의 과거 위치에 대해서 계산해주는 <a href="http://www.ra.is/unlagged/">랙 보상</a> 기법을 지원해주는데, 이걸 과연 P2P 게임에 도입할 수 있을지가 의문이다.</p>
 <p>완벽한 동기화를 고집한다면야 RTS게임에서 채택하는 synchronous P2P를 채택하면 되지만, 워크래프트3에서도 6:6밖에 안되는데 우리 수준에서 9:9+a 를 지원한다는 것은 사실상 불가능한 일. 그렇다고 디아블로2처럼 IDC수준으로 서버를 세팅해서 트래픽을 모두 감당한다는 건 너무 돈이 많이 들고... 과연 사악한 인터넷 환경에서 동기화도 잘 맞고 속도도 빠른 방식은 무엇일까? 고작 생각난다는 건 걔중에서 제일 빠르고 사양도 제법 좋은 놈의 컴퓨터에다가 서버 역할을 맡긴다는 건데, 이건 너무 구식이란 말이다. 흑.</p>
 <p>이번 기회에 체계적으로 P2P와 동기화에 대해서 제대로 공부 좀 해야 겠다.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/02/14/lag-compensation/">http://boxcatstudio.wordpress.com/2006/02/14/lag-compensation/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -99,7 +107,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

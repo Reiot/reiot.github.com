@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/09/20/otl-tips/">OTL Tips</a> <small>2006-09-20</small></h1>
 	</div>
-	<div><p><a href="http://otl.sourceforge.net/">OTL</a>은 ODBC를 잘 래핑한 오픈소스 DB 쿼리 라이브러리이다. 헤더 파일 하나만 있으면, 굳이 ODBC 래퍼 클래스를 만들지 않아도 충분히 안심하고 쓸 수 있으며, MYSQL, MSSQL, ORACLE 모두에 사용될 수 있다. 꽤 여러 곳에서 사용되고 있고, 평판도 좋다고 알려져 있어서 써봤는데, 대략 반년동안 사용해본 경험으로는, 차라리 OLE DB 를 쓰거나, ODBC 래핑 라이브러리를 어딘가에서 갖다 쓰는 게 더 개발기간을 단축시킬 수 있다고 판단된다. OTL 만의 미묘한 버그스러움이 너무 많기에... '''비추천'''이었다. 그러나 최근에 legacy code를 손보면서 raw ODBC 코드를 만지다가 결국 포기하고 다시 OTL을 도입한 적도 있어서, 뭐라고 표현하기는 난감하지만 하나 확실한 건, ODBC를 직접 만지는 것보다는 백만배 정도 나으므로, 한번 써보기를 권한다.</p>
+	<div class="post-content"><p><a href="http://otl.sourceforge.net/">OTL</a>은 ODBC를 잘 래핑한 오픈소스 DB 쿼리 라이브러리이다. 헤더 파일 하나만 있으면, 굳이 ODBC 래퍼 클래스를 만들지 않아도 충분히 안심하고 쓸 수 있으며, MYSQL, MSSQL, ORACLE 모두에 사용될 수 있다. 꽤 여러 곳에서 사용되고 있고, 평판도 좋다고 알려져 있어서 써봤는데, 대략 반년동안 사용해본 경험으로는, 차라리 OLE DB 를 쓰거나, ODBC 래핑 라이브러리를 어딘가에서 갖다 쓰는 게 더 개발기간을 단축시킬 수 있다고 판단된다. OTL 만의 미묘한 버그스러움이 너무 많기에... '''비추천'''이었다. 그러나 최근에 legacy code를 손보면서 raw ODBC 코드를 만지다가 결국 포기하고 다시 OTL을 도입한 적도 있어서, 뭐라고 표현하기는 난감하지만 하나 확실한 건, ODBC를 직접 만지는 것보다는 백만배 정도 나으므로, 한번 써보기를 권한다.</p>
 <h3>data binding</h3>
 <p>OTL type 과 ODBC type 과의 대응표를 잘못 기억했다가는 마감 시간에 낭패를 보는 경우가 있다. 특히 헷갈리는 타입들을 적어본다.</p>
 <table>
@@ -256,15 +262,21 @@ return false;
 <ul>
 <li>http://snaiper80.cafe24.com/wiki/wiki.cgi?OTL</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/09/20/otl-tips/">http://boxcatstudio.wordpress.com/2006/09/20/otl-tips/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+			<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -289,7 +301,7 @@ return false;
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

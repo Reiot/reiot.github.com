@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2009/05/21/idogame/">Idogame</a> <small>2009-05-21</small></h1>
 	</div>
-	<div><p>매출 1조짜리 기업 NHN에서 출시한 <a href="http://idogame.hangame.com/">아이두 게임</a>과 게임 오븐에 대한 짧은 생각:</p>
+	<div class="post-content"><p>매출 1조짜리 기업 NHN에서 출시한 <a href="http://idogame.hangame.com/">아이두 게임</a>과 게임 오븐에 대한 짧은 생각:</p>
 <ul>
 <li>하루 최고 동접 1000명을 찍으면 한달에 300만원을 지급한다? 한게임 유입자수 풀을 키우려는 전략이겠지만, 너무 짜다. 돈은 현재의 2배 정도로 늘리되, in game ad를 무조건 탑재하도록 하면 윈윈이 되지 않을까.</li>
 <li>정말 이걸로 돈을 벌려면, 접속 시간을 최대한 늘이는 게임 또는 특정 시간의 접속 비율을 높이는 방향으로 게임을 디자인해야 할 것이다. (자꾸만 동접 늘리는 트릭만 구상하는 레이옷..)</li>
@@ -74,15 +80,21 @@
 <li>네트워킹 역시 루아로 이루어지는데, key-value로 된 메시지를 보내거나 SyncObject라고 해서 자동적으로 테이블을 상대편으로 복제할 수 있다. 얘들도 __newindex 로 루아 테이블 내부 값의 생성, 삭제 및 변동을 추적했을까나~</li>
 <li>사실 게임 오븐으로 만든 서버를 어떻게 호스팅하는가? 가 가장 궁금하다. 그냥 서버 exe 를 적당한 서버로 배포해서 실행하지는 않을테니, 여기에 설마 클라우드 개념이 들어갔을까? 흐흠..</li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-		<a href="/tag/lua/"><span class="label"><span class="icon icon-tag"></span> lua</span></a>
-	
-		<a href="/tag/idogame/"><span class="label"><span class="icon icon-tag"></span> idogame</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2009/05/21/idogame/">http://boxcatstudio.wordpress.com/2009/05/21/idogame/</a></p>
+		
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/lua/"><span class="label"><span class="icon icon-tag"></span> lua</span></a>
+		
+			<a href="/tag/idogame/"><span class="label"><span class="icon icon-tag"></span> idogame</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -107,7 +119,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

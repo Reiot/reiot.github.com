@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/12/18/데드락-추적하기/">데드락 추적하기</a> <small>2006-12-18</small></h1>
 	</div>
-	<div><ul>
+	<div class="post-content"><ul>
 <li>원문 : <a href="http://support.microsoft.com/kb/832524">How to resolve a deadlock</a></li>
 </ul>
 <p>SQL 서버에서 데드락이 걸리면 락 매니저는 그 중 하나를 victim 으로 삼아서 죽이게 된다. 문제는 기본 설정 만으로는 어떤 SQL문끼리의 충돌인지를 확인할 수 없다는 점인데, SQL Server 에러 로그를 이용해서 이를 쉽게 알아낼 수 있다.</p>
@@ -182,13 +188,19 @@ SET SHOWPLAN_ALL ON<br />
 SET STATISTICS PROFILE ON<br />
 [/sql]<br />
 DB에 문제가 생기면 언제나 무료로 컨설팅해주시는 <a href="http://changaya.tistory.com">자칭 초보 DBA 창아군</a>에게 Special Thanks를 보낸다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/12/18/%eb%8d%b0%eb%93%9c%eb%9d%bd-%ec%b6%94%ec%a0%81%ed%95%98%ea%b8%b0/">http://boxcatstudio.wordpress.com/2006/12/18/%eb%8d%b0%eb%93%9c%eb%9d%bd-%ec%b6%94%ec%a0%81%ed%95%98%ea%b8%b0/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -213,7 +225,7 @@ DB에 문제가 생기면 언제나 무료로 컨설팅해주시는 <a href="htt
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

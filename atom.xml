@@ -1,5 +1,364 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-09-16T08:19:35Z</updated><author><name>Ray Yun</name></author><entry><title>DropPress</title><link href="/2012/09/16/droppress/" rel="alternate"></link><updated>2012-09-16T08:19:35Z</updated><id>tag:None,2012-09-16:/2012/09/16/droppress//</id><summary type="html">&lt;p&gt;&lt;a href="http://github.com/Reiot/droppress"&gt;DropPress&lt;/a&gt;는 이번에 다 죽어있던 블로그를 개편하면서 만든 정적 사이트 생성 스크립트다.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-10-11T21:29:57Z</updated><author><name>Ray Yun</name></author><entry><title>C++11</title><link href="/2012/10/11/c++11/" rel="alternate"></link><updated>2012-10-11T21:29:57Z</updated><id>tag:None,2012-10-11:/2012/10/11/c++11//</id><summary type="html">&lt;p&gt;C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11 같은 게 정말 좋아졌다고 하긴 , 한눈에 알아볼 수 있는 한글 사이트가 없기에 한번 정리해봤다. 위키피디아 문서를 기준으로 요약, 번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다.&lt;/p&gt;
+&lt;h2&gt;rvalue 참조 연산자 &amp;amp;&amp;amp;&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;class A {
+    char* buf;
+    int size;
+    // move constructor
+    A(A&amp;amp;&amp;amp; a): buf(a.buf), size(a.size) { a.buf=0; a.size=0; }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;주로 임시 객체가 만들어질 때 불필요한 메모리 할당이나 버퍼 복사로 인한 성능 저하를 막기 위해, 파라미터의 내부값 전체를 이동시켜 버리기 위해서 rvalue 의 const 를 없엘 수 있게 되었다. 많은 STL 컨테이너들이 성능을 위해서 이런 이동 생성자(move constructor)들을 구현했다는데, 평범한 개발자가 쓸 일은 드물 듯.&lt;/p&gt;
+&lt;p&gt;더 많은 내용은 &lt;a href="http://msdn.microsoft.com/en-us/library/dd293665.aspx"&gt;MSDN&lt;/a&gt; 참조.&lt;/p&gt;
+&lt;h2&gt;constexpr&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;constexpr int get_five() {return 5;}
+int some_value[get_five() + 7];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;constexpr&lt;/code&gt;을 붙이면 일반 변수나 함수도 컴파일 타임 상수로 쓸 수 있다. 단 함수일 경우 내부에 리턴문만 있어야 한다.&lt;/p&gt;
+&lt;h3&gt;템플릿의 Extern 선언&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;extern template class std::vector&amp;lt;MyClass&amp;gt;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;이제 특수화된 템플릿 클래스의 extern 선언이 가능해졌다. 단 한 군데에서만 컴파일하게 되므로 컴파일 시간도 빨라졌다.&lt;/p&gt;
+&lt;h3&gt;리스트 초기화&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;class SequenceClass {
+public:
+    SequenceClass(std::initializer_list&amp;lt;int&amp;gt; list);
+};
+SequenceClass some_var = {1, 4, 5, 6};
+
+void function_name(std::initializer_list&amp;lt;float&amp;gt; list);
+function_name({1.0f, -3.45f, -0.4f});
+
+std::vector&amp;lt;std::string&amp;gt; v = { &amp;quot;xyzzy&amp;quot;, &amp;quot;plugh&amp;quot;, &amp;quot;abracadabra&amp;quot; };
+
+struct AltStruct {
+    AltStruct(int x, double y) : x_{x}, y_{y} {}
+
+private:
+    int x_;
+    double y_;
+};
+
+AltStruct var2{2, 4.3};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;새롭게 추가된 &lt;code&gt;initializer_list&lt;/code&gt;를 이용하면, 리스트로 객체를 초기화하거나 파라미터로도 넘길 수 있고, 생성자를 대체할 수도 있다. 맨 마지막 문법은 좀 손가락이 꼬이는 느낌.&lt;/p&gt;
+&lt;h3&gt;auto 와 decltype&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;auto some_type = boost::bind(&amp;amp;some_function, _2, _1, some_object);
+decltype(some_type) other_type = some_type;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;템플릿 메타 프로그래밍에서는 리턴값을 알기 힘든 경우가 많은데, 이때 auto로 변수를 선언하면 컴파일러가 자동으로 타입을 찾아준다. &lt;code&gt;decltype&lt;/code&gt;은 변수만으로도 타입을 추론해낼 수 있다.&lt;/p&gt;
+&lt;p&gt;덕분에, iterator를 사용하는 for 루프는 정말 간단해질 수 있다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;for (std::vector&amp;lt;int&amp;gt;::const_iterator itr = myvec.cbegin(); itr != myvec.cend(); ++itr)
+
+for (auto itr = myvec.cbegin(); itr != myvec.cend(); ++itr)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;auto 를 리턴하는 함수의 경우, &lt;code&gt;-&amp;gt;&lt;/code&gt; 를 이용해서 타입을 컴파일러에게 친절하게 알려줄 수 있다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;struct SomeStruct  {
+    auto func_name(int x, int y) -&amp;gt; int;
+};
+
+auto SomeStruct::func_name(int x, int y) -&amp;gt; int {
+    return x + y;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;범위 기반 for 루프&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;int my_array[5] = {1, 2, 3, 4, 5};
+for (int &amp;amp;x : my_array) {
+    x *= 2;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;배열, 초기화 리스트, begin/end가 정의된 컨테이너 등 컴파일러가 범위를 알 수 있을 듯한 컬렉션들에 한해서만 가능하다. in 연산자를 지원해주면 참 좋겠지만...&lt;/p&gt;
+&lt;h3&gt;람다식과 람다 함수&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;[](int x, int y) { return x + y; }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;함수명에 &lt;code&gt;[]&lt;/code&gt;을 쓰면, 람다 함수로 사용할 수 있다. 리턴값은 자동적으로 추론된다고 한다.&lt;/p&gt;
+&lt;h3&gt;생성자 관련 개선&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;class SomeType  {
+    int number;
+    int value = 5;
+public:
+    SomeType(int new_number) : number(new_number) {}
+    SomeType() : SomeType(42) {}
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;생성자에서 다른 생성자를 호출할 수 있게 되었고, 데이터 멤버도 클래스 선언시에 초기값을 가질 수 있다.&lt;/p&gt;
+&lt;h3&gt;override &amp;amp; final&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;struct Base {
+    virtual void some_func(float);
+};
+
+struct Derived : Base {
+    virtual void some_func(int) override; // ill-formed because it doesn't override a base class method
+};
+
+struct Base1 final { };
+struct Base2 {
+    virtual void f() final;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;c# 이나 자바 같은 언어에서 오래전부터 지원하던 override 와 final 지정자가 드디어 표준이 되었다. final 은 클래스에 대해서도 사용 가능하다.&lt;/p&gt;
+&lt;h3&gt;널 포인터 상수 nullptr&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;char *pc = nullptr;     // OK
+int  *pi = nullptr;     // OK
+bool   b = nullptr;     // OK. b is false.
+int    i = nullptr;     // error
+
+foo(nullptr);           // calls foo(char *), not foo(int);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;NULL 이 0 과 혼용되면서 생긴 문제 때문에, 포인터에 대한 전용 상수인 nullptr이 추가되었다.&lt;/p&gt;
+&lt;h3&gt;열거자의 타입 지정&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;enum class Enum2 : unsigned int {Val1, Val2};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;예전 열거자는 컴파일러 구현에 따라서 int 도 되고, unsigned int 도 되었다. 새 열거자 선언 방식에서는 기본적으로 int이고, 별도로 타입을 지정할 수도 있지만, 정수로 암묵적으로 변환되지는 않는다.&lt;/p&gt;
+&lt;h3&gt;using&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;template &amp;lt;typename First, typename Second, int Third&amp;gt;
+class SomeType;
+
+template &amp;lt;typename Second&amp;gt;
+using TypedefName = SomeType&amp;lt;OtherType, Second, 5&amp;gt;;
+
+typedef void (*Type)(double);       // Old style
+using OtherType = void (*)(double);     // New introduced syntax
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;매크로나 typdef 대신 using 을 이용해서 긴 템플릿 이름을 짧게 줄일 수 있다.&lt;/p&gt;
+&lt;h3&gt;가변 갯수 템플릿 인자&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;template&amp;lt;typename... Arguments&amp;gt;
+void SampleFunction(Arguments... parameters);
+
+SampleFunction&amp;lt;int, int&amp;gt;(16, 24);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;세상에나, 템플릿 인자도 가변적으로 받을 수 있구나. &lt;a href="http://www.cplusplus.com/articles/EhvU7k9E/"&gt;여기&lt;/a&gt; 참조.&lt;/p&gt;
+&lt;h3&gt;union 개선&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;new&amp;gt; // Required for placement 'new'.
+//
+struct Point {
+    Point() {}
+    Point(int x, int y): x_(x), y_(y) {}
+    int x_, y_;
+};
+//
+union U {
+    int z;
+    double w;
+    Point p; // Illegal in C++03; legal in C++11.
+    //
+    // Due to the Point member, a constructor definition is now required.
+    //
+    U() {new(&amp;amp;p) Point();}
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;union 에 non-trivial 생성자를 가진 클래스를 담을 수 없던 제약이 풀렸다. 근데 이런 거 쓰는 사람이 있나.&lt;/p&gt;
+&lt;h3&gt;유니코드 문자열 선언&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;const char[] a = u8&amp;quot;I'm a UTF-8 string.&amp;quot;;
+const char16_t b = u&amp;quot;This is a UTF-16 string.&amp;quot;;
+const char32_t c = U&amp;quot;This is a UTF-32 string.&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;이제, utf-8 문자열을 하드코딩할 수 있다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;R&amp;quot;(The String Data \ Stuff &amp;quot; )&amp;quot;
+u8R&amp;quot;XXX(I'm a &amp;quot;raw UTF-8&amp;quot; string.)XXX&amp;quot;
+uR&amp;quot;*(This is a &amp;quot;raw UTF-16&amp;quot; string.)*&amp;quot;
+UR&amp;quot;(This is a &amp;quot;raw UTF-32&amp;quot; string.)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;정규식을 위한 raw 문자열도 추가되었다. 단, R 만 붙이는게 아니라 따옴표와 괄호까지가 필수적이라서, 첫번째 괄호와 마지막 괄호 내부의 문자열 escape 되지 않게 된다.&lt;/p&gt;
+&lt;h3&gt;사용자 정의 리터럴&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;int operator &amp;quot;&amp;quot; mb(long double bytes);
+
+int bytes = 2mb; // 2048
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;operator ""&lt;/code&gt;를 재정의하면, 임의 타입을 만들어내는 리터럴을 정의할 수 있다. 단 12.f 나 20l 같이 postfix 만 가능하다.&lt;/p&gt;
+&lt;h3&gt;멤버 함수 삭제&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;struct NonCopyable {
+    NonCopyable &amp;amp; operator=(const NonCopyable&amp;amp;) = delete;
+    NonCopyable(const NonCopyable&amp;amp;) = delete;
+    NonCopyable() = default;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;컴파일러가 자동으로 만들어주던 기본 생성자와 복사 생성자, 기본 소멸자 및 대입 연산자에 대해서 명시적으로 default 또는 deleted 를 지정할 수 있게 되었다. 물론 일반 멤버 함수에 대해서도 가능하다.&lt;/p&gt;
+&lt;h3&gt;컴파일 시간 assertions&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;static_assert((GREEKPI &amp;gt; 3.14) &amp;amp;&amp;amp; (GREEKPI &amp;lt; 3.15), &amp;quot;GREEKPI is inaccurate!&amp;quot;);
+
+template&amp;lt;class T&amp;gt;
+struct Check  {
+    static_assert(sizeof(int) &amp;lt;= sizeof(T), &amp;quot;T is not big enough!&amp;quot;);
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;된다!&lt;/p&gt;
+&lt;h3&gt;sizeof 개선&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;struct SomeType { OtherType member; };
+
+sizeof(SomeType::member); //Does not work with C++03. Okay with C++11
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;데이터 멤버에 대한 &lt;code&gt;sizeof&lt;/code&gt; 가 가능해졌다.&lt;/p&gt;
+&lt;h3&gt;동적 메모리 관리(Garbage Collection)&lt;/h3&gt;
+&lt;p&gt;컴파일러에 따라 동적 메모리를 자동으로 관리할 수 있게 되었다. 물론 수동으로 관리하는 방법도 제공한다.&lt;/p&gt;
+&lt;h3&gt;표준 라이브러리 개선&lt;/h3&gt;
+&lt;p&gt;지금까지 이야기한 다양한 새 기능들이 표준 라이브러리에 대폭 적용되었다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Rvalue 참조와 move 관련&lt;/li&gt;
+&lt;li&gt;UTF-16/UTF-32 인코딩&lt;/li&gt;
+&lt;li&gt;가변 템플릿 인자&lt;/li&gt;
+&lt;li&gt;컴파일 시간 상수식&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;decltype&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;explicit&lt;/code&gt; 변환 연산자&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;default&lt;/code&gt;/&lt;code&gt;delete&lt;/code&gt; 함수&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;쓰레드 관련&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;std::thread&lt;/code&gt; 클래스가 지원되고 다음과 같은 쓰레드간 동기화 프리미티브들이 포함되었다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;std::mutex&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;std::recursive_mutex&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;std::condition_variable&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;std::condition_variable_any&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;std::lock_guard&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;std::unique_lock&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;atomic&amp;lt;bool&amp;gt; ready = false;
+atomic&amp;lt;int&amp;gt; data = 0;
+
+// Thread 0:
+data.store(1, memory_order_release);
+ready.store(true, memory_order_release);
+
+// Thread 1:
+if (ready.load(memory_order_acquire))
+    assert(data.load(memory_order_acquire) == 1);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;보다 가벼운 원자적 연산(atomic operation)도 드디어 표준으로 채택되었다. 윈도우의 &lt;code&gt;InterlockedIncrement()&lt;/code&gt; 류라고 보면 된다. 메모리 정렬은 좀 헷갈리니 &lt;a href="http://en.cppreference.com/w/cpp/atomic/memory_order"&gt;여기&lt;/a&gt;를 참조.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;std::packaged_task&amp;lt;int()&amp;gt; task([](){ return 7; }); // wrap the function
+std::future&amp;lt;int&amp;gt; f1 = task.get_future();  // get a future
+std::thread(std::move(task)).detach(); // launch on a thread
+f1.wait();
+std::cout &amp;lt;&amp;lt; f1.get() &amp;lt;&amp;lt; std::endl;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;std::packaged_task&lt;/code&gt;를 이용하면, 비동기로 함수를 실행하고, 그 결과가 끝날 때까지 대기할 수 있다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;std::future&amp;lt;int&amp;gt; f2 = std::async(std::launch::async, [](){ return 8; });
+f2.wait();
+std::cout &amp;lt;&amp;lt; f2.get() &amp;lt;&amp;lt; std::endl;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;std::async&lt;/code&gt; 역시 future 를 리턴하지만, 자동으로 쓰레드를 만들고 함수를 실행해준다.&lt;/p&gt;
+&lt;h3&gt;튜플&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;typedef std::tuple &amp;lt;int, double, long &amp;amp;, const char *&amp;gt; test_tuple;
+long lengthy = 12;
+test_tuple proof (18, 6.5, lengthy, &amp;quot;Ciao!&amp;quot;);
+
+lengthy = std::get&amp;lt;0&amp;gt;(proof);  // Assign to 'lengthy' the value 18.
+std::get&amp;lt;3&amp;gt;(proof) = &amp;quot; Beautiful!&amp;quot;;  // Modify the tuple’s fourth element.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;가변 인자 템플릿 덕분에 튜플의 인자 갯수 제한이 풀렸다.&lt;/p&gt;
+&lt;h3&gt;unordered 해시 테이블&lt;/h3&gt;
+&lt;p&gt;기존의 map 과 set 은 정렬된 트리를 사용하므로 검색에 &lt;code&gt;O(log N)&lt;/code&gt;이 걸리지만, unordered 는 메모리를 좀 더 쓰는 대신 &lt;code&gt;O(1)&lt;/code&gt;로 요소를 찾을 수 있다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Type of hash table&lt;/th&gt;
+&lt;th&gt;Associated values&lt;/th&gt;
+&lt;th&gt;Equivalent keys&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;std::unordered_set&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;std::unordered_multiset&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;std::unordered_map&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;std::unordered_multimap&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;정규식&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;std::regex rgx(R&amp;quot;([ ,.\t\n;:])&amp;quot;);
+std::cmatch match;
+if( std::regex_search( &amp;quot;Unseen University - Ankh-Morpork&amp;quot;, match, rgx ) ) {
+    for( size_t a = 0; a &amp;lt; match.size(); a++ ) {
+        std::string str( match[a].first, match[a].second );
+        std::cout &amp;lt;&amp;lt; str &amp;lt;&amp;lt; &amp;quot;\n&amp;quot;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;C++ 에서 정규식이 된다니 감개가 무량하다...&lt;/p&gt;
+&lt;h3&gt;스마트 포인터&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;std::auto_ptr&lt;/code&gt;은 사라지고, &lt;code&gt;std::unique_ptr&lt;/code&gt;, &lt;code&gt;std::shared_ptr&lt;/code&gt; 그리고 and &lt;code&gt;std::weak_ptr&lt;/code&gt;이 표준에 합류했다.&lt;/p&gt;
+&lt;h3&gt;ref&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;void func (int &amp;amp;r)  { r++; }
+template&amp;lt;class F, class P&amp;gt; void g (F f, P t)  { f(t); }
+
+int i = 0 ;
+g (func, i) ;
+std::cout &amp;lt;&amp;lt; i &amp;lt;&amp;lt; std::endl;  // Output -&amp;gt; 0
+
+g (func, std::ref(i));
+std::cout &amp;lt;&amp;lt; i &amp;lt;&amp;lt; std::endl;  // Output -&amp;gt; 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;임의의 객체의 레퍼런스를 얻어내는 &lt;code&gt;ref&lt;/code&gt;와 &lt;code&gt;cref&lt;/code&gt;가 추가되었다.&lt;/p&gt;
+&lt;h3&gt;function 객체&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;struct Foo {
+    Foo(int num) : num_(num) {}
+    void print_add(int i) const { std::cout &amp;lt;&amp;lt; num_+i &amp;lt;&amp;lt; '\n'; }
+    int num_;
+};
+
+void print_num(int i)
+{
+    std::cout &amp;lt;&amp;lt; i &amp;lt;&amp;lt; '\n';
+}
+
+std::function&amp;lt;void(int)&amp;gt; f1 = print_num;
+std::function&amp;lt;void()&amp;gt; f2 = []() { print_num(42); };
+std::function&amp;lt;void()&amp;gt; f3 = std::bind(print_num, 31337);
+std::function&amp;lt;void(const Foo&amp;amp;, int)&amp;gt; f4 = &amp;amp;Foo::print_add;
+Foo foo(314159);
+f4(foo, 1);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;함수 객체는 일반적인 함수 포인터 뿐만 아니라, 람다 함수, 멤버 함수, bind식까지 담을 수 있다.&lt;/p&gt;
+&lt;h3&gt;기타&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;템플릿 선언할 때 일부러 &lt;code&gt;&amp;gt; &amp;gt;&lt;/code&gt; 띄워쓰지 않아도 컴파일러가 잘 처리해준다.&lt;/li&gt;
+&lt;li&gt;변환 연산자(conversion operator)에도 explicit 를 붙일 수 있다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;thread_local&lt;/code&gt; 를 붙이면 쓰레드 로컬 변수를 선언할 수 있다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;long long int&lt;/code&gt; 타입이 추가되었다...는데 원래 long long 이 있지 않았나?&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>DropPress</title><link href="/2012/09/16/droppress/" rel="alternate"></link><updated>2012-09-16T08:19:35Z</updated><id>tag:None,2012-09-16:/2012/09/16/droppress//</id><summary type="html">&lt;p&gt;&lt;a href="http://github.com/Reiot/droppress"&gt;DropPress&lt;/a&gt;는 이번에 다 죽어있던 블로그를 개편하면서 만든 정적 사이트 생성 스크립트다.&lt;/p&gt;
 &lt;p&gt;왜 이름이 DropPress 이냐면, 이 프로젝트의 시작은 드랍박스를 연동하는 웹서비스였기 때문이다. 드랍박스에 마크다운 포맷의 글을 저장해두면, 버전관리를 안해도 되고, 드랍박스와 연동되는 훌륭한 편집기가 널려 있으니, 나는 마크다운 변환과 github 배포를 구현하기만 하면 된다고 생각했다. 그런데, 비슷한 웹 에디터나 호스팅 서비스도 이미 존재하길래, 목표를 간단한 스크립트로 바꿨다. :)&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://github.com/Reiot/droppress"&gt;소스코드&lt;/a&gt;는 github에 공개되어 있다.&lt;/p&gt;
 &lt;h2&gt;기능 소개&lt;/h2&gt;
@@ -574,98 +933,4 @@ self.fill(self.outputs.bb, 'bbbbb')
 &lt;li&gt;cassandra: 자바 기반&lt;/li&gt;
 &lt;li&gt;riak: 머임..&lt;/li&gt;
 &lt;li&gt;hbase: 즐..&lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>libUV 분석</title><link href="/2012/02/26/libuv/" rel="alternate"></link><updated>2011-01-04T13:07:54Z</updated><id>tag:None,2011-01-04:/2012/02/26/libuv//</id><summary type="html">&lt;h2&gt;개요&lt;/h2&gt;
-&lt;p&gt;node.js의 플랫폼 레이어로 여러 플랫폼에서의 비동기 입출력을 추상화하고, 완료될 때 콜백을 실행할 수 있게 해준다.&lt;/p&gt;
-&lt;p&gt;see also &lt;a href="https://github.com/joyent/libuv"&gt;GitHub&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;입출력 타입&lt;/h2&gt;
-&lt;p&gt;include/uv.h 에 보면 다음과 같은 입출력 타입이 지원된다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;TCP, UDP 소켓&lt;/li&gt;
-&lt;li&gt;IPC, named Pipe(부모-자식 프로세스간 통신)&lt;/li&gt;
-&lt;li&gt;타이머, 고해상도 타이머, idle 이벤트&lt;/li&gt;
-&lt;li&gt;쓰레드풀링(QueueUserWorkItem)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;이 정도면 능히 게임 서버를 만들 수 있는 수준이다?&lt;/p&gt;
-&lt;h2&gt;입출력 핸들과 처리 함수들&lt;/h2&gt;
-&lt;p&gt;일단, 비동기 입출력 타입들은 전용 핸들과 초기화/소멸 함수를 가진다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;uv_tcp_t: uv_tcp_init(), uv_tcp_endgame()&lt;/li&gt;
-&lt;li&gt;uv_udp_t: uv_udp_init(), uv_udp_endgame()&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;또한 각종 이벤트에 대해서 요청/완료 함수가 존재한다. 예를 들어 TCP 소켓 입출력에 대해서는 Accept/Connect/Read/Write 이벤트가 존재하는데 아래와 같은 함수들이 대응되어 있다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;uv_tcp_accept =&amp;gt; uv_process_tcp_accept_req&lt;/li&gt;
-&lt;li&gt;uv_tcp_read_start =&amp;gt; uv_process_tcp_read_req&lt;/li&gt;
-&lt;li&gt;uv_tcp_write =&amp;gt; uv_process_tcp_write_req&lt;/li&gt;
-&lt;li&gt;uv_tcp_connect =&amp;gt; uv_process_tcp_connect_req&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;특이한 것은 Loop Watcher 로 분류되는, idle/prepare/check 이벤트들이다. idle은 서버에 아무런 입출력이 없을 때 호출된다. prepare/check 는 이벤트 루프를 커스터마이징하기 위한 함수인데 거의 쓸 일은 없을 듯.&lt;/p&gt;
-&lt;h2&gt;메인 이벤트 루프&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;// src/core.cc
-do {
-     // 현재 시간 설정
-   uv_update_time((loop));
-
-   // 완료된 타이머 이벤트 실행
-   uv_process_timers((loop));
-
-   // 요청도 없고 타이머도 없으면 idle 이벤트 실행
-    if ((loop)-&amp;gt;pending_reqs_tail == NULL &amp;amp;&amp;amp; (loop)-&amp;gt;endgame_handles == NULL){
-      uv_idle_invoke((loop));
-   }
-
-   // 완료된 입출력을 정리하고 지정된 콜백을 실행
-   uv_process_reqs((loop));
-
-   // 끊긴 연결 등의 핸들을 정리
-   uv_process_endgames((loop));
-
-   // pre-poll 콜백들을 호출
-   uv_prepare_invoke((loop));
-
-   // GetQueuedCompletionStatus 를 실행해서 입출력 완료를 대기
-   // 현재 처리할 이벤트가 없으면 계속 대기
-   poll((loop), (loop)-&amp;gt;idle_handles == NULL &amp;amp;&amp;amp;
-                 (loop)-&amp;gt;pending_reqs_tail == NULL &amp;amp;&amp;amp;
-                 (loop)-&amp;gt;endgame_handles == NULL &amp;amp;&amp;amp;
-                 (loop)-&amp;gt;refs &amp;gt; 0);
-
-    // post-poll 콜백들을 호출
-    uv_check_invoke((loop));
-  } while (0);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;메모리 관리&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;TCP read : &lt;a href="http://stackoverflow.com/questions/4988168/wsarecv-and-wsabuf-questions"&gt;zero byte receive&lt;/a&gt;라는 기법을 이용한다. WSARecv 에 길이가 0인 빈 버퍼를 넘기고, 실제로 뭔가 오면 WSARecv 로 다시 읽는 방식이다. locked page 를 줄일 수 있어서 I/O 가 많은 서버들이 자주 쓴다고 한다. 참고로 WSARecv/WSASend 에 넘긴 메모리는 커널 드라이버가 접근해야 하므로 lock 이 걸리게 되는데 물리적인 최대값이 있다.(램의 1/8??)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;전통적인 게임 서버들은 하나에 프로세스가 여러 개의 쓰레드를 가지고, 세션당 1개의 입력 버퍼를 두는 1-recv 기법을 사용한다. 반면 node.js 는 클러스터링을 염두에 둔 탓인지, 메모리를 최소하는 전략을 채택한 듯하다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;TCP write: N-send 를 사용한다. 즉 보낼 게 있을 때마다 버퍼가 만들어지거나 이미 존재하는 객체의 포인터를 이용한다는 뜻이다. 구조적으로는 gather write 가 가능할 거 같은데 코드에서는 없는 듯하다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;대신 브로드캐스팅을 해도 복사는 없으므로 한편으론 괜찮을지도.&lt;/p&gt;
-&lt;h2&gt;평가&lt;/h2&gt;
-&lt;p&gt;게임 서버 프로그래머로서 발견할 수 있는 문제는,&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;CPU 연산이 많은 경우 모든 실행이 멈춘다. 해결책은&lt;ul&gt;
-&lt;li&gt;process.nextTick() 으로 잘게 자른다. (또는 코루틴이 도입될 때까지 기다린다 ㅋㅋ) yield 같은 게 있으면 좋을텐데...&lt;/li&gt;
-&lt;li&gt;그래도 크다면 pipe 나 소켓을 통해 다른 프로세스로 task 를 넘기고 받을 것. 게임의 핵심 로직은 별도 프로세스로 분리하는 게 더 좋을 듯.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;캐릭터 이동이나 대규모 전투 같이 크기는 작지만 I/O의 절대 갯수가 많을 경우, 성능 저하가 좀 있을 것 같다.&lt;ul&gt;
-&lt;li&gt;왜냐하면 I/O 갯수만큼 GQCS를 호출해야 하니까. 이건 nv_run 코드를 패치하는 방법도 있지만..&lt;/li&gt;
-&lt;li&gt;어쨌거나 기본적으로 작게 분산해서 하나하나를 가볍게 가져가는 형태가 될 것이다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;만약 node.js 만으로 리얼타임 MMO 게임 서버군을 구성한다면…&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;frontend servers: 클라이언트와의 인증, 입출력을 전담. 메시지가 도달하면 backend 의 적당한 서버로 IPC(pipe or socket)를 통해 보낸다.&lt;/li&gt;
-&lt;li&gt;backend servers: game server(sharding), AI, chat, guild, shop 등 역할별로 분산해서 지연을 최소화한다.&lt;/li&gt;
-&lt;li&gt;CPU 를 많이 사용해야 한다면 C++ native 로 전환해가는 방법도 좋다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;그 외에 고민해야 될 것들이라면&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;적당한 데이터베이스/캐시 미들웨어: membase?&lt;/li&gt;
-&lt;li&gt;node 프로세스 관리 도구 및 모니터링&lt;/li&gt;
 &lt;/ul&gt;</summary></entry></feed>

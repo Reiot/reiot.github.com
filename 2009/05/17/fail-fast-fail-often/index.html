@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2009/05/17/fail-fast-fail-often/">Fail Fast, Fail Often</a> <small>2009-05-17</small></h1>
 	</div>
-	<div><p>최근 레이다에 자주 걸리던 <a href="http://sites.google.com/site/gdworkshop/materials/mda-framework">MDA 프레임워크</a>에 대한 <a href="http://epiphany.tistory.com/">게임 디자인 워크샵</a>이 사내에서 <strong>피자와 함께</strong> 열려서 쉬귀군과 함께 참가했다.</p>
+	<div class="post-content"><p>최근 레이다에 자주 걸리던 <a href="http://sites.google.com/site/gdworkshop/materials/mda-framework">MDA 프레임워크</a>에 대한 <a href="http://epiphany.tistory.com/">게임 디자인 워크샵</a>이 사내에서 <strong>피자와 함께</strong> 열려서 쉬귀군과 함께 참가했다.</p>
 <p>첫날에는 <a href="http://sites.google.com/site/gdworkshop/materials/sissyfight-3000">Sissyfight 3000</a>을 <a href="http://kaistizen.net/EE/index.php/weblog/comments/game_design_workshop/">1분 내에 끝내라는 퍼블리셔의 요청 메일</a>을 받았다. 원작 게임이 재미없었던 우리 팀은, 두 세번 게임을 뒤집어 엎어 포커 버전으로 만들다가, 종료 5분 전 공격 카드는 버리고 색깔 카드와 방어 카드 만으로 2분짜리 클베 버전을 출시할 수 있었다. 뭔가 개발이 잘 풀리지 않아 잘나가는 옆테이블로 이직을 하고 싶었는데, 막상 출시를 하고 보니 사용자들이 제법 만족해서 좀 당황하기도 했다.</p>
 <p>둘째 날에는 타워 디펜스를 페이퍼 프로토타이핑으로 만들었다. 초반부터 <a href="http://www.thisisgame.com/board/view.php?id=26414&amp;category=103">에이전트005</a>가 투입되어서 자꾸 지금 방향이 틀렸고 자기 방식이 맞다고 주장해서 개발 기간을 제법 까먹었다. 클베를 하고 나서는 테스터들의 의견을 적극 반영하다 보니 원래 추구하는 미학과는 다른 방향으로 바뀌기도 했다. 워낙 타워 디펜스의 종류가 다양하다보니 협동이냐 경쟁이냐들 두고 초반부터 설전을 벌였는데, 실제로 테스터들로부터도 비슷한 문제를 지적받았다. 막판 30초를 남기고 뭔가 재미있어 보이는 버전이 나오긴 했는데 테스트도 못해봐서 결국 클베 버전을 출시할 수 밖에 없었다. 흑.</p>
 <p>어쨌든 뭔가 쓸만한 걸 하나 배웠답시고 무려 <strong>주말</strong>에 출근해서 MDA를 시험 적용해 보기로 했다. 현재 상태에서  재미있는 것과 없는 것들을 나열하고, 도저히 버릴 수 없는 제약 조건을 뺀 나머지 기능들은 모두 <a href="http://aker.tistory.com/231">feature creep</a>이라는 누명을 씌워서 버렸다. 다음에는 무엇을 핵심적인 재미요소로 구현할 건가를 이야기했는데, 의외로 내가 생각하는 재미를 단 한 명에게 공감시키기조차도 힘들었다. 그래서 내 의도와 비슷한 동영상을 구해서 보여준 후, Fail Fast 을 해보니 몇 시간만에 비교적 게임이라고 부를만한 상태로 바꾸는 데까지는 성공했다. (물론 난 옆에서 서핑만하고 쉬귀군이 열심히 코딩을 했지만..) 그래도 보여주기엔 남부끄러운 수준이고, 핵심적인 제약 사항은 완수하지도 못했기에 일단 퇴근했다. 결과적으로는 실패로 끝난 거구만. OTL</p>
@@ -77,21 +83,31 @@
 <ul>
 <li><a href="http://www.heartcomplex.net/blogs/516">사후 검토: Sissy Fight 3000 - 제 2회 게임 디자인 워크샵</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
-	
-	
-		<a href="/tag/fail/"><span class="label"><span class="icon icon-tag"></span> fail</span></a>
-	
-		<a href="/tag/test/"><span class="label"><span class="icon icon-tag"></span> test</span></a>
-	
-		<a href="/tag/mda/"><span class="label"><span class="icon icon-tag"></span> mda</span></a>
-	
-		<a href="/tag/gamedev/"><span class="label"><span class="icon icon-tag"></span> gamedev</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2009/05/17/fail-fast-fail-often/">http://boxcatstudio.wordpress.com/2009/05/17/fail-fast-fail-often/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/gamedev/"><span class="label label-info"><span class="icon icon-folder-open"></span> gamedev</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/fail/"><span class="label"><span class="icon icon-tag"></span> fail</span></a>
+		
+			<a href="/tag/test/"><span class="label"><span class="icon icon-tag"></span> test</span></a>
+		
+			<a href="/tag/mda/"><span class="label"><span class="icon icon-tag"></span> mda</span></a>
+		
+			<a href="/tag/gamedev/"><span class="label"><span class="icon icon-tag"></span> gamedev</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -116,7 +132,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

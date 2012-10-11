@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2004/11/26/visual-studio-tips/">Visual Studio Tips</a> <small>2004-11-26</small></h1>
 	</div>
-	<div><h2>.h &lt;-&gt; .cpp 단축키</h2>
+	<div class="post-content"><h2>.h &lt;-&gt; .cpp 단축키</h2>
 <p>Visual Assist 를 사용하시는 분은, <code>[도구]-[옵션]-[환경]-[키보드]</code> 에서 VAOpenOpposite를 Ctrl+Q등으로 단축키를 지정하면 파일 전환을 보다 쉽게 할 수 있다.</p>
 <h2>Alt + F7</h2>
 <p><code>[도구]-[옵션]-[환경]-[키보드]</code>에서  빌드.선택영역빌드를 Alt+F7로 단축키 지정하면, 현재 프로젝트를 키보드만으로 빌드할 수 있다.</p>
@@ -146,17 +152,27 @@ int iValue = __NODE_INT(pIntNode);                 // ----&gt; int iVal
 <h2>Command Line Build</h2>
 <p>특이하게도 한 순간에 한가지 프로젝트, 한가지 빌드 타겟만이 가능하다. 결국 여러 개의 프로젝트를 함께 빌드하려면 각각을 따로 명시해야 할 듯. /out 의 경우 이전 파일에 로그를 append 한다.</p>
 <p>devenv  /project  /build  /out</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/visual studio/"><span class="label"><span class="icon icon-tag"></span> visual studio</span></a>
-	
-		<a href="/tag/tip/"><span class="label"><span class="icon icon-tag"></span> tip</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2004/11/26/visual-studio-tips/">http://boxcatstudio.wordpress.com/2004/11/26/visual-studio-tips/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/visual studio/"><span class="label"><span class="icon icon-tag"></span> visual studio</span></a>
+		
+			<a href="/tag/tip/"><span class="label"><span class="icon icon-tag"></span> tip</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -181,7 +197,7 @@ int iValue = __NODE_INT(pIntNode);                 // ----&gt; int iVal
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

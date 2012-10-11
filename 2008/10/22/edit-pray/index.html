@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/10/22/edit-pray/">Edit & Pray</a> <small>2008-10-22</small></h1>
 	</div>
-	<div><p><img alt="http://web.mit.edu/cat/Desktop/cat/images/pray.jpg" src="http://web.mit.edu/cat/Desktop/cat/images/pray.jpg" /></p>
+	<div class="post-content"><p><img alt="http://web.mit.edu/cat/Desktop/cat/images/pray.jpg" src="http://web.mit.edu/cat/Desktop/cat/images/pray.jpg" /></p>
 <pre><code>Changes in a system can be made in two primary ways. I like to call them* Edit And Pray *and *Cover and Modify.* Unfortunately, *Edit and Pray* is pretty much the industry standard.
 
 --Michael C. Feathers
@@ -76,21 +82,31 @@
 <p>TDD를 쓰지 않는 대부분의 프로그래머들은 <a href="http://suigui.com/wordpress/2008/10/10/editcontinue-쓰시나요/">Edit &amp;Continue</a> 보다는 Edit &amp; Pray 를 더 사랑한다. 물론 나도 컴파일러와 윈도우 커널와 쓰레드들에게 자주 빌기도 하지만, 언젠가부터 테스트 없이 일을 진행하면 아무리 실행이 잘되어도 마음 한구석이 편치 않게 되는 경우가 많아졌다. 테스트 통과 후 커밋할 때의 쾌감에 중독되었기 때문인데, 사소한 것까지 테스트한다고 잔소리를 들은 후에야 겨우 벗어날 수 있었다. 그래서 요즘에는 라이브러리 학습이나 개인적인 프로젝트에서만 테스트를 활용하고 있다. </p>
 <p>최근, 새 프로젝트에서 한정된 시간안에 핵심적인 로직을 제외한 나머지 - 플랫폼, 데이터베이스, 네트워크 프레임워크 외 다수- 들을 마이그레이션하면서 성능과 안정성을 동시에 만족시켜야 하는, 그야말로 도전적인 과제를 맡았다. 이 <a href="http://www.xevious7.com/300">세마리 토끼를 한방에 잡아주는 은총알이 없는 거야</a> 당연하지만, 그렇다고 점진적으로 리팩토링해나가면서 지켜보는 것도 불가능한 상황이다. 비유적으로 말하자면, <a href="http://www.google.co.kr/search?rlz=1C1GGLS_koKR294&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=직불금">새로 논밭을 사서 농사를 대충 짓다가 적당히 직불금을 받아먹은 후 양도세를 면제받은 후(응?)</a>, 기존의 집을 그대로 들어 올려서 새 토지에 얹어 놓고, 인테리어를 막판에 갈아 엎는 대공사를 할 수 밖에 없을 것 같다. 물론 기도를 빠뜨리면 안되겠지만.</p>
 <p>어쨌거나 기회가 되면 <a href="http://reiot.cafe24.com/2008/07/04/google-test/">google test</a>를 써보고 싶은데, 이 대운하에 버금가는 공사에서 가능할 것인지 나도 참 궁금하다. 쉬귀군이 밥먹다가 말한 것처럼 삽질이 되면 안되는데... 후덜덜.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/test/"><span class="label"><span class="icon icon-tag"></span> test</span></a>
-	
-		<a href="/tag/refactoring/"><span class="label"><span class="icon icon-tag"></span> refactoring</span></a>
-	
-		<a href="/tag/legacy/"><span class="label"><span class="icon icon-tag"></span> legacy</span></a>
-	
-		<a href="/tag/TDD/"><span class="label"><span class="icon icon-tag"></span> TDD</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/10/22/edit-pray/">http://boxcatstudio.wordpress.com/2008/10/22/edit-pray/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/test/"><span class="label"><span class="icon icon-tag"></span> test</span></a>
+		
+			<a href="/tag/refactoring/"><span class="label"><span class="icon icon-tag"></span> refactoring</span></a>
+		
+			<a href="/tag/legacy/"><span class="label"><span class="icon icon-tag"></span> legacy</span></a>
+		
+			<a href="/tag/TDD/"><span class="label"><span class="icon icon-tag"></span> TDD</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -115,7 +131,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

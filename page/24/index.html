@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,11 +73,69 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2007/11/08/kgc-2007-1st-day/">KGC 2007 1st Day</a> <small>2007-11-08</small></h1>
+	</div>
+	<div class="post-content"><p>see also <a href="http://reiot.cafe24.com/2007/11/11/kgc-2007-2nd-day/">KGC 2007 2nd Day</a></p>
+<p><font size="5">KEYNOTE </font></p>
+<p>분명 한글 제목이 "상업적인 3D 엔진을 사용하여 MMO를 개발하는 도전"인데 영문 제목은 "Thin Transaction Clients: Delivering games fast and furious" ... 쉽게 말해서 오타라는 뜻이다. 키노트의 주제로는 좀 어울리지 않을 정도로 프로그래밍에 치우친 내용이었는데, 내용 자체는 패러다임 시프트라고 부를 수 있을 정도로 참신했다. 실제 코드가 한번도 나오지 않아서 확실히 이해한 것은 아니지만, 간단하게 메모한 내용을 정리해보면</p>
+<ul>
+<li>TTC는 스크립트의 개념과 유사한데, 좀 더 분산처리라든지 멀티티어, 멀티쓰레딩(또는 멀티코어), 스트리밍에 친화적인 개념이다.</li>
+<li>가령 클라이언트를 잘게 dll로 쪼개고 그 안에 각종 텍스처나 사운드 같은 asset들을 담을 수 있도록 하고, 서버에서 스트리밍으로 이걸 다운받아서 실행한다고 보면 그럭저럭 비슷하다고나 할까? 아니면 파이썬으로 클라이언트를 만들었는데 각각의 파이썬 코드들은 다운받는다고 생각하면 될 것 같다.</li>
+<li>핵심은 이런 하나 하나의 트랜잭션들을 멀티코어에서 자유롭게 분산처리할 수 있도록 토큰(코드 또는 asset)을 적당히 조립하고 동기화를 맞춘다...고 하는 개념. 따라서 향후 재사용성도 높을 거라고 강사가 말했지만, 6년 정도 사용해봤음에도 아직 상용화된 게임은 없다고 하니...</li>
+<li>서버에서 클라이언트를 완전히 통제한다는 것을 계속 강조했다. 근데 이렇게 살면 제법 피곤할텐데;;; 그 트래픽은 과연 어떻게 감당해낼지도 의문이다.</li>
+<li>당연히 디버깅이라든지 트레이싱이 난감하다. 다만 이런 느낌이라면 적당히 GUI 툴로 개발해도 될 것 같다.</li>
+<li>그런데 스크립트에 비해서 얼마나 더 좋은지에 대해서는 공감하기 힘들다. 오직 멀티코어 대응이 좋다는 점에 대해서는 수긍함.</li>
+</ul>
+<p><font size="5">XNA Game Studio Express and the XBOX Live Arcade</font></p>
+<p>개인적으로 XNA에 대해서 관심이 많아서 참가했는데 질문 하나 하고 "블루드래곤"을 경품으로 받았다. 그래서 그런지 오늘 가장 마음에 든 알찬 세션 중에 하나였다. 몇 가지 인상 깊은 이야기를 적어보자면,</p>
+<ul>
+<li>XBLA 게임들은 라이브에서 지원하는 일종의 쉐어웨어 게임으로, 현재 70개 정도의 아케이드 게임이 출시되었다. 대부분의 게임들이 고전 게임들의 리메이크이거나 퍼즐, 보드 게임들이다.</li>
+<li>일반적으로 XNA 게임들은 10-15만불 정도의 개발비를 투입해서 3개월 정도 개발을 하는데, 보통 출시한지 1주에서 10일만에 손익분기점을 넘긴다고 한다. 이때 수익은 개발사:MS가 7:3으로 나눈다.</li>
+<li>MS에 제안서를 제출해서 accept가 나면 본격적인 개발에 들어간다. 이때 콘솔 게임 특유의 치열한 QA를 통과해야만 실제로 LIVE로 배포가 된다.</li>
+<li><a href="http://sexydino.com/tag/XLSP">XLSP</a>를 통해서 마비노기처럼 독립적인 외부 서버를 지원할 수 있게 되었다.</li>
+<li>아무래도 콘솔이다보니 PC 처럼 손쉽게 패치를 할 수 있는 환경은 아니다. 만약 실행 파일을 패치한다면 또다시 QA를 거쳐야 하지만 asset은 적당히 통보만 하고 배포해도 된다고 한다.</li>
+<li>30초만에 플레이가 가능할 정도로 쉽고, 모든 나이의 플레이어들이 좋아하며, 협동과 경쟁 개념이 강하고, 가족끼리 즐길 수 있는 캐주얼 게임을 찾고 있다고 한다.</li>
+<li>배포 크기는 보통 150M를 넘지 않아야 된다고 한다. 즉 양으로 승부하는 2D게임은 힘들다는 점.</li>
+</ul>
+<p><font size="5">Multi-Core Programming : Lessons From Experience</font></p>
+<p>워낙 많은 사람이 들어와서 통역기도 못받고 바닥에 앉아서 들어야 했다. 다행히 강사가 천천히 말해줘서 대충은 알아 들을 수 있었는데, 갑자기 식곤증이 몰려와서 많은 내용을 놓쳐버렸다;</p>
+<ul>
+<li>렌더링과 업데이트간의 버퍼 교환이 결국 병목의 근원이다. 더블버퍼링을 이용하면 될 것 같지만, 쉽지 않다. 결국은 프레임 단위로 바뀐 것들만 잘 분산시켜서 넘겨야 된다. 너무 분산시키면 렌더링은 과거의 정보를 그리게 된다..</li>
+<li>lock-free queue 를 이용해서 멀티쓰레드간 동기화를 하는 XMCore 가 XDK에 포함되었다</li>
+<li>이 동네는 결국 메시지 기반의 통신을 해야만 한다.</li>
+<li>legacy code를 만질 때에는 cloth simulation 등의 eye candy 류의 기능들을 먼저 분산 처리하는 것이 정신 건강에 좋다.</li>
+</ul>
+<p><font size="5">XNA Game Studio Express 2.0</font></p>
+<p>올해 12월에 출시된다는 XNAGS 2.0의 기능에 대한 소개 세션이었다. 1.0 에 비해서 달라진 점들을 간단히 소개하는 정도였는데 첫 세션과 중복되는 내용도 많고, <a href="http://blogs.msdn.com/xna/archive/2007/08/13/announcing-xna-game-studio-2-0.aspx">이미 인터넷으로 공개된 내용</a>이 대부분이라서 많이 아쉬웠던 시간이었다.</p>
+<ul>
+<li>게이머 태그, 게이머 카드, 친구 관리 등의 게이머 서비스 지원</li>
+<li>Xbox LIVE의 매치메이킹 API을 이용해서 서버 없이도 네트워크 플레이가 손쉽게 지원되도록 함</li>
+<li>reliable UDP 라든지 멀티렌더타겟 등을 지원함</li>
+<li>내년 후반에 출시될 버전에서는 C++도 지원할 예정</li>
+</ul>
+<p><font size="5">SCRUM Development Methodology to MMOs</font></p>
+<p>바이오웨어에서 온 <a href="http://en.wikipedia.org/wiki/Gordon_Walton">고든 할아버지</a>의 강연. 어째 MMO를 개발하면서 스크럼을 적용하면서 얻은 교훈을 소개해주시나 싶었는데 30분 넘게 스크럼의 개요에 대해서만 이야기를 들었다. 동시통역하는 언니가 너무 버벅거려서 더욱 마음에 들지 않았다;; 아무래도 고든 박사가 전직 VP여서 그런지 실질적인 스크럼팀 운영에는 참가하지 않는 모양이었다. 하하하. (아마도 <a href="http://www.controlchaos.com/old-site/implem.htm">치킨</a>이 아니었을까?)</p>
+<ul>
+<li>QA팀이 스크럼에 참가하면 효율이 정말 높아진다!</li>
+<li><font color="#ffffff">스크럼의 핵심은 진실을 말하는 것이다.</font></li>
+</ul>
+<p>see also <a href="http://reiot.cafe24.com/2007/11/11/kgc-2007-2nd-day/">KGC 2007 2nd Day</a></p></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/11/08/kgc-2007-1st-day/">http://boxcatstudio.wordpress.com/2007/11/08/kgc-2007-1st-day/</a></p>
+		
+		
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/10/26/msbuild-with-cruise-control-net-2/">MSBuild with Cruise Control .Net (2)</a> <small>2007-10-26</small></h1>
 	</div>
-	<div><p><img alt="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG" /></p>
+	<div class="post-content"><p><img alt="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/ccnet_success.JPG" /></p>
 <p><a href="http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/">며칠 동안의 삽질</a> 끝에 오늘 드디어 MSBuild + CC.NET으로 웹브라우저에서 빌드할 수 있도록 설정하는 것을 대략 마무리 지었다. 그 과정에서 알아낸 사실을 정리해보면 (틀린 정보도 있을 수 있으니 주의 바란다)</p>
 <ul>
 <li>대상 시스템은 Windows Server 2003 R2 Standard Kor 이다.</li>
@@ -89,18 +153,20 @@
 <li><a href="http://reiot.cafe24.com/2007/10/08/msbuild-with-cruise-control-net/">MSBuild with Cruise Control .NET</a></li>
 <li><a href="http://reiot.cafe24.com/2007/10/10/webdashboard-cctray/">WebDashBoard &amp; CCTray</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/10/26/msbuild-with-cruise-control-net-2/">http://boxcatstudio.wordpress.com/2007/10/26/msbuild-with-cruise-control-net-2/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/10/10/webdashboard-cctray/">WebDashboard & CCTray</a> <small>2007-10-10</small></h1>
 	</div>
-	<div><p><img alt="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" src="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" /></p>
+	<div class="post-content"><p><img alt="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" src="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" /></p>
 <p>IIS와 CruiseControl.NET(이하 CCNET)의 <a href="http://ccnet.sourceforge.net/CCNET/Web%20Dashboard.html">WebDashBoard</a>를 이용하면 최근 빌드 현황이나 그래프를 웹에서 관리할 수 있다. 그 중에서도 가장 매력적인 기능은, - 사실 우리 팀에게 가장 필요한 - 바로 저 "Force Build" 인데, 웹에서 버튼만 눌러서 자동적으로 빌드 -&gt; 배포를 할 수 있게 해주는 기능이다. 우리 팀처럼 단지 배포용 빌드 머신만을 운용하고 있는 작은 조직에게는, CCNET의 수많은 자동화 기능보다는 저런 단순하면서도 아름다운 기능이 제일 절실하게 와닿는다고나 할까? (사실 빌드 머신까지는 한발짝 거리인데, SVN 업데이트 -&gt; Visual Studio 빌드 -&gt; 배포 버전 빌드..라는 3단계를 무지 귀찮아하는 것 같다 -_-)</p>
 <p><img alt="http://farm3.static.flickr.com/2191/1532824658_af03210327.jpg" src="http://farm3.static.flickr.com/2191/1532824658_af03210327.jpg" /></p>
 <p><a href="http://ccnet.sourceforge.net/CCNET/CCTray.html">CCTray</a>는 CCNET에서 제공하는 트레이에서 실행되는 자바 유틸리티로, 서버의 빌드 현황을 실시간으로 모니터링할 때 사용된다. 이 넘도 마찬가지로 강제 빌드 기능을 제공한다.  맨 위의 스크린샷에서도 볼 수 있듯이, 원래는  WebDashBoard 에서 다운받아서 실행할 수 있는 듯한데, 집에서 테스트해보니 경고음만 나오고 아무 것도 실행되지 않았다. 결국은 그냥 인스톨러를 이용해서 설치해서 사용중인데 별 문제는 없는 듯하다.</p>
@@ -114,18 +180,20 @@
 <li>인스톨러 연동하기</li>
 </ul>
 <p>이렇게 적다 보니, 과연 이걸 다 테스트해서 얼마나 더 좋은 효율을 얻을 수 있을지가 심히 궁금해진다. 에휴.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/10/10/webdashboard-cctray/">http://boxcatstudio.wordpress.com/2007/10/10/webdashboard-cctray/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/10/08/msbuild-with-cruise-control-net/">MSBuild with Cruise Control .Net</a> <small>2007-10-08</small></h1>
 	</div>
-	<div><p><img alt="http://www.codeplex.com/ccstatistics/Project/FileDownload.aspx?DownloadId=19113" src="http://www.codeplex.com/ccstatistics/Project/FileDownload.aspx?DownloadId=19113" /></p>
+	<div class="post-content"><p><img alt="http://www.codeplex.com/ccstatistics/Project/FileDownload.aspx?DownloadId=19113" src="http://www.codeplex.com/ccstatistics/Project/FileDownload.aspx?DownloadId=19113" /></p>
 <p><a href="http://kaistizen.net/EE/index.php/imaso/200605_continuous_integration.html/">지속적인 통합(Continuous Integration)</a>은 최근에 읽고 있는 책마다 항상 등장하는 단어다. 요약하자면 빌드 머신에 적당한 CI도구를 설치해두면 누가 커밋할 때마다 소스를 체크아웃해서 빌드하고 테스트를 실행한다는 것이다. 그러나, 우리 팀처럼 테스트가 거의 없고, 커밋 직전에 항상 최신 버전을 다운받아서 <strong>컴파일이 잘 되는지만</strong> 체크하는 정도의 통합 수준을 갖고 있는 조직에서는 그다지 효용성이 있어 보이지 않을 수 있다. (물론 빌드 안하고 커밋하는 개발자를 보유하고 있다면 이야기가 달라진다)  그런데 Cruise Control.Net을 사용하면 상상만 했던 <a href="http://reiot.cafe24.com/2007/09/28/ideal-build-system/">이상적인 빌드 시스템</a> 그 이상을 손쉽게 구현할 수 있다. 단순 배치 파일 실행에서부터, 소스코드 체크아웃은 물론, 버전 넘버를 붙이고, 빌드가 성공하면 소스 저장소에 태그를 붙이기도 하고, 웹기반의 히스토리 관리에서부터 위 그림에서 보이듯 그래프 기반의 뷰도 제공한다. 나아가서 일전에는 실패했던 MSN 연동도 된다!  시험삼아서 구글코드에 올려둔 <a href="http://code.google.com/p/raknet-wrapper/">raknet_wrapper</a> 프로젝트를 체크아웃받아서 빌드하는 스크립트를 만들어봤다.</p>
 <pre><code>
 &lt;cruisecontrol&gt;
@@ -178,18 +246,20 @@ raknet_wrapper.sln
 <li><a href="http://kaistizen.net/EE/index.php/imaso/200605_continuous_integration.html/">[Step by Step] 지속적인 통합(Continuous Integration)</a> -  마이크로소프트웨어 2006년 5월 컬럼</li>
 <li><a href="http://kaistizen.net/EE/index.php/weblog/comments/continuous_integration_for_visual_c/">Visual C++을 위한 지속적인 통합 빌드 서버</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/10/08/msbuild-with-cruise-control-net/">http://boxcatstudio.wordpress.com/2007/10/08/msbuild-with-cruise-control-net/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/10/01/agile-ost-2007/">AgileOST2007</a> <small>2007-10-01</small></h1>
 	</div>
-	<div><p>지난 토요일 KBS 별관에서 진행되었던 <a href="http://xper.org/wiki/xp/AgileOst2007">Agile OST 2007 </a>에 다녀왔다. 미처 등록하지 못한 상태에서 마감되었는데, <a href="http://betterways.tistory.com/252">김기웅님의 도움</a>으로 참가할 수 있었다. (그런데 막상 가보니 이름 체크를 하지는 않았다)</p>
+	<div class="post-content"><p>지난 토요일 KBS 별관에서 진행되었던 <a href="http://xper.org/wiki/xp/AgileOst2007">Agile OST 2007 </a>에 다녀왔다. 미처 등록하지 못한 상태에서 마감되었는데, <a href="http://betterways.tistory.com/252">김기웅님의 도움</a>으로 참가할 수 있었다. (그런데 막상 가보니 이름 체크를 하지는 않았다)</p>
 <p><img alt="http://farm2.static.flickr.com/1052/1460398781_332a98ee1b.jpg?v=0" src="http://farm2.static.flickr.com/1052/1460398781_332a98ee1b.jpg?v=0" /></p>
 <p><a href="http://www.flickr.com/photos/jeongho/sets/72157602211076311/">OST 사진 모음집</a></p>
 <p>OST에서 다뤄졌던 이야기들은 <a href="http://agileconsulting.kr/kbsost/moin.cgi/%EA%B2%8C%EC%9E%84%ED%9A%8C%EC%82%AC%EC%97%90%EC%84%9C%EC%9D%98_%EC%95%A0%EC%9E%90%EC%9D%BC">애자일 컨설팅 위키</a>에 정리한후, 다음주에 xper.org로 옮겨진다고 한다. 몇 가지 소감을 간략하게 적어보면,</p>
@@ -199,32 +269,13 @@ raknet_wrapper.sln
 <li>게임 개발자들이 대략 15-20명 가까이 있었는데, NC나 CJ쪽에서 아리따운 여성 기획자분들이 대거 참가했다. (<a href="http://www.flickr.com/photos/jeongho/sets/72157602211076311/">사진을 클릭</a>해 보시기 바란다) 특히 기획자들이 스크럼을 매우 좋아한다는 사실이 충격적이었다. 반면 프로그래머들은 대체로 부정적이었다는 이야기가 들렸다. 쩝.</li>
 </ul>
 <p>누구 말마따나 agile 이니 XP니 안써도 열정만 있으면 개발은 잘된다고도 한다. 그러나 이제는 열정만으로 움직이는 사람들은 점차 드물어져가는 것이 현실. 다양한 욕구를 가진 사람들을 하나의 비전을 바라보게 하면서 2-3년 동안 달려가게 하려면, 무엇보다도 사람을 중시하는 프로세스가 필요할 것 같다.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2007/09/28/ideal-build-system/">Ideal Build System</a> <small>2007-09-28</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/10/01/agile-ost-2007/">http://boxcatstudio.wordpress.com/2007/10/01/agile-ost-2007/</a></p>
+		
+		
+		
 	</div>
-	<div><p><a href="http://alt-tag.com/blog/archives/2006/11/integrating-mantis-and-subversion/">integrating-mantis-and-subversion</a>을  보고, 이상적인 통합 개발 지원 시스템에 대해서 생각해봤다. 일단 맨티스에서 버그는 물론 new feature (or issue, whatever)를 관리한다고 가정하면,</p>
-<ul>
-<li>SVN에서 커밋할때 특정한 패턴의 로그를 남기면, SVN의 post-commit 훅과 맨티스의 commit 스크립트를 이용해서, 특정 버그 리포트의 상태를 변경하거나 코멘트를 달 수 있다. (다만 SVN과 맨티스가 동일한 머신이어야만 하며, 다른 머신일 경우 좀더 많은 설정을 해줘야 한다)</li>
-<li>빌드 머신에서 <a href="http://support.microsoft.com/kb/q237870/">자동으로 빌드 넘버를 증가</a>시키고, 동시에 맨티스에다가도 동일한 빌드 넘버(버전)를 등록한다.</li>
-<li>당연히 MSBuild를 이용해서 원클릭 만으로 빌드가 가능해야 한다.</li>
-<li>나아가서 post-commit를 이용해서 커밋하면 처음부터 체크아웃받아서 빌드하고 패치까지 하는 스크립트도 제작한다. (또는 <a href="http://reiot.cafe24.com/2007/09/15/svn-notifier/">SVN Notifier</a>와 같이 주기적으로 체크하다가 틈틈히 빌드해도 무방하다)</li>
-<li>맨티스의 ChangeLog 를 패치 노트 파일로 추출해서 보여준다. 맨티스로의 하이퍼링크까지 제공하면 금상첨화!</li>
-<li>이 모든 과정을 웹에서 제어할 수 있으면 좋겠다. 빌드 결과(Build.htm)도 웹으로 업로드해서 볼 수 있으면 더욱 좋다. (특히나 빌드 시간 변화량 같은 것을 그래프로 보여주면 좋을 것 같다)</li>
-</ul>
-<p>자. 만들어주세요. -_-;;</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -291,6 +342,10 @@ raknet_wrapper.sln
 	</li>
 	
 	<li>
+		<a href="/2007/11/08/kgc-2007-1st-day/">KGC 2007 1st Day</a>
+	</li>
+	
+	<li>
 		<a href="/2007/10/26/msbuild-with-cruise-control-net-2/">MSBuild with Cruise Control .Net (2)</a>
 	</li>
 	
@@ -306,10 +361,6 @@ raknet_wrapper.sln
 		<a href="/2007/10/01/agile-ost-2007/">AgileOST2007</a>
 	</li>
 	
-	<li>
-		<a href="/2007/09/28/ideal-build-system/">Ideal Build System</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -320,7 +371,7 @@ raknet_wrapper.sln
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

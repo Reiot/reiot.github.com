@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/04/28/raknet-tips/">RakNet Tips</a> <small>2006-04-28</small></h1>
 	</div>
-	<div><h2>RakPeer::Disconnect(msec,orderingChannel)</h2>
+	<div class="post-content"><h2>RakPeer::Disconnect(msec,orderingChannel)</h2>
 <p>서버에 접속 해제를 알리기 위해서는 RakPeer::Disconnet(msec&gt;0) 를 사용해야 한다. Disconnect(0) 후에 바로 객체를 삭제하면 서버는 10-15초 후에나 연결 끊김을 감지할 수 있게 되며, 그 사이에 서버에 다시 접속할 경우 서버는 이미 연결되어 있는 것으로 간주해버린다. 단 내부적으로 blocking wait 를 하기 때문에 너무 큰 시간을 넘기면 곤란.</p>
 <h2>PacketLogger</h2>
 <p>RakNet에서 제공하는 플러그인 인터페이스를 이용한 패킷 로깅 클래스. peer.AttachPlugin(logger) 만 해주면 콜백에서 자동적으로 로그를 남겨준다. PacketFileLogger를 사용하면 CSV형식으로 로그를 남긴다. 엑셀을 잘 활용해서 트래픽 최적화라든지 그래프를 확인할 수 있다. 좀더 세밀한 로그를 원하면 상속을 받을 것.</p>
@@ -106,13 +112,19 @@
 <h3>긴 메시지의 구현</h3>
 <p>MTU 크기를 넘어선 긴 데이터는, 여러 개의 작은 패킷에 나눠져서(split) 전송될 수 밖에 없다.</p>
 <p>더 많은 팁들은 레이옷의 <a href="http://del.icio.us/reiot/raknet">RakNet 링크모음</a>을 참고할 것.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/04/28/raknet-tips/">http://boxcatstudio.wordpress.com/2006/04/28/raknet-tips/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -137,7 +149,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/06/08/lua-tips/">Lua Tips</a> <small>2006-06-08</small></h1>
 	</div>
-	<div><p>LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.</p>
+	<div class="post-content"><p>LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.</p>
 <h2>LuaPack</h2>
 <p>바이너리 데이터를 pack/unpack 하는 라이브러리. 일단 require 해주면 string.pack, string.unpack 의 2개 함수가 추가된다. 레이옷은 '''순수 루아 테스트 클라이언트'''를 만들기 위해서 LuaSocket 과 함께 사용했다. 단, 리눅스에서 사용하던 놈이라, 윈도우 환경에서 dll 로 사용하기 위해서는 약간의 수고가 필요하다.</p>
 <ul>
@@ -318,11 +324,13 @@ end</p>
 <li>[http://www.icynorth.com/forums/index.php LuaForum]</li>
 <li>http://www.thomasandamy.com/projects/CPB/</li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/08/lua-tips/">http://boxcatstudio.wordpress.com/2006/06/08/lua-tips/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -347,7 +355,7 @@ end</p>
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

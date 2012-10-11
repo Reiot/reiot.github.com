@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2004/11/24/about-mmorpg-balancing/">MMORPG 밸런싱은 너무 힘들어요</a> <small>2004-11-24</small></h1>
 	</div>
-	<div><p>부끄러운 이야기이지만 한때 MMORPG 기획물을 먹을 때, 공식 혹은 비공식적으로 밸런스를 더이상 하고 싶지 않다고 선언한 적이 있습니다. 꿈 많은 기획 초보에서 일년만에 타락한 실패한 기획자가 된 거죠. 알게 모르게 욕도 많이 먹었습니다. 대놓고 실력없다고 욕먹은 적도 있습니다. 그 암울했던 시절의 밸런싱 스토리를 한번 풀어내보겠습니다.</p>
+	<div class="post-content"><p>부끄러운 이야기이지만 한때 MMORPG 기획물을 먹을 때, 공식 혹은 비공식적으로 밸런스를 더이상 하고 싶지 않다고 선언한 적이 있습니다. 꿈 많은 기획 초보에서 일년만에 타락한 실패한 기획자가 된 거죠. 알게 모르게 욕도 많이 먹었습니다. 대놓고 실력없다고 욕먹은 적도 있습니다. 그 암울했던 시절의 밸런싱 스토리를 한번 풀어내보겠습니다.</p>
 <p><strong>완벽한 밸런스?</strong></p>
 <p>모든 유저들의 마음에 쏙 드는 리밸런싱은 있을 수 없다. 그러나, 가장 많은 유저들이 만족한다면 그게 바로 제대로 된 밸런스다.</p>
 <p>기술이 추가되거나, 전투 공식이 수정되거나, 몬스터 배치가 바뀌거나, 아이템 가격이 변동되면 분명히 누군가는 불만을 토로하게 되더군요. 그 누군가가 게임 내에서 길마 등 일정 지위(-<em>-)에 도달해 있거나, 덕망(-</em>-)이 높거나, 사장과 안면이 있거나, 게시판 글발이 좋을 경우 후폭풍이 무조건 몰아치더라구요.</p>
@@ -114,15 +120,25 @@
 <p>KGDA의 어딘가에서 본 글처럼, 아무래도 한국에는 이를 제대로 할 줄 아는 개발자가 많지 않은 듯 합니다. 이게 개발자가 알아서 해야 할 일은 아니겠지만요.</p>
 <pre><code>그나저나, 이렇게 결론지으면 뭐하나요? 동접이 늘어나질 않는데... ㅠㅠ
 </code></pre></div>
-	<br />
-	<p>
-	
-		<a href="/category/columns/"><span class="label label-info"><span class="icon icon-folder-open"></span> columns</span></a>
-	
-	
-		<a href="/tag/game design/"><span class="label"><span class="icon icon-tag"></span> game design</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2004/11/24/about-mmorpg-balancing/">http://boxcatstudio.wordpress.com/2004/11/24/about-mmorpg-balancing/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/columns/"><span class="label label-info"><span class="icon icon-folder-open"></span> columns</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/game design/"><span class="label"><span class="icon icon-tag"></span> game design</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -131,7 +147,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,30 +68,40 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2011/01/12/haveappserver-vs-onproductionserver/">have_app_server vs. on_production_server</a> <small>2011-01-12</small></h1>
 	</div>
-	<div><p>사실 하고 싶은 건, (app id, on production server) 조합으로 적합한 facebook setting 을 로딩하는 건데.. 웬지 잘 안되었던 것 같은 느낌 :)</p>
+	<div class="post-content"><p>사실 하고 싶은 건, (app id, on production server) 조합으로 적합한 facebook setting 을 로딩하는 건데.. 웬지 잘 안되었던 것 같은 느낌 :)</p>
 <pre><code>from google.appengine.api import apiproxy_stub_map
 import os
 have_appserver = bool(apiproxy_stub_map.apiproxy.GetStub('datastore_v3'))
 on_production_server = have_appserver and \
   not os.environ.get('SERVER_SOFTWARE', '').lower().startswith('devel')
 </code></pre></div>
-	<br />
-	<p>
-	
-		<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-	
-	
-		<a href="/tag/django-norel/"><span class="label"><span class="icon icon-tag"></span> django-norel</span></a>
-	
-		<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-	
-		<a href="/tag/django/"><span class="label"><span class="icon icon-tag"></span> django</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2011/01/12/haveappserver-vs-onproductionserver/">http://boxcatstudio.wordpress.com/2011/01/12/haveappserver-vs-onproductionserver/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/django-norel/"><span class="label"><span class="icon icon-tag"></span> django-norel</span></a>
+		
+			<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
+		
+			<a href="/tag/django/"><span class="label"><span class="icon icon-tag"></span> django</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -110,7 +126,7 @@ on_production_server = have_appserver and \
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

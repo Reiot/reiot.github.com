@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2005/03/21/tortoisesvn/">TortoiseSvn</a> <small>2005-03-21</small></h1>
 	</div>
-	<div><p>탐색기에서의 버전 관리라니... 아무래도 IDE 에 연동되는 것에 비해서는 좀 불편하지 않을까? 하는 것이 나의 첫 느낌이었다. 물론 Visual Studio .NET 에 연동되는 넘이 있긴 하지만, 아직까지 안정화되어 있지 않다는 소문 때문에, 결국 거북이SVN 으로 오게 되었다. 그런데 이틀 정도 써보니까 어째 예전에 비해서 심리적인 면에서 더 편해졌다는 느낌이 들었다.</p>
+	<div class="post-content"><p>탐색기에서의 버전 관리라니... 아무래도 IDE 에 연동되는 것에 비해서는 좀 불편하지 않을까? 하는 것이 나의 첫 느낌이었다. 물론 Visual Studio .NET 에 연동되는 넘이 있긴 하지만, 아직까지 안정화되어 있지 않다는 소문 때문에, 결국 거북이SVN 으로 오게 되었다. 그런데 이틀 정도 써보니까 어째 예전에 비해서 심리적인 면에서 더 편해졌다는 느낌이 들었다.</p>
 <p>우선, '체크아웃하시겠습니까? 라는 창이 안떠서 좋았다.' 사실 이건 VSS 옵션을 끄면 되는 것이지만, 웬지 새로운 소스를 고치기 전 경건한 마음을 가지자는 의미에서 그냥 켜두곤 했는데, 실제로는 꽤나 심리적인 불편함과 강박 관념(너는 소스를 더럽히고 있다..)을 개발자에게 주고 있다는 생각이 들었다. 좀더 코드에 편하게 접근할 수 있게 되었다고나 할까? (만약 아직 VSS를 사용하고 있다면 이 옵션을 끄고 작업해 보기 바란다.)</p>
 <p>두번째는 IDE에서 작업하고 탐색기에서 커밋할 때의 심리적인 해방감이 들게 되었다는 점. 가장 비슷한 예라면 회사에서 양복을 입다가 집에서 평상복을 입을 때의 느낌이리라. 딱딱한 IDE에서 비교적 화려한 탐색기 + 바탕화면으로 전환되면서 내가 이제 커밋을 하게 된다는 마음 자세로 바뀌더라는, 실로 억지스러운 주장이다. :)</p>
 <p>세번째로는 로컬 워킹 카피에 있는 삭제된 파일들을 손쉽게 관리할 수 있게 되었다는 점이다. VSS를 쓸 경우 버전 관리되던 파일을 삭제하려면 로컬 카피도 지우고 저장소에서도 지워 줘야 한다. IDE에서 삭제하는 것까지 감안하면 세 군데에서 지워줘야 한다. 역시나 이것도 저장소에서 삭제시 로컬 파일도 삭제한다는 VSS 옵션이 있긴 하지만 좀 위험한 감이 있어서 실제로 쓰기는 곤란했었는데, SubVersion 에서는 아예 파일 관리를 탐색기에서 다 할 수 있어서 괜찮은 듯 했다.</p>
@@ -80,15 +86,25 @@
 </em> SubVersion<br />
 <em> SeriousCode:Subversion<br />
 </em> <a href="http://wiki.kldp.org/wiki.php/DocbookSgml/Subversion-HOWTO">KLDP:SubVersion</a></p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/subversion/"><span class="label"><span class="icon icon-tag"></span> subversion</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/03/21/tortoisesvn/">http://boxcatstudio.wordpress.com/2005/03/21/tortoisesvn/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/subversion/"><span class="label"><span class="icon icon-tag"></span> subversion</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -113,7 +129,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

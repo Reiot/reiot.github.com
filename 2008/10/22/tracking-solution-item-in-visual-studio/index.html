@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,24 +68,34 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/10/22/tracking-solution-item-in-visual-studio/">Tracking Solution Item</a> <small>2008-10-22</small></h1>
 	</div>
-	<div><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg" /></a></p>
+	<div class="post-content"><p><a href="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg"><img alt="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg" src="http://boxcatstudio.files.wordpress.com/2009/07/vs_option.jpg" /></a></p>
 <p>현재 편집기에 선택한 문서를 솔루션 탐색기에서 찾아주는 옵션이다. 프로젝트가 여러 개이거나 폴더 트리가 깊을 경우 유용하다. (Visual Studio 2005 이상)</p>
 <p><a href="http://www.google.co.kr/search?rlz=1C1GGLS_koKR294&amp;sourceid=chrome&amp;ie=UTF-8&amp;q=솔루션+탐색기에서+활성화된+항목+추적">아시는 분들</a>도 꽤 많으시지만, <a href="http://suigui.com/wordpress/2008/10/22/디버깅-watch/">DDD(Debugging Driven Development)의 창시자</a>이신 모군도 모르는 옵션이라고 해서 한번 써본다.</p>
 <p>ps. 소니군이 최근 <a href="http://sonee.com/253">미국 불황의 여파와 중국 올림픽 덕분에 캔슬된 비운의 프로젝트의 스크린샷</a>을 공개했으니 한번쯤 구경해주시기 바란다.</p>
 <p>[caption id="" align="aligncenter" width="500" caption="Real Baseball 2009(Ceased)"]<a href="http://sonee.com/253" target="_blank"><img alt="http://cfs15.tistory.com/upload_control/download.blog?fhandle=YmxvZzk4OTRAZnMxNS50aXN0b3J5LmNvbTovYXR0YWNoLzAvMC5qcGc=" src="http://cfs15.tistory.com/upload_control/download.blog?fhandle=YmxvZzk4OTRAZnMxNS50aXN0b3J5LmNvbTovYXR0YWNoLzAvMC5qcGc=" /></a>[/caption]</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/visualstudio/"><span class="label"><span class="icon icon-tag"></span> visualstudio</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/10/22/tracking-solution-item-in-visual-studio/">http://boxcatstudio.wordpress.com/2008/10/22/tracking-solution-item-in-visual-studio/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/visualstudio/"><span class="label"><span class="icon icon-tag"></span> visualstudio</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -104,7 +120,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

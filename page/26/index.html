@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -67,11 +73,44 @@
 	<div class="row">
 		<div class="span9">
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
+		<h1><a href="/2007/05/07/_has_iterator_debugging/">_HAS_ITERATOR_DEBUGGING</a> <small>2007-05-07</small></h1>
+	</div>
+	<div class="post-content"><p>디버그 버전에서 STL (특히 collection iterating) 로 인해서 무지막지하게 느려지는 경우가 종종 있다. 이때</p>
+<p><code>#define _HAS_ITERATOR_DEBUGGING 0</code>만으로 두 배 가량의 속도 향상을 얻을 수 있다. <a href="http://reiot.springnote.com/pages/87168">STL팁 페이지</a>에 정리된 예제를 통해서 얻은 결과를 살펴보면,</p>
+<ul>
+<li><strong>end() 를 for 안에 포함할 경우 : 234ms</strong></li>
+<li>end() 를 for 바깥쪽에 둘 경우 : 172ms</li>
+<li><strong>accumulate : 31ms</strong></li>
+</ul>
+<p>반면 _HAS_ITERATOR_DEBUGGING을 끌 경우,</p>
+<ul>
+<li>end() 를 for 안에 포함할 경우 : 125ms</li>
+<li><strong><em>end() 를 for 바깥쪽에 둘 경우 : 94ms</em></strong></li>
+<li><strong>accumulate : 31ms</strong></li>
+</ul>
+<p>이 결과로만 본다면 디버그 버전에서, 거대한 컨테이너에 한해,  200% 정도의 속도 향상을 얻은 셈이다. 그러나 가장 빠른 것은 STL 알고리즘을 사용하는 것이라는 것도 잊지 말기 바란다.</p></div>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/05/07/_has_iterator_debugging/">http://boxcatstudio.wordpress.com/2007/05/07/_has_iterator_debugging/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+	</div>
+</div>
+			
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/05/01/manifesto-for-agile-software-development/">Manifesto for Agile Software Development</a> <small>2007-05-01</small></h1>
 	</div>
-	<div><h2>Manifesto for Agile Software Development</h2>
+	<div class="post-content"><h2>Manifesto for Agile Software Development</h2>
 <p>We are uncovering better ways of developing<br />
 software by doing it and helping others do it.<br />
 Through this work we have come to value:</p>
@@ -83,18 +122,20 @@ Through this work we have come to value:</p>
 the right, we value the items on the left more.</p>
 <p>birdkr님께서 <a href="http://mypage.sarang.net/tt/140">친절하게 번역</a>도 해주시고, <a href="http://mypage.sarang.net/tt/143">현업에서 실제로 어떻게 쓰고 있는지</a>도 잘  소개해 주셨다. 역시나 순수한 XP보다는 <a href="http://en.wikipedia.org/wiki/Scrum_(management)">SCRUM</a>이 게임에는 더 잘 어울린다고 생각했는데, 어쨌거나, 내가 이런 저런 이유로 시도하지 못하고 있는 걸 <a href="http://www.maiet.net/company/">이미 적용중인 팀</a>을 보면 정말 부럽고 자극이 된다. 핫핫.</p>
 <p>생각과 행동, 그 거대한 차이는 무엇일까?</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/05/01/manifesto-for-agile-software-development/">http://boxcatstudio.wordpress.com/2007/05/01/manifesto-for-agile-software-development/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/03/20/소규모-게임-회사에서-sw-구매-비용을-줄이는-법/">소규모 게임 회사에서 SW 구매 비용을 줄이는 법</a> <small>2007-03-20</small></h1>
 	</div>
-	<div><ul>
+	<div class="post-content"><ul>
 <li>위키는 <a href="http://www.springnote.com/">스프링노트</a></li>
 <li>워드와 엑셀은 <a href="http://docs.google.com/">docs.google.com</a></li>
 <li>이메일은 <a href="http://www.google.com/a/">구글 Apps</a></li>
@@ -106,62 +147,50 @@ the right, we value the items on the left more.</p>
 <li>포토샵 대신 <a href="http://www.getpaint.net/">Paint.net</a></li>
 <li>3D MAX 대신 <a href="http://www.blender.org/">Blender</a></li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/03/20/%ec%86%8c%ea%b7%9c%eb%aa%a8-%ea%b2%8c%ec%9e%84-%ed%9a%8c%ec%82%ac%ec%97%90%ec%84%9c-sw-%ea%b5%ac%eb%a7%a4-%eb%b9%84%ec%9a%a9%ec%9d%84-%ec%a4%84%ec%9d%b4%eb%8a%94-%eb%b2%95/">http://boxcatstudio.wordpress.com/2007/03/20/%ec%86%8c%ea%b7%9c%eb%aa%a8-%ea%b2%8c%ec%9e%84-%ed%9a%8c%ec%82%ac%ec%97%90%ec%84%9c-sw-%ea%b5%ac%eb%a7%a4-%eb%b9%84%ec%9a%a9%ec%9d%84-%ec%a4%84%ec%9d%b4%eb%8a%94-%eb%b2%95/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/03/16/unreal3-is-from-10000k/">언리얼3 엔진을 단돈 1억으로 라이센싱?</a> <small>2007-03-16</small></h1>
 	</div>
-	<div><ul>
+	<div class="post-content"><ul>
 <li><a href="http://www.gpgstudy.com/forum/viewtopic.php?topic=15141">언리얼 3 엔진을 단돈 1억으로 라이센싱하는 법</a> : 우와!이 정도면 1억만 구해서 개발을 시작한 다음, 엔진 가격을 벌 수 있을 때까지 오픈베타를 질질 끌면 되지 않을까? :P</li>
 <li><a href="http://jhrogue.blogspot.com/2007/03/blog-post_14.html">me2day vs. playtalk</a> 논란 :  사람들은 채팅으로 받아들이고 있었구나.. 난 단지 <a href="http://www.hof.pe.kr/wp/archives/2323">더블트랙 스타일</a>로 믿고 있었는데.</li>
 </ul></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/03/16/unreal3-is-from-10000k/">http://boxcatstudio.wordpress.com/2007/03/16/unreal3-is-from-10000k/</a></p>
+		
+		
+		
+	</div>
 </div>
 			
-				<div>
-	<div class="page-header">
+				<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/02/28/70ms-최대-입력-딜레이/">70ms : 최대 입력 딜레이</a> <small>2007-02-28</small></h1>
 	</div>
-	<div><p><a href="http://devsupport.ageia.com/ics/support/default.asp?deptID=1949">PhysX Knowledge Base</a>(가입 필요)에 의하면,</p>
+	<div class="post-content"><p><a href="http://devsupport.ageia.com/ics/support/default.asp?deptID=1949">PhysX Knowledge Base</a>(가입 필요)에 의하면,</p>
 <ul>
 <li>서울의 RTT는 200ms 정도인 반면, 미국은 400-500ms을 넘기는 게 보통이다.</li>
 <li>한국에서의 어떤 연구 결과에 의하면,  대부분의 사용자들은 70ms정도의 입력 딜레이를 인지하지 못한다. 100ms 정도가 되면 느리다고 인식을 하지만 대체로잘 적응해나가지만, 그 이상이 되면 아무도 이를 용납하려고 하지 않는다고 한다.</li>
 <li>70ms의 입력 딜레이를 잘 이용하면 레이턴시를 일정 정도 극복할 수 있다.</li>
 </ul>
 <p>PhysX이야기가 나온 김에, 이번에 새로 나온듯한<a href="http://www.planetphysx.com/weblog/archives/2007/02/ageia_soft_body_demonstration.html"> soft body demo</a>를 한번쯤 보기 바란다. 쓸 데는 별로 없는 듯하지만;;</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
-</div>
-			
-				<div>
-	<div class="page-header">
-		<h1><a href="/2007/02/21/ea가-iphone용-게임을-만든다/">EA가 IPhone용 게임을 만든다?</a> <small>2007-02-21</small></h1>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/02/28/70ms-%ec%b5%9c%eb%8c%80-%ec%9e%85%eb%a0%a5-%eb%94%9c%eb%a0%88%ec%9d%b4/">http://boxcatstudio.wordpress.com/2007/02/28/70ms-%ec%b5%9c%eb%8c%80-%ec%9e%85%eb%a0%a5-%eb%94%9c%eb%a0%88%ec%9d%b4/</a></p>
+		
+		
+		
 	</div>
-	<div><p><a href="http://www.osweekly.com/index.php?option=com_content&amp;task=view&amp;id=2475&amp;Itemid=449">Apple gets into gaming</a></p>
-<ul>
-<li>EA가 IPhone용 게임을 만들기 위해서 애플과 협의중이다.</li>
-<li><font size="2"></font><font face="arial,helvetica,sans-serif">비주얼드를 만든 PopCap Games가 애플TV용 게임을 만들고 싶어 한다고 한다.<br />
-</font></li>
-</ul>
-<p>흠. OSX를 지원하는 모바일 3D 엔진이 있으면 꽤 뜨겠는걸?</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
 </div>
 			
 			<div class="pagination pagination-centered">
@@ -228,6 +257,10 @@ the right, we value the items on the left more.</p>
 	</li>
 	
 	<li>
+		<a href="/2007/05/07/_has_iterator_debugging/">_HAS_ITERATOR_DEBUGGING</a>
+	</li>
+	
+	<li>
 		<a href="/2007/05/01/manifesto-for-agile-software-development/">Manifesto for Agile Software Development</a>
 	</li>
 	
@@ -243,10 +276,6 @@ the right, we value the items on the left more.</p>
 		<a href="/2007/02/28/70ms-최대-입력-딜레이/">70ms : 최대 입력 딜레이</a>
 	</li>
 	
-	<li>
-		<a href="/2007/02/21/ea가-iphone용-게임을-만든다/">EA가 IPhone용 게임을 만든다?</a>
-	</li>
-	
 	<li class="nav-header dsq-widget-title">
 		Recent Comments
 	</li>
@@ -257,7 +286,7 @@ the right, we value the items on the left more.</p>
 
 	<footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

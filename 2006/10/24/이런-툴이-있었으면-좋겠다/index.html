@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,24 +68,30 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2006/10/24/이런-툴이-있었으면-좋겠다/">이런 툴이 있었으면 좋겠다</a> <small>2006-10-24</small></h1>
 	</div>
-	<div><ul>
+	<div class="post-content"><ul>
 <li>ProjectDiff : Visual Studio 프로젝트 속성을 비교하거나 merge해주는 툴</li>
 <li>IntDir, OutDir, 포함/라이브러리 디렉토리 설정, 링킹 라이브러리 등의 프로젝트 속성을 매번마다 세팅하는 것은 너무나되 귀찮은 일이다.</li>
 <li>특정 프로젝트로부터 복사해오거나 비교한 후 그래픽적으로 merge 해주는 기능이 있으면 참 좋겠다.</li>
 <li>DatabaseDiff : 2개의 데이터베이스를 비교해서 그래픽적으로 차이점을 보여주는 툴</li>
 <li>덤으로 패치 스크립트를 만들어주면 금상첨화</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/10/24/%ec%9d%b4%eb%9f%b0-%ed%88%b4%ec%9d%b4-%ec%9e%88%ec%97%88%ec%9c%bc%eb%a9%b4-%ec%a2%8b%ea%b2%a0%eb%8b%a4/">http://boxcatstudio.wordpress.com/2006/10/24/%ec%9d%b4%eb%9f%b0-%ed%88%b4%ec%9d%b4-%ec%9e%88%ec%97%88%ec%9c%bc%eb%a9%b4-%ec%a2%8b%ea%b2%a0%eb%8b%a4/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -104,7 +116,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

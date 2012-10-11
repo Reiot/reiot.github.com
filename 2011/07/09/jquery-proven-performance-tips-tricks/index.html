@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a> <small>2011-07-09</small></h1>
 	</div>
-	<div><p><a href="http://www.slideshare.net/AddyOsmani/jquery-proven-performance-tips-tricks">jQuery Proven Performance Tips &amp; Tricks</a> 간단 요약</p>
+	<div class="post-content"><p><a href="http://www.slideshare.net/AddyOsmani/jquery-proven-performance-tips-tricks">jQuery Proven Performance Tips &amp; Tricks</a> 간단 요약</p>
 <ul>
 <li>최신 버전을 사용해라. (1.4 보다 1.6이 2배 가까이 빠르다)</li>
 <li>id 선택자가 class 선택자보다 5-10배 이상 빠르다.</li>
@@ -82,15 +88,25 @@
 </ul>
 <p>대체로 아는 이야기라는 점이 슬프다. 그걸 아는 놈이 짠 코드가 이 모양이라니.. ㅠㅠ</p>
 <p>그나저나 jsperf.com 같은 걸로 브라우저별로 검증해보지 않으면 다 공허한 이야기인 듯. 재미있는 건 IE 6/7 클래스 선택자의 속도가 다른 브라우저보다 1000-2000배 느리다는 점과, 크롬 13.x 의 성능이 갑자기 앞뒤버전보다 확 떨어졌다는 것. :)</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/jquery/"><span class="label"><span class="icon icon-tag"></span> jquery</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2011/07/09/jquery-proven-performance-tips-tricks/">http://boxcatstudio.wordpress.com/2011/07/09/jquery-proven-performance-tips-tricks/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/jquery/"><span class="label"><span class="icon icon-tag"></span> jquery</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -115,7 +131,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

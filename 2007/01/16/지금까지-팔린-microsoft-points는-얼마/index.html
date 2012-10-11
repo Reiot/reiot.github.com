@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2007/01/16/지금까지-팔린-microsoft-points는-얼마/">지금까지 팔린 Microsoft points는 얼마?</a> <small>2007-01-16</small></h1>
 	</div>
-	<div><p>지금 만들고 있는 게임이 국내용이 아닌지라, 해외 특히 미국에서 서비스중인 게임들의 비지니스 모델들을 연구하고 있다. 그런 와중에, 개인적으로 관심있게 지켜보고 있는 <a href="http://www.majornelson.com/archive/2006/08/31/Over-50-Million-Marketplace-downloads-served.aspx">XBOX 라이브 마켓플레이스의 2006년 8월의 통계 자료</a>를 찾았다. 그 중에서 괄목할만한 통계들만 뽑아보면...</p>
+	<div class="post-content"><p>지금 만들고 있는 게임이 국내용이 아닌지라, 해외 특히 미국에서 서비스중인 게임들의 비지니스 모델들을 연구하고 있다. 그런 와중에, 개인적으로 관심있게 지켜보고 있는 <a href="http://www.majornelson.com/archive/2006/08/31/Over-50-Million-Marketplace-downloads-served.aspx">XBOX 라이브 마켓플레이스의 2006년 8월의 통계 자료</a>를 찾았다. 그 중에서 괄목할만한 통계들만 뽑아보면...</p>
 <ul>
 <li>5천만 회 : 마켓플레이스를 통한 다운로드 회수. 불과 3개월 전에 2천5백만회였음.</li>
 <li>2백만 시간 : 매든 07을 판매한 첫 주만에 달성한, 라이브를 통해 이루어진 네트워크 플레이 시간의 총합</li>
@@ -80,13 +86,19 @@
 <ul>
 <li><a href="http://trimbo.blogspot.com/2006/09/whoa-can-this-be-true.html">whoa-can-this-be-true</a> : 2천5백만불의 가치?</li>
 </ul></div>
-	<br />
-	<p>
-	
-		<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/01/16/%ec%a7%80%ea%b8%88%ea%b9%8c%ec%a7%80-%ed%8c%94%eb%a6%b0-microsoft-points%eb%8a%94-%ec%96%bc%eb%a7%88/">http://boxcatstudio.wordpress.com/2007/01/16/%ec%a7%80%ea%b8%88%ea%b9%8c%ec%a7%80-%ed%8c%94%eb%a6%b0-microsoft-points%eb%8a%94-%ec%96%bc%eb%a7%88/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
+		
+		</p>
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -111,7 +123,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

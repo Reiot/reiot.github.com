@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2008/07/04/google-test/">Google Test</a> <small>2008-07-04</small></h1>
 	</div>
-	<div><p>구글에서 나온 <a href="http://code.google.com/p/googletest/">C++ Unit Test Framework.</a></p>
+	<div class="post-content"><p>구글에서 나온 <a href="http://code.google.com/p/googletest/">C++ Unit Test Framework.</a></p>
 <p>대체적으로 다른 프레임워크와 유사한데 몇몇 특징적인 기능들이 눈에 띄어서 요약해본다.</p>
 <p>Custom Failure Message : 테스트 실패시 에러 메시지를 보다 친절하게 쓸 수 있다. 아래 예제처럼 i 값을 출력할 수 있다는 점이 멋지다.</p>
 <pre><code>
@@ -127,11 +133,13 @@ Actual: 3
 --gtest_repeat : 테스트를 N번 실행할 수 있다. --gtest_filter 와 함께 쓰면 특정 테스트만 반복해서 수행할 수 있다.</p>
 <p>DISABLED_ : 임시로 테스트를 실행하지 않으려면 코멘트로 막는 대신 이름 앞에다가 DISABLED_ 를 붙이면 된다.</p>
 <p>대충 기능만 훑어봤는데도 이 넘들이 진짜 테스트에서 귀찮은 게 무엇인지를 잘 알고 만들었다는 느낌이 든다. 멋진 놈들이란 말이야</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2008/07/04/google-test/">http://boxcatstudio.wordpress.com/2008/07/04/google-test/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -156,7 +164,7 @@ Actual: 3
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

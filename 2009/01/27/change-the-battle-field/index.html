@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2009/01/27/change-the-battle-field/">Change the Battle Field</a> <small>2009-01-27</small></h1>
 	</div>
-	<div><p>MS, Google, Intel, IBM, Adobe, Dell, Sony, Sanyo... <a href="http://itviewpoint.com/98855">놀라운 감원 쯔나미</a>는 겨우 시작일 뿐이다.</p>
+	<div class="post-content"><p>MS, Google, Intel, IBM, Adobe, Dell, Sony, Sanyo... <a href="http://itviewpoint.com/98855">놀라운 감원 쯔나미</a>는 겨우 시작일 뿐이다.</p>
 <p>성장 동력이 없거나 멈춘 국내 게임 회사들이, 직원 월급을 못주고 있다는 첩보가 속속 입수되고 있다.  정말 <a href="http://reiot.cafe24.com/2008/11/16/prepare-the-battle/">대충 예상해본 것</a>들이 슬슬 현실로 다가 오고 있다는 이야기다. 그나마 반가운 소식은 <a href="http://qu2ik.tistory.com/297">게임이 불황에도 웃음지을 수 있는 몇 안되는 산업이라는 뉴스 </a>정도다.  </p>
 <p>혹자는 힘들 때일수록 몸집을 줄이고 직원 교육에 투자하라고 조언하지만, 내가 사장이라도 그건 쉽지 않은 일이다.  마구 사람을 잘라내고 있는 서구 기업들은 과연 바보라서 그러는 걸까. 그럼 우리는 이 추운 겨울을 어떻게 견디어내야 할까? 개인적으로도 <a href="http://blog.daum.net/tudler/15659618">선 거두절미 후 줄탁동시</a>를 시행해야 한다고 본다. 즉,</p>
 <ul>
@@ -77,11 +83,13 @@
 <li>무엇보다도 전장 플랫폼을 바꾼다. 살아남는 자가 강한 것처럼, 하고 싶어 하는 것보다는 잘하는 분야를 계속 파나가고, 그걸 다른 플랫폼으로 옮겨가는 전략은 어떨까. 돈먹는 하마인 MMO, 다 비슷비슷한 캐주얼, 횡스크롤 액션..  새로운 성장 동력 찾기가 쉽지 않은 건 알고 있는데, 너무 멀리서 찾다가 피같은 돈을 다 날려먹으면 곤란하다. 물론 와우를 능가하는 MMO를 만들어서 년간 1조씩 벌어들여도 되겠지만. </li>
 </ul>
 <p>뻔한 이야기를 시니컬하게 쓰면 다들 우러러 보는 게 요즘 트렌드이길래, 나도 덩달아서 비스무리하게 써 봤다. 그러나 요즘은 불유쾌한 예언을 하는 자가 잡혀 들어가는 세상인지라, 또 쓸데없이 오해 크리나 받지나 않을까 해서 고이 모셔뒀었는데, 오늘 또<a href="http://news.bbc.co.uk/2/hi/business/7851481.stm"> ING 7천, 필립스 6천, GM 2천 등 총 7만명짜리 GLOBAL JOB CUTS</a> 이 있었다길래 어째 으스스해서 공개해본다.</p></div>
-	<br />
-	<p>
-	
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2009/01/27/change-the-battle-field/">http://boxcatstudio.wordpress.com/2009/01/27/change-the-battle-field/</a></p>
+		
+		
+		
+	</div>
 </div>
 
     <hr/>
@@ -106,7 +114,7 @@
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 

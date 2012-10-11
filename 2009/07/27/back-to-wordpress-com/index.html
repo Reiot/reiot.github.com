@@ -43,17 +43,23 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
-              <li><a href="/tag/">Tags</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Browse
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/archives/">Archives</a></li>
+                  <li><a href="/category/">Categories</a></li>
+                  <li><a href="/tag/">Tags</a></li>
+                  <li><a href="#" id="random-post">Random</a></li>
+                </ul>
+              </li>
 			  
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
             </form>
-            <ul class="nav">
-              <li><a id="random-post" href="#"><span class="icon-random icon-white"></span> </a></li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,11 +68,11 @@
 	
 <div class="container">
 
-	<div>
-	<div class="page-header">
+	<div class="post">
+	<div class="post-title page-header">
 		<h1><a href="/2009/07/27/back-to-wordpress-com/">Back to Wordpress.com</a> <small>2009-07-27</small></h1>
 	</div>
-	<div><p>[caption id="attachment_2242" align="alignnone" width="300" caption="배고픈 길냥이 오형제"]<a href="http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg"><img alt="배고픈 길냥이 오형제" src="http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg?w=300" /></a>[/caption]</p>
+	<div class="post-content"><p>[caption id="attachment_2242" align="alignnone" width="300" caption="배고픈 길냥이 오형제"]<a href="http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg"><img alt="배고픈 길냥이 오형제" src="http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg?w=300" /></a>[/caption]</p>
 <p>호스팅 만료 한 달을 앞두고, 다시 wordpress.com 으로 전격 이사를 왔다.</p>
 <p>국내의 정치적 핍박을 참지 못하고 사이버 망명길에 오르기엔, 여긴 그저 조회수 낮은 힘없는 일개 프로그래머의 해우소일 뿐이지만, 그래도 최근 MB족들의 하는 꼬라지를 보면 언제 호스팅이 날아가고 데이터가 악의 손아귀에 들어갈 지 모를 터다.</p>
 <p>어쨌거나 설치형 워드프레스(이하 WP)에서 호스팅형으로 돌아갈 때 가장 걸리는 것은 바로 첨부 파일이다. 비록 WP가 XML 기반의 Export/Import 를 지원하긴 하지만 첨부 파일까지 자동으로 옮겨주지는 않기 때문이다. 그래서 처음 생각한 건 각종 이미지들을 구글의 피카사웹으로 올린 후, 그 URL을 찾아서 XML파일을 교체한다는 아이디어였다.</p>
@@ -147,19 +153,29 @@ out_xml.close()
 </code></pre>
 
 <p>정규식은 항상 볼 때마다 새로운 느낌이 들어서, 꽤 시간이 많이 걸렸다. 또 큰 파일에서 유니코드로 빠르게 읽으려면 codecs 모듈이 좋댄다.</p></div>
-	<br />
-	<p>
-	
-		<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-	
-	
-		<a href="/tag/wordpress/"><span class="label"><span class="icon icon-tag"></span> wordpress</span></a>
-	
-		<a href="/tag/export/"><span class="label"><span class="icon icon-tag"></span> export</span></a>
-	
-		<a href="/tag/picasa/"><span class="label"><span class="icon icon-tag"></span> picasa</span></a>
-	
-	</p>
+	<div class="well well-small">
+		
+		<p>Source: <a href="http://boxcatstudio.wordpress.com/2009/07/27/back-to-wordpress-com/">http://boxcatstudio.wordpress.com/2009/07/27/back-to-wordpress-com/</a></p>
+		
+		
+		<p>Category:
+		
+			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
+		
+		</p>
+		
+		
+		<p>Tags:
+		
+			<a href="/tag/wordpress/"><span class="label"><span class="icon icon-tag"></span> wordpress</span></a>
+		
+			<a href="/tag/export/"><span class="label"><span class="icon icon-tag"></span> export</span></a>
+		
+			<a href="/tag/picasa/"><span class="label"><span class="icon icon-tag"></span> picasa</span></a>
+		
+		</p>
+		
+	</div>
 </div>
 
     <hr/>
@@ -184,7 +200,7 @@ out_xml.close()
 
     <footer>
 	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.0.1</a>
+		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
 	</p>
 </footer>
 
