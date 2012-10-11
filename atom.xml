@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-10-11T21:29:57Z</updated><author><name>Ray Yun</name></author><entry><title>C++11</title><link href="/2012/10/11/c++11/" rel="alternate"></link><updated>2012-10-11T21:29:57Z</updated><id>tag:None,2012-10-11:/2012/10/11/c++11//</id><summary type="html">&lt;p&gt;C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11 같은 게 정말 좋아졌다고 하긴 , 한눈에 알아볼 수 있는 한글 사이트가 없기에 한번 정리해봤다. 위키피디아 문서를 기준으로 요약, 번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-10-11T21:29:57Z</updated><author><name>Ray Yun</name></author><entry><title>C++11</title><link href="/2012/10/11/c++11/" rel="alternate"></link><updated>2012-10-11T21:29:57Z</updated><id>tag:None,2012-10-11:/2012/10/11/c++11//</id><summary type="html">&lt;p&gt;C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11 같은 게 정말 좋아졌다고 하긴 하는데, 한눈에 알아볼 수 있는 &lt;em&gt;한글&lt;/em&gt; 사이트가 없기에 한번 정리해봤다. 위키피디아 문서를 기준으로 요약, 번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다. 물론 코드 따위는 컴파일해보지 않았으니, 왜 안돌아가냐고 물으시면 곤란;;&lt;/p&gt;
 &lt;h2&gt;rvalue 참조 연산자 &amp;amp;&amp;amp;&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;class A {
     char* buf;
@@ -355,9 +355,8 @@ f4(foo, 1);
 &lt;h3&gt;기타&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;템플릿 선언할 때 일부러 &lt;code&gt;&amp;gt; &amp;gt;&lt;/code&gt; 띄워쓰지 않아도 컴파일러가 잘 처리해준다.&lt;/li&gt;
-&lt;li&gt;변환 연산자(conversion operator)에도 explicit 를 붙일 수 있다.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;thread_local&lt;/code&gt; 를 붙이면 쓰레드 로컬 변수를 선언할 수 있다.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;long long int&lt;/code&gt; 타입이 추가되었다...는데 원래 long long 이 있지 않았나?&lt;/li&gt;
+&lt;li&gt;변환 연산자(conversion operator)에도 &lt;code&gt;explicit&lt;/code&gt; 를 붙일 수 있다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;thread_local&lt;/code&gt; 지시를 붙이면 쓰레드 로컬 변수를 선언할 수 있다.&lt;/li&gt;
 &lt;/ul&gt;</summary></entry><entry><title>DropPress</title><link href="/2012/09/16/droppress/" rel="alternate"></link><updated>2012-09-16T08:19:35Z</updated><id>tag:None,2012-09-16:/2012/09/16/droppress//</id><summary type="html">&lt;p&gt;&lt;a href="http://github.com/Reiot/droppress"&gt;DropPress&lt;/a&gt;는 이번에 다 죽어있던 블로그를 개편하면서 만든 정적 사이트 생성 스크립트다.&lt;/p&gt;
 &lt;p&gt;왜 이름이 DropPress 이냐면, 이 프로젝트의 시작은 드랍박스를 연동하는 웹서비스였기 때문이다. 드랍박스에 마크다운 포맷의 글을 저장해두면, 버전관리를 안해도 되고, 드랍박스와 연동되는 훌륭한 편집기가 널려 있으니, 나는 마크다운 변환과 github 배포를 구현하기만 하면 된다고 생각했다. 그런데, 비슷한 웹 에디터나 호스팅 서비스도 이미 존재하길래, 목표를 간단한 스크립트로 바꿨다. :)&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://github.com/Reiot/droppress"&gt;소스코드&lt;/a&gt;는 github에 공개되어 있다.&lt;/p&gt;
