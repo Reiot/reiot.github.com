@@ -88,7 +88,118 @@
 	<div class="post-title page-header">
 		<h1><a href="/2012/10/11/c++11/">C++11</a> <small>2012-10-11</small></h1>
 	</div>
-	<div class="post-content"><p>C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11 같은 게 정말 좋아졌다고 하긴 하는데, 한눈에 알아볼 수 있는 <em>한글</em> 사이트가 없기에 한번 정리해봤다. 위키피디아 문서를 기준으로 요약, 번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다. 물론 코드 따위는 컴파일해보지 않았으니, 왜 안돌아가냐고 물으시면 곤란;;</p>
+	<div class="post-content"><p>C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11 같은 게 정말 좋아졌다고 하긴 하는데, 한눈에 알아볼 수 있는 <strong>한글</strong> 사이트가 없기에 한번 정리해봤다. 위키피디아 문서를 기준으로 요약, 번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다. 물론 코드 따위는 컴파일해보지 않았으니, 왜 안돌아가냐고 물으시면 곤란;;</p>
+<h2>요약</h2>
+<p>C++ 11 의 언어 레벨에서의 개선 사항은 대충 다음과 같이 요약할 수 있다.</p>
+<table>
+<thead>
+<tr>
+<th>키워드</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;&amp;</td>
+<td>rvalue 참조 연산자</td>
+</tr>
+<tr>
+<td>auto</td>
+<td>컴파일러가 유추해낼 수 있는 자동 타입. any 와는 다르다.</td>
+</tr>
+<tr>
+<td>char16_t, char_32_t</td>
+<td>UTF-16 과 UTF-32 타입과 리터럴 선언</td>
+</tr>
+<tr>
+<td>constexpr</td>
+<td>이름 그대로 상수 + 식</td>
+</tr>
+<tr>
+<td>decltype</td>
+<td>변수 이름으로 타입을 알아내어서 선언 가능</td>
+</tr>
+<tr>
+<td>noexcept</td>
+<td>어떤 함수가 예외를 던지는지의 여부를 지정</td>
+</tr>
+<tr>
+<td>nullptr</td>
+<td>NULL 포인터 상수</td>
+</tr>
+<tr>
+<td>static_assert</td>
+<td>assert 의 정적 버전</td>
+</tr>
+<tr>
+<td>thread_local</td>
+<td>쓰레드 로컬 저장소를 사용하는 변수 지정자</td>
+</tr>
+<tr>
+<td>using</td>
+<td>type aliasing</td>
+</tr>
+<tr>
+<td>override</td>
+<td>가상 함수의 상속 여부 지정</td>
+</tr>
+<tr>
+<td>alignas, alignof</td>
+<td>구조체나 클래스의 메모리 정렬 단위를 지정</td>
+</tr>
+<tr>
+<td>final</td>
+<td>가상 함수나 클래스의 상속 불가능 여부 지정</td>
+</tr>
+</tbody>
+</table>
+<p>표준 라이브러리 역시 많이 개선되었다. 그 중에서 핵심적인 부분들을 살펴보면,</p>
+<table>
+<thead>
+<tr>
+<th>클래스/함수</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>std::initializer_list</td>
+<td>초기화 리스트</td>
+</tr>
+<tr>
+<td>std::thread, future, promise, async</td>
+<td>쓰레드 관련 클래스들</td>
+</tr>
+<tr>
+<td>std::function</td>
+<td>함수 객체</td>
+</tr>
+<tr>
+<td>std::regex</td>
+<td>정규식</td>
+</tr>
+<tr>
+<td>std::unordered_map</td>
+<td>O(1) 짜리 해시맵</td>
+</tr>
+<tr>
+<td>std::tuple</td>
+<td>튜플</td>
+</tr>
+<tr>
+<td>std::forward_list</td>
+<td>단방향 리스트</td>
+</tr>
+<tr>
+<td>std::array</td>
+<td>배열</td>
+</tr>
+<tr>
+<td>std::atomic</td>
+<td>멀티쓰레드 환경에서도 안전한 원자적(?) 연산</td>
+</tr>
+</tbody>
+</table>
 <h2>rvalue 참조 연산자 &amp;&amp;</h2>
 <pre><code>class A {
     char* buf;
@@ -98,7 +209,7 @@
 };
 </code></pre>
 
-<p>주로 임시 객체가 만들어질 때 불필요한 메모리 할당이나 버퍼 복사로 인한 성능 저하를 막기 위해, 파라미터의 내부값 전체를 이동시켜 버리기 위해서 rvalue 의 const 를 없엘 수 있게 되었다. 많은 STL 컨테이너들이 성능을 위해서 이런 이동 생성자(move constructor)들을 구현했다는데, 평범한 개발자가 쓸 일은 드물 듯.</p>
+<p>주로 임시 객체가 만들어질 때 불필요한 메모리 할당이나 버퍼 복사로 인한 성능 저하를 막기 위해, 파라미터의 내부값 전체를 이동시켜 버리는 용도다. 많은 STL 컨테이너들이 성능을 위해서 이런 이동 생성자(move constructor)와 이동 대입연산자(move assignment operator)을 구현했다는데, 평범한 개발자가 쓸 일은 드물 듯.</p>
 <p>더 많은 내용은 <a href="http://msdn.microsoft.com/en-us/library/dd293665.aspx">MSDN</a> 참조.</p>
 <h2>constexpr</h2>
 <pre><code>constexpr int get_five() {return 5;}
@@ -302,17 +413,6 @@ sizeof(SomeType::member); //Does not work with C++03. Okay with C++11
 <p>데이터 멤버에 대한 <code>sizeof</code> 가 가능해졌다.</p>
 <h3>동적 메모리 관리(Garbage Collection)</h3>
 <p>컴파일러에 따라 동적 메모리를 자동으로 관리할 수 있게 되었다. 물론 수동으로 관리하는 방법도 제공한다.</p>
-<h3>표준 라이브러리 개선</h3>
-<p>지금까지 이야기한 다양한 새 기능들이 표준 라이브러리에 대폭 적용되었다.</p>
-<ul>
-<li>Rvalue 참조와 move 관련</li>
-<li>UTF-16/UTF-32 인코딩</li>
-<li>가변 템플릿 인자</li>
-<li>컴파일 시간 상수식</li>
-<li><code>decltype</code></li>
-<li><code>explicit</code> 변환 연산자</li>
-<li><code>default</code>/<code>delete</code> 함수</li>
-</ul>
 <h3>쓰레드 관련</h3>
 <p><code>std::thread</code> 클래스가 지원되고 다음과 같은 쓰레드간 동기화 프리미티브들이 포함되었다.</p>
 <ul>
@@ -420,7 +520,7 @@ std::cout &lt;&lt; i &lt;&lt; std::endl;  // Output -&gt; 1
 </code></pre>
 
 <p>임의의 객체의 레퍼런스를 얻어내는 <code>ref</code>와 <code>cref</code>가 추가되었다.</p>
-<h3>function 객체</h3>
+<h3>std::function</h3>
 <pre><code>struct Foo {
     Foo(int num) : num_(num) {}
     void print_add(int i) const { std::cout &lt;&lt; num_+i &lt;&lt; '\n'; }
@@ -884,7 +984,9 @@ f4(foo, 1);
 		</div>
 		<div class="span3">
 			<ul class="nav nav-list well dsq-widget">
-	<li>
+	<li class="nav-header">
+		Social
+	</li>	<li>
 		
 		<a href="http://facebook.com/reiot" style="display: inline-block"><img src="/assets/img/facebook.png" /></a>
 		
