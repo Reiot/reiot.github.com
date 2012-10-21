@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-10-11T21:29:57Z</updated><author><name>Ray Yun</name></author><entry><title>C++11</title><link href="/2012/10/11/c++11/" rel="alternate"></link><updated>2012-10-11T21:29:57Z</updated><id>tag:None,2012-10-11:/2012/10/11/c++11//</id><summary type="html">&lt;p&gt;C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11 같은 게 정말 좋아졌다고 하긴 하는데, 한눈에 알아볼 수 있는 &lt;strong&gt;한글&lt;/strong&gt; 사이트가 없기에 한번 정리해봤다. 위키피디아 문서를 기준으로 요약, 번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다. 물론 코드 따위는 컴파일해보지 않았으니, 왜 안돌아가냐고 물으시면 곤란;;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-10-11T21:29:57Z</updated><author><name>Ray Yun</name></author><entry><title>C++11</title><link href="/2012/10/11/c++11/" rel="alternate"></link><updated>2012-10-11T21:29:57Z</updated><id>tag:None,2012-10-11:/2012/10/11/c++11//</id><summary type="html">&lt;p&gt;C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11 같은 게 정말 좋아졌다고 하긴 하는데, 한눈에 알아볼 수 있는 &lt;strong&gt;한글&lt;/strong&gt; 사이트가 없기에 한번 정리해봤다. 위키피디아 문서를 기준으로 요약, 번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다.&lt;/p&gt;
+&lt;p&gt;EDIT:&lt;br /&gt;
+- Xcode 4.5에서 &lt;code&gt;Apple LLVM 4.1&lt;/code&gt;과 &lt;code&gt;--std=c++11 --stdlib=libc++&lt;/code&gt;로 옵션을 주니 아래 샘플 코드들이 다 잘 돌아갔음.&lt;/p&gt;
 &lt;h2&gt;요약&lt;/h2&gt;
 &lt;p&gt;C++ 11 의 언어 레벨에서의 개선 사항은 대충 다음과 같이 요약할 수 있다.&lt;/p&gt;
 &lt;table&gt;
@@ -276,26 +278,19 @@ union U {
 
 &lt;p&gt;union 에 non-trivial 생성자를 가진 클래스를 담을 수 없던 제약이 풀렸다. 근데 이런 거 쓰는 사람이 있나.&lt;/p&gt;
 &lt;h3&gt;유니코드 문자열 선언&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;const char[] a = u8&amp;quot;I'm a UTF-8 string.&amp;quot;;
-const char16_t b = u&amp;quot;This is a UTF-16 string.&amp;quot;;
-const char32_t c = U&amp;quot;This is a UTF-32 string.&amp;quot;;
+&lt;pre&gt;&lt;code&gt;const char* a = u8&amp;quot;I'm a UTF-8 string.&amp;quot;;
+const char16_t* b = u&amp;quot;This is a UTF-16 string.&amp;quot;;
+const char32_t* c = U&amp;quot;This is a UTF-32 string.&amp;quot;;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;이제, utf-8 문자열을 하드코딩할 수 있다.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;R&amp;quot;(The String Data \ Stuff &amp;quot; )&amp;quot;
-u8R&amp;quot;XXX(I'm a &amp;quot;raw UTF-8&amp;quot; string.)XXX&amp;quot;
-uR&amp;quot;*(This is a &amp;quot;raw UTF-16&amp;quot; string.)*&amp;quot;
-UR&amp;quot;(This is a &amp;quot;raw UTF-32&amp;quot; string.)&amp;quot;
+&lt;pre&gt;&lt;code&gt;const char* d = R&amp;quot;(The String Data \ Stuff &amp;quot; )&amp;quot;;
+const char* e = u8R&amp;quot;XXX(I'm a &amp;quot;raw UTF-8&amp;quot; string.)XXX&amp;quot;;
+const char16_t* f = uR&amp;quot;*(This is a &amp;quot;raw UTF-16&amp;quot; string.)*&amp;quot;;
+const char32_t* g = UR&amp;quot;(This is a &amp;quot;raw UTF-32&amp;quot; string.)&amp;quot;;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;정규식을 위한 raw 문자열도 추가되었다. 단, R 만 붙이는게 아니라 따옴표와 괄호까지가 필수적이라서, 첫번째 괄호와 마지막 괄호 내부의 문자열 escape 되지 않게 된다.&lt;/p&gt;
-&lt;h3&gt;사용자 정의 리터럴&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;int operator &amp;quot;&amp;quot; mb(long double bytes);
-
-int bytes = 2mb; // 2048
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;operator ""&lt;/code&gt;를 재정의하면, 임의 타입을 만들어내는 리터럴을 정의할 수 있다. 단 12.f 나 20l 같이 postfix 만 가능하다.&lt;/p&gt;
 &lt;h3&gt;멤버 함수 삭제&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;struct NonCopyable {
     NonCopyable &amp;amp; operator=(const NonCopyable&amp;amp;) = delete;
@@ -334,16 +329,16 @@ sizeof(SomeType::member); //Does not work with C++03. Okay with C++11
 &lt;li&gt;&lt;code&gt;std::lock_guard&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;std::unique_lock&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code&gt;atomic&amp;lt;bool&amp;gt; ready = false;
-atomic&amp;lt;int&amp;gt; data = 0;
+&lt;pre&gt;&lt;code&gt;std::atomic&amp;lt;bool&amp;gt; ready(false);
+std::atomic&amp;lt;int&amp;gt; data(0);
 
 // Thread 0:
-data.store(1, memory_order_release);
-ready.store(true, memory_order_release);
+data.store(1, std::memory_order_release);
+ready.store(true, std::memory_order_release);
 
 // Thread 1:
-if (ready.load(memory_order_acquire))
-    assert(data.load(memory_order_acquire) == 1);
+if (ready.load(std::memory_order_acquire))
+    assert(data.load(std::memory_order_acquire) == 1);
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;보다 가벼운 원자적 연산(atomic operation)도 드디어 표준으로 채택되었다. 윈도우의 &lt;code&gt;InterlockedIncrement()&lt;/code&gt; 류라고 보면 된다. 메모리 정렬은 좀 헷갈리니 &lt;a href="http://en.cppreference.com/w/cpp/atomic/memory_order"&gt;여기&lt;/a&gt;를 참조.&lt;/p&gt;

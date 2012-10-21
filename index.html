@@ -88,7 +88,9 @@
 	<div class="post-title page-header">
 		<h1><a href="/2012/10/11/c++11/">C++11</a> <small>2012-10-11</small></h1>
 	</div>
-	<div class="post-content"><p>C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11 같은 게 정말 좋아졌다고 하긴 하는데, 한눈에 알아볼 수 있는 <strong>한글</strong> 사이트가 없기에 한번 정리해봤다. 위키피디아 문서를 기준으로 요약, 번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다. 물론 코드 따위는 컴파일해보지 않았으니, 왜 안돌아가냐고 물으시면 곤란;;</p>
+	<div class="post-content"><p>C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11 같은 게 정말 좋아졌다고 하긴 하는데, 한눈에 알아볼 수 있는 <strong>한글</strong> 사이트가 없기에 한번 정리해봤다. 위키피디아 문서를 기준으로 요약, 번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다.</p>
+<p>EDIT:<br />
+- Xcode 4.5에서 <code>Apple LLVM 4.1</code>과 <code>--std=c++11 --stdlib=libc++</code>로 옵션을 주니 아래 샘플 코드들이 다 잘 돌아갔음.</p>
 <h2>요약</h2>
 <p>C++ 11 의 언어 레벨에서의 개선 사항은 대충 다음과 같이 요약할 수 있다.</p>
 <table>
@@ -365,26 +367,19 @@ union U {
 
 <p>union 에 non-trivial 생성자를 가진 클래스를 담을 수 없던 제약이 풀렸다. 근데 이런 거 쓰는 사람이 있나.</p>
 <h3>유니코드 문자열 선언</h3>
-<pre><code>const char[] a = u8&quot;I'm a UTF-8 string.&quot;;
-const char16_t b = u&quot;This is a UTF-16 string.&quot;;
-const char32_t c = U&quot;This is a UTF-32 string.&quot;;
+<pre><code>const char* a = u8&quot;I'm a UTF-8 string.&quot;;
+const char16_t* b = u&quot;This is a UTF-16 string.&quot;;
+const char32_t* c = U&quot;This is a UTF-32 string.&quot;;
 </code></pre>
 
 <p>이제, utf-8 문자열을 하드코딩할 수 있다.</p>
-<pre><code>R&quot;(The String Data \ Stuff &quot; )&quot;
-u8R&quot;XXX(I'm a &quot;raw UTF-8&quot; string.)XXX&quot;
-uR&quot;*(This is a &quot;raw UTF-16&quot; string.)*&quot;
-UR&quot;(This is a &quot;raw UTF-32&quot; string.)&quot;
+<pre><code>const char* d = R&quot;(The String Data \ Stuff &quot; )&quot;;
+const char* e = u8R&quot;XXX(I'm a &quot;raw UTF-8&quot; string.)XXX&quot;;
+const char16_t* f = uR&quot;*(This is a &quot;raw UTF-16&quot; string.)*&quot;;
+const char32_t* g = UR&quot;(This is a &quot;raw UTF-32&quot; string.)&quot;;
 </code></pre>
 
 <p>정규식을 위한 raw 문자열도 추가되었다. 단, R 만 붙이는게 아니라 따옴표와 괄호까지가 필수적이라서, 첫번째 괄호와 마지막 괄호 내부의 문자열 escape 되지 않게 된다.</p>
-<h3>사용자 정의 리터럴</h3>
-<pre><code>int operator &quot;&quot; mb(long double bytes);
-
-int bytes = 2mb; // 2048
-</code></pre>
-
-<p><code>operator ""</code>를 재정의하면, 임의 타입을 만들어내는 리터럴을 정의할 수 있다. 단 12.f 나 20l 같이 postfix 만 가능하다.</p>
 <h3>멤버 함수 삭제</h3>
 <pre><code>struct NonCopyable {
     NonCopyable &amp; operator=(const NonCopyable&amp;) = delete;
@@ -423,16 +418,16 @@ sizeof(SomeType::member); //Does not work with C++03. Okay with C++11
 <li><code>std::lock_guard</code></li>
 <li><code>std::unique_lock</code></li>
 </ul>
-<pre><code>atomic&lt;bool&gt; ready = false;
-atomic&lt;int&gt; data = 0;
+<pre><code>std::atomic&lt;bool&gt; ready(false);
+std::atomic&lt;int&gt; data(0);
 
 // Thread 0:
-data.store(1, memory_order_release);
-ready.store(true, memory_order_release);
+data.store(1, std::memory_order_release);
+ready.store(true, std::memory_order_release);
 
 // Thread 1:
-if (ready.load(memory_order_acquire))
-    assert(data.load(memory_order_acquire) == 1);
+if (ready.load(std::memory_order_acquire))
+    assert(data.load(std::memory_order_acquire) == 1);
 </code></pre>
 
 <p>보다 가벼운 원자적 연산(atomic operation)도 드디어 표준으로 채택되었다. 윈도우의 <code>InterlockedIncrement()</code> 류라고 보면 된다. 메모리 정렬은 좀 헷갈리니 <a href="http://en.cppreference.com/w/cpp/atomic/memory_order">여기</a>를 참조.</p>
