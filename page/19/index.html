@@ -31,7 +31,7 @@
 
   <body>
 
-    <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -42,19 +42,10 @@
           <a class="brand" href="/">Rebooting Reiot</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Browse
-                  <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="/archives/">Archives</a></li>
-                  <li><a href="/category/">Categories</a></li>
-                  <li><a href="/tag/">Tags</a></li>
-                  <li><a href="#" id="random-post">Random</a></li>
-                </ul>
-              </li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+              <li><a href="#" id="random-post">Random</a></li>
 			  
             </ul>
             <form class="navbar-search pull-right">
@@ -114,12 +105,14 @@ from <a href="http://developer.valvesoftware.com/wiki/Successful_Mod_Team_Tips">
 <p>이런 저런 스트레스가 머리끝까지 다다른 어느날, 불현듯 팀 내에 저레벨(?) 커뮤니케이션의 필요성이 느껴져서, 얼마전부터 <a href="http://wordpress.com/blog/2008/01/28/introducing-prologue/">prologue </a>테마를 한글화해서 뒷담화 온라인이라는 이름으로 절찬리에 운영중이다. 며칠 쓰다보니 외부 링크를 보다 손쉽게 추가할 수 있게 해달라는 요청이 들어와서, Custom Field 를 저장하고 보여주는 기능을 구현해봤다.</p>
 <p>가장 먼저 post-form.php 에 link 라는 이름의 input text 필드를 추가했다.</p>
 <pre><code>
+
 &lt;input type=&quot;text&quot; name=&quot;link&quot; id=&quot;link&quot; autocomplete=&quot;off&quot; /&gt;
 
 </code></pre>
 
 <p>이걸 link 라는 이름의 custom field 로 저장하기 위해서 function.php 에 다음과 같은 함수와 콜백을 추가했다.</p>
 <pre><code>
+
 function add_link_custom_field($post_id) {
 if( $_POST['link'] ) {
 add_post_meta($post_id, 'link', $_POST['link'], true) or update_post_meta($post_id, 'link', $_POST['link']);
@@ -130,6 +123,7 @@ add_action('publish_post', add_link_custom_field );
 
 <p>이제 글을 작성할 때마다 link 폼으로 넘어온 값이 custom field 에 저장이 될 것이다. 다음은 이걸 화면에 아이콘으로 보여주는 코드를 살펴보자.</p>
 <pre><code>
+
 &lt;?php
 $links = get_post_custom_values('link');
 if(count($links)&gt;0)

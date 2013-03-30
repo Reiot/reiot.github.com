@@ -31,7 +31,7 @@
 
   <body>
 
-    <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -42,19 +42,10 @@
           <a class="brand" href="/">Rebooting Reiot</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Browse
-                  <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="/archives/">Archives</a></li>
-                  <li><a href="/category/">Categories</a></li>
-                  <li><a href="/tag/">Tags</a></li>
-                  <li><a href="#" id="random-post">Random</a></li>
-                </ul>
-              </li>
+              <li><a href="/archives/">Archives</a></li>
+              <li><a href="/category/">Categories</a></li>
+              <li><a href="/tag/">Tags</a></li>
+              <li><a href="#" id="random-post">Random</a></li>
 			  
             </ul>
             <form class="navbar-search pull-right">
@@ -282,7 +273,20 @@ v = func_async(k)
 
 <p>위와 같이 평범한 함수 호출처럼 사용할 수 있다. 그냥 일반 tasklet 에서 get_result() 를 한번 더 호출해주는 걸로 구현되었다.</p>
 <h2>@context.top_level</h2>
-<p>이 데코레이터는 내부적인 모든 비동기 루틴들이 완료될 때까지 기다린다. 소스 코드를 살펴보면 eventloop 로 무한루프를 돌리는 걸 확인할 수 있다. django view 라든지 webapp view 에 사용하면 된다.</p></div>
+<p>이 데코레이터는 내부적인 모든 비동기 루틴들이 완료될 때까지 기다린다. 소스 코드를 살펴보면 eventloop 로 무한루프를 돌리는 걸 확인할 수 있다. django view 라든지 webapp view 에 사용하면 된다.</p>
+<h2>최적화</h2>
+<p>ndb 최적화는 결국 RPC 호출을 얼마나 줄이느냐에 달려 있다. 다음 두 문장을 살펴보자.</p>
+<pre><code>x = MyModel.get_by_id_async('a')
+y = MyModel.get_by_id_async('b')
+x.get_result()
+y.get_result()
+
+x, y = MyModel.get_by_id_async('a'), MyModel.get_by_id_async('b')
+x.get_result()
+y.get_result()
+
+x, y = yield MyModel.get_by_id_async('a'), MyModel.get_by_id_async('b')
+</code></pre></div>
 	<div class="well well-small">
 		
 		
