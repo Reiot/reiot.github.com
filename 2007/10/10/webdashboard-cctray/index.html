@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,14 +64,12 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2007/10/10/webdashboard-cctray/">WebDashboard & CCTray</a> <small>2007-10-10</small></h1>
-	</div>
-	<div class="post-content"><p><img alt="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" src="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" /></p>
+  
+	      <article class="blog-post">
+        <div class="published">2007-10-10</div>
+        <h1><a href="/2007/10/10/webdashboard-cctray/">WebDashboard & CCTray</a></h1>
+        <div><p><img alt="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" src="http://farm3.static.flickr.com/2400/1531958729_2520a21bdb.jpg" /></p>
 <p>IIS와 CruiseControl.NET(이하 CCNET)의 <a href="http://ccnet.sourceforge.net/CCNET/Web%20Dashboard.html">WebDashBoard</a>를 이용하면 최근 빌드 현황이나 그래프를 웹에서 관리할 수 있다. 그 중에서도 가장 매력적인 기능은, - 사실 우리 팀에게 가장 필요한 - 바로 저 "Force Build" 인데, 웹에서 버튼만 눌러서 자동적으로 빌드 -&gt; 배포를 할 수 있게 해주는 기능이다. 우리 팀처럼 단지 배포용 빌드 머신만을 운용하고 있는 작은 조직에게는, CCNET의 수많은 자동화 기능보다는 저런 단순하면서도 아름다운 기능이 제일 절실하게 와닿는다고나 할까? (사실 빌드 머신까지는 한발짝 거리인데, SVN 업데이트 -&gt; Visual Studio 빌드 -&gt; 배포 버전 빌드..라는 3단계를 무지 귀찮아하는 것 같다 -_-)</p>
 <p><img alt="http://farm3.static.flickr.com/2191/1532824658_af03210327.jpg" src="http://farm3.static.flickr.com/2191/1532824658_af03210327.jpg" /></p>
 <p><a href="http://ccnet.sourceforge.net/CCNET/CCTray.html">CCTray</a>는 CCNET에서 제공하는 트레이에서 실행되는 자바 유틸리티로, 서버의 빌드 현황을 실시간으로 모니터링할 때 사용된다. 이 넘도 마찬가지로 강제 빌드 기능을 제공한다.  맨 위의 스크린샷에서도 볼 수 있듯이, 원래는  WebDashBoard 에서 다운받아서 실행할 수 있는 듯한데, 집에서 테스트해보니 경고음만 나오고 아무 것도 실행되지 않았다. 결국은 그냥 인스톨러를 이용해서 설치해서 사용중인데 별 문제는 없는 듯하다.</p>
@@ -77,14 +83,11 @@
 <li>인스톨러 연동하기</li>
 </ul>
 <p>이렇게 적다 보니, 과연 이걸 다 테스트해서 얼마나 더 좋은 효율을 얻을 수 있을지가 심히 궁금해진다. 에휴.</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2007/10/10/webdashboard-cctray/">http://boxcatstudio.wordpress.com/2007/10/10/webdashboard-cctray/</a></p>
-		
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2007/10/10/webdashboard-cctray/">http://boxcatstudio.wordpress.com/2007/10/10/webdashboard-cctray/</a><br/>
+			
+		</div>
+      </article>
+
 
     <hr/>
 
@@ -106,40 +109,39 @@
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     
 
-    <footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+      <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
 
-</div> <!-- /container -->
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>

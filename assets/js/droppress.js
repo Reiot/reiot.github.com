@@ -267,9 +267,6 @@ $(function(){
             trigger: 'hover'
         });
 
-    $('table')
-        .addClass('table table-striped');
-
     $('pre')
         .addClass('prettyprint pre-scrollable');
 

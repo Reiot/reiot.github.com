@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,19 +64,17 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	
-
-	<div class="row">
-		<div class="span9">
+  
+  <div class="row main-content">
+    <div class="span8 zone-content">
+    	<ul class="blog-posts">
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/04/26/python-tips/">Python Tips</a> <small>2006-04-26</small></h1>
-	</div>
-	<div class="post-content"><h3>asyncore.dispatcher</h3>
+		        <li class="first">
+				      <article class="blog-post">
+        <div class="published">2006-04-26</div>
+        <h1><a href="/2006/04/26/python-tips/">Python Tips</a></h1>
+        <div><h3>asyncore.dispatcher</h3>
 <ul>
 <li>원래부터 nonblocking 이다.</li>
 <li>set_socket 하는 시점에 map 에 등록된다.</li>
@@ -122,94 +128,64 @@ for old_name in os.listdir('.'):
 new_name = re.sub('\[.+\]','',old_name)
 os.rename(old_name,new_name)
 </code></pre></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/04/26/python-tips/">http://boxcatstudio.wordpress.com/2006/04/26/python-tips/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-			<a href="/category/columns/"><span class="label label-info"><span class="icon icon-folder-open"></span> columns</span></a>
-		
-		</p>
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/04/26/python-tips/">http://boxcatstudio.wordpress.com/2006/04/26/python-tips/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><a href="/category/columns/"><span class="icon icon-folder-open"></span>columns</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/04/26/funny-memory-values/">Funny Memory Values</a> <small>2006-04-26</small></h1>
-	</div>
-	<div class="post-content"><p>from <a href="http://www.samblackburn.com/wfc/technotes/WTN006.htm">WFC Technical Note 006 - Funny Memory Values</a></p>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2006-04-26</div>
+        <h1><a href="/2006/04/26/funny-memory-values/">Funny Memory Values</a></h1>
+        <div><p>from <a href="http://www.samblackburn.com/wfc/technotes/WTN006.htm">WFC Technical Note 006 - Funny Memory Values</a></p>
 <p>윈도우 환경에서 디버깅을 하다 보면 0XCDCD 라든지 0XDDDD 같은 특이한 값들을 만날 수 있는데, 이게 그냥 가비지가 아니라 각각마다 특유의 의미를 가지고 있었다. 가령 0xDDDD는 이미 지워진 포인터라든지 0xFDFD는 힙에 할당한 값의 앞뒤에 위치하는 경계값이라든지 말이다.</p>
 <p>한글로 된 설명은 <a href="http://codian.net/wp/archives/352">요기</a>와 <a href="http://www.trozan.net/blog/tag/%B5%F0%B9%F6%B1%D7">요기</a>가 제일 잘 되어 있으니 참고하시길.</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/04/26/funny-memory-values/">http://boxcatstudio.wordpress.com/2006/04/26/funny-memory-values/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/04/26/funny-memory-values/">http://boxcatstudio.wordpress.com/2006/04/26/funny-memory-values/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a> <small>2006-04-25</small></h1>
-	</div>
-	<div class="post-content"><p><a href="http://udt.sf.net">UDT</a>는 Internet2 혹은 기가비트 이더넷과 같이 빠른 네트워크에서 수십~수백 기가 바이트의 대용량 데이터를 전송할 때 TCP가 매우 느리다는 점때문에 시작된 오픈소스 프로젝트이다. 버클리 소켓 API를 그대로 유지하고 있어서 접근성이 좋고, TCP의 슬라이딩 윈도우 같은 Congestion Control 을 사용자가 상황에 맞게 조정할 수 있다는 장점이 있다. 2.0 버전까지는 UDP 스트림만을 지원했는데 3.0부터는 UDP 다이어그램과 중첩입출력(Overlapped)도 지원하기 시작했다. 현재 3.0 beta 가 나와 있는 상태이다.</p>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2006-04-25</div>
+        <h1><a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a></h1>
+        <div><p><a href="http://udt.sf.net">UDT</a>는 Internet2 혹은 기가비트 이더넷과 같이 빠른 네트워크에서 수십~수백 기가 바이트의 대용량 데이터를 전송할 때 TCP가 매우 느리다는 점때문에 시작된 오픈소스 프로젝트이다. 버클리 소켓 API를 그대로 유지하고 있어서 접근성이 좋고, TCP의 슬라이딩 윈도우 같은 Congestion Control 을 사용자가 상황에 맞게 조정할 수 있다는 장점이 있다. 2.0 버전까지는 UDP 스트림만을 지원했는데 3.0부터는 UDP 다이어그램과 중첩입출력(Overlapped)도 지원하기 시작했다. 현재 3.0 beta 가 나와 있는 상태이다.</p>
 <p>이번에 reliable UDP 라이브러리 조사 도중 탐지망에 걸려 들어서 검토한 결과, 하나의 소켓에 대해서 내부적으로 입력과 출력 쓰레드를 1개씩 사용하는 것을 발견했다. 원래부터 데이터 전송을 목적으로 구현되어서 그런 듯한데, 이를 수정하지 않고는 게임 서버에서 사용하기는 힘들다는 판단을 내렸다. 시간이 난다면 IOCP를 연동할 수 있게 살짝 고쳐 보고 싶지만, 누구 말마따나 게임 회사는 연구소가 아닌 관계로... OTL</p>
 <p>결국 다시 RakNet으로 가야 된단 말인가...</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/04/25/udt-udp-based-data-transfer-library/">http://boxcatstudio.wordpress.com/2006/04/25/udt-udp-based-data-transfer-library/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/04/25/udt-udp-based-data-transfer-library/">http://boxcatstudio.wordpress.com/2006/04/25/udt-udp-based-data-transfer-library/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/04/25/codekeep/">CodeKeep</a> <small>2006-04-25</small></h1>
-	</div>
-	<div class="post-content"><p><a class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.JPG" title="codekeep.JPG"><img alt="codekeep.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.thumbnail.JPG" /></a><br />
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2006-04-25</div>
+        <h1><a href="/2006/04/25/codekeep/">CodeKeep</a></h1>
+        <div><p><a class="imagelink" href="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.JPG" title="codekeep.JPG"><img alt="codekeep.JPG" src="http://boxcatstudio.files.wordpress.com/2009/07/codekeep.thumbnail.JPG" /></a><br />
 <a href="http://msdn.microsoft.com/msdnmag/issues/05/12/VisualStudioAddins/default.aspx">Visual Studio Add-Ins Every Developer Should Download Now</a> 에서 비주얼 스튜디오를 위한 10 가지 필수 플러그인들을 만나볼 수 있다. 그 중에서 제일 마음에 드는 것은, 함수를 선택하면 파라미터를 읽어서 자동적으로 XML 코멘트를 만들어주는 <a href="http://www.roland-weigelt.de/ghostdoc">GhostDoc</a>과, 웹에서 코드 조각들을 검색해서 내 코드에 넣을 수 있는 <a href="http://www.codekeep.net/">CodeKeep</a>이라는 플러그인이다.</p>
 <p>단 GhostDoc은 아직 VS2005 영문판만 지원해서 CodeKeep만 구경해볼 수 있었는데, 아직은 기부된 코드의 양이 부족한 듯해서 아쉬웠다. del.icio.us처럼 많은 사람들이 사용해줘야 시너지 효과가 날텐데, 홈페이지만 <a href="http://goodhyun.com/archives/2006/04/_co_oe_aoea_a_2.php">웹2.0 디자인</a>을 닮으려고 해서는 안될 것이다. 이런 식으로 팀 내부적으로 코드조각을 공유할 수 있는 솔루션이 있었으면 좋으련만... (누가 위키 기반으로 만들어주시게~~)</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/04/25/codekeep/">http://boxcatstudio.wordpress.com/2006/04/25/codekeep/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/04/25/codekeep/">http://boxcatstudio.wordpress.com/2006/04/25/codekeep/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/04/24/odbc-tips/">ODBC Tips</a> <small>2006-04-24</small></h1>
-	</div>
-	<div class="post-content"><p><strong>Timestamp -&gt; C</strong></p>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="last">
+				      <article class="blog-post">
+        <div class="published">2006-04-24</div>
+        <h1><a href="/2006/04/24/odbc-tips/">ODBC Tips</a></h1>
+        <div><p><strong>Timestamp -&gt; C</strong></p>
 <p>TIMESTAMP 값을 C 에서 받는 방법은 다양하다. 단순 SELECT 를 통해 날짜 스트링으로 받던가, SQL 문으로 적절히 CONVERT 한 변형된 스트링을 받던가, 아예 아래처럼 구조체로 바로 받을 수 있다.</p>
 <pre><code>// SQL_C_TYPE_DATE
 struct tagDATE_STRUCT {
@@ -241,21 +217,16 @@ SQLUINTEGER fraction;[b]
 <ul>
 <li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/odbcc_data_types.asp">ODBC C</a></li>
 </ul></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/04/24/odbc-tips/">http://boxcatstudio.wordpress.com/2006/04/24/odbc-tips/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/04/24/odbc-tips/">http://boxcatstudio.wordpress.com/2006/04/24/odbc-tips/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
+			
+		</div>
+      </article>
+
+				</li>
+			
+			</ul>
+
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -301,88 +272,154 @@ SQLUINTEGER fraction;[b]
 				
 					<li><a href="/page/39/">&raquo;</a></li>
 				
-		  		</ul>
-			</div>
-		</div>
-		<div class="span3">
-			<ul class="nav nav-list well dsq-widget">
-	<li class="nav-header">
-		Social
-	</li>	<li>
-		
-		<a href="http://facebook.com/reiot" style="display: inline-block"><img src="/assets/img/facebook.png" /></a>
-		
-		
-		<a href="http://twitter.com/reiot" style="display: inline-block"><img src="/assets/img/twitter.png" /></a>
-		
-	    <a href="atom.xml" style="display: inline-block"><img src="/assets/img/rss.png" /></a>
-	</li>
-	<li class="nav-header">
-		Recent Posts
-	</li>
-	
-	<li>
-		<a href="/2006/04/26/python-tips/">Python Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/26/funny-memory-values/">Funny Memory Values</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/25/codekeep/">CodeKeep</a>
-	</li>
-	
-	<li>
-		<a href="/2006/04/24/odbc-tips/">ODBC Tips</a>
-	</li>
-	
-	<li class="nav-header dsq-widget-title">
-		Recent Comments
-	</li>
-	<script type="text/javascript" src="http://reiot.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
-</ul>
-		</div>
-	</div>
+		  	</ul>
+			</div><!-- pagination -->
+		</div><!-- zone-content -->
 
-	<footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+		    <aside id="aside-right" class="aside-column offset1 span3">
+      <article class="widget-html-widget widget">
+        <header>
+            <h1>Author</h1>
+        </header>
+        <p>
+          Ray Yun(reiot)<br>
+          game develper <br>
+          cofounder of <a href="http://picneko.com">PICNEKO Creative</a> <br>
+          
+          <a href="http://facebook.com/reiot"><i class="smicon-facebook"></i></a>
+          
+          
+          <a href="http://twitter.com/reiot"><i class="smicon-twitter"></i></a>
+          
+          <a href="atom.xml"><i class="smicon-rss"></i></a>
+        </p>
+      </article>
 
-</div> <!-- /container -->
+      <article class="widget dsq-widget">
+		    <header class="dsq-widget-title">
+          <h1>Recent Posts</h1>
+        </header>
+		    <ul>
+    			
+    			<li>
+    				<a href="/2006/04/26/python-tips/">Python Tips</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/04/26/funny-memory-values/">Funny Memory Values</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/04/25/udt-udp-based-data-transfer-library/">UDT : UDP-based Data Transfer Library</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/04/25/codekeep/">CodeKeep</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/04/24/odbc-tips/">ODBC Tips</a>
+    			</li>
+    			
+    		</ul>
+      </article>
+
+      <article class="widget dsq-widget">
+    		<header class="dsq-widget-title">
+          <h1>Recent Comments</h1>
+        </header>
+    		<ul>
+    			<script type="text/javascript" src=""></script>
+    		</ul>
+  	  </article>
+
+      <article class="widget-blogcategories widget">
+        <header>
+            <h1>Categories</h1>
+        </header>
+          <ul><li>
+                <a href="/category/blogging/">blogging (1)</a>
+              </li><li>
+                <a href="/category/books/">books (1)</a>
+              </li><li>
+                <a href="/category/columns/">columns (6)</a>
+              </li><li>
+                <a href="/category/database/">database (12)</a>
+              </li><li>
+                <a href="/category/gamedev/">gamedev (15)</a>
+              </li><li>
+                <a href="/category/games/">games (2)</a>
+              </li><li>
+                <a href="/category/link/">link (1)</a>
+              </li><li>
+                <a href="/category/management/">management (1)</a>
+              </li><li>
+                <a href="/category/programming/">programming (78)</a>
+              </li><li>
+                <a href="/category/regular/">regular (14)</a>
+              </li><li>
+                <a href="/category/stories/">stories (21)</a>
+              </li><li>
+                <a href="/category/stuff/">stuff (1)</a>
+              </li><li>
+                <a href="/category/tip/">tip (1)</a>
+              </li><li>
+                <a href="/category/tip & tricks/">tip & tricks (1)</a>
+              </li></ul>
+      </article>
+
+<!--       <article class="widget-blogarchives widget">
+        <header>
+            <h1>Archive</h1>
+        </header>
+          <ul>
+            <li><a href="#">March 2013</a></li>
+            <li><a href="#">February 2013</a></li>
+            <li><a href="#">January 2013</a></li>
+            <li><a href="#">December 2012</a></li>
+            <li><a href="#">November 2012</a></li>
+          </ul>
+      </article>
+ -->
+    </aside>
+
+	</div><!-- main-content -->
+
+	<hr/>
+
+	  <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
+
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>

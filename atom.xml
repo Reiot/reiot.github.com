@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-10-11T21:29:57Z</updated><author><name>Ray Yun</name></author><entry><title>C++11</title><link href="/2012/10/11/c++11/" rel="alternate"></link><updated>2012-10-11T21:29:57Z</updated><id>tag:None,2012-10-11:/2012/10/11/c++11//</id><summary type="html">&lt;p&gt;C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11 같은 게 정말 좋아졌다고 하긴 하는데, 한눈에 알아볼 수 있는 &lt;strong&gt;한글&lt;/strong&gt; 사이트가 없기에 한번 정리해봤다. 위키피디아 문서를 기준으로 요약, 번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다.&lt;/p&gt;
+<feed xml:lang="ko" xmlns="http://www.w3.org/2005/Atom"><title>Rebooting Reiot</title><link href="http://reiot.com" rel="alternate"></link><link href="http://reiot.com/atom.xml" rel="self"></link><id>http://reiot.com</id><updated>2012-10-11T21:29:57Z</updated><author><name>Ray Yun</name></author><entry><title>C++11</title><link href="/2012/10/11/c++11/" rel="alternate"></link><updated>2012-10-11T21:29:57Z</updated><id>tag:None,2012-10-11:/2012/10/11/c++11//</id><summary type="html">&lt;p&gt;C++에 손을 뗀지 어언 3년, 그동안 C++0x이니 C++11 같은 게 정말 좋아졌다고 하긴 하는데, 한눈에 알아볼 수 있는 &lt;strong&gt;한글&lt;/strong&gt; 사이트가 없기에 한번 정리해봤다. 위키피디아 문서를 기준으로 요약, 번역한 것이니 틀린 점이 있으면 너그럽게 지적해주기 바란다.&lt;/p&gt;
 &lt;p&gt;아래 샘플 코드들을 Xcode 4.5에서 &lt;code&gt;Apple LLVM 4.1&lt;/code&gt;과 &lt;code&gt;--std=c++11&lt;/code&gt;, &lt;code&gt;--stdlib=libc++&lt;/code&gt; 옵션으로 테스트 했음을 밝힌다.&lt;/p&gt;
 &lt;h2&gt;요약&lt;/h2&gt;
 &lt;p&gt;C++ 11 의 언어 레벨에서의 개선 사항은 대충 다음과 같이 요약할 수 있다.&lt;/p&gt;
-&lt;table&gt;
+&lt;table class="table table-striped"&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;키워드&lt;/th&gt;
@@ -66,7 +66,7 @@
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;표준 라이브러리 역시 많이 개선되었다. 그 중에서 핵심적인 부분들을 살펴보면,&lt;/p&gt;
-&lt;table&gt;
+&lt;table class="table table-striped"&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;클래스/함수&lt;/th&gt;
@@ -367,7 +367,7 @@ std::get&amp;lt;3&amp;gt;(proof) = &amp;quot; Beautiful!&amp;quot;;  // Modify t
 &lt;p&gt;가변 인자 템플릿 덕분에 튜플의 인자 갯수 제한이 풀렸다.&lt;/p&gt;
 &lt;h3&gt;unordered 해시 테이블&lt;/h3&gt;
 &lt;p&gt;기존의 map 과 set 은 정렬된 트리를 사용하므로 검색에 &lt;code&gt;O(log N)&lt;/code&gt;이 걸리지만, unordered 는 메모리를 좀 더 쓰는 대신 &lt;code&gt;O(1)&lt;/code&gt;로 요소를 찾을 수 있다.&lt;/p&gt;
-&lt;table&gt;
+&lt;table class="table table-striped"&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;Type of hash table&lt;/th&gt;
@@ -467,7 +467,7 @@ f4(foo, 1);
 &lt;h2&gt;구현&lt;/h2&gt;
 &lt;p&gt;파이썬 스크립트 자체는 몇 줄 안되는데도 봐줄만하게 나온 이유는 트위터 부트스트랩 덕분이다. 이런 라이브러리가 &lt;a href="http://www.quora.com/Twitter-Bootstrap/Do-Mark-Otto-and-Jacob-Thornton-work-on-Bootstrap-full-time-at-Twitter"&gt;전업이 아니라 주말 작업만으로 나왔다&lt;/a&gt;니, 진짜 대단한 친구들이다.&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://octopress.org"&gt;octopress&lt;/a&gt;에서 영감을 많이 받아서 글 헤더의 포맷이나 형태, 구조, 쉘 명령 등을 많이 참조했다. 얘들이 업데이트만 자주 했더라도 내가 안만들었을텐데..&lt;/p&gt;
-&lt;table&gt;
+&lt;table class="table table-striped"&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;라이브러리&lt;/th&gt;

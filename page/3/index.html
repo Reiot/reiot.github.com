@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,19 +64,17 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	
-
-	<div class="row">
-		<div class="span9">
+  
+  <div class="row main-content">
+    <div class="span8 zone-content">
+    	<ul class="blog-posts">
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2012/02/26/libuv/">libUV 분석</a> <small>2012-02-26</small></h1>
-	</div>
-	<div class="post-content"><h2>개요</h2>
+		        <li class="first">
+				      <article class="blog-post">
+        <div class="published">2012-02-26</div>
+        <h1><a href="/2012/02/26/libuv/">libUV 분석</a></h1>
+        <div><h2>개요</h2>
 <p>node.js의 플랫폼 레이어로 여러 플랫폼에서의 비동기 입출력을 추상화하고, 완료될 때 콜백을 실행할 수 있게 해준다.</p>
 <p>see also <a href="https://github.com/joyent/libuv">GitHub</a></p>
 <h2>입출력 타입</h2>
@@ -163,32 +169,21 @@ do {
 <li>적당한 데이터베이스/캐시 미들웨어: membase?</li>
 <li>node 프로세스 관리 도구 및 모니터링</li>
 </ul></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="https://github.com/joyent/libuv">https://github.com/joyent/libuv</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/node.js/"><span class="label"><span class="icon icon-tag"></span> node.js</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="https://github.com/joyent/libuv">https://github.com/joyent/libuv</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2011/11/15/ndb-tips/">NDB Tips</a> <small>2011-11-15</small></h1>
-	</div>
-	<div class="post-content"><p>구글 앱엔진의 새로운 데이터베이스 라이브러리인 ndb의 사용법과 팁을 소개한다.</p>
+			
+			Tags:<a href="/tag/node.js/"><span class="icon icon-tag"></span>node.js</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2011-11-15</div>
+        <h1><a href="/2011/11/15/ndb-tips/">NDB Tips</a></h1>
+        <div><p>구글 앱엔진의 새로운 데이터베이스 라이브러리인 ndb의 사용법과 팁을 소개한다.</p>
 <h2>@tasklets.tasklet</h2>
 <p>이 데코레이터를 사용하면, 함수를 내부에 yield 구문을 사용할 수 있는, generator 함수로 바꿀 수 있다. 대신 맨 끝에는 <code>raise tasklets.Return(x,y,z)</code> 의 형태로 리턴을 해야 한다. (그냥 리턴을 하면 에러로 간주된다)</p>
 <p>이 데코레이터로 둘러싼 함수를 호출하려면</p>
@@ -287,34 +282,21 @@ y.get_result()
 
 x, y = yield MyModel.get_by_id_async('a'), MyModel.get_by_id_async('b')
 </code></pre></div>
-	<div class="well well-small">
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
-		
-			<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-		
-			<a href="/tag/ndb/"><span class="label"><span class="icon icon-tag"></span> ndb</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a> <small>2011-09-21</small></h1>
-	</div>
-	<div class="post-content"><p><img alt="해커 전용 블로깅 프레임워크?" src="http://octopress.org/images/logo.png" /></p>
+			
+			Tags:<a href="/tag/python/"><span class="icon icon-tag"></span>python</a><a href="/tag/appengine/"><span class="icon icon-tag"></span>appengine</a><a href="/tag/ndb/"><span class="icon icon-tag"></span>ndb</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2011-09-21</div>
+        <h1><a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a></h1>
+        <div><p><img alt="해커 전용 블로깅 프레임워크?" src="http://octopress.org/images/logo.png" /></p>
 <p><a href="http://octopress.org">Octopress</a>는 정적 사이트 생성기인 <a href="http://jekyllrb.com/">Jekyll</a> 을 이용해서 블로그를 손쉽게 구성하도록 해주는 루비 프레임워크다. 말 그대로 정적 HTML 파일들을 미리 만들어서 어딘가로 올려서 서비스하는 거라, GitHub에서 블로그를 서비스할 수 있음은 물론, Amason S3나 구글 앱엔진에서도 블로그 서비스가 가능하다.</p>
 <p>큼직큼직한 글씨와 미려한 테마, 코드 문법 하일라이팅, blockquote, gist 코드 포함 등의 다양한 플러그인이 지원되며, 생성, 배포, 최신 소스 업데이트, 글쓰기 등의 작업들이 rake 콘솔 명령으로 간편하게 포장(?)되어 있다. DB를 쓰지 않기 때문에 코멘트는 Disqus 같은 외부 사이트를 이용하게 된다. 워낙 매뉴얼이 잘 되어 있어서 설치나 사용법은 그냥 따라해도 충분하다. 레이옷은 DropBox에 origin 레파지토리를 두고 사용중이다.</p>
 <p>중요한 건 기존 블로그를 얼마나 손쉽게 이전하느냐인데, 워드프레스.com에서 이사오는 데 거의 3일이 걸렸다. 워낙 블로그 이사를 많이 다녀서 메타 정보가 개판이었고 본문에 이런 저런 비표준 태그를 많이 써서 문제는 더욱 심각했다. 또 워드프레스에서 내보내기로 받아온 XML 자체에도 문제가 많았다. (내 경우에는 글들이 중간에 짤려서 태그가 제대로 완결이 안되었다든지, ^Z가 본문 중에 있어서 파싱이 안되기도 했다.) Jekyll에서 제공하는 스크립트는 마크다운 변환 기능이 빠져 있고, 유니코드 에러를 자주 뱉기 때문에 직접 파이썬으로 만들어야만 했다. (루비 책 몇 권 사놓고도 문법을 보니 머리가 아파서 포기했다.)</p>
@@ -340,32 +322,21 @@ x, y = yield MyModel.get_by_id_async('a'), MyModel.get_by_id_async('b')
 <li>Liquid Exception: 혹시 django 나 jquery template 코드가 있을 경우, 이게 Jekyll 의 템플릿 엔진인 <a href="http://liquidmarkup.org/">liquid</a>의 태그와 동일하기 때문에 에러가 발생한다. <a href="http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags">이런 문법</a>에 따라 수동으로 잘 제거하는 수 밖에 없다.</li>
 <li>핵심적으로 한글로 된 제목 때문에 가장 고생이 심했다. 아주 오래전에 쓴 글들은 제목은 한글, slug는 한글을 URL로 바꾼 %xx%yy와 같은 형식이었다. 이걸 다시 제대로된 유니코드로 역변환(unquote)해서 파일을 만들었는데 rake preview로 살펴보면 한글 URL 포스트에 접근이 안되는 것이었다. 몇 시간동안 삽질을 해본 결과 로컬 서버인 Webrick의 문제인지, GitHub에 올리니까 잘 되는 것이었다. 여기서의 교훈: slug는 영문을 애용할 것!!</li>
 </ul></div>
-	<div class="well well-small">
-		
-		
-		<p>Category:
-		
-			<a href="/category/blogging/"><span class="label label-info"><span class="icon icon-folder-open"></span> blogging</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/jekyll/"><span class="label"><span class="icon icon-tag"></span> jekyll</span></a>
-		
-			<a href="/tag/octopress/"><span class="label"><span class="icon icon-tag"></span> octopress</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Category:<a href="/category/blogging/"><span class="icon icon-folder-open"></span>blogging</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a> <small>2011-07-09</small></h1>
-	</div>
-	<div class="post-content"><p><a href="http://www.slideshare.net/AddyOsmani/jquery-proven-performance-tips-tricks">jQuery Proven Performance Tips &amp; Tricks</a> 간단 요약</p>
+			
+			Tags:<a href="/tag/jekyll/"><span class="icon icon-tag"></span>jekyll</a><a href="/tag/octopress/"><span class="icon icon-tag"></span>octopress</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2011-07-09</div>
+        <h1><a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a></h1>
+        <div><p><a href="http://www.slideshare.net/AddyOsmani/jquery-proven-performance-tips-tricks">jQuery Proven Performance Tips &amp; Tricks</a> 간단 요약</p>
 <ul>
 <li>최신 버전을 사용해라. (1.4 보다 1.6이 2배 가까이 빠르다)</li>
 <li>id 선택자가 class 선택자보다 5-10배 이상 빠르다.</li>
@@ -381,32 +352,21 @@ x, y = yield MyModel.get_by_id_async('a'), MyModel.get_by_id_async('b')
 </ul>
 <p>대체로 아는 이야기라는 점이 슬프다. 그걸 아는 놈이 짠 코드가 이 모양이라니.. ㅠㅠ</p>
 <p>그나저나 jsperf.com 같은 걸로 브라우저별로 검증해보지 않으면 다 공허한 이야기인 듯. 재미있는 건 IE 6/7 클래스 선택자의 속도가 다른 브라우저보다 1000-2000배 느리다는 점과, 크롬 13.x 의 성능이 갑자기 앞뒤버전보다 확 떨어졌다는 것. :)</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2011/07/09/jquery-proven-performance-tips-tricks/">http://boxcatstudio.wordpress.com/2011/07/09/jquery-proven-performance-tips-tricks/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/jquery/"><span class="label"><span class="icon icon-tag"></span> jquery</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2011/07/09/jquery-proven-performance-tips-tricks/">http://boxcatstudio.wordpress.com/2011/07/09/jquery-proven-performance-tips-tricks/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a> <small>2011-06-18</small></h1>
-	</div>
-	<div class="post-content"><p>jQuery Mobile(이후 jQM)으로 아이패드용 클리앙 뷰어를 만든 경험을 토대로 팁을 정리했습니다. 이후, 편의상 경어를 사용합니다.</p>
+			
+			Tags:<a href="/tag/jquery/"><span class="icon icon-tag"></span>jquery</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="last">
+				      <article class="blog-post">
+        <div class="published">2011-06-18</div>
+        <h1><a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a></h1>
+        <div><p>jQuery Mobile(이후 jQM)으로 아이패드용 클리앙 뷰어를 만든 경험을 토대로 팁을 정리했습니다. 이후, 편의상 경어를 사용합니다.</p>
 <h2>data-xxx</h2>
 <p>jQM의 위젯들은 다른 jQuery 위젯이나 플러그인들과는 달리 자바스크립트로 옵션을 지정하는 대신, HTML 의 data- 속성을 이용해서 모양새와 동작을 지정한다.</p>
 <p>가장 중요한 것은 data-role 속성인데, HTML 태그에 page, header, content, footer 에서부터 listview, navibar, button 등의 "역할"을 지정하면, jQM이 알아서 적당한 렌더링 해준다는 거다. 이를 통해서 자바스크립트 코드는 거의 손대지도 않고 순수 HTML 만으로 깔끔한 모바일 뷰를 만들어낼 수 있게 된다.</p>
@@ -434,27 +394,18 @@ x, y = yield MyModel.get_by_id_async('a'), MyModel.get_by_id_async('b')
 <li>사용자가 추가한 버튼에 live("click tap") 을 지정하면 이벤트가 2개 발생되는 모양이다. 그냥 tap 만 넣어도 컴퓨터에서는 잘 동작한다.</li>
 <li>자바스크립트로 리스트 아이템을 추가한 후 listview("refresh")를 해도 그 안에 있는 inset listview 는 별도의 쿼리를 통해서 listview 위젯으로 만들어야 한다. 샘플 코드는 여기 <a href="http://jsfiddle.net/Reiot/CpudD/">http://jsfiddle.net/Reiot/CpudD/</a></li>
 </ul></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2011/06/18/jquery-mobile-tip/">http://boxcatstudio.wordpress.com/2011/06/18/jquery-mobile-tip/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/jquerymobile/"><span class="label"><span class="icon icon-tag"></span> jquerymobile</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2011/06/18/jquery-mobile-tip/">http://boxcatstudio.wordpress.com/2011/06/18/jquery-mobile-tip/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
+			
+			Tags:<a href="/tag/jquerymobile/"><span class="icon icon-tag"></span>jquerymobile</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+			</ul>
+
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -500,88 +451,154 @@ x, y = yield MyModel.get_by_id_async('a'), MyModel.get_by_id_async('b')
 				
 					<li><a href="/page/7/">&raquo;</a></li>
 				
-		  		</ul>
-			</div>
-		</div>
-		<div class="span3">
-			<ul class="nav nav-list well dsq-widget">
-	<li class="nav-header">
-		Social
-	</li>	<li>
-		
-		<a href="http://facebook.com/reiot" style="display: inline-block"><img src="/assets/img/facebook.png" /></a>
-		
-		
-		<a href="http://twitter.com/reiot" style="display: inline-block"><img src="/assets/img/twitter.png" /></a>
-		
-	    <a href="atom.xml" style="display: inline-block"><img src="/assets/img/rss.png" /></a>
-	</li>
-	<li class="nav-header">
-		Recent Posts
-	</li>
-	
-	<li>
-		<a href="/2012/02/26/libuv/">libUV 분석</a>
-	</li>
-	
-	<li>
-		<a href="/2011/11/15/ndb-tips/">NDB Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
-	</li>
-	
-	<li>
-		<a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a>
-	</li>
-	
-	<li>
-		<a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
-	</li>
-	
-	<li class="nav-header dsq-widget-title">
-		Recent Comments
-	</li>
-	<script type="text/javascript" src="http://reiot.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
-</ul>
-		</div>
-	</div>
+		  	</ul>
+			</div><!-- pagination -->
+		</div><!-- zone-content -->
 
-	<footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+		    <aside id="aside-right" class="aside-column offset1 span3">
+      <article class="widget-html-widget widget">
+        <header>
+            <h1>Author</h1>
+        </header>
+        <p>
+          Ray Yun(reiot)<br>
+          game develper <br>
+          cofounder of <a href="http://picneko.com">PICNEKO Creative</a> <br>
+          
+          <a href="http://facebook.com/reiot"><i class="smicon-facebook"></i></a>
+          
+          
+          <a href="http://twitter.com/reiot"><i class="smicon-twitter"></i></a>
+          
+          <a href="atom.xml"><i class="smicon-rss"></i></a>
+        </p>
+      </article>
 
-</div> <!-- /container -->
+      <article class="widget dsq-widget">
+		    <header class="dsq-widget-title">
+          <h1>Recent Posts</h1>
+        </header>
+		    <ul>
+    			
+    			<li>
+    				<a href="/2012/02/26/libuv/">libUV 분석</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2011/11/15/ndb-tips/">NDB Tips</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2011/09/21/wordpress-to-octopress/">Wordpress To Octopress</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2011/07/09/jquery-proven-performance-tips-tricks/">jQuery Proven Performance Tips & Tricks</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2011/06/18/jquery-mobile-tip/">jQuery Mobile Tip</a>
+    			</li>
+    			
+    		</ul>
+      </article>
+
+      <article class="widget dsq-widget">
+    		<header class="dsq-widget-title">
+          <h1>Recent Comments</h1>
+        </header>
+    		<ul>
+    			<script type="text/javascript" src=""></script>
+    		</ul>
+  	  </article>
+
+      <article class="widget-blogcategories widget">
+        <header>
+            <h1>Categories</h1>
+        </header>
+          <ul><li>
+                <a href="/category/blogging/">blogging (1)</a>
+              </li><li>
+                <a href="/category/books/">books (1)</a>
+              </li><li>
+                <a href="/category/columns/">columns (6)</a>
+              </li><li>
+                <a href="/category/database/">database (12)</a>
+              </li><li>
+                <a href="/category/gamedev/">gamedev (15)</a>
+              </li><li>
+                <a href="/category/games/">games (2)</a>
+              </li><li>
+                <a href="/category/link/">link (1)</a>
+              </li><li>
+                <a href="/category/management/">management (1)</a>
+              </li><li>
+                <a href="/category/programming/">programming (78)</a>
+              </li><li>
+                <a href="/category/regular/">regular (14)</a>
+              </li><li>
+                <a href="/category/stories/">stories (21)</a>
+              </li><li>
+                <a href="/category/stuff/">stuff (1)</a>
+              </li><li>
+                <a href="/category/tip/">tip (1)</a>
+              </li><li>
+                <a href="/category/tip & tricks/">tip & tricks (1)</a>
+              </li></ul>
+      </article>
+
+<!--       <article class="widget-blogarchives widget">
+        <header>
+            <h1>Archive</h1>
+        </header>
+          <ul>
+            <li><a href="#">March 2013</a></li>
+            <li><a href="#">February 2013</a></li>
+            <li><a href="#">January 2013</a></li>
+            <li><a href="#">December 2012</a></li>
+            <li><a href="#">November 2012</a></li>
+          </ul>
+      </article>
+ -->
+    </aside>
+
+	</div><!-- main-content -->
+
+	<hr/>
+
+	  <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
+
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>

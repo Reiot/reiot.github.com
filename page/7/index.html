@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,19 +64,17 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	
-
-	<div class="row">
-		<div class="span9">
+  
+  <div class="row main-content">
+    <div class="span8 zone-content">
+    	<ul class="blog-posts">
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a> <small>2010-09-26</small></h1>
-	</div>
-	<div class="post-content"><p><a href="http://note.marines.co.kr/135">아이폰/컴퓨터 색상 차이 해결법</a><br />
+		        <li class="first">
+				      <article class="blog-post">
+        <div class="published">2010-09-26</div>
+        <h1><a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a></h1>
+        <div><p><a href="http://note.marines.co.kr/135">아이폰/컴퓨터 색상 차이 해결법</a><br />
 <a href="http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/">http://www.smashingmagazine.com/2009/10/12/setting-up-photoshop-for-web-app-and-iphone-development/</a></p>
 <ol>
 <li>
@@ -84,32 +90,21 @@
 <p>Assign Profile -&gt; Working RGB</p>
 </li>
 </ol></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/09/26/%ec%95%84%ec%9d%b4%ed%8f%b0%ec%bb%b4%ed%93%a8%ed%84%b0-%ec%83%89%ec%83%81-%ec%b0%a8%ec%9d%b4-%ed%95%b4%ea%b2%b0%eb%b2%95/">http://boxcatstudio.wordpress.com/2010/09/26/%ec%95%84%ec%9d%b4%ed%8f%b0%ec%bb%b4%ed%93%a8%ed%84%b0-%ec%83%89%ec%83%81-%ec%b0%a8%ec%9d%b4-%ed%95%b4%ea%b2%b0%eb%b2%95/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/link/"><span class="label label-info"><span class="icon icon-folder-open"></span> link</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/photoshop/"><span class="label"><span class="icon icon-tag"></span> photoshop</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/09/26/%ec%95%84%ec%9d%b4%ed%8f%b0%ec%bb%b4%ed%93%a8%ed%84%b0-%ec%83%89%ec%83%81-%ec%b0%a8%ec%9d%b4-%ed%95%b4%ea%b2%b0%eb%b2%95/">http://boxcatstudio.wordpress.com/2010/09/26/%ec%95%84%ec%9d%b4%ed%8f%b0%ec%bb%b4%ed%93%a8%ed%84%b0-%ec%83%89%ec%83%81-%ec%b0%a8%ec%9d%b4-%ed%95%b4%ea%b2%b0%eb%b2%95/</a><br/>Category:<a href="/category/link/"><span class="icon icon-folder-open"></span>link</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a> <small>2010-09-24</small></h1>
-	</div>
-	<div class="post-content"><p><strong>스프레드시트 리스트 읽어오기</strong></p>
+			
+			Tags:<a href="/tag/photoshop/"><span class="icon icon-tag"></span>photoshop</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2010-09-24</div>
+        <h1><a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a></h1>
+        <div><p><strong>스프레드시트 리스트 읽어오기</strong></p>
 <pre><code>client = gdata.spreadsheets.client.SpreadsheetsClient()
 
 feed = client.get_spreadsheets()
@@ -144,32 +139,21 @@ feed = client.get_feed(url, desired_class = gdata.spreadsheets.data.ListsFeed)
 <li>gd_client.get_feed 에 URL 을 넘기고 desired_class 를 잘 지정하면, 적당한 파이썬 객체로 래핑된다.</li>
 <li>어떤 XML 이 리턴되는지만 잘 파악하면 끗.</li>
 </ul></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/09/24/google-spreadsheet-api-note/">http://boxcatstudio.wordpress.com/2010/09/24/google-spreadsheet-api-note/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/google spreadsheet api/"><span class="label"><span class="icon icon-tag"></span> google spreadsheet api</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/09/24/google-spreadsheet-api-note/">http://boxcatstudio.wordpress.com/2010/09/24/google-spreadsheet-api-note/</a><br/>Category:<a href="/category/regular/"><span class="icon icon-folder-open"></span>regular</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/08/16/createdeepkey/">create_deep_key</a> <small>2010-08-16</small></h1>
-	</div>
-	<div class="post-content"><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
+			
+			Tags:<a href="/tag/google spreadsheet api/"><span class="icon icon-tag"></span>google spreadsheet api</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2010-08-16</div>
+        <h1><a href="/2010/08/16/createdeepkey/">create_deep_key</a></h1>
+        <div><p>parent 가 있는 키 속성을 bulkloader.yaml 을 통해 export/import 할 경우, create_foreign_key + key_id_or_name_as_string 로는 부족하다.</p>
 <ul>
 <li>부모 키 : AAABBBCCCDDD</li>
 <li>자식 키 : AAABBBCCCDDDEEEFFF</li>
@@ -187,36 +171,21 @@ feed = client.get_feed(url, desired_class = gdata.spreadsheets.data.ListsFeed)
 </code></pre>
 
 <p>이때 만약 키가 아니라 id/name 을 내보내고 싶다면,  transform.key_id_or_name_as_string_n(N) 을 사용할 것.</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/08/16/createdeepkey/">http://boxcatstudio.wordpress.com/2010/08/16/createdeepkey/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/bulkload/"><span class="label"><span class="icon icon-tag"></span> bulkload</span></a>
-		
-			<a href="/tag/datastore/"><span class="label"><span class="icon icon-tag"></span> datastore</span></a>
-		
-			<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/08/16/createdeepkey/">http://boxcatstudio.wordpress.com/2010/08/16/createdeepkey/</a><br/>Category:<a href="/category/regular/"><span class="icon icon-folder-open"></span>regular</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/08/12/google-app-engine-tips/">Google App Engine Tips</a> <small>2010-08-12</small></h1>
-	</div>
-	<div class="post-content"><p><img alt="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" src="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" /></p>
+			
+			Tags:<a href="/tag/bulkload/"><span class="icon icon-tag"></span>bulkload</a><a href="/tag/datastore/"><span class="icon icon-tag"></span>datastore</a><a href="/tag/appengine/"><span class="icon icon-tag"></span>appengine</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2010-08-12</div>
+        <h1><a href="/2010/08/12/google-app-engine-tips/">Google App Engine Tips</a></h1>
+        <div><p><img alt="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" src="http://boxcatstudio.files.wordpress.com/2010/08/20100413120411_38823.png" /></p>
 <p>구글 앱 엔진으로 개발하면서 학습한 내용을 정리합니다. 이론적으로 혹은 실제 서비스할 때 잘못되거나 틀린 부분이 있을 수 있음을 미리 알려 드립니다.</p>
 <h2>개요</h2>
 <h3>검증 및 마이그레이션의 책임은 '프로그래머'가 진다.</h3>
@@ -294,34 +263,21 @@ class Item(db.Model):
 </ul>
 <hr />
 <p>계속 추가할 예정입니다 :)</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/08/12/google-app-engine-tips/">http://boxcatstudio.wordpress.com/2010/08/12/google-app-engine-tips/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/tip/"><span class="label label-info"><span class="icon icon-folder-open"></span> tip</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/datastore/"><span class="label"><span class="icon icon-tag"></span> datastore</span></a>
-		
-			<a href="/tag/appengine/"><span class="label"><span class="icon icon-tag"></span> appengine</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/08/12/google-app-engine-tips/">http://boxcatstudio.wordpress.com/2010/08/12/google-app-engine-tips/</a><br/>Category:<a href="/category/tip/"><span class="icon icon-folder-open"></span>tip</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/08/10/jquery-removeclass-css-sprite/">jquery removeClass 를 이용해서 css sprite 교체하...</a> <small>2010-08-10</small></h1>
-	</div>
-	<div class="post-content"><p>css sprite 는 특정 DIV 에 CSS 스프라이트 클래스를 설정해서 배경 이미지를 보여주는 방식인데, 문제는 이전에 어떤 클래스 이름이 들어가 있는지 알 수 없다는 거다. 즉 정규식으로 클래스 이름을 검색해서 스프라이트 클래스만을 찾아서 지우고 새 스프라이트 클래스를 넣어야 한다.</p>
+			
+			Tags:<a href="/tag/datastore/"><span class="icon icon-tag"></span>datastore</a><a href="/tag/appengine/"><span class="icon icon-tag"></span>appengine</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="last">
+				      <article class="blog-post">
+        <div class="published">2010-08-10</div>
+        <h1><a href="/2010/08/10/jquery-removeclass-css-sprite/">jquery removeClass 를 이용해서 css sprite 교체하...</a></h1>
+        <div><p>css sprite 는 특정 DIV 에 CSS 스프라이트 클래스를 설정해서 배경 이미지를 보여주는 방식인데, 문제는 이전에 어떤 클래스 이름이 들어가 있는지 알 수 없다는 거다. 즉 정규식으로 클래스 이름을 검색해서 스프라이트 클래스만을 찾아서 지우고 새 스프라이트 클래스를 넣어야 한다.</p>
 <pre><code>.removeClass(function(index,class_str){
   var class_list = class_str.split(' ');
   for ( var i = 0 ; i &lt; class_list.length ; i ++ ) {
@@ -334,29 +290,18 @@ class Item(db.Model):
 </code></pre>
 
 <p>주의할 점은, 이 콜백 함수가 $.each 처럼 기존 클래스 명 하나하나마다 호출되는게 아니라, 그냥 공백으로 구분된 클래스 이름 문자열을 파라미터로 넘겨서 한번만 실행된다는 점이다. (index 는 왜 있는 거지;;;)</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/08/10/jquery-removeclass-css-sprite/">http://boxcatstudio.wordpress.com/2010/08/10/jquery-removeclass-css-sprite/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/jquery/"><span class="label"><span class="icon icon-tag"></span> jquery</span></a>
-		
-			<a href="/tag/status/"><span class="label"><span class="icon icon-tag"></span> status</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/08/10/jquery-removeclass-css-sprite/">http://boxcatstudio.wordpress.com/2010/08/10/jquery-removeclass-css-sprite/</a><br/>Category:<a href="/category/regular/"><span class="icon icon-folder-open"></span>regular</a><br/>
 			
+			
+			Tags:<a href="/tag/jquery/"><span class="icon icon-tag"></span>jquery</a><a href="/tag/status/"><span class="icon icon-tag"></span>status</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+			</ul>
+
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -402,88 +347,154 @@ class Item(db.Model):
 				
 					<li><a href="/page/11/">&raquo;</a></li>
 				
-		  		</ul>
-			</div>
-		</div>
-		<div class="span3">
-			<ul class="nav nav-list well dsq-widget">
-	<li class="nav-header">
-		Social
-	</li>	<li>
-		
-		<a href="http://facebook.com/reiot" style="display: inline-block"><img src="/assets/img/facebook.png" /></a>
-		
-		
-		<a href="http://twitter.com/reiot" style="display: inline-block"><img src="/assets/img/twitter.png" /></a>
-		
-	    <a href="atom.xml" style="display: inline-block"><img src="/assets/img/rss.png" /></a>
-	</li>
-	<li class="nav-header">
-		Recent Posts
-	</li>
-	
-	<li>
-		<a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a>
-	</li>
-	
-	<li>
-		<a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a>
-	</li>
-	
-	<li>
-		<a href="/2010/08/16/createdeepkey/">create_deep_key</a>
-	</li>
-	
-	<li>
-		<a href="/2010/08/12/google-app-engine-tips/">Google App Engine Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2010/08/10/jquery-removeclass-css-sprite/">jquery removeClass 를 이용해서 css sprite 교체하...</a>
-	</li>
-	
-	<li class="nav-header dsq-widget-title">
-		Recent Comments
-	</li>
-	<script type="text/javascript" src="http://reiot.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
-</ul>
-		</div>
-	</div>
+		  	</ul>
+			</div><!-- pagination -->
+		</div><!-- zone-content -->
 
-	<footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+		    <aside id="aside-right" class="aside-column offset1 span3">
+      <article class="widget-html-widget widget">
+        <header>
+            <h1>Author</h1>
+        </header>
+        <p>
+          Ray Yun(reiot)<br>
+          game develper <br>
+          cofounder of <a href="http://picneko.com">PICNEKO Creative</a> <br>
+          
+          <a href="http://facebook.com/reiot"><i class="smicon-facebook"></i></a>
+          
+          
+          <a href="http://twitter.com/reiot"><i class="smicon-twitter"></i></a>
+          
+          <a href="atom.xml"><i class="smicon-rss"></i></a>
+        </p>
+      </article>
 
-</div> <!-- /container -->
+      <article class="widget dsq-widget">
+		    <header class="dsq-widget-title">
+          <h1>Recent Posts</h1>
+        </header>
+		    <ul>
+    			
+    			<li>
+    				<a href="/2010/09/26/아이폰컴퓨터-색상-차이-해결법/">아이폰/컴퓨터 색상 차이 해결법</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/09/24/google-spreadsheet-api-note/">Google Spreadsheet API Note</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/08/16/createdeepkey/">create_deep_key</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/08/12/google-app-engine-tips/">Google App Engine Tips</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/08/10/jquery-removeclass-css-sprite/">jquery removeClass 를 이용해서 css sprite 교체하...</a>
+    			</li>
+    			
+    		</ul>
+      </article>
+
+      <article class="widget dsq-widget">
+    		<header class="dsq-widget-title">
+          <h1>Recent Comments</h1>
+        </header>
+    		<ul>
+    			<script type="text/javascript" src=""></script>
+    		</ul>
+  	  </article>
+
+      <article class="widget-blogcategories widget">
+        <header>
+            <h1>Categories</h1>
+        </header>
+          <ul><li>
+                <a href="/category/blogging/">blogging (1)</a>
+              </li><li>
+                <a href="/category/books/">books (1)</a>
+              </li><li>
+                <a href="/category/columns/">columns (6)</a>
+              </li><li>
+                <a href="/category/database/">database (12)</a>
+              </li><li>
+                <a href="/category/gamedev/">gamedev (15)</a>
+              </li><li>
+                <a href="/category/games/">games (2)</a>
+              </li><li>
+                <a href="/category/link/">link (1)</a>
+              </li><li>
+                <a href="/category/management/">management (1)</a>
+              </li><li>
+                <a href="/category/programming/">programming (78)</a>
+              </li><li>
+                <a href="/category/regular/">regular (14)</a>
+              </li><li>
+                <a href="/category/stories/">stories (21)</a>
+              </li><li>
+                <a href="/category/stuff/">stuff (1)</a>
+              </li><li>
+                <a href="/category/tip/">tip (1)</a>
+              </li><li>
+                <a href="/category/tip & tricks/">tip & tricks (1)</a>
+              </li></ul>
+      </article>
+
+<!--       <article class="widget-blogarchives widget">
+        <header>
+            <h1>Archive</h1>
+        </header>
+          <ul>
+            <li><a href="#">March 2013</a></li>
+            <li><a href="#">February 2013</a></li>
+            <li><a href="#">January 2013</a></li>
+            <li><a href="#">December 2012</a></li>
+            <li><a href="#">November 2012</a></li>
+          </ul>
+      </article>
+ -->
+    </aside>
+
+	</div><!-- main-content -->
+
+	<hr/>
+
+	  <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
+
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>

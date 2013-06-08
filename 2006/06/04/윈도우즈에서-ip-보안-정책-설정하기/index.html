@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,14 +64,12 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a> <small>2006-06-04</small></h1>
-	</div>
-	<div class="post-content"><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
+  
+	      <article class="blog-post">
+        <div class="published">2006-06-04</div>
+        <h1><a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a></h1>
+        <div><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
 <p><em>그러나 가장 좋은 것은 뭐니뭐니해도 하드웨어 방화벽이다</em>. :)</p>
 <h2>보안 정책</h2>
 <p>보안 정책은 {IP 필터:필터 동작}의 매핑으로 이루어진다.</p>
@@ -87,7 +93,7 @@
 <h3>터미널 서비스</h3>
 <p>터미널 서비스는 TCP 3389 포트를 사용한다. 따라서, 기본적으로 터미널 서비스를 거부한 다음, 접근을 허용하고 싶은 컴퓨터의 IP만 지정해주면 간단하다. OS 방화벽을 함께 사용한 경우, TCP 3389 포트를 열어주는 것을 잊지 말자.</p>
 <p>반면, 특정 subnet에서만 터미널 서비스를 허용하려면 , 해당 subnet 이 시작하는 주소를 잘 지정해야 한다. 하긴 mask 만 잘 지정하면 적당한 대역의 IP를 넣으면 알아서 변환이 되니깐 별 관계는 없다만...</p>
-<table>
+<table class="table table-striped">
 <thead>
 <tr>
 <th>정책</th>
@@ -131,7 +137,7 @@
 </table>
 <h3>SqlServer 에 대한 외부 접근 제어</h3>
 <p>SqlServer 는 TCP 1433, UDP 1433 포트를 사용한다. OS 방화벽을 함께 사용한 경우, 각 포트들을 열어주는 것을 잊지 말자. TCP/UDP에 대한 거부 필터를 2개 만들어서 추가한 뒤, 접근을 허용하고 싶은 서버를 허용 필터로 추가하면 된다. (보안의 기본적인 컨셉은 모두 막은 뒤 하나씩 풀어주는 것..이라고 누가 말했던가..)</p>
-<table>
+<table class="table table-striped">
 <thead>
 <tr>
 <th>정책</th>
@@ -164,14 +170,11 @@
 </tr>
 </tbody>
 </table></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/">http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/</a></p>
-		
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/">http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/</a><br/>
+			
+		</div>
+      </article>
+
 
     <hr/>
 
@@ -193,40 +196,39 @@
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     
 
-    <footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+      <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
 
-</div> <!-- /container -->
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>

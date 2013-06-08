@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,53 +64,38 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	
-
-	<div class="row">
-		<div class="span9">
+  
+  <div class="row main-content">
+    <div class="span8 zone-content">
+    	<ul class="blog-posts">
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/04/29/a-12345-for-i/">리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...</a> <small>2010-04-29</small></h1>
-	</div>
-	<div class="post-content"><p>리스트를 역순으로 순회하는 방법</p>
+		        <li class="first">
+				      <article class="blog-post">
+        <div class="published">2010-04-29</div>
+        <h1><a href="/2010/04/29/a-12345-for-i/">리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...</a></h1>
+        <div><p>리스트를 역순으로 순회하는 방법</p>
 <pre><code>a = [1,2,3,4,5]
 for i in reversed(xrange(0,len(a)):
     print a[i]
 </code></pre>
 
 <p>list.reverse() 는 inplace 로 뒤집지만 return None 이 되므로 for in list.reverse(): 는 동작하지 않는다.  range() 는 실제로 리스트 값을 리턴하지만, xrange 는 순회를 위한 이터레이터 객체를 리턴한다.  reversed 역시 값 대신 이터레이터 객체를 리턴한다.</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/04/29/a-12345-for-i/">http://boxcatstudio.wordpress.com/2010/04/29/a-12345-for-i/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
-		
-			<a href="/tag/status/"><span class="label"><span class="icon icon-tag"></span> status</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/04/29/a-12345-for-i/">http://boxcatstudio.wordpress.com/2010/04/29/a-12345-for-i/</a><br/>Category:<a href="/category/regular/"><span class="icon icon-folder-open"></span>regular</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a> <small>2010-03-10</small></h1>
-	</div>
-	<div class="post-content"><p>python tip, tricks and hacks from <a href="https://www.siafoo.net/article/52">https://www.siafoo.net/article/52</a></p>
+			
+			Tags:<a href="/tag/python/"><span class="icon icon-tag"></span>python</a><a href="/tag/status/"><span class="icon icon-tag"></span>status</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2010-03-10</div>
+        <h1><a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a></h1>
+        <div><p>python tip, tricks and hacks from <a href="https://www.siafoo.net/article/52">https://www.siafoo.net/article/52</a></p>
 <p><strong>부분 문자열 포함 테스트는 in 연산자를 사용할 것</strong></p>
 <pre><code>if 'aaa' in 'aaabbb':
 </code></pre>
@@ -162,32 +155,21 @@ for i in [1,2,3,4,5]:
 </code></pre>
 
 <p><strong>@staticmethod 데코레이터는 클래스 스태틱 함수를 의미한다.</strong></p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/03/10/python-tip-tricks-and-hacks/">http://boxcatstudio.wordpress.com/2010/03/10/python-tip-tricks-and-hacks/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/03/10/python-tip-tricks-and-hacks/">http://boxcatstudio.wordpress.com/2010/03/10/python-tip-tricks-and-hacks/</a><br/>Category:<a href="/category/regular/"><span class="icon icon-folder-open"></span>regular</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/02/12/reality-check/">Reality Check</a> <small>2010-02-12</small></h1>
-	</div>
-	<div class="post-content"><p><img alt="http://image.aladdin.co.kr/cover/cover/8996230030_1.jpg" src="http://image.aladdin.co.kr/cover/cover/8996230030_1.jpg" /></p>
+			
+			Tags:<a href="/tag/python/"><span class="icon icon-tag"></span>python</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2010-02-12</div>
+        <h1><a href="/2010/02/12/reality-check/">Reality Check</a></h1>
+        <div><p><img alt="http://image.aladdin.co.kr/cover/cover/8996230030_1.jpg" src="http://image.aladdin.co.kr/cover/cover/8996230030_1.jpg" /></p>
 <p>스타트업을 시작하는 모든 이들은 꿈속에서 살아간다.</p>
 <p>창업하자마자 프로토타입을 들고 엔젤 투자자를 만나서, 최소 지분만 희생해서 몇 십억 정도는 땡긴 다음, 퍼블리셔에게 데모를 해서 박수를 받고,  퍼블리싱 계약금으로 개발자들에게 외제차 한 대씩 사주고, 출시하면 대박이 나서 서버를 증설하고 매달 몇 십억씩 입금이 되면 경리 부장이 자꾸 돈이 입금되면 세금 처리를 다시 해야 된다고 하소연을 하고...</p>
 <p>이런 사람들에게 이 책을 권한다. 한번 일독하고 나면 왜 현재의 조직이 느리게 움직이는지, 허접한 개발자들이 왜 이 회사에서 안짤리는지, 나는 이 좋은 실력에도 왜 인정을 못받는 것인지, 예전 월급이 밀린 회사 사장님은 무엇을 잘못한 건지를 손쉽게 추측해볼 수 있을 것이다. 본인은 책을 덮으면서 지금까지 거쳐왔던 수많은(ㅠㅠ) 회사들의 사장님들에게 박수를 보낼 수 밖에 없었다.</p>
@@ -201,26 +183,19 @@ for i in [1,2,3,4,5]:
 
 <p>정도가 아닐까 싶다. 근래에 들었던 이야기 중 가장 하일라이트였던 빈태군의 "너무 상식적이지 않은 이야기는 나는 잘 모르겠다.." 에 비할 명언 되겠다. ㅋㅋ</p>
 <p>임팩트 있던 초반에 비해, 후반부로 가면서 좀 지루해지는 감도 없지 않지만 정말 일독을 권한다. 별은 5개.</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/02/12/reality-check/">http://boxcatstudio.wordpress.com/2010/02/12/reality-check/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/books/"><span class="label label-info"><span class="icon icon-folder-open"></span> books</span></a>
-		
-		</p>
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/02/12/reality-check/">http://boxcatstudio.wordpress.com/2010/02/12/reality-check/</a><br/>Category:<a href="/category/books/"><span class="icon icon-folder-open"></span>books</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/01/25/virtualenv/">virtualenv</a> <small>2010-01-25</small></h1>
-	</div>
-	<div class="post-content"><h2>준비물</h2>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2010-01-25</div>
+        <h1><a href="/2010/01/25/virtualenv/">virtualenv</a></h1>
+        <div><h2>준비물</h2>
 <ul>
 <li>xcode : node 와 virtualenv 설치시 필요함</li>
 <li><a href="http://www.pip-installer.org/en/latest/installing.html">PIP</a> : easy_install 을 대체할 파이썬 패키지 매니저</li>
@@ -267,34 +242,21 @@ echo 'cd ~/Documents/Works/warclouds' &gt;&gt; $WORKON_HOME/warcloud/bin/postact
 </ul>
 <pre><code>add2virtualenv /Users/reiot/Documents/Works/warclouds
 </code></pre></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/01/25/virtualenv-easy/">http://boxcatstudio.wordpress.com/2010/01/25/virtualenv-easy/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
-		
-			<a href="/tag/virtualenv/"><span class="label"><span class="icon icon-tag"></span> virtualenv</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/01/25/virtualenv-easy/">http://boxcatstudio.wordpress.com/2010/01/25/virtualenv-easy/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/01/17/starting-reiot/">Starting Reiot</a> <small>2010-01-17</small></h1>
-	</div>
-	<div class="post-content"><p><a href="http://boxcatstudio.files.wordpress.com/2010/01/startup.jpg"><img alt="http://boxcatstudio.files.wordpress.com/2010/01/startup.jpg" src="http://boxcatstudio.files.wordpress.com/2010/01/startup.jpg" /></a></p>
+			
+			Tags:<a href="/tag/python/"><span class="icon icon-tag"></span>python</a><a href="/tag/virtualenv/"><span class="icon icon-tag"></span>virtualenv</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="last">
+				      <article class="blog-post">
+        <div class="published">2010-01-17</div>
+        <h1><a href="/2010/01/17/starting-reiot/">Starting Reiot</a></h1>
+        <div><p><a href="http://boxcatstudio.files.wordpress.com/2010/01/startup.jpg"><img alt="http://boxcatstudio.files.wordpress.com/2010/01/startup.jpg" src="http://boxcatstudio.files.wordpress.com/2010/01/startup.jpg" /></a></p>
 <p><a href="http://boxcatstudio.files.wordpress.com/2010/01/startup.jpg"></a>(이미 좀 기한이 지난 이야기지만) 2009년은 다시는 겪고 싶지 않은 인생 최악(?)의 해이면서, 유아기적 사고에서 벗어나 진짜 어른이 된 해다. 작년에 일어난 수많은 사건들이, 인생이 얼마나 덧없는가에 대해서, 가장의 건강이 왜 그렇게 소중한 것인지에 대해, 가족을 끝까지 책임져야 하는 사명이 얼마나 무거운가를 깨닫게 해 주었기 때문이다.</p>
 <p>건강이란 아무리 잘 관리해도 확률적으로 나빠질 수 있다는 점을 가정했을 때, 우리 나라처럼 사회안전망이 취약한 환경에서는 가장에게 문제가 발생하면 가족과 친지를 괴롭히다가 빈곤층으로 전락해 버릴 수 있다는 것은 알고 싶지 않은 공공연한 비밀이다. 그런 상황이 오기 전에 자산을 최대한 축적해 두는 것이 대한민국을 살아가는 재산세 내지 않는 이들의 운명이고. 이런 것들이 내가 트위터나 클리앙에서 MB와 그 알바들에게 극렬하게 반응하고, 북유럽의 천국같은 복지에 대해서 항상 부러워하고, 웰빙 먹거리에 대해서 떠들어대는 이유다.</p>
 <p>운좋게 회사에서 4개월 가까이 주3일만 출근해도 되도록 배려를 해줬고, 덕분에 아직까지 큰 탈 없이 버틸 정도의 체력을 유지할 수 있었다. 그러나, 이런 배려가 무한정 지속될 수는 없다는 것은 명백한 사실. 결국은 휴직 3개월차인 지난 주에 꾀죄죄한 모습으로 회사로 가서 사직서를 제출했다. 다행히 이번 <a href="http://bm.gametree.co.kr/">프로야구매니저</a>의 반응이 제법 좋은 편이어서, 미안함과 부담감은 덜고 한결 편안한 마음으로 작별 인사를 할 수 있었다.</p>
@@ -314,27 +276,18 @@ echo 'cd ~/Documents/Works/warclouds' &gt;&gt; $WORKON_HOME/warcloud/bin/postact
 <p>요약하자면, 소수 정예로 최고의 팀을 꾸리고, 업무에만 집중할 수 있는 최고의 환경을 제공한다..라는 거다. 아직은 꿈의 단편에 불과하고 언제 저런 것들이 이루어질지는 의문이지만, 회사 운영도 애자일하게 해나가면 시간을 많이 단축시킬 수 있을지도. 물론 스타트업의 3년 생존률이 1-5% 정도라는 걸 감안하면 초반엔 서바이벌 모드로 갈 수 밖에 없을 것 같다.</p>
 <p>스타트업의 세계는 기술력이 좋다고, 최신 트렌드를 많이 안다고 성공하는 영역이 아니라고 한다. 지식 보다는 지혜가 필요한 영역, 빠른 판단과 실행력이 중요한 세계라나. 그래서 블로그 이름도 Learning Reiot 에서 Starting Reiot 으로 바꿨다. 다음 주에 법인 등록을 마무리 지으면, 이제 컨디션이 허용하는 한 열심히 땅파는 거만 남았다. 다만 현재의 체력대로라면 조만간 재택 근무의 나날들이 이어질 거 같지만.. ^^;;;</p>
 <p>끝으로, 월급 몇 달째 못타오는 못난 남편 대신 생활비와 남편 약값, 시댁 생활비 대느라 야근 라이프를 반복중인 안사람에게 무한한 경의를 바친다. 여보~ 감사합니다~ 빨리 건강도 되찾고 돈도 많이 벌어올께요~ ㅠ_ㅠ</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/01/17/starting-reiot/">http://boxcatstudio.wordpress.com/2010/01/17/starting-reiot/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/stories/"><span class="label label-info"><span class="icon icon-folder-open"></span> stories</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/startup/"><span class="label"><span class="icon icon-tag"></span> startup</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/01/17/starting-reiot/">http://boxcatstudio.wordpress.com/2010/01/17/starting-reiot/</a><br/>Category:<a href="/category/stories/"><span class="icon icon-folder-open"></span>stories</a><br/>
 			
+			
+			Tags:<a href="/tag/startup/"><span class="icon icon-tag"></span>startup</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+			</ul>
+
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -380,88 +333,154 @@ echo 'cd ~/Documents/Works/warclouds' &gt;&gt; $WORKON_HOME/warcloud/bin/postact
 				
 					<li><a href="/page/12/">&raquo;</a></li>
 				
-		  		</ul>
-			</div>
-		</div>
-		<div class="span3">
-			<ul class="nav nav-list well dsq-widget">
-	<li class="nav-header">
-		Social
-	</li>	<li>
-		
-		<a href="http://facebook.com/reiot" style="display: inline-block"><img src="/assets/img/facebook.png" /></a>
-		
-		
-		<a href="http://twitter.com/reiot" style="display: inline-block"><img src="/assets/img/twitter.png" /></a>
-		
-	    <a href="atom.xml" style="display: inline-block"><img src="/assets/img/rss.png" /></a>
-	</li>
-	<li class="nav-header">
-		Recent Posts
-	</li>
-	
-	<li>
-		<a href="/2010/04/29/a-12345-for-i/">리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...</a>
-	</li>
-	
-	<li>
-		<a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a>
-	</li>
-	
-	<li>
-		<a href="/2010/02/12/reality-check/">Reality Check</a>
-	</li>
-	
-	<li>
-		<a href="/2010/01/25/virtualenv/">virtualenv</a>
-	</li>
-	
-	<li>
-		<a href="/2010/01/17/starting-reiot/">Starting Reiot</a>
-	</li>
-	
-	<li class="nav-header dsq-widget-title">
-		Recent Comments
-	</li>
-	<script type="text/javascript" src="http://reiot.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
-</ul>
-		</div>
-	</div>
+		  	</ul>
+			</div><!-- pagination -->
+		</div><!-- zone-content -->
 
-	<footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+		    <aside id="aside-right" class="aside-column offset1 span3">
+      <article class="widget-html-widget widget">
+        <header>
+            <h1>Author</h1>
+        </header>
+        <p>
+          Ray Yun(reiot)<br>
+          game develper <br>
+          cofounder of <a href="http://picneko.com">PICNEKO Creative</a> <br>
+          
+          <a href="http://facebook.com/reiot"><i class="smicon-facebook"></i></a>
+          
+          
+          <a href="http://twitter.com/reiot"><i class="smicon-twitter"></i></a>
+          
+          <a href="atom.xml"><i class="smicon-rss"></i></a>
+        </p>
+      </article>
 
-</div> <!-- /container -->
+      <article class="widget dsq-widget">
+		    <header class="dsq-widget-title">
+          <h1>Recent Posts</h1>
+        </header>
+		    <ul>
+    			
+    			<li>
+    				<a href="/2010/04/29/a-12345-for-i/">리스트를 역순으로 순회하는 방법 a = [1,2,3,4,5] for i ...</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/03/10/python-tip-tricks-and-hacks/">Python Tip, Tricks and Hacks</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/02/12/reality-check/">Reality Check</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/01/25/virtualenv/">virtualenv</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/01/17/starting-reiot/">Starting Reiot</a>
+    			</li>
+    			
+    		</ul>
+      </article>
+
+      <article class="widget dsq-widget">
+    		<header class="dsq-widget-title">
+          <h1>Recent Comments</h1>
+        </header>
+    		<ul>
+    			<script type="text/javascript" src=""></script>
+    		</ul>
+  	  </article>
+
+      <article class="widget-blogcategories widget">
+        <header>
+            <h1>Categories</h1>
+        </header>
+          <ul><li>
+                <a href="/category/blogging/">blogging (1)</a>
+              </li><li>
+                <a href="/category/books/">books (1)</a>
+              </li><li>
+                <a href="/category/columns/">columns (6)</a>
+              </li><li>
+                <a href="/category/database/">database (12)</a>
+              </li><li>
+                <a href="/category/gamedev/">gamedev (15)</a>
+              </li><li>
+                <a href="/category/games/">games (2)</a>
+              </li><li>
+                <a href="/category/link/">link (1)</a>
+              </li><li>
+                <a href="/category/management/">management (1)</a>
+              </li><li>
+                <a href="/category/programming/">programming (78)</a>
+              </li><li>
+                <a href="/category/regular/">regular (14)</a>
+              </li><li>
+                <a href="/category/stories/">stories (21)</a>
+              </li><li>
+                <a href="/category/stuff/">stuff (1)</a>
+              </li><li>
+                <a href="/category/tip/">tip (1)</a>
+              </li><li>
+                <a href="/category/tip & tricks/">tip & tricks (1)</a>
+              </li></ul>
+      </article>
+
+<!--       <article class="widget-blogarchives widget">
+        <header>
+            <h1>Archive</h1>
+        </header>
+          <ul>
+            <li><a href="#">March 2013</a></li>
+            <li><a href="#">February 2013</a></li>
+            <li><a href="#">January 2013</a></li>
+            <li><a href="#">December 2012</a></li>
+            <li><a href="#">November 2012</a></li>
+          </ul>
+      </article>
+ -->
+    </aside>
+
+	</div><!-- main-content -->
+
+	<hr/>
+
+	  <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
+
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>

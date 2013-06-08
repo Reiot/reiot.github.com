@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,19 +64,17 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	
-
-	<div class="row">
-		<div class="span9">
+  
+  <div class="row main-content">
+    <div class="span8 zone-content">
+    	<ul class="blog-posts">
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a> <small>2006-06-19</small></h1>
-	</div>
-	<div class="post-content"><p>한국 대 프랑스전을 기다리면서 <a href="http://developer.valvesoftware.com/wiki/">하프라이프2 위키</a> 중에서 <a href="http://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking">Source Multiplayer Networking</a> 부분을 요약 정리해보았다.</p>
+		        <li class="first">
+				      <article class="blog-post">
+        <div class="published">2006-06-19</div>
+        <h1><a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a></h1>
+        <div><p>한국 대 프랑스전을 기다리면서 <a href="http://developer.valvesoftware.com/wiki/">하프라이프2 위키</a> 중에서 <a href="http://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking">Source Multiplayer Networking</a> 부분을 요약 정리해보았다.</p>
 <p><img alt="하프라이프2 서버와 클라이언트" src="http://developer.valvesoftware.com/w/images/e/ea/Networking1.gif" /></p>
 <p>퀘이크나 하프라이프2(이하 HL2) 같은 클라이언트-서버 기반의 FPS 게임에서, 클라이언트는 기본적으로 렌더링 더미(dummy)라고 봐야 한다. 왜냐하면 클라이언트가 키보드나 마우스 입력을 샘플링해서 서버로 보내면, 서버는 초당 30-40회의 시뮬레이션을 거친 후 그 결과(snapshot)를 주기적으로 브로드캐스트하며, 클라이언트는 스냅샷을 받아서 렌더링을 하는 방식으로 구현되기 때문이다. 대신 서버는 보안적인 이유 때문에 대부분의 이동, 공격, 인증, 보안 체크를 해야 한다. (참고로, HL2 서버는 초당 33회의 시뮬레이션을 거치고 20회의 스냅샷을 브로드캐스트하며, 클라이언트는 초당 20회의 입력샘플링을 한다.)</p>
 <p>문제는 사용자의 입력 결과가 도착해서 실제로 그려지기까지의 시간이 꽤 오래 걸린다는 점이다. 이 랙(lag)을 해결하기 위해서 입력 예측(Input Prediction)이 사용되는데, 이는 내 캐릭터만큼은 서버의 결과를 기다리지 않고 먼저 움직이게 한다는 것이다. 이를 위해서 이동에 관련된 시뮬레이션 로직을 서버와 클라이언트 모두에 탑재해야 하며, 클라이언트는 서버에 입력을 보내자마자 로컬 시뮬레이션을 거쳐 내 캐릭터를 이동시킨 후, 서버에서 도착한 결과가 너무 차이가 많이 날 경우에만 보정을 하게 된다.</p>
@@ -77,20 +83,18 @@
 <p><img alt="Entity Interpolation" src="http://developer.valvesoftware.com/w/images/4/49/Interpolation.gif" /></p>
 <p>이 정도면 정상적인 네트워크에서의 기본적인 이동과 전투 까지는 해결할 수 있지만, 만약 패킷 손실을 고려하지 않으면 불안한 네트워크에서 캐릭터가 마구 점프하는 모습을 보게 될 것이다. 물론 적절한 데드 레커닝으로 해결할 수도 있겠지만, HL2 클라이언트에서는 서버가 보낸 스냅샷을 즉시 처리하는 대신 일정 시간(100ms)동안 버퍼링을 한 후, 내삽(interpolation)과 외삽(extrapolation)을 이용해서 패킷 손실에 우아하게 처리한다. 위 그림을 보면 짐작하겠지만, 최소한 2개의 패킷을 버퍼링함으로써 둘 중 하나가 손실되더라도 나머지 패킷으로 추정이 가능하다.</p>
 <p>결국 전통적인 FPS 게임에서의 서버는, 단순히 패킷을 브로드캐스팅하는 릴레이 서버가 아니라, 이동-공격-판정-충돌 등 대부분의 로직을 처리해해야 하기 때문에, 생각보다 꽤 무거워질 수 밖에 없다. 반면 클라이언트는 자기 캐릭터를 제외한 대부분의 입력을 네트워크로부터 받아들이는 구조로 작성되어야 한다. 만약 여러분이 다른 FPS게임과는 달리 플레이어들에게 dedicated server를 배포할 수 없는 상황이라면, 여러분은 대역폭을 무한히 절약해야 하는 꽤 힘든 싸움을 시작한 것이다. Welcome to the hell, guys.. :)</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/19/%ec%a0%84%ed%86%b5%ec%a0%81%ec%9d%b8-fps-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%82%b9-%ea%b5%ac%ed%98%84/">http://boxcatstudio.wordpress.com/2006/06/19/%ec%a0%84%ed%86%b5%ec%a0%81%ec%9d%b8-fps-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%82%b9-%ea%b5%ac%ed%98%84/</a></p>
-		
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/06/19/%ec%a0%84%ed%86%b5%ec%a0%81%ec%9d%b8-fps-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%82%b9-%ea%b5%ac%ed%98%84/">http://boxcatstudio.wordpress.com/2006/06/19/%ec%a0%84%ed%86%b5%ec%a0%81%ec%9d%b8-fps-%ea%b2%8c%ec%9e%84%ec%9d%98-%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%82%b9-%ea%b5%ac%ed%98%84/</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/06/08/lua-tips/">Lua Tips</a> <small>2006-06-08</small></h1>
-	</div>
-	<div class="post-content"><p>LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.</p>
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2006-06-08</div>
+        <h1><a href="/2006/06/08/lua-tips/">Lua Tips</a></h1>
+        <div><p>LUA는 현존하는 가장 가볍고 빠른 스크립트 언어로, 발더스게이트1과 월드 오브 워크래프트에서 사용되고 있다.</p>
 <h2>LuaPack</h2>
 <p>바이너리 데이터를 pack/unpack 하는 라이브러리. 일단 require 해주면 string.pack, string.unpack 의 2개 함수가 추가된다. 레이옷은 '''순수 루아 테스트 클라이언트'''를 만들기 위해서 LuaSocket 과 함께 사용했다. 단, 리눅스에서 사용하던 놈이라, 윈도우 환경에서 dll 로 사용하기 위해서는 약간의 수고가 필요하다.</p>
 <ul>
@@ -112,7 +116,7 @@ print(string.unpack)
 </code></pre>
 
 <p>변환표<br />
-<table><br />
+<table class="table table-striped"><br />
 <thead><br />
 <th>type string</th><br />
 <th>의미</th><br />
@@ -342,20 +346,18 @@ end</p>
 <li>[http://www.icynorth.com/forums/index.php LuaForum]</li>
 <li>http://www.thomasandamy.com/projects/CPB/</li>
 </ul></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/08/lua-tips/">http://boxcatstudio.wordpress.com/2006/06/08/lua-tips/</a></p>
-		
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/06/08/lua-tips/">http://boxcatstudio.wordpress.com/2006/06/08/lua-tips/</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a> <small>2006-06-04</small></h1>
-	</div>
-	<div class="post-content"><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2006-06-04</div>
+        <h1><a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a></h1>
+        <div><p>XP 부터 소프트웨어 방화벽을 지원하지만, TCP/UDP에 대해 특정 포트를 On/Off 시키는 정도의 제어만 가능하다. 그러나 Windows 서버 2003 부터는 - 리눅스에서는 오래전부터 지원했던 - IpSec 을 지원한다. 이는 관리도구 - 로컬보안정책 - IP보안정책 에서 설정할 수 있다.</p>
 <p><em>그러나 가장 좋은 것은 뭐니뭐니해도 하드웨어 방화벽이다</em>. :)</p>
 <h2>보안 정책</h2>
 <p>보안 정책은 {IP 필터:필터 동작}의 매핑으로 이루어진다.</p>
@@ -379,7 +381,7 @@ end</p>
 <h3>터미널 서비스</h3>
 <p>터미널 서비스는 TCP 3389 포트를 사용한다. 따라서, 기본적으로 터미널 서비스를 거부한 다음, 접근을 허용하고 싶은 컴퓨터의 IP만 지정해주면 간단하다. OS 방화벽을 함께 사용한 경우, TCP 3389 포트를 열어주는 것을 잊지 말자.</p>
 <p>반면, 특정 subnet에서만 터미널 서비스를 허용하려면 , 해당 subnet 이 시작하는 주소를 잘 지정해야 한다. 하긴 mask 만 잘 지정하면 적당한 대역의 IP를 넣으면 알아서 변환이 되니깐 별 관계는 없다만...</p>
-<table>
+<table class="table table-striped">
 <thead>
 <tr>
 <th>정책</th>
@@ -423,7 +425,7 @@ end</p>
 </table>
 <h3>SqlServer 에 대한 외부 접근 제어</h3>
 <p>SqlServer 는 TCP 1433, UDP 1433 포트를 사용한다. OS 방화벽을 함께 사용한 경우, 각 포트들을 열어주는 것을 잊지 말자. TCP/UDP에 대한 거부 필터를 2개 만들어서 추가한 뒤, 접근을 허용하고 싶은 서버를 허용 필터로 추가하면 된다. (보안의 기본적인 컨셉은 모두 막은 뒤 하나씩 풀어주는 것..이라고 누가 말했던가..)</p>
-<table>
+<table class="table table-striped">
 <thead>
 <tr>
 <th>정책</th>
@@ -456,20 +458,18 @@ end</p>
 </tr>
 </tbody>
 </table></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/">http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/</a></p>
-		
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/">http://boxcatstudio.wordpress.com/2006/06/04/%ec%9c%88%eb%8f%84%ec%9a%b0%ec%a6%88%ec%97%90%ec%84%9c-ip-%eb%b3%b4%ec%95%88-%ec%a0%95%ec%b1%85-%ec%84%a4%ec%a0%95%ed%95%98%ea%b8%b0/</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a> <small>2006-06-04</small></h1>
-	</div>
-	<div class="post-content"><h2>multiple result set + parameter binding</h2>
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2006-06-04</div>
+        <h1><a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a></h1>
+        <div><h2>multiple result set + parameter binding</h2>
 <ul>
 <li>캐릭터 정보 로딩과 같이, 하나의 프로시저에서 여러 테이블의 row 들을 select 하면서 파라미터도 바인딩해야 할 경우, static binding 으로는 구현할 수 없으며, CDynamicParameterAccessor::GetParam()를 이용해야 한다.</li>
 <li>파라미터의 경우, select 해온 모든 result set 을 소진한 후, 가장 마지막에 읽어와야 한다. 즉 DB_S_NORESULT == GetNextResult(...); 를 실행한 후에만 유효하다는 뜻이다. 만약, 그 전에 읽게 되면 garbage 가 리턴된다.</li>
@@ -528,26 +528,19 @@ end</p>
 <ul>
 <li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/vcfaqwhichaccessorshouldiuse.asp">Which accessor should I use?</a> from MSDN</li>
 </ul></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/04/ole-db-tips/">http://boxcatstudio.wordpress.com/2006/06/04/ole-db-tips/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
-		
-		</p>
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/06/04/ole-db-tips/">http://boxcatstudio.wordpress.com/2006/06/04/ole-db-tips/</a><br/>Category:<a href="/category/database/"><span class="icon icon-folder-open"></span>database</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/06/01/stl-tips/">STL Tips</a> <small>2006-06-01</small></h1>
-	</div>
-	<div class="post-content"><h2>dll + STL</h2>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="last">
+				      <article class="blog-post">
+        <div class="published">2006-06-01</div>
+        <h1><a href="/2006/06/01/stl-tips/">STL Tips</a></h1>
+        <div><h2>dll + STL</h2>
 <p>dll 에서 hash_set 을 멤버로 가진 클래스를 만들려다가 nested class 인 _Hash 라든지 hash_compare 등등을 모두 dllexport 하라길래 포기하고 PIMPL 패턴으로 해결해야만 했다.</p>
 <ul>
 <li><a href="http://support.microsoft.com/default.aspx?scid=kb;EN-US;168958">How To Exporting STL Components Inside &amp; Outside of a Class</a></li>
@@ -926,21 +919,16 @@ test_multiset()
 <li>predicate 의 비교문에서 &gt;= 을 사용하면 다른 결과가 나온다!</li>
 <li>predicate 관련 변수(m_TeamPoint)와 같이, 비교 로직에 영향을 주는 무언가를 외부에서 바꾸게 되면 multixxx 내부의 트리가 깨지게 된다. 너무나 당연한 사실이지만, Key 를 바꾸는게 아니라서 안전할 거 같아 보이는 것도 사실이다. 이를 방지하려면 일단 container 에서 해당 값을 erase한 다음 값을 수정하고 다시 insert 하는 것을 권장한다.</li>
 </ul></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/01/stl-tips/">http://boxcatstudio.wordpress.com/2006/06/01/stl-tips/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/06/01/stl-tips/">http://boxcatstudio.wordpress.com/2006/06/01/stl-tips/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
+			
+		</div>
+      </article>
+
+				</li>
+			
+			</ul>
+
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -986,88 +974,154 @@ test_multiset()
 				
 					<li><a href="/page/36/">&raquo;</a></li>
 				
-		  		</ul>
-			</div>
-		</div>
-		<div class="span3">
-			<ul class="nav nav-list well dsq-widget">
-	<li class="nav-header">
-		Social
-	</li>	<li>
-		
-		<a href="http://facebook.com/reiot" style="display: inline-block"><img src="/assets/img/facebook.png" /></a>
-		
-		
-		<a href="http://twitter.com/reiot" style="display: inline-block"><img src="/assets/img/twitter.png" /></a>
-		
-	    <a href="atom.xml" style="display: inline-block"><img src="/assets/img/rss.png" /></a>
-	</li>
-	<li class="nav-header">
-		Recent Posts
-	</li>
-	
-	<li>
-		<a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/08/lua-tips/">Lua Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/06/01/stl-tips/">STL Tips</a>
-	</li>
-	
-	<li class="nav-header dsq-widget-title">
-		Recent Comments
-	</li>
-	<script type="text/javascript" src="http://reiot.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
-</ul>
-		</div>
-	</div>
+		  	</ul>
+			</div><!-- pagination -->
+		</div><!-- zone-content -->
 
-	<footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+		    <aside id="aside-right" class="aside-column offset1 span3">
+      <article class="widget-html-widget widget">
+        <header>
+            <h1>Author</h1>
+        </header>
+        <p>
+          Ray Yun(reiot)<br>
+          game develper <br>
+          cofounder of <a href="http://picneko.com">PICNEKO Creative</a> <br>
+          
+          <a href="http://facebook.com/reiot"><i class="smicon-facebook"></i></a>
+          
+          
+          <a href="http://twitter.com/reiot"><i class="smicon-twitter"></i></a>
+          
+          <a href="atom.xml"><i class="smicon-rss"></i></a>
+        </p>
+      </article>
 
-</div> <!-- /container -->
+      <article class="widget dsq-widget">
+		    <header class="dsq-widget-title">
+          <h1>Recent Posts</h1>
+        </header>
+		    <ul>
+    			
+    			<li>
+    				<a href="/2006/06/19/전통적인-fps-게임의-네트워킹-구현/">전통적인 FPS 게임의 네트워킹 구현</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/06/08/lua-tips/">Lua Tips</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/06/04/윈도우즈에서-ip-보안-정책-설정하기/">윈도우즈에서 IP 보안 정책 설정하기</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/06/04/ole-db-tips/">OLE DB Tips</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/06/01/stl-tips/">STL Tips</a>
+    			</li>
+    			
+    		</ul>
+      </article>
+
+      <article class="widget dsq-widget">
+    		<header class="dsq-widget-title">
+          <h1>Recent Comments</h1>
+        </header>
+    		<ul>
+    			<script type="text/javascript" src=""></script>
+    		</ul>
+  	  </article>
+
+      <article class="widget-blogcategories widget">
+        <header>
+            <h1>Categories</h1>
+        </header>
+          <ul><li>
+                <a href="/category/blogging/">blogging (1)</a>
+              </li><li>
+                <a href="/category/books/">books (1)</a>
+              </li><li>
+                <a href="/category/columns/">columns (6)</a>
+              </li><li>
+                <a href="/category/database/">database (12)</a>
+              </li><li>
+                <a href="/category/gamedev/">gamedev (15)</a>
+              </li><li>
+                <a href="/category/games/">games (2)</a>
+              </li><li>
+                <a href="/category/link/">link (1)</a>
+              </li><li>
+                <a href="/category/management/">management (1)</a>
+              </li><li>
+                <a href="/category/programming/">programming (78)</a>
+              </li><li>
+                <a href="/category/regular/">regular (14)</a>
+              </li><li>
+                <a href="/category/stories/">stories (21)</a>
+              </li><li>
+                <a href="/category/stuff/">stuff (1)</a>
+              </li><li>
+                <a href="/category/tip/">tip (1)</a>
+              </li><li>
+                <a href="/category/tip & tricks/">tip & tricks (1)</a>
+              </li></ul>
+      </article>
+
+<!--       <article class="widget-blogarchives widget">
+        <header>
+            <h1>Archive</h1>
+        </header>
+          <ul>
+            <li><a href="#">March 2013</a></li>
+            <li><a href="#">February 2013</a></li>
+            <li><a href="#">January 2013</a></li>
+            <li><a href="#">December 2012</a></li>
+            <li><a href="#">November 2012</a></li>
+          </ul>
+      </article>
+ -->
+    </aside>
+
+	</div><!-- main-content -->
+
+	<hr/>
+
+	  <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
+
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>

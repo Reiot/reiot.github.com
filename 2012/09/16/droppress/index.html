@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,14 +64,12 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2012/09/16/droppress/">DropPress</a> <small>2012-09-16</small></h1>
-	</div>
-	<div class="post-content"><p><a href="http://github.com/Reiot/droppress">DropPress</a>는 이번에 다 죽어있던 블로그를 개편하면서 만든 정적 사이트 생성 스크립트다.</p>
+  
+	      <article class="blog-post">
+        <div class="published">2012-09-16</div>
+        <h1><a href="/2012/09/16/droppress/">DropPress</a></h1>
+        <div><p><a href="http://github.com/Reiot/droppress">DropPress</a>는 이번에 다 죽어있던 블로그를 개편하면서 만든 정적 사이트 생성 스크립트다.</p>
 <p>왜 이름이 DropPress 이냐면, 이 프로젝트의 시작은 드랍박스를 연동하는 웹서비스였기 때문이다. 드랍박스에 마크다운 포맷의 글을 저장해두면, 버전관리를 안해도 되고, 드랍박스와 연동되는 훌륭한 편집기가 널려 있으니, 나는 마크다운 변환과 github 배포를 구현하기만 하면 된다고 생각했다. 그런데, 비슷한 웹 에디터나 호스팅 서비스도 이미 존재하길래, 목표를 간단한 스크립트로 바꿨다. :)</p>
 <p><a href="https://github.com/Reiot/droppress">소스코드</a>는 github에 공개되어 있다.</p>
 <h2>기능 소개</h2>
@@ -79,7 +85,7 @@
 <h2>구현</h2>
 <p>파이썬 스크립트 자체는 몇 줄 안되는데도 봐줄만하게 나온 이유는 트위터 부트스트랩 덕분이다. 이런 라이브러리가 <a href="http://www.quora.com/Twitter-Bootstrap/Do-Mark-Otto-and-Jacob-Thornton-work-on-Bootstrap-full-time-at-Twitter">전업이 아니라 주말 작업만으로 나왔다</a>니, 진짜 대단한 친구들이다.</p>
 <p><a href="http://octopress.org">octopress</a>에서 영감을 많이 받아서 글 헤더의 포맷이나 형태, 구조, 쉘 명령 등을 많이 참조했다. 얘들이 업데이트만 자주 했더라도 내가 안만들었을텐데..</p>
-<table>
+<table class="table table-striped">
 <thead>
 <tr>
 <th>라이브러리</th>
@@ -131,36 +137,14 @@
 </ul>
 <p>정도가 남은 셈이다. 근데 과연 거기까지 갈지가 의문이다.</p>
 <p>그나저나, 실컷 끝내고 나니 왠지 바퀴만 재발명한 거 같은 생각이 든다. 좀 더 컨텐츠에 집중해야 되는데..</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://github.com/Reiot/droppress">http://github.com/Reiot/droppress</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/droppress/"><span class="label"><span class="icon icon-tag"></span> droppress</span></a>
-		
-			<a href="/tag/python/"><span class="label"><span class="icon icon-tag"></span> python</span></a>
-		
-			<a href="/tag/github/"><span class="label"><span class="icon icon-tag"></span> github</span></a>
-		
-			<a href="/tag/bootstrap/"><span class="label"><span class="icon icon-tag"></span> bootstrap</span></a>
-		
-			<a href="/tag/markdown/"><span class="label"><span class="icon icon-tag"></span> markdown</span></a>
-		
-			<a href="/tag/dropbox/"><span class="label"><span class="icon icon-tag"></span> dropbox</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://github.com/Reiot/droppress">http://github.com/Reiot/droppress</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
+			
+			
+			Tags:<a href="/tag/droppress/"><span class="icon icon-tag"></span>droppress</a><a href="/tag/python/"><span class="icon icon-tag"></span>python</a><a href="/tag/github/"><span class="icon icon-tag"></span>github</a><a href="/tag/bootstrap/"><span class="icon icon-tag"></span>bootstrap</a><a href="/tag/markdown/"><span class="icon icon-tag"></span>markdown</a><a href="/tag/dropbox/"><span class="icon icon-tag"></span>dropbox</a><br/>
+			
+		</div>
+      </article>
+
 
     <hr/>
 
@@ -182,40 +166,39 @@
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     
 
-    <footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+      <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
 
-</div> <!-- /container -->
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>

@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,19 +64,17 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	
-
-	<div class="row">
-		<div class="span9">
+  
+  <div class="row main-content">
+    <div class="span8 zone-content">
+    	<ul class="blog-posts">
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a> <small>2006-06-01</small></h1>
-	</div>
-	<div class="post-content"><p>Windows 에서 제공하는 ThreadPooling API인 QueueUserWorkItem()에 대해서 알아보자.</p>
+		        <li class="first">
+				      <article class="blog-post">
+        <div class="published">2006-06-01</div>
+        <h1><a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a></h1>
+        <div><p>Windows 에서 제공하는 ThreadPooling API인 QueueUserWorkItem()에 대해서 알아보자.</p>
 <h2>QueueUserWorkItem()</h2>
 <p>Programming Application for Microsoft Windows 에 의하면 ThreadPooling 시 새로운 쓰레드가 추가되기 위한 factor 에는 아래와 같은 것이 있다.</p>
 <ul>
@@ -130,20 +136,18 @@ thread_pool_test_fixture::test_really_pooling()
 | 10 | 10 | 1  | 큐잉되는 시간 == 처리 시간 |
 | 10 | 20 | 3  | 큐잉되는 시간
 </code></pre></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/06/01/queueuserworkitem/">http://boxcatstudio.wordpress.com/2006/06/01/queueuserworkitem/</a></p>
-		
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/06/01/queueuserworkitem/">http://boxcatstudio.wordpress.com/2006/06/01/queueuserworkitem/</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a> <small>2006-05-28</small></h1>
-	</div>
-	<div class="post-content"><p>템플릿 프로그래밍을 하다 보면, 문자열이나 사용자 정의 클래스(UDT) 같은 특정 타입에 대한 특수화(specializaiton)를 할 경우가 있다. 그 중에서 가장 헷갈리는 부분이 바로 특정 클래스의 포인터를 템플릿 인자로 받아서 특수화해야 하는 경우인데, boost typetraits 중 하나인 boost::is_base_of를 사용하면 손쉽게 해결할 수 있다.</p>
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2006-05-28</div>
+        <h1><a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a></h1>
+        <div><p>템플릿 프로그래밍을 하다 보면, 문자열이나 사용자 정의 클래스(UDT) 같은 특정 타입에 대한 특수화(specializaiton)를 할 경우가 있다. 그 중에서 가장 헷갈리는 부분이 바로 특정 클래스의 포인터를 템플릿 인자로 받아서 특수화해야 하는 경우인데, boost typetraits 중 하나인 boost::is_base_of를 사용하면 손쉽게 해결할 수 있다.</p>
 <pre><code>
 template
 void old_algorithm ( const T &amp; value )
@@ -176,26 +180,19 @@ void new_algorithm_impl ( const T &amp; value, const boost::false_type&amp; )
 }
 
 </code></pre></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/05/28/boostis_base_of/">http://boxcatstudio.wordpress.com/2006/05/28/boostis_base_of/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/05/28/boostis_base_of/">http://boxcatstudio.wordpress.com/2006/05/28/boostis_base_of/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/05/25/boostany/">boost::any</a> <small>2006-05-25</small></h1>
-	</div>
-	<div class="post-content"><p>게임 개발을 하다 보면, 가끔 서로 다른 타입의 객체들을 하나의 컨테이너에서 다루어야 할 때가 있다. 만약 이 컨테이너로 하는 일이 간단하다면야 인터페이스 상속을 쓰면 되지만, 상속을 할 수 없을 정도로 타입이 다를 때도 있다. 이럴 때 사용하는 것이 바로 boost::any 클래스이다.</p>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2006-05-25</div>
+        <h1><a href="/2006/05/25/boostany/">boost::any</a></h1>
+        <div><p>게임 개발을 하다 보면, 가끔 서로 다른 타입의 객체들을 하나의 컨테이너에서 다루어야 할 때가 있다. 만약 이 컨테이너로 하는 일이 간단하다면야 인터페이스 상속을 쓰면 되지만, 상속을 할 수 없을 정도로 타입이 다를 때도 있다. 이럴 때 사용하는 것이 바로 boost::any 클래스이다.</p>
 <p>boost::any는 이름 그대로 어떤(any) 것도 담을 수 있는 클래스로, void * 와 비슷한 역할을 한다. (더욱 자세한 설명은 <a href="http://boost.org/doc/html/any.html">boost 온라인 매뉴얼</a>을 참고)</p>
 <p>이번에 boost::any 의 코드를 참조해서 작업을 하다 보니 몇 가지 장단점들이 눈에 띄었다.</p>
 <ul>
@@ -204,26 +201,19 @@ void new_algorithm_impl ( const T &amp; value, const boost::false_type&amp; )
 <li>디버깅시 any 내부의 placeholder 에 들어 있는 값을 찾기가 곤란하다.</li>
 </ul>
 <p>이번 주는 영식군이 한 달 동안 쇼핑하면서 작업한 <a href="http://reiot.cafe24.com/archives/395">객체 복제 프레임워크</a>를 이틀 동안 인수인계 받은 후, 복제의 최소 단위인 replication value 클래스를 boost::any 의 코드를 참조해서 고치고 있다. 미리 2000라인 정도의 테스트 코드를 만들어둔 덕택에 <del datetime="2006-05-25T14:14:00+00:00">코드 학습</del> 리팩토링이 겨우 4일 만에 거의 끝낼 수 있었다. 물론 영식군이 계속 지나가면서 어차피 기능이 똑같다면 왜 사서 삽질을 하냐고 갈구고 있지만 그냥 못들은 척하고 중이다. 흐흐.</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/05/25/boostany/">http://boxcatstudio.wordpress.com/2006/05/25/boostany/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/05/25/boostany/">http://boxcatstudio.wordpress.com/2006/05/25/boostany/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/05/16/p2p-tips/">P2P Tips</a> <small>2006-05-16</small></h1>
-	</div>
-	<div class="post-content"><p>P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다)</p>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2006-05-16</div>
+        <h1><a href="/2006/05/16/p2p-tips/">P2P Tips</a></h1>
+        <div><p>P2P 프로그래밍에 있어서 주의해야 할 항목들을 정리해 보았다. 입문자에게 많은 도움이 되었으면 한다. (참고로 본인은 직접 P2P를 개발하기보단 동료가 삽질하는 걸 지켜본 쪽이라서, 정확하지 않은 내용이 있을 수 있음을 먼저 밝힌다)</p>
 <h1>분석 및 검토</h1>
 <h2>게임성 분석</h2>
 <p>만들고자 하는 게임의 다양한 속성들에 대한 분석이 최우선 단계이다. 다음 질문에 자신의 게임이 어떤 쪽인지를 잘 따져보기 바란다.</p>
@@ -297,20 +287,18 @@ void new_algorithm_impl ( const T &amp; value, const boost::false_type&amp; )
 <li>연결 끊김 감지 : 게임 도중 연결이 끊길 경우 얼마나 빨리 감지할 수 있을까?</li>
 <li>데이터 복제, 보안, 통계 수집</li>
 </ul></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/05/16/p2p-tips/">http://boxcatstudio.wordpress.com/2006/05/16/p2p-tips/</a></p>
-		
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/05/16/p2p-tips/">http://boxcatstudio.wordpress.com/2006/05/16/p2p-tips/</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2006/05/16/iocp-tips/">IOCP Tips</a> <small>2006-05-16</small></h1>
-	</div>
-	<div class="post-content"><p>I/O completion port 를 개발할 때 주의해야 할 사항들.</p>
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="last">
+				      <article class="blog-post">
+        <div class="published">2006-05-16</div>
+        <h1><a href="/2006/05/16/iocp-tips/">IOCP Tips</a></h1>
+        <div><p>I/O completion port 를 개발할 때 주의해야 할 사항들.</p>
 <h2>1-Recv Rule</h2>
 <p>하나의 소켓에 대해서 특정 순간에 1개 이하의 입력만이 요청되어야 한다는 규칙을 <strong>1-recv 규칙</strong>이라고 부른다. 물론 버퍼를 여러 개 준비한 다음 미리 요청해두는 N-recv 방식도 그럴듯하지만, 요청한 순서대로 항상 완료되지는 않는다는 소문(?)에 그다지 많이 사용되고 있지는 않은 듯하다.</p>
 <p>그런데, 입력 재요청은 GQCS()를 호출하는 입출력 쓰레드에서 할 수도 있지만, 로직 처리 쓰레드에서 하는 경우도 많다. MMORPG가 아닌 경우에 한정해서 후자의 방식을 권장하는 편인데, 코드는 약간 복잡하지만 버퍼 복사 및 동기화 부담도 줄어들기 때문이다. 다음 두 예제를 살펴보자.</p>
@@ -384,21 +372,16 @@ The system also allows a waiting thread to process a packet if a running thread 
 <ul>
 <li>http://pl.atyp.us/content/tech/servers.html</li>
 </ul></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2006/05/16/iocp-tips/">http://boxcatstudio.wordpress.com/2006/05/16/iocp-tips/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2006/05/16/iocp-tips/">http://boxcatstudio.wordpress.com/2006/05/16/iocp-tips/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
+			
+		</div>
+      </article>
+
+				</li>
+			
+			</ul>
+
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -444,88 +427,154 @@ The system also allows a waiting thread to process a packet if a running thread 
 				
 					<li><a href="/page/37/">&raquo;</a></li>
 				
-		  		</ul>
-			</div>
-		</div>
-		<div class="span3">
-			<ul class="nav nav-list well dsq-widget">
-	<li class="nav-header">
-		Social
-	</li>	<li>
-		
-		<a href="http://facebook.com/reiot" style="display: inline-block"><img src="/assets/img/facebook.png" /></a>
-		
-		
-		<a href="http://twitter.com/reiot" style="display: inline-block"><img src="/assets/img/twitter.png" /></a>
-		
-	    <a href="atom.xml" style="display: inline-block"><img src="/assets/img/rss.png" /></a>
-	</li>
-	<li class="nav-header">
-		Recent Posts
-	</li>
-	
-	<li>
-		<a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a>
-	</li>
-	
-	<li>
-		<a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a>
-	</li>
-	
-	<li>
-		<a href="/2006/05/25/boostany/">boost::any</a>
-	</li>
-	
-	<li>
-		<a href="/2006/05/16/p2p-tips/">P2P Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2006/05/16/iocp-tips/">IOCP Tips</a>
-	</li>
-	
-	<li class="nav-header dsq-widget-title">
-		Recent Comments
-	</li>
-	<script type="text/javascript" src="http://reiot.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
-</ul>
-		</div>
-	</div>
+		  	</ul>
+			</div><!-- pagination -->
+		</div><!-- zone-content -->
 
-	<footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+		    <aside id="aside-right" class="aside-column offset1 span3">
+      <article class="widget-html-widget widget">
+        <header>
+            <h1>Author</h1>
+        </header>
+        <p>
+          Ray Yun(reiot)<br>
+          game develper <br>
+          cofounder of <a href="http://picneko.com">PICNEKO Creative</a> <br>
+          
+          <a href="http://facebook.com/reiot"><i class="smicon-facebook"></i></a>
+          
+          
+          <a href="http://twitter.com/reiot"><i class="smicon-twitter"></i></a>
+          
+          <a href="atom.xml"><i class="smicon-rss"></i></a>
+        </p>
+      </article>
 
-</div> <!-- /container -->
+      <article class="widget dsq-widget">
+		    <header class="dsq-widget-title">
+          <h1>Recent Posts</h1>
+        </header>
+		    <ul>
+    			
+    			<li>
+    				<a href="/2006/06/01/queueuserworkitem/">QueueUserWorkItem()</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/05/28/boostis_base_of/">boost::is_base_of</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/05/25/boostany/">boost::any</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/05/16/p2p-tips/">P2P Tips</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2006/05/16/iocp-tips/">IOCP Tips</a>
+    			</li>
+    			
+    		</ul>
+      </article>
+
+      <article class="widget dsq-widget">
+    		<header class="dsq-widget-title">
+          <h1>Recent Comments</h1>
+        </header>
+    		<ul>
+    			<script type="text/javascript" src=""></script>
+    		</ul>
+  	  </article>
+
+      <article class="widget-blogcategories widget">
+        <header>
+            <h1>Categories</h1>
+        </header>
+          <ul><li>
+                <a href="/category/blogging/">blogging (1)</a>
+              </li><li>
+                <a href="/category/books/">books (1)</a>
+              </li><li>
+                <a href="/category/columns/">columns (6)</a>
+              </li><li>
+                <a href="/category/database/">database (12)</a>
+              </li><li>
+                <a href="/category/gamedev/">gamedev (15)</a>
+              </li><li>
+                <a href="/category/games/">games (2)</a>
+              </li><li>
+                <a href="/category/link/">link (1)</a>
+              </li><li>
+                <a href="/category/management/">management (1)</a>
+              </li><li>
+                <a href="/category/programming/">programming (78)</a>
+              </li><li>
+                <a href="/category/regular/">regular (14)</a>
+              </li><li>
+                <a href="/category/stories/">stories (21)</a>
+              </li><li>
+                <a href="/category/stuff/">stuff (1)</a>
+              </li><li>
+                <a href="/category/tip/">tip (1)</a>
+              </li><li>
+                <a href="/category/tip & tricks/">tip & tricks (1)</a>
+              </li></ul>
+      </article>
+
+<!--       <article class="widget-blogarchives widget">
+        <header>
+            <h1>Archive</h1>
+        </header>
+          <ul>
+            <li><a href="#">March 2013</a></li>
+            <li><a href="#">February 2013</a></li>
+            <li><a href="#">January 2013</a></li>
+            <li><a href="#">December 2012</a></li>
+            <li><a href="#">November 2012</a></li>
+          </ul>
+      </article>
+ -->
+    </aside>
+
+	</div><!-- main-content -->
+
+	<hr/>
+
+	  <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
+
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>

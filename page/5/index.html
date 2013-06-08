@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,19 +64,17 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	
-
-	<div class="row">
-		<div class="span9">
+  
+  <div class="row main-content">
+    <div class="span8 zone-content">
+    	<ul class="blog-posts">
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2011/01/04/git-tips/">Git Tips</a> <small>2011-01-04</small></h1>
-	</div>
-	<div class="post-content"><h3>git ignore</h3>
+		        <li class="first">
+				      <article class="blog-post">
+        <div class="published">2011-01-04</div>
+        <h1><a href="/2011/01/04/git-tips/">Git Tips</a></h1>
+        <div><h3>git ignore</h3>
 <p><a href="http://github.com/guides/ignore-for-git">http://github.com/guides/ignore-for-git</a></p>
 <p>pull 할 때 다음 에러가 뜰 경우</p>
 <pre><code>You asked me to pull without telling me which branch you
@@ -161,32 +167,21 @@ git rm --cached -r {DIR}</p>
 <blockquote>
 <p>git merge master..new_branch --no-commit --no-ff</p>
 </blockquote></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/?p=2324">http://boxcatstudio.wordpress.com/?p=2324</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/tip & tricks/"><span class="label label-info"><span class="icon icon-folder-open"></span> tip & tricks</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/git/"><span class="label"><span class="icon icon-tag"></span> git</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/?p=2324">http://boxcatstudio.wordpress.com/?p=2324</a><br/>Category:<a href="/category/tip & tricks/"><span class="icon icon-folder-open"></span>tip & tricks</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a> <small>2010-12-14</small></h1>
-	</div>
-	<div class="post-content"><p>jQuery UI widget 은 기본적으로 한번에 여러 개의 옵션을 설정할 수 있다.</p>
+			
+			Tags:<a href="/tag/git/"><span class="icon icon-tag"></span>git</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2010-12-14</div>
+        <h1><a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a></h1>
+        <div><p>jQuery UI widget 은 기본적으로 한번에 여러 개의 옵션을 설정할 수 있다.</p>
 <pre><code>$('...').somewidget('option',{aa:bb, cc:dd});
 </code></pre>
 
@@ -221,32 +216,21 @@ git rm --cached -r {DIR}</p>
   }
 },
 </code></pre></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/12/14/jquery-ui-widget-setoption/">http://boxcatstudio.wordpress.com/2010/12/14/jquery-ui-widget-setoption/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/jQueryUI/"><span class="label"><span class="icon icon-tag"></span> jQueryUI</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/12/14/jquery-ui-widget-setoption/">http://boxcatstudio.wordpress.com/2010/12/14/jquery-ui-widget-setoption/</a><br/>Category:<a href="/category/regular/"><span class="icon icon-folder-open"></span>regular</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/11/16/jqueryuitooltip/">jquery.ui.tooltip</a> <small>2010-11-16</small></h1>
-	</div>
-	<div class="post-content"><h2>개요</h2>
+			
+			Tags:<a href="/tag/jQueryUI/"><span class="icon icon-tag"></span>jQueryUI</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2010-11-16</div>
+        <h1><a href="/2010/11/16/jqueryuitooltip/">jquery.ui.tooltip</a></h1>
+        <div><h2>개요</h2>
 <ul>
 <li>jquery ui 1.9 에서부터 지원된다. 1.8 에서 사용하려면 약간의 소스 수정이 필요하다.</li>
 <li>기본적으로 title 속성을 툴팁 텍스트로 사용한다. 동적으로 컨텐트를 만들려면 content 함수를 이용해서 DOM 을 리턴해야 한다.</li>
@@ -276,34 +260,21 @@ git rm --cached -r {DIR}</p>
         });
   }});
 </code></pre></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/11/16/jqueryuitooltip/">http://boxcatstudio.wordpress.com/2010/11/16/jqueryuitooltip/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/jquery ui/"><span class="label"><span class="icon icon-tag"></span> jquery ui</span></a>
-		
-			<a href="/tag/tooltip/"><span class="label"><span class="icon icon-tag"></span> tooltip</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/11/16/jqueryuitooltip/">http://boxcatstudio.wordpress.com/2010/11/16/jqueryuitooltip/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a> <small>2010-11-15</small></h1>
-	</div>
-	<div class="post-content"><p>구글맵처럼 (바닥 - 마커 - 오버레이) 등 여러 개의 레이어로 구성하고, 그 안에 위치한 각종 마커들끼리의 z-index 를 상황(?)에 따라서 코드 레벨에서 정렬해야 한다고 가정하자.</p>
+			
+			Tags:<a href="/tag/jquery ui/"><span class="icon icon-tag"></span>jquery ui</a><a href="/tag/tooltip/"><span class="icon icon-tag"></span>tooltip</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2010-11-15</div>
+        <h1><a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a></h1>
+        <div><p>구글맵처럼 (바닥 - 마커 - 오버레이) 등 여러 개의 레이어로 구성하고, 그 안에 위치한 각종 마커들끼리의 z-index 를 상황(?)에 따라서 코드 레벨에서 정렬해야 한다고 가정하자.</p>
 <pre><code>&lt;div id=&quot;map&quot;&gt;
   &lt;div id=&quot;ground&quot;&gt;
   &lt;div id=&quot;first&quot; class=&quot;marker&quot;&gt;1st&lt;/div&gt;
@@ -360,32 +331,21 @@ git rm --cached -r {DIR}</p>
 
 <p>대신 그냥 <strong>각 레이어들의 z-index 를 각각 1000,1001 로 설정</strong>하기만 하면, 아무리 하위 레이어의 마커에 높은 z-index 를 줘도, 절대 상위 레이어를 침범하지는 않게 된다.</p>
 <p>관련 테스트 코드는 <a href="http://jsfiddle.net/Reiot/dPYcJ/embedded/result">jsfiddle</a>에서 볼 수 있다.</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/11/15/div-layering-with-z-index/">http://boxcatstudio.wordpress.com/2010/11/15/div-layering-with-z-index/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/css/"><span class="label"><span class="icon icon-tag"></span> css</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/11/15/div-layering-with-z-index/">http://boxcatstudio.wordpress.com/2010/11/15/div-layering-with-z-index/</a><br/>Category:<a href="/category/regular/"><span class="icon icon-folder-open"></span>regular</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a> <small>2010-11-11</small></h1>
-	</div>
-	<div class="post-content"><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
+			
+			Tags:<a href="/tag/css/"><span class="icon icon-tag"></span>css</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="last">
+				      <article class="blog-post">
+        <div class="published">2010-11-11</div>
+        <h1><a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a></h1>
+        <div><p>jQuery 템플릿이 하나의 DIV 가 아니라 여러 개의  엘리먼트로 구성될 경우, append 하기 전에 내부에 있는 위젯들을 손댈 방법을 찾지 못했다. 아래 코드의 샘플은 <a href="http://jsfiddle.net/K2GEX/10/">jsFiddle</a>에 있으니 관심있는 분들은 뜯어보시길..</p>
 <pre><code>&lt;script id=&quot;test&quot; type=&quot;script/x-jquery-tmpl&quot;&gt;
   &lt;div&gt;
   &lt;h1&gt;${name}&lt;/h1&gt;
@@ -417,27 +377,18 @@ $(function() {
 
 <p>위 예제처럼, #test 는 하나의 DIV 로 묶여져 있어서 appendTo 하기 전에 위젯을 만들 수 있지만, #test2 처럼 여러 개의 엘리먼트들이 나눠져 있는 경우에는 .tmpl(data) 로 렌더링을 하면 [h1, p, div.progressbar] 의 배열이 튀어나오는데, 이 배열에다가 대고 find 를 해도 아무 일도 발생하지 않는다. (for 를 돌아도 마찬가지)</p>
 <p>일단은 그냥 마음편하게 하나로 묶는게 유일한 해답일 거 같은데, 그나저나 .tmplItem 은 도대체 어디에 쓰는 물건일까?</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2010/11/11/modify-rendered-jquery-template-before-append/">http://boxcatstudio.wordpress.com/2010/11/11/modify-rendered-jquery-template-before-append/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/regular/"><span class="label label-info"><span class="icon icon-folder-open"></span> regular</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/jquery.tmpl/"><span class="label"><span class="icon icon-tag"></span> jquery.tmpl</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2010/11/11/modify-rendered-jquery-template-before-append/">http://boxcatstudio.wordpress.com/2010/11/11/modify-rendered-jquery-template-before-append/</a><br/>Category:<a href="/category/regular/"><span class="icon icon-folder-open"></span>regular</a><br/>
 			
+			
+			Tags:<a href="/tag/jquery.tmpl/"><span class="icon icon-tag"></span>jquery.tmpl</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+			</ul>
+
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -483,88 +434,154 @@ $(function() {
 				
 					<li><a href="/page/7/">&raquo;</a></li>
 				
-		  		</ul>
-			</div>
-		</div>
-		<div class="span3">
-			<ul class="nav nav-list well dsq-widget">
-	<li class="nav-header">
-		Social
-	</li>	<li>
-		
-		<a href="http://facebook.com/reiot" style="display: inline-block"><img src="/assets/img/facebook.png" /></a>
-		
-		
-		<a href="http://twitter.com/reiot" style="display: inline-block"><img src="/assets/img/twitter.png" /></a>
-		
-	    <a href="atom.xml" style="display: inline-block"><img src="/assets/img/rss.png" /></a>
-	</li>
-	<li class="nav-header">
-		Recent Posts
-	</li>
-	
-	<li>
-		<a href="/2011/01/04/git-tips/">Git Tips</a>
-	</li>
-	
-	<li>
-		<a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a>
-	</li>
-	
-	<li>
-		<a href="/2010/11/16/jqueryuitooltip/">jquery.ui.tooltip</a>
-	</li>
-	
-	<li>
-		<a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a>
-	</li>
-	
-	<li>
-		<a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a>
-	</li>
-	
-	<li class="nav-header dsq-widget-title">
-		Recent Comments
-	</li>
-	<script type="text/javascript" src="http://reiot.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
-</ul>
-		</div>
-	</div>
+		  	</ul>
+			</div><!-- pagination -->
+		</div><!-- zone-content -->
 
-	<footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+		    <aside id="aside-right" class="aside-column offset1 span3">
+      <article class="widget-html-widget widget">
+        <header>
+            <h1>Author</h1>
+        </header>
+        <p>
+          Ray Yun(reiot)<br>
+          game develper <br>
+          cofounder of <a href="http://picneko.com">PICNEKO Creative</a> <br>
+          
+          <a href="http://facebook.com/reiot"><i class="smicon-facebook"></i></a>
+          
+          
+          <a href="http://twitter.com/reiot"><i class="smicon-twitter"></i></a>
+          
+          <a href="atom.xml"><i class="smicon-rss"></i></a>
+        </p>
+      </article>
 
-</div> <!-- /container -->
+      <article class="widget dsq-widget">
+		    <header class="dsq-widget-title">
+          <h1>Recent Posts</h1>
+        </header>
+		    <ul>
+    			
+    			<li>
+    				<a href="/2011/01/04/git-tips/">Git Tips</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/12/14/jquery-ui-widget-setoption/">jQuery UI Widget _setOption</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/11/16/jqueryuitooltip/">jquery.ui.tooltip</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/11/15/div-layering-with-z-index/">DIV layering with z-index</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2010/11/11/modify-rendered-jquery-template-before-append/">Modify Rendered jQuery Template Before Append</a>
+    			</li>
+    			
+    		</ul>
+      </article>
+
+      <article class="widget dsq-widget">
+    		<header class="dsq-widget-title">
+          <h1>Recent Comments</h1>
+        </header>
+    		<ul>
+    			<script type="text/javascript" src=""></script>
+    		</ul>
+  	  </article>
+
+      <article class="widget-blogcategories widget">
+        <header>
+            <h1>Categories</h1>
+        </header>
+          <ul><li>
+                <a href="/category/blogging/">blogging (1)</a>
+              </li><li>
+                <a href="/category/books/">books (1)</a>
+              </li><li>
+                <a href="/category/columns/">columns (6)</a>
+              </li><li>
+                <a href="/category/database/">database (12)</a>
+              </li><li>
+                <a href="/category/gamedev/">gamedev (15)</a>
+              </li><li>
+                <a href="/category/games/">games (2)</a>
+              </li><li>
+                <a href="/category/link/">link (1)</a>
+              </li><li>
+                <a href="/category/management/">management (1)</a>
+              </li><li>
+                <a href="/category/programming/">programming (78)</a>
+              </li><li>
+                <a href="/category/regular/">regular (14)</a>
+              </li><li>
+                <a href="/category/stories/">stories (21)</a>
+              </li><li>
+                <a href="/category/stuff/">stuff (1)</a>
+              </li><li>
+                <a href="/category/tip/">tip (1)</a>
+              </li><li>
+                <a href="/category/tip & tricks/">tip & tricks (1)</a>
+              </li></ul>
+      </article>
+
+<!--       <article class="widget-blogarchives widget">
+        <header>
+            <h1>Archive</h1>
+        </header>
+          <ul>
+            <li><a href="#">March 2013</a></li>
+            <li><a href="#">February 2013</a></li>
+            <li><a href="#">January 2013</a></li>
+            <li><a href="#">December 2012</a></li>
+            <li><a href="#">November 2012</a></li>
+          </ul>
+      </article>
+ -->
+    </aside>
+
+	</div><!-- main-content -->
+
+	<hr/>
+
+	  <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
+
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>

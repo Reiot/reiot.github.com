@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,14 +64,12 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2009/07/27/back-to-wordpress-com/">Back to Wordpress.com</a> <small>2009-07-27</small></h1>
-	</div>
-	<div class="post-content"><p>[caption id="attachment_2242" align="alignnone" width="300" caption="배고픈 길냥이 오형제"]<a href="http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg"><img alt="배고픈 길냥이 오형제" src="http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg?w=300" /></a>[/caption]</p>
+  
+	      <article class="blog-post">
+        <div class="published">2009-07-27</div>
+        <h1><a href="/2009/07/27/back-to-wordpress-com/">Back to Wordpress.com</a></h1>
+        <div><p>[caption id="attachment_2242" align="alignnone" width="300" caption="배고픈 길냥이 오형제"]<a href="http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg"><img alt="배고픈 길냥이 오형제" src="http://boxcatstudio.files.wordpress.com/2009/07/sany0030.jpg?w=300" /></a>[/caption]</p>
 <p>호스팅 만료 한 달을 앞두고, 다시 wordpress.com 으로 전격 이사를 왔다.</p>
 <p>국내의 정치적 핍박을 참지 못하고 사이버 망명길에 오르기엔, 여긴 그저 조회수 낮은 힘없는 일개 프로그래머의 해우소일 뿐이지만, 그래도 최근 MB족들의 하는 꼬라지를 보면 언제 호스팅이 날아가고 데이터가 악의 손아귀에 들어갈 지 모를 터다.</p>
 <p>어쨌거나 설치형 워드프레스(이하 WP)에서 호스팅형으로 돌아갈 때 가장 걸리는 것은 바로 첨부 파일이다. 비록 WP가 XML 기반의 Export/Import 를 지원하긴 하지만 첨부 파일까지 자동으로 옮겨주지는 않기 때문이다. 그래서 처음 생각한 건 각종 이미지들을 구글의 피카사웹으로 올린 후, 그 URL을 찾아서 XML파일을 교체한다는 아이디어였다.</p>
@@ -144,30 +150,14 @@ out_xml.close()
 </code></pre>
 
 <p>정규식은 항상 볼 때마다 새로운 느낌이 들어서, 꽤 시간이 많이 걸렸다. 또 큰 파일에서 유니코드로 빠르게 읽으려면 codecs 모듈이 좋댄다.</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2009/07/27/back-to-wordpress-com/">http://boxcatstudio.wordpress.com/2009/07/27/back-to-wordpress-com/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/wordpress/"><span class="label"><span class="icon icon-tag"></span> wordpress</span></a>
-		
-			<a href="/tag/export/"><span class="label"><span class="icon icon-tag"></span> export</span></a>
-		
-			<a href="/tag/picasa/"><span class="label"><span class="icon icon-tag"></span> picasa</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2009/07/27/back-to-wordpress-com/">http://boxcatstudio.wordpress.com/2009/07/27/back-to-wordpress-com/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
+			
+			
+			Tags:<a href="/tag/wordpress/"><span class="icon icon-tag"></span>wordpress</a><a href="/tag/export/"><span class="icon icon-tag"></span>export</a><a href="/tag/picasa/"><span class="icon icon-tag"></span>picasa</a><br/>
+			
+		</div>
+      </article>
+
 
     <hr/>
 
@@ -189,40 +179,39 @@ out_xml.close()
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     
 
-    <footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+      <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
 
-</div> <!-- /container -->
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>

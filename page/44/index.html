@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-	<title>Rebooting Reiot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A social game developer wandering strange dungeons...">
-	<meta name="author" content="Ray Yun">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Rebooting Reiot</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A social game developer wandering strange dungeons...">
+  <meta name="author" content="Ray Yun">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Le styles -->
-	
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="/assets/css/droppress.css" rel="stylesheet">
-	
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One|PT+Serif|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Stylesheets -->
+  
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="/assets/css/socialicons.css" rel="stylesheet">
+  <link href="/assets/css/glyphicons.css" rel="stylesheet">
+  <link href="/assets/css/halflings.css" rel="stylesheet">
+  <link href="/assets/css/template.css" rel="stylesheet">
+  <link href="/assets/css/colors/color-red.css" rel="stylesheet" id="colorcss">
+  <link href="/assets/css/prettify.css" rel="stylesheet">
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  </style>
+  
+
+  <!-- Modernizr for Glyphicons (SVG) -->
+  <script src="/assets/js/modernizr.js"></script>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
+</head>
+<body>
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,10 +52,9 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/archives/">Archives</a></li>
-              <li><a href="/category/">Categories</a></li>
               <li><a href="/tag/">Tags</a></li>
               <li><a href="#" id="random-post">Random</a></li>
-			  
+        
             </ul>
             <form class="navbar-search pull-right">
               <input type="text" class="search-query" placeholder="Title Search">
@@ -56,46 +64,33 @@
       </div>
     </div>
 
-	
 <div class="container">
-
-	
-
-	<div class="row">
-		<div class="span9">
+  
+  <div class="row main-content">
+    <div class="span8 zone-content">
+    	<ul class="blog-posts">
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2005/09/23/client-network-utility/">Client Network Utility</a> <small>2005-09-23</small></h1>
-	</div>
-	<div class="post-content"><p>Enterprise Manager 로 접속해야 할 DB 가 custom port 를 사용하거나 VPN, 공유기 등의 문제로 name 기반의 접근이 안될 경우,<br />
+		        <li class="first">
+				      <article class="blog-post">
+        <div class="published">2005-09-23</div>
+        <h1><a href="/2005/09/23/client-network-utility/">Client Network Utility</a></h1>
+        <div><p>Enterprise Manager 로 접속해야 할 DB 가 custom port 를 사용하거나 VPN, 공유기 등의 문제로 name 기반의 접근이 안될 경우,<br />
 이 툴에서 TCP/IP 기반의 alias 를 만들어 두면 EM에 등록해서 연결할 수 있다.</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/09/23/client-network-utility/">http://boxcatstudio.wordpress.com/2005/09/23/client-network-utility/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/database/"><span class="label label-info"><span class="icon icon-folder-open"></span> database</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/db/"><span class="label"><span class="icon icon-tag"></span> db</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2005/09/23/client-network-utility/">http://boxcatstudio.wordpress.com/2005/09/23/client-network-utility/</a><br/>Category:<a href="/category/database/"><span class="icon icon-folder-open"></span>database</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a> <small>2005-09-06</small></h1>
-	</div>
-	<div class="post-content"><h2>Overview</h2>
+			
+			Tags:<a href="/tag/db/"><span class="icon icon-tag"></span>db</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2005-09-06</div>
+        <h1><a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a></h1>
+        <div><h2>Overview</h2>
 <p>한동안 메신저 + zip 파일 기반의 배포 시스템을 고집하다가 더 이상 참을 수가 없어서 결국 <a href="http://www.itefix.no/cwrsync/">cwRsync </a>라는 툴을 테스트 해보게 되었다. Cygwin + rsync + openssh 를 NullSoft 인스톨러로 깔끔하게 패키징한 이 유틸리티는 약간의 삽질 만으로 간편하면서도 공짜 파일 배포 시스템을 구축할 수 있게 해준다. 당연히 호스트 접근 제어도 가능하고, SSH 를 통해서만 배포할 수도 있다.</p>
 <p>이전 프로젝트에서도 <a href="http://www.dillobits.com/insync.html">InSync </a>를 이용해서 팀 내부에 클라이언트를 배포했었다. 클라이언트 프로그래머가 최신 파일들을 특정 공유 폴더에다가 업데이트하면, 각자가 로컬에 설치된 프로그램을 실행해서 변경된 파일들을 받아오는 방식인데, 가끔 동시에 많은 사람이 업데이트를 받을 경우 문제가 있었고, 무엇보다도 shareware 여서 어둠과자를 사용해야만 했다.</p>
 <h2>Install</h2>
@@ -131,97 +126,62 @@ transfer logging = yes</p>
 <p>그리고, 아무래도 안정적으로 파일을 배포하려면,<br />
 개발 머신 --(rsync)--&gt; 패치 서버 --(rsync)--&gt; 팀 배포<br />
  의 2단계를 거치는 것이 좋은데, 이를 위해서는 서버에 같은 폴더를 나타내는 upload 모듈과 download 모듈을 만들어 둬야 한다. 또한 실행 파일만을 배포할 경우를 위한 배치 파일도 따로 만드는 것을 권장한다. (아무래도 recursive 로 검색을 하면 시간이 좀 걸린다)</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/09/06/client-distribution-with-cwrsync/">http://boxcatstudio.wordpress.com/2005/09/06/client-distribution-with-cwrsync/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/ci/"><span class="label"><span class="icon icon-tag"></span> ci</span></a>
-		
-			<a href="/tag/cwrsync/"><span class="label"><span class="icon icon-tag"></span> cwrsync</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2005/09/06/client-distribution-with-cwrsync/">http://boxcatstudio.wordpress.com/2005/09/06/client-distribution-with-cwrsync/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2005/08/10/cpb-2/">CPB 맛보기</a> <small>2005-08-10</small></h1>
-	</div>
-	<div class="post-content"><p>지금까지는 애용해왔던 XML 기반의 tweaking 방식이 너무 귀찮아서, 이번에 <a href="http://www.thomasandamy.com/projects/CPB/">CPB</a> 를 써보기로 마음을 먹었다. 근무 시간에 삽질을 하기엔 힘든 상황이라 집에 와서 해야만 했다. :(</p>
+			
+			Tags:<a href="/tag/ci/"><span class="icon icon-tag"></span>ci</a><a href="/tag/cwrsync/"><span class="icon icon-tag"></span>cwrsync</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2005-08-10</div>
+        <h1><a href="/2005/08/10/cpb-2/">CPB 맛보기</a></h1>
+        <div><p>지금까지는 애용해왔던 XML 기반의 tweaking 방식이 너무 귀찮아서, 이번에 <a href="http://www.thomasandamy.com/projects/CPB/">CPB</a> 를 써보기로 마음을 먹었다. 근무 시간에 삽질을 하기엔 힘든 상황이라 집에 와서 해야만 했다. :(</p>
 <p>소스와 함께 배포되는 솔루션을 열고 적당한 루아 라이브러리와 링킹해서 실행해보면 별 문제가 없지만, 이걸 실제로 쓰기 위해 라이브러리와 샘플 프로젝트로 분리해서 해보면 잘 되지 않는다.  바로 test.lua 안에서 pdb 파일명이 틀려서 생긴 문제이다. 물론 샘플 프로젝트 이름을 CPTest 로 만들었다면 당신은 천재...</p>
 <p>CPB 가 사용하는 것은 <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/diasdk/html/vsoriDebugInterfaceAccessSDK.asp">Debugging Access Interface (DIA) SDK </a>로, Visual Studio .NET 2003 을 설치하면 Visual Studio SDKs/ 아래에 함께 설치가 된다. 물론 CPB 와 함께 배포되는 놈과 완전히 같다. 괜히 본인처럼 Platform SDK를 설치할 필요는 없다.</p>
 <p>pdb 파일을 한번 읽어서 .cpb 파일로 만들어서 배포할 수 있기 때문에 클라이언트 어플리케이션에 사용해도 무방하다. (이걸로 크랙하면 낭패겠지만..과연..) 물론 서버쪽이라면 매번 배포할 때마다 .cpb 파일을 만들기보다는 그냥 pdb 파일을 함께 배포해주는 것이 더 편할 것 같다.</p>
 <p>ps. 테스트 도중 갑자기 실행 파일 크기가 6k 로 줄어들면서 16비트 MS-DOS 프로그램을 CPU 에서 실행할 수 없다는 오류 메시지가 떴다. '아직 안정화가 덜 된 건가..' 하면서 접으려고 했는데, 프로젝트를 새로 만들어보니 문제가 없었다. 사실은 Ctrl+F5 로 실행하기 위해서 dll 과 lua 파일을 사용자 지정 작업에서 복사하도록 했는데, 이때 복사 위치를 $(TargetDir) 대신 $(TargetPath) 로 해서 생긴 문제.. *그 6k 짜리 실행파일은 사실은 test.lua 였었다는 사실.. *</p>
 <p>ps2. 여전히 namespace 지원은 안된다. 즉 어떤 변수나 클래스가 namespace 안에 존재할 경우 바인딩이 불가능하다. 이 말은, std::string 을 바인딩할 수 없다는 뜻이며, char * 변수에 대한 direct assignment 가 지원되지 않기에 이 문제는 조금 귀차니즘을 불러 일으키게 될 듯. :(</p>
 <p>ps3. const char * 를 리턴하는 함수를 호출해서 print 해보려고 했으나, 단지 userdata 로만 인식함. 약간은 서운한;;; (먼가 모르는 듯)</p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/08/10/cpb-2/">http://boxcatstudio.wordpress.com/2005/08/10/cpb-2/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/lua/"><span class="label"><span class="icon icon-tag"></span> lua</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2005/08/10/cpb-2/">http://boxcatstudio.wordpress.com/2005/08/10/cpb-2/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a> <small>2005-07-12</small></h1>
-	</div>
-	<div class="post-content"><p><img alt="mantis" src="http://manual.mantisbt.org/mantis_logo.gif" /></p>
+			
+			Tags:<a href="/tag/lua/"><span class="icon icon-tag"></span>lua</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="">
+				      <article class="blog-post">
+        <div class="published">2005-07-12</div>
+        <h1><a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a></h1>
+        <div><p><img alt="mantis" src="http://manual.mantisbt.org/mantis_logo.gif" /></p>
 <p>오래전부터 맨티스에다가 중요도나 우선순위 상수를 추가해달라는 요청이 있었으나, 소스를 고쳐야 하기 때문에 방법이 없다고 모른 척 했었다가, 이번에 잠시 짬을 내어 추가를 해 보았다. 관련 자료를 아래에 정리했으니 심심할 때 한번 읽어보시길. :)</p>
 <p>see also : <a href="http://reiot.cafe24.com/wiki/MantisCustomize">MantisCustomize </a></p></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/07/12/custom-severity-for-mantis-bt/">http://boxcatstudio.wordpress.com/2005/07/12/custom-severity-for-mantis-bt/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/mantis/"><span class="label"><span class="icon icon-tag"></span> mantis</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2005/07/12/custom-severity-for-mantis-bt/">http://boxcatstudio.wordpress.com/2005/07/12/custom-severity-for-mantis-bt/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
-				<div class="post">
-	<div class="post-title page-header">
-		<h1><a href="/2005/06/02/boosttest/">boost::test</a> <small>2005-06-02</small></h1>
-	</div>
-	<div class="post-content"><p>레이옷은 종전까지 <a href="http://sourceforge.net/projects/cppunit">CppUnit</a>를 애용해왔다. 그러나 이넘은 VC7 에서는 컴파일조차 되지 않았다.  그리하여, 새로운 UnitTest 툴을 찾다가 발견한 것이 바로 이 Boost Library 에 포함된 BoostTest 이다. 이하 설명은 모두 VC7 을 사용한다고 가정하고 설명하겠다.</p>
+			
+			Tags:<a href="/tag/mantis/"><span class="icon icon-tag"></span>mantis</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+		        <li class="last">
+				      <article class="blog-post">
+        <div class="published">2005-06-02</div>
+        <h1><a href="/2005/06/02/boosttest/">boost::test</a></h1>
+        <div><p>레이옷은 종전까지 <a href="http://sourceforge.net/projects/cppunit">CppUnit</a>를 애용해왔다. 그러나 이넘은 VC7 에서는 컴파일조차 되지 않았다.  그리하여, 새로운 UnitTest 툴을 찾다가 발견한 것이 바로 이 Boost Library 에 포함된 BoostTest 이다. 이하 설명은 모두 VC7 을 사용한다고 가정하고 설명하겠다.</p>
 <h2>사용법</h2>
 <p>BoostTest 에는 아래와 같은 모듈이 포함되어 있다.</p>
-<table>
+<table class="table table-striped">
 <thead>
 <tr>
 <th>모듈</th>
@@ -778,31 +738,18 @@ test_suite * test_MMSocket()
   return test;
 }
 </code></pre></div>
-	<div class="well well-small">
-		
-		<p>Source: <a href="http://boxcatstudio.wordpress.com/2005/06/02/boosttest/">http://boxcatstudio.wordpress.com/2005/06/02/boosttest/</a></p>
-		
-		
-		<p>Category:
-		
-			<a href="/category/programming/"><span class="label label-info"><span class="icon icon-folder-open"></span> programming</span></a>
-		
-		</p>
-		
-		
-		<p>Tags:
-		
-			<a href="/tag/test/"><span class="label"><span class="icon icon-tag"></span> test</span></a>
-		
-			<a href="/tag/boost/"><span class="label"><span class="icon icon-tag"></span> boost</span></a>
-		
-			<a href="/tag/TDD/"><span class="label"><span class="icon icon-tag"></span> TDD</span></a>
-		
-		</p>
-		
-	</div>
-</div>
+		<div class="well well-small">Source: <a href="http://boxcatstudio.wordpress.com/2005/06/02/boosttest/">http://boxcatstudio.wordpress.com/2005/06/02/boosttest/</a><br/>Category:<a href="/category/programming/"><span class="icon icon-folder-open"></span>programming</a><br/>
 			
+			
+			Tags:<a href="/tag/test/"><span class="icon icon-tag"></span>test</a><a href="/tag/boost/"><span class="icon icon-tag"></span>boost</a><a href="/tag/TDD/"><span class="icon icon-tag"></span>TDD</a><br/>
+			
+		</div>
+      </article>
+
+				</li>
+			
+			</ul>
+
 			<div class="pagination pagination-centered">
 				<ul>
 				
@@ -848,88 +795,154 @@ test_suite * test_MMSocket()
 				
 					<li><a href="/page/48/">&raquo;</a></li>
 				
-		  		</ul>
-			</div>
-		</div>
-		<div class="span3">
-			<ul class="nav nav-list well dsq-widget">
-	<li class="nav-header">
-		Social
-	</li>	<li>
-		
-		<a href="http://facebook.com/reiot" style="display: inline-block"><img src="/assets/img/facebook.png" /></a>
-		
-		
-		<a href="http://twitter.com/reiot" style="display: inline-block"><img src="/assets/img/twitter.png" /></a>
-		
-	    <a href="atom.xml" style="display: inline-block"><img src="/assets/img/rss.png" /></a>
-	</li>
-	<li class="nav-header">
-		Recent Posts
-	</li>
-	
-	<li>
-		<a href="/2005/09/23/client-network-utility/">Client Network Utility</a>
-	</li>
-	
-	<li>
-		<a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a>
-	</li>
-	
-	<li>
-		<a href="/2005/08/10/cpb-2/">CPB 맛보기</a>
-	</li>
-	
-	<li>
-		<a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a>
-	</li>
-	
-	<li>
-		<a href="/2005/06/02/boosttest/">boost::test</a>
-	</li>
-	
-	<li class="nav-header dsq-widget-title">
-		Recent Comments
-	</li>
-	<script type="text/javascript" src="http://reiot.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
-</ul>
-		</div>
-	</div>
+		  	</ul>
+			</div><!-- pagination -->
+		</div><!-- zone-content -->
 
-	<footer>
-	<p class="pull-right">
-		<a href="http://github.com/Reiot/droppress" class="btn btn-success btn-mini">powered by DropPress 0.1.0</a>
-	</p>
-</footer>
+		    <aside id="aside-right" class="aside-column offset1 span3">
+      <article class="widget-html-widget widget">
+        <header>
+            <h1>Author</h1>
+        </header>
+        <p>
+          Ray Yun(reiot)<br>
+          game develper <br>
+          cofounder of <a href="http://picneko.com">PICNEKO Creative</a> <br>
+          
+          <a href="http://facebook.com/reiot"><i class="smicon-facebook"></i></a>
+          
+          
+          <a href="http://twitter.com/reiot"><i class="smicon-twitter"></i></a>
+          
+          <a href="atom.xml"><i class="smicon-rss"></i></a>
+        </p>
+      </article>
 
-</div> <!-- /container -->
+      <article class="widget dsq-widget">
+		    <header class="dsq-widget-title">
+          <h1>Recent Posts</h1>
+        </header>
+		    <ul>
+    			
+    			<li>
+    				<a href="/2005/09/23/client-network-utility/">Client Network Utility</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2005/09/06/client-distribution-with-cwrsync/">cwRsync 를 이용한 클라이언트 배포</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2005/08/10/cpb-2/">CPB 맛보기</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2005/07/12/custom-severity-for-mantis-bt/">맨티스에 custom severity 추가!</a>
+    			</li>
+    			
+    			<li>
+    				<a href="/2005/06/02/boosttest/">boost::test</a>
+    			</li>
+    			
+    		</ul>
+      </article>
+
+      <article class="widget dsq-widget">
+    		<header class="dsq-widget-title">
+          <h1>Recent Comments</h1>
+        </header>
+    		<ul>
+    			<script type="text/javascript" src=""></script>
+    		</ul>
+  	  </article>
+
+      <article class="widget-blogcategories widget">
+        <header>
+            <h1>Categories</h1>
+        </header>
+          <ul><li>
+                <a href="/category/blogging/">blogging (1)</a>
+              </li><li>
+                <a href="/category/books/">books (1)</a>
+              </li><li>
+                <a href="/category/columns/">columns (6)</a>
+              </li><li>
+                <a href="/category/database/">database (12)</a>
+              </li><li>
+                <a href="/category/gamedev/">gamedev (15)</a>
+              </li><li>
+                <a href="/category/games/">games (2)</a>
+              </li><li>
+                <a href="/category/link/">link (1)</a>
+              </li><li>
+                <a href="/category/management/">management (1)</a>
+              </li><li>
+                <a href="/category/programming/">programming (78)</a>
+              </li><li>
+                <a href="/category/regular/">regular (14)</a>
+              </li><li>
+                <a href="/category/stories/">stories (21)</a>
+              </li><li>
+                <a href="/category/stuff/">stuff (1)</a>
+              </li><li>
+                <a href="/category/tip/">tip (1)</a>
+              </li><li>
+                <a href="/category/tip & tricks/">tip & tricks (1)</a>
+              </li></ul>
+      </article>
+
+<!--       <article class="widget-blogarchives widget">
+        <header>
+            <h1>Archive</h1>
+        </header>
+          <ul>
+            <li><a href="#">March 2013</a></li>
+            <li><a href="#">February 2013</a></li>
+            <li><a href="#">January 2013</a></li>
+            <li><a href="#">December 2012</a></li>
+            <li><a href="#">November 2012</a></li>
+          </ul>
+      </article>
+ -->
+    </aside>
+
+	</div><!-- main-content -->
+
+	<hr/>
+
+	  <div class="row">
+    <div class="copyright span12">Copyright 2013 powered by <a href="http://github.com/Reiot/droppress">DropPress 0.1.0</a></div>
+  </div>
+
+</div>
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/assets/js/jquery-1.9.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/tinynav.js"></script>
+<script src="/assets/js/template.js"></script>
+<script src="/assets/js/prettify.js"></script>
+<script src="/assets/js/droppress.js"></script>
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/droppress.js"></script>
-	
 
-  
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-247024-1']);
-    _gaq.push(['_trackPageview']);
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-247024-1']);
+  _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-  </script>
-  
+</script>
 
-  </body>
+
+</body>
 </html>
